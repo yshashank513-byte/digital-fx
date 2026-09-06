@@ -1049,6 +1049,50 @@ export default function Home() {
 
         </div>
 
+        {/* GLOBAL SERVICE TICKER ANIMATION */}
+        <style jsx global>{`
+          .ticker-track {
+            display: flex;
+            width: max-content;
+            min-width: max-content;
+            align-items: center;
+            animation: digitalFxServiceTicker 32s linear infinite;
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+          }
+
+          .ticker-track:hover {
+            animation-play-state: paused;
+          }
+
+          @keyframes digitalFxServiceTicker {
+            from {
+              transform: translate3d(0, 0, 0);
+            }
+            to {
+              transform: translate3d(-50%, 0, 0);
+            }
+          }
+
+          @media (max-width: 1024px) {
+            .ticker-track {
+              animation-duration: 26s;
+            }
+          }
+
+          @media (max-width: 640px) {
+            .ticker-track {
+              animation-duration: 20s;
+            }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .ticker-track {
+              animation: none;
+            }
+          }
+        `}</style>
+
       </header>
 
 
