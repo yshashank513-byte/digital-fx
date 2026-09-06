@@ -822,7 +822,7 @@ export default function Home() {
 
           {/* DESKTOP NAV */}
 
-          <nav className="ml-auto hidden items-center xl:flex">
+          <nav className="hidden">
 
             <div className="flex items-center gap-1">
 
@@ -890,7 +890,7 @@ export default function Home() {
 
           {/* RIGHT ACTIONS */}
 
-          <div className="ml-5 hidden items-center gap-3 xl:flex">
+          <div className="hidden">
 
             <a
               href="tel:+919876543210"
@@ -940,7 +940,7 @@ export default function Home() {
             type="button"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
-            className="ml-auto flex h-11 w-11 items-center justify-center rounded-lg border border-[#d0d5dd] bg-white xl:hidden"
+            className="ml-auto flex h-11 w-11 items-center justify-center rounded-lg border border-[#d0d5dd] bg-white shadow-sm transition hover:border-[#315df5] hover:bg-[#f7f9ff]"
           >
 
             <span className="flex flex-col gap-[5px]">
@@ -956,48 +956,92 @@ export default function Home() {
         </div>
 
 
-        {/* TRUST / PROOF BAR */}
+        {/* =====================================================
+            AUTOMATIC SERVICE TICKER
+        ===================================================== */}
 
-        <div className="hidden border-t border-[#eef1f5] bg-[#f8faff] lg:block">
+        <div className="overflow-hidden border-t border-[#eef1f5] bg-[#f8faff]">
 
-          <div className="mx-auto flex h-[40px] max-w-[1320px] items-center justify-center px-5 lg:px-8">
+          <div className="relative flex h-[42px] items-center overflow-hidden">
 
-            <div className="flex items-center">
+            <div className="flex min-w-max animate-[digitalTicker_32s_linear_infinite] items-center">
 
               {[
-                ["✦", "100+ Projects Delivered"],
-                ["◇", "25+ Industries Served"],
-                ["★", "4.9/5 Client Rating"],
-                ["◉", "Transparent Reporting"],
-                ["↗", "ROI Focused Approach"],
-              ].map(
-                ([icon, label], index) => (
+                "SEO",
+                "Local SEO",
+                "Google Ads",
+                "Meta Ads",
+                "Web Development",
+                "E-Commerce",
+                "Social Media Marketing",
+                "Lead Generation",
+                "Content Marketing",
+                "Branding",
+                "WhatsApp Marketing",
+                "Analytics & Reporting",
+                "GEO Optimization",
+                "Conversion Strategy",
+                "Performance Marketing",
+                "Digital Growth",
+                "Google Business Profile",
+                "Website Design",
+                "Online Visibility",
+                "Growth Strategy",
+              ].map((item, index) => (
 
-                  <div
-                    key={label}
-                    className="flex items-center"
-                  >
+                <div
+                  key={`${item}-${index}`}
+                  className="flex items-center"
+                >
 
-                    <div className="flex items-center gap-2 px-6">
+                  <span className="whitespace-nowrap px-5 text-[10px] font-bold uppercase tracking-[1.1px] text-[#53617e]">
+                    {item}
+                  </span>
 
-                      <span className="text-[12px] font-black text-[#315df5]">
-                        {icon}
-                      </span>
+                  <span className="h-1 w-1 shrink-0 rounded-full bg-[#315df5]" />
 
-                      <span className="whitespace-nowrap text-[10px] font-semibold text-[#53617e]">
-                        {label}
-                      </span>
+                </div>
 
-                    </div>
+              ))}
 
-                    {index < 4 && (
-                      <span className="h-4 w-px bg-[#d9deea]" />
-                    )}
+              {[
+                "SEO",
+                "Local SEO",
+                "Google Ads",
+                "Meta Ads",
+                "Web Development",
+                "E-Commerce",
+                "Social Media Marketing",
+                "Lead Generation",
+                "Content Marketing",
+                "Branding",
+                "WhatsApp Marketing",
+                "Analytics & Reporting",
+                "GEO Optimization",
+                "Conversion Strategy",
+                "Performance Marketing",
+                "Digital Growth",
+                "Google Business Profile",
+                "Website Design",
+                "Online Visibility",
+                "Growth Strategy",
+              ].map((item, index) => (
 
-                  </div>
+                <div
+                  key={`repeat-${item}-${index}`}
+                  className="flex items-center"
+                  aria-hidden="true"
+                >
 
-                )
-              )}
+                  <span className="whitespace-nowrap px-5 text-[10px] font-bold uppercase tracking-[1.1px] text-[#53617e]">
+                    {item}
+                  </span>
+
+                  <span className="h-1 w-1 shrink-0 rounded-full bg-[#315df5]" />
+
+                </div>
+
+              ))}
 
             </div>
 
@@ -1006,6 +1050,9 @@ export default function Home() {
         </div>
 
       </header>
+
+
+
 
 
       {/* =====================================================
@@ -1883,7 +1930,17 @@ export default function Home() {
 
         </div>
 
-        <style jsx>{`
+        <style jsx>
+          @keyframes digitalTicker {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+
+{`
           .growth-info-card {
             position: relative;
             display: flex;
