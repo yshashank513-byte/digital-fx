@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+  /* =========================================
+   TRUSTED BUSINESSES
+========================================= */
+
+.trusted-section {
+  width: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  border-top: 1px solid #e8edf5;
+  border-bottom: 1px solid #e8edf5;
+}
+
+.trusted-header {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 28px 24px 16px;
+}
+
+.trusted-eyebrow {
+  margin: 0;
+  color: #233b68;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.8px;
+  line-height: 1.3;
+}
+
+.trusted-subtitle {
+  margin: 6px 0 0;
+  color: #7b8ba5;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* =========================================
+   MARQUEE
+========================================= */
+
+.logo-marquee {
+  width: 100%;
+  overflow: hidden;
+  padding: 8px 0 30px;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+}
+
+.logo-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 16px;
+
+  animation: trustedLogoScroll 30s linear infinite;
+
+  will-change: transform;
+}
+
+.logo-marquee:hover .logo-track {
+  animation-play-state: paused;
+}
+
+
+/* =========================================
+   LOGO CARD
+========================================= */
+
+.company-logo {
+  width: 175px;
+  height: 70px;
+
+  flex: 0 0 175px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 0 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e7ebf2;
+  border-radius: 13px;
+
+  box-shadow:
+    0 4px 16px rgba(15, 35, 70, 0.045);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.company-logo:hover {
+  transform: translateY(-3px);
+
+  border-color: #cfd9ee;
+
+  box-shadow:
+    0 12px 30px rgba(15, 35, 70, 0.10);
+}
+
+
+/* =========================================
+   LOGO MARK
+========================================= */
+
+.company-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 34px;
+  height: 34px;
+
+  border-radius: 9px;
+
+  background: #071534;
+
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .5px;
+}
+
+.company-mark.blue {
+  background: #315df5;
+}
+
+.company-mark.green {
+  background: #18a66a;
+}
+
+.company-mark.orange {
+  background: #ed8b22;
+}
+
+.company-mark.purple {
+  background: #6847f7;
+}
+
+.company-mark.dark {
+  background: #233b68;
+}
+
+
+/* =========================================
+   COMPANY NAME
+========================================= */
+
+.company-name {
+  white-space: nowrap;
+
+  color: #17233d;
+
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -.15px;
+}
+
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+@keyframes trustedLogoScroll {
+
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 8px));
+  }
+
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+  .trusted-header {
+    padding: 25px 20px 15px;
+  }
+
+  .company-logo {
+    width: 155px;
+    height: 65px;
+    flex-basis: 155px;
+  }
+
+  .logo-track {
+    gap: 13px;
+    animation-duration: 26s;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .trusted-header {
+    padding: 21px 18px 13px;
+  }
+
+  .trusted-eyebrow {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .trusted-subtitle {
+    font-size: 11px;
+  }
+
+  .company-logo {
+    width: 140px;
+    height: 60px;
+    flex-basis: 140px;
+
+    border-radius: 11px;
+  }
+
+  .company-mark {
+    min-width: 30px;
+    height: 30px;
+
+    font-size: 9px;
+  }
+
+  .company-name {
+    font-size: 11px;
+  }
+
+  .logo-track {
+    gap: 11px;
+    animation-duration: 23s;
+  }
+
+}
+
+
+/* =========================================
+   REDUCE MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .logo-track {
+    animation: none;
+  }
+
+}
