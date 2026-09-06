@@ -1,8 +1,9 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function PaymentFailurePage() {
+function PaymentFailureContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -88,5 +89,25 @@ export default function PaymentFailurePage() {
       </div>
 
     </main>
+  );
+}
+
+export default function PaymentFailurePage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen items-center justify-center bg-[#f5f7fb] p-5">
+          <div className="rounded-3xl bg-white px-10 py-12 text-center shadow-xl">
+            <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-[#315df5]" />
+
+            <p className="mt-5 text-sm font-semibold text-gray-500">
+              Processing payment...
+            </p>
+          </div>
+        </main>
+      }
+    >
+      <PaymentFailureContent />
+    </Suspense>
   );
 }

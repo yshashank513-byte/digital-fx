@@ -1,13 +1,22 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function PaymentSuccessPage() {
+function PaymentSuccessContent() {
   const searchParams = useSearchParams();
 
   const txnid = searchParams.get("txnid");
   const amount = searchParams.get("amount");
+
+  const formattedAmount =
+    amount && !Number.isNaN(Number(amount))
+      ? Number(amount).toLocaleString("en-IN", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      : amount;
 
   return (
     <main className="min-h-screen bg-[#f5f8ff] px-5 py-10">
@@ -61,15 +70,25 @@ export default function PaymentSuccessPage() {
             )}
 
             {amount && (
-              <div className="flex items-center justify-between gap-4 pt-4">
+              <div
+                className={`flex items-center justify-between gap-4 ${
+                  txnid ? "pt-4" : ""
+                }`}
+              >
                 <span className="text-sm text-slate-500">
                   Amount Paid
                 </span>
 
                 <span className="text-lg font-black text-[#315df5]">
-                  ₹{amount}
+                  ₹{formattedAmount}
                 </span>
               </div>
+            )}
+
+            {!txnid && !amount && (
+              <p className="text-center text-sm text-slate-400">
+                Payment details are not available in the URL.
+              </p>
             )}
           </div>
 
@@ -94,5 +113,25 @@ export default function PaymentSuccessPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function PaymentSuccessPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen items-center justify-center bg-[#f5f8ff] px-5 py-10">
+          <div className="rounded-[28px] border border-slate-200 bg-white px-10 py-12 text-center shadow-xl">
+            <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-[#315df5]" />
+
+            <p className="mt-5 text-sm font-semibold text-slate-500">
+              Processing payment...
+            </p>
+          </div>
+        </main>
+      }
+    >
+      <PaymentSuccessContent />
+    </Suspense>
   );
 }

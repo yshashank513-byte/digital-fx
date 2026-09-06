@@ -1,21 +1,19 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function PaymentSuccessPage() {
+function PaymentSuccessContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const txnid = searchParams.get("txnid") || "";
   const amount = searchParams.get("amount") || "";
 
-  const formattedAmount = Number(amount || 0).toLocaleString(
-    "en-IN",
-    {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }
-  );
+  const formattedAmount = Number(amount || 0).toLocaleString("en-IN", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
   function handlePaymentDetails() {
     if (!txnid) {
@@ -32,25 +30,16 @@ export default function PaymentSuccessPage() {
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#f5f7fb] px-5 py-10">
-
       <div className="w-full max-w-[540px] rounded-[30px] border border-gray-100 bg-white p-7 text-center shadow-[0_25px_80px_rgba(7,21,52,0.12)] sm:p-9">
 
-        {/* ========================================
-            SUCCESS ICON
-        ======================================== */}
-
+        {/* SUCCESS ICON */}
         <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-emerald-50">
-
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-2xl font-black text-white shadow-lg shadow-emerald-500/20">
             ✓
           </div>
-
         </div>
 
-        {/* ========================================
-            TITLE
-        ======================================== */}
-
+        {/* TITLE */}
         <p className="mt-6 text-[10px] font-extrabold uppercase tracking-[2px] text-emerald-500">
           PAYMENT SUCCESSFUL
         </p>
@@ -60,20 +49,15 @@ export default function PaymentSuccessPage() {
         </h1>
 
         <p className="mx-auto mt-3 max-w-[400px] text-sm leading-6 text-gray-500">
-          Thank you for your payment. Your transaction
-          has been successfully received and recorded.
+          Thank you for your payment. Your transaction has been successfully
+          received and recorded.
         </p>
 
-        {/* ========================================
-            PAYMENT SUMMARY
-        ======================================== */}
-
+        {/* PAYMENT SUMMARY */}
         <div className="mt-8 overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 text-left">
 
           {/* AMOUNT */}
-
           <div className="p-5">
-
             <p className="text-[9px] font-extrabold uppercase tracking-[1.2px] text-gray-400">
               Amount Paid
             </p>
@@ -81,15 +65,12 @@ export default function PaymentSuccessPage() {
             <p className="mt-2 text-3xl font-black text-emerald-600">
               ₹{formattedAmount}
             </p>
-
           </div>
 
           <div className="border-t border-gray-200" />
 
           {/* TRANSACTION ID */}
-
           <div className="p-5">
-
             <p className="text-[9px] font-extrabold uppercase tracking-[1.2px] text-gray-400">
               Transaction ID
             </p>
@@ -97,21 +78,17 @@ export default function PaymentSuccessPage() {
             <p className="mt-2 break-all font-mono text-[11px] font-bold leading-5 text-[#071534]">
               {txnid || "-"}
             </p>
-
           </div>
 
           <div className="border-t border-gray-200" />
 
           {/* CONFIRMATION */}
-
           <div className="flex items-center gap-3 p-5">
-
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-sm font-black text-emerald-600">
               ✓
             </div>
 
             <div>
-
               <p className="text-xs font-extrabold text-[#071534]">
                 Payment Confirmed
               </p>
@@ -119,38 +96,26 @@ export default function PaymentSuccessPage() {
               <p className="mt-1 text-[10px] leading-4 text-gray-400">
                 Your payment record has been saved successfully.
               </p>
-
             </div>
-
           </div>
-
         </div>
 
-        {/* ========================================
-            NEXT STEPS
-        ======================================== */}
-
+        {/* NEXT STEPS */}
         <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50/50 p-4 text-left">
-
           <p className="text-[9px] font-extrabold uppercase tracking-[1.2px] text-blue-600">
-            WHAT'S NEXT?
+            WHAT&apos;S NEXT?
           </p>
 
           <p className="mt-2 text-[11px] leading-5 text-gray-500">
-            View your complete payment information
-            and transaction receipt using the button below.
+            View your complete payment information and transaction receipt
+            using the button below.
           </p>
-
         </div>
 
-        {/* ========================================
-            BUTTONS
-        ======================================== */}
-
+        {/* BUTTONS */}
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
 
           {/* BACK TO WEBSITE */}
-
           <button
             type="button"
             onClick={() => router.push("/")}
@@ -160,7 +125,6 @@ export default function PaymentSuccessPage() {
           </button>
 
           {/* PAYMENT DETAILS */}
-
           <button
             type="button"
             onClick={handlePaymentDetails}
@@ -168,15 +132,10 @@ export default function PaymentSuccessPage() {
           >
             Payment Details
           </button>
-
         </div>
 
-        {/* ========================================
-            SECURITY NOTE
-        ======================================== */}
-
+        {/* SECURITY NOTE */}
         <div className="mt-7 flex items-center justify-center gap-2">
-
           <span className="text-xs text-emerald-500">
             ✓
           </span>
@@ -184,19 +143,36 @@ export default function PaymentSuccessPage() {
           <p className="text-[9px] font-semibold text-gray-400">
             Secure payment processed by PayU
           </p>
-
         </div>
 
-        {/* ========================================
-            FOOTER
-        ======================================== */}
-
+        {/* FOOTER */}
         <p className="mt-5 text-[9px] text-gray-400">
           Digital FX • Secure Payment Processing
         </p>
-
       </div>
-
     </main>
+  );
+}
+
+/*
+  Suspense wrapper is required because
+  useSearchParams() is used inside the page.
+*/
+export default function PaymentSuccessPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen items-center justify-center bg-[#f5f7fb] px-5">
+          <div className="text-center">
+            <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-[#315df5]" />
+            <p className="mt-4 text-sm font-semibold text-gray-500">
+              Loading payment details...
+            </p>
+          </div>
+        </main>
+      }
+    >
+      <PaymentSuccessContent />
+    </Suspense>
   );
 }

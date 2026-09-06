@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
 type Payment = {
@@ -15,7 +15,7 @@ type Payment = {
   created_at: string;
 };
 
-export default function PaymentInvoicePage() {
+function PaymentInvoiceContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -808,5 +808,25 @@ export default function PaymentInvoicePage() {
         }
       `}</style>
     </>
+  );
+}
+
+export default function PaymentInvoicePage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen items-center justify-center bg-[#eef2f7]">
+          <div className="rounded-2xl bg-white px-10 py-9 text-center shadow-xl">
+            <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-[#155EEF]" />
+
+            <p className="mt-4 text-sm font-semibold text-gray-500">
+              Preparing your invoice...
+            </p>
+          </div>
+        </main>
+      }
+    >
+      <PaymentInvoiceContent />
+    </Suspense>
   );
 }

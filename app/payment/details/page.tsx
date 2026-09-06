@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
 type Payment = {
@@ -17,7 +17,7 @@ type Payment = {
   updated_at: string;
 };
 
-export default function PaymentDetailsPage() {
+function PaymentDetailsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -453,5 +453,25 @@ export default function PaymentDetailsPage() {
       </div>
 
     </main>
+  );
+}
+
+export default function PaymentDetailsPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen items-center justify-center bg-[#f5f7fb] p-5">
+          <div className="rounded-3xl bg-white px-10 py-12 text-center shadow-xl">
+            <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-[#315df5]" />
+
+            <p className="mt-5 text-sm font-semibold text-gray-500">
+              Loading payment details...
+            </p>
+          </div>
+        </main>
+      }
+    >
+      <PaymentDetailsContent />
+    </Suspense>
   );
 }

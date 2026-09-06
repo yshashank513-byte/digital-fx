@@ -1,12 +1,12 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function PaymentFailurePage() {
+function PaymentFailureContent() {
   const searchParams = useSearchParams();
 
-  const txnid =
-    searchParams.get("txnid") || "";
+  const txnid = searchParams.get("txnid") || "";
 
   const reason =
     searchParams.get("reason") ||
@@ -32,10 +32,10 @@ export default function PaymentFailurePage() {
           borderRadius: "24px",
           padding: "40px",
           textAlign: "center",
-          boxShadow:
-            "0 20px 60px rgba(7,21,52,0.12)",
+          boxShadow: "0 20px 60px rgba(7,21,52,0.12)",
         }}
       >
+        {/* FAILURE ICON */}
         <div
           style={{
             width: "72px",
@@ -54,6 +54,7 @@ export default function PaymentFailurePage() {
           ×
         </div>
 
+        {/* TITLE */}
         <p
           style={{
             marginTop: "24px",
@@ -70,6 +71,7 @@ export default function PaymentFailurePage() {
           style={{
             marginTop: "8px",
             fontSize: "30px",
+            fontWeight: "800",
             color: "#071534",
           }}
         >
@@ -87,6 +89,7 @@ export default function PaymentFailurePage() {
           Please try again.
         </p>
 
+        {/* TRANSACTION DETAILS */}
         <div
           style={{
             marginTop: "28px",
@@ -99,6 +102,7 @@ export default function PaymentFailurePage() {
           <p
             style={{
               fontSize: "11px",
+              fontWeight: "800",
               color: "#94a3b8",
             }}
           >
@@ -121,6 +125,7 @@ export default function PaymentFailurePage() {
             style={{
               marginTop: "18px",
               fontSize: "11px",
+              fontWeight: "800",
               color: "#94a3b8",
             }}
           >
@@ -131,6 +136,7 @@ export default function PaymentFailurePage() {
             style={{
               marginTop: "6px",
               fontSize: "12px",
+              lineHeight: "1.6",
               color: "#475569",
             }}
           >
@@ -138,18 +144,19 @@ export default function PaymentFailurePage() {
           </p>
         </div>
 
+        {/* BACK BUTTON */}
         <button
-          onClick={() =>
-            (window.location.href = "/")
-          }
+          type="button"
+          onClick={() => {
+            window.location.href = "/";
+          }}
           style={{
             width: "100%",
             marginTop: "28px",
             height: "48px",
             border: "none",
             borderRadius: "12px",
-            background:
-              "linear-gradient(90deg,#315df5,#6047ed)",
+            background: "linear-gradient(90deg,#315df5,#6047ed)",
             color: "#fff",
             fontSize: "13px",
             fontWeight: "800",
@@ -159,6 +166,7 @@ export default function PaymentFailurePage() {
           Back to Digital FX
         </button>
 
+        {/* FOOTER */}
         <p
           style={{
             marginTop: "22px",
@@ -170,5 +178,60 @@ export default function PaymentFailurePage() {
         </p>
       </div>
     </main>
+  );
+}
+
+export default function PaymentFailurePage() {
+  return (
+    <Suspense
+      fallback={
+        <main
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "#f5f7fb",
+            padding: "24px",
+            fontFamily: "Arial, sans-serif",
+          }}
+        >
+          <div
+            style={{
+              background: "#ffffff",
+              borderRadius: "24px",
+              padding: "40px",
+              textAlign: "center",
+              boxShadow: "0 20px 60px rgba(7,21,52,0.12)",
+            }}
+          >
+            <div
+              style={{
+                width: "40px",
+                height: "40px",
+                margin: "0 auto",
+                borderRadius: "50%",
+                border: "4px solid #e5e7eb",
+                borderTopColor: "#315df5",
+                animation: "spin 1s linear infinite",
+              }}
+            />
+
+            <p
+              style={{
+                marginTop: "18px",
+                fontSize: "13px",
+                fontWeight: "700",
+                color: "#64748b",
+              }}
+            >
+              Processing payment...
+            </p>
+          </div>
+        </main>
+      }
+    >
+      <PaymentFailureContent />
+    </Suspense>
   );
 }

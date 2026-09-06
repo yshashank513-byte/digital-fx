@@ -667,7 +667,7 @@ export default function EnquiriesPage() {
                         label ===
                           "All Enquiries"
                           ? "All"
-                          : label
+                          : String(label)
                       )
                     }
                     className={`rounded-2xl border bg-white p-4 text-left shadow-[0_3px_16px_rgba(16,24,40,.035)] transition ${
