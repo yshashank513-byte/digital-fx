@@ -5,6 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/admin/", "/payment/"],
     },
     sitemap: "https://www.digitalfx.in/sitemap.xml",
   };
