@@ -962,7 +962,7 @@ export default function Home() {
 
         <div className="overflow-hidden border-t border-[#eef1f5] bg-[#f8faff]">
 
-          <div className="relative flex h-[42px] items-center overflow-hidden">
+          <div className="relative flex h-[42px] w-full items-center overflow-hidden">
 
             <div className="flex min-w-max ticker-track items-center">
 
@@ -1931,12 +1931,17 @@ export default function Home() {
         </div>
 
         <style jsx>{`
+          .digitalfx-marquee-track {
+            animation: digitalTicker 32s linear infinite;
+            will-change: transform;
+          }
+
           @keyframes digitalTicker {
-            0% {
-              transform: translateX(0);
+            from {
+              transform: translate3d(0, 0, 0);
             }
-            100% {
-              transform: translateX(-50%);
+            to {
+              transform: translate3d(-50%, 0, 0);
             }
           }
 
