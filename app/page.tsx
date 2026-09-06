@@ -964,7 +964,7 @@ export default function Home() {
 
           <div className="relative flex h-[42px] items-center overflow-hidden">
 
-            <div className="flex min-w-max animate-[digitalTicker_32s_linear_infinite] items-center">
+            <div className="flex min-w-max ticker-track items-center">
 
               {[
                 "SEO",
@@ -1930,7 +1930,7 @@ export default function Home() {
 
         </div>
 
-        <style jsx>
+        <style jsx>{`
           @keyframes digitalTicker {
             0% {
               transform: translateX(0);
@@ -1940,7 +1940,15 @@ export default function Home() {
             }
           }
 
-{`
+          .ticker-track {
+            animation: digitalTicker 32s linear infinite;
+            will-change: transform;
+          }
+
+          .ticker-track:hover {
+            animation-play-state: paused;
+          }
+
           .growth-info-card {
             position: relative;
             display: flex;
