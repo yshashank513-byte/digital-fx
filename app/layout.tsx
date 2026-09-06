@@ -53,7 +53,7 @@ export const metadata: Metadata = {
       "SEO, Google Ads, social media marketing, website development, branding and lead generation solutions for growing businesses.",
     images: [
       {
-        url: "/logo.png",
+        url: "/logo.webp",
         width: 512,
         height: 512,
         alt: "Digital FX",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     title: "Digital FX | Digital Marketing Agency in India",
     description:
       "Digital marketing solutions including SEO, Google Ads, social media, websites, branding and lead generation.",
-    images: ["/logo.png"],
+    images: ["/logo.webp"],
   },
 
   robots: {
@@ -82,8 +82,8 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/logo.webp",
+    apple: "/logo.webp",
   },
 };
 
@@ -106,7 +106,7 @@ export default function RootLayout({
               "@type": "ProfessionalService",
               name: "Digital FX",
               url: "https://www.digitalfx.in",
-              logo: "https://www.digitalfx.in/logo.png",
+              logo: "https://www.digitalfx.in/logo.webp",
               description:
                 "Digital FX is a digital marketing agency providing SEO, Google Ads, social media marketing, website development, branding and lead generation solutions.",
               areaServed: [
