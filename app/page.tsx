@@ -708,14 +708,17 @@ export default function Home() {
 
       <header className="fixed left-0 top-0 z-50 w-full border-b border-[#e4e7ec] bg-white/95 backdrop-blur-xl">
 
+        {/* TOP BAR */}
+
         <div className="hidden bg-[#080d24] text-white lg:block">
+
           <div className="mx-auto flex h-[38px] max-w-[1320px] items-center justify-between px-5 lg:px-8">
 
-            <div className="flex items-center gap-6 text-[11px] font-medium text-[#d0d5dd]">
+            <div className="flex items-center gap-5 text-[11px] font-medium text-[#d0d5dd]">
 
               <a
                 href="tel:+919876543210"
-                className="transition hover:text-white"
+                className="whitespace-nowrap transition hover:text-white"
               >
                 ☎ +91 98765 43210
               </a>
@@ -724,14 +727,14 @@ export default function Home() {
 
               <a
                 href="mailto:hello@digitalfx.in"
-                className="transition hover:text-white"
+                className="whitespace-nowrap transition hover:text-white"
               >
                 ✉ hello@digitalfx.in
               </a>
 
               <span className="h-3 w-px bg-white/15" />
 
-              <span>
+              <span className="whitespace-nowrap">
                 ⌖ Jaipur, Rajasthan, India
               </span>
 
@@ -741,21 +744,21 @@ export default function Home() {
 
               <a
                 href="#about"
-                className="hover:text-white"
+                className="whitespace-nowrap transition hover:text-white"
               >
                 About Us
               </a>
 
               <a
                 href="#case-studies"
-                className="hover:text-white"
+                className="whitespace-nowrap transition hover:text-white"
               >
                 Case Studies
               </a>
 
               <a
                 href="#contact"
-                className="hover:text-white"
+                className="whitespace-nowrap transition hover:text-white"
               >
                 Contact
               </a>
@@ -766,7 +769,7 @@ export default function Home() {
                 href="https://wa.me/919876543210?text=Hi%20Digital%20FX%2C%20I%20need%20help%20with%20digital%20marketing."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-bold text-[#7d91ff] hover:text-white"
+                className="font-bold text-[#7d91ff] transition hover:text-white"
               >
                 WhatsApp
               </a>
@@ -774,36 +777,41 @@ export default function Home() {
             </div>
 
           </div>
+
         </div>
 
 
-        <div className="mx-auto flex h-[82px] max-w-[1320px] items-center justify-between px-5 lg:px-8">
+        {/* MAIN NAVIGATION */}
+
+        <div className="mx-auto flex h-[82px] max-w-[1320px] items-center px-5 lg:px-8">
+
+          {/* BRAND */}
 
           <a
             href="#home"
-            className="flex shrink-0 items-center gap-2"
+            className="flex shrink-0 items-center gap-3"
           >
 
-            <div className="flex h-[70px] w-[66px] items-center justify-center">
+            <div className="flex h-[62px] w-[62px] shrink-0 items-center justify-center">
 
               <img
                 src="/logo.png"
                 alt="Digital FX"
-                className="h-[92px] w-[92px] object-contain"
+                className="h-[76px] w-[76px] object-contain"
               />
 
             </div>
 
-            <div>
+            <div className="whitespace-nowrap">
 
-              <div className="text-[23px] font-black tracking-[-1px]">
+              <div className="text-[22px] font-black leading-none tracking-[-0.8px] text-[#101828]">
                 DIGITAL{" "}
                 <span className="text-[#315df5]">
                   FX
                 </span>
               </div>
 
-              <div className="mt-[2px] text-[10px] font-semibold tracking-[2.4px] text-[#667085]">
+              <div className="mt-2 text-[9px] font-bold leading-none tracking-[2.2px] text-[#667085]">
                 DIGITAL MARKETING THAT DELIVERS
               </div>
 
@@ -812,84 +820,94 @@ export default function Home() {
           </a>
 
 
-          <nav className="hidden items-center gap-5 xl:flex">
+          {/* DESKTOP NAV */}
 
-            <a
-              href="#home"
-              className="py-7 text-[13px] font-bold text-[#315df5]"
-            >
-              Home
-            </a>
+          <nav className="ml-auto hidden items-center xl:flex">
 
-            <a
-              href="#services"
-              className="py-7 text-[13px] font-semibold text-[#344054] hover:text-[#315df5]"
-            >
-              Services
-            </a>
+            <div className="flex items-center gap-1">
 
-            <a
-              href="#pricing"
-              className="flex items-center gap-1 py-7 text-[13px] font-bold text-[#315df5]"
-            >
-              Pricing
-              <span className="rounded-full bg-[#eef3ff] px-2 py-1 text-[10px] font-black">
-                NEW
-              </span>
-            </a>
+              <a
+                href="#home"
+                className="flex h-[44px] items-center rounded-lg px-3 text-[13px] font-bold text-[#315df5] transition hover:bg-[#f5f7ff]"
+              >
+                Home
+              </a>
 
-            <a
-              href="#geo-checker"
-              className="flex items-center gap-1 py-7 text-[13px] font-bold text-[#315df5]"
-            >
-              Free GEO Check
-              <span className="rounded-full bg-[#eef3ff] px-2 py-1 text-[10px] font-black">
-                FREE
-              </span>
-            </a>
+              <a
+                href="#services"
+                className="flex h-[44px] items-center rounded-lg px-3 text-[13px] font-semibold text-[#344054] transition hover:bg-[#f5f7ff] hover:text-[#315df5]"
+              >
+                Services
+              </a>
 
-            <a
-              href="#industries"
-              className="py-7 text-[13px] font-semibold text-[#344054] hover:text-[#315df5]"
-            >
-              Industries
-            </a>
+              <a
+                href="#pricing"
+                className="flex h-[44px] items-center gap-1.5 rounded-lg px-3 text-[13px] font-bold text-[#315df5] transition hover:bg-[#f5f7ff]"
+              >
+                <span>Pricing</span>
 
-            <a
-              href="#about"
-              className="py-7 text-[13px] font-semibold text-[#344054] hover:text-[#315df5]"
-            >
-              About
-            </a>
+                <span className="rounded-full bg-[#eef3ff] px-2 py-[3px] text-[9px] font-black leading-none text-[#315df5]">
+                  NEW
+                </span>
+              </a>
 
-            <a
-              href="#contact"
-              className="py-7 text-[13px] font-semibold text-[#344054] hover:text-[#315df5]"
-            >
-              Contact
-            </a>
+              <a
+                href="#geo-checker"
+                className="flex h-[44px] items-center gap-1.5 rounded-lg px-3 text-[13px] font-bold text-[#315df5] transition hover:bg-[#f5f7ff]"
+              >
+                <span>Free GEO Check</span>
+
+                <span className="rounded-full bg-[#eef3ff] px-2 py-[3px] text-[9px] font-black leading-none text-[#315df5]">
+                  FREE
+                </span>
+              </a>
+
+              <a
+                href="#industries"
+                className="flex h-[44px] items-center rounded-lg px-3 text-[13px] font-semibold text-[#344054] transition hover:bg-[#f5f7ff] hover:text-[#315df5]"
+              >
+                Industries
+              </a>
+
+              <a
+                href="#about"
+                className="flex h-[44px] items-center rounded-lg px-3 text-[13px] font-semibold text-[#344054] transition hover:bg-[#f5f7ff] hover:text-[#315df5]"
+              >
+                About
+              </a>
+
+              <a
+                href="#contact"
+                className="flex h-[44px] items-center rounded-lg px-3 text-[13px] font-semibold text-[#344054] transition hover:bg-[#f5f7ff] hover:text-[#315df5]"
+              >
+                Contact
+              </a>
+
+            </div>
 
           </nav>
 
 
-          <div className="hidden items-center gap-4 xl:flex">
+          {/* RIGHT ACTIONS */}
+
+          <div className="ml-5 hidden items-center gap-3 xl:flex">
 
             <a
               href="tel:+919876543210"
-              className="flex items-center gap-2 border-r border-[#e4e7ec] pr-4"
+              className="group flex items-center gap-3 border-r border-[#e4e7ec] pr-4"
             >
 
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#dce5ff] bg-[#f7f9ff] text-[#315df5]">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#dce5ff] bg-[#f7f9ff] text-[15px] text-[#315df5] transition group-hover:bg-[#eef3ff]">
                 ☎
               </span>
 
-              <span>
+              <span className="flex flex-col justify-center">
 
-                <span className="block text-[10px] font-semibold uppercase tracking-[1px] text-[#98a2b3]">
+                <span className="text-[9px] font-bold uppercase leading-[12px] tracking-[1.3px] text-[#98a2b3]">
                   Free Consultation
                 </span>
 
-                <span className="block text-[13px] font-black">
+                <span className="mt-[2px] whitespace-nowrap text-[13px] font-black leading-[16px] text-[#101828]">
                   +91 98765 43210
                 </span>
 
@@ -897,63 +915,91 @@ export default function Home() {
 
             </a>
 
+
             <a
               href="#pricing"
-              className="rounded-[6px] bg-[#315df5] px-5 py-3.5 text-[13px] font-bold text-white shadow-[0_8px_25px_rgba(49,93,245,.18)] hover:bg-[#2449d6]"
+              className="group flex h-[50px] min-w-[132px] items-center justify-center gap-3 rounded-[8px] bg-[#315df5] px-5 text-[13px] font-black text-white shadow-[0_8px_24px_rgba(49,93,245,.18)] transition duration-200 hover:-translate-y-[1px] hover:bg-[#2449d6] hover:shadow-[0_12px_28px_rgba(49,93,245,.25)]"
             >
-              View Pricing →
+
+              <span>
+                View Pricing
+              </span>
+
+              <span className="text-[15px] transition-transform duration-200 group-hover:translate-x-1">
+                →
+              </span>
+
             </a>
 
           </div>
 
 
+          {/* MOBILE MENU BUTTON */}
+
           <button
             type="button"
             onClick={() => setMobileOpen(true)}
-            className="flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-md border border-[#d0d5dd] bg-white xl:hidden"
+            aria-label="Open menu"
+            className="ml-auto flex h-11 w-11 items-center justify-center rounded-lg border border-[#d0d5dd] bg-white xl:hidden"
           >
-            <span className="h-[2px] w-5 bg-[#344054]" />
-            <span className="h-[2px] w-5 bg-[#344054]" />
-            <span className="h-[2px] w-5 bg-[#344054]" />
+
+            <span className="flex flex-col gap-[5px]">
+
+              <span className="h-[2px] w-5 bg-[#344054]" />
+              <span className="h-[2px] w-5 bg-[#344054]" />
+              <span className="h-[2px] w-5 bg-[#344054]" />
+
+            </span>
+
           </button>
 
         </div>
 
 
-        <div className="hidden border-t border-[#f0f2f5] bg-[#f8faff] lg:block">
+        {/* TRUST / PROOF BAR */}
 
-          <div className="mx-auto flex h-[40px] max-w-[1320px] items-center justify-center gap-7 px-5 lg:px-8">
+        <div className="hidden border-t border-[#eef1f5] bg-[#f8faff] lg:block">
 
-            {[
-              ["✦", "100+ Projects Delivered"],
-              ["◇", "25+ Industries Served"],
-              ["★", "4.9/5 Client Rating"],
-              ["◉", "Transparent Reporting"],
-              ["↗", "ROI Focused Approach"],
-            ].map(
-              ([icon, label], index) => (
+          <div className="mx-auto flex h-[40px] max-w-[1320px] items-center justify-center px-5 lg:px-8">
 
-                <div
-                  key={label}
-                  className="flex items-center gap-2"
-                >
+            <div className="flex items-center">
 
-                  <span className="text-[13px] font-black text-[#315df5]">
-                    {icon}
-                  </span>
+              {[
+                ["✦", "100+ Projects Delivered"],
+                ["◇", "25+ Industries Served"],
+                ["★", "4.9/5 Client Rating"],
+                ["◉", "Transparent Reporting"],
+                ["↗", "ROI Focused Approach"],
+              ].map(
+                ([icon, label], index) => (
 
-                  <span className="text-[11px] font-bold text-[#475467]">
-                    {label}
-                  </span>
+                  <div
+                    key={label}
+                    className="flex items-center"
+                  >
 
-                  {index < 4 && (
-                    <span className="ml-4 h-4 w-px bg-[#d0d5dd]" />
-                  )}
+                    <div className="flex items-center gap-2 px-6">
 
-                </div>
+                      <span className="text-[12px] font-black text-[#315df5]">
+                        {icon}
+                      </span>
 
-              )
-            )}
+                      <span className="whitespace-nowrap text-[10px] font-semibold text-[#53617e]">
+                        {label}
+                      </span>
+
+                    </div>
+
+                    {index < 4 && (
+                      <span className="h-4 w-px bg-[#d9deea]" />
+                    )}
+
+                  </div>
+
+                )
+              )}
+
+            </div>
 
           </div>
 
@@ -2197,11 +2243,6 @@ export default function Home() {
             border-radius: 50%;
             background: #20b879;
             box-shadow: 0 0 0 4px rgba(32,184,121,.10);
-          }
-            50% {
-              transform: scale(1);
-              box-shadow: 0 0 0 5px rgba(49,93,245,.10);
-            }
           }
 
           @media (max-width: 900px) {
