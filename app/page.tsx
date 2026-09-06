@@ -735,7 +735,7 @@ export default function Home() {
               <span className="h-3 w-px bg-white/15" />
 
               <span className="whitespace-nowrap">
-                ⌖ Jaipur, Rajasthan, India
+                ⌖ Ghaziabad, Uttar Pradesh, India
               </span>
 
             </div>
@@ -1259,7 +1259,7 @@ export default function Home() {
               <span className="h-2 w-2 rounded-full bg-[#315df5]" />
 
               <span className="text-[11px] font-black uppercase tracking-[1.8px] text-[#315df5]">
-                Results-Driven Digital Marketing Agency
+                Digital Marketing Agency in Ghaziabad
               </span>
 
             </div>
@@ -4707,7 +4707,7 @@ export default function Home() {
                   </p>
 
                   <p className="mt-1 text-sm leading-6 text-[#d0d5dd]">
-                    Jaipur, Rajasthan, India
+                    Ghaziabad, Uttar Pradesh, India
                   </p>
 
                 </div>
@@ -4716,6 +4716,19 @@ export default function Home() {
 
             </div>
 
+          </div>
+
+
+          <div className="mt-12 border-t border-white/10 pt-8">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-6 text-center">
+              <p className="text-[10px] font-black uppercase tracking-[2px] text-[#7d91ff]">
+                Office Address
+              </p>
+              <p className="mx-auto mt-3 max-w-[850px] text-sm leading-7 text-[#d0d5dd] md:text-[15px]">
+                Second Floor, Orbit Plaza, 218, Crossings Republik,
+                Ghaziabad, Uttar Pradesh 201016
+              </p>
+            </div>
           </div>
 
 
