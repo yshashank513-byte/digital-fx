@@ -785,14 +785,6 @@ export default function Home() {
     }, 500);
   }
 
-  function handleHeroProposal(e: FormEvent) {
-    e.preventDefault();
-    if (heroWebsite.trim()) {
-      setGeoWebsite(heroWebsite.trim());
-    }
-    scrollToContact();
-  }
-
   const flywheelData = [
     {
       title: "Phase 01: Inbound Demand Capture",
@@ -1740,10 +1732,10 @@ export default function Home() {
                 {/* Mobile Responsive Active Stage Summary Card */}
                 <div className="md:hidden mt-3 p-3 rounded-xl bg-white border border-slate-200 text-center shadow-xs">
                   <div className="text-xs font-black text-[#080d24]">
-                    {circularEngineData[activeFlywheelQuadrant].calloutTitle}
+                    {flywheelData[activeFlywheelQuadrant].title}
                   </div>
                   <div className="text-[11px] text-slate-600 mt-0.5 leading-relaxed">
-                    {circularEngineData[activeFlywheelQuadrant].calloutDesc}
+                    {flywheelData[activeFlywheelQuadrant].desc}
                   </div>
                 </div>
 
