@@ -16,24 +16,26 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.digitalfx.in"),
 
   title: {
-    default: "Digital FX | Digital Marketing Agency in India",
+    default: "Digital Marketing Agency in Ghaziabad | Digital FX",
     template: "%s | Digital FX",
   },
 
   description:
-    "Digital FX helps businesses grow online with SEO, Google Ads, social media marketing, website development, branding, lead generation and digital marketing solutions.",
+    "Digital FX is a digital marketing agency in Ghaziabad providing SEO, Google Ads, social media marketing, website development, branding, local SEO and lead generation solutions for growing businesses.",
 
   keywords: [
-    "digital marketing agency",
+    "digital marketing agency in Ghaziabad",
+    "digital marketing agency Ghaziabad",
+    "digital marketing company Ghaziabad",
+    "SEO agency Ghaziabad",
+    "SEO services Ghaziabad",
+    "Google Ads agency Ghaziabad",
+    "social media marketing Ghaziabad",
+    "website development Ghaziabad",
+    "local SEO Ghaziabad",
+    "Google Business Profile Ghaziabad",
+    "lead generation Ghaziabad",
     "digital marketing agency India",
-    "SEO services",
-    "SEO agency",
-    "Google Ads management",
-    "social media marketing",
-    "website development",
-    "lead generation",
-    "local SEO",
-    "Google Business Profile",
     "digital marketing services",
     "Digital FX",
   ],
@@ -48,24 +50,24 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.digitalfx.in",
     siteName: "Digital FX",
-    title: "Digital FX | Digital Marketing Agency in India",
+    title: "Digital Marketing Agency in Ghaziabad | Digital FX",
     description:
-      "SEO, Google Ads, social media marketing, website development, branding and lead generation solutions for growing businesses.",
+      "Digital FX helps businesses grow online with SEO, Google Ads, social media marketing, website development, branding, local SEO and lead generation.",
     images: [
       {
         url: "/logo.webp",
         width: 512,
         height: 512,
-        alt: "Digital FX",
+        alt: "Digital FX - Digital Marketing Agency in Ghaziabad",
       },
     ],
   },
 
   twitter: {
     card: "summary",
-    title: "Digital FX | Digital Marketing Agency in India",
+    title: "Digital Marketing Agency in Ghaziabad | Digital FX",
     description:
-      "Digital marketing solutions including SEO, Google Ads, social media, websites, branding and lead generation.",
+      "SEO, Google Ads, social media marketing, websites, branding, local SEO and lead generation solutions by Digital FX.",
     images: ["/logo.webp"],
   },
 
@@ -104,11 +106,28 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
+
               name: "Digital FX",
+
               url: "https://www.digitalfx.in",
+
               logo: "https://www.digitalfx.in/logo.webp",
+
               description:
-                "Digital FX is a digital marketing agency providing SEO, Google Ads, social media marketing, website development, branding and lead generation solutions.",
+                "Digital FX is a digital marketing agency in Ghaziabad providing SEO, Google Ads, social media marketing, website development, branding, local SEO and lead generation solutions.",
+
+              telephone: "+91 98765 43210",
+
+              address: {
+                "@type": "PostalAddress",
+                streetAddress:
+                  "Second Floor, Orbit Plaza, 218, Crossings Republik",
+                addressLocality: "Ghaziabad",
+                addressRegion: "Uttar Pradesh",
+                postalCode: "201016",
+                addressCountry: "IN",
+              },
+
               areaServed: [
                 {
                   "@type": "City",
@@ -123,6 +142,7 @@ export default function RootLayout({
                   name: "India",
                 },
               ],
+
               serviceType: [
                 "Digital Marketing",
                 "SEO",
@@ -133,7 +153,6 @@ export default function RootLayout({
                 "Lead Generation",
                 "Branding",
               ],
-              sameAs: ["https://www.digitalfx.in"],
             }),
           }}
         />
