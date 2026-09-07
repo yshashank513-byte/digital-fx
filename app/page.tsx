@@ -1019,19 +1019,13 @@ export default function Home() {
         <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all">
           <div className="mx-auto flex h-[82px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
 
-            {/* Brand Logo */}
-            <a href="#home" className="flex items-center gap-3.5 shrink-0 group">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-[#080d24] to-[#207de9] text-white font-black text-xl shadow-sm transition-transform group-hover:scale-105">
-                FX
-              </div>
-              <div className="shrink-0">
-                <div className="text-[25px] sm:text-[27px] font-black leading-none tracking-[-0.04em] text-[#080d24]">
-                  DIGITAL <span className="text-[#207de9]">FX</span>
-                </div>
-                <div className="mt-1.5 text-[9px] sm:text-[9.5px] font-extrabold uppercase tracking-[2px] text-slate-500 whitespace-nowrap">
-                  Digital Marketing That Drives Revenue®
-                </div>
-              </div>
+            {/* Brand Logo - original logo.png asset */}
+            <a href="#home" className="flex items-center shrink-0 group" aria-label="Digital FX Home">
+              <img
+                src="/logo.png"
+                alt="Digital FX"
+                className="h-[56px] sm:h-[62px] lg:h-[66px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+              />
             </a>
 
             {/* Right Action & 3-Line Menu Trigger (All Nav Items Cleanly Accessible via Drawer) */}
