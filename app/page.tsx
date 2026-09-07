@@ -408,6 +408,18 @@ export default function Home() {
   const [activeFlywheelQuadrant, setActiveFlywheelQuadrant] = useState(0);
   const [radarHovered, setRadarHovered] = useState(false);
   const [radarHoverNode, setRadarHoverNode] = useState<number | null>(null);
+  // Interactive split position for the 3D revenue funnel.
+  const [funnelSplit, setFunnelSplit] = useState(0);
+  const [funnelDragging, setFunnelDragging] = useState(false);
+
+  function updateFunnelSplit(clientX: number, svg: SVGSVGElement) {
+    const rect = svg.getBoundingClientRect();
+    if (!rect.width) return;
+    const viewBoxX = ((clientX - rect.left) / rect.width) * 800;
+    const split = Math.max(0, Math.min(52, Math.abs(viewBoxX - 400)));
+    setFunnelSplit(split);
+  }
+
 
   const [geoWebsite, setGeoWebsite] = useState("");
   const [geoKeyword, setGeoKeyword] = useState("");
@@ -914,6 +926,23 @@ export default function Home() {
         .radar-hub-3d:hover {
           transform: scale(1.05);
           box-shadow: 0 0 50px rgba(0, 240, 255, 0.6), 0 25px 60px -10px rgba(8, 13, 36, 0.9), inset 0 2px 8px rgba(255, 255, 255, 0.6);
+        }
+ 
+        .funnel-3d-movable {
+          transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+          transform-box: fill-box;
+          transform-origin: center;
+          will-change: transform;
+        }
+
+        .funnel-3d-handle {
+          cursor: ew-resize;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .funnel-3d-movable {
+            transition: none;
+          }
         }
 
         .reviews-marquee-track {
@@ -1612,36 +1641,15 @@ export default function Home() {
 
                   {/* Center Core Hub Content (Strictly Centered Vector Elements at cx=520, cy=280) */}
                   <g transform="translate(520, 280)">
-                    {/* Brand Logo: Digital FX (Symmetrically Centered at x=0) */}
-                    <g transform="translate(0, -28)">
-                      <text
-                        x="10"
-                        y="0"
-                        textAnchor="end"
-                        fill="#080d24"
-                        fontSize="17px"
-                        fontWeight="900"
-                        letterSpacing="-0.4px"
-                        dominantBaseline="central"
-                      >
-                        Digital
-                      </text>
-                      <g transform="translate(16, -11)">
-                        <rect x="0" y="0" width="28" height="22" rx="5" fill="#1570ef" />
-                        <text
-                          x="14"
-                          y="11"
-                          textAnchor="middle"
-                          dominantBaseline="central"
-                          fill="#ffffff"
-                          fontSize="11.5px"
-                          fontWeight="900"
-                          letterSpacing="0.5px"
-                        >
-                          FX
-                        </text>
-                      </g>
-                    </g>
+                    {/* Brand Logo: Uses public/logo.png automatically */}
+                    <image
+                      href="/logo.png"
+                      x="-24"
+                      y="-58"
+                      width="48"
+                      height="48"
+                      preserveAspectRatio="xMidYMid meet"
+                    />
 
                     {/* Title: Revenue Engine (Strictly Centered at x=0) */}
                     <text
@@ -1859,7 +1867,15 @@ export default function Home() {
             <div className="relative max-w-[860px] mx-auto mt-10 sm:mt-14 select-none">
               
               <div className="relative w-full aspect-[800/460]">
-                <svg viewBox="0 0 800 460" className="w-full h-full drop-shadow-sm overflow-visible">
+                <svg
+                  viewBox="0 0 800 460"
+                  className="w-full h-full drop-shadow-sm overflow-visible touch-none"
+                  onPointerMove={(e) => {
+                    if (funnelDragging) updateFunnelSplit(e.clientX, e.currentTarget);
+                  }}
+                  onPointerUp={() => setFunnelDragging(false)}
+                  onPointerCancel={() => setFunnelDragging(false)}
+                >
                   <defs>
                     {/* Glowing gradients for Right Funnel Tiers */}
                     <linearGradient id="funnelTier1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1924,7 +1940,11 @@ export default function Home() {
                   </g>
 
                   {/* 2. LEFT SIDE: Traditional Broken/Leaky Funnel */}
-                  <g filter="url(#funnelShadow)">
+                  <g
+                    className="funnel-3d-movable"
+                    filter="url(#funnelShadow)"
+                    style={{ transform: `translateX(${-funnelSplit}px)` }}
+                  >
                     {/* Left Interior Rim (Back) */}
                     <path
                       d="M 220 90 A 180 35 0 0 1 400 55 L 400 90 A 180 35 0 0 0 220 90 Z"
@@ -1980,7 +2000,11 @@ export default function Home() {
                   </g>
 
                   {/* 3. RIGHT SIDE: 4 Vibrant Connected Revenue Marketing Tiers */}
-                  <g filter="url(#funnelShadow)">
+                  <g
+                    className="funnel-3d-movable"
+                    filter="url(#funnelShadow)"
+                    style={{ transform: `translateX(${funnelSplit}px)` }}
+                  >
                     {/* Right Interior Rim (Back) */}
                     <path
                       d="M 400 55 A 180 35 0 0 1 580 90 L 400 90 Z"
@@ -2020,31 +2044,31 @@ export default function Home() {
 
                   {/* 4. Labels & Connectors for the 4 Tiers */}
                   {/* Tier 1 Label: Brand Visibility */}
-                  <g>
+                  <g className="funnel-3d-movable" style={{ transform: `translateX(${funnelSplit}px)` }}>
                     <line x1="550" y1="122" x2="615" y2="122" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
                     <text x="622" y="126" fill="#080d24" fontSize="13px" fontWeight="800">Brand Visibility</text>
                   </g>
 
                   {/* Tier 2 Label: Website Traffic */}
-                  <g>
+                  <g className="funnel-3d-movable" style={{ transform: `translateX(${funnelSplit}px)` }}>
                     <line x1="500" y1="188" x2="585" y2="188" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
                     <text x="592" y="192" fill="#080d24" fontSize="13px" fontWeight="800">Website Traffic</text>
                   </g>
 
                   {/* Tier 3 Label: Qualified Leads */}
-                  <g>
+                  <g className="funnel-3d-movable" style={{ transform: `translateX(${funnelSplit}px)` }}>
                     <line x1="455" y1="252" x2="550" y2="252" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
                     <text x="557" y="256" fill="#080d24" fontSize="13px" fontWeight="800">Qualified Leads</text>
                   </g>
 
                   {/* Tier 4 Label: Sales */}
-                  <g>
+                  <g className="funnel-3d-movable" style={{ transform: `translateX(${funnelSplit}px)` }}>
                     <line x1="426" y1="312" x2="495" y2="312" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
                     <text x="502" y="316" fill="#080d24" fontSize="13px" fontWeight="800">Sales</text>
                   </g>
 
                   {/* Revenue-Backed Optimization Callout */}
-                  <g transform="translate(620, 315)">
+                  <g className="funnel-3d-movable" transform="translate(620, 315)" style={{ transform: `translate(${funnelSplit}px, 0)` }}>
                     <text x="0" y="0" textAnchor="middle" fill="#00b894" fontSize="11.5px" fontWeight="900" letterSpacing="0.3px">
                       Revenue-Backed
                     </text>
@@ -2053,20 +2077,62 @@ export default function Home() {
                     </text>
                   </g>
 
-                  {/* 5. Center Slicing Divider Line (Separating Broken vs Revenue Funnel) */}
-                  <line
-                    x1="400"
-                    y1="40"
-                    x2="400"
-                    y2="375"
-                    stroke="#080d24"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
+                  {/* 5. Interactive Center Slicing Divider / 3D Split Handle */}
+                  <g className="funnel-3d-handle">
+                    <line
+                      x1="400"
+                      y1="40"
+                      x2="400"
+                      y2="375"
+                      stroke="transparent"
+                      strokeWidth="28"
+                      strokeLinecap="round"
+                      onPointerDown={(e) => {
+                        const svg = e.currentTarget.ownerSVGElement;
+                        if (!svg) return;
+                        e.currentTarget.setPointerCapture(e.pointerId);
+                        setFunnelDragging(true);
+                        updateFunnelSplit(e.clientX, svg);
+                      }}
+                    />
+                    <line
+                      x1="400"
+                      y1="40"
+                      x2="400"
+                      y2="375"
+                      stroke="#080d24"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
+                    <rect
+                      x="391"
+                      y="205"
+                      width="18"
+                      height="54"
+                      rx="9"
+                      fill="#ffffff"
+                      stroke="#080d24"
+                      strokeWidth="2"
+                      opacity="0.98"
+                    />
+                    <path
+                      d="M397 222 L392 227 L397 232 M403 232 L408 227 L403 222"
+                      fill="none"
+                      stroke="#1570ef"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </g>
                   {/* Bottom weighted anchor tip */}
                   <polygon points="394,375 406,375 406,392 400,398 394,392" fill="#080d24" />
 
                 </svg>
+              </div>
+
+              <div className="mt-3 flex items-center justify-center gap-2 text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.14em] text-slate-400">
+                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 text-slate-500">↔</span>
+                Drag the center divider to split the 3D funnel
               </div>
 
               {/* Bottom Comparison Columns (Directly Aligned with Left & Right Halves) */}
