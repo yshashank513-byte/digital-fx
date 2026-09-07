@@ -3,7 +3,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Manrope } from "next/font/google";
 import { supabase } from "./lib/supabase";
-import DigitalFXIntro from "../components/DigitalFXIntro";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -408,18 +407,6 @@ export default function Home() {
   const [activeFlywheelQuadrant, setActiveFlywheelQuadrant] = useState(0);
   const [radarHovered, setRadarHovered] = useState(false);
   const [radarHoverNode, setRadarHoverNode] = useState<number | null>(null);
-  // Interactive split position for the 3D revenue funnel.
-  const [funnelSplit, setFunnelSplit] = useState(0);
-  const [funnelDragging, setFunnelDragging] = useState(false);
-
-  function updateFunnelSplit(clientX: number, svg: SVGSVGElement) {
-    const rect = svg.getBoundingClientRect();
-    if (!rect.width) return;
-    const viewBoxX = ((clientX - rect.left) / rect.width) * 800;
-    const split = Math.max(0, Math.min(52, Math.abs(viewBoxX - 400)));
-    setFunnelSplit(split);
-  }
-
 
   const [geoWebsite, setGeoWebsite] = useState("");
   const [geoKeyword, setGeoKeyword] = useState("");
@@ -797,6 +784,7 @@ export default function Home() {
     }, 500);
   }
 
+
   const flywheelData = [
     {
       title: "Phase 01: Inbound Demand Capture",
@@ -824,6 +812,13 @@ export default function Home() {
     },
   ];
 
+  // Mobile summary data for the clean revenue engine section.
+  // Kept aligned with the existing flywheel content so the section has one source of truth.
+  const circularEngineData = flywheelData.map((item) => ({
+    calloutTitle: item.title,
+    calloutDesc: item.desc,
+  }));
+
   const radarChannels = [
     { id: 0, label: "SEARCH / SEO", icon: "🔍", pillar: "visibility", x2: 300, y2: 45, cx: "50%", cy: "10%", posClass: "top-2 left-1/2 -translate-x-1/2" },
     { id: 1, label: "LOCAL MAPS", icon: "📍", pillar: "visibility", x2: 475, y2: 95, cx: "79%", cy: "21%", posClass: "top-12 right-6" },
@@ -837,8 +832,6 @@ export default function Home() {
 
   return (
     <>
-      <DigitalFXIntro />
-
       {/* ==========================================================================
           WEBFX SIGNATURE GLOBAL CSS & TYPOGRAPHY
           ========================================================================== */}
@@ -858,14 +851,25 @@ export default function Home() {
           background-color: #ffffff;
           color: #101828;
           font-family: var(--font-manrope), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-size: 15px;
+          line-height: 1.6;
           -webkit-font-smoothing: antialiased;
+          text-rendering: optimizeLegibility;
         }
 
         .webfx-serif {
-          font-family: Georgia, 'Times New Roman', Cambria, serif !important;
+          font-family: var(--font-manrope), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
           font-style: italic !important;
-          font-weight: 400 !important;
-          letter-spacing: -0.015em !important;
+          font-weight: 700 !important;
+          letter-spacing: -0.02em !important;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+          text-wrap: balance;
+        }
+
+        p {
+          text-wrap: pretty;
         }
 
         @keyframes radarBreathing {
@@ -926,23 +930,6 @@ export default function Home() {
         .radar-hub-3d:hover {
           transform: scale(1.05);
           box-shadow: 0 0 50px rgba(0, 240, 255, 0.6), 0 25px 60px -10px rgba(8, 13, 36, 0.9), inset 0 2px 8px rgba(255, 255, 255, 0.6);
-        }
- 
-        .funnel-3d-movable {
-          transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-          transform-box: fill-box;
-          transform-origin: center;
-          will-change: transform;
-        }
-
-        .funnel-3d-handle {
-          cursor: ew-resize;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .funnel-3d-movable {
-            transition: none;
-          }
         }
 
         .reviews-marquee-track {
@@ -1029,27 +1016,19 @@ export default function Home() {
         {/* ==========================================================================
             2. WEBFX MAIN HEADER & 3-LINE MENU NAVIGATION (#fxheader)
             ========================================================================== */}
-        <header
-          id="fxheader"
-          className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all"
-        >
-          <div className="mx-auto flex h-[74px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
-            {/* Brand Logo */}
-            <a href="#home" className="flex items-center gap-3 shrink-0 group">
-              <div className="h-10 w-10 shrink-0 overflow-hidden rounded-xl shadow-sm transition-transform group-hover:scale-105">
-                <img
-                  src="/logo.png"
-                  alt="Digital FX"
-                  className="h-full w-full object-contain"
-                />
-              </div>
+        <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all">
+          <div className="mx-auto flex h-[82px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
 
+            {/* Brand Logo */}
+            <a href="#home" className="flex items-center gap-3.5 shrink-0 group">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-[#080d24] to-[#207de9] text-white font-black text-xl shadow-sm transition-transform group-hover:scale-105">
+                FX
+              </div>
               <div className="shrink-0">
-                <div className="text-[21px] font-black leading-none tracking-[-0.03em] text-[#080d24]">
+                <div className="text-[25px] sm:text-[27px] font-black leading-none tracking-[-0.04em] text-[#080d24]">
                   DIGITAL <span className="text-[#207de9]">FX</span>
                 </div>
-
-                <div className="mt-1 text-[8px] font-extrabold uppercase tracking-[1.8px] text-slate-500 whitespace-nowrap">
+                <div className="mt-1.5 text-[9px] sm:text-[9.5px] font-extrabold uppercase tracking-[2px] text-slate-500 whitespace-nowrap">
                   Digital Marketing That Drives Revenue®
                 </div>
               </div>
@@ -1108,12 +1087,8 @@ export default function Home() {
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 shrink-0 overflow-hidden rounded-xl shadow-xs">
-                      <img
-                        src="/logo.png"
-                        alt="Digital FX"
-                        className="w-full h-full object-contain"
-                      />
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#080d24] to-[#207de9] text-white flex items-center justify-center font-black shadow-xs">
+                      FX
                     </div>
                     <div>
                       <p className="text-lg font-black text-[#080d24] leading-tight">
@@ -1653,15 +1628,36 @@ export default function Home() {
 
                   {/* Center Core Hub Content (Strictly Centered Vector Elements at cx=520, cy=280) */}
                   <g transform="translate(520, 280)">
-                    {/* Brand Logo: Uses public/logo.png automatically */}
-                    <image
-                      href="/logo.png"
-                      x="-24"
-                      y="-58"
-                      width="48"
-                      height="48"
-                      preserveAspectRatio="xMidYMid meet"
-                    />
+                    {/* Brand Logo: Digital FX (Symmetrically Centered at x=0) */}
+                    <g transform="translate(0, -28)">
+                      <text
+                        x="10"
+                        y="0"
+                        textAnchor="end"
+                        fill="#080d24"
+                        fontSize="17px"
+                        fontWeight="900"
+                        letterSpacing="-0.4px"
+                        dominantBaseline="central"
+                      >
+                        Digital
+                      </text>
+                      <g transform="translate(16, -11)">
+                        <rect x="0" y="0" width="28" height="22" rx="5" fill="#1570ef" />
+                        <text
+                          x="14"
+                          y="11"
+                          textAnchor="middle"
+                          dominantBaseline="central"
+                          fill="#ffffff"
+                          fontSize="11.5px"
+                          fontWeight="900"
+                          letterSpacing="0.5px"
+                        >
+                          FX
+                        </text>
+                      </g>
+                    </g>
 
                     {/* Title: Revenue Engine (Strictly Centered at x=0) */}
                     <text
@@ -1752,10 +1748,10 @@ export default function Home() {
                 {/* Mobile Responsive Active Stage Summary Card */}
                 <div className="md:hidden mt-3 p-3 rounded-xl bg-white border border-slate-200 text-center shadow-xs">
                   <div className="text-xs font-black text-[#080d24]">
-                    {flywheelData[activeFlywheelQuadrant].title}
+                    {circularEngineData[activeFlywheelQuadrant].calloutTitle}
                   </div>
                   <div className="text-[11px] text-slate-600 mt-0.5 leading-relaxed">
-                    {flywheelData[activeFlywheelQuadrant].desc}
+                    {circularEngineData[activeFlywheelQuadrant].calloutDesc}
                   </div>
                 </div>
 
@@ -1854,395 +1850,134 @@ export default function Home() {
         </section>
 
         {/* ==========================================================================
-            5. REVENUE MARKETING SPLIT FUNNEL (Exact Reproduction from media_1788817718193.png)
+            5. REVENUE MARKETING — CLEAN WEBSITE COMPARISON
             ========================================================================== */}
         <section
           id="growth-dashboard"
-          className="py-20 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-slate-50 border-b border-slate-200"
+          className="py-20 sm:py-24 bg-[#f8faff] border-b border-slate-200"
         >
-          <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
-            
-            {/* Header: Move From Marketing that Reports Clicks to Marketing that Reports Revenue */}
+          <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-[920px] mx-auto">
-              <h2 className="text-[32px] sm:text-[44px] lg:text-[50px] font-black text-[#080d24] tracking-[-0.04em] leading-[1.12]">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-blue-200 text-[10px] sm:text-[11px] font-black uppercase tracking-[1.6px] text-[#1570ef] shadow-sm">
+                Revenue-focused digital marketing
+              </div>
+              <h2 className="mt-5 text-[34px] sm:text-[46px] lg:text-[54px] font-black text-[#080d24] tracking-[-0.045em] leading-[1.08]">
                 Move From Marketing that Reports Clicks to{" "}
-                <span className="block text-[#1570ef]">
+                <span className="block text-[#1570ef] mt-1">
                   Marketing that Reports Revenue
                 </span>
               </h2>
-              <p className="mt-5 text-[15px] sm:text-[17px] leading-[1.65] text-slate-600 font-normal max-w-[800px] mx-auto">
+              <p className="mt-5 text-[15.5px] sm:text-[17px] leading-[1.7] text-slate-600 font-medium max-w-[820px] mx-auto">
                 Traditional marketing optimizes for channel metrics. Revenue marketing optimizes for business impact. Connected revenue marketing through <strong className="font-extrabold text-[#080d24]">Digital FX</strong> leads to <strong className="font-extrabold text-[#1570ef]">1.8X faster lead growth than industry average</strong>.
               </p>
             </div>
 
-            {/* Split Funnel Graphic (Traditional vs Revenue Marketing) */}
-            <div className="relative max-w-[860px] mx-auto mt-10 sm:mt-14 select-none">
-              
-              <div className="relative w-full aspect-[800/460]">
-                <svg
-                  viewBox="0 0 800 460"
-                  className="w-full h-full drop-shadow-sm overflow-visible touch-none"
-                  onPointerMove={(e) => {
-                    if (funnelDragging) updateFunnelSplit(e.clientX, e.currentTarget);
-                  }}
-                  onPointerUp={() => setFunnelDragging(false)}
-                  onPointerCancel={() => setFunnelDragging(false)}
-                >
-                  <defs>
-                    {/* Glowing gradients for Right Funnel Tiers */}
-                    <linearGradient id="funnelTier1" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#1570ef" />
-                      <stop offset="100%" stopColor="#2563eb" />
-                    </linearGradient>
-                    <linearGradient id="funnelTier2" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#06b6d4" />
-                      <stop offset="100%" stopColor="#00b894" />
-                    </linearGradient>
-                    <linearGradient id="funnelTier3" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#10b981" />
-                      <stop offset="100%" stopColor="#059669" />
-                    </linearGradient>
-                    <linearGradient id="funnelTier4" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#84cc16" />
-                      <stop offset="100%" stopColor="#a3e635" />
-                    </linearGradient>
-                    
-                    {/* Slate Gradient for Left Broken Funnel */}
-                    <linearGradient id="funnelBroken" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#64748b" />
-                      <stop offset="100%" stopColor="#475467" />
-                    </linearGradient>
-                    <linearGradient id="funnelBrokenRim" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#334155" />
-                      <stop offset="100%" stopColor="#1e293b" />
-                    </linearGradient>
-                    <linearGradient id="funnelRightRim" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#1e40af" />
-                      <stop offset="100%" stopColor="#1570ef" />
-                    </linearGradient>
-
-                    {/* Funnel Drop Shadow */}
-                    <filter id="funnelShadow" x="-10%" y="-10%" width="120%" height="120%">
-                      <feDropShadow dx="0" dy="10" stdDeviation="16" floodColor="#080d24" floodOpacity="0.08" />
-                    </filter>
-                  </defs>
-
-                  {/* 1. Background Sweeping Dashed Trajectory & Feedback Loop */}
-                  <g opacity="0.85">
-                    {/* Upward Growth Trajectory Line */}
-                    <path
-                      d="M 50 290 C 180 320 260 180 380 130 C 500 80 620 180 720 50"
-                      fill="none"
-                      stroke="#5eead4"
-                      strokeWidth="2"
-                      strokeDasharray="6 6"
-                    />
-                    {/* Upward Growth Arrowhead at (720, 50) */}
-                    <polygon points="720,50 710,54 716,62" fill="#5eead4" />
-
-                    {/* Looping Closed-Loop Feedback Arrow into Funnel Top */}
-                    <path
-                      d="M 500 110 C 540 60 480 20 420 30 C 395 35 385 50 395 62"
-                      fill="none"
-                      stroke="#99f6e4"
-                      strokeWidth="2"
-                      strokeDasharray="4 4"
-                    />
-                    <polygon points="395,62 388,54 398,52" fill="#99f6e4" />
-                  </g>
-
-                  {/* 2. LEFT SIDE: Traditional Broken/Leaky Funnel */}
-                  <g
-                    className="funnel-3d-movable"
-                    filter="url(#funnelShadow)"
-                    transform={`translate(${-funnelSplit} 0)`}
-                  >
-                    {/* Left Interior Rim (Back) */}
-                    <path
-                      d="M 220 90 A 180 35 0 0 1 400 55 L 400 90 A 180 35 0 0 0 220 90 Z"
-                      fill="url(#funnelBrokenRim)"
-                    />
-
-                    {/* Left Front Body */}
-                    <path
-                      d="M 220 90 A 180 35 0 0 0 400 125 L 400 340 L 382 340 Z"
-                      fill="url(#funnelBroken)"
-                    />
-
-                    {/* Realistic Broken Cracks & Fissures on Left Funnel */}
-                    {/* Crack Line 1: Main diagonal fracture */}
-                    <path
-                      d="M 255 130 L 285 160 L 270 190 L 315 225 L 298 260 L 340 288 L 360 325"
-                      fill="none"
-                      stroke="#0f172a"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    {/* Crack Branch 1 */}
-                    <path
-                      d="M 285 160 L 325 175 L 350 205"
-                      fill="none"
-                      stroke="#0f172a"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                    {/* Crack Branch 2 */}
-                    <path
-                      d="M 315 225 L 355 235 L 375 250"
-                      fill="none"
-                      stroke="#0f172a"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                    {/* Transverse Fissure (Split gap between stages) */}
-                    <path
-                      d="M 310 245 L 398 250"
-                      fill="none"
-                      stroke="#1e293b"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                    />
-                    {/* Chipped Edge Indentation */}
-                    <polygon
-                      points="260,140 268,148 262,156 254,148"
-                      fill="#ffffff"
-                      opacity="0.95"
-                    />
-                  </g>
-
-                  {/* 3. RIGHT SIDE: 4 Vibrant Connected Revenue Marketing Tiers */}
-                  <g
-                    className="funnel-3d-movable"
-                    filter="url(#funnelShadow)"
-                    transform={`translate(${funnelSplit} 0)`}
-                  >
-                    {/* Right Interior Rim (Back) */}
-                    <path
-                      d="M 400 55 A 180 35 0 0 1 580 90 L 400 90 Z"
-                      fill="url(#funnelRightRim)"
-                    />
-
-                    {/* Tier 1: Brand Visibility (Blue) */}
-                    <path
-                      d="M 400 90 A 180 35 0 0 1 580 90 L 528 155 A 128 26 0 0 1 400 175 Z"
-                      fill="url(#funnelTier1)"
-                    />
-                    {/* Tier 1 Top Rim Surface */}
-                    <path
-                      d="M 400 90 A 180 35 0 0 1 580 90 A 180 35 0 0 1 400 125 Z"
-                      fill="#2563eb"
-                      opacity="0.8"
-                    />
-
-                    {/* Tier 2: Website Traffic (Teal / Cyan) */}
-                    <path
-                      d="M 400 175 A 128 26 0 0 0 528 155 L 476 220 A 76 18 0 0 1 400 234 Z"
-                      fill="url(#funnelTier2)"
-                    />
-
-                    {/* Tier 3: Qualified Leads (Emerald Green) */}
-                    <path
-                      d="M 400 234 A 76 18 0 0 0 476 220 L 435 285 A 35 12 0 0 1 400 294 Z"
-                      fill="url(#funnelTier3)"
-                    />
-
-                    {/* Tier 4: Sales (Lime Green) */}
-                    <path
-                      d="M 400 294 A 35 12 0 0 0 435 285 L 418 340 L 400 340 Z"
-                      fill="url(#funnelTier4)"
-                    />
-                  </g>
-
-                  {/* 4. Labels & Connectors for the 4 Tiers */}
-                  {/* Tier 1 Label: Brand Visibility */}
-                  <g className="funnel-3d-movable" transform={`translate(${funnelSplit} 0)`}>
-                    <line x1="550" y1="122" x2="615" y2="122" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
-                    <text x="622" y="126" fill="#080d24" fontSize="13px" fontWeight="800">Brand Visibility</text>
-                  </g>
-
-                  {/* Tier 2 Label: Website Traffic */}
-                  <g className="funnel-3d-movable" transform={`translate(${funnelSplit} 0)`}>
-                    <line x1="500" y1="188" x2="585" y2="188" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
-                    <text x="592" y="192" fill="#080d24" fontSize="13px" fontWeight="800">Website Traffic</text>
-                  </g>
-
-                  {/* Tier 3 Label: Qualified Leads */}
-                  <g className="funnel-3d-movable" transform={`translate(${funnelSplit} 0)`}>
-                    <line x1="455" y1="252" x2="550" y2="252" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
-                    <text x="557" y="256" fill="#080d24" fontSize="13px" fontWeight="800">Qualified Leads</text>
-                  </g>
-
-                  {/* Tier 4 Label: Sales */}
-                  <g className="funnel-3d-movable" transform={`translate(${funnelSplit} 0)`}>
-                    <line x1="426" y1="312" x2="495" y2="312" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
-                    <text x="502" y="316" fill="#080d24" fontSize="13px" fontWeight="800">Sales</text>
-                  </g>
-
-                  {/* Revenue-Backed Optimization Callout */}
-                  <g className="funnel-3d-movable" transform={`translate(${620 + funnelSplit} 315)`}>
-                    <text x="0" y="0" textAnchor="middle" fill="#00b894" fontSize="11.5px" fontWeight="900" letterSpacing="0.3px">
-                      Revenue-Backed
-                    </text>
-                    <text x="0" y="15" textAnchor="middle" fill="#00b894" fontSize="11.5px" fontWeight="900" letterSpacing="0.3px">
-                      Optimization
-                    </text>
-                  </g>
-
-                  {/* 5. Interactive Center Slicing Divider / 3D Split Handle */}
-                  <g className="funnel-3d-handle">
-                    {/* Digital FX logo — automatically loaded from /public/logo.png */}
-                    <image
-                      href="/logo.png"
-                      x="382"
-                      y="176"
-                      width="36"
-                      height="36"
-                      preserveAspectRatio="xMidYMid meet"
-                      style={{ pointerEvents: "none" }}
-                    />
-                    <line
-                      x1="400"
-                      y1="40"
-                      x2="400"
-                      y2="375"
-                      stroke="transparent"
-                      strokeWidth="28"
-                      strokeLinecap="round"
-                      onPointerDown={(e) => {
-                        const svg = e.currentTarget.ownerSVGElement;
-                        if (!svg) return;
-                        e.currentTarget.setPointerCapture(e.pointerId);
-                        setFunnelDragging(true);
-                        updateFunnelSplit(e.clientX, svg);
-                      }}
-                    />
-                    <line
-                      x1="400"
-                      y1="40"
-                      x2="400"
-                      y2="375"
-                      stroke="#080d24"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                    />
-                    <rect
-                      x="391"
-                      y="205"
-                      width="18"
-                      height="54"
-                      rx="9"
-                      fill="#ffffff"
-                      stroke="#080d24"
-                      strokeWidth="2"
-                      opacity="0.98"
-                      style={{ cursor: "ew-resize", touchAction: "none" }}
-                      onPointerDown={(e) => {
-                        const svg = e.currentTarget.ownerSVGElement;
-                        if (!svg) return;
-                        e.currentTarget.setPointerCapture(e.pointerId);
-                        setFunnelDragging(true);
-                        updateFunnelSplit(e.clientX, svg);
-                      }}
-                    />
-                    <path
-                      d="M397 222 L392 227 L397 232 M403 232 L408 227 L403 222"
-                      fill="none"
-                      stroke="#1570ef"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </g>
-                  {/* Bottom weighted anchor tip */}
-                  <polygon points="394,375 406,375 406,392 400,398 394,392" fill="#080d24" />
-
-                </svg>
-              </div>
-
-              <div className="mt-3 flex items-center justify-center gap-2 text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.14em] text-slate-400">
-                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 text-slate-500">↔</span>
-                Drag the center divider to split the 3D funnel
-              </div>
-
-              {/* Bottom Comparison Columns (Directly Aligned with Left & Right Halves) */}
-              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 max-w-[780px] mx-auto text-center md:text-left">
-                
-                {/* Left: Traditional Digital Marketing */}
-                <div className="md:pr-4">
-                  <h3 className="text-lg font-black text-[#475467]">
-                    Traditional Digital Marketing
-                  </h3>
-                  <p className="mt-2 text-xs sm:text-[13.5px] text-slate-500 font-medium leading-relaxed">
+            {/* Professional website-style comparison — no 3D funnel / AI graphic */}
+            <div className="mt-12 sm:mt-16 max-w-[1040px] mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 bg-white rounded-3xl border border-slate-200 shadow-[0_18px_55px_rgba(8,13,36,0.07)] overflow-hidden">
+                {/* Traditional side */}
+                <div className="p-7 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-slate-200 bg-white">
+                  <div className="flex items-center gap-3 mb-7">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100 border border-slate-200 text-[#475467] font-black text-lg">
+                      01
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-black uppercase tracking-[1.5px] text-slate-400">Traditional model</div>
+                      <h3 className="mt-0.5 text-[21px] sm:text-[23px] font-black text-[#475467]">Traditional Digital Marketing</h3>
+                    </div>
+                  </div>
+                  <p className="text-[14px] sm:text-[15px] text-slate-600 font-medium leading-[1.75] max-w-[470px]">
                     Siloed marketing and sales data leads to a broken, inefficient funnel that leads to decisions based on <span className="italic font-semibold">feel</span> rather than true ROI.
                   </p>
+                  <div className="mt-8 space-y-3">
+                    <div className="flex items-center gap-3 rounded-xl bg-slate-50 border border-slate-100 px-4 py-3 text-[13px] font-bold text-slate-600">
+                      <span className="h-2 w-2 rounded-full bg-slate-400" /> Channel-first reporting
+                    </div>
+                    <div className="flex items-center gap-3 rounded-xl bg-slate-50 border border-slate-100 px-4 py-3 text-[13px] font-bold text-slate-600">
+                      <span className="h-2 w-2 rounded-full bg-slate-400" /> Disconnected customer data
+                    </div>
+                    <div className="flex items-center gap-3 rounded-xl bg-slate-50 border border-slate-100 px-4 py-3 text-[13px] font-bold text-slate-600">
+                      <span className="h-2 w-2 rounded-full bg-slate-400" /> Decisions based on activity
+                    </div>
+                  </div>
                 </div>
 
-                {/* Right: Revenue Marketing */}
-                <div className="md:pl-4">
-                  <h3 className="text-lg font-black text-[#080d24]">
-                    Revenue Marketing
-                  </h3>
-                  <p className="mt-2 text-xs sm:text-[13.5px] text-slate-700 font-medium leading-relaxed">
+                {/* Revenue side */}
+                <div className="p-7 sm:p-10 lg:p-12 bg-gradient-to-br from-[#f7fbff] via-white to-[#f4f8ff]">
+                  <div className="flex items-center gap-3 mb-7">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white font-black text-lg shadow-[0_8px_20px_rgba(21,112,239,0.22)]">
+                      02
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-black uppercase tracking-[1.5px] text-[#1570ef]">Digital FX model</div>
+                      <h3 className="mt-0.5 text-[21px] sm:text-[23px] font-black text-[#080d24]">Revenue Marketing</h3>
+                    </div>
+                  </div>
+                  <p className="text-[14px] sm:text-[15px] text-slate-700 font-medium leading-[1.75] max-w-[470px]">
                     Digital FX connects your data through <strong className="text-[#080d24] font-black">Digital <span className="bg-[#1570ef] text-white px-1.5 py-0.5 rounded text-[10px] font-bold">FX</span></strong> to make revenue-backed marketing decisions that reduce cost per lead and maximize ROI.
+                  </p>
+                  <div className="mt-8 space-y-3">
+                    <div className="flex items-center gap-3 rounded-xl bg-white border border-blue-100 px-4 py-3 text-[13px] font-bold text-[#080d24] shadow-sm">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-50 text-[#1570ef]">✓</span> Revenue-linked reporting
+                    </div>
+                    <div className="flex items-center gap-3 rounded-xl bg-white border border-blue-100 px-4 py-3 text-[13px] font-bold text-[#080d24] shadow-sm">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-50 text-[#1570ef]">✓</span> Connected customer data
+                    </div>
+                    <div className="flex items-center gap-3 rounded-xl bg-white border border-blue-100 px-4 py-3 text-[13px] font-bold text-[#080d24] shadow-sm">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-50 text-[#1570ef]">✓</span> Decisions based on business impact
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-5 flex items-center justify-center gap-3 text-[10px] sm:text-[11px] font-black uppercase tracking-[1.4px] text-slate-400">
+                <span className="h-px w-12 bg-slate-200" />
+                <span>From activity to measurable business growth</span>
+                <span className="h-px w-12 bg-slate-200" />
+              </div>
+            </div>
+
+            {/* Three connected pillars — same content, larger website cards */}
+            <div className="mt-16 sm:mt-20 pt-12 sm:pt-14 border-t border-slate-200 text-center">
+              <h3 className="text-[30px] sm:text-[38px] lg:text-[42px] font-black text-[#080d24] tracking-[-0.04em] leading-tight">
+                Uniquely Positioned to Power Real Revenue Growth
+              </h3>
+              <p className="mt-4 text-[15px] sm:text-[16px] text-slate-600 max-w-[760px] mx-auto font-medium leading-[1.7]">
+                Every result our digital marketing agency delivers is powered by three connected pillars — expert execution, a revenue platform built to connect marketing to ROI, and AI-powered intelligence that informs better decisions.
+              </p>
+
+              <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-7 text-left">
+                <div className="p-7 sm:p-8 rounded-2xl bg-white border border-blue-100 hover:border-blue-300 transition-all duration-300 group hover:shadow-[0_16px_35px_rgba(21,112,239,0.08)]">
+                  <div className="inline-block text-[10px] font-black uppercase tracking-[1.4px] text-[#1570ef] bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">
+                    platform
+                  </div>
+                  <h4 className="text-[21px] sm:text-[22px] font-black text-[#080d24] mt-4 mb-2.5">Revenue Platform</h4>
+                  <p className="text-[14px] sm:text-[14.5px] text-slate-600 leading-[1.7] font-medium">
+                    Built to track, attribute, and connect multi-channel marketing spend directly to real customer inquiries and verified closed ROI.
                   </p>
                 </div>
 
-              </div>
-
-              {/* Three Connected Pillars: Platform, People, Playbooks */}
-              <div className="mt-14 pt-12 border-t border-slate-200 text-center">
-                <h3 className="text-2xl sm:text-3xl font-black text-[#080d24] tracking-tight">
-                  Uniquely Positioned to Power Real Revenue Growth
-                </h3>
-                <p className="mt-3 text-sm sm:text-[15px] text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
-                  Every result our digital marketing agency delivers is powered by three connected pillars — expert execution, a revenue platform built to connect marketing to ROI, and AI-powered intelligence that informs better decisions.
-                </p>
-
-                <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                  {/* Pillar 1: Platform */}
-                  <div className="p-6 rounded-2xl bg-[#f8faff] border border-blue-100 hover:border-blue-300 transition-all duration-300 group hover:shadow-md">
-                    <div className="inline-block text-[11px] font-black uppercase tracking-wider text-[#1570ef] bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-                      platform
-                    </div>
-                    <h4 className="text-lg font-black text-[#080d24] mt-3 mb-2">
-                      Revenue Platform
-                    </h4>
-                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-medium">
-                      Built to track, attribute, and connect multi-channel marketing spend directly to real customer inquiries and verified closed ROI.
-                    </p>
+                <div className="p-7 sm:p-8 rounded-2xl bg-white border border-emerald-100 hover:border-emerald-300 transition-all duration-300 group hover:shadow-[0_16px_35px_rgba(16,185,129,0.08)]">
+                  <div className="inline-block text-[10px] font-black uppercase tracking-[1.4px] text-emerald-600 bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200">
+                    people
                   </div>
+                  <h4 className="text-[21px] sm:text-[22px] font-black text-[#080d24] mt-4 mb-2.5">Strategic Execution</h4>
+                  <p className="text-[14px] sm:text-[14.5px] text-slate-600 leading-[1.7] font-medium">
+                    Dedicated senior growth strategists, copywriters, and media buyers actively managing Search, Meta ads, local Maps, and funnels.
+                  </p>
+                </div>
 
-                  {/* Pillar 2: People */}
-                  <div className="p-6 rounded-2xl bg-[#f8fafc] border border-emerald-100 hover:border-emerald-300 transition-all duration-300 group hover:shadow-md">
-                    <div className="inline-block text-[11px] font-black uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                      people
-                    </div>
-                    <h4 className="text-lg font-black text-[#080d24] mt-3 mb-2">
-                      Strategic Execution
-                    </h4>
-                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-medium">
-                      Dedicated senior growth strategists, copywriters, and media buyers actively managing Search, Meta ads, local Maps, and funnels.
-                    </p>
+                <div className="p-7 sm:p-8 rounded-2xl bg-white border border-purple-100 hover:border-purple-300 transition-all duration-300 group hover:shadow-[0_16px_35px_rgba(168,85,247,0.08)]">
+                  <div className="inline-block text-[10px] font-black uppercase tracking-[1.4px] text-purple-600 bg-purple-50 px-3.5 py-1.5 rounded-full border border-purple-200">
+                    playbooks
                   </div>
-
-                  {/* Pillar 3: Playbooks */}
-                  <div className="p-6 rounded-2xl bg-[#faf8ff] border border-purple-100 hover:border-purple-300 transition-all duration-300 group hover:shadow-md">
-                    <div className="inline-block text-[11px] font-black uppercase tracking-wider text-purple-600 bg-purple-50 px-3 py-1 rounded-full border border-purple-200">
-                      playbooks
-                    </div>
-                    <h4 className="text-lg font-black text-[#080d24] mt-3 mb-2">
-                      AI-Powered Intelligence
-                    </h4>
-                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-medium">
-                      Continuous data feedback loops and predictive models feeding Google Search, AI Overviews, and generative engine algorithms.
-                    </p>
-                  </div>
+                  <h4 className="text-[21px] sm:text-[22px] font-black text-[#080d24] mt-4 mb-2.5">AI-Powered Intelligence</h4>
+                  <p className="text-[14px] sm:text-[14.5px] text-slate-600 leading-[1.7] font-medium">
+                    Continuous data feedback loops and predictive models feeding Google Search, AI Overviews, and generative engine algorithms.
+                  </p>
                 </div>
               </div>
-
             </div>
-
           </div>
         </section>
 
@@ -2887,12 +2622,8 @@ export default function Home() {
               {/* Brand Info */}
               <div className="lg:col-span-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 shrink-0 overflow-hidden rounded-xl shadow-sm">
-                    <img
-                      src="/logo.png"
-                      alt="Digital FX"
-                      className="w-full h-full object-contain"
-                    />
+                  <div className="w-10 h-10 rounded-xl bg-[#207de9] flex items-center justify-center font-black text-white text-lg">
+                    FX
                   </div>
                   <div>
                     <div className="text-xl font-black text-white">DIGITAL <span className="text-[#207de9]">FX</span></div>
@@ -2988,12 +2719,8 @@ export default function Home() {
               {/* Top Institutional Header Bar - Big Bold Typography */}
               <div className="bg-[#080d24] text-white px-6 sm:px-8 py-5 border-b border-slate-800 flex items-center justify-between">
                 <div className="flex items-center gap-3.5">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl shadow-md border border-white/10 bg-white">
-                    <img
-                      src="/logo.png"
-                      alt="Digital FX"
-                      className="h-full w-full object-contain"
-                    />
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-tr from-[#080d24] to-[#207de9] font-black text-sm text-white shadow-md border border-white/10">
+                    FX
                   </div>
                   <div>
                     <div className="flex flex-wrap items-center gap-2.5">
@@ -3540,12 +3267,8 @@ export default function Home() {
                 {/* Agency Brand Header */}
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white shadow-sm">
-                      <img
-                        src="/logo.png"
-                        alt="Digital FX"
-                        className="h-full w-full object-contain"
-                      />
+                    <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#207de9] font-black text-xs text-white">
+                      FX
                     </span>
                     <div>
                       <span className="text-[11.5px] font-black uppercase tracking-[1.5px] text-white block leading-none">
