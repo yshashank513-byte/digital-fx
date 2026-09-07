@@ -1069,7 +1069,7 @@ export default function Home() {
         </div>
 
         {/* GLOBAL SERVICE TICKER ANIMATION */}
-        <style jsx global>{`
+        <style>{`
           .ticker-track {
             display: flex;
             width: max-content;
@@ -1575,7 +1575,7 @@ export default function Home() {
           </div>
         </div>
 
-        <style jsx>{`
+        <style>{`
           .trusted-logo-marquee {
             width: 100%;
             overflow: hidden;
@@ -1993,7 +1993,7 @@ export default function Home() {
 
         </div>
 
-        <style jsx>{`
+        <style>{`
           .digitalfx-marquee-track {
             animation: digitalTicker 32s linear infinite;
             will-change: transform;
@@ -3773,7 +3773,7 @@ export default function Home() {
           </div>
         </div>
 
-        <style jsx>{`
+        <style>{`
           .testimonial-track {
             display: flex;
             width: max-content;
