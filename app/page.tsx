@@ -2755,7 +2755,7 @@ export default function Home() {
 
                       {/* 1. WALI PHOTO: Robot FX Mascot Emblem */}
                       <image
-                        href="/.user_uploaded/media_1788896008146.png"
+                        href="/robot-fx.png"
                         x="415"
                         y="145"
                         width="90"
@@ -2928,7 +2928,7 @@ export default function Home() {
                     </div>
                     <div className="flex items-center justify-center gap-3">
                       <img
-                        src="/.user_uploaded/media_1788896008146.png"
+                        src="/robot-fx.png"
                         alt="Digital FX AI Mascot"
                         className="w-12 h-12 rounded-full border-2 border-[#00f0ff] shadow-md object-cover"
                       />
@@ -4692,6 +4692,7 @@ export default function Home() {
 
                 </div>
 
+              </div>
             </div>
           </div>
         )}
