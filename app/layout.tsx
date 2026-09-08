@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.digitalfx.in"),
 
   title: {
-    default: "Digital Marketing Agency in Ghaziabad | Digital FX",
+    default: "Digital FX / digital market agency in ghaziabad",
     template: "%s | Digital FX",
   },
 
@@ -50,25 +50,25 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.digitalfx.in",
     siteName: "Digital FX",
-    title: "Digital Marketing Agency in Ghaziabad | Digital FX",
+    title: "Digital FX / digital market agency in ghaziabad",
     description:
       "Digital FX helps businesses grow online with SEO, Google Ads, social media marketing, website development, branding, local SEO and lead generation.",
     images: [
       {
-        url: "/logo.webp",
+        url: "/logo-white-bg.png",
         width: 512,
         height: 512,
-        alt: "Digital FX - Digital Marketing Agency in Ghaziabad",
+        alt: "Digital FX / digital market agency in ghaziabad",
       },
     ],
   },
 
   twitter: {
     card: "summary",
-    title: "Digital Marketing Agency in Ghaziabad | Digital FX",
+    title: "Digital FX / digital market agency in ghaziabad",
     description:
       "SEO, Google Ads, social media marketing, websites, branding, local SEO and lead generation solutions by Digital FX.",
-    images: ["/logo.webp"],
+    images: ["/logo-white-bg.png"],
   },
 
   robots: {
@@ -84,9 +84,19 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/logo.webp",
-    apple: "/logo.webp",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
   },
+
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
@@ -111,7 +121,7 @@ export default function RootLayout({
 
               url: "https://www.digitalfx.in",
 
-              logo: "https://www.digitalfx.in/logo.webp",
+              logo: "https://www.digitalfx.in/logo-white-bg.png",
 
               description:
                 "Digital FX is a digital marketing agency in Ghaziabad providing SEO, Google Ads, social media marketing, website development, branding, local SEO and lead generation solutions.",
