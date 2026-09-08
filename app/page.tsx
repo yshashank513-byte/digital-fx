@@ -815,13 +815,25 @@ export default function Home() {
     }, 500);
   }
 
-  function handleHeroProposal(e: FormEvent) {
-    e.preventDefault();
-    if (heroWebsite.trim()) {
-      setGeoWebsite(heroWebsite.trim());
-    }
-    scrollToContact();
-  }
+  const circularEngineData = [
+    {
+      calloutTitle: "Stay Visible & Drive Traffic",
+      calloutDesc: "Get your brand in front of ready-to-buy customers in Search & AI.",
+    },
+    {
+      calloutTitle: "Capture & Nurture Leads",
+      calloutDesc: "Turn high-intent visitors into sales-ready qualified pipeline.",
+    },
+    {
+      calloutTitle: "Closed-Loop ROI Scale",
+      calloutDesc: "Attribute real pipeline value & closed revenue to your marketing.",
+    },
+    {
+      calloutTitle: "AI Overview & GEO Engine",
+      calloutDesc: "Continuous feedback loop feeding high-intent AI search algorithms.",
+    },
+  ];
+
 
   const flywheelData = [
     {
