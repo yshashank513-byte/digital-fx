@@ -1106,8 +1106,12 @@ export default function Home() {
 
             {/* Brand Logo */}
             <a href="#home" className="flex items-center gap-3 shrink-0 group">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-[#080d24] to-[#207de9] text-white font-extrabold text-base shadow-sm transition-transform group-hover:scale-105">
-                FX
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white border border-slate-200/90 shadow-xs transition-transform group-hover:scale-105 p-1">
+                <img
+                  src="/logo.png"
+                  alt="Digital FX"
+                  className="h-full w-full object-contain"
+                />
               </div>
               <div className="shrink-0">
                 <div className="text-[21px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
@@ -1187,8 +1191,8 @@ export default function Home() {
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#080d24] to-[#207de9] text-white flex items-center justify-center font-black shadow-xs">
-                      FX
+                    <div className="w-10 h-10 rounded-xl bg-white border border-slate-200/90 shadow-xs flex items-center justify-center overflow-hidden p-1 shrink-0">
+                      <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
                     </div>
                     <div>
                       <p className="text-lg font-black text-[#080d24] leading-tight">
@@ -4169,8 +4173,8 @@ export default function Home() {
             {/* Office & Brand Identity Strip */}
             <div className="py-8 border-b border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-300">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#207de9] flex items-center justify-center font-extrabold text-white text-base shrink-0">
-                  FX
+                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center overflow-hidden p-1 shrink-0 shadow-sm">
+                  <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
                 </div>
                 <div>
                   <div className="text-base font-extrabold text-white">DIGITAL <span className="text-[#207de9]">FX</span></div>
@@ -4321,8 +4325,8 @@ export default function Home() {
               {/* Top Institutional Header Bar - Big Bold Typography */}
               <div className="bg-[#080d24] text-white px-6 sm:px-8 py-5 border-b border-slate-800 flex items-center justify-between">
                 <div className="flex items-center gap-3.5">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-tr from-[#080d24] to-[#207de9] font-bold text-sm text-white shadow-md border border-white/10">
-                    FX
+                  <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white p-1 shadow-md border border-white/20 shrink-0">
+                    <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
                   </div>
                   <div>
                     <div className="flex flex-wrap items-center gap-2.5">
@@ -5136,8 +5140,8 @@ export default function Home() {
             <div className="fixed bottom-24 right-6 w-[360px] sm:w-[400px] h-[520px] max-h-[85vh] bg-white rounded-2xl shadow-2xl border border-slate-200/90 flex flex-col overflow-hidden animate-fadeIn">
               <div className="bg-[#080d24] p-4 text-white flex justify-between items-center border-b border-white/10">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#207de9] to-[#0ea5e9] flex items-center justify-center text-white font-bold text-sm shadow-inner">
-                    FX
+                  <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center overflow-hidden p-1 shadow-inner shrink-0">
+                    <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
                   </div>
                   <div>
                     <h4 className="text-xs font-bold tracking-wide text-white">Senior Growth Advisory Desk</h4>
