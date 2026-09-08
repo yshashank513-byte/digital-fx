@@ -531,6 +531,22 @@ export default function Home() {
     }
   }
 
+  function scrollToServices(e?: React.MouseEvent) {
+    if (e) e.preventDefault();
+    const servicesSection = document.getElementById("services");
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
+  function scrollToSection(sectionId: string, e?: React.MouseEvent) {
+    if (e) e.preventDefault();
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
   useEffect(() => {
     async function loadServices() {
       try {
@@ -3742,12 +3758,11 @@ export default function Home() {
                 </div>
                 <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
                   <a
-                    href="https://www.webfx.com/blog/seo/where-and-why-google-ai-overviews-appear-2-3m-keywords-study/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1570ef] group-hover:underline"
+                    href="#geo-checker"
+                    onClick={scrollToGeoAudit}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1570ef] hover:underline cursor-pointer"
                   >
-                    Read more <span className="transition-transform group-hover:translate-x-1">→</span>
+                    Run AI Search Audit <span className="transition-transform group-hover:translate-x-1">→</span>
                   </a>
                   <span className="text-[11px] text-slate-400 font-medium">Study Report</span>
                 </div>
@@ -3771,12 +3786,11 @@ export default function Home() {
                 </div>
                 <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
                   <a
-                    href="https://www.webfx.com/blog/seo/gen-ai-search-trends/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 group-hover:underline"
+                    href="#geo-checker"
+                    onClick={scrollToGeoAudit}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:underline cursor-pointer"
                   >
-                    Read more <span className="transition-transform group-hover:translate-x-1">→</span>
+                    Explore GEO Strategy <span className="transition-transform group-hover:translate-x-1">→</span>
                   </a>
                   <span className="text-[11px] text-slate-400 font-medium">Trend Analysis</span>
                 </div>
@@ -3799,14 +3813,13 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
-                  <a
-                    href="https://www.webfx.com/blog/seo/emerging-ai-search-trends-gen-z/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 group-hover:underline"
+                  <button
+                    type="button"
+                    onClick={() => setIsAiSuiteOpen(true)}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:underline cursor-pointer"
                   >
-                    Read more <span className="transition-transform group-hover:translate-x-1">→</span>
-                  </a>
+                    Preview AI Suite <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </button>
                   <span className="text-[11px] text-slate-400 font-medium">User Insights</span>
                 </div>
               </div>
@@ -3830,12 +3843,10 @@ export default function Home() {
 
               <div className="shrink-0">
                 <a
-                  href="https://www.webfx.com/careers/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="mailto:careers@digitalfx.in?subject=Career%20Application%20at%20Digital%20FX"
                   className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5"
                 >
-                  View Opportunity →
+                  Join Our Team →
                 </a>
               </div>
             </div>
@@ -4171,17 +4182,17 @@ export default function Home() {
         </section>
 
         {/* ==========================================================================
-            11. WEBFX MEGA FOOTER (Celebrating 30 Years of Digital Marketing Excellence)
+            11. DIGITAL FX MEGA FOOTER
             ========================================================================== */}
         <footer className="bg-[#080d24] text-white pt-16 pb-12 border-t border-white/10">
           <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             
-            {/* Top Bar: Celebrating 30 Years & Give us a ring CTA */}
+            {/* Top Bar: Premier Digital Marketing & Give us a ring CTA */}
             <div className="pb-10 border-b border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
               <div>
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-bold tracking-wider uppercase mb-3">
-                  <span className="text-amber-400 text-sm">★</span>
-                  Celebrating 30 Years of Digital Marketing Excellence
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-300 text-xs font-bold tracking-wider uppercase mb-3">
+                  <span className="text-blue-400 text-sm">★</span>
+                  Premier Digital Marketing &amp; GEO AI Search Agency
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                   Ready to speak with a marketing expert? <span className="text-[#207de9]">Give us a ring</span>
@@ -4218,7 +4229,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="text-base font-extrabold text-white">DIGITAL <span className="text-[#207de9]">FX</span></div>
-                  <div className="text-[9px] font-bold uppercase tracking-wider text-slate-400">Powered by WebFX Technology</div>
+                  <div className="text-[9px] font-bold uppercase tracking-wider text-slate-400">Digital Marketing That Drives Revenue®</div>
                 </div>
               </div>
 
@@ -4256,30 +4267,30 @@ export default function Home() {
                   Services
                 </h4>
                 <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><a href="https://www.webfx.com/digital-marketing/services/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Digital Marketing Services</a></li>
-                  <li><a href="https://www.webfx.com/seo/services/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">SEO Services</a></li>
-                  <li><a href="https://www.webfx.com/ppc/services/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">PPC Services</a></li>
-                  <li><a href="https://www.webfx.com/content-marketing/services/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Content Marketing Services</a></li>
-                  <li><a href="https://www.webfx.com/social-media/services/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Social Media Services</a></li>
-                  <li><a href="https://www.webfx.com/web-design/services/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Web Design Services</a></li>
-                  <li><a href="https://www.webfx.com/digital-advertising/services/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Digital Advertising Services</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">Digital Marketing Strategy</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">SEO &amp; Organic Ranking</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">PPC &amp; Google Ads Campaign</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">Content &amp; Inbound Marketing</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">Social Media Acceleration</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">Full-Stack Web Development</a></li>
+                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition text-[#207de9] font-medium">GEO AI Optimization →</a></li>
                 </ul>
               </div>
 
-              {/* Column 2: Knowledgebase */}
+              {/* Column 2: Solutions */}
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  Knowledgebase
+                  Solutions
                 </h4>
                 <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><a href="https://www.webfx.com/digital-marketing/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Digital Marketing</a></li>
-                  <li><a href="https://www.webfx.com/seo/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">SEO</a></li>
-                  <li><a href="https://www.webfx.com/ppc/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">PPC</a></li>
-                  <li><a href="https://www.webfx.com/content-marketing/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Content Marketing</a></li>
-                  <li><a href="https://www.webfx.com/social-media/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Social Media</a></li>
-                  <li><a href="https://www.webfx.com/web-design/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Web Design</a></li>
-                  <li><a href="https://www.webfx.com/blog/ai/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">AI</a></li>
+                  <li><button type="button" onClick={() => openPricingModal("google_listing")} className="text-left hover:text-white transition cursor-pointer">Google Maps Top 3 Rank</button></li>
+                  <li><button type="button" onClick={() => openPricingModal("website")} className="text-left hover:text-white transition cursor-pointer">High-Converting Websites</button></li>
+                  <li><button type="button" onClick={() => openPricingModal("growth")} className="text-left hover:text-white transition cursor-pointer">360° Growth Retainer</button></li>
+                  <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition cursor-pointer">Custom Retainer Payment</button></li>
+                  <li><a href="#home" onClick={(e) => scrollToSection("home", e)} className="hover:text-white transition">Revenue Engine Matrix</a></li>
+                  <li><a href="#growth-dashboard" onClick={(e) => scrollToSection("growth-dashboard", e)} className="hover:text-white transition">Performance Dashboard</a></li>
+                  <li><button type="button" onClick={() => setIsAiSuiteOpen(true)} className="text-left hover:text-white transition cursor-pointer text-emerald-400 font-medium">AI Business Suite (Preview)</button></li>
                 </ul>
               </div>
 
@@ -4290,30 +4301,30 @@ export default function Home() {
                   Company
                 </h4>
                 <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><a href="https://www.webfx.com/about/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">About Us</a></li>
-                  <li><a href="https://www.webfx.com/careers/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Careers</a></li>
-                  <li><a href="https://www.webfx.com/about/charities/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Community Impact</a></li>
-                  <li><a href="https://www.webfx.com/contact/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Contact Us</a></li>
-                  <li><a href="https://www.webfx.com/industries/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Industries We Serve</a></li>
-                  <li><a href="https://www.webfx.com/locations/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Locations</a></li>
-                  <li><a href="https://www.webfx.com/careers/notice/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Phishing Scam Alert</a></li>
+                  <li><a href="#home" onClick={scrollToTop} className="hover:text-white transition">About Digital FX</a></li>
+                  <li><a href="#case-studies" onClick={(e) => scrollToSection("case-studies", e)} className="hover:text-white transition">Client Case Studies</a></li>
+                  <li><a href="#case-studies" onClick={(e) => scrollToSection("case-studies", e)} className="hover:text-white transition">Verified 5-Star Reviews</a></li>
+                  <li><a href="#contact" onClick={scrollToContact} className="hover:text-white transition">Contact Strategy Team</a></li>
+                  <li><a href="#insights" onClick={(e) => scrollToSection("insights", e)} className="hover:text-white transition">Industry Research</a></li>
+                  <li><a href="https://share.google/EIVnaRy9WhkPCi8U8" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Ghaziabad HQ Map ↗</a></li>
+                  <li><a href="mailto:careers@digitalfx.in" className="hover:text-white transition">Careers (Join Us)</a></li>
                 </ul>
               </div>
 
-              {/* Column 4: Tools */}
+              {/* Column 4: Growth Tools */}
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-                  Tools
+                  Growth Tools
                 </h4>
                 <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><a href="https://www.webfx.com/web-design/color-picker/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Color Picker</a></li>
-                  <li><a href="https://www.webfx.com/tools/conversion-rate-calculator/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Conversion Rate Calculator</a></li>
-                  <li><a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Emoji Cheat Sheet</a></li>
-                  <li><a href="https://www.webfx.com/tools/lorem-ipsum-generator/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Lorem Ipsum Generator</a></li>
-                  <li><a href="https://www.webfx.com/tools/read-able/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Readability Checker</a></li>
-                  <li><a href="https://www.webfx.com/tools/roas-calculator/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">ROAS Calculator</a></li>
-                  <li><a href="https://www.webfx.com/tools/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition font-semibold text-[#207de9]">All Tools →</a></li>
+                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition font-medium text-emerald-400">GEO AI Search Audit</a></li>
+                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition">ChatGPT Citation Diagnostic</a></li>
+                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition">Gemini AI Visibility Checker</a></li>
+                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition">Local Pack SEO Diagnostic</a></li>
+                  <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition cursor-pointer">Official PayU Terminal</button></li>
+                  <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition cursor-pointer">Retainer Calculator</button></li>
+                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition font-semibold text-[#207de9]">Run Instant Audit →</a></li>
                 </ul>
               </div>
 
@@ -4321,16 +4332,16 @@ export default function Home() {
               <div className="col-span-2 sm:col-span-1">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                  Explore
+                  Explore &amp; Grow
                 </h4>
                 <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><a href="https://www.webfx.com/blog/seo/2019-search-market-share/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">The Modern Search Market</a></li>
-                  <li><a href="https://www.webfx.com/blog/ai/generative-engine-optimization/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Generative Engine Optimization</a></li>
-                  <li><a href="https://www.webfx.com/blog/ai/ai-brand-discovery-research/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Brand Discovery in AI Search</a></li>
-                  <li><a href="https://www.webfx.com/blog/ai/geo-benchmarks/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">AI Search Benchmarks</a></li>
-                  <li><a href="https://www.webfx.com/blog/ai/chatgpt-ads-manager/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Advertising on ChatGPT</a></li>
-                  <li><a href="https://www.webfx.com/blog/marketing/roas/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Return on Ad Spend</a></li>
-                  <li><a href="https://www.webfx.com/blog/marketing/revenue-marketing/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Revenue Marketing Playbook</a></li>
+                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition">Generative Engine Optimization</a></li>
+                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition">The Future of Search &amp; AI</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">10x Revenue Acceleration</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">Local Business Lead Engine</a></li>
+                  <li><a href="#contact" onClick={scrollToContact} className="hover:text-white transition">Regional Market Dominance</a></li>
+                  <li><a href="#contact" onClick={scrollToContact} className="hover:text-white transition">Book Discovery Call</a></li>
+                  <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition font-semibold text-emerald-400 cursor-pointer">Instant Checkout Desk →</button></li>
                 </ul>
               </div>
 
@@ -4339,16 +4350,16 @@ export default function Home() {
             {/* Bottom Bar / Sub-footer */}
             <div className="mt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 gap-4">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-center sm:text-left">
-                <span className="font-bold text-white">Proudly brought to you by WebFX</span>
+                <span className="font-bold text-white">Digital FX®</span>
                 <span className="hidden sm:inline text-slate-600">•</span>
-                <span className="font-normal">WebFX® 1995-2026</span>
+                <span className="font-normal">Premier Digital Marketing &amp; GEO AI Search Agency</span>
                 <span className="hidden sm:inline text-slate-600">•</span>
                 <span className="font-normal">© {new Date().getFullYear()} Digital FX®. All rights reserved.</span>
               </div>
               <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-6 font-normal">
-                <a href="https://www.webfx.com/sitemap/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Sitemap</a>
-                <a href="https://www.webfx.com/privacy-policy/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Privacy &amp; Terms of Use</a>
-                <a href="https://www.webfx.com/my-data-preferences/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition text-[#207de9] font-medium">Your Privacy Choices</a>
+                <a href="#services" onClick={scrollToServices} className="hover:text-white transition cursor-pointer">Sitemap &amp; Services</a>
+                <a href="#contact" onClick={scrollToContact} className="hover:text-white transition cursor-pointer">Privacy &amp; Terms of Use</a>
+                <button type="button" onClick={() => openPricingModal("custom")} className="hover:text-white transition text-[#207de9] font-medium cursor-pointer">Client Billing Portal</button>
               </div>
             </div>
 
