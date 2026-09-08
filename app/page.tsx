@@ -759,35 +759,55 @@ export default function Home() {
     setPaymentError("");
 
     try {
-      const response = await fetch("/api/payu/initiate", {
+      const response = await fetch("/api/payu/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           planId: selectedPaymentPlan.id,
+          firstname: name,
           name,
           email,
           phone,
         }),
       });
 
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data?.error || "Unable to initiate payment.");
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        const rawText = await response.text();
+        console.error("Non-JSON payment response:", rawText);
+        throw new Error(`Payment service returned an unexpected response (${response.status}). Please try again.`);
       }
+
+      const result = await response.json();
+      if (!response.ok || result?.success === false) {
+        throw new Error(result?.error || "Unable to initiate payment.");
+      }
+
+      const payuData = result.data || result;
+      const actionUrl = payuData.action || payuData.actionUrl || result.actionUrl || "https://test.payu.in/_payment";
+      const params = payuData.params || payuData;
 
       const form = document.createElement("form");
       form.method = "POST";
-      form.action = data.actionUrl;
+      form.action = actionUrl;
 
-      Object.entries(data.params as Record<string, string>).forEach(
-        ([key, value]) => {
+      Object.entries(params as Record<string, unknown>).forEach(([key, value]) => {
+        if (
+          key !== "action" &&
+          key !== "actionUrl" &&
+          key !== "params" &&
+          key !== "success" &&
+          key !== "data" &&
+          value !== undefined &&
+          value !== null
+        ) {
           const input = document.createElement("input");
           input.type = "hidden";
           input.name = key;
-          input.value = value;
+          input.value = String(value);
           form.appendChild(input);
         }
-      );
+      });
 
       document.body.appendChild(form);
       form.submit();

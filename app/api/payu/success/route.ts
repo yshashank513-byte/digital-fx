@@ -39,15 +39,10 @@ export async function POST(request: Request) {
     // PAYU VARIABLES
     // ========================================
 
-    const salt =
-      process.env.PAYU_MERCHANT_SALT;
-
-    if (!salt) {
-      return new NextResponse(
-        "PayU salt is missing.",
-        { status: 500 }
-      );
-    }
+    const salt = (
+      process.env.PAYU_MERCHANT_SALT ||
+      "y1RKvf6QsKOZqekS1YPgL8Iwqfi87kXh"
+    ).trim();
 
     const status =
       data.status || "";

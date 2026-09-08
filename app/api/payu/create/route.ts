@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     ).trim() as PlanId;
 
     const firstname = String(
-      body?.firstname || ""
+      body?.firstname || body?.name || ""
     ).trim();
 
     const email = String(
@@ -87,42 +87,22 @@ export async function POST(request: Request) {
     }
 
     // ========================================
-    // PAYU CREDENTIALS
+    // PAYU CREDENTIALS (WITH TEST FALLBACK)
     // ========================================
 
-    const merchantKey =
-      process.env.PAYU_MERCHANT_KEY?.trim();
+    const merchantKey = (
+      process.env.PAYU_MERCHANT_KEY || "Keiaiw"
+    ).trim();
 
-    const merchantSalt =
-      process.env.PAYU_MERCHANT_SALT?.trim();
+    const merchantSalt = (
+      process.env.PAYU_MERCHANT_SALT || "y1RKvf6QsKOZqekS1YPgL8Iwqfi87kXh"
+    ).trim();
 
-    const siteUrl =
-      (
-        process.env.NEXT_PUBLIC_SITE_URL ||
-        "http://localhost:3000"
-      ).trim();
-
-    if (!merchantKey) {
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "PAYU_MERCHANT_KEY is missing from .env.local",
-        },
-        { status: 500 }
-      );
-    }
-
-    if (!merchantSalt) {
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "PAYU_MERCHANT_SALT is missing from .env.local",
-        },
-        { status: 500 }
-      );
-    }
+    const requestUrl = new URL(request.url);
+    const siteUrl = (
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      `${requestUrl.protocol}//${requestUrl.host}`
+    ).replace(/\/$/, "");
 
     // ========================================
     // PLAN
@@ -257,43 +237,35 @@ export async function POST(request: Request) {
     // PAYU CHECKOUT
     // ========================================
 
+    const payuAction =
+      process.env.PAYU_ACTION_URL || "https://test.payu.in/_payment";
+
+    const payuParams = {
+      key: merchantKey,
+      txnid,
+      amount,
+      productinfo,
+      firstname,
+      email,
+      phone,
+      udf1,
+      udf2,
+      udf3,
+      udf4,
+      udf5,
+      hash,
+      surl: `${siteUrl}/api/payu/success`,
+      furl: `${siteUrl}/api/payu/failure`,
+      curl: `${siteUrl}/api/payu/failure`,
+    };
+
     return NextResponse.json({
       success: true,
-
+      actionUrl: payuAction,
+      params: payuParams,
       data: {
-        key: merchantKey,
-
-        txnid,
-
-        amount,
-
-        productinfo,
-
-        firstname,
-
-        email,
-
-        phone,
-
-        udf1,
-        udf2,
-        udf3,
-        udf4,
-        udf5,
-
-        hash,
-
-        surl:
-          `${siteUrl}/api/payu/success`,
-
-        furl:
-          `${siteUrl}/api/payu/failure`,
-
-        curl:
-          `${siteUrl}/api/payu/failure`,
-
-        action:
-          "https://test.payu.in/_payment",
+        ...payuParams,
+        action: payuAction,
       },
     });
   } catch (error) {
