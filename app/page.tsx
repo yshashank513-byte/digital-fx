@@ -37,7 +37,7 @@ type GeoResult = {
 };
 
 type PaymentPlan = {
-  id: "google_listing" | "website" | "growth";
+  id: "google_listing" | "website" | "growth" | "custom";
   name: string;
   amount: string;
 };
@@ -404,6 +404,11 @@ const paymentPlans: PaymentPlan[] = [
     name: "Business Growth Package",
     amount: "9999",
   },
+  {
+    id: "custom",
+    name: "Custom Amount / Bespoke Retainer",
+    amount: "15000",
+  },
 ];
 
 export default function Home() {
@@ -440,6 +445,7 @@ export default function Home() {
 
   const [selectedPaymentPlan, setSelectedPaymentPlan] =
     useState<PaymentPlan | null>(paymentPlans[2]);
+  const [customPaymentAmount, setCustomPaymentAmount] = useState<string>("15000");
   const [paymentOpen, setPaymentOpen] = useState(false);
   const [paymentName, setPaymentName] = useState("");
   const [paymentEmail, setPaymentEmail] = useState("");
@@ -755,6 +761,18 @@ export default function Home() {
       return;
     }
 
+    const isCustomPlan = selectedPaymentPlan.id === "custom";
+    let finalAmount = selectedPaymentPlan.amount;
+
+    if (isCustomPlan) {
+      const customVal = Number(customPaymentAmount);
+      if (!customVal || isNaN(customVal) || customVal < 1) {
+        setPaymentError("Please enter a valid custom amount in INR (minimum ₹1).");
+        return;
+      }
+      finalAmount = String(customVal);
+    }
+
     setPaymentLoading(true);
     setPaymentError("");
 
@@ -764,6 +782,8 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           planId: selectedPaymentPlan.id,
+          customAmount: isCustomPlan ? finalAmount : undefined,
+          amount: finalAmount,
           firstname: name,
           name,
           email,
@@ -4579,6 +4599,118 @@ export default function Home() {
                           </li>
                         </ul>
                       </div>
+
+                      {/* Plan 4: Custom Amount (Client's Choice) */}
+                      <div
+                        onClick={() => setSelectedPaymentPlan(paymentPlans[3])}
+                        className={`p-5 rounded-2xl border transition-all cursor-pointer relative ${
+                          selectedPaymentPlan?.id === "custom"
+                            ? "bg-white border-[#207de9] shadow-md ring-2 ring-[#207de9]/20"
+                            : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 shadow-xs"
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-start gap-3.5">
+                            <div className={`w-5 h-5 rounded-full border mt-1 flex items-center justify-center shrink-0 transition ${
+                              selectedPaymentPlan?.id === "custom"
+                                ? "border-[#207de9] bg-[#207de9]"
+                                : "border-slate-300 bg-white"
+                            }`}>
+                              {selectedPaymentPlan?.id === "custom" && (
+                                <span className="w-2 h-2 rounded-full bg-white block" />
+                              )}
+                            </div>
+                            <div>
+                              <div className="flex flex-wrap items-center gap-2">
+                                <span className="text-base sm:text-lg font-bold text-[#080d24]">
+                                  Custom Amount / Retainer
+                                </span>
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-md">
+                                  YOUR CHOICE
+                                </span>
+                              </div>
+                              <div className="text-xs sm:text-[13px] text-slate-500 font-normal mt-0.5">
+                                Apni marzi ka payment amount bhar kar instantly PayU se pay karein
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="text-right shrink-0">
+                            <div className="text-xl sm:text-2xl font-extrabold text-[#207de9] tabular-nums">
+                              ₹{customPaymentAmount ? Number(customPaymentAmount).toLocaleString("en-IN") : "0"}
+                            </div>
+                            <div className="text-[9.5px] font-bold text-slate-400 uppercase tracking-wider">Custom Scope</div>
+                          </div>
+                        </div>
+
+                        {/* Interactive Custom Amount Input */}
+                        <div className="mt-3.5 pt-3.5 border-t border-slate-100" onClick={(e) => e.stopPropagation()}>
+                          <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                            Enter Custom Amount in INR (₹) *
+                          </label>
+                          <div className="relative">
+                            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600 font-extrabold text-base pointer-events-none">
+                              ₹
+                            </span>
+                            <input
+                              type="number"
+                              min="1"
+                              step="1"
+                              value={customPaymentAmount}
+                              onChange={(e) => {
+                                setCustomPaymentAmount(e.target.value);
+                                if (selectedPaymentPlan?.id !== "custom") {
+                                  setSelectedPaymentPlan(paymentPlans[3]);
+                                }
+                              }}
+                              onFocus={() => {
+                                if (selectedPaymentPlan?.id !== "custom") {
+                                  setSelectedPaymentPlan(paymentPlans[3]);
+                                }
+                              }}
+                              placeholder="e.g. 15000"
+                              className="w-full pl-9 pr-4 py-3 bg-slate-50 border border-slate-300 focus:border-[#207de9] focus:bg-white rounded-xl text-slate-900 font-extrabold text-lg focus:outline-none focus:ring-2 focus:ring-blue-100 transition shadow-xs tabular-nums"
+                            />
+                          </div>
+
+                          {/* Quick Amount Suggestion Chips */}
+                          <div className="flex flex-wrap items-center gap-1.5 mt-2.5">
+                            <span className="text-[11px] text-slate-400 font-semibold mr-1">Quick Select:</span>
+                            {[2000, 5000, 10000, 15000, 25000, 50000].map((amt) => (
+                              <button
+                                key={amt}
+                                type="button"
+                                onClick={() => {
+                                  setCustomPaymentAmount(String(amt));
+                                  setSelectedPaymentPlan(paymentPlans[3]);
+                                }}
+                                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer border ${
+                                  selectedPaymentPlan?.id === "custom" && customPaymentAmount === String(amt)
+                                    ? "bg-[#207de9] text-white border-[#207de9] shadow-xs"
+                                    : "bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-[#207de9] border-slate-200"
+                                }`}
+                              >
+                                ₹{amt.toLocaleString("en-IN")}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <ul className="mt-3.5 pt-3.5 border-t border-slate-100 space-y-1.5 text-xs text-slate-600 font-normal">
+                          <li className="flex items-center gap-2">
+                            <svg className="w-4 h-4 text-emerald-600 shrink-0 font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Pay for custom retainers, ad budget deposits, or agreed milestones</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <svg className="w-4 h-4 text-emerald-600 shrink-0 font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Official GST tax invoice generated for exact custom settlement amount</span>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
 
@@ -4612,7 +4744,11 @@ export default function Home() {
                         INVOICE SETTLEMENT LEDGER
                       </div>
                       <div className="text-xl sm:text-2xl font-extrabold text-[#080d24] mt-1 tracking-tight">
-                        {selectedPaymentPlan ? selectedPaymentPlan.name : "Select Package"}
+                        {selectedPaymentPlan
+                          ? selectedPaymentPlan.id === "custom"
+                            ? "Custom Scope / Bespoke Retainer"
+                            : selectedPaymentPlan.name
+                          : "Select Package"}
                       </div>
                     </div>
 
@@ -4620,11 +4756,15 @@ export default function Home() {
                     <div className="my-5 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-2.5">
                       <div className="flex justify-between text-slate-600 text-xs sm:text-[13px]">
                         <span className="font-normal">Deployment SLA:</span>
-                        <span className="font-semibold text-slate-800">3–5 Business Days Kickoff</span>
+                        <span className="font-semibold text-slate-800">
+                          {selectedPaymentPlan?.id === "custom" ? "Immediate Client Kickoff" : "3–5 Business Days Kickoff"}
+                        </span>
                       </div>
                       <div className="flex justify-between text-slate-600 text-xs sm:text-[13px]">
                         <span className="font-normal">Invoice Type:</span>
-                        <span className="font-semibold text-slate-800">Fixed One-Time Fee</span>
+                        <span className="font-semibold text-slate-800">
+                          {selectedPaymentPlan?.id === "custom" ? "Custom Invoice / Retainer Deposit" : "Fixed One-Time Fee"}
+                        </span>
                       </div>
                       <div className="flex justify-between text-slate-600 text-xs sm:text-[13px]">
                         <span className="font-normal">Tax &amp; Platform Fee:</span>
@@ -4634,7 +4774,9 @@ export default function Home() {
                         <span className="font-bold text-[#080d24] text-sm">Total Amount Due:</span>
                         <div className="text-right">
                           <span className="text-3xl sm:text-4xl font-extrabold text-[#080d24] tracking-tight tabular-nums">
-                            ₹{selectedPaymentPlan ? Number(selectedPaymentPlan.amount).toLocaleString("en-IN") : "0"}
+                            ₹{selectedPaymentPlan?.id === "custom"
+                              ? (Number(customPaymentAmount) || 0).toLocaleString("en-IN")
+                              : (selectedPaymentPlan ? Number(selectedPaymentPlan.amount).toLocaleString("en-IN") : "0")}
                           </span>
                         </div>
                       </div>
@@ -4697,7 +4839,11 @@ export default function Home() {
                       >
                         {paymentLoading
                           ? "Connecting to PayU India Gateway..."
-                          : `Authorize & Pay ₹${selectedPaymentPlan ? Number(selectedPaymentPlan.amount).toLocaleString("en-IN") : "0"} via PayU India →`}
+                          : `Authorize & Pay ₹${
+                              selectedPaymentPlan?.id === "custom"
+                                ? (Number(customPaymentAmount) || 0).toLocaleString("en-IN")
+                                : (selectedPaymentPlan ? Number(selectedPaymentPlan.amount).toLocaleString("en-IN") : "0")
+                            } via PayU India →`}
                       </button>
                     </form>
                   </div>

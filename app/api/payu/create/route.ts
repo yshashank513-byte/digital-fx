@@ -20,7 +20,7 @@ const PLANS = {
   },
 } as const;
 
-type PlanId = keyof typeof PLANS;
+type PlanId = (keyof typeof PLANS) | "custom";
 
 export async function POST(request: Request) {
   try {
@@ -46,7 +46,8 @@ export async function POST(request: Request) {
     // VALIDATION
     // ========================================
 
-    if (!planId || !PLANS[planId]) {
+    const isCustom = planId === "custom";
+    if (!planId || (!PLANS[planId as keyof typeof PLANS] && !isCustom)) {
       return NextResponse.json(
         {
           success: false,
@@ -105,13 +106,30 @@ export async function POST(request: Request) {
     ).replace(/\/$/, "");
 
     // ========================================
-    // PLAN
+    // PLAN & AMOUNT RESOLUTION
     // ========================================
 
-    const plan = PLANS[planId];
+    let amount = "";
+    let productinfo = "";
 
-    const amount = plan.amount;
-    const productinfo = plan.name;
+    if (planId === "custom") {
+      const customVal = Number(body?.customAmount || body?.amount || 0);
+      if (!customVal || isNaN(customVal) || customVal < 1) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Please enter a valid custom payment amount (minimum ₹1).",
+          },
+          { status: 400 }
+        );
+      }
+      amount = customVal.toFixed(2);
+      productinfo = String(body?.productinfo || "Custom Scope / Bespoke Retainer").trim();
+    } else {
+      const plan = PLANS[planId as keyof typeof PLANS];
+      amount = plan.amount;
+      productinfo = plan.name;
+    }
 
     // ========================================
     // TRANSACTION ID
