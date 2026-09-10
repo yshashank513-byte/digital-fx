@@ -17,12 +17,12 @@ function PaymentSuccessContent() {
 
   function handlePaymentDetails() {
     if (!txnid) {
-      router.push("/payment/details");
+      router.push("/payment/invoice");
       return;
     }
 
     router.push(
-      `/payment/details?txnid=${encodeURIComponent(
+      `/payment/invoice?txnid=${encodeURIComponent(
         txnid
       )}&amount=${encodeURIComponent(amount)}`
     );
@@ -50,7 +50,7 @@ function PaymentSuccessContent() {
 
         <p className="mx-auto mt-3 max-w-[400px] text-sm leading-6 text-gray-500">
           Thank you for your payment. Your transaction has been successfully
-          received and recorded.
+          received and verified by Digital FX.
         </p>
 
         {/* PAYMENT SUMMARY */}
@@ -90,47 +90,35 @@ function PaymentSuccessContent() {
 
             <div>
               <p className="text-xs font-extrabold text-[#071534]">
-                Payment Confirmed
+                Verified by Digital FX Desk
               </p>
 
               <p className="mt-1 text-[10px] leading-4 text-gray-400">
-                Your payment record has been saved successfully.
+                Official payment receipt &amp; tax invoice ready for download.
               </p>
             </div>
           </div>
         </div>
 
-        {/* NEXT STEPS */}
-        <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50/50 p-4 text-left">
-          <p className="text-[9px] font-extrabold uppercase tracking-[1.2px] text-blue-600">
-            WHAT&apos;S NEXT?
-          </p>
-
-          <p className="mt-2 text-[11px] leading-5 text-gray-500">
-            View your complete payment information and transaction receipt
-            using the button below.
-          </p>
-        </div>
-
         {/* BUTTONS */}
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-
           {/* BACK TO WEBSITE */}
           <button
             type="button"
             onClick={() => router.push("/")}
-            className="h-12 flex-1 rounded-xl border border-gray-200 bg-white px-5 text-xs font-extrabold text-[#071534] transition hover:bg-gray-50"
+            className="h-12 flex-1 rounded-xl border border-gray-200 bg-white px-5 text-xs font-extrabold text-[#071534] transition hover:bg-gray-50 cursor-pointer"
           >
             Back to Website
           </button>
 
-          {/* PAYMENT DETAILS */}
+          {/* PAYMENT RECEIPT */}
           <button
             type="button"
             onClick={handlePaymentDetails}
-            className="h-12 flex-1 rounded-xl bg-[#315df5] px-5 text-xs font-extrabold text-white shadow-lg shadow-blue-500/20 transition hover:bg-[#254fe5]"
+            className="h-12 flex-1 rounded-xl bg-[#155EEF] px-5 text-xs font-extrabold text-white shadow-lg shadow-blue-500/20 transition hover:bg-[#0f4ed8] cursor-pointer flex items-center justify-center gap-2"
           >
-            Payment Details
+            <span>View &amp; Print Receipt</span>
+            <span>→</span>
           </button>
         </div>
 

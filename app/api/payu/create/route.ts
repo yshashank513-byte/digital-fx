@@ -100,7 +100,12 @@ export async function POST(request: Request) {
     ).trim();
 
     const requestUrl = new URL(request.url);
+    const hostHeader = request.headers.get("x-forwarded-host") || request.headers.get("host") || requestUrl.host;
+    const protoHeader = request.headers.get("x-forwarded-proto") || requestUrl.protocol.replace(":", "");
+    const originHeader = request.headers.get("origin");
     const siteUrl = (
+      originHeader ||
+      (hostHeader ? `${protoHeader}://${hostHeader}` : "") ||
       process.env.NEXT_PUBLIC_SITE_URL ||
       `${requestUrl.protocol}//${requestUrl.host}`
     ).replace(/\/$/, "");

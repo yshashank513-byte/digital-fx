@@ -54,3 +54,10 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const failureUrl = new URL("/payment/failure", request.url);
+  searchParams.forEach((val, key) => failureUrl.searchParams.set(key, val));
+  return NextResponse.redirect(failureUrl);
+}
