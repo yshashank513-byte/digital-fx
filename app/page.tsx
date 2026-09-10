@@ -2440,6 +2440,170 @@ export default function Home() {
         </section>
 
         {/* ==========================================================================
+            4B. INSIDE DIGITAL FX HEADQUARTERS — REAL STRATEGISTS, REAL IMPACT
+            ========================================================================== */}
+        <section className="py-16 sm:py-20 bg-gradient-to-b from-white via-[#f8faff] to-white border-b border-slate-200">
+          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-xs font-bold tracking-wider uppercase mb-3">
+                  <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
+                  Inside Our Agency • Orbit Plaza, Ghaziabad
+                </div>
+                <h2 className="text-[28px] sm:text-[38px] lg:text-[44px] font-extrabold text-[#080d24] tracking-[-0.03em] leading-tight">
+                  Real Strategists. Real Work.{" "}
+                  <span className="text-[#207de9] webfx-serif block sm:inline font-normal">
+                    Measurable Revenue.
+                  </span>
+                </h2>
+                <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-2xl font-normal">
+                  No outsourced black-boxes. At Digital FX, our dedicated campaign specialists, web engineers, and local SEO managers work directly on your brand entity.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3 shrink-0">
+                <a
+                  href="#contact"
+                  className="px-5 py-3 rounded-xl bg-[#080d24] hover:bg-[#207de9] text-white text-xs sm:text-sm font-bold shadow-xs transition-colors cursor-pointer"
+                >
+                  Visit Our Office →
+                </a>
+              </div>
+            </div>
+
+            {/* 4 Professional Agency Photos Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+              
+              {/* Photo 1: Man at Computer Desk */}
+              <div className="group rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col">
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                  <img
+                    src="/office-man-computer.jpg"
+                    alt="Digital FX Campaign Specialist Optimizing Google Maps and Analytics"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
+                    Campaign Desk
+                  </div>
+                  <div className="absolute bottom-2 right-2 bg-emerald-600/90 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                    Live Analytics Monitoring
+                  </div>
+                </div>
+                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors leading-snug">
+                      Daily Ranking &amp; Traffic Optimization
+                    </h3>
+                    <p className="mt-1.5 text-xs text-slate-600 font-normal leading-relaxed">
+                      Our SEO specialists monitor your Google Maps 3-Pack keyword positions and organic rankings daily on high-precision dual display setups.
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                    <span>Google Analytics 4 • Maps</span>
+                    <span className="text-[#207de9] font-bold">SEO Team</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Photo 2: Strategy Meeting */}
+              <div className="group rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col">
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                  <img
+                    src="/agency-meeting.jpg"
+                    alt="Digital FX Multi-Channel Revenue Growth Strategy Meeting"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
+                    Conference Hub
+                  </div>
+                  <div className="absolute bottom-2 right-2 bg-blue-600/90 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md">
+                    Sprint Strategy
+                  </div>
+                </div>
+                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors leading-snug">
+                      Multi-Channel Sprint Planning
+                    </h3>
+                    <p className="mt-1.5 text-xs text-slate-600 font-normal leading-relaxed">
+                      Strategists align Google Ads, Meta campaigns, and local citations to ensure your client acquisition pipeline operates at peak ROI.
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                    <span>Closed-Loop Attribution</span>
+                    <span className="text-blue-600 font-bold">Strategy Desk</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Photo 3: Tech & AI Search Workstation */}
+              <div className="group rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col">
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                  <img
+                    src="/tech-workstation.jpg"
+                    alt="Digital FX Web Engineering and Generative AI Schema Lab"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
+                    Engineering Lab
+                  </div>
+                  <div className="absolute bottom-2 right-2 bg-purple-600/90 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md">
+                    Next.js &amp; GEO AI
+                  </div>
+                </div>
+                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors leading-snug">
+                      AI Search &amp; Web Engineering
+                    </h3>
+                    <p className="mt-1.5 text-xs text-slate-600 font-normal leading-relaxed">
+                      Engineers building responsive web architectures, Core Web Vitals performance, and Schema.org markup for ChatGPT and Gemini discovery.
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                    <span>99+ Speed • Schema Entities</span>
+                    <span className="text-purple-600 font-bold">Dev Team</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Photo 4: Client Consultation & Growth */}
+              <div className="group rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col">
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                  <img
+                    src="/client-consultation.jpg"
+                    alt="Digital FX Executive Client Consultation and Growth Review"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
+                    Executive Lounge
+                  </div>
+                  <div className="absolute bottom-2 right-2 bg-amber-500/90 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md">
+                    6.8x Client ROI
+                  </div>
+                </div>
+                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors leading-snug">
+                      1-on-1 Growth Consultation
+                    </h3>
+                    <p className="mt-1.5 text-xs text-slate-600 font-normal leading-relaxed">
+                      Transparent monthly reviews with business owners, tracking closed revenue, cost per lead, and lifetime customer growth trajectories.
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                    <span>Orbit Plaza • In-Office / Meet</span>
+                    <span className="text-amber-600 font-bold">Client Success</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ==========================================================================
             5. REVENUE MARKETING SPLIT FUNNEL (Exact Reproduction from media_1788817718193.png)
             ========================================================================== */}
         <section
@@ -4904,6 +5068,28 @@ export default function Home() {
                       </p>
                     </div>
 
+                  </div>
+                </div>
+
+                {/* Office Strategy Consultation Photo Banner */}
+                <div className="relative w-full aspect-[21/9] sm:aspect-[24/9] rounded-2xl overflow-hidden border border-slate-200 shadow-sm group">
+                  <img
+                    src="/client-consultation.jpg"
+                    alt="Digital FX Strategy Desk at Orbit Plaza, Crossings Republik"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080d24]/90 via-[#080d24]/40 to-transparent flex items-end p-4 sm:p-5">
+                    <div className="text-white">
+                      <span className="px-2.5 py-0.5 rounded-md bg-[#207de9] text-[10px] font-extrabold uppercase tracking-wider">
+                        In-Office Consultations
+                      </span>
+                      <p className="text-sm sm:text-base font-extrabold mt-1">
+                        Meet Our Senior Strategists at Orbit Plaza, Crossings Republik
+                      </p>
+                      <p className="text-xs text-slate-200 font-normal hidden sm:block">
+                        Shop No. 210, 2nd Floor • Welcoming Delhi NCR business owners &amp; clinic directors
+                      </p>
+                    </div>
                   </div>
                 </div>
 
