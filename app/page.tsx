@@ -411,8 +411,36 @@ const paymentPlans: PaymentPlan[] = [
   },
 ];
 
+const ghaziabadFaqs = [
+  {
+    q: "Why is Digital FX ranked as the top digital marketing agency in Ghaziabad?",
+    a: "Digital FX holds a 4.9/5.0 verified rating with 128+ reviews from local business owners. Headquartered at Orbit Plaza, Crossings Republik, Ghaziabad, we combine hyper-local SEO, Google Maps 3-Pack domination, high-converting web architecture, and AI search optimization (GEO) to deliver verified phone inquiries and measurable revenue rather than empty impressions.",
+  },
+  {
+    q: "How does Digital FX help businesses rank #1 on Google Maps in Ghaziabad?",
+    a: "We deploy an end-to-end Local SEO playbook: Google Business Profile (GBP) complete optimization, local citation syndication across 50+ high-DA Indian directories, geo-tagged schema markup, review generation engines, and hyper-local landing page architecture targeting Crossings Republik, Indirapuram, Raj Nagar, Vaishali, Vasundhara, and Noida.",
+  },
+  {
+    q: "What digital marketing services do you provide for Ghaziabad & NCR clients?",
+    a: "Our core services include Search Engine Optimization (Local & National SEO), High-Speed Website Design & UX, Google Ads (Search, Display & Local PPC), Meta & Instagram Advertising, Generative Engine Optimization (GEO for ChatGPT & Gemini), and complete 360° Business Growth Retainers.",
+  },
+  {
+    q: "What is your pricing for digital marketing and SEO in Ghaziabad?",
+    a: "Our Google Listing Growth plan starts at ₹2,000/month, custom high-speed websites start from ₹10,000, and our comprehensive 360° Growth Retainer starts at ₹25,000/month. We also provide flexible custom amount retainer billing via our secure RBI-authorized PayU terminal.",
+  },
+  {
+    q: "How quickly can we see results from SEO and digital marketing campaigns?",
+    a: "Paid advertising (Google Ads & Meta Ads) generates qualified customer inquiries within 24 to 48 hours. For Google Maps 3-Pack and organic search ranking, local businesses in Ghaziabad typically see noticeable ranking climbs and increased inbound call volume within 30 to 60 days.",
+  },
+  {
+    q: "Can we visit your office in Ghaziabad for an in-person strategy session?",
+    a: "Yes! Our headquarters is at Shop No. 210, Second Floor, Orbit Plaza, Crossings Republik, Ghaziabad (UP 201016). We welcome local business owners for one-on-one growth roadmapping, or you can book an instant discovery call online.",
+  },
+];
+
 export default function Home() {
   const [services, setServices] = useState<Service[]>(fallbackServices);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeGrowthPillar, setActiveGrowthPillar] = useState<string | null>(null);
   const [activePillarTab, setActivePillarTab] = useState(0);
@@ -1429,6 +1457,28 @@ export default function Home() {
                     <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
                   </a>
 
+                  {/* Frequently Asked Questions (FAQ) */}
+                  <a
+                    href="#faq"
+                    onClick={closeMobileMenu}
+                    className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-emerald-50/60 transition"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 transition">
+                        <span className="text-xs font-black">?</span>
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-[#080d24] group-hover:text-emerald-700 transition">
+                          Ghaziabad SEO &amp; FAQs
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-medium">
+                          Ratings, Maps ranking &amp; timeline
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                  </a>
+
                   {/* Contact Strategy Team & Office Location */}
                   <a
                     href="#contact"
@@ -1552,10 +1602,20 @@ export default function Home() {
             
             {/* Top Area: WebFX Headline & Website Proposal Input Bar */}
             <div className="max-w-[860px]">
-              {/* Overline Subhead */}
-              <div className="mb-4 inline-flex items-center gap-2.5 rounded-full border border-blue-200/90 bg-blue-50/90 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#1570ef] shadow-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#1570ef]" />
-                <span>Rated #1 Revenue Marketing Agency • Delhi NCR</span>
+              {/* Overline Subhead & Google Rating */}
+              <div className="mb-4 inline-flex flex-wrap items-center gap-2.5 rounded-full border border-blue-200/90 bg-blue-50/90 px-3.5 sm:px-4 py-1.5 text-[11px] font-bold text-[#1570ef] shadow-xs">
+                <div className="flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                  </svg>
+                  <span className="text-amber-500 tracking-tighter">★ ★ ★ ★ ★</span>
+                  <span className="font-extrabold text-[#080d24]">4.9</span>
+                </div>
+                <span className="text-blue-300">•</span>
+                <span className="uppercase tracking-[0.12em]">128+ Reviews • #1 Digital Marketing Agency in Ghaziabad</span>
               </div>
 
               {/* WebFX Signature Headline */}
@@ -3625,17 +3685,49 @@ export default function Home() {
         <section id="case-studies" className="py-24 bg-white border-b border-slate-200 overflow-hidden">
           <div className="max-w-[1360px] mx-auto px-6 mb-12">
             
-            <div className="text-center max-w-[820px] mx-auto">
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#207de9] bg-blue-50 border border-blue-200 px-3.5 py-1.5 rounded-full">
-                VERIFIED CLIENT REVIEWS (50+ CLIENTS)
-              </span>
-              <h2 className="mt-4 text-[32px] sm:text-[44px] lg:text-[48px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
-                Real Results Delivered For
+            <div className="text-center max-w-[860px] mx-auto">
+              {/* Google Verified Review & Rating Card */}
+              <div className="inline-flex flex-wrap items-center justify-center gap-3 px-5 py-2.5 rounded-2xl bg-white border border-slate-200 shadow-sm mb-5">
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                  </svg>
+                  <span className="text-xs font-bold text-slate-800 uppercase tracking-wider">Google Verified</span>
+                </div>
+                <div className="flex text-amber-400 text-sm tracking-tighter">
+                  ★ ★ ★ ★ ★
+                </div>
+                <span className="text-sm font-extrabold text-[#080d24]">4.9 / 5.0 Rating</span>
+                <span className="text-slate-300 hidden sm:inline">•</span>
+                <span className="text-xs font-semibold text-slate-600">128+ Verified Client Reviews in Ghaziabad &amp; NCR</span>
+              </div>
+
+              <h2 className="text-[32px] sm:text-[44px] lg:text-[48px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
+                #1 Rated Digital Marketing &amp; SEO Agency in
                 <span className="webfx-serif text-[#207de9] block font-normal mt-1">
-                  30+ Verified Businesses Across India.
+                  Ghaziabad &amp; Delhi NCR
                 </span>
               </h2>
-              <p className="mt-3 text-xs font-semibold text-slate-500">
+              <p className="mt-3.5 text-xs sm:text-[14px] text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+                Trusted by 128+ businesses across Crossings Republik, Indirapuram, Raj Nagar, Vaishali, and Noida for top Google Maps rankings, high-converting websites, and proven customer acquisition.
+              </p>
+              
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                <a
+                  href="https://share.google/EIVnaRy9WhkPCi8U8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white text-xs font-bold transition shadow-sm"
+                >
+                  <span>📍 View Live Google Maps Listing &amp; Reviews</span>
+                  <span>↗</span>
+                </a>
+              </div>
+
+              <p className="mt-4 text-[11px] font-semibold text-slate-400">
                 ← Auto-scrolling horizontally • Hover over any card to pause and read →
               </p>
             </div>
@@ -3847,6 +3939,110 @@ export default function Home() {
                   className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5"
                 >
                   Join Our Team →
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* ==========================================================================
+            9C. FREQUENTLY ASKED QUESTIONS (FAQ) & LOCAL GHAZIABAD SEO AUTHORITY (#faq)
+            ========================================================================== */}
+        <section
+          id="faq"
+          className="py-20 sm:py-24 bg-gradient-to-b from-white via-[#f8faff] to-white border-b border-slate-200"
+        >
+          <div className="max-w-[1040px] mx-auto px-4 sm:px-6 lg:px-8">
+            
+            {/* Header */}
+            <div className="text-center max-w-[820px] mx-auto mb-14">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-xs font-bold tracking-wider uppercase mb-3.5">
+                <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
+                Ghaziabad &amp; Delhi NCR Local Search Authority
+              </div>
+              <h2 className="text-[30px] sm:text-[42px] font-extrabold text-[#080d24] tracking-tight leading-[1.15]">
+                Frequently Asked Questions About{" "}
+                <span className="webfx-serif text-[#207de9] block sm:inline font-normal">
+                  Digital Marketing in Ghaziabad
+                </span>
+              </h2>
+              <p className="mt-4 text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
+                Everything you need to know about Google Maps 3-Pack rankings, ROI-driven SEO, website architecture, and scaling your business with Digital FX.
+              </p>
+            </div>
+
+            {/* Accordion List */}
+            <div className="space-y-4">
+              {ghaziabadFaqs.map((faq, idx) => {
+                const isOpen = openFaqIndex === idx;
+                return (
+                  <div
+                    key={`faq-${idx}`}
+                    className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+                      isOpen
+                        ? "bg-white border-[#207de9] shadow-md ring-2 ring-blue-100"
+                        : "bg-white/80 hover:bg-white border-slate-200 shadow-xs hover:border-slate-300"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                      className="w-full text-left px-5 sm:px-7 py-5 flex items-center justify-between gap-4 cursor-pointer select-none"
+                      aria-expanded={isOpen}
+                    >
+                      <span className="text-[14.5px] sm:text-[16px] font-bold text-[#080d24] leading-snug">
+                        {faq.q}
+                      </span>
+                      <span
+                        className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-transform duration-200 ${
+                          isOpen
+                            ? "bg-[#207de9] text-white rotate-180"
+                            : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                        }`}
+                      >
+                        ▼
+                      </span>
+                    </button>
+                    {isOpen && (
+                      <div className="px-5 sm:px-7 pb-6 pt-1 text-xs sm:text-[14px] text-slate-600 leading-relaxed border-t border-slate-100 animate-fadeIn">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Bottom Local CTA Card */}
+            <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#080d24] via-[#0d163d] to-[#080d24] text-white border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+              <div>
+                <div className="flex items-center gap-2 text-xs font-extrabold text-amber-400 mb-1">
+                  <span>★ ★ ★ ★ ★</span>
+                  <span>4.9/5.0 Rated Agency</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  Ready to rank #1 in Ghaziabad?
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-lg font-normal">
+                  Claim your free Google Maps and GEO AI Search audit today with our senior strategists.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 shrink-0">
+                <a
+                  href="#geo-checker"
+                  onClick={scrollToGeoAudit}
+                  className="px-6 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/25 transition-all"
+                >
+                  Run Free Audit →
+                </a>
+                <a
+                  href="#contact"
+                  onClick={scrollToContact}
+                  className="px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-bold border border-white/15 transition-all"
+                >
+                  Book Discovery Call
                 </a>
               </div>
             </div>
@@ -4304,6 +4500,7 @@ export default function Home() {
                   <li><a href="#home" onClick={scrollToTop} className="hover:text-white transition">About Digital FX</a></li>
                   <li><a href="#case-studies" onClick={(e) => scrollToSection("case-studies", e)} className="hover:text-white transition">Client Case Studies</a></li>
                   <li><a href="#case-studies" onClick={(e) => scrollToSection("case-studies", e)} className="hover:text-white transition">Verified 5-Star Reviews</a></li>
+                  <li><a href="#faq" onClick={(e) => scrollToSection("faq", e)} className="hover:text-white transition font-medium text-emerald-400">Local SEO &amp; FAQs</a></li>
                   <li><a href="#contact" onClick={scrollToContact} className="hover:text-white transition">Contact Strategy Team</a></li>
                   <li><a href="#insights" onClick={(e) => scrollToSection("insights", e)} className="hover:text-white transition">Industry Research</a></li>
                   <li><a href="https://share.google/EIVnaRy9WhkPCi8U8" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Ghaziabad HQ Map ↗</a></li>
