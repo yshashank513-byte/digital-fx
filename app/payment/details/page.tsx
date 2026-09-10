@@ -212,13 +212,15 @@ function PaymentDetailsContent() {
 
         <div className="mb-6 text-center">
 
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm">
-            <span className="text-2xl font-black italic text-[#315df5]">
-              FX
-            </span>
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white border border-slate-200/80 shadow-sm p-1.5">
+            <img
+              src="/logo.png"
+              alt="Digital FX"
+              className="h-full w-full object-contain"
+            />
           </div>
 
-          <p className="mt-4 text-[10px] font-extrabold uppercase tracking-[2px] text-[#315df5]">
+          <p className="mt-4 text-[11px] font-extrabold uppercase tracking-[2px] text-[#207de9]">
             DIGITAL FX
           </p>
 

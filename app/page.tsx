@@ -1706,8 +1706,8 @@ export default function Home() {
                     className="w-full group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-blue-50/60 transition text-left cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#080d24] text-[#00f0ff] border border-[#00f0ff]/40 transition shrink-0">
-                        <span className="text-[11px] font-black">FX</span>
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white border border-slate-200/90 shadow-xs p-0.5 shrink-0">
+                        <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
                       </div>
                       <div>
                         <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition flex items-center gap-2">
@@ -2216,33 +2216,27 @@ export default function Home() {
                   <g transform="translate(520, 280)">
                     {/* Brand Logo: Digital FX (Symmetrically Centered at x=0) */}
                     <g transform="translate(0, -28)">
+                      {/* Digital FX Official Brand Logo placed before 'Digital' */}
+                      <image
+                        href="/logo.png"
+                        x="-66"
+                        y="-15"
+                        width="30"
+                        height="30"
+                        preserveAspectRatio="xMidYMid meet"
+                      />
                       <text
-                        x="10"
+                        x="-28"
                         y="0"
-                        textAnchor="end"
-                        fill="#080d24"
-                        fontSize="17px"
+                        textAnchor="start"
+                        dominantBaseline="central"
+                        fontSize="18px"
                         fontWeight="900"
                         letterSpacing="-0.4px"
-                        dominantBaseline="central"
                       >
-                        Digital
+                        <tspan fill="#080d24">Digital </tspan>
+                        <tspan fill="#207de9">FX</tspan>
                       </text>
-                      <g transform="translate(16, -11)">
-                        <rect x="0" y="0" width="28" height="22" rx="5" fill="#1570ef" />
-                        <text
-                          x="14"
-                          y="11"
-                          textAnchor="middle"
-                          dominantBaseline="central"
-                          fill="#ffffff"
-                          fontSize="11.5px"
-                          fontWeight="900"
-                          letterSpacing="0.5px"
-                        >
-                          FX
-                        </text>
-                      </g>
                     </g>
 
                     {/* Title: Revenue Engine (Strictly Centered at x=0) */}
@@ -3020,7 +3014,7 @@ export default function Home() {
                     Revenue Marketing
                   </h3>
                   <p className="mt-2 text-xs sm:text-[13.5px] text-slate-700 font-normal leading-relaxed">
-                    Digital FX connects your data through <strong className="text-[#080d24] font-bold">Digital <span className="bg-[#1570ef] text-white px-1.5 py-0.5 rounded text-[10px] font-bold">FX</span></strong> to make revenue-backed marketing decisions that reduce cost per lead and maximize ROI.
+                    Digital FX connects your data through <strong className="text-[#080d24] font-bold inline-flex items-center gap-1.5 align-baseline"><img src="/logo.png" alt="Digital FX" className="w-4 h-4 object-contain inline-block" /> DIGITAL <span className="text-[#207de9]">FX</span></strong> to make revenue-backed marketing decisions that reduce cost per lead and maximize ROI.
                   </p>
                 </div>
 
@@ -5037,9 +5031,13 @@ export default function Home() {
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-slate-100">
                     <div>
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#080d24] to-[#207de9] text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                          FX
+                      <div className="flex items-center gap-2.5 sm:gap-3">
+                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white border border-slate-200/90 flex items-center justify-center overflow-hidden p-1 shadow-xs shrink-0">
+                          <img
+                            src="/logo.png"
+                            alt="Digital FX"
+                            className="h-full w-full object-contain"
+                          />
                         </div>
                         <h3 className="text-lg sm:text-xl font-extrabold text-[#080d24] tracking-tight">
                           DIGITAL <span className="text-[#207de9]">FX</span> | DIGITAL MARKETING AGENCY
