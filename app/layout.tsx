@@ -16,34 +16,63 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.digitalfx.in"),
 
   title: {
-    default: "Digital FX / digital market agency in ghaziabad",
+    default: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR",
     template: "%s | Digital FX",
   },
 
   description:
-    "Digital FX is the #1 rated (4.9★ from 128+ reviews) digital marketing agency in Ghaziabad. We specialize in Google Maps Top 3 ranking, ROI-driven SEO, website development, Google & Meta Ads, and AI search optimization (GEO) in Crossings Republik, Indirapuram, Raj Nagar, and Delhi NCR.",
+    "Digital FX is the best digital marketing agency in Ghaziabad - Delhi NCR (Rated 4.9★ by 128+ clients). We deliver ROI-driven SEO, Google Maps Top 3 rankings, high-converting website development, Google & Meta Ads, and AI search optimization (GEO) for businesses across Ghaziabad, Delhi NCR, India, and the USA (New York, California, Texas, Florida).",
 
   keywords: [
+    // 1. Core Ghaziabad & Delhi NCR Local Search Intent
+    "best digital marketing agency in Ghaziabad - Delhi",
     "digital marketing agency in Ghaziabad",
-    "best digital marketing agency in Ghaziabad",
-    "digital marketing agency Ghaziabad",
-    "digital marketing company Ghaziabad",
-    "top SEO agency Ghaziabad",
-    "SEO agency Ghaziabad",
-    "SEO services Ghaziabad",
-    "Google Ads agency Ghaziabad",
-    "Google Maps ranking agency Ghaziabad",
-    "local SEO Ghaziabad",
-    "social media marketing Ghaziabad",
-    "website development Ghaziabad",
-    "web design company in Ghaziabad",
-    "digital marketing in Crossings Republik",
-    "SEO Indirapuram Ghaziabad",
-    "digital marketing agency Raj Nagar Ghaziabad",
-    "Google Business Profile Ghaziabad",
-    "lead generation Ghaziabad",
+    "best digital marketing company in Ghaziabad",
     "digital marketing agency Delhi NCR",
-    "digital marketing services",
+    "best SEO agency in Ghaziabad",
+    "SEO services Ghaziabad Delhi",
+    "digital marketing agency in Crossings Republik",
+    "SEO agency Indirapuram Ghaziabad",
+    "digital marketing company Raj Nagar Ghaziabad",
+    "digital marketing agency Vaishali Ghaziabad",
+    "digital marketing company Vasundhara Ghaziabad",
+    "digital marketing agency Noida",
+    "digital marketing agency Gurgaon Gurugram",
+    "Google Maps ranking agency Ghaziabad",
+    "website development company in Ghaziabad",
+    "web design agency Delhi NCR",
+    "Google Ads PPC agency Ghaziabad",
+    "social media marketing agency Ghaziabad",
+    "lead generation company Delhi NCR",
+
+    // 2. State-Wise & Major Indian Tech/Business Hubs
+    "digital marketing agency Uttar Pradesh",
+    "best digital marketing company Delhi",
+    "digital marketing agency Mumbai Maharashtra",
+    "digital marketing company Bangalore Karnataka",
+    "digital marketing agency Hyderabad Telangana",
+    "SEO and digital marketing company Pune",
+    "digital marketing agency Ahmedabad Gujarat",
+    "digital marketing company Jaipur Rajasthan",
+    "digital marketing agency Kolkata West Bengal",
+    "digital marketing services Chandigarh Punjab",
+    "digital marketing agency Chennai Tamil Nadu",
+    "digital marketing agency Lucknow UP",
+
+    // 3. USA (America) Target Cities & States
+    "digital marketing agency USA",
+    "digital marketing agency New York NY",
+    "digital marketing agency Los Angeles California",
+    "SEO agency Chicago Illinois",
+    "digital marketing company Houston Texas",
+    "digital marketing agency Dallas TX",
+    "SEO and web development Miami Florida",
+    "digital marketing agency San Francisco Bay Area",
+    "digital marketing company Austin Texas",
+    "digital marketing agency Atlanta Georgia",
+    "digital marketing agency Seattle Washington",
+    "offshore digital marketing agency for USA businesses",
+    "AI search optimization agency USA",
     "Digital FX",
   ],
 
@@ -57,25 +86,25 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.digitalfx.in",
     siteName: "Digital FX",
-    title: "Digital FX / digital market agency in ghaziabad",
+    title: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR",
     description:
-      "Digital FX is the #1 rated (4.9★ from 128+ reviews) digital marketing agency in Ghaziabad. Google Maps Top 3 ranking, ROI-backed SEO, high-speed websites, and lead generation.",
+      "Digital FX is the #1 rated (4.9★ from 128+ reviews) best digital marketing agency in Ghaziabad - Delhi NCR. Local SEO, Google Maps ranking, web development, and performance ads across India & USA.",
     images: [
       {
-        url: "/logo-white-bg.png",
-        width: 512,
-        height: 512,
-        alt: "Digital FX / digital market agency in ghaziabad",
+        url: "/logo.png",
+        width: 1024,
+        height: 1024,
+        alt: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR",
       },
     ],
   },
 
   twitter: {
     card: "summary",
-    title: "Digital FX / digital market agency in ghaziabad",
+    title: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR",
     description:
-      "4.9★ Rated Digital Marketing & SEO Agency in Ghaziabad. Google Maps ranking, SEO, website development, and paid performance by Digital FX.",
-    images: ["/logo-white-bg.png"],
+      "4.9★ Rated Best Digital Marketing & SEO Agency in Ghaziabad - Delhi NCR serving clients across India and USA.",
+    images: ["/logo.png"],
   },
 
   robots: {
@@ -92,15 +121,17 @@ export const metadata: Metadata = {
 
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/logo.png", type: "image/png" },
       { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
       { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
     ],
     apple: [
+      { url: "/logo.png", sizes: "180x180", type: "image/png" },
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
-    shortcut: "/favicon.ico",
+    shortcut: "/logo.png",
   },
 
   manifest: "/site.webmanifest",
@@ -116,6 +147,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="icon" type="image/png" href="/logo.png" />
+        <link rel="shortcut icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
+      </head>
       <body className="min-h-full flex flex-col">
         {/* Comprehensive Local Business, Rating & FAQ Schema */}
         <script
@@ -128,15 +164,17 @@ export default function RootLayout({
                 "@id": "https://www.digitalfx.in/#organization",
                 name: "Digital FX",
                 alternateName: [
+                  "Digital FX",
                   "Digital FX Ghaziabad",
-                  "Digital FX Digital Marketing Agency",
-                  "Digital FX SEO Agency",
+                  "Best Digital Marketing Agency in Ghaziabad - Delhi",
+                  "Digital Marketing Agency Delhi NCR",
+                  "Digital FX Marketing Agency",
                 ],
                 url: "https://www.digitalfx.in",
-                logo: "https://www.digitalfx.in/logo-white-bg.png",
-                image: "https://www.digitalfx.in/logo-white-bg.png",
+                logo: "https://www.digitalfx.in/logo.png",
+                image: "https://www.digitalfx.in/logo.png",
                 description:
-                  "Digital FX is the #1 rated digital marketing agency in Ghaziabad offering local SEO, Google Maps Top 3 ranking, Google Ads PPC, website development, and AI search optimization.",
+                  "Digital FX is the best digital marketing agency in Ghaziabad - Delhi NCR offering local SEO, Google Maps Top 3 ranking, Google Ads PPC, website development, and AI search optimization for clients across India and the USA.",
                 telephone: "+91 98765 43210",
                 email: "hello@digitalfx.in",
                 priceRange: "₹₹ - ₹₹₹₹",
@@ -182,8 +220,18 @@ export default function RootLayout({
                   { "@type": "AdministrativeArea", name: "Vaishali" },
                   { "@type": "AdministrativeArea", name: "Vasundhara" },
                   { "@type": "City", name: "Noida" },
+                  { "@type": "City", name: "Gurgaon" },
                   { "@type": "State", name: "Delhi NCR" },
+                  { "@type": "State", name: "Uttar Pradesh" },
+                  { "@type": "State", name: "Maharashtra" },
+                  { "@type": "State", name: "Karnataka" },
+                  { "@type": "State", name: "Telangana" },
                   { "@type": "Country", name: "India" },
+                  { "@type": "Country", name: "United States" },
+                  { "@type": "State", name: "New York" },
+                  { "@type": "State", name: "California" },
+                  { "@type": "State", name: "Texas" },
+                  { "@type": "State", name: "Florida" },
                 ],
                 serviceType: [
                   "Digital Marketing",
@@ -232,7 +280,7 @@ export default function RootLayout({
                     author: { "@type": "Person", name: "Vikram Singhal" },
                     datePublished: "2026-02-28",
                     reviewBody:
-                      "Their B2B lead generation campaigns brought us high-ticket manufacturing inquiries across NCR. Highly professional team and transparent ROI.",
+                      "Their B2B lead generation campaigns brought us high-ticket manufacturing inquiries across NCR and international orders from US clients. Highly professional team and transparent ROI.",
                     reviewRating: {
                       "@type": "Rating",
                       ratingValue: "5",
@@ -248,7 +296,7 @@ export default function RootLayout({
                 url: "https://www.digitalfx.in",
                 name: "Digital FX",
                 description:
-                  "Top Digital Marketing & SEO Agency in Ghaziabad & Delhi NCR",
+                  "Best Digital Marketing & SEO Agency in Ghaziabad - Delhi NCR serving India & USA",
                 publisher: {
                   "@id": "https://www.digitalfx.in/#organization",
                 },
@@ -259,10 +307,18 @@ export default function RootLayout({
                 mainEntity: [
                   {
                     "@type": "Question",
-                    name: "Why is Digital FX ranked as the top digital marketing agency in Ghaziabad?",
+                    name: "Why is Digital FX ranked as the best digital marketing agency in Ghaziabad - Delhi NCR?",
                     acceptedAnswer: {
                       "@type": "Answer",
-                      text: "Digital FX holds a 4.9/5.0 verified rating with 128+ reviews from local business owners. Headquartered at Orbit Plaza, Crossings Republik, Ghaziabad, we combine hyper-local SEO, Google Maps 3-Pack domination, high-converting web architecture, and AI search optimization (GEO) to deliver verified phone inquiries and measurable revenue.",
+                      text: "Digital FX holds a 4.9/5.0 verified rating with 128+ reviews from business owners. Headquartered at Orbit Plaza, Crossings Republik, Ghaziabad, we combine hyper-local SEO, Google Maps 3-Pack domination, high-converting web architecture, and AI search optimization (GEO) to deliver verified phone inquiries and measurable revenue across Ghaziabad, Delhi NCR, India, and USA.",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "Do you serve clients outside Ghaziabad, including other Indian states and USA / international businesses?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "Yes! While our physical headquarters is at Orbit Plaza, Crossings Republik, Ghaziabad (Delhi NCR), Digital FX serves fast-growing companies across India (Mumbai, Bangalore, Hyderabad, Pune, Kolkata, Ahmedabad) and overseas in the USA (New York, California, Texas, Florida, Illinois). We provide offshore digital marketing, technical SEO, high-speed Next.js websites, and international Google Ads management with dedicated timezone support.",
                     },
                   },
                   {

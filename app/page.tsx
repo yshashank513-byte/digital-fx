@@ -413,8 +413,12 @@ const paymentPlans: PaymentPlan[] = [
 
 const ghaziabadFaqs = [
   {
-    q: "Why is Digital FX ranked as the top digital marketing agency in Ghaziabad?",
-    a: "Digital FX holds a 4.9/5.0 verified rating with 128+ reviews from local business owners. Headquartered at Orbit Plaza, Crossings Republik, Ghaziabad, we combine hyper-local SEO, Google Maps 3-Pack domination, high-converting web architecture, and AI search optimization (GEO) to deliver verified phone inquiries and measurable revenue rather than empty impressions.",
+    q: "Why is Digital FX ranked as the best digital marketing agency in Ghaziabad - Delhi NCR?",
+    a: "Digital FX holds a 4.9/5.0 verified rating with 128+ reviews from business owners. Headquartered at Orbit Plaza, Crossings Republik, Ghaziabad, we combine hyper-local SEO, Google Maps 3-Pack domination, high-converting web architecture, and AI search optimization (GEO) to deliver verified phone inquiries and measurable revenue across Ghaziabad, Delhi NCR, India, and USA.",
+  },
+  {
+    q: "Do you serve clients outside Ghaziabad, including other Indian states and USA / international businesses?",
+    a: "Yes! While our physical headquarters is at Orbit Plaza, Crossings Republik, Ghaziabad (Delhi NCR), Digital FX serves fast-growing companies across India (Mumbai, Bangalore, Hyderabad, Pune, Kolkata, Ahmedabad) and overseas in the USA (New York, California, Texas, Florida, Illinois). We provide offshore digital marketing, technical SEO, high-speed Next.js websites, and international Google Ads management with dedicated timezone support.",
   },
   {
     q: "How does Digital FX help businesses rank #1 on Google Maps in Ghaziabad?",
@@ -1615,7 +1619,7 @@ export default function Home() {
                   <span className="font-extrabold text-[#080d24]">4.9</span>
                 </div>
                 <span className="text-blue-300">•</span>
-                <span className="uppercase tracking-[0.12em]">128+ Reviews • #1 Digital Marketing Agency in Ghaziabad</span>
+                <span className="uppercase tracking-[0.12em]">128+ Reviews • Best Digital Marketing Agency in Ghaziabad - Delhi NCR</span>
               </div>
 
               {/* WebFX Signature Headline */}
