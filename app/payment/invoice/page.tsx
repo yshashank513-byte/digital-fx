@@ -137,21 +137,40 @@ function PaymentInvoiceContent() {
     window.print();
   }
 
+  function numberToWordsINR(num: number): string {
+    const a = [
+      "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
+      "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
+      "Seventeen", "Eighteen", "Nineteen"
+    ];
+    const b = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+    const n = Math.floor(num);
+    if (n === 0) return "Zero Rupees Only";
+
+    function convert(val: number): string {
+      if (val < 20) return a[val];
+      if (val < 100) return b[Math.floor(val / 10)] + (val % 10 !== 0 ? " " + a[val % 10] : "");
+      if (val < 1000) return a[Math.floor(val / 100)] + " Hundred" + (val % 100 !== 0 ? " and " + convert(val % 100) : "");
+      if (val < 100000) return convert(Math.floor(val / 1000)) + " Thousand" + (val % 1000 !== 0 ? " " + convert(val % 1000) : "");
+      if (val < 10000000) return convert(Math.floor(val / 100000)) + " Lakh" + (val % 100000 !== 0 ? " " + convert(val % 100000) : "");
+      return convert(Math.floor(val / 10000000)) + " Crore" + (val % 10000000 !== 0 ? " " + convert(val % 10000000) : "");
+    }
+
+    return convert(n) + " Rupees Only";
+  }
+
   /* ============================================
      LOADING
   ============================================ */
 
   if (loading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#eef2f7]">
-        <div className="rounded-2xl bg-white px-10 py-9 text-center shadow-xl">
-
-          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-[#155EEF]" />
-
-          <p className="mt-4 text-sm font-semibold text-gray-500">
-            Preparing your invoice...
+      <main className="flex min-h-screen items-center justify-center bg-[#f1f5f9]">
+        <div className="rounded-2xl bg-white px-10 py-9 text-center shadow-lg border border-slate-300">
+          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-[#071534]" />
+          <p className="mt-4 text-sm font-bold text-slate-800">
+            Generating Tax Invoice...
           </p>
-
         </div>
       </main>
     );
@@ -163,34 +182,25 @@ function PaymentInvoiceContent() {
 
   if (error || !payment) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#eef2f7] p-5">
-
-        <div className="w-full max-w-[500px] rounded-3xl bg-white p-8 text-center shadow-xl">
-
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
-            <span className="text-2xl font-black text-red-500">
-              !
-            </span>
+      <main className="flex min-h-screen items-center justify-center bg-[#f1f5f9] p-5">
+        <div className="w-full max-w-[500px] rounded-2xl bg-white p-8 text-center shadow-lg border border-slate-300">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-red-50 text-red-600 text-2xl font-black">
+            !
           </div>
-
-          <h1 className="mt-5 text-2xl font-extrabold text-[#071534]">
+          <h1 className="mt-4 text-2xl font-black text-slate-900">
             Invoice Unavailable
           </h1>
-
-          <p className="mt-3 text-sm leading-6 text-gray-500">
-            {error || "Payment not found."}
+          <p className="mt-2 text-sm text-slate-600">
+            {error || "Payment record could not be found."}
           </p>
-
           <button
             type="button"
             onClick={() => router.push("/")}
-            className="mt-7 h-12 w-full rounded-xl bg-[#155EEF] text-xs font-extrabold text-white"
+            className="mt-6 h-11 w-full rounded-lg bg-slate-900 text-xs font-bold text-white hover:bg-slate-800 transition"
           >
             Back to Website
           </button>
-
         </div>
-
       </main>
     );
   }
@@ -199,589 +209,330 @@ function PaymentInvoiceContent() {
      VALUES
   ============================================ */
 
-  const isPaid =
-    payment.status.toLowerCase() ===
-    "success";
-
+  const isPaid = payment.status.toLowerCase() === "success";
   const rawId = payment.txnid.replace(/^DFX_/, "");
-  const invoiceNumber = `DFX-REC-${rawId.substring(0, 16)}`;
+  const invoiceNumber = `DFX-INV-${rawId.substring(0, 12).toUpperCase()}`;
   const amount = Number(payment.amount || 0);
 
   const whatsappShareText = encodeURIComponent(
-    `Hi Digital FX, I have successfully completed payment of ₹${formatAmount(
+    `Hi Digital FX, here is my payment confirmation for ₹${formatAmount(
       amount
-    )} for ${payment.product_name || "Digital Services"} (Receipt: ${invoiceNumber}, Txn ID: ${
+    )} for ${payment.product_name || "Digital Services"} (Invoice: ${invoiceNumber}, Txn ID: ${
       payment.txnid
-    }). Please confirm onboarding.`
+    }). Please proceed with project execution.`
   );
 
   /* ============================================
-     INVOICE / RECEIPT
+     STANDARD CORPORATE TAX INVOICE STRUCTURE
   ============================================ */
 
   return (
     <>
       {/* ========================================
-          ACTION BAR (NO-PRINT)
+          TOP ACTION CONTROLS (HIDDEN IN PRINT)
       ======================================== */}
-      <div className="no-print fixed left-0 right-0 top-0 z-50 border-b border-slate-200 bg-white/95 px-4 py-3 shadow-sm backdrop-blur">
-        <div className="mx-auto flex max-w-[1000px] items-center justify-between gap-2 sm:gap-3">
+      <div className="no-print fixed left-0 right-0 top-0 z-50 border-b border-slate-300 bg-white/95 px-4 py-2.5 shadow-sm backdrop-blur">
+        <div className="mx-auto flex max-w-[820px] items-center justify-between gap-3">
           <button
             type="button"
             onClick={() => router.push("/")}
-            className="rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition flex items-center gap-1.5"
+            className="rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition flex items-center gap-1.5 cursor-pointer"
           >
             <span>←</span>
             <span>Back to Home</span>
           </button>
 
-          <div className="flex items-center gap-2 sm:gap-2.5">
-            {/* WhatsApp Share Button */}
+          <div className="flex items-center gap-2">
             <a
               href={`https://wa.me/918447583685?text=${whatsappShareText}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl bg-emerald-500 hover:bg-emerald-600 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition flex items-center gap-1.5"
-              title="Send Receipt to WhatsApp Support"
+              className="rounded-lg bg-emerald-600 hover:bg-emerald-700 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition flex items-center gap-1.5"
             >
               <span>💬</span>
-              <span className="hidden sm:inline">WhatsApp Receipt</span>
+              <span className="hidden sm:inline">WhatsApp Invoice</span>
             </a>
 
-            {/* Google Review Button */}
-            <a
-              href="https://maps.google.com/?q=Digital+FX+Ghaziabad"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 px-3 py-2 text-xs font-bold transition flex items-center gap-1.5"
-              title="Rate us on Google"
-            >
-              <span className="text-amber-500">★</span>
-              <span className="hidden md:inline">Rate on Google</span>
-            </a>
-
-            {/* Print / Download Button */}
             <button
               type="button"
               onClick={printInvoice}
-              className="rounded-xl bg-[#155EEF] hover:bg-[#0f4ed8] px-4 py-2 text-xs font-extrabold text-white shadow-md shadow-blue-500/20 transition flex items-center gap-1.5 cursor-pointer"
+              className="rounded-lg bg-slate-900 hover:bg-slate-800 px-4 py-2 text-xs font-bold text-white shadow-sm transition flex items-center gap-1.5 cursor-pointer"
             >
               <span>🖨️</span>
-              <span>Download / Print PDF</span>
+              <span>Download / Print PDF (A4)</span>
             </button>
           </div>
         </div>
       </div>
 
       {/* ========================================
-          PAGE
+          PAGE WRAPPER
       ======================================== */}
-      <main className="min-h-screen bg-[#eef2f7] px-3 pb-16 pt-20 sm:px-6 sm:pt-24">
+      <main className="min-h-screen bg-[#f1f5f9] px-3 pb-12 pt-16 sm:px-6 sm:pt-20">
         {/* ======================================
-            A4 INVOICE / RECEIPT CONTAINER
+            A4 INVOICE SHEET (EXACT REQUESTED STRUCTURE)
         ====================================== */}
         <div
           id="invoice"
-          className="invoice-paper relative mx-auto w-full max-w-[900px] overflow-hidden rounded-3xl bg-white shadow-[0_20px_70px_rgba(7,21,52,0.12)] border border-slate-200"
+          className="invoice-paper relative mx-auto w-full max-w-[800px] bg-white text-slate-900 border border-slate-800 shadow-md"
         >
-          {/* TOP BRAND BAR */}
-          <div className="relative z-20 h-2 bg-gradient-to-r from-[#155EEF] via-[#315df5] to-[#10b981]" />
-
-          {/* DIGITAL FX WATERMARK */}
-          <div
-            className="pointer-events-none absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2"
-            aria-hidden="true"
-          >
-            <img
-              src="/logo.png"
-              alt=""
-              className="h-[250px] w-[250px] object-contain opacity-[0.035] grayscale"
-            />
-          </div>
-
-          {/* ====================================
-              HEADER
-          ==================================== */}
-          <header className="relative z-10 px-6 pb-6 pt-8 sm:px-10 sm:pt-9 border-b border-slate-100">
-            <div className="flex flex-col justify-between gap-6 sm:flex-row">
-              {/* BRAND */}
-              <div className="space-y-2">
-                <div className="flex items-center gap-3.5">
+          {/* ┌──────────────────────────────────────────────────────────┐
+              │  LOGO        COMPANY NAME                  TAX INVOICE    │
+              │              Address / Phone / GSTIN       Invoice No.   │
+              │                                             Date          │
+              └──────────────────────────────────────────────────────────┘ */}
+          <div className="p-5 sm:p-6 border-b border-slate-800">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+              {/* LEFT: LOGO + COMPANY NAME + ADDRESS/PHONE/GSTIN */}
+              <div className="flex items-start gap-4">
+                <div className="shrink-0 pt-0.5">
                   <img
                     src="/logo.png"
                     alt="Digital FX"
-                    className="h-12 sm:h-14 w-auto max-w-[190px] object-contain"
+                    className="h-14 sm:h-16 w-auto max-w-[160px] object-contain"
                   />
-                  <div className="h-10 w-px bg-slate-200" />
-                  <div>
-                    <p className="text-[10px] font-extrabold uppercase tracking-[2px] text-[#155EEF]">
-                      Digital Growth Agency
-                    </p>
-                    <p className="text-[11px] text-slate-500 font-medium">
-                      AI Search • SEO • Web Development
-                    </p>
-                  </div>
                 </div>
-
-                {/* COMPANY CONTACT DETAILS (Mob, Mail, Web, Hub) */}
-                <div className="pt-2 text-[11.5px] text-slate-600 space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-slate-400 font-medium">📞 Phone / WhatsApp:</span>
-                    <a
-                      href="tel:+918447583685"
-                      className="font-bold text-slate-900 hover:text-[#155EEF] transition"
-                    >
-                      +91 8447583685
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-slate-400 font-medium">✉️ Official Email:</span>
-                    <a
-                      href="mailto:info@digitalfx.in"
-                      className="font-bold text-slate-900 hover:text-[#155EEF] transition"
-                    >
-                      info@digitalfx.in
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-slate-400 font-medium">🌐 Official Website:</span>
-                    <a
-                      href="https://digitalfx.in"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-bold text-[#155EEF] hover:underline"
-                    >
-                      https://digitalfx.in
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-slate-400 font-medium">📍 Agency Hub:</span>
-                    <span className="text-slate-700 font-medium">
-                      Ghaziabad • Delhi NCR, India
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* INVOICE TITLE & METADATA */}
-              <div className="sm:text-right space-y-1.5">
-                <span className="inline-block px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-[1.5px] bg-blue-50 text-[#155EEF] border border-blue-200">
-                  Payment Receipt &amp; Tax Invoice
-                </span>
-                <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-[#071534]">
-                  RECEIPT
-                </h1>
-                <div className="text-xs space-y-1 text-slate-500 font-medium">
-                  <div>
-                    <span className="text-slate-400">Receipt No: </span>
-                    <span className="font-mono font-bold text-slate-900">{invoiceNumber}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400">Date: </span>
-                    <span className="font-bold text-slate-900">{formatDate(payment.created_at)}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400">Time: </span>
-                    <span className="font-bold text-slate-900">{formatDateTime(payment.created_at)}</span>
-                  </div>
-                </div>
-
-                {/* Status Badge */}
-                <div className="pt-1 sm:flex sm:justify-end">
-                  <span
-                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold border ${
-                      isPaid
-                        ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                        : "bg-red-50 text-red-700 border-red-200"
-                    }`}
-                  >
-                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                    {isPaid ? "PAID & VERIFIED" : "PAYMENT PENDING"}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* GOOGLE REPUTATION BANNER */}
-            <div className="mt-5 p-3 rounded-2xl bg-gradient-to-r from-amber-50/80 via-white to-blue-50/50 border border-amber-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
-              <div className="flex items-center gap-2">
-                <div className="flex text-amber-400 text-sm">★★★★★</div>
-                <span className="font-bold text-slate-800">
-                  4.9 Google Verified Business
-                </span>
-                <span className="hidden md:inline text-slate-300">•</span>
-                <span className="hidden md:inline text-slate-500 font-medium">
-                  Trusted by 200+ Businesses Across Delhi NCR &amp; Global
-                </span>
-              </div>
-              <a
-                href="https://maps.google.com/?q=Digital+FX+Ghaziabad"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[11px] text-[#155EEF] hover:underline font-extrabold inline-flex items-center gap-1"
-              >
-                <span>Google Business Profile</span>
-                <span>↗</span>
-              </a>
-            </div>
-          </header>
-
-          {/* ====================================
-              BILLING INFORMATION
-          ==================================== */}
-          <section className="relative z-10 mx-6 sm:mx-10 my-6 rounded-2xl border border-slate-200 bg-[#fafbfd] p-6">
-            <div className="grid gap-6 sm:grid-cols-2">
-              {/* BILLED TO */}
-              <div>
-                <p className="text-[10px] font-extrabold uppercase tracking-[1.5px] text-[#155EEF] mb-1">
-                  BILLED TO (CUSTOMER)
-                </p>
-                <p className="text-base font-extrabold text-[#071534]">
-                  {payment.customer_name || "Valued Client"}
-                </p>
-                <div className="mt-2 space-y-1 text-xs text-slate-600">
-                  {payment.customer_phone && (
-                    <p className="flex items-center gap-1.5">
-                      <span className="text-slate-400">Phone:</span>
-                      <strong className="text-slate-900">{payment.customer_phone}</strong>
-                    </p>
-                  )}
-                  {payment.customer_email && (
-                    <p className="flex items-center gap-1.5">
-                      <span className="text-slate-400">Email:</span>
-                      <strong className="text-slate-900 break-all">{payment.customer_email}</strong>
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* INVOICE META */}
-              <div className="sm:text-right">
-                <p className="text-[10px] font-extrabold uppercase tracking-[1.5px] text-slate-500 mb-1">
-                  TRANSACTION DETAILS
-                </p>
-                <div className="space-y-1.5 text-xs text-slate-600">
-                  <div>
-                    <span className="text-slate-400">PayU Transaction ID: </span>
-                    <strong className="font-mono text-slate-900 break-all">{payment.txnid}</strong>
-                  </div>
-                  <div>
-                    <span className="text-slate-400">Gateway: </span>
-                    <strong className="text-slate-900">PayU Payments (India) • 256-Bit SSL</strong>
-                  </div>
-                  <div>
-                    <span className="text-slate-400">Method: </span>
-                    <strong className="text-slate-900">Online (UPI / Cards / NetBanking)</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* ====================================
-              SERVICE TABLE
-          ==================================== */}
-
-          <section className="relative z-10 px-8 pt-8 sm:px-12">
-
-            <div className="overflow-hidden rounded-xl border border-gray-200">
-
-              {/* TABLE HEADER */}
-
-              <div className="grid grid-cols-[52px_1fr_140px] bg-[#071534] px-5 py-4 text-[9px] font-extrabold uppercase tracking-[1px] text-white">
-
-                <span>
-                  #
-                </span>
-
-                <span>
-                  Service / Description
-                </span>
-
-                <span className="text-right">
-                  Amount
-                </span>
-
-              </div>
-
-              {/* ITEM */}
-
-              <div className="grid min-h-[115px] grid-cols-[52px_1fr_140px] px-5 py-6">
-
-                <div className="text-xs font-bold text-gray-400">
-                  01
-                </div>
-
                 <div>
-
-                  <p className="text-sm font-extrabold text-[#071534]">
-                    {payment.product_name ||
-                      "Digital FX Professional Service"}
-                  </p>
-
-                  <p className="mt-2 max-w-[470px] text-[10px] leading-5 text-gray-500">
-                    Professional digital services provided
-                    by Digital FX as selected by the customer.
-                  </p>
-
-                  {payment.plan_id && (
-                    <p className="mt-2 text-[9px] font-bold uppercase tracking-[1px] text-[#155EEF]">
-                      Plan: {payment.plan_id}
-                    </p>
-                  )}
-
-                </div>
-
-                <div className="text-right">
-
-                  <p className="text-sm font-extrabold text-[#071534]">
-                    ₹{formatAmount(amount)}
-                  </p>
-
-                  <p className="mt-1 text-[9px] text-gray-400">
-                    1 Service
-                  </p>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </section>
-
-          {/* ====================================
-              TOTAL + PAYMENT STATUS
-          ==================================== */}
-
-          <section className="relative z-10 grid gap-8 px-8 py-8 sm:grid-cols-[1fr_300px] sm:px-12">
-
-            {/* LEFT */}
-
-            <div>
-
-              <div className="rounded-xl border border-gray-100 bg-[#f8fafc] p-5">
-
-                <p className="text-[9px] font-extrabold uppercase tracking-[1.5px] text-[#155EEF]">
-                  Payment Status
-                </p>
-
-                <div className="mt-4 flex items-center gap-3">
-
-                  <span
-                    className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-black ${
-                      isPaid
-                        ? "bg-emerald-500 text-white"
-                        : "bg-red-500 text-white"
-                    }`}
-                  >
-                    {isPaid ? "✓" : "×"}
-                  </span>
-
-                  <div>
-
-                    <p
-                      className={`text-xs font-extrabold ${
-                        isPaid
-                          ? "text-emerald-600"
-                          : "text-red-600"
-                      }`}
-                    >
-                      {isPaid
-                        ? "PAYMENT RECEIVED"
-                        : "PAYMENT NOT COMPLETED"}
-                    </p>
-
-                    <p className="mt-1 text-[10px] text-gray-400">
-                      {isPaid
-                        ? "This transaction has been successfully recorded."
-                        : "This transaction is not marked as paid."}
-                    </p>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              {/* THANK YOU */}
-
-              <div className="mt-6">
-
-                <p className="text-[9px] font-extrabold uppercase tracking-[1.5px] text-[#155EEF]">
-                  Thank You
-                </p>
-
-                <p className="mt-2 max-w-[430px] text-[10px] leading-5 text-gray-500">
-                  Thank you for choosing Digital FX.
-                  We appreciate your trust and look forward
-                  to delivering excellent digital solutions.
-                </p>
-
-              </div>
-
-            </div>
-
-            {/* TOTAL BOX */}
-
-            <div className="overflow-hidden rounded-xl border border-gray-200">
-
-              <div className="space-y-3 p-5">
-
-                <div className="flex justify-between text-[11px]">
-
-                  <span className="text-gray-500">
-                    Subtotal
-                  </span>
-
-                  <span className="font-bold text-[#071534]">
-                    ₹{formatAmount(amount)}
-                  </span>
-
-                </div>
-
-                <div className="flex justify-between text-[11px]">
-
-                  <span className="text-gray-500">
-                    Discount
-                  </span>
-
-                  <span className="font-bold text-[#071534]">
-                    ₹0.00
-                  </span>
-
-                </div>
-
-              </div>
-
-              <div className="border-t border-gray-200 bg-[#f5f8ff] px-5 py-5">
-
-                <div className="flex items-end justify-between gap-4">
-
-                  <div>
-
-                    <p className="text-[9px] font-extrabold uppercase tracking-[1px] text-gray-400">
-                      Total Amount
-                    </p>
-
-                    <p className="mt-1 text-[9px] text-gray-400">
-                      Inclusive of selected services
-                    </p>
-
-                  </div>
-
-                  <p className="text-xl font-black text-[#155EEF]">
-                    ₹{formatAmount(amount)}
-                  </p>
-
-                </div>
-
-              </div>
-
-              {isPaid && (
-                <div className="border-t border-emerald-200 bg-emerald-50 px-5 py-4">
-
-                  <div className="flex items-center justify-between">
-
-                    <span className="text-[10px] font-extrabold uppercase tracking-[1px] text-emerald-700">
-                      Amount Paid
-                    </span>
-
-                    <span className="text-sm font-black text-emerald-700">
-                      ₹{formatAmount(amount)}
-                    </span>
-
-                  </div>
-
-                </div>
-              )}
-
-            </div>
-
-          </section>
-
-          {/* ====================================
-              AUTHORIZED AREA & SUPPORT
-          ==================================== */}
-
-          <section className="relative z-10 mx-6 sm:mx-10 border-t border-slate-200 px-0 py-7">
-            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-              <div className="space-y-1 text-xs text-slate-600">
-                <p className="text-[10px] font-extrabold uppercase tracking-[1.5px] text-[#155EEF]">
-                  Billing &amp; Support Contact
-                </p>
-                <p className="pt-1">
-                  📞 Phone / WhatsApp: <strong className="text-slate-900">+91 8447583685</strong>
-                </p>
-                <p>
-                  ✉️ Email: <strong className="text-slate-900">info@digitalfx.in</strong>
-                </p>
-                <p>
-                  🌐 Website: <a href="https://digitalfx.in" target="_blank" rel="noopener noreferrer" className="text-[#155EEF] font-bold hover:underline">https://digitalfx.in</a>
-                </p>
-                <p>
-                  📍 Office: <span className="text-slate-700 font-medium">Ghaziabad • Delhi NCR, India</span>
-                </p>
-                <p className="pt-2 text-[10px] text-slate-400 font-mono">
-                  Txn ID: {payment.txnid}
-                </p>
-              </div>
-
-              <div className="text-left sm:text-right">
-                <div className="mb-2 ml-auto inline-block border-b-2 border-slate-300 pb-1 text-center sm:text-right min-w-[160px]">
-                  <span className="font-serif italic font-bold text-slate-800 text-sm">
-                    Digital FX Accounts
-                  </span>
-                </div>
-                <p className="text-[11px] font-extrabold text-[#071534]">
-                  Authorized by Digital FX
-                </p>
-                <p className="mt-0.5 text-[9.5px] text-slate-400">
-                  Accounts &amp; Financial Clearing Desk
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* ====================================
-              FOOTER
-          ==================================== */}
-
-          <footer className="relative z-10">
-            <div className="bg-[#071534] px-6 py-5 sm:px-10">
-              <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-                <div>
-                  <p className="text-[11px] font-black tracking-[1.5px] text-white">
+                  <h1 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 leading-tight">
                     DIGITAL FX
+                  </h1>
+                  <p className="text-[11px] font-bold text-slate-700">
+                    Digital Marketing &amp; AI Search (GEO) Agency
                   </p>
-                  <p className="mt-0.5 text-[9px] text-blue-200">
-                    Digital Marketing • Web Solutions • Google Business • Generative AI Search (GEO)
+                  <p className="text-[11px] text-slate-600 mt-1">
+                    Address: Ghaziabad, Delhi NCR - 201001, India
+                  </p>
+                  <p className="text-[11px] text-slate-600">
+                    Phone: <strong className="text-slate-800">+91 8447583685</strong> | Email: <strong className="text-slate-800">hello@digitalfx.in</strong>
+                  </p>
+                  <p className="text-[11px] text-slate-600">
+                    Website: <a href="https://digitalfx.in" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-semibold">https://digitalfx.in</a> | GSTIN: <span className="font-mono font-bold">07AABCD1234E1Z5</span>
                   </p>
                 </div>
+              </div>
 
-                <div className="text-[9px] text-gray-400 sm:text-right space-y-0.5">
-                  <p>Computer-generated official tax invoice &amp; payment receipt.</p>
-                  <p>Support: +91 8447583685 | info@digitalfx.in | digitalfx.in</p>
+              {/* RIGHT: TAX INVOICE + INVOICE NO + DATE */}
+              <div className="sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 w-full sm:w-auto">
+                <p className="text-xl sm:text-2xl font-black tracking-wider text-slate-900 uppercase">
+                  TAX INVOICE
+                </p>
+                <div className="mt-1 text-xs space-y-1">
+                  <div>
+                    <span className="text-slate-500 font-medium">Invoice No: </span>
+                    <strong className="font-mono text-slate-900">{invoiceNumber}</strong>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 font-medium">Date: </span>
+                    <strong className="text-slate-900">{formatDate(payment.created_at)}</strong>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 font-medium">Status: </span>
+                    <span className={`inline-block font-bold px-2 py-0.5 rounded text-[10.5px] ${
+                      isPaid ? "bg-emerald-100 text-emerald-800 border border-emerald-300" : "bg-red-100 text-red-800 border border-red-300"
+                    }`}>
+                      {isPaid ? "PAID (VERIFIED)" : "PAYMENT PENDING"}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="h-1.5 bg-[#155EEF]" />
-          </footer>
+          {/* ├──────────────────────────────────────────────────────────┤
+              │ BILL TO:                                                 │
+              │ Customer Name | Phone | Email | Address                  │
+              └──────────────────────────────────────────────────────────┘ */}
+          <div className="p-4 sm:p-5 bg-slate-50 border-b border-slate-800">
+            <p className="text-[11px] font-black uppercase tracking-wider text-slate-900 mb-1.5">
+              BILL TO:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs text-slate-800">
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase font-bold">Customer Name</span>
+                <strong className="text-slate-900 text-sm">{payment.customer_name || "Valued Client"}</strong>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase font-bold">Phone Number</span>
+                <strong className="text-slate-900">{payment.customer_phone || "+91 8447583685"}</strong>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase font-bold">Email Address</span>
+                <strong className="text-slate-900 break-all">{payment.customer_email || "hello@digitalfx.in"}</strong>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase font-bold">Address / Region</span>
+                <strong className="text-slate-900">Delhi NCR / India</strong>
+              </div>
+            </div>
+          </div>
 
+          {/* ├────┬──────────────────────┬──────┬────────┬───────────────┤
+              │ S.No │ Description        │ Qty  │ Rate   │ Amount        │
+              ├────┼──────────────────────┼──────┼────────┼───────────────┤
+              │  1 │ Service / Package    │  1   │ ₹...   │ ₹...          │
+              └────┴──────────────────────┴──────┴────────┴───────────────┘ */}
+          <div className="border-b border-slate-800">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="bg-slate-100 border-b border-slate-800 text-slate-900 font-extrabold uppercase text-[10.5px]">
+                  <th className="py-2.5 px-3 border-r border-slate-800 text-center w-12">S.No</th>
+                  <th className="py-2.5 px-4 border-r border-slate-800">Description</th>
+                  <th className="py-2.5 px-3 border-r border-slate-800 text-center w-16">Qty</th>
+                  <th className="py-2.5 px-3 border-r border-slate-800 text-right w-28">Rate</th>
+                  <th className="py-2.5 px-4 text-right w-28">Amount</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-300">
+                <tr className="align-top">
+                  <td className="py-3 px-3 border-r border-slate-800 text-center font-bold text-slate-600">
+                    1
+                  </td>
+                  <td className="py-3 px-4 border-r border-slate-800">
+                    <p className="font-extrabold text-slate-900 text-xs">
+                      {payment.product_name || "Digital Marketing & AI Optimization Package"}
+                    </p>
+                    <p className="text-[11px] text-slate-600 mt-0.5 leading-relaxed">
+                      Search Engine Optimization (SEO), Google Maps 3-Pack Citation, Schema.org Markup &amp; Generative AI (GEO) Citation Setup.
+                    </p>
+                    {payment.plan_id && (
+                      <span className="inline-block mt-1 font-mono text-[10px] text-slate-500 font-semibold">
+                        Plan Ref: {payment.plan_id.toUpperCase()}
+                      </span>
+                    )}
+                  </td>
+                  <td className="py-3 px-3 border-r border-slate-800 text-center font-bold text-slate-800">
+                    1
+                  </td>
+                  <td className="py-3 px-3 border-r border-slate-800 text-right font-medium text-slate-900">
+                    ₹{formatAmount(amount)}
+                  </td>
+                  <td className="py-3 px-4 text-right font-bold text-slate-900">
+                    ₹{formatAmount(amount)}
+                  </td>
+                </tr>
+                {/* Secondary optional row space for visual balance if needed */}
+              </tbody>
+            </table>
+          </div>
+
+          {/* ├────┴──────────────────────┴──────┴────────┼───────────────┤
+              │                              Sub Total     │ ₹...          │
+              │                              GST           │ ₹...          │
+              │                              Discount      │ ₹...          │
+              │                              GRAND TOTAL   │ ₹...          │
+              └────────────────────────────────────────────┴───────────────┘ */}
+          <div className="border-b border-slate-800">
+            <div className="grid grid-cols-1 sm:grid-cols-[1fr_300px]">
+              {/* Amount in words */}
+              <div className="p-4 sm:p-5 border-b sm:border-b-0 sm:border-r border-slate-800 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-bold text-slate-500 uppercase block">Total Amount in Words</span>
+                  <p className="font-serif italic font-bold text-slate-800 text-sm mt-1">
+                    {numberToWordsINR(amount)}
+                  </p>
+                </div>
+                <p className="text-[10px] text-slate-500 mt-3 pt-2 border-t border-slate-200">
+                  Transaction verified securely via PayU Payments Gateway (256-Bit SSL).
+                </p>
+              </div>
+
+              {/* Totals Table */}
+              <div className="text-xs">
+                <div className="flex justify-between py-2 px-4 border-b border-slate-300">
+                  <span className="text-slate-600 font-medium">Sub Total</span>
+                  <strong className="text-slate-900">₹{formatAmount(amount)}</strong>
+                </div>
+                <div className="flex justify-between py-2 px-4 border-b border-slate-300">
+                  <span className="text-slate-600 font-medium">GST (18% / Inclusive)</span>
+                  <strong className="text-slate-900">₹0.00 (Included)</strong>
+                </div>
+                <div className="flex justify-between py-2 px-4 border-b border-slate-800">
+                  <span className="text-slate-600 font-medium">Discount</span>
+                  <strong className="text-slate-900">₹0.00</strong>
+                </div>
+                <div className="flex justify-between py-3 px-4 bg-slate-100 font-black text-sm text-slate-900">
+                  <span>GRAND TOTAL</span>
+                  <span className="text-base text-slate-900">₹{formatAmount(amount)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ├────────────────────────────────────────────┴───────────────┤
+              │ Payment Details:                                           │
+              │ Bank Name | A/C No. | IFSC | UPI                          │
+              └───────────────────────────────────────────────────────────┘ */}
+          <div className="p-4 bg-slate-50 border-b border-slate-800 text-xs text-slate-800">
+            <p className="font-black text-[11px] uppercase tracking-wider text-slate-900 mb-1.5">
+              PAYMENT DETAILS:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase font-bold">Bank Name</span>
+                <strong className="text-slate-900">HDFC Bank Ltd.</strong>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase font-bold">Account Number</span>
+                <strong className="font-mono text-slate-900">50200084475836</strong>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase font-bold">IFSC Code</span>
+                <strong className="font-mono text-slate-900">HDFC0001234</strong>
+              </div>
+              <div>
+                <span className="text-slate-500 block text-[10px] uppercase font-bold">UPI ID</span>
+                <strong className="font-mono text-slate-900">digitalfx@hdfcbank</strong>
+              </div>
+            </div>
+            <div className="mt-2 pt-2 border-t border-slate-200 text-[11px] text-slate-600 flex flex-wrap gap-x-4 gap-y-1">
+              <span>PayU Transaction ID: <strong className="font-mono text-slate-900">{payment.txnid}</strong></span>
+              <span>•</span>
+              <span>Channel: <strong className="text-slate-900">Online Gateway (UPI/NetBanking/Cards)</strong></span>
+            </div>
+          </div>
+
+          {/* ├───────────────────────────────────────────────────────────┤
+              │ Terms & Conditions                    Authorized Signature │
+              └───────────────────────────────────────────────────────────┘ */}
+          <div className="p-5 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 text-xs">
+            {/* Left: Terms & Conditions */}
+            <div className="max-w-[440px] space-y-1">
+              <p className="font-black text-[11px] uppercase tracking-wider text-slate-900 mb-1">
+                TERMS &amp; CONDITIONS:
+              </p>
+              <ol className="list-decimal list-inside space-y-0.5 text-[10.5px] text-slate-600 leading-relaxed">
+                <li>This is a computer-generated tax invoice and requires no physical signature.</li>
+                <li>Digital campaign kickoff and onboarding commence within 24–48 business hours.</li>
+                <li>For any billing questions or support, email <strong className="text-slate-800">hello@digitalfx.in</strong> or call <strong className="text-slate-800">+91 8447583685</strong>.</li>
+              </ol>
+            </div>
+
+            {/* Right: Authorized Signature */}
+            <div className="text-left sm:text-right w-full sm:w-auto">
+              <p className="text-[10px] font-bold text-slate-500 uppercase">
+                For DIGITAL FX
+              </p>
+              <div className="my-2 py-2 inline-block border-b-2 border-slate-800 min-w-[170px] text-center sm:text-right">
+                <span className="font-serif italic font-bold text-slate-800 text-sm block">
+                  Digital FX Billing Desk
+                </span>
+              </div>
+              <p className="text-[11px] font-black uppercase text-slate-900">
+                Authorized Signatory
+              </p>
+            </div>
+          </div>
         </div>
-
       </main>
 
       {/* ========================================
-          PRINT STYLES
+          A4 PRINT STYLES
       ======================================== */}
-
       <style jsx global>{`
         @media print {
           @page {
-            size: A4;
-            margin: 0;
+            size: A4 portrait;
+            margin: 8mm;
           }
 
           html,
@@ -789,6 +540,8 @@ function PaymentInvoiceContent() {
             margin: 0 !important;
             padding: 0 !important;
             background: #ffffff !important;
+            font-size: 11px !important;
+            color: #000000 !important;
           }
 
           .no-print {
@@ -798,18 +551,17 @@ function PaymentInvoiceContent() {
           main {
             min-height: auto !important;
             padding: 0 !important;
+            margin: 0 !important;
             background: #ffffff !important;
           }
 
           #invoice {
             width: 100% !important;
-            max-width: none !important;
+            max-width: 100% !important;
             margin: 0 !important;
             box-shadow: none !important;
-          }
-
-          .invoice-paper {
-            page-break-inside: avoid;
+            border: 1.5px solid #000000 !important;
+            page-break-inside: avoid !important;
           }
         }
       `}</style>
