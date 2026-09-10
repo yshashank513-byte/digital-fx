@@ -10,6 +10,8 @@ export async function POST(request: Request) {
     const email = String(body.email || "").trim();
     const service = String(body.service || "").trim();
     const message = String(body.message || "").trim();
+    const website = String(body.website || "").trim();
+    const isProposal = Boolean(body.is_proposal);
 
     // Required fields
     if (!name || !phone || !service) {
@@ -23,6 +25,16 @@ export async function POST(request: Request) {
       );
     }
 
+    let finalService = service;
+    if (isProposal && !finalService.startsWith("Strategic Proposal")) {
+      finalService = `Strategic Proposal - ${service}`;
+    }
+
+    let finalMessage = message;
+    if (website) {
+      finalMessage = `Target Website: ${website}` + (message ? `\n\nRequirement Details:\n${message}` : "");
+    }
+
     // Save enquiry to Supabase
     const { data, error } = await supabase
       .from("enquiries")
@@ -31,8 +43,8 @@ export async function POST(request: Request) {
           name,
           phone,
           email: email || null,
-          service,
-          message,
+          service: finalService,
+          message: finalMessage,
           status: "New",
         },
       ])

@@ -1,1658 +1,610 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import { supabase } from "../lib/supabase";
+import CustomerDrawer, { DrawerRecord } from "../../components/admin/CustomerDrawer";
 
-type Enquiry = {
-  id: number;
-  name: string;
-  phone: string;
-  email: string | null;
+type Stats = {
+  totalEnquiries: number;
+  freeAnalyses: number;
+  paidAnalyses: number;
+  strategicProposals: number;
+  totalRevenue: number;
+  pendingPayments: number;
+};
+
+type ActivityItem = {
+  id: string;
+  type: "analysis" | "enquiry" | "proposal" | "payment";
+  customer: string;
+  website: string;
   service: string;
-  message: string;
+  timestamp: string;
   status: string;
-  created_at: string;
+  amount?: number;
+  score?: number;
 };
 
-type GeoAnalysis = {
-  id: number;
-  url: string;
-  seo: number;
-  performance: number;
-  mobile: number;
-  content: number;
-  geo: number;
-  overall: number;
-  title: string | null;
-  created_at: string;
-};
+export default function AdminDashboardPage() {
+  const [stats, setStats] = useState<Stats>({
+    totalEnquiries: 0,
+    freeAnalyses: 0,
+    paidAnalyses: 0,
+    strategicProposals: 0,
+    totalRevenue: 0,
+    pendingPayments: 0,
+  });
 
-
-const STATUS_OPTIONS = [
-  "New",
-  "Contacted",
-  "In Progress",
-  "Converted",
-  "Closed",
-];
-
-export default function AdminDashboard() {
-  const router = useRouter();
-
-  const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
-  const [geoAnalyses, setGeoAnalyses] = useState<GeoAnalysis[]>([]);
-
+  const [recentActivity, setRecentActivity] = useState<ActivityItem[]>([]);
+  const [recentEnquiries, setRecentEnquiries] = useState<any[]>([]);
+  const [recentProposals, setRecentProposals] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [geoLoading, setGeoLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [selectedRecord, setSelectedRecord] = useState<DrawerRecord | null>(null);
 
-  const [selected, setSelected] = useState<Enquiry | null>(null);
+  const loadData = useCallback(async () => {
+    try {
+      setError("");
+      const res = await fetch("/api/admin/stats", {
+        method: "GET",
+        cache: "no-store",
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to load dashboard metrics (HTTP ${res.status}).`);
+      }
+
+      const data = await res.json();
+      if (!data.success) {
+        throw new Error(data.error || "Unable to load dashboard data.");
+      }
+
+      setStats(data.stats);
+      setRecentActivity(data.recentActivity || []);
+      setRecentEnquiries(data.recentEnquiries || []);
+      setRecentProposals(data.recentProposals || []);
+    } catch (err) {
+      console.error("DASHBOARD DATA LOAD ERROR:", err);
+      setError(err instanceof Error ? err.message : "Unable to load data.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const loggedIn =
-      localStorage.getItem("digitalfx_admin") === "true";
+    loadData();
 
-    if (!loggedIn) {
-      router.replace("/admin/login");
-      return;
-    }
-
-    loadDashboard();
-  }, [router]);
-
-  async function loadDashboard() {
-    setLoading(true);
-    setGeoLoading(true);
-
-    // ========================================
-    // ENQUIRIES
-    // ========================================
-
-    try {
-      const enquiryResult = await supabase
-        .from("enquiries")
-        .select("*")
-        .order("created_at", {
-          ascending: false,
-        });
-
-      if (enquiryResult.error) {
-        console.error(
-          "ENQUIRY LOAD ERROR:",
-          enquiryResult.error.message
-        );
-
-        setEnquiries([]);
-      } else {
-        setEnquiries(
-          (enquiryResult.data || []) as Enquiry[]
-        );
-      }
-    } catch (error) {
-      console.error(
-        "ENQUIRY REQUEST ERROR:",
-        error
-      );
-
-      setEnquiries([]);
-    }
-
-    // ========================================
-    // GEO ANALYSES
-    // ========================================
-
-    try {
-      const geoResult = await supabase
-        .from("geo_analyses")
-        .select(
-          "id,url,seo,performance,mobile,content,geo,overall,title,created_at"
-        )
-        .order("created_at", {
-          ascending: false,
-        })
-        .limit(7);
-
-      if (geoResult.error) {
-        console.error(
-          "GEO LOAD ERROR:",
-          geoResult.error.message
-        );
-
-        setGeoAnalyses([]);
-      } else {
-        setGeoAnalyses(
-          (geoResult.data || []) as GeoAnalysis[]
-        );
-      }
-    } catch (error) {
-      console.error(
-        "GEO REQUEST ERROR:",
-        error
-      );
-
-      setGeoAnalyses([]);
-    }
-
-    setLoading(false);
-    setGeoLoading(false);
-  }
-
-  // ========================================
-  // ENQUIRY STATUS
-  // ========================================
-
-  async function changeStatus(
-    id: number,
-    status: string
-  ) {
-    const { error } = await supabase
-      .from("enquiries")
-      .update({ status })
-      .eq("id", id);
-
-    if (error) {
-      console.error(
-        "STATUS UPDATE ERROR:",
-        error.message
-      );
-      return;
-    }
-
-    setEnquiries((items) =>
-      items.map((item) =>
-        item.id === id
-          ? { ...item, status }
-          : item
+    // =========================================================================
+    // SUPABASE REALTIME SUBSCRIPTIONS
+    // Live reactive updates for enquiries, geo_analyses, and payments
+    // =========================================================================
+    const channel = supabase
+      .channel("admin-dashboard-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "enquiries" },
+        () => {
+          console.log("Realtime event on enquiries: reloading stats");
+          loadData();
+        }
       )
-    );
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "geo_analyses" },
+        () => {
+          console.log("Realtime event on geo_analyses: reloading stats");
+          loadData();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "payments" },
+        () => {
+          console.log("Realtime event on payments: reloading stats");
+          loadData();
+        }
+      )
+      .subscribe();
 
-    setSelected((current) =>
-      current && current.id === id
-        ? { ...current, status }
-        : current
-    );
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [loadData]);
+
+  // Format Date for UI
+  function formatDate(isoString?: string) {
+    if (!isoString) return "—";
+    const date = new Date(isoString);
+    if (isNaN(date.getTime())) return "—";
+    return date.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   }
 
-  // ========================================
-  // LOGOUT
-  // ========================================
-
-  function logout() {
-    localStorage.removeItem("digitalfx_admin");
-    localStorage.removeItem("digitalfx_remember");
-
-    router.push("/admin/login");
+  // Activity click to open drawer
+  function openActivityDrawer(act: ActivityItem) {
+    setSelectedRecord({
+      id: act.id,
+      type: act.type,
+      name: act.customer,
+      website: act.website,
+      service: act.service,
+      status: act.status,
+      date: formatDate(act.timestamp),
+      amount: act.amount,
+      overallScore: act.score,
+    });
   }
 
-  // ========================================
-  // DATE
-  // ========================================
-
-  function formatDate(
-    date?: string
-  ) {
-    if (!date) {
-      return "-";
+  function getStatusBadge(status: string) {
+    const s = (status || "").toLowerCase();
+    if (s === "converted" || s === "paid" || s === "success" || s === "completed") {
+      return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
     }
-
-    return new Date(date).toLocaleString(
-      "en-IN",
-      {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }
-    );
+    if (s === "in progress" || s === "proposal sent") {
+      return "bg-violet-500/15 text-violet-400 border-violet-500/30";
+    }
+    if (s === "contacted" || s === "pending" || s === "payment pending") {
+      return "bg-amber-500/15 text-amber-400 border-amber-500/30";
+    }
+    return "bg-blue-500/15 text-blue-400 border-blue-500/30";
   }
 
-  // ========================================
-  // INITIAL
-  // ========================================
-
-  function getInitial(name: string) {
-    return (
-      name?.trim()?.charAt(0)?.toUpperCase() ||
-      "C"
-    );
-  }
-
-  // ========================================
-  // ENQUIRY STATUS STYLE
-  // ========================================
-
-  function getStatusClass(status: string) {
-    switch (status) {
-      case "Converted":
-        return "border-emerald-100 bg-emerald-50 text-emerald-700";
-
-      case "In Progress":
-        return "border-violet-100 bg-violet-50 text-violet-700";
-
-      case "Contacted":
-        return "border-amber-100 bg-amber-50 text-amber-700";
-
-      case "Closed":
-        return "border-gray-200 bg-gray-100 text-gray-600";
-
-      default:
-        return "border-blue-100 bg-blue-50 text-blue-700";
+  async function handleStatusChange(id: string | number, newStatus: string) {
+    // If it's an enquiry/proposal id
+    const numId = typeof id === "string" ? parseInt(id.replace(/\D/g, ""), 10) : id;
+    if (numId) {
+      await fetch("/api/admin/enquiries", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: numId, status: newStatus }),
+      });
+      loadData();
     }
   }
-
-
-  // ========================================
-  // SCORE STYLE
-  // ========================================
-
-  function getScoreClass(score: number) {
-    if (score >= 80) {
-      return "text-emerald-600";
-    }
-
-    if (score >= 60) {
-      return "text-amber-600";
-    }
-
-    return "text-red-500";
-  }
-
-  // ========================================
-  // ENQUIRY STATS
-  // ========================================
-
-  const total = enquiries.length;
-
-  const newCount = enquiries.filter(
-    (item) => item.status === "New"
-  ).length;
-
-  const contactedCount = enquiries.filter(
-    (item) => item.status === "Contacted"
-  ).length;
-
-  const progressCount = enquiries.filter(
-    (item) => item.status === "In Progress"
-  ).length;
-
-  const convertedCount = enquiries.filter(
-    (item) => item.status === "Converted"
-  ).length;
-
-  const closedCount = enquiries.filter(
-    (item) => item.status === "Closed"
-  ).length;
-
-  const recentEnquiries =
-    enquiries.slice(0, 7);
-
-  // ========================================
-  // GEO STATS
-  // ========================================
-
-  const totalGeoAnalyses =
-    geoAnalyses.length;
-
-  const averageOverall =
-    totalGeoAnalyses > 0
-      ? Math.round(
-          geoAnalyses.reduce(
-            (sum, item) =>
-              sum + Number(item.overall || 0),
-            0
-          ) / totalGeoAnalyses
-        )
-      : 0;
-
-  const averageGeo =
-    totalGeoAnalyses > 0
-      ? Math.round(
-          geoAnalyses.reduce(
-            (sum, item) =>
-              sum + Number(item.geo || 0),
-            0
-          ) / totalGeoAnalyses
-        )
-      : 0;
-
-  const averageSeo =
-    totalGeoAnalyses > 0
-      ? Math.round(
-          geoAnalyses.reduce(
-            (sum, item) =>
-              sum + Number(item.seo || 0),
-            0
-          ) / totalGeoAnalyses
-        )
-      : 0;
-
-
-  // ========================================
-  // SIDEBAR
-  // ========================================
 
   return (
-    <main className="min-h-screen bg-[#f5f7fb] text-[#071534]">
-
-      <aside className="fixed left-0 top-0 z-40 hidden h-screen w-[260px] flex-col bg-[#071534] text-white lg:flex">
-
-        <div className="flex h-[82px] shrink-0 items-center border-b border-white/10 px-5">
-
-          <button
-            onClick={() =>
-              router.push("/admin")
-            }
-            className="flex items-center gap-3"
-          >
-
-            <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white">
-
-              <img
-                src="/logo.png"
-                alt="Digital FX"
-                className="h-10 w-10 object-contain"
-              />
-
-            </div>
-
-            <div className="text-left">
-
-              <div className="text-[18px] font-extrabold">
-                DIGITAL{" "}
-                <span className="text-[#6f8cff]">
-                  FX
-                </span>
-              </div>
-
-              <div className="mt-0.5 text-[7px] font-bold tracking-[2px] text-blue-100/45">
-                ADMIN PANEL
-              </div>
-
-            </div>
-
-          </button>
-
+    <div className="space-y-8">
+      
+      {/* Top Banner & Refresh */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-[#315df5] animate-pulse" />
+            <span className="text-[10.5px] font-extrabold uppercase tracking-widest text-[#6f8cff]">
+              Digital FX Executive Intelligence
+            </span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white mt-1">
+            Business Operations Dashboard
+          </h1>
+          <p className="text-xs text-slate-400 mt-1">
+            Live metrics, customer enquiries, website analyses, and revenue tracking.
+          </p>
         </div>
 
-        <nav className="flex-1 overflow-y-auto p-4">
-
+        <div className="flex items-center gap-3">
           <button
-            onClick={() =>
-              router.push("/admin")
-            }
-            className="mb-1.5 flex w-full items-center gap-3 rounded-xl bg-[#315df5] px-4 py-3 text-sm font-bold text-white"
+            onClick={() => {
+              setLoading(true);
+              loadData();
+            }}
+            disabled={loading}
+            className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-bold text-white hover:bg-white/10 transition cursor-pointer disabled:opacity-50"
           >
-            <span className="w-5 text-center">
-              ▦
-            </span>
-            Dashboard
+            <span className={loading ? "animate-spin" : ""}>↻</span>
+            <span>Refresh Live Data</span>
           </button>
+        </div>
+      </div>
 
-          <button
-            onClick={() =>
-              router.push("/admin/enquiries")
-            }
-            className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white"
-          >
-            <span className="w-5 text-center">
+      {error && (
+        <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-4 text-xs text-red-400">
+          {error}
+        </div>
+      )}
+
+      {/* =========================================================================
+          TOP 6 KPI CARDS (Real Database Data)
+          ========================================================================= */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+        
+        {/* Card 1: Total Enquiries */}
+        <Link
+          href="/admin/enquiries"
+          className="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-lg transition hover:border-[#315df5]/50 hover:bg-white/[0.05]"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Total Enquiries
+            </span>
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500/10 text-xs text-[#6f8cff]">
               ◉
             </span>
+          </div>
+          <p className="mt-3 text-2xl font-black text-white tabular-nums">
+            {loading ? "..." : stats.totalEnquiries}
+          </p>
+          <p className="mt-1 text-[10px] text-slate-400 flex items-center gap-1">
+            <span>Customer leads</span>
+            <span className="text-[#6f8cff] opacity-0 group-hover:opacity-100 transition">→</span>
+          </p>
+        </Link>
 
-            Enquiries
+        {/* Card 2: Free Website Analyses */}
+        <Link
+          href="/admin/analyses"
+          className="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-lg transition hover:border-emerald-500/50 hover:bg-white/[0.05]"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Free Analyses
+            </span>
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 text-xs text-emerald-400">
+              ⚡
+            </span>
+          </div>
+          <p className="mt-3 text-2xl font-black text-white tabular-nums">
+            {loading ? "..." : stats.freeAnalyses}
+          </p>
+          <p className="mt-1 text-[10px] text-slate-400 flex items-center gap-1">
+            <span>Audited websites</span>
+            <span className="text-emerald-400 opacity-0 group-hover:opacity-100 transition">→</span>
+          </p>
+        </Link>
 
-            {newCount > 0 && (
-              <span className="ml-auto rounded-full bg-blue-500/20 px-2 py-0.5 text-[9px] text-blue-200">
-                {newCount}
-              </span>
-            )}
-          </button>
+        {/* Card 3: Paid Analyses */}
+        <Link
+          href="/admin/analyses?filter=paid"
+          className="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-lg transition hover:border-violet-500/50 hover:bg-white/[0.05]"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Paid Analyses
+            </span>
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-500/10 text-xs text-violet-400">
+              💎
+            </span>
+          </div>
+          <p className="mt-3 text-2xl font-black text-white tabular-nums">
+            {loading ? "..." : stats.paidAnalyses}
+          </p>
+          <p className="mt-1 text-[10px] text-slate-400 flex items-center gap-1">
+            <span>Deep audits unlocked</span>
+            <span className="text-violet-400 opacity-0 group-hover:opacity-100 transition">→</span>
+          </p>
+        </Link>
 
+        {/* Card 4: Strategic Proposals */}
+        <Link
+          href="/admin/proposals"
+          className="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-lg transition hover:border-cyan-500/50 hover:bg-white/[0.05]"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Proposals
+            </span>
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-500/10 text-xs text-cyan-400">
+              📑
+            </span>
+          </div>
+          <p className="mt-3 text-2xl font-black text-white tabular-nums">
+            {loading ? "..." : stats.strategicProposals}
+          </p>
+          <p className="mt-1 text-[10px] text-slate-400 flex items-center gap-1">
+            <span>High-intent requests</span>
+            <span className="text-cyan-400 opacity-0 group-hover:opacity-100 transition">→</span>
+          </p>
+        </Link>
 
-          <button
-            onClick={() =>
-              router.push("/admin/payments")
-            }
-            className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white"
-          >
-            <span className="w-5 text-center">
+        {/* Card 5: Total Revenue */}
+        <Link
+          href="/admin/payments"
+          className="group relative rounded-2xl border border-emerald-500/30 bg-emerald-500/[0.05] p-5 shadow-lg transition hover:border-emerald-500/60 hover:bg-emerald-500/[0.08]"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-300">
+              Verified Revenue
+            </span>
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/20 text-xs text-emerald-400 font-black">
               ₹
             </span>
-            Payments
-          </button>
-
-          <button
-            onClick={() =>
-              router.push("/admin/services")
-            }
-            className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white"
-          >
-            <span className="w-5 text-center">
-              ◇
-            </span>
-            Services
-          </button>
-
-          <button className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white">
-            <span className="w-5 text-center">
-              ▣
-            </span>
-            Projects
-          </button>
-
-          <button className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white">
-            <span className="w-5 text-center">
-              ▤
-            </span>
-            Blogs
-          </button>
-
-          <button className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white">
-            <span className="w-5 text-center">
-              ★
-            </span>
-            Testimonials
-          </button>
-
-          <button className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white">
-            <span className="w-5 text-center">
-              ◎
-            </span>
-            Partners
-          </button>
-
-          <button className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white">
-            <span className="w-5 text-center">
-              ◌
-            </span>
-            Team Members
-          </button>
-
-          <button
-            onClick={() =>
-              router.push(
-                "/admin/geo-checker"
-              )
-            }
-            className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white"
-          >
-            <span className="w-5 text-center">
-              ⌖
-            </span>
-            Geo Checker
-          </button>
-
-          <button
-            onClick={() =>
-              router.push(
-                "/admin/geo-checker/history"
-              )
-            }
-            className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white"
-          >
-            <span className="w-5 text-center">
-              ◷
-            </span>
-            GEO History
-          </button>
-
-          <button className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white">
-            <span className="w-5 text-center">
-              ✉
-            </span>
-            Subscribers
-          </button>
-
-          <button className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white">
-            <span className="w-5 text-center">
-              ▤
-            </span>
-            Pages
-          </button>
-
-          <button className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white">
-            <span className="w-5 text-center">
-              ◒
-            </span>
-            Analytics
-          </button>
-
-          <button className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white">
-            <span className="w-5 text-center">
-              ▥
-            </span>
-            Reports
-          </button>
-
-          <button className="mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-blue-100/55 hover:bg-white/5 hover:text-white">
-            <span className="w-5 text-center">
-              ⚙
-            </span>
-            Settings
-          </button>
-
-        </nav>
-
-        <div className="shrink-0 border-t border-white/10 p-4">
-
-          <div className="flex items-center gap-3 rounded-xl bg-white/5 p-3">
-
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#315df5] text-sm font-extrabold">
-              A
-            </div>
-
-            <div className="min-w-0 flex-1">
-
-              <p className="truncate text-sm font-bold">
-                Admin User
-              </p>
-
-              <p className="text-[10px] text-blue-100/40">
-                Super Admin
-              </p>
-
-            </div>
-
-            <button
-              onClick={logout}
-              className="text-lg text-blue-100/45 hover:text-white"
-            >
-              ↪
-            </button>
-
           </div>
+          <p className="mt-3 text-2xl font-black text-emerald-400 tabular-nums">
+            {loading ? "..." : `₹${stats.totalRevenue.toLocaleString("en-IN")}`}
+          </p>
+          <p className="mt-1 text-[10px] text-emerald-300/70 flex items-center gap-1">
+            <span>Successful PayU payments</span>
+            <span className="opacity-0 group-hover:opacity-100 transition">→</span>
+          </p>
+        </Link>
 
-        </div>
-
-      </aside>
-
-      {/* MAIN */}
-
-      <div className="lg:ml-[260px]">
-
-        {/* HEADER */}
-
-        <header className="flex min-h-[82px] items-center justify-between border-b border-gray-100 bg-white px-5 md:px-8">
-
-          <div>
-
-            <p className="text-[9px] font-bold uppercase tracking-[1.5px] text-gray-400">
-              DIGITAL FX ADMIN
-            </p>
-
-            <h1 className="mt-1 text-xl font-extrabold">
-              Dashboard
-            </h1>
-
+        {/* Card 6: Pending Payments */}
+        <Link
+          href="/admin/payments?status=pending"
+          className="group relative rounded-2xl border border-amber-500/30 bg-amber-500/[0.04] p-5 shadow-lg transition hover:border-amber-500/60 hover:bg-amber-500/[0.07]"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300">
+              Pending Orders
+            </span>
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-500/20 text-xs text-amber-400">
+              ⏳
+            </span>
           </div>
-
-          <div className="flex items-center gap-3">
-
-            <button
-              onClick={loadDashboard}
-              className="flex h-10 items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 text-xs font-bold text-gray-600 hover:bg-gray-50"
-            >
-              ↻ Refresh
-            </button>
-
-            <div className="hidden h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-sm font-extrabold text-blue-600 sm:flex">
-              A
-            </div>
-
-          </div>
-
-        </header>
-
-        {/* CONTENT */}
-
-        <section className="p-5 md:p-8">
-
-          {/* WELCOME */}
-
-          <div className="mb-7">
-
-            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#315df5]">
-              OVERVIEW
-            </p>
-
-            <h2 className="mt-2 text-[30px] font-extrabold tracking-[-1px]">
-              Welcome back, Admin.
-            </h2>
-
-            <p className="mt-2 text-sm text-gray-500">
-              Here&apos;s what&apos;s happening across
-              your Digital FX workspace.
-            </p>
-
-          </div>
-
-          {/* ENQUIRY STATS */}
-
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-
-              <p className="text-[9px] font-bold uppercase tracking-[1.2px] text-gray-400">
-                Total Enquiries
-              </p>
-
-              <p className="mt-3 text-[30px] font-extrabold">
-                {total}
-              </p>
-
-              <p className="mt-1 text-[10px] font-semibold text-gray-400">
-                All customer leads
-              </p>
-
-            </div>
-
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-
-              <p className="text-[9px] font-bold uppercase tracking-[1.2px] text-gray-400">
-                New Enquiries
-              </p>
-
-              <p className="mt-3 text-[30px] font-extrabold text-blue-600">
-                {newCount}
-              </p>
-
-              <p className="mt-1 text-[10px] font-semibold text-gray-400">
-                Waiting for contact
-              </p>
-
-            </div>
-
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-
-              <p className="text-[9px] font-bold uppercase tracking-[1.2px] text-gray-400">
-                In Progress
-              </p>
-
-              <p className="mt-3 text-[30px] font-extrabold text-violet-600">
-                {progressCount}
-              </p>
-
-              <p className="mt-1 text-[10px] font-semibold text-gray-400">
-                Active leads
-              </p>
-
-            </div>
-
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-
-              <p className="text-[9px] font-bold uppercase tracking-[1.2px] text-gray-400">
-                Converted
-              </p>
-
-              <p className="mt-3 text-[30px] font-extrabold text-emerald-600">
-                {convertedCount}
-              </p>
-
-              <p className="mt-1 text-[10px] font-semibold text-gray-400">
-                Successful leads
-              </p>
-
-            </div>
-
-          </div>
-
-          {/* GEO OVERVIEW */}
-
-          <div className="mt-7">
-
-            <div className="mb-4">
-
-              <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-emerald-600">
-                WEBSITE INTELLIGENCE
-              </p>
-
-              <h3 className="mt-1 text-lg font-extrabold">
-                GEO Checker Overview
-              </h3>
-
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-
-              <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-
-                <p className="text-[9px] font-bold uppercase tracking-[1.2px] text-gray-400">
-                  GEO Analyses
-                </p>
-
-                <p className="mt-3 text-[30px] font-extrabold">
-                  {geoLoading
-                    ? "—"
-                    : totalGeoAnalyses}
-                </p>
-
-                <p className="mt-1 text-[10px] font-semibold text-gray-400">
-                  Websites analyzed
-                </p>
-
-              </div>
-
-              <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-
-                <p className="text-[9px] font-bold uppercase tracking-[1.2px] text-gray-400">
-                  Average Overall
-                </p>
-
-                <p
-                  className={`mt-3 text-[30px] font-extrabold ${getScoreClass(
-                    averageOverall
-                  )}`}
-                >
-                  {geoLoading
-                    ? "—"
-                    : averageOverall}
-
-                  {!geoLoading && (
-                    <span className="ml-1 text-sm text-gray-400">
-                      /100
-                    </span>
-                  )}
-
-                </p>
-
-                <p className="mt-1 text-[10px] font-semibold text-gray-400">
-                  Website health score
-                </p>
-
-              </div>
-
-              <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-
-                <p className="text-[9px] font-bold uppercase tracking-[1.2px] text-gray-400">
-                  Average GEO
-                </p>
-
-                <p
-                  className={`mt-3 text-[30px] font-extrabold ${getScoreClass(
-                    averageGeo
-                  )}`}
-                >
-                  {geoLoading
-                    ? "—"
-                    : averageGeo}
-
-                  {!geoLoading && (
-                    <span className="ml-1 text-sm text-gray-400">
-                      /100
-                    </span>
-                  )}
-
-                </p>
-
-                <p className="mt-1 text-[10px] font-semibold text-gray-400">
-                  Local visibility signal
-                </p>
-
-              </div>
-
-              <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-
-                <p className="text-[9px] font-bold uppercase tracking-[1.2px] text-gray-400">
-                  Average SEO
-                </p>
-
-                <p
-                  className={`mt-3 text-[30px] font-extrabold ${getScoreClass(
-                    averageSeo
-                  )}`}
-                >
-                  {geoLoading
-                    ? "—"
-                    : averageSeo}
-
-                  {!geoLoading && (
-                    <span className="ml-1 text-sm text-gray-400">
-                      /100
-                    </span>
-                  )}
-
-                </p>
-
-                <p className="mt-1 text-[10px] font-semibold text-gray-400">
-                  Search optimization
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* RECENT ENQUIRIES + PIPELINE */}
-
-          <div className="mt-6 grid gap-6 xl:grid-cols-[1.65fr_1fr]">
-
-            <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-
-              <div className="flex items-center justify-between border-b border-gray-100 px-5 py-5">
-
-                <div>
-
-                  <h3 className="text-sm font-extrabold">
-                    Recent Enquiries
-                  </h3>
-
-                  <p className="mt-1 text-[10px] text-gray-400">
-                    Latest customer enquiries
-                  </p>
-
-                </div>
-
-                <button
-                  onClick={() =>
-                    router.push(
-                      "/admin/enquiries"
-                    )
-                  }
-                  className="text-[10px] font-extrabold text-[#315df5]"
-                >
-                  View All →
-                </button>
-
-              </div>
-
-              <div className="overflow-x-auto">
-
-                <table className="w-full min-w-[650px]">
-
-                  <thead>
-
-                    <tr className="border-b border-gray-100 bg-gray-50/60 text-left">
-
-                      <th className="px-5 py-3 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                        Customer
-                      </th>
-
-                      <th className="px-5 py-3 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                        Service
-                      </th>
-
-                      <th className="px-5 py-3 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                        Status
-                      </th>
-
-                      <th className="px-5 py-3 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                        Action
-                      </th>
-
-                    </tr>
-
-                  </thead>
-
-                  <tbody>
-
-                    {loading ? (
-
-                      <tr>
-
-                        <td
-                          colSpan={4}
-                          className="py-16 text-center"
-                        >
-                          Loading...
-                        </td>
-
-                      </tr>
-
-                    ) : recentEnquiries.length === 0 ? (
-
-                      <tr>
-
-                        <td
-                          colSpan={4}
-                          className="py-16 text-center text-sm text-gray-400"
-                        >
-                          No enquiries yet
-                        </td>
-
-                      </tr>
-
-                    ) : (
-
-                      recentEnquiries.map(
-                        (item) => (
-
-                          <tr
-                            key={item.id}
-                            className="border-b border-gray-100 last:border-0 hover:bg-[#fafcff]"
-                          >
-
-                            <td className="px-5 py-4">
-
-                              <div className="flex items-center gap-3">
-
-                                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-xs font-extrabold text-blue-700">
-                                  {getInitial(
-                                    item.name
-                                  )}
-                                </div>
-
-                                <div>
-
-                                  <p className="max-w-[170px] truncate text-xs font-extrabold">
-                                    {item.name}
-                                  </p>
-
-                                  <p className="mt-1 text-[9px] text-gray-400">
-                                    {item.phone}
-                                  </p>
-
-                                </div>
-
-                              </div>
-
-                            </td>
-
-                            <td className="px-5 py-4">
-
-                              <span className="rounded-lg bg-gray-50 px-2.5 py-1.5 text-[10px] font-bold text-gray-600">
-                                {item.service}
-                              </span>
-
-                            </td>
-
-                            <td className="px-5 py-4">
-
-                              <select
-                                value={item.status}
-                                onChange={(e) =>
-                                  changeStatus(
-                                    item.id,
-                                    e.target.value
-                                  )
-                                }
-                                className={`rounded-full border px-2.5 py-1.5 text-[8px] font-extrabold outline-none ${getStatusClass(
-                                  item.status
-                                )}`}
-                              >
-
-                                {STATUS_OPTIONS.map(
-                                  (status) => (
-
-                                    <option
-                                      key={status}
-                                      value={status}
-                                    >
-                                      {status}
-                                    </option>
-
-                                  )
-                                )}
-
-                              </select>
-
-                            </td>
-
-                            <td className="px-5 py-4">
-
-                              <button
-                                onClick={() =>
-                                  setSelected(
-                                    item
-                                  )
-                                }
-                                className="rounded-lg border border-gray-200 px-3 py-1.5 text-[9px] font-extrabold text-gray-600"
-                              >
-                                View
-                              </button>
-
-                            </td>
-
-                          </tr>
-
-                        )
-                      )
-
-                    )}
-
-                  </tbody>
-
-                </table>
-
-              </div>
-
-            </div>
-
-            {/* PIPELINE */}
-
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-
-              <h3 className="text-sm font-extrabold">
-                Lead Pipeline
-              </h3>
-
-              <p className="mt-1 text-[10px] text-gray-400">
-                Current enquiry distribution
-              </p>
-
-              <div className="mt-7 space-y-5">
-
-                {[
-                  {
-                    label: "New",
-                    count: newCount,
-                    color: "bg-[#315df5]",
-                  },
-                  {
-                    label: "Contacted",
-                    count: contactedCount,
-                    color: "bg-amber-400",
-                  },
-                  {
-                    label: "In Progress",
-                    count: progressCount,
-                    color: "bg-violet-500",
-                  },
-                  {
-                    label: "Converted",
-                    count: convertedCount,
-                    color: "bg-emerald-500",
-                  },
-                  {
-                    label: "Closed",
-                    count: closedCount,
-                    color: "bg-gray-400",
-                  },
-                ].map((item) => (
-
-                  <div key={item.label}>
-
-                    <div className="mb-2 flex justify-between">
-
-                      <span className="text-xs font-bold text-gray-600">
-                        {item.label}
-                      </span>
-
-                      <span className="text-xs font-extrabold">
-                        {item.count}
-                      </span>
-
-                    </div>
-
-                    <div className="h-2 overflow-hidden rounded-full bg-gray-100">
-
-                      <div
-                        className={`h-full rounded-full ${item.color}`}
-                        style={{
-                          width:
-                            total > 0
-                              ? `${(item.count / total) * 100}%`
-                              : "0%",
-                        }}
-                      />
-
-                    </div>
-
-                  </div>
-
-                ))}
-
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* GEO HISTORY */}
-
-          <div className="mt-6 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-
-            <div className="flex items-center justify-between border-b border-gray-100 px-5 py-5">
-
-              <div>
-
-                <h3 className="text-sm font-extrabold">
-                  Recent GEO Analyses
-                </h3>
-
-                <p className="mt-1 text-[10px] text-gray-400">
-                  Latest website visibility checks
-                </p>
-
-              </div>
-
-              <button
-                onClick={() =>
-                  router.push(
-                    "/admin/geo-checker/history"
-                  )
-                }
-                className="rounded-xl bg-[#315df5] px-4 py-2 text-[10px] font-extrabold text-white"
-              >
-                View GEO History →
-              </button>
-
-            </div>
-
-            <div className="overflow-x-auto">
-
-              <table className="w-full min-w-[800px]">
-
-                <thead>
-
-                  <tr className="border-b border-gray-100 bg-gray-50/60 text-left">
-
-                    <th className="px-5 py-3 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      Website
-                    </th>
-
-                    <th className="px-5 py-3 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      Overall
-                    </th>
-
-                    <th className="px-5 py-3 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      SEO
-                    </th>
-
-                    <th className="px-5 py-3 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      GEO
-                    </th>
-
-                    <th className="px-5 py-3 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      Date
-                    </th>
-
-                    <th className="px-5 py-3 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      Action
-                    </th>
-
-                  </tr>
-
-                </thead>
-
-                <tbody>
-
-                  {geoLoading ? (
-
-                    <tr>
-
-                      <td
-                        colSpan={6}
-                        className="py-14 text-center text-sm text-gray-400"
-                      >
-                        Loading GEO analyses...
-                      </td>
-
-                    </tr>
-
-                  ) : geoAnalyses.length === 0 ? (
-
-                    <tr>
-
-                      <td
-                        colSpan={6}
-                        className="py-14 text-center"
-                      >
-
-                        <div className="text-2xl">
-                          ⌖
-                        </div>
-
-                        <p className="mt-2 text-sm font-bold text-gray-400">
-                          No GEO analyses yet
-                        </p>
-
-                        <p className="mt-1 text-[10px] text-gray-400">
-                          Analyze a website from GEO Checker.
-                        </p>
-
-                      </td>
-
-                    </tr>
-
-                  ) : (
-
-                    geoAnalyses.map(
-                      (item) => (
-
-                        <tr
-                          key={item.id}
-                          className="border-b border-gray-100 last:border-0 hover:bg-[#fafcff]"
-                        >
-
-                          <td className="px-5 py-4">
-
-                            <div className="max-w-[330px]">
-
-                              <p className="truncate text-xs font-extrabold">
-                                {item.title ||
-                                  item.url}
-                              </p>
-
-                              <p className="mt-1 truncate text-[9px] text-gray-400">
-                                {item.url}
-                              </p>
-
-                            </div>
-
-                          </td>
-
-                          <td className="px-5 py-4">
-
-                            <span
-                              className={`text-sm font-extrabold ${getScoreClass(
-                                Number(
-                                  item.overall
-                                )
-                              )}`}
-                            >
-                              {item.overall}
-                            </span>
-
-                            <span className="ml-1 text-[9px] text-gray-400">
-                              /100
-                            </span>
-
-                          </td>
-
-                          <td className="px-5 py-4">
-
-                            <span
-                              className={`text-xs font-extrabold ${getScoreClass(
-                                Number(
-                                  item.seo
-                                )
-                              )}`}
-                            >
-                              {item.seo}
-                            </span>
-
-                          </td>
-
-                          <td className="px-5 py-4">
-
-                            <span
-                              className={`text-xs font-extrabold ${getScoreClass(
-                                Number(
-                                  item.geo
-                                )
-                              )}`}
-                            >
-                              {item.geo}
-                            </span>
-
-                          </td>
-
-                          <td className="px-5 py-4">
-
-                            <span className="text-[10px] text-gray-500">
-                              {formatDate(
-                                item.created_at
-                              )}
-                            </span>
-
-                          </td>
-
-                          <td className="px-5 py-4">
-
-                            <button
-                              onClick={() =>
-                                router.push(
-                                  `/admin/geo-checker?url=${encodeURIComponent(
-                                    item.url
-                                  )}`
-                                )
-                              }
-                              className="rounded-lg border border-gray-200 px-3 py-1.5 text-[9px] font-extrabold text-gray-600 hover:bg-emerald-50 hover:text-emerald-600"
-                            >
-                              View
-                            </button>
-
-                          </td>
-
-                        </tr>
-
-                      )
-                    )
-
-                  )}
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </div>
-
-          {/* QUICK ACTIONS */}
-
-          <div className="mt-6">
-
-            <h3 className="text-sm font-extrabold">
-              Quick Actions
-            </h3>
-
-            <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-
-              <button
-                onClick={() =>
-                  router.push(
-                    "/admin/enquiries"
-                  )
-                }
-                className="rounded-2xl border border-gray-100 bg-white p-5 text-left shadow-sm"
-              >
-
-                <div className="text-xl text-blue-600">
-                  ◉
-                </div>
-
-                <p className="mt-4 text-sm font-extrabold">
-                  Manage Enquiries
-                </p>
-
-                <p className="mt-1 text-[10px] text-gray-400">
-                  View and manage customer leads
-                </p>
-
-              </button>
-
-
-              <button
-                onClick={() =>
-                  router.push(
-                    "/admin/services"
-                  )
-                }
-                className="rounded-2xl border border-gray-100 bg-white p-5 text-left shadow-sm"
-              >
-
-                <div className="text-xl text-violet-600">
-                  ◇
-                </div>
-
-                <p className="mt-4 text-sm font-extrabold">
-                  Manage Services
-                </p>
-
-                <p className="mt-1 text-[10px] text-gray-400">
-                  Update digital services
-                </p>
-
-              </button>
-
-              <button
-                onClick={() =>
-                  router.push(
-                    "/admin/geo-checker"
-                  )
-                }
-                className="rounded-2xl border border-gray-100 bg-white p-5 text-left shadow-sm"
-              >
-
-                <div className="text-xl text-emerald-600">
-                  ⌖
-                </div>
-
-                <p className="mt-4 text-sm font-extrabold">
-                  GEO Checker
-                </p>
-
-                <p className="mt-1 text-[10px] text-gray-400">
-                  Analyze website visibility
-                </p>
-
-              </button>
-
-            </div>
-
-          </div>
-
-          <div className="mt-8 border-t border-gray-200 pt-5 text-[9px] text-gray-400">
-            Digital FX Admin Dashboard • Live data • Supabase
-          </div>
-
-        </section>
+          <p className="mt-3 text-2xl font-black text-amber-400 tabular-nums">
+            {loading ? "..." : stats.pendingPayments}
+          </p>
+          <p className="mt-1 text-[10px] text-amber-300/70 flex items-center gap-1">
+            <span>Checkout initiated</span>
+            <span className="opacity-0 group-hover:opacity-100 transition">→</span>
+          </p>
+        </Link>
 
       </div>
 
-      {/* ENQUIRY DRAWER */}
+      {/* =========================================================================
+          CONVERSION FUNNEL (Requirement 32)
+          ========================================================================= */}
+      <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-6 shadow-xl">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="text-sm font-black uppercase tracking-wider text-white">
+              Customer Growth &amp; Conversion Funnel
+            </h3>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Attributable progression from free audit users to verified paid contracts.
+            </p>
+          </div>
+          <span className="text-xs font-bold text-slate-400 bg-white/5 px-3 py-1 rounded-full border border-white/5">
+            Real Database Records
+          </span>
+        </div>
 
-      {selected && (
-        <>
-
-          <div
-            onClick={() =>
-              setSelected(null)
-            }
-            className="fixed inset-0 z-[80] bg-[#071534]/30"
-          />
-
-          <aside className="fixed right-0 top-0 z-[90] flex h-screen w-full max-w-[680px] flex-col overflow-hidden bg-[#f5f7fb] shadow-xl">
-
-            <div className="flex h-[82px] items-center justify-between border-b border-gray-100 bg-white px-6">
-
-              <div>
-
-                <p className="text-[9px] font-bold uppercase tracking-[1.5px] text-[#315df5]">
-                  CUSTOMER MANAGEMENT
-                </p>
-
-                <h2 className="mt-1 text-xl font-extrabold">
-                  Enquiry Details
-                </h2>
-
-              </div>
-
-              <button
-                onClick={() =>
-                  setSelected(null)
-                }
-                className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 text-xl text-gray-500"
-              >
-                ×
-              </button>
-
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-4">
+          <div className="p-4 rounded-2xl bg-black/20 border border-white/5">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              1. Free Analyses
+            </span>
+            <p className="text-xl font-black text-white mt-1 tabular-nums">
+              {stats.freeAnalyses}
+            </p>
+            <div className="w-full bg-white/10 h-1.5 rounded-full mt-3 overflow-hidden">
+              <div className="bg-[#315df5] h-full w-full rounded-full" />
             </div>
+          </div>
 
-            <div className="flex-1 overflow-y-auto p-5">
+          <div className="p-4 rounded-2xl bg-black/20 border border-white/5">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              2. Proposals Requested
+            </span>
+            <p className="text-xl font-black text-cyan-400 mt-1 tabular-nums">
+              {stats.strategicProposals}
+            </p>
+            <div className="w-full bg-white/10 h-1.5 rounded-full mt-3 overflow-hidden">
+              <div
+                className="bg-cyan-400 h-full rounded-full"
+                style={{
+                  width: `${
+                    stats.freeAnalyses > 0
+                      ? Math.min(100, Math.round((stats.strategicProposals / stats.freeAnalyses) * 100))
+                      : 40
+                  }%`,
+                }}
+              />
+            </div>
+          </div>
 
-              <div className="rounded-2xl border border-gray-100 bg-white p-6">
+          <div className="p-4 rounded-2xl bg-black/20 border border-white/5">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              3. Enquiries Received
+            </span>
+            <p className="text-xl font-black text-violet-400 mt-1 tabular-nums">
+              {stats.totalEnquiries}
+            </p>
+            <div className="w-full bg-white/10 h-1.5 rounded-full mt-3 overflow-hidden">
+              <div className="bg-violet-400 h-full w-3/4 rounded-full" />
+            </div>
+          </div>
 
-                <div className="flex items-center gap-4">
+          <div className="p-4 rounded-2xl bg-black/20 border border-white/5">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+              4. Converted Revenue
+            </span>
+            <p className="text-xl font-black text-emerald-400 mt-1 tabular-nums">
+              ₹{stats.totalRevenue.toLocaleString("en-IN")}
+            </p>
+            <div className="w-full bg-white/10 h-1.5 rounded-full mt-3 overflow-hidden">
+              <div className="bg-emerald-400 h-full w-full rounded-full" />
+            </div>
+          </div>
+        </div>
+      </div>
 
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-lg font-extrabold text-blue-700">
-                    {getInitial(
-                      selected.name
-                    )}
-                  </div>
+      {/* =========================================================================
+          RECENT ACTIVITY & QUICK OVERVIEW (Requirements 6 & 25)
+          ========================================================================= */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        {/* Left: Recent Activity Feed (8 cols) */}
+        <div className="lg:col-span-8 rounded-3xl border border-white/10 bg-white/[0.02] p-6 shadow-xl space-y-4">
+          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div>
+              <h2 className="text-base font-black text-white flex items-center gap-2">
+                <span>Recent Business Activity</span>
+                <span className="text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded-full">
+                  LIVE STREAM
+                </span>
+              </h2>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Real-time chronological events from audits, enquiries, proposals, and payments.
+              </p>
+            </div>
+          </div>
 
-                  <div>
-
-                    <p className="text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      CUSTOMER
-                    </p>
-
-                    <h3 className="mt-1 text-lg font-extrabold">
-                      {selected.name}
-                    </h3>
-
-                    <p className="mt-1 text-[10px] text-gray-400">
-                      Enquiry #{selected.id}
-                    </p>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
-
-                <a
-                  href={`tel:${selected.phone}`}
-                  className="rounded-2xl border border-gray-100 bg-white p-5"
+          {loading ? (
+            <div className="space-y-3 py-4">
+              {[1, 2, 3, 4].map((n) => (
+                <div key={n} className="h-14 rounded-xl bg-white/5 animate-pulse" />
+              ))}
+            </div>
+          ) : recentActivity.length === 0 ? (
+            <div className="py-12 text-center text-slate-500 text-xs">
+              No recent activity recorded yet.
+            </div>
+          ) : (
+            <div className="divide-y divide-white/5">
+              {recentActivity.map((act) => (
+                <div
+                  key={act.id}
+                  onClick={() => openActivityDrawer(act)}
+                  className="flex items-center justify-between py-3.5 px-3 -mx-3 rounded-xl hover:bg-white/[0.03] transition cursor-pointer group"
                 >
+                  <div className="flex items-center gap-3.5 min-w-0">
+                    <div
+                      className={`flex h-10 w-10 items-center justify-center rounded-xl text-sm font-black shrink-0 ${
+                        act.type === "payment"
+                          ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                          : act.type === "proposal"
+                          ? "bg-cyan-500/15 text-cyan-400 border border-cyan-500/30"
+                          : act.type === "analysis"
+                          ? "bg-violet-500/15 text-violet-400 border border-violet-500/30"
+                          : "bg-blue-500/15 text-blue-400 border border-blue-500/30"
+                      }`}
+                    >
+                      {act.type === "payment"
+                        ? "₹"
+                        : act.type === "proposal"
+                        ? "📑"
+                        : act.type === "analysis"
+                        ? "⚡"
+                        : "◉"}
+                    </div>
 
-                  <p className="text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                    PHONE
-                  </p>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-sm text-white group-hover:text-blue-300 transition truncate">
+                          {act.customer}
+                        </span>
+                        <span className="text-[10px] font-semibold text-slate-500 uppercase">
+                          • {act.type}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-400 truncate">
+                        {act.website && act.website !== "—" ? (
+                          <span className="font-mono text-slate-300">{act.website} • </span>
+                        ) : null}
+                        <span>{act.service}</span>
+                      </p>
+                    </div>
+                  </div>
 
-                  <p className="mt-2 text-sm font-extrabold">
-                    {selected.phone}
-                  </p>
+                  <div className="text-right shrink-0 ml-4">
+                    <span
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border ${getStatusBadge(
+                        act.status
+                      )}`}
+                    >
+                      {act.amount ? `₹${act.amount} • ${act.status}` : act.status}
+                    </span>
+                    <p className="text-[10.5px] text-slate-500 mt-1">
+                      {formatDate(act.timestamp)}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
-                </a>
+        {/* Right: Quick Strategic Proposals Table (4 cols) */}
+        <div className="lg:col-span-4 rounded-3xl border border-white/10 bg-white/[0.02] p-6 shadow-xl space-y-4">
+          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div>
+              <h3 className="text-sm font-black text-white">
+                Latest Proposals
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Strategic proposal requests
+              </p>
+            </div>
+            <Link
+              href="/admin/proposals"
+              className="text-xs font-bold text-[#6f8cff] hover:underline"
+            >
+              View all →
+            </Link>
+          </div>
 
-                <a
-                  href={
-                    selected.email
-                      ? `mailto:${selected.email}`
-                      : undefined
+          {loading ? (
+            <div className="space-y-3 py-4">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="h-12 rounded-xl bg-white/5 animate-pulse" />
+              ))}
+            </div>
+          ) : recentProposals.length === 0 ? (
+            <div className="py-8 text-center text-slate-500 text-xs">
+              No proposal requests yet.
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {recentProposals.map((prop) => (
+                <div
+                  key={prop.id}
+                  onClick={() =>
+                    setSelectedRecord({
+                      id: prop.id,
+                      type: "proposal",
+                      name: prop.name,
+                      phone: prop.phone,
+                      email: prop.email,
+                      service: prop.service,
+                      status: prop.status,
+                      date: formatDate(prop.created_at),
+                      message: prop.message,
+                      website:
+                        prop.message?.match(/Target Website:\s*([^\s\n]+)/i)?.[1] ||
+                        prop.message?.match(/Website:\s*([^\s\n|]+)/i)?.[1] ||
+                        null,
+                    })
                   }
-                  className="rounded-2xl border border-gray-100 bg-white p-5"
+                  className="p-3.5 rounded-2xl bg-black/20 border border-white/5 hover:border-white/20 transition cursor-pointer"
                 >
-
-                  <p className="text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                    EMAIL
-                  </p>
-
-                  <p className="mt-2 truncate text-sm font-extrabold">
-                    {selected.email ||
-                      "Not provided"}
-                  </p>
-
-                </a>
-
-              </div>
-
-              <div className="mt-5 rounded-2xl border border-gray-100 bg-white p-5">
-
-                <p className="text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                  REQUESTED SERVICE
-                </p>
-
-                <p className="mt-2 text-sm font-extrabold">
-                  {selected.service}
-                </p>
-
-              </div>
-
-              <div className="mt-5 rounded-2xl border border-gray-100 bg-white p-5">
-
-                <div className="flex items-center justify-between">
-
-                  <div>
-
-                    <p className="text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      STATUS
-                    </p>
-
-                    <p className="mt-2 text-sm font-extrabold">
-                      {selected.status}
-                    </p>
-
+                  <div className="flex justify-between items-start">
+                    <p className="font-bold text-xs text-white truncate">{prop.name}</p>
+                    <span
+                      className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase border ${getStatusBadge(
+                        prop.status
+                      )}`}
+                    >
+                      {prop.status}
+                    </span>
                   </div>
-
-                  <select
-                    value={selected.status}
-                    onChange={(e) =>
-                      changeStatus(
-                        selected.id,
-                        e.target.value
-                      )
-                    }
-                    className={`rounded-xl border px-3 py-2 text-xs font-bold outline-none ${getStatusClass(
-                      selected.status
-                    )}`}
-                  >
-
-                    {STATUS_OPTIONS.map(
-                      (status) => (
-
-                        <option
-                          key={status}
-                          value={status}
-                        >
-                          {status}
-                        </option>
-
-                      )
-                    )}
-
-                  </select>
-
-                </div>
-
-              </div>
-
-              <div className="mt-5 rounded-2xl border border-gray-100 bg-white p-5">
-
-                <p className="text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                  CUSTOMER MESSAGE
-                </p>
-
-                <div className="mt-4 rounded-xl bg-[#f8f9fc] p-4">
-
-                  <p className="whitespace-pre-wrap text-sm leading-6 text-gray-600">
-                    {selected.message ||
-                      "No message provided."}
+                  <p className="text-[11px] text-blue-300 font-mono mt-1 truncate">
+                    {prop.phone}
                   </p>
-
+                  <p className="text-[10.5px] text-slate-400 mt-0.5 truncate">
+                    {prop.service}
+                  </p>
                 </div>
-
-              </div>
-
-              <div className="mt-5 rounded-2xl border border-gray-100 bg-white p-5">
-
-                <div className="flex justify-between">
-
-                  <span className="text-xs text-gray-400">
-                    Received
-                  </span>
-
-                  <span className="text-xs font-bold">
-                    {formatDate(
-                      selected.created_at
-                    )}
-                  </span>
-
-                </div>
-
-              </div>
-
+              ))}
             </div>
+          )}
+        </div>
 
-            <div className="border-t border-gray-100 bg-white p-5">
+      </div>
 
-              <div className="grid grid-cols-2 gap-3">
+      {/* Customer Detail Drawer */}
+      <CustomerDrawer
+        record={selectedRecord}
+        onClose={() => setSelectedRecord(null)}
+        onStatusChange={handleStatusChange}
+      />
 
-                <a
-                  href={`tel:${selected.phone}`}
-                  className="flex h-12 items-center justify-center rounded-xl bg-[#315df5] text-xs font-extrabold text-white"
-                >
-                  Call Customer
-                </a>
-
-                <a
-                  href={`https://wa.me/${selected.phone.replace(
-                    /\D/g,
-                    ""
-                  )}?text=${encodeURIComponent(
-                    `Hi ${selected.name}, this is Digital FX regarding your enquiry for ${selected.service}.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-12 items-center justify-center rounded-xl bg-[#12b76a] text-xs font-extrabold text-white"
-                >
-                  WhatsApp
-                </a>
-
-              </div>
-
-            </div>
-
-          </aside>
-
-        </>
-      )}
-
-    </main>
+    </div>
   );
 }

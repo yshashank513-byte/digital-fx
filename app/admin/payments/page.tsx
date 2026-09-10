@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState, useCallback, useMemo } from "react";
+import CustomerDrawer, { DrawerRecord } from "../../../components/admin/CustomerDrawer";
+import { supabase } from "../../lib/supabase";
 
 type Payment = {
   id?: string;
@@ -17,1249 +18,370 @@ type Payment = {
   updated_at?: string | null;
 };
 
-export default function PaymentsPage() {
-  const router = useRouter();
+const FILTERS = ["All", "Paid", "Pending", "Failed"];
 
+export default function PaymentsPage() {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [search, setSearch] = useState("");
-  const [selectedPayment, setSelectedPayment] =
-    useState<Payment | null>(null);
+  const [filter, setFilter] = useState("All");
+  const [selectedRecord, setSelectedRecord] = useState<DrawerRecord | null>(null);
 
-  // ========================================
-  // AUTH + INITIAL LOAD
-  // ========================================
-
-  useEffect(() => {
-    const loggedIn =
-      localStorage.getItem("digitalfx_admin") === "true";
-
-    if (!loggedIn) {
-      router.replace("/admin/login");
-      return;
-    }
-
-    loadPayments();
-  }, [router]);
-
-  // ========================================
-  // LOAD PAYMENTS
-  // ========================================
-
-  async function loadPayments() {
+  const loadPayments = useCallback(async () => {
     try {
       setLoading(true);
-      setError("");
-
-      const response = await fetch(
-        "/api/admin/payments",
-        {
-          method: "GET",
-          cache: "no-store",
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      );
-
-      const text = await response.text();
-
-      let result: {
-        success?: boolean;
-        data?: Payment[];
-        error?: string;
-      };
-
-      try {
-        result = JSON.parse(text);
-      } catch {
-        throw new Error(
-          `Payments API returned invalid response (${response.status}).`
-        );
+      const res = await fetch("/api/admin/payments", {
+        method: "GET",
+        cache: "no-store",
+      });
+      const data = await res.json();
+      if (data.success && Array.isArray(data.data)) {
+        setPayments(data.data);
       }
-
-      if (!response.ok || !result.success) {
-        throw new Error(
-          result.error ||
-            "Unable to load payments."
-        );
-      }
-
-      setPayments(
-        Array.isArray(result.data)
-          ? result.data
-          : []
-      );
     } catch (err) {
-      console.error(
-        "PAYMENTS LOAD ERROR:",
-        err
-      );
-
-      setPayments([]);
-
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Unable to load payments."
-      );
+      console.error("LOAD PAYMENTS ERROR:", err);
     } finally {
       setLoading(false);
     }
-  }
-
-  // ========================================
-  // LOGOUT
-  // ========================================
-
-  function logout() {
-    localStorage.removeItem("digitalfx_admin");
-    localStorage.removeItem("digitalfx_remember");
-
-    router.push("/admin/login");
-  }
-
-  // ========================================
-  // DATE FORMAT
-  // ========================================
-
-  function formatDate(
-    date?: string | null
-  ) {
-    if (!date) return "-";
-
-    const parsedDate = new Date(date);
-
-    if (Number.isNaN(parsedDate.getTime())) {
-      return "-";
-    }
-
-    return parsedDate.toLocaleString(
-      "en-IN",
-      {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }
-    );
-  }
-
-  // ========================================
-  // STATUS CLASS
-  // ========================================
-
-  function getStatusClass(
-    status?: string | null
-  ) {
-    const value =
-      String(status || "").toLowerCase();
-
-    if (
-      value === "success" ||
-      value === "paid"
-    ) {
-      return "border-emerald-200 bg-emerald-50 text-emerald-700";
-    }
-
-    if (
-      value === "failed" ||
-      value === "failure"
-    ) {
-      return "border-red-200 bg-red-50 text-red-600";
-    }
-
-    if (value === "pending") {
-      return "border-amber-200 bg-amber-50 text-amber-700";
-    }
-
-    return "border-gray-200 bg-gray-100 text-gray-600";
-  }
-
-  // ========================================
-  // SEARCH
-  // ========================================
-
-  const filteredPayments =
-    payments.filter((payment) => {
-      const searchText = [
-        payment.customer_name,
-        payment.customer_email,
-        payment.customer_phone,
-        payment.product_name,
-        payment.plan_id,
-        payment.txnid,
-        payment.status,
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-
-      return searchText.includes(
-        search.toLowerCase()
-      );
-    });
-
-  // ========================================
-  // STATS
-  // ========================================
-
-  const successfulPayments =
-    payments.filter((payment) => {
-      const status =
-        String(
-          payment.status || ""
-        ).toLowerCase();
-
-      return (
-        status === "success" ||
-        status === "paid"
-      );
-    });
-
-  const pendingPayments =
-    payments.filter((payment) => {
-      return (
-        String(
-          payment.status || ""
-        ).toLowerCase() === "pending"
-      );
-    });
-
-  const failedPayments =
-    payments.filter((payment) => {
-      const status =
-        String(
-          payment.status || ""
-        ).toLowerCase();
-
-      return (
-        status === "failed" ||
-        status === "failure"
-      );
-    });
-
-  const totalRevenue =
-    successfulPayments.reduce(
-      (total, payment) =>
-        total +
-        Number(payment.amount || 0),
-      0
-    );
-
-  // ========================================
-  // ESC CLOSE
-  // ========================================
-
-  useEffect(() => {
-    function handleEscape(
-      event: KeyboardEvent
-    ) {
-      if (event.key === "Escape") {
-        setSelectedPayment(null);
-      }
-    }
-
-    window.addEventListener(
-      "keydown",
-      handleEscape
-    );
-
-    return () => {
-      window.removeEventListener(
-        "keydown",
-        handleEscape
-      );
-    };
   }, []);
 
+  useEffect(() => {
+    loadPayments();
+
+    const channel = supabase
+      .channel("admin-payments-page")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "payments" },
+        () => {
+          loadPayments();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [loadPayments]);
+
+  // Verified Revenue calculation (Successful payments ONLY)
+  const verifiedRevenue = useMemo(() => {
+    return payments
+      .filter((p) => {
+        const s = (p.status || "").toLowerCase();
+        return s === "success" || s === "paid";
+      })
+      .reduce((sum, p) => sum + Number(p.amount || 0), 0);
+  }, [payments]);
+
+  const pendingCount = useMemo(() => {
+    return payments.filter((p) => (p.status || "").toLowerCase() === "pending").length;
+  }, [payments]);
+
+  const filtered = useMemo(() => {
+    return payments.filter((p) => {
+      const s = (p.status || "").toLowerCase();
+      let matchesFilter = true;
+      if (filter === "Paid") matchesFilter = s === "success" || s === "paid";
+      if (filter === "Pending") matchesFilter = s === "pending";
+      if (filter === "Failed") matchesFilter = s === "failed" || s === "failure";
+
+      const q = search.toLowerCase().trim();
+      const matchesSearch =
+        !q ||
+        (p.customer_name || "").toLowerCase().includes(q) ||
+        (p.customer_email || "").toLowerCase().includes(q) ||
+        (p.customer_phone || "").toLowerCase().includes(q) ||
+        (p.txnid || "").toLowerCase().includes(q) ||
+        (p.product_name || "").toLowerCase().includes(q);
+
+      return matchesFilter && matchesSearch;
+    });
+  }, [payments, filter, search]);
+
+  function exportCSV() {
+    const headers = [
+      "Txn ID",
+      "Customer",
+      "Phone",
+      "Email",
+      "Product / Scope",
+      "Amount",
+      "Status",
+      "Date",
+    ];
+    const rows = filtered.map((p) => [
+      `"${p.txnid || ""}"`,
+      `"${(p.customer_name || "").replace(/"/g, '""')}"`,
+      `"${p.customer_phone || ""}"`,
+      `"${p.customer_email || ""}"`,
+      `"${(p.product_name || p.plan_id || "").replace(/"/g, '""')}"`,
+      p.amount || 0,
+      `"${p.status || ""}"`,
+      `"${p.created_at ? new Date(p.created_at).toLocaleString("en-IN") : ""}"`,
+    ]);
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `digitalfx_payments_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  function formatDate(iso?: string | null) {
+    if (!iso) return "—";
+    return new Date(iso).toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  function getStatusStyle(st?: string | null) {
+    switch ((st || "").toLowerCase()) {
+      case "success":
+      case "paid":
+        return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
+      case "pending":
+        return "bg-amber-500/15 text-amber-400 border-amber-500/30";
+      default:
+        return "bg-red-500/15 text-red-400 border-red-500/30";
+    }
+  }
+
   return (
-    <main className="min-h-screen bg-[#f5f7fb] text-[#071534]">
+    <div className="space-y-6">
+      
+      {/* Header */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400">
+              Financial Operations
+            </span>
+          </div>
+          <h1 className="text-2xl font-black text-white mt-1">Payment Transactions</h1>
+          <p className="text-xs text-slate-400 mt-0.5">
+            Verified gateway transactions, invoice settlement, and real attributable revenue.
+          </p>
+        </div>
 
-      {/* ====================================
-          SIDEBAR
-      ==================================== */}
-
-      <aside className="fixed left-0 top-0 z-40 hidden h-screen w-[252px] flex-col bg-[#071534] text-white lg:flex">
-
-        {/* LOGO */}
-
-        <div className="flex h-[80px] items-center border-b border-white/10 px-5">
-
+        <div className="flex flex-wrap items-center gap-2.5">
           <button
-            onClick={() =>
-              router.push("/admin")
-            }
-            className="flex items-center gap-3"
+            onClick={exportCSV}
+            disabled={filtered.length === 0}
+            className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-bold text-slate-200 hover:bg-white/10 transition disabled:opacity-40"
           >
-
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white">
-
-              <img
-                src="/logo.png"
-                alt="Digital FX"
-                className="h-10 w-10 object-contain"
-              />
-
-            </div>
-
-            <div className="text-left">
-
-              <div className="text-[18px] font-extrabold">
-                DIGITAL{" "}
-                <span className="text-[#6f8cff]">
-                  FX
-                </span>
-              </div>
-
-              <div className="text-[7px] font-bold tracking-[2px] text-blue-100/40">
-                ADMIN PANEL
-              </div>
-
-            </div>
-
+            <span>📥 Export CSV</span>
           </button>
-
+          <button
+            onClick={loadPayments}
+            className="flex items-center gap-2 rounded-xl bg-[#315df5] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#234bd6] transition"
+          >
+            <span>↻ Refresh</span>
+          </button>
         </div>
-
-        {/* NAVIGATION */}
-
-        <nav className="flex-1 overflow-y-auto p-4">
-
-          <SidebarButton
-            label="Dashboard"
-            icon="▦"
-            onClick={() =>
-              router.push("/admin")
-            }
-          />
-
-          <SidebarButton
-            label="Enquiries"
-            icon="◎"
-            onClick={() =>
-              router.push(
-                "/admin/enquiries"
-              )
-            }
-          />
-
-          <SidebarButton
-            label="Payments"
-            icon="₹"
-            active
-            onClick={() =>
-              router.push(
-                "/admin/payments"
-              )
-            }
-          />
-
-          <SidebarButton
-            label="Services"
-            icon="◇"
-            onClick={() =>
-              router.push(
-                "/admin/services"
-              )
-            }
-          />
-
-          <SidebarButton
-            label="Projects"
-            icon="▣"
-          />
-
-          <SidebarButton
-            label="Blogs"
-            icon="▤"
-          />
-
-          <SidebarButton
-            label="Testimonials"
-            icon="★"
-          />
-
-          <SidebarButton
-            label="Partners"
-            icon="◎"
-          />
-
-          <SidebarButton
-            label="Team Members"
-            icon="◌"
-          />
-
-          <SidebarButton
-            label="Geo Checker"
-            icon="⌖"
-            onClick={() =>
-              router.push(
-                "/admin/geo-checker"
-              )
-            }
-          />
-
-          <SidebarButton
-            label="GEO History"
-            icon="◷"
-            onClick={() =>
-              router.push(
-                "/admin/geo-checker/history"
-              )
-            }
-          />
-
-          <SidebarButton
-            label="Subscribers"
-            icon="✉"
-          />
-
-          <SidebarButton
-            label="Pages"
-            icon="▤"
-          />
-
-          <SidebarButton
-            label="Analytics"
-            icon="◒"
-          />
-
-          <SidebarButton
-            label="Reports"
-            icon="▥"
-          />
-
-          <SidebarButton
-            label="Settings"
-            icon="⚙"
-          />
-
-        </nav>
-
-        {/* ADMIN USER */}
-
-        <div className="border-t border-white/10 p-4">
-
-          <div className="flex items-center gap-3 rounded-xl bg-white/5 p-3">
-
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#315df5] text-sm font-extrabold">
-              A
-            </div>
-
-            <div className="min-w-0 flex-1">
-
-              <p className="truncate text-sm font-bold">
-                Admin User
-              </p>
-
-              <p className="text-[10px] text-blue-100/40">
-                Super Admin
-              </p>
-
-            </div>
-
-            <button
-              onClick={logout}
-              title="Logout"
-              className="text-lg text-blue-100/50 transition hover:text-white"
-            >
-              ↪
-            </button>
-
-          </div>
-
-        </div>
-
-      </aside>
-
-      {/* ====================================
-          MAIN
-      ==================================== */}
-
-      <div className="lg:ml-[252px]">
-
-        {/* HEADER */}
-
-        <header className="flex min-h-[80px] items-center justify-between border-b border-gray-100 bg-white px-5 md:px-8">
-
-          <div>
-
-            <p className="text-[9px] font-bold uppercase tracking-[1.5px] text-gray-400">
-              DIGITAL FX ADMIN
-            </p>
-
-            <h1 className="mt-1 text-xl font-extrabold">
-              Payments
-            </h1>
-
-          </div>
-
-          <div className="flex items-center gap-3">
-
-            <button
-              onClick={loadPayments}
-              disabled={loading}
-              className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-xs font-bold text-gray-600 transition hover:bg-gray-50 disabled:opacity-50"
-            >
-              {loading
-                ? "Loading..."
-                : "↻ Refresh"}
-            </button>
-
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-sm font-extrabold text-blue-600">
-              A
-            </div>
-
-          </div>
-
-        </header>
-
-        {/* CONTENT */}
-
-        <section className="p-5 md:p-8">
-
-          {/* TITLE */}
-
-          <div className="mb-7">
-
-            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-emerald-600">
-              PAYMENT MANAGEMENT
-            </p>
-
-            <h2 className="mt-2 text-[30px] font-extrabold tracking-[-1px]">
-              Payment Transactions
-            </h2>
-
-            <p className="mt-2 text-sm text-gray-500">
-              Manage and monitor all Digital FX PayU payments.
-            </p>
-
-          </div>
-
-          {/* ERROR */}
-
-          {error && (
-
-            <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-red-100 bg-red-50 p-4 md:flex-row md:items-center md:justify-between">
-
-              <div>
-
-                <p className="text-xs font-extrabold text-red-700">
-                  Unable to load payments
-                </p>
-
-                <p className="mt-1 text-[10px] text-red-600">
-                  {error}
-                </p>
-
-              </div>
-
-              <button
-                onClick={loadPayments}
-                className="rounded-xl bg-red-600 px-4 py-2 text-[10px] font-bold text-white transition hover:bg-red-700"
-              >
-                Try Again
-              </button>
-
-            </div>
-
-          )}
-
-          {/* ====================================
-              STAT CARDS
-          ==================================== */}
-
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-
-            <StatCard
-              title="TOTAL REVENUE"
-              value={`₹${totalRevenue.toLocaleString(
-                "en-IN"
-              )}`}
-              subtitle="Successful payments"
-              valueClass="text-emerald-600"
-              borderClass="border-emerald-100"
-            />
-
-            <StatCard
-              title="SUCCESSFUL"
-              value={
-                successfulPayments.length
-              }
-              subtitle="Completed transactions"
-              valueClass="text-blue-600"
-              borderClass="border-blue-100"
-            />
-
-            <StatCard
-              title="PENDING"
-              value={
-                pendingPayments.length
-              }
-              subtitle="Awaiting payment"
-              valueClass="text-amber-600"
-              borderClass="border-amber-100"
-            />
-
-            <StatCard
-              title="FAILED"
-              value={
-                failedPayments.length
-              }
-              subtitle="Failed transactions"
-              valueClass="text-red-500"
-              borderClass="border-red-100"
-            />
-
-          </div>
-
-          {/* ====================================
-              SEARCH
-          ==================================== */}
-
-          <div className="mt-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
-
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-
-              <div>
-
-                <h3 className="text-sm font-extrabold">
-                  All Payments
-                </h3>
-
-                <p className="mt-1 text-[10px] text-gray-400">
-                  Click any payment to view full details
-                </p>
-
-              </div>
-
-              <div className="relative w-full md:w-[400px]">
-
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                  ⌕
-                </span>
-
-                <input
-                  type="text"
-                  value={search}
-                  onChange={(event) =>
-                    setSearch(
-                      event.target.value
-                    )
-                  }
-                  placeholder="Search customer, email, package or transaction..."
-                  className="h-11 w-full rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-4 text-xs outline-none transition focus:border-blue-400 focus:bg-white"
-                />
-
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* ====================================
-              PAYMENT TABLE
-          ==================================== */}
-
-          <div className="mt-4 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-
-            <div className="overflow-x-auto">
-
-              <table className="w-full min-w-[1050px]">
-
-                <thead>
-
-                  <tr className="border-b border-gray-100 bg-gray-50/70 text-left">
-
-                    <th className="px-5 py-4 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      Customer
-                    </th>
-
-                    <th className="px-5 py-4 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      Package
-                    </th>
-
-                    <th className="px-5 py-4 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      Amount
-                    </th>
-
-                    <th className="px-5 py-4 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      Status
-                    </th>
-
-                    <th className="px-5 py-4 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      Transaction ID
-                    </th>
-
-                    <th className="px-5 py-4 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-                      Date
-                    </th>
-
-                  </tr>
-
-                </thead>
-
-                <tbody>
-
-                  {loading ? (
-
-                    <tr>
-
-                      <td
-                        colSpan={6}
-                        className="py-20 text-center"
-                      >
-
-                        <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-gray-200 border-t-blue-600" />
-
-                        <p className="mt-4 text-sm font-bold text-gray-400">
-                          Loading payments...
-                        </p>
-
-                      </td>
-
-                    </tr>
-
-                  ) : filteredPayments.length ===
-                    0 ? (
-
-                    <tr>
-
-                      <td
-                        colSpan={6}
-                        className="py-20 text-center"
-                      >
-
-                        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-xl font-bold text-blue-600">
-                          ₹
-                        </div>
-
-                        <p className="mt-4 text-sm font-extrabold text-gray-400">
-                          {search
-                            ? "No matching payments"
-                            : "No payments found"}
-                        </p>
-
-                        <p className="mt-1 text-[10px] text-gray-400">
-                          {search
-                            ? "Try a different search."
-                            : "PayU transactions will appear here."}
-                        </p>
-
-                      </td>
-
-                    </tr>
-
-                  ) : (
-
-                    filteredPayments.map(
-                      (
-                        payment,
-                        index
-                      ) => (
-
-                        <tr
-                          key={
-                            payment.id ||
-                            payment.txnid ||
-                            index
-                          }
-                          onClick={() =>
-                            setSelectedPayment(
-                              payment
-                            )
-                          }
-                          className="cursor-pointer border-b border-gray-100 transition hover:bg-blue-50/40"
-                        >
-
-                          {/* CUSTOMER */}
-
-                          <td className="px-5 py-5">
-
-                            <div className="flex items-center gap-3">
-
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-xs font-extrabold text-blue-700">
-                                {(
-                                  payment.customer_name ||
-                                  "C"
-                                )
-                                  .charAt(0)
-                                  .toUpperCase()}
-                              </div>
-
-                              <div className="min-w-0">
-
-                                <p className="max-w-[180px] truncate text-xs font-extrabold">
-                                  {payment.customer_name ||
-                                    "Customer"}
-                                </p>
-
-                                <p className="mt-1 max-w-[220px] truncate text-[9px] text-gray-400">
-                                  {payment.customer_email ||
-                                    "No email"}
-                                </p>
-
-                              </div>
-
-                            </div>
-
-                          </td>
-
-                          {/* PACKAGE */}
-
-                          <td className="px-5 py-5">
-
-                            <div>
-
-                              <span className="inline-block max-w-[220px] rounded-lg bg-gray-50 px-3 py-2 text-[10px] font-bold text-gray-600">
-                                {payment.product_name ||
-                                  "Digital FX Service"}
-                              </span>
-
-                              {payment.plan_id && (
-
-                                <p className="mt-1 text-[8px] font-semibold uppercase tracking-wide text-gray-400">
-                                  {payment.plan_id}
-                                </p>
-
-                              )}
-
-                            </div>
-
-                          </td>
-
-                          {/* AMOUNT */}
-
-                          <td className="px-5 py-5">
-
-                            <span className="text-sm font-extrabold">
-                              ₹
-                              {Number(
-                                payment.amount ||
-                                  0
-                              ).toLocaleString(
-                                "en-IN"
-                              )}
-                            </span>
-
-                          </td>
-
-                          {/* STATUS */}
-
-                          <td className="px-5 py-5">
-
-                            <span
-                              className={`inline-flex rounded-full border px-3 py-1.5 text-[8px] font-extrabold uppercase ${getStatusClass(
-                                payment.status
-                              )}`}
-                            >
-                              {payment.status ||
-                                "Unknown"}
-                            </span>
-
-                          </td>
-
-                          {/* TRANSACTION */}
-
-                          <td className="px-5 py-5">
-
-                            <span
-                              className="font-mono text-[9px] text-gray-500"
-                              title={
-                                payment.txnid
-                              }
-                            >
-                              {payment.txnid ||
-                                "-"}
-                            </span>
-
-                          </td>
-
-                          {/* DATE */}
-
-                          <td className="px-5 py-5">
-
-                            <span className="whitespace-nowrap text-[10px] text-gray-500">
-                              {formatDate(
-                                payment.created_at
-                              )}
-                            </span>
-
-                          </td>
-
-                        </tr>
-
-                      )
-                    )
-
-                  )}
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </div>
-
-          {/* FOOTER */}
-
-          <div className="mt-8 border-t border-gray-200 pt-5 text-[9px] text-gray-400">
-            Digital FX Admin • PayU Payment Management
-          </div>
-
-        </section>
-
       </div>
 
-      {/* ====================================
-          PAYMENT DETAILS MODAL
-      ==================================== */}
-
-      {selectedPayment && (
-
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#071534]/70 p-4 backdrop-blur-sm"
-          onMouseDown={() =>
-            setSelectedPayment(null)
-          }
-        >
-
-          <div
-            className="max-h-[92vh] w-full max-w-[680px] overflow-hidden rounded-3xl bg-white shadow-2xl"
-            onMouseDown={(event) =>
-              event.stopPropagation()
-            }
-          >
-
-            {/* MODAL HEADER */}
-
-            <div className="flex items-center justify-between border-b border-gray-100 px-6 py-5">
-
-              <div className="flex items-center gap-4">
-
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-xl font-extrabold text-blue-600">
-                  ₹
-                </div>
-
-                <div>
-
-                  <p className="text-[9px] font-bold uppercase tracking-[1.5px] text-blue-600">
-                    PAYMENT DETAILS
-                  </p>
-
-                  <h3 className="mt-1 text-lg font-extrabold">
-                    Transaction Information
-                  </h3>
-
-                </div>
-
-              </div>
-
-              <button
-                onClick={() =>
-                  setSelectedPayment(null)
-                }
-                className="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-100 text-lg font-bold text-gray-500 transition hover:bg-gray-200 hover:text-gray-800"
-              >
-                ×
-              </button>
-
-            </div>
-
-            {/* MODAL CONTENT */}
-
-            <div className="max-h-[calc(92vh-90px)] overflow-y-auto p-6">
-
-              {/* AMOUNT + STATUS */}
-
-              <div className="grid gap-4 sm:grid-cols-2">
-
-                <div className="rounded-2xl bg-[#071534] p-5 text-white">
-
-                  <p className="text-[9px] font-bold uppercase tracking-[1.2px] text-blue-100/50">
-                    Amount
-                  </p>
-
-                  <p className="mt-2 text-3xl font-extrabold">
-                    ₹
-                    {Number(
-                      selectedPayment.amount ||
-                        0
-                    ).toLocaleString(
-                      "en-IN"
-                    )}
-                  </p>
-
-                  <p className="mt-1 text-[10px] text-blue-100/50">
-                    {selectedPayment.product_name ||
-                      "Digital FX Service"}
-                  </p>
-
-                </div>
-
-                <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
-
-                  <p className="text-[9px] font-bold uppercase tracking-[1.2px] text-gray-400">
-                    Payment Status
-                  </p>
-
-                  <div className="mt-4">
-
-                    <span
-                      className={`inline-flex rounded-full border px-4 py-2 text-[10px] font-extrabold uppercase ${getStatusClass(
-                        selectedPayment.status
-                      )}`}
-                    >
-                      {selectedPayment.status ||
-                        "Unknown"}
-                    </span>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              {/* CUSTOMER DETAILS */}
-
-              <div className="mt-6">
-
-                <p className="mb-3 text-[10px] font-extrabold uppercase tracking-[1.3px] text-gray-400">
-                  Customer Information
-                </p>
-
-                <div className="grid gap-3 sm:grid-cols-2">
-
-                  <DetailItem
-                    label="Customer Name"
-                    value={
-                      selectedPayment.customer_name
-                    }
-                  />
-
-                  <DetailItem
-                    label="Email Address"
-                    value={
-                      selectedPayment.customer_email
-                    }
-                  />
-
-                  <DetailItem
-                    label="Phone Number"
-                    value={
-                      selectedPayment.customer_phone
-                    }
-                  />
-
-                  <DetailItem
-                    label="Package / Service"
-                    value={
-                      selectedPayment.product_name
-                    }
-                  />
-
-                </div>
-
-              </div>
-
-              {/* TRANSACTION DETAILS */}
-
-              <div className="mt-6">
-
-                <p className="mb-3 text-[10px] font-extrabold uppercase tracking-[1.3px] text-gray-400">
-                  Transaction Information
-                </p>
-
-                <div className="grid gap-3 sm:grid-cols-2">
-
-                  <DetailItem
-                    label="Transaction ID"
-                    value={
-                      selectedPayment.txnid
-                    }
-                    mono
-                  />
-
-                  <DetailItem
-                    label="Plan ID"
-                    value={
-                      selectedPayment.plan_id
-                    }
-                  />
-
-                  <DetailItem
-                    label="Payment Amount"
-                    value={`₹${Number(
-                      selectedPayment.amount ||
-                        0
-                    ).toLocaleString(
-                      "en-IN"
-                    )}`}
-                  />
-
-                  <DetailItem
-                    label="Payment Status"
-                    value={
-                      selectedPayment.status
-                    }
-                  />
-
-                  <DetailItem
-                    label="Payment Date"
-                    value={formatDate(
-                      selectedPayment.created_at
-                    )}
-                  />
-
-                  <DetailItem
-                    label="Last Updated"
-                    value={formatDate(
-                      selectedPayment.updated_at
-                    )}
-                  />
-
-                </div>
-
-              </div>
-
-              {/* MODAL FOOTER */}
-
-              <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-5">
-
-                <p className="text-[9px] text-gray-400">
-                  Digital FX • PayU Payment Record
-                </p>
-
-                <button
-                  onClick={() =>
-                    setSelectedPayment(null)
-                  }
-                  className="rounded-xl bg-[#071534] px-5 py-2.5 text-xs font-bold text-white transition hover:bg-[#10254f]"
-                >
-                  Close
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
+      {/* Financial Summary Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="p-5 rounded-2xl border border-emerald-500/30 bg-emerald-500/[0.05]">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-300">
+            Total Verified Revenue
+          </span>
+          <p className="mt-2 text-2xl font-black text-emerald-400 tabular-nums">
+            ₹{verifiedRevenue.toLocaleString("en-IN")}
+          </p>
+          <p className="mt-1 text-[10px] text-emerald-400/60">
+            Calculated exclusively from successful payments
+          </p>
         </div>
 
-      )}
+        <div className="p-5 rounded-2xl border border-white/10 bg-white/[0.03]">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+            Total Transactions Recorded
+          </span>
+          <p className="mt-2 text-2xl font-black text-white tabular-nums">
+            {payments.length}
+          </p>
+          <p className="mt-1 text-[10px] text-slate-500">
+            All gateway checkout events
+          </p>
+        </div>
 
-    </main>
-  );
-}
+        <div className="p-5 rounded-2xl border border-amber-500/30 bg-amber-500/[0.04]">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300">
+            Pending Checkouts
+          </span>
+          <p className="mt-2 text-2xl font-black text-amber-400 tabular-nums">
+            {pendingCount}
+          </p>
+          <p className="mt-1 text-[10px] text-amber-400/60">
+            Awaiting customer completion
+          </p>
+        </div>
+      </div>
 
-/* ============================================
-   SIDEBAR BUTTON
-============================================ */
+      {/* Controls */}
+      <div className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative flex-1 max-w-md">
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs">
+            🔍
+          </span>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search payments by customer, transaction ID, email..."
+            className="w-full h-10 rounded-xl border border-white/10 bg-black/20 pl-9 pr-4 text-xs font-medium text-white placeholder:text-slate-500 outline-none focus:border-[#315df5]"
+          />
+          {search && (
+            <button
+              onClick={() => setSearch("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs"
+            >
+              ✕
+            </button>
+          )}
+        </div>
 
-function SidebarButton({
-  label,
-  icon,
-  active = false,
-  onClick,
-}: {
-  label: string;
-  icon: string;
-  active?: boolean;
-  onClick?: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`mb-1.5 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm transition ${
-        active
-          ? "bg-[#315df5] font-bold text-white shadow-lg shadow-blue-900/20"
-          : "text-blue-100/55 hover:bg-white/5 hover:text-white"
-      }`}
-    >
-      <span className="w-5 text-center">
-        {icon}
-      </span>
+        <div className="flex flex-wrap items-center gap-1.5">
+          {FILTERS.map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                filter === f
+                  ? "bg-[#315df5] text-white"
+                  : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200"
+              }`}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
+      </div>
 
-      {label}
-    </button>
-  );
-}
+      {/* Data Table */}
+      <div className="rounded-3xl border border-white/10 bg-white/[0.02] shadow-xl overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className="border-b border-white/10 bg-black/30 text-[10.5px] uppercase tracking-wider text-slate-400">
+              <tr>
+                <th className="py-3.5 px-5">Customer</th>
+                <th className="py-3.5 px-4">Package / Scope</th>
+                <th className="py-3.5 px-4">Amount</th>
+                <th className="py-3.5 px-4">Txn ID</th>
+                <th className="py-3.5 px-4">Date</th>
+                <th className="py-3.5 px-4">Status</th>
+                <th className="py-3.5 px-5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5 font-medium">
+              {loading ? (
+                <tr>
+                  <td colSpan={7} className="py-12 text-center text-slate-400">
+                    <span className="inline-block h-5 w-5 border-2 border-white/30 border-t-emerald-500 rounded-full animate-spin mr-2" />
+                    Loading payment records...
+                  </td>
+                </tr>
+              ) : filtered.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="py-12 text-center text-slate-500">
+                    No payment records match the selected filter.
+                  </td>
+                </tr>
+              ) : (
+                filtered.map((p) => (
+                  <tr
+                    key={p.id || p.txnid}
+                    onClick={() =>
+                      setSelectedRecord({
+                        id: p.id || p.txnid,
+                        type: "payment",
+                        name: p.customer_name || "Customer",
+                        phone: p.customer_phone,
+                        email: p.customer_email,
+                        service: p.product_name || p.plan_id || "Package",
+                        status: p.status === "success" ? "Paid" : p.status || "Pending",
+                        date: formatDate(p.created_at),
+                        amount: p.amount,
+                        txnid: p.txnid,
+                        productName: p.product_name,
+                        planId: p.plan_id,
+                      })
+                    }
+                    className="hover:bg-white/[0.03] transition cursor-pointer group"
+                  >
+                    <td className="py-4 px-5">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-xs font-black text-white shadow-sm shrink-0">
+                          ₹
+                        </div>
+                        <div>
+                          <p className="font-bold text-sm text-white group-hover:text-emerald-300 transition">
+                            {p.customer_name || "Customer"}
+                          </p>
+                          {p.customer_phone && (
+                            <p className="text-[11px] text-slate-400 font-mono">
+                              {p.customer_phone}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </td>
 
-/* ============================================
-   STAT CARD
-============================================ */
+                    <td className="py-4 px-4 text-slate-200 max-w-[200px] truncate">
+                      {p.product_name || p.plan_id || "Bespoke Service"}
+                    </td>
 
-function StatCard({
-  title,
-  value,
-  subtitle,
-  valueClass,
-  borderClass,
-}: {
-  title: string;
-  value: string | number;
-  subtitle: string;
-  valueClass: string;
-  borderClass: string;
-}) {
-  return (
-    <div
-      className={`rounded-2xl border bg-white p-5 shadow-sm ${borderClass}`}
-    >
+                    <td className="py-4 px-4 font-mono font-bold text-white text-sm whitespace-nowrap">
+                      ₹{Number(p.amount || 0).toLocaleString("en-IN")}
+                    </td>
 
-      <p className="text-[9px] font-bold uppercase tracking-[1.2px] text-gray-400">
-        {title}
-      </p>
+                    <td className="py-4 px-4 font-mono text-[11px] text-blue-300 max-w-[150px] truncate">
+                      {p.txnid}
+                    </td>
 
-      <p
-        className={`mt-3 text-[30px] font-extrabold ${valueClass}`}
-      >
-        {value}
-      </p>
+                    <td className="py-4 px-4 text-slate-400 whitespace-nowrap text-[11px]">
+                      {formatDate(p.created_at)}
+                    </td>
 
-      <p className="mt-1 text-[10px] font-semibold text-gray-400">
-        {subtitle}
-      </p>
+                    <td className="py-4 px-4 whitespace-nowrap">
+                      <span
+                        className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border ${getStatusStyle(
+                          p.status
+                        )}`}
+                      >
+                        {p.status === "success" ? "Paid" : p.status || "Pending"}
+                      </span>
+                    </td>
 
-    </div>
-  );
-}
+                    <td className="py-4 px-5 text-right">
+                      <button className="text-xs font-bold text-emerald-400 hover:text-white transition">
+                        Receipt →
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-/* ============================================
-   DETAIL ITEM
-============================================ */
-
-function DetailItem({
-  label,
-  value,
-  mono = false,
-}: {
-  label: string;
-  value?: string | number | null;
-  mono?: boolean;
-}) {
-  return (
-    <div className="rounded-2xl border border-gray-100 bg-gray-50 p-4">
-
-      <p className="text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
-        {label}
-      </p>
-
-      <p
-        className={`mt-2 break-words text-xs font-bold text-[#071534] ${
-          mono
-            ? "font-mono text-[10px]"
-            : ""
-        }`}
-      >
-        {value || "-"}
-      </p>
+      {/* Customer Detail Drawer */}
+      <CustomerDrawer
+        record={selectedRecord}
+        onClose={() => setSelectedRecord(null)}
+      />
 
     </div>
   );

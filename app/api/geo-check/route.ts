@@ -4,7 +4,7 @@ import { supabase } from "../../lib/supabase";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const inputUrl = String(body?.url || "").trim();
+    const inputUrl = String(body?.url || body?.website || "").trim();
 
     if (!inputUrl) {
       return NextResponse.json(
@@ -390,6 +390,29 @@ export async function POST(request: Request) {
     // SAVE TO SUPABASE
     // =====================================================
 
+    const customerName = String(body?.name || body?.customer_name || "").trim();
+    const customerPhone = String(body?.phone || body?.customer_phone || "").trim();
+    const customerEmail = String(body?.email || body?.customer_email || "").trim();
+    const requestedService = String(body?.service || "GEO & AI Search Audit").trim();
+    const analysisType = String(body?.analysis_type || "free").trim();
+    const paymentStatus = analysisType === "paid" ? "paid" : "free";
+
+    const aiAnalysisPayload = {
+      customer_name: customerName || "Website Visitor",
+      customer_phone: customerPhone || "",
+      customer_email: customerEmail || "",
+      service: requestedService,
+      analysis_type: analysisType,
+      analysis_status: "completed",
+      payment_status: paymentStatus,
+      overall_score: overall,
+      seo_score: seo,
+      geo_score: geo,
+      mobile_score: mobile,
+      performance_score: performance,
+      created_at: new Date().toISOString(),
+    };
+
     try {
       const { error: saveError } =
         await supabase
@@ -413,6 +436,7 @@ export async function POST(request: Request) {
             has_robots: hasRobots,
             response_time: responseTime,
             recommendations,
+            ai_analysis: aiAnalysisPayload,
           });
 
       if (saveError) {
@@ -420,6 +444,18 @@ export async function POST(request: Request) {
           "GEO SAVE ERROR:",
           saveError
         );
+      }
+
+      // Also persist customer lead in enquiries so admin can track & follow up
+      if (customerName || customerPhone || customerEmail) {
+        await supabase.from("enquiries").insert({
+          name: customerName || "Audit Visitor",
+          phone: customerPhone || "Not Provided",
+          email: customerEmail || null,
+          service: `Free Website Analysis - ${requestedService}`,
+          message: `Website: ${websiteUrl} | Overall Score: ${overall}/100 | SEO: ${seo}% | GEO: ${geo}% | Mobile: ${mobile}% | Speed: ${responseTime}ms`,
+          status: "New",
+        });
       }
     } catch (databaseError) {
       console.error(

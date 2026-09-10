@@ -487,6 +487,25 @@ export default function Home() {
 
   const [heroWebsite, setHeroWebsite] = useState("");
 
+  // Strategic Proposal Modal State
+  const [proposalModalOpen, setProposalModalOpen] = useState(false);
+  const [proposalName, setProposalName] = useState("");
+  const [proposalPhone, setProposalPhone] = useState("");
+  const [proposalEmail, setProposalEmail] = useState("");
+  const [proposalWebsite, setProposalWebsite] = useState("");
+  const [proposalService, setProposalService] = useState("Generative Engine Optimization (GEO)");
+  const [proposalRequirement, setProposalRequirement] = useState("");
+  const [proposalLoading, setProposalLoading] = useState(false);
+  const [proposalSuccess, setProposalSuccess] = useState("");
+  const [proposalError, setProposalError] = useState("");
+
+  // Free Website Analysis Lead Capture Modal State
+  const [auditCaptureOpen, setAuditCaptureOpen] = useState(false);
+  const [auditCustomerName, setAuditCustomerName] = useState("");
+  const [auditCustomerPhone, setAuditCustomerPhone] = useState("");
+  const [auditCustomerEmail, setAuditCustomerEmail] = useState("");
+  const [auditCustomerService, setAuditCustomerService] = useState("GEO & AI Search Audit");
+
   // AI Business Suite Coming Soon Modal State
   const [isAiSuiteOpen, setIsAiSuiteOpen] = useState(false);
   const [aiSuiteSubmitted, setAiSuiteSubmitted] = useState(false);
@@ -598,6 +617,64 @@ export default function Home() {
     loadServices();
   }, []);
 
+  function openProposalModal(site?: string, srv?: string) {
+    if (site) setProposalWebsite(site);
+    if (srv) setProposalService(srv);
+    setProposalSuccess("");
+    setProposalError("");
+    setProposalModalOpen(true);
+  }
+
+  async function handleProposalSubmit(e: FormEvent) {
+    e.preventDefault();
+    setProposalLoading(true);
+    setProposalError("");
+    setProposalSuccess("");
+
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: proposalName.trim(),
+          phone: proposalPhone.trim(),
+          email: proposalEmail.trim(),
+          website: proposalWebsite.trim(),
+          service: proposalService,
+          message: proposalRequirement.trim(),
+          is_proposal: true,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Unable to submit proposal request.");
+      }
+
+      setProposalSuccess(
+        "Your Strategic Proposal request has been submitted successfully! Our lead growth strategist will contact you shortly."
+      );
+
+      const waMsg = `Hi Digital FX, I requested a Strategic Proposal for ${
+        proposalWebsite || "my business"
+      }. Name: ${proposalName}, Service: ${proposalService}, Phone: ${proposalPhone}.`;
+      window.open(
+        `https://wa.me/918447583685?text=${encodeURIComponent(waMsg)}`,
+        "_blank"
+      );
+
+      setTimeout(() => {
+        setProposalModalOpen(false);
+      }, 3500);
+    } catch (err) {
+      setProposalError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+    } finally {
+      setProposalLoading(false);
+    }
+  }
+
   function handleHeroProposal(e: FormEvent) {
     e.preventDefault();
     const site = heroWebsite.trim();
@@ -607,15 +684,42 @@ export default function Home() {
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
     }
-    runGeoAudit(site);
+    if (!auditCustomerName || !auditCustomerPhone) {
+      setAuditCaptureOpen(true);
+    } else {
+      runGeoAudit(site);
+    }
   }
 
   async function handleGeoCheck(e: FormEvent) {
     e.preventDefault();
-    runGeoAudit(geoWebsite);
+    if (!geoWebsite.trim()) return;
+    if (!auditCustomerName || !auditCustomerPhone) {
+      setAuditCaptureOpen(true);
+    } else {
+      runGeoAudit(geoWebsite);
+    }
   }
 
-  async function runGeoAudit(siteInput?: string) {
+  async function handleAuditCaptureSubmit(e: FormEvent) {
+    e.preventDefault();
+    setAuditCaptureOpen(false);
+    const target = document.getElementById("geo-checker");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+    runGeoAudit(geoWebsite, {
+      name: auditCustomerName,
+      phone: auditCustomerPhone,
+      email: auditCustomerEmail,
+      service: auditCustomerService,
+    });
+  }
+
+  async function runGeoAudit(
+    siteInput?: string,
+    userLead?: { name: string; phone: string; email: string; service: string }
+  ) {
     const site = (siteInput || geoWebsite).trim();
     if (!site) return;
     setGeoWebsite(site);
@@ -624,6 +728,13 @@ export default function Home() {
     setGeoError("");
     setGeoResult(null);
 
+    const lead = userLead || {
+      name: auditCustomerName,
+      phone: auditCustomerPhone,
+      email: auditCustomerEmail,
+      service: auditCustomerService,
+    };
+
     // 1. Try local API route if available
     try {
       const response = await fetch("/api/geo-check", {
@@ -631,6 +742,10 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           website: site,
+          name: lead.name,
+          phone: lead.phone,
+          email: lead.email,
+          service: lead.service,
           keyword: geoKeyword,
           city: geoCity,
         }),
@@ -638,7 +753,7 @@ export default function Home() {
 
       if (response.ok) {
         const data = await response.json();
-        setGeoResult(data);
+        setGeoResult(data.data || data);
         setGeoLoading(false);
         return;
       }
@@ -1670,6 +1785,19 @@ export default function Home() {
                   Analyze Growth Potential →
                 </button>
               </form>
+
+              {/* Strategic Proposal Quick Trigger */}
+              <div className="mt-3.5 flex flex-wrap items-center gap-3 text-xs text-slate-500 font-medium">
+                <span>Need a customized multi-channel plan?</span>
+                <button
+                  type="button"
+                  onClick={() => openProposalModal(heroWebsite, "Enterprise Growth Roadmap")}
+                  className="text-[#1570ef] font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Request Strategic Proposal</span>
+                  <span>→</span>
+                </button>
+              </div>
 
               {/* Trust Badges */}
               <div className="mt-3.5 flex flex-wrap items-center gap-5 text-[12px] text-slate-500 font-medium">
@@ -3678,8 +3806,15 @@ export default function Home() {
                     </a>
                     <button
                       type="button"
+                      onClick={() => openProposalModal(geoWebsite, "GEO AI Citations & Optimization")}
+                      className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white font-bold text-xs text-center transition cursor-pointer shadow-md whitespace-nowrap"
+                    >
+                      Request Strategic Proposal →
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => openPricingModal()}
-                      className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs text-center transition cursor-pointer"
+                      className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs text-center transition cursor-pointer whitespace-nowrap"
                     >
                       View Payment &amp; Packages
                     </button>
@@ -4132,8 +4267,12 @@ export default function Home() {
                       <p className="text-slate-600 mt-0.5 leading-relaxed font-normal">
                         Crossings Republik, Ghaziabad, Uttar Pradesh 201016, India
                       </p>
-                      <div className="mt-2 text-[10px] font-medium text-slate-500 flex items-center gap-1">
-                        <span>🏢 Landmark:</span> Orbit Plaza Commercial Center (NH-24 Corridor)
+                      <div className="mt-3 pt-2.5 border-t border-slate-200/70 text-[11px] text-slate-600 flex items-start gap-1.5">
+                        <span className="shrink-0 text-xs">🏢</span>
+                        <div className="leading-snug">
+                          <span className="font-semibold text-slate-700">Landmark: </span>
+                          <span className="text-slate-600">Orbit Plaza Commercial Center (NH-24 Corridor)</span>
+                        </div>
                       </div>
                     </div>
 
@@ -4572,6 +4711,7 @@ export default function Home() {
                 <a href="#services" onClick={scrollToServices} className="hover:text-white transition cursor-pointer">Sitemap &amp; Services</a>
                 <a href="#contact" onClick={scrollToContact} className="hover:text-white transition cursor-pointer">Privacy &amp; Terms of Use</a>
                 <button type="button" onClick={() => openPricingModal("custom")} className="hover:text-white transition text-[#207de9] font-medium cursor-pointer">Client Billing Portal</button>
+                <a href="/admin/login" className="hover:text-slate-200 transition text-slate-500 hover:text-slate-300 text-[11px] font-normal cursor-pointer">Admin Login</a>
               </div>
             </div>
 
@@ -5492,6 +5632,307 @@ export default function Home() {
                 </button>
               </div>
 
+            </div>
+          </div>
+        )}
+
+        {/* ==========================================================================
+            STRATEGIC PROPOSAL REQUEST MODAL (Requirement 11)
+            ========================================================================== */}
+        {proposalModalOpen && (
+          <div
+            className="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-6 bg-[#080d24]/85 backdrop-blur-md overflow-y-auto animate-fadeIn"
+            onClick={() => setProposalModalOpen(false)}
+          >
+            <div
+              className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-auto animate-scaleUp text-slate-900"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="bg-[#080d24] text-white p-6 sm:p-8 border-b border-white/10 relative">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-extrabold uppercase tracking-widest">
+                      <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                      STRATEGIC PROPOSAL DESK
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white mt-2">
+                      Request Strategic Proposal
+                    </h3>
+                    <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                      Receive an executive growth roadmap, competitive AI gap analysis, and transparent scope for your business.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setProposalModalOpen(false)}
+                    className="w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center text-sm font-bold transition cursor-pointer shrink-0"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              {/* Form Body */}
+              <div className="p-6 sm:p-8 space-y-4 bg-slate-50/50">
+                {proposalSuccess ? (
+                  <div className="rounded-2xl border border-emerald-300 bg-emerald-50 p-6 text-center space-y-3">
+                    <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-bold mx-auto">
+                      ✓
+                    </div>
+                    <h4 className="text-base font-black text-emerald-900">
+                      Proposal Request Confirmed!
+                    </h4>
+                    <p className="text-xs text-emerald-800 leading-relaxed">
+                      {proposalSuccess}
+                    </p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleProposalSubmit} className="space-y-4">
+                    {proposalError && (
+                      <div className="p-3.5 rounded-xl border border-red-200 bg-red-50 text-xs text-red-600">
+                        {proposalError}
+                      </div>
+                    )}
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          Your Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={proposalName}
+                          onChange={(e) => setProposalName(e.target.value)}
+                          placeholder="e.g. Ramesh Sharma"
+                          className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          WhatsApp Mobile *
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          value={proposalPhone}
+                          onChange={(e) => setProposalPhone(e.target.value)}
+                          placeholder="+91 84475 83685"
+                          className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition tabular-nums"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          Business Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={proposalEmail}
+                          onChange={(e) => setProposalEmail(e.target.value)}
+                          placeholder="name@yourcompany.com"
+                          className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          Target Website URL *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={proposalWebsite}
+                          onChange={(e) => setProposalWebsite(e.target.value)}
+                          placeholder="yourcompany.com"
+                          className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition font-mono"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
+                        Primary Strategic Focus *
+                      </label>
+                      <select
+                        value={proposalService}
+                        onChange={(e) => setProposalService(e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition"
+                      >
+                        <option value="Generative Engine Optimization (GEO)">
+                          Generative Engine Optimization (GEO &amp; ChatGPT Citation)
+                        </option>
+                        <option value="Local SEO & Google Maps 3-Pack">
+                          Local SEO &amp; Google Maps 3-Pack Domination
+                        </option>
+                        <option value="High-Speed Next.js Web Architecture">
+                          High-Speed Next.js Web &amp; Mobile Architecture
+                        </option>
+                        <option value="Full-Funnel Digital Growth Retainer">
+                          Full-Funnel Digital Growth Retainer &amp; Google Ads
+                        </option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
+                        Specific Goals or Current Bottlenecks (Optional)
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={proposalRequirement}
+                        onChange={(e) => setProposalRequirement(e.target.value)}
+                        placeholder="Tell us about your target locations, competitor domains, or revenue goals..."
+                        className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition resize-none"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={proposalLoading}
+                      className="w-full py-3.5 rounded-xl bg-[#080d24] hover:bg-[#1570ef] text-white font-black text-xs uppercase tracking-wider transition cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg"
+                    >
+                      {proposalLoading ? (
+                        <>
+                          <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                          <span>Generating Strategic Request...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Submit Proposal Request</span>
+                          <span>→</span>
+                        </>
+                      )}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ==========================================================================
+            FREE WEBSITE ANALYSIS LEAD CAPTURE MODAL (Requirement 7 & 8)
+            ========================================================================== */}
+        {auditCaptureOpen && (
+          <div
+            className="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-6 bg-[#080d24]/85 backdrop-blur-md overflow-y-auto animate-fadeIn"
+            onClick={() => setAuditCaptureOpen(false)}
+          >
+            <div
+              className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-auto animate-scaleUp text-slate-900"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="bg-[#080d24] text-white p-6 border-b border-white/10 relative">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-extrabold uppercase tracking-widest">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      FREE AI AUDIT &amp; GEO SCAN
+                    </div>
+                    <h3 className="text-xl font-black tracking-tight text-white mt-2">
+                      Unlock Full Diagnostic Report
+                    </h3>
+                    <p className="text-xs text-slate-300 mt-1">
+                      Auditing: <span className="text-[#6f8cff] font-mono font-bold">{geoWebsite || heroWebsite || "yourbusiness.com"}</span>
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setAuditCaptureOpen(false)}
+                    className="w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center text-sm font-bold transition cursor-pointer shrink-0"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              {/* Form Body */}
+              <form onSubmit={handleAuditCaptureSubmit} className="p-6 space-y-4 bg-slate-50/60">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Your Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={auditCustomerName}
+                    onChange={(e) => setAuditCustomerName(e.target.value)}
+                    placeholder="e.g. Ankit Verma"
+                    className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    WhatsApp Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    value={auditCustomerPhone}
+                    onChange={(e) => setAuditCustomerPhone(e.target.value)}
+                    placeholder="10-digit mobile number"
+                    className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition tabular-nums"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Email Address (Optional)
+                  </label>
+                  <input
+                    type="email"
+                    value={auditCustomerEmail}
+                    onChange={(e) => setAuditCustomerEmail(e.target.value)}
+                    placeholder="name@company.com"
+                    className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Target Focus Service
+                  </label>
+                  <select
+                    value={auditCustomerService}
+                    onChange={(e) => setAuditCustomerService(e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition"
+                  >
+                    <option value="GEO & AI Search Audit">GEO &amp; Generative AI Search Audit</option>
+                    <option value="Local SEO & Google Maps 3-Pack">Local SEO &amp; Google Maps 3-Pack</option>
+                    <option value="High-Speed Website Architecture">High-Speed Website Development</option>
+                    <option value="Full Digital Growth Partner">Full-Funnel Digital Growth Retainer</option>
+                  </select>
+                </div>
+
+                <div className="pt-2 space-y-2">
+                  <button
+                    type="submit"
+                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#207de9] to-[#080d24] hover:from-[#1767c2] text-white font-black text-xs uppercase tracking-wider transition cursor-pointer shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <span>⚡ Generate Verified Audit Report</span>
+                    <span>→</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAuditCaptureOpen(false);
+                      runGeoAudit(geoWebsite || heroWebsite);
+                    }}
+                    className="w-full text-center text-[11px] text-slate-400 hover:text-slate-600 transition font-medium py-1"
+                  >
+                    Skip &amp; Run Quick Scan Without Contact Details →
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}
