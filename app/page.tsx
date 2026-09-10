@@ -3014,7 +3014,7 @@ export default function Home() {
                     Revenue Marketing
                   </h3>
                   <p className="mt-2 text-xs sm:text-[13.5px] text-slate-700 font-normal leading-relaxed">
-                    Digital FX connects your data through <strong className="text-[#080d24] font-bold inline-flex items-center gap-1.5 align-baseline"><img src="/logo.png" alt="Digital FX" className="w-4 h-4 object-contain inline-block" /> DIGITAL <span className="text-[#207de9]">FX</span></strong> to make revenue-backed marketing decisions that reduce cost per lead and maximize ROI.
+                    Digital FX connects your data through <strong className="font-bold text-[#080d24]">Digital FX</strong> to make revenue-backed marketing decisions that reduce cost per lead and maximize ROI.
                   </p>
                 </div>
 
