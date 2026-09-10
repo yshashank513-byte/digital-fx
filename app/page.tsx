@@ -34,6 +34,26 @@ type GeoResult = {
   contentReadiness?: number;
   technicalSignals?: number;
   insights?: string[];
+  recommendations?: string[];
+  title?: string;
+  description?: string;
+  responseTime?: number;
+  aiAnalysis?: {
+    summary: string;
+    priority: "High" | "Medium" | "Low";
+    opportunities: string[];
+    actions: string[];
+    aiEngineBreakdown?: {
+      chatgpt: { score: number; status: string; diagnosis: string };
+      gemini: { score: number; status: string; diagnosis: string };
+      perplexity: { score: number; status: string; diagnosis: string };
+    };
+    projectedGrowth?: {
+      estimatedScoreAfterFixes: number;
+      potentialTrafficIncrease: string;
+    };
+    engineUsed?: string;
+  } | null;
 };
 
 type PaymentPlan = {
@@ -753,7 +773,54 @@ export default function Home() {
 
       if (response.ok) {
         const data = await response.json();
-        setGeoResult(data.data || data);
+        const auditData = data.data || data;
+
+        setGeoScanStep(3);
+
+        let aiAnalysis = null;
+        try {
+          const aiRes = await fetch("/api/ai-analysis", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              url: auditData.url || site,
+              seo: auditData.seo,
+              performance: auditData.performance,
+              mobile: auditData.mobile,
+              content: auditData.content,
+              geo: auditData.geo,
+              overall: auditData.overall,
+              recommendations: auditData.recommendations,
+              title: auditData.title,
+              description: auditData.description,
+              responseTime: auditData.responseTime,
+            }),
+          });
+          if (aiRes.ok) {
+            const aiJson = await aiRes.json();
+            if (aiJson.success) {
+              aiAnalysis = aiJson.data;
+            }
+          }
+        } catch (e) {
+          console.error("AI Analysis fetch error:", e);
+        }
+
+        setGeoResult({
+          ...auditData,
+          score: auditData.overall ?? auditData.score,
+          aiVisibility: auditData.geo ?? 78,
+          localPresence: auditData.seo ?? 85,
+          contentReadiness: auditData.content ?? 72,
+          technicalSignals: auditData.performance ?? 88,
+          grade:
+            (auditData.overall ?? 80) >= 86
+              ? "Tier-1 Leader: High AI Citation Authority"
+              : (auditData.overall ?? 80) >= 78
+              ? "Tier-2 Contender: Strong Base with AI Schema Gaps"
+              : "Action Required: Missing Critical Generative Search Markup",
+          aiAnalysis,
+        });
         setGeoLoading(false);
         return;
       }
@@ -764,7 +831,7 @@ export default function Home() {
     // 2. High-precision dynamic scanning progress simulation
     setTimeout(() => setGeoScanStep(2), 350);
     setTimeout(() => setGeoScanStep(3), 750);
-    setTimeout(() => {
+    setTimeout(async () => {
       let hash = 0;
       for (let i = 0; i < site.length; i++) {
         hash = (hash << 5) - hash + site.charCodeAt(i);
@@ -784,6 +851,33 @@ export default function Home() {
           ? "Tier-2 Contender: Strong Base with AI Schema Gaps"
           : "Action Required: Missing Critical Generative Search Markup";
 
+      let fallbackAi = null;
+      try {
+        const aiRes = await fetch("/api/ai-analysis", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            url: site,
+            seo: localPres,
+            performance: tech,
+            mobile: 85,
+            content,
+            geo: aiVis,
+            overall: score,
+            recommendations: [
+              "Implement JSON-LD Schema (LocalBusiness + FAQPage)",
+              "Optimize page speed and mobile responsiveness",
+              "Build conversational FAQ comparison clusters",
+            ],
+            responseTime: 980,
+          }),
+        });
+        if (aiRes.ok) {
+          const aiJson = await aiRes.json();
+          if (aiJson.success) fallbackAi = aiJson.data;
+        }
+      } catch {}
+
       setGeoResult({
         score,
         overall: score,
@@ -798,6 +892,7 @@ export default function Home() {
           "Local NAP & Map proximity signals are in good standing (+15% above regional baseline).",
           "Topical keyword clustering covers core services, but long-tail conversational comparison guides are absent."
         ],
+        aiAnalysis: fallbackAi,
       });
       setGeoLoading(false);
     }, 1200);
@@ -3728,74 +3823,208 @@ export default function Home() {
 
                 </div>
 
-                {/* Audit Key Findings & Critical Fixes */}
-                <div className="mt-8 pt-8 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* =========================================================
+                    EXECUTIVE AI INTELLIGENCE BRIEFING
+                    ========================================================= */}
+                <div className="mt-8 rounded-2xl border border-indigo-200 bg-gradient-to-br from-[#0c1438] via-[#080d24] to-[#040714] text-white p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+                  <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+                  <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
                   
-                  {/* Verified Strengths */}
+                  <div className="relative z-10">
+                    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4 mb-5">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/20 border border-indigo-400/40 text-xs font-black text-indigo-300">
+                          AI
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-extrabold uppercase tracking-widest text-indigo-300">
+                            EXECUTIVE AI INTELLIGENCE BRIEFING
+                          </div>
+                          <div className="text-xs text-slate-300 font-medium">
+                            {geoResult.aiAnalysis?.engineUsed || "Digital FX Enterprise AI Diagnostic Engine v2.4"}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-extrabold border ${
+                            geoResult.aiAnalysis?.priority === "High"
+                              ? "bg-rose-500/20 text-rose-300 border-rose-500/40"
+                              : geoResult.aiAnalysis?.priority === "Medium"
+                              ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
+                              : "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+                          }`}
+                        >
+                          PRIORITY: {geoResult.aiAnalysis?.priority?.toUpperCase() || "HIGH"} ACTION REQUIRED
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Executive AI Synthesis */}
+                    <p className="text-sm sm:text-base leading-relaxed text-slate-200 font-normal">
+                      {geoResult.aiAnalysis?.summary ||
+                        `Executive Audit for ${geoWebsite || "your website"}: The domain demonstrates a solid foundational score of ${
+                          geoResult.score ?? geoResult.overall ?? 82
+                        }/100. However, key generative engine optimization signals (GEO) indicate missed opportunities in Google AI Overviews and ChatGPT citation indexes. By implementing institutional structured schema and conversational answer clusters, the brand can establish category authority.`}
+                    </p>
+
+                    {/* Projected Growth & ROI Banner */}
+                    <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
+                      <div className="flex items-center justify-between sm:justify-start sm:gap-4">
+                        <span className="text-xs text-slate-400">Projected Post-Optimization Score:</span>
+                        <span className="text-sm font-extrabold text-emerald-400">
+                          {geoResult.aiAnalysis?.projectedGrowth?.estimatedScoreAfterFixes ?? 94}/100
+                          <span className="text-[11px] font-normal text-slate-400 ml-1.5">
+                            (+{Math.max(12, (geoResult.aiAnalysis?.projectedGrowth?.estimatedScoreAfterFixes ?? 94) - (geoResult.score ?? geoResult.overall ?? 82))} pts)
+                          </span>
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between sm:justify-start sm:gap-4 sm:border-l sm:border-white/10 sm:pl-4">
+                        <span className="text-xs text-slate-400">Est. AI Search Traffic Uplift:</span>
+                        <span className="text-sm font-extrabold text-cyan-300">
+                          {geoResult.aiAnalysis?.projectedGrowth?.potentialTrafficIncrease ?? "+55% to +90%"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* =========================================================
+                    3 AI SEARCH ENGINE CITATION BREAKDOWN
+                    ========================================================= */}
+                <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* ChatGPT / SearchGPT */}
+                  <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-indigo-300 transition">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                        ChatGPT &amp; SearchGPT
+                      </span>
+                      <span className="text-xs font-extrabold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                        {geoResult.aiAnalysis?.aiEngineBreakdown?.chatgpt?.score ?? 76}% Citations
+                      </span>
+                    </div>
+                    <span className="text-[10.5px] font-semibold text-slate-500 block mb-2">
+                      {geoResult.aiAnalysis?.aiEngineBreakdown?.chatgpt?.status ?? "Moderate AI Visibility"}
+                    </span>
+                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                      {geoResult.aiAnalysis?.aiEngineBreakdown?.chatgpt?.diagnosis ??
+                        "Brand is recognized by conversational search, but requires Schema entity validation to be cited in direct recommendations."}
+                    </p>
+                  </div>
+
+                  {/* Google Gemini */}
+                  <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-300 transition">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-blue-500" />
+                        Google Gemini &amp; SGE
+                      </span>
+                      <span className="text-xs font-extrabold px-2 py-0.5 rounded bg-blue-100 text-blue-800">
+                        {geoResult.aiAnalysis?.aiEngineBreakdown?.gemini?.score ?? 81}% Authority
+                      </span>
+                    </div>
+                    <span className="text-[10.5px] font-semibold text-slate-500 block mb-2">
+                      {geoResult.aiAnalysis?.aiEngineBreakdown?.gemini?.status ?? "High Local Proximity"}
+                    </span>
+                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                      {geoResult.aiAnalysis?.aiEngineBreakdown?.gemini?.diagnosis ??
+                        "Active Google Business profile verified; linking LocalBusiness structured data will trigger Google AI Overview snapshots."}
+                    </p>
+                  </div>
+
+                  {/* Perplexity */}
+                  <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-cyan-300 transition">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-cyan-500" />
+                        Perplexity &amp; Voice Search
+                      </span>
+                      <span className="text-xs font-extrabold px-2 py-0.5 rounded bg-cyan-100 text-cyan-800">
+                        {geoResult.aiAnalysis?.aiEngineBreakdown?.perplexity?.score ?? 84}% Readiness
+                      </span>
+                    </div>
+                    <span className="text-[10.5px] font-semibold text-slate-500 block mb-2">
+                      {geoResult.aiAnalysis?.aiEngineBreakdown?.perplexity?.status ?? "Fast Response Indexing"}
+                    </span>
+                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                      {geoResult.aiAnalysis?.aiEngineBreakdown?.perplexity?.diagnosis ??
+                        "Server response latency allows rapid crawling, but Q&A formatted content snippets are required for citation cards."}
+                    </p>
+                  </div>
+                </div>
+
+                {/* =========================================================
+                    DYNAMIC STRATEGIC OPPORTUNITIES & ACTION PLAN
+                    ========================================================= */}
+                <div className="mt-8 pt-8 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Strategic Growth Opportunities */}
+                  <div className="p-5 rounded-2xl bg-indigo-50/60 border border-indigo-200">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-900 flex items-center gap-1.5 mb-3">
+                      <span>✦</span>
+                      <span>Strategic Growth Opportunities</span>
+                    </h4>
+                    <ul className="space-y-2.5 text-xs text-slate-700 font-normal">
+                      {(geoResult.aiAnalysis?.opportunities && geoResult.aiAnalysis.opportunities.length > 0
+                        ? geoResult.aiAnalysis.opportunities
+                        : [
+                            "Implement JSON-LD LocalBusiness & Organization Schema to dominate Google AI Overviews.",
+                            "Deploy conversational FAQ comparison clusters to capture voice and long-tail search traffic.",
+                            "Accelerate mobile Core Web Vitals to improve conversational crawler citation rate.",
+                          ]
+                      ).map((opp, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="text-indigo-600 font-bold shrink-0">{idx + 1}.</span>
+                          <span>{opp}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Prioritized Engineering Actions */}
                   <div className="p-5 rounded-2xl bg-emerald-50/60 border border-emerald-200">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-1.5 mb-3">
-                      <span>✓</span>
-                      <span>Verified Strengths Detected</span>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-900 flex items-center gap-1.5 mb-3">
+                      <span>⚡</span>
+                      <span>Priority Engineering Action Plan</span>
                     </h4>
-                    <ul className="space-y-2 text-xs text-slate-700 font-normal">
-                      <li className="flex items-start gap-2">
-                        <span className="text-emerald-600 font-bold">•</span>
-                        <span>Crawlable mobile architecture with responsive viewport configuration.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-emerald-600 font-bold">•</span>
-                        <span>Active Google Maps listing verified with organic citation footprint.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-emerald-600 font-bold">•</span>
-                        <span>Baseline brand name queries resolve cleanly in conversational search.</span>
-                      </li>
+                    <ul className="space-y-2.5 text-xs text-slate-700 font-normal">
+                      {(geoResult.aiAnalysis?.actions && geoResult.aiAnalysis.actions.length > 0
+                        ? geoResult.aiAnalysis.actions
+                        : [
+                            "Add Schema.org JSON-LD structured markup with verified 'sameAs' social entity links.",
+                            "Refactor primary H1 tags and page titles with targeted NCR and high-intent commercial keywords.",
+                            "Publish structured FAQ modules answering specific customer buying questions.",
+                          ]
+                      ).map((act, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                          <span>{act}</span>
+                        </li>
+                      ))}
                     </ul>
                   </div>
-
-                  {/* High-Impact AI Gaps */}
-                  <div className="p-5 rounded-2xl bg-amber-50/60 border border-amber-200">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-amber-800 flex items-center gap-1.5 mb-3">
-                      <span>⚠️</span>
-                      <span>High-Impact AI Fixes Needed</span>
-                    </h4>
-                    <ul className="space-y-2 text-xs text-slate-700 font-normal">
-                      <li className="flex items-start gap-2">
-                        <span className="text-amber-600 font-bold">•</span>
-                        <span><strong className="font-semibold text-slate-900">Missing Entity Schema:</strong> Lack of JSON-LD <code>sameAs</code> connections prevents ChatGPT from recognizing your brand.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-amber-600 font-bold">•</span>
-                        <span><strong className="font-semibold text-slate-900">No Conversational Q&amp;A Clusters:</strong> Google AI Overviews requires explicit answer snippets to trigger citations.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-amber-600 font-bold">•</span>
-                        <span><strong className="font-semibold text-slate-900">Voice Search Intent Gap:</strong> Competitors are outranking you for long-tail &quot;best near me&quot; voice queries.</span>
-                      </li>
-                    </ul>
-                  </div>
-
                 </div>
 
                 {/* Executive Action Banner */}
                 <div className="mt-8 rounded-2xl bg-[#080d24] text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
                   <div>
                     <span className="text-[10.5px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/20 border border-emerald-400/30 px-2.5 py-0.5 rounded-full">
-                      FIX THESE 3 ISSUES
+                      FIX THESE {geoResult.aiAnalysis?.actions?.length || 3} ISSUES
                     </span>
                     <h4 className="text-lg sm:text-xl font-extrabold text-white mt-1.5 tracking-tight">
                       Want Digital FX to optimize your site for #1 AI Citations?
                     </h4>
                     <p className="text-xs text-slate-300 mt-0.5 max-w-[540px] font-normal">
-                      We implement full JSON-LD entity schema, conversational content clusters, and optimize your business for Google AI Overviews.
+                      We implement full JSON-LD entity schema, conversational content clusters, and optimize your business for Google AI Overviews and ChatGPT Search.
                     </p>
                   </div>
                   <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
                     <a
                       href={`https://wa.me/918447583685?text=${encodeURIComponent(
-                        `Hi Digital FX, I just ran a GEO AI Audit on ${geoWebsite || "my website"} and got score ${
+                        `Hi Digital FX, I just ran a GEO AI Audit on ${geoWebsite || "my website"} (Score: ${
                           geoResult.score ?? geoResult.overall ?? 82
-                        }/100. Please share the plan to fix the missing AI citations and entity schema.`
+                        }/100, Priority: ${geoResult.aiAnalysis?.priority || "High"}). Please share the implementation plan to fix the missing AI citations and entity schema.`
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"

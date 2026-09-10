@@ -28,6 +28,16 @@ type AIData = {
   priority: string;
   opportunities: string[];
   actions: string[];
+  aiEngineBreakdown?: {
+    chatgpt: { score: number; status: string; diagnosis: string };
+    gemini: { score: number; status: string; diagnosis: string };
+    perplexity: { score: number; status: string; diagnosis: string };
+  };
+  projectedGrowth?: {
+    estimatedScoreAfterFixes: number;
+    potentialTrafficIncrease: string;
+  };
+  engineUsed?: string;
 };
 
 export default function GeoCheckerPage() {
@@ -149,6 +159,9 @@ export default function GeoCheckerPage() {
             overall: analysis.overall,
             recommendations:
               analysis.recommendations,
+            title: analysis.title,
+            description: analysis.description,
+            responseTime: analysis.responseTime,
           }),
         }
       );
@@ -928,8 +941,9 @@ export default function GeoCheckerPage() {
                       </div>
 
                       <p className="mt-3 text-xs leading-5 text-gray-500">
-                        AI-powered insights based on
-                        your website analysis scores.
+                        {aiResult?.engineUsed
+                          ? `Powered by ${aiResult.engineUsed}`
+                          : "AI-powered insights based on your website analysis scores."}
                       </p>
 
                     </div>
@@ -1029,6 +1043,84 @@ export default function GeoCheckerPage() {
 
                         </div>
 
+                        {/* AI SEARCH ENGINE CITATION BENCHMARKS */}
+                        {aiResult.aiEngineBreakdown && (
+                          <div>
+                            <p className="mb-3 text-[9px] font-bold uppercase tracking-[1px] text-gray-400">
+                              AI SEARCH ENGINE CITATION BENCHMARKS
+                            </p>
+
+                            <div className="grid gap-3 md:grid-cols-3">
+                              <div className="rounded-xl border border-emerald-100 bg-emerald-50/40 p-4">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-xs font-bold text-slate-800">ChatGPT Citation</span>
+                                  <span className="text-xs font-extrabold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
+                                    {aiResult.aiEngineBreakdown.chatgpt.score}%
+                                  </span>
+                                </div>
+                                <span className="text-[10px] font-semibold text-slate-500 mt-1 block">
+                                  {aiResult.aiEngineBreakdown.chatgpt.status}
+                                </span>
+                                <p className="mt-2 text-xs leading-5 text-gray-600">
+                                  {aiResult.aiEngineBreakdown.chatgpt.diagnosis}
+                                </p>
+                              </div>
+
+                              <div className="rounded-xl border border-blue-100 bg-blue-50/40 p-4">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-xs font-bold text-slate-800">Google Gemini</span>
+                                  <span className="text-xs font-extrabold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">
+                                    {aiResult.aiEngineBreakdown.gemini.score}%
+                                  </span>
+                                </div>
+                                <span className="text-[10px] font-semibold text-slate-500 mt-1 block">
+                                  {aiResult.aiEngineBreakdown.gemini.status}
+                                </span>
+                                <p className="mt-2 text-xs leading-5 text-gray-600">
+                                  {aiResult.aiEngineBreakdown.gemini.diagnosis}
+                                </p>
+                              </div>
+
+                              <div className="rounded-xl border border-cyan-100 bg-cyan-50/40 p-4">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-xs font-bold text-slate-800">Perplexity AI</span>
+                                  <span className="text-xs font-extrabold text-cyan-700 bg-cyan-100 px-2 py-0.5 rounded">
+                                    {aiResult.aiEngineBreakdown.perplexity.score}%
+                                  </span>
+                                </div>
+                                <span className="text-[10px] font-semibold text-slate-500 mt-1 block">
+                                  {aiResult.aiEngineBreakdown.perplexity.status}
+                                </span>
+                                <p className="mt-2 text-xs leading-5 text-gray-600">
+                                  {aiResult.aiEngineBreakdown.perplexity.diagnosis}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* PROJECTED GROWTH */}
+                        {aiResult.projectedGrowth && (
+                          <div className="rounded-xl border border-indigo-100 bg-indigo-50/30 p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold text-xs">
+                                ↗
+                              </span>
+                              <div>
+                                <p className="text-xs font-bold text-slate-800">Projected Post-Optimization Score</p>
+                                <p className="text-[10px] text-gray-500">Target score after implementing Schema &amp; FAQ clusters</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <span className="text-sm font-extrabold text-emerald-600">
+                                {aiResult.projectedGrowth.estimatedScoreAfterFixes}/100
+                              </span>
+                              <span className="text-xs font-bold text-indigo-700 bg-indigo-100 px-2.5 py-1 rounded-full">
+                                {aiResult.projectedGrowth.potentialTrafficIncrease} Traffic Uplift
+                              </span>
+                            </div>
+                          </div>
+                        )}
 
                         {/* OPPORTUNITIES */}
 
