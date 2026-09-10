@@ -3639,9 +3639,19 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               
               {/* Stage 01: Brand Visibility */}
-              <div className="bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
+              <div className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
                 <div>
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 shadow-xs">
+                    <img
+                      src="/service-seo-maps.jpg"
+                      alt="Search & Visibility - Local SEO & Google Maps 3-Pack"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
+                      Stage 01
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between mb-3">
                     <span className="text-[10.5px] font-bold uppercase tracking-wider text-[#1570ef] bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full">
                       STAGE 01
                     </span>
@@ -3650,10 +3660,10 @@ export default function Home() {
                   <h3 className="text-xl font-bold text-[#080d24] group-hover:text-[#207de9] transition-colors">
                     Search &amp; Visibility
                   </h3>
-                  <p className="text-xs text-slate-600 mt-2 mb-6 leading-relaxed font-normal">
+                  <p className="text-xs text-slate-600 mt-2 mb-5 leading-relaxed font-normal">
                     Attract ready-to-buy commercial prospects through search engines, Maps, and AI answer engines.
                   </p>
-                  <ul className="space-y-3 text-xs text-slate-700 font-medium">
+                  <ul className="space-y-2.5 text-xs text-slate-700 font-medium">
                     <li className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#1570ef] shrink-0" />
                       <span>SEO &amp; Programmatic Keyword Strategy</span>
@@ -3679,9 +3689,19 @@ export default function Home() {
               </div>
 
               {/* Stage 02: Traffic & Paid Ads */}
-              <div className="bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
+              <div className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
                 <div>
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 shadow-xs">
+                    <img
+                      src="/service-paid-ads.jpg"
+                      alt="Acquisition & Ads - Google Ads PPC and Meta Marketing"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
+                      Stage 02
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between mb-3">
                     <span className="text-[10.5px] font-bold uppercase tracking-wider text-[#1570ef] bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full">
                       STAGE 02
                     </span>
@@ -3690,10 +3710,10 @@ export default function Home() {
                   <h3 className="text-xl font-bold text-[#080d24] group-hover:text-[#207de9] transition-colors">
                     Acquisition &amp; Ads
                   </h3>
-                  <p className="text-xs text-slate-600 mt-2 mb-6 leading-relaxed font-normal">
+                  <p className="text-xs text-slate-600 mt-2 mb-5 leading-relaxed font-normal">
                     Drive targeted, high-intent traffic with surgical Google PPC and Meta advertising funnels.
                   </p>
-                  <ul className="space-y-3 text-xs text-slate-700 font-medium">
+                  <ul className="space-y-2.5 text-xs text-slate-700 font-medium">
                     <li className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#1570ef] shrink-0" />
                       <span>Google Search &amp; High-Intent PPC Ads</span>
@@ -3719,9 +3739,19 @@ export default function Home() {
               </div>
 
               {/* Stage 03: Conversion Funnels */}
-              <div className="bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
+              <div className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
                 <div>
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 shadow-xs">
+                    <img
+                      src="/service-web-cro.jpg"
+                      alt="Funnel & Web CRO - Fast Mobile Sites & WhatsApp Funnels"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
+                      Stage 03
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between mb-3">
                     <span className="text-[10.5px] font-bold uppercase tracking-wider text-[#1570ef] bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full">
                       STAGE 03
                     </span>
@@ -3730,10 +3760,10 @@ export default function Home() {
                   <h3 className="text-xl font-bold text-[#080d24] group-hover:text-[#207de9] transition-colors">
                     Funnel &amp; Web CRO
                   </h3>
-                  <p className="text-xs text-slate-600 mt-2 mb-6 leading-relaxed font-normal">
+                  <p className="text-xs text-slate-600 mt-2 mb-5 leading-relaxed font-normal">
                     Convert traffic into immediate phone inquiries, WhatsApp chats, and confirmed appointments.
                   </p>
-                  <ul className="space-y-3 text-xs text-slate-700 font-medium">
+                  <ul className="space-y-2.5 text-xs text-slate-700 font-medium">
                     <li className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#1570ef] shrink-0" />
                       <span>High-Speed Conversion Landing Pages</span>
@@ -3759,9 +3789,19 @@ export default function Home() {
               </div>
 
               {/* Stage 04: Revenue & Data */}
-              <div className="bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
+              <div className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
                 <div>
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 shadow-xs">
+                    <img
+                      src="/service-revenue-analytics.jpg"
+                      alt="Revenue & Analytics - Attributable Pipeline & Executive Dashboards"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
+                      Stage 04
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between mb-3">
                     <span className="text-[10.5px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full">
                       STAGE 04
                     </span>
@@ -3770,10 +3810,10 @@ export default function Home() {
                   <h3 className="text-xl font-bold text-[#080d24] group-hover:text-emerald-600 transition-colors">
                     Revenue &amp; Analytics
                   </h3>
-                  <p className="text-xs text-slate-600 mt-2 mb-6 leading-relaxed font-normal">
+                  <p className="text-xs text-slate-600 mt-2 mb-5 leading-relaxed font-normal">
                     Transparent closed-loop attribution connecting marketing expenditure to verified pipeline.
                   </p>
-                  <ul className="space-y-3 text-xs text-slate-700 font-medium">
+                  <ul className="space-y-2.5 text-xs text-slate-700 font-medium">
                     <li className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
                       <span>Monthly Executive Performance Reports</span>
@@ -4719,7 +4759,17 @@ export default function Home() {
               {/* Card 1: Google AI Overviews */}
               <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-4">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 shadow-xs">
+                    <img
+                      src="/research-ai-overviews.jpg"
+                      alt="Google AI Overviews Search Study"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
+                      2.3M Query Analysis
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
                     <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-[#1570ef] bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full">
                       AI Search Study
                     </span>
@@ -4728,7 +4778,7 @@ export default function Home() {
                   <h3 className="text-lg sm:text-xl font-extrabold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug tracking-tight">
                     Where and Why Google’s AI Overviews Appear
                   </h3>
-                  <p className="mt-3 text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed">
+                  <p className="mt-2.5 text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed">
                     Our study of 2.3m keywords reveals the query types and industries most impacted by Google’s AI-generated answers.
                   </p>
                 </div>
@@ -4747,7 +4797,17 @@ export default function Home() {
               {/* Card 2: How Gen AI is Changing Search */}
               <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-4">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 shadow-xs">
+                    <img
+                      src="/research-gen-ai-search.jpg"
+                      alt="How Generative AI is Changing Search"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
+                      GEO &amp; LLM Citations
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
                     <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full">
                       Search Intelligence
                     </span>
@@ -4756,7 +4816,7 @@ export default function Home() {
                   <h3 className="text-lg sm:text-xl font-extrabold text-[#080d24] group-hover:text-emerald-600 transition-colors leading-snug tracking-tight">
                     How Gen AI is Changing Search
                   </h3>
-                  <p className="mt-3 text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed">
+                  <p className="mt-2.5 text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed">
                     Understand how generative AI is transforming search engines and what it means for your marketing strategy.
                   </p>
                 </div>
@@ -4775,7 +4835,17 @@ export default function Home() {
               {/* Card 3: How Different Generations Use AI */}
               <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-purple-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-4">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 shadow-xs">
+                    <img
+                      src="/research-ai-demographics.jpg"
+                      alt="How Different Generations Use AI to Search"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
+                      User Behavior Study
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
                     <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-purple-600 bg-purple-50 border border-purple-200 px-2.5 py-1 rounded-full">
                       Demographic Study
                     </span>
@@ -4784,7 +4854,7 @@ export default function Home() {
                   <h3 className="text-lg sm:text-xl font-extrabold text-[#080d24] group-hover:text-purple-600 transition-colors leading-snug tracking-tight">
                     How Different Generations Use AI to Search
                   </h3>
-                  <p className="mt-3 text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed">
+                  <p className="mt-2.5 text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed">
                     Our original research reveals insights into how Gen Z, Millennials, Gen X, and Boomers are using AI.
                   </p>
                 </div>
