@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabase } from "../../lib/supabase";
+import dns from "dns/promises";
 
 export async function POST(request: Request) {
   try {
@@ -129,6 +130,185 @@ export async function POST(request: Request) {
 
       if (!altMatch || !altMatch[1].trim()) {
         imagesWithoutAlt++;
+      }
+    }
+
+    // =====================================================
+    // REAL TECHNICAL INFRASTRUCTURE & DOMAIN DATA
+    // =====================================================
+
+    const parsedUrl = new URL(websiteUrl);
+    const domainHost = parsedUrl.hostname.replace(/^www\./i, "");
+
+    let serverIp = "Not resolved";
+    let emailProvider = "Not configured";
+
+    try {
+      const ipResult = await dns.lookup(domainHost);
+      serverIp = ipResult.address;
+    } catch {}
+
+    try {
+      const mxRecords = await dns.resolveMx(domainHost);
+      if (mxRecords && mxRecords.length > 0) {
+        const mxHost = mxRecords[0].exchange.toLowerCase();
+        if (mxHost.includes("google") || mxHost.includes("l.google.com")) {
+          emailProvider = "Google Workspace";
+        } else if (mxHost.includes("outlook") || mxHost.includes("microsoft")) {
+          emailProvider = "Microsoft 365";
+        } else if (mxHost.includes("zoho")) {
+          emailProvider = "Zoho Mail";
+        } else if (mxHost.includes("hostinger")) {
+          emailProvider = "Hostinger Business Mail";
+        } else if (mxHost.includes("godaddy") || mxHost.includes("secureserver")) {
+          emailProvider = "GoDaddy Workspace";
+        } else {
+          emailProvider = mxRecords[0].exchange;
+        }
+      }
+    } catch {}
+
+    // =====================================================
+    // REAL GOOGLE ANALYTICS & TAG MANAGER DETECTION
+    // =====================================================
+
+    const hasGa4 =
+      /G-[A-Z0-9]{6,12}/i.test(html) ||
+      /gtag\s*\(\s*["']config["']\s*,\s*["']G-/i.test(html);
+    const hasGtm =
+      /GTM-[A-Z0-9]{4,10}/i.test(html) ||
+      /googletagmanager\.com\/gtm\.js/i.test(html);
+    const hasLegacyUa = /UA-\d+-\d+/i.test(html);
+    const analyticsIdMatch = html.match(
+      /\b(G-[A-Z0-9]{6,12}|GTM-[A-Z0-9]{4,10}|UA-\d+-\d+)\b/i
+    );
+    const analyticsId = analyticsIdMatch ? analyticsIdMatch[1] : null;
+    const hasAnalytics = Boolean(hasGa4 || hasGtm || hasLegacyUa);
+
+    // =====================================================
+    // REAL SCHEMA.ORG & REVIEW DATA EXTRACTION
+    // =====================================================
+
+    const jsonLdMatches =
+      html.match(
+        /<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi
+      ) || [];
+    const detectedSchemas: string[] = [];
+    let schemaRating: number | null = null;
+    let schemaReviewCount: number | null = null;
+
+    for (const tag of jsonLdMatches) {
+      try {
+        const jsonText = tag.replace(/<\/?script[^>]*>/gi, "").trim();
+        const parsed = JSON.parse(jsonText);
+        const items = Array.isArray(parsed) ? parsed : [parsed];
+        for (const item of items) {
+          if (item["@type"]) {
+            detectedSchemas.push(String(item["@type"]));
+          }
+          if (
+            item["@type"] === "AggregateRating" ||
+            item.aggregateRating
+          ) {
+            const agg = item.aggregateRating || item;
+            if (agg.ratingValue) schemaRating = Number(agg.ratingValue);
+            if (agg.reviewCount) schemaReviewCount = Number(agg.reviewCount);
+          }
+        }
+      } catch {}
+    }
+
+    // Google Maps link in HTML
+    const mapsLinkMatch = html.match(
+      /https?:\/\/(?:www\.)?(?:google\.com\/maps|maps\.google\.com|goo\.gl\/maps)[^\s"'<>]+/i
+    );
+    const googleMapsUrl = mapsLinkMatch ? mapsLinkMatch[0] : null;
+
+    // Real content word count & H2 count
+    const textOnly = html
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+      .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const wordCount = textOnly.split(/\s+/).filter(Boolean).length;
+    const h2Matches = html.match(/<h2\b[^>]*>/gi) || [];
+    const h2Count = h2Matches.length;
+    const isHttps = websiteUrl.startsWith("https://");
+
+    // =====================================================
+    // TRANCO GLOBAL TRAFFIC RANK (100% Free Open API)
+    // =====================================================
+
+    let trancoRank: number | null = null;
+    try {
+      const trancoRes = await fetch(
+        `https://tranco-list.eu/api/ranks/domain/${domainHost}`,
+        {
+          signal: AbortSignal.timeout(2500),
+        }
+      );
+      if (trancoRes.ok) {
+        const trancoData = await trancoRes.json();
+        if (
+          Array.isArray(trancoData?.ranks) &&
+          trancoData.ranks.length > 0
+        ) {
+          trancoRank = trancoData.ranks[0].rank;
+        }
+      }
+    } catch {}
+
+    // =====================================================
+    // REAL GOOGLE PLACES / BUSINESS API INTEGRATION
+    // =====================================================
+
+    const googlePlacesKey = process.env.GOOGLE_PLACES_API_KEY?.trim();
+    let realGooglePlaces: {
+      rating: number | null;
+      reviewCount: number | null;
+      status: string;
+      source: string;
+      address?: string;
+      placeId?: string;
+      url?: string;
+    } = {
+      rating: schemaRating,
+      reviewCount: schemaReviewCount,
+      status: schemaRating
+        ? "Verified via Schema.org"
+        : "Unlinked / Missing Review Schema",
+      source: schemaRating ? "Website Schema.org" : "None",
+      url: googleMapsUrl || undefined,
+    };
+
+    if (googlePlacesKey) {
+      try {
+        const brandSearch = title.split(/[|\-–]/)[0].trim() || domainHost;
+        const placeSearchRes = await fetch(
+          `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(
+            brandSearch + " " + (body?.city || "")
+          )}&key=${googlePlacesKey}`,
+          { signal: AbortSignal.timeout(3500) }
+        );
+        if (placeSearchRes.ok) {
+          const placeData = await placeSearchRes.json();
+          if (placeData.results && placeData.results.length > 0) {
+            const topPlace = placeData.results[0];
+            realGooglePlaces = {
+              rating: topPlace.rating || schemaRating || null,
+              reviewCount:
+                topPlace.user_ratings_total || schemaReviewCount || null,
+              status: topPlace.business_status || "OPERATIONAL",
+              source: "Google Places API (Live)",
+              address: topPlace.formatted_address,
+              placeId: topPlace.place_id,
+              url: `https://www.google.com/maps/place/?q=place_id:${topPlace.place_id}`,
+            };
+          }
+        }
+      } catch (err) {
+        console.warn("Google Places API fetch error:", err);
       }
     }
 
@@ -488,6 +668,24 @@ export async function POST(request: Request) {
         hasRobots,
         responseTime,
         recommendations,
+        realInfrastructure: {
+          serverIp,
+          emailProvider,
+          isHttps,
+          hasAnalytics,
+          analyticsId,
+        },
+        realGooglePlaces,
+        realContentStats: {
+          wordCount,
+          h1Count,
+          h2Count,
+          imageCount,
+          imagesWithoutAlt,
+        },
+        detectedSchemas,
+        trancoRank,
+        googleMapsUrl,
       },
     });
   } catch (error) {

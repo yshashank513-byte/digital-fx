@@ -21,6 +21,34 @@ type AnalysisData = {
   hasRobots: boolean;
   responseTime: number;
   recommendations: string[];
+  realInfrastructure?: {
+    serverIp: string;
+    emailProvider: string;
+    isHttps: boolean;
+    hasGa4: boolean;
+    hasGtm: boolean;
+    analyticsId?: string | null;
+    mxRecords?: string[];
+  };
+  realGooglePlaces?: {
+    placeId: string;
+    name: string;
+    rating: number;
+    userRatingsTotal: number;
+    address: string;
+    businessStatus: string;
+    url?: string;
+  } | null;
+  realContentStats?: {
+    wordCount: number;
+    h1Tags: string[];
+    h2Count: number;
+    hasOgTags: boolean;
+    hasTwitterTags: boolean;
+  };
+  detectedSchemas?: string[];
+  trancoRank?: number | null;
+  googleMapsUrl?: string | null;
 };
 
 type AIData = {
@@ -36,6 +64,10 @@ type AIData = {
   trafficIntelligence?: {
     estimatedMonthlyVisits: string;
     trafficTier: string;
+    analyticsStatus?: string;
+    serverIp?: string;
+    emailProvider?: string;
+    trancoRank?: number | null;
     channelSplit: {
       organicSearch: number;
       localMaps: number;
@@ -46,12 +78,15 @@ type AIData = {
     projectedTrafficMonthly: string;
   };
   googleRatingIntelligence?: {
-    rating: number;
+    rating: number | null;
     reviewCountText: string;
     gbpStatus: string;
     sentiment: number;
     localPackImpact: string;
     hasReviewSchema: boolean;
+    source?: string;
+    address?: string;
+    placeUrl?: string;
   };
   projectedGrowth?: {
     estimatedScoreAfterFixes: number;
@@ -182,6 +217,12 @@ export default function GeoCheckerPage() {
             title: analysis.title,
             description: analysis.description,
             responseTime: analysis.responseTime,
+            realInfrastructure: analysis.realInfrastructure,
+            realGooglePlaces: analysis.realGooglePlaces,
+            realContentStats: analysis.realContentStats,
+            trancoRank: analysis.trancoRank,
+            detectedSchemas: analysis.detectedSchemas,
+            googleMapsUrl: analysis.googleMapsUrl,
           }),
         }
       );
@@ -1149,7 +1190,7 @@ export default function GeoCheckerPage() {
                               <div className="rounded-xl border border-blue-100 bg-blue-50/30 p-4">
                                 <div className="flex items-center justify-between">
                                   <span className="text-[10px] font-bold uppercase tracking-[1px] text-blue-600">
-                                    ESTIMATED MONTHLY TRAFFIC
+                                    TRAFFIC &amp; INFRASTRUCTURE
                                   </span>
                                   <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700">
                                     {aiResult.trafficIntelligence.trafficTier}
@@ -1157,8 +1198,45 @@ export default function GeoCheckerPage() {
                                 </div>
                                 <p className="mt-2 text-2xl font-extrabold text-[#071534]">
                                   {aiResult.trafficIntelligence.estimatedMonthlyVisits}
-                                  <span className="text-xs font-normal text-gray-500 ml-2">visits/mo</span>
+                                  <span className="text-xs font-normal text-gray-500 ml-2">visits/mo (est.)</span>
                                 </p>
+
+                                {/* Technical Infrastructure Badges */}
+                                <div className="mt-3 p-2 rounded-lg bg-white/90 border border-blue-100 text-[11px] space-y-1">
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-500">Server IP:</span>
+                                    <strong className="font-mono text-gray-800">
+                                      {result?.realInfrastructure?.serverIp || aiResult.trafficIntelligence.serverIp || "DNS Resolved"}
+                                    </strong>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-500">Mail Provider:</span>
+                                    <strong className="text-indigo-700">
+                                      {result?.realInfrastructure?.emailProvider || aiResult.trafficIntelligence.emailProvider || "DNS MX"}
+                                    </strong>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-500">Analytics:</span>
+                                    <span className={`px-1.5 py-0.2 rounded font-bold text-[10px] ${
+                                      result?.realInfrastructure?.hasGa4 ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"
+                                    }`}>
+                                      {result?.realInfrastructure?.hasGa4
+                                        ? `✓ GA4 Active (${result.realInfrastructure.analyticsId || "Tag Found"})`
+                                        : result?.realInfrastructure?.hasGtm
+                                        ? "✓ GTM Active"
+                                        : "⚠️ GA4 Missing"}
+                                    </span>
+                                  </div>
+                                  {(result?.trancoRank || aiResult.trafficIntelligence.trancoRank) && (
+                                    <div className="flex justify-between text-[10.5px]">
+                                      <span className="text-gray-500">Tranco Global Rank:</span>
+                                      <strong className="text-blue-700">
+                                        #{(result?.trancoRank || aiResult.trafficIntelligence.trancoRank)?.toLocaleString()}
+                                      </strong>
+                                    </div>
+                                  )}
+                                </div>
+
                                 <div className="mt-3 text-xs text-gray-600 space-y-1">
                                   <div className="flex justify-between">
                                     <span>Google Search:</span>
@@ -1185,32 +1263,72 @@ export default function GeoCheckerPage() {
                                   <span className="text-[10px] font-bold uppercase tracking-[1px] text-amber-700">
                                     GOOGLE RATING &amp; REPUTATION
                                   </span>
-                                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">
-                                    {aiResult.googleRatingIntelligence.gbpStatus}
+                                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                                    aiResult.googleRatingIntelligence.rating
+                                      ? "bg-amber-100 text-amber-800"
+                                      : "bg-rose-100 text-rose-800"
+                                  }`}>
+                                    {aiResult.googleRatingIntelligence.rating
+                                      ? aiResult.googleRatingIntelligence.gbpStatus
+                                      : "⚠️ Not Linked"}
                                   </span>
                                 </div>
-                                <div className="mt-2 flex items-baseline gap-2">
-                                  <span className="text-2xl font-extrabold text-[#071534]">
-                                    {aiResult.googleRatingIntelligence.rating}
-                                  </span>
-                                  <span className="text-amber-400 text-base">★★★★★</span>
-                                  <span className="text-xs text-gray-500">
-                                    ({aiResult.googleRatingIntelligence.reviewCountText})
-                                  </span>
-                                </div>
+
+                                {aiResult.googleRatingIntelligence.rating ? (
+                                  <div>
+                                    <div className="mt-2 flex items-baseline gap-2">
+                                      <span className="text-2xl font-extrabold text-[#071534]">
+                                        {aiResult.googleRatingIntelligence.rating}
+                                      </span>
+                                      <span className="text-amber-400 text-base">★★★★★</span>
+                                      <span className="text-xs text-gray-500">
+                                        ({aiResult.googleRatingIntelligence.reviewCountText})
+                                      </span>
+                                    </div>
+                                    <p className="text-[11px] text-gray-500 mt-1">
+                                      Source: <span className="font-semibold text-gray-700">{aiResult.googleRatingIntelligence.source || "Google Business Profile"}</span>
+                                    </p>
+                                    {aiResult.googleRatingIntelligence.placeUrl && (
+                                      <a
+                                        href={aiResult.googleRatingIntelligence.placeUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-[11px] text-blue-600 hover:underline font-bold inline-block mt-0.5"
+                                      >
+                                        View on Google Maps ↗
+                                      </a>
+                                    )}
+                                  </div>
+                                ) : (
+                                  <div className="mt-2 p-2.5 rounded bg-amber-50 border border-amber-200 text-xs text-amber-900">
+                                    <p className="font-bold">Google Business Profile / Schema Not Linked</p>
+                                    <p className="text-[11px] text-gray-600 mt-1">
+                                      No review schema or GBP link was detected on this website. Recommending GBP verification &amp; Schema markup.
+                                    </p>
+                                  </div>
+                                )}
+
                                 <div className="mt-3 text-xs text-gray-600 space-y-1">
                                   <div className="flex justify-between">
                                     <span>Customer Sentiment:</span>
-                                    <strong className="text-emerald-700">{aiResult.googleRatingIntelligence.sentiment}% Positive</strong>
+                                    <strong className="text-emerald-700">
+                                      {aiResult.googleRatingIntelligence.rating
+                                        ? `${aiResult.googleRatingIntelligence.sentiment}% Positive`
+                                        : "65% (Baseline)"}
+                                    </strong>
                                   </div>
                                   <div className="flex justify-between">
                                     <span>Google Maps Rank Impact:</span>
-                                    <strong className="text-blue-700 text-[11px]">{aiResult.googleRatingIntelligence.localPackImpact}</strong>
+                                    <strong className={`text-[11px] ${
+                                      aiResult.googleRatingIntelligence.rating ? "text-blue-700" : "text-amber-700"
+                                    }`}>
+                                      {aiResult.googleRatingIntelligence.localPackImpact}
+                                    </strong>
                                   </div>
                                   <div className="flex justify-between">
                                     <span>Review Schema:</span>
                                     <strong className={aiResult.googleRatingIntelligence.hasReviewSchema ? "text-emerald-700" : "text-amber-700"}>
-                                      {aiResult.googleRatingIntelligence.hasReviewSchema ? "Active" : "Needs Sync"}
+                                      {aiResult.googleRatingIntelligence.hasReviewSchema ? "✓ Active (Schema.org)" : "⚠️ Missing Schema"}
                                     </strong>
                                   </div>
                                 </div>

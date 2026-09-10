@@ -38,6 +38,34 @@ type GeoResult = {
   title?: string;
   description?: string;
   responseTime?: number;
+  realInfrastructure?: {
+    serverIp: string;
+    emailProvider: string;
+    isHttps: boolean;
+    hasGa4: boolean;
+    hasGtm: boolean;
+    analyticsId?: string | null;
+    mxRecords?: string[];
+  };
+  realGooglePlaces?: {
+    placeId: string;
+    name: string;
+    rating: number;
+    userRatingsTotal: number;
+    address: string;
+    businessStatus: string;
+    url?: string;
+  } | null;
+  realContentStats?: {
+    wordCount: number;
+    h1Tags: string[];
+    h2Count: number;
+    hasOgTags: boolean;
+    hasTwitterTags: boolean;
+  };
+  detectedSchemas?: string[];
+  trancoRank?: number | null;
+  googleMapsUrl?: string | null;
   aiAnalysis?: {
     summary: string;
     priority: "High" | "Medium" | "Low";
@@ -55,6 +83,10 @@ type GeoResult = {
     trafficIntelligence?: {
       estimatedMonthlyVisits: string;
       trafficTier: string;
+      analyticsStatus?: string;
+      serverIp?: string;
+      emailProvider?: string;
+      trancoRank?: number | null;
       channelSplit: {
         organicSearch: number;
         localMaps: number;
@@ -65,12 +97,15 @@ type GeoResult = {
       projectedTrafficMonthly: string;
     };
     googleRatingIntelligence?: {
-      rating: number;
+      rating: number | null;
       reviewCountText: string;
       gbpStatus: string;
       sentiment: number;
       localPackImpact: string;
       hasReviewSchema: boolean;
+      source?: string;
+      address?: string;
+      placeUrl?: string;
     };
     engineUsed?: string;
   } | null;
@@ -814,6 +849,12 @@ export default function Home() {
               title: auditData.title,
               description: auditData.description,
               responseTime: auditData.responseTime,
+              realInfrastructure: auditData.realInfrastructure,
+              realGooglePlaces: auditData.realGooglePlaces,
+              realContentStats: auditData.realContentStats,
+              trancoRank: auditData.trancoRank,
+              detectedSchemas: auditData.detectedSchemas,
+              googleMapsUrl: auditData.googleMapsUrl,
             }),
           });
           if (aiRes.ok) {
@@ -828,6 +869,12 @@ export default function Home() {
 
         setGeoResult({
           ...auditData,
+          realInfrastructure: auditData.realInfrastructure,
+          realGooglePlaces: auditData.realGooglePlaces,
+          realContentStats: auditData.realContentStats,
+          trancoRank: auditData.trancoRank,
+          detectedSchemas: auditData.detectedSchemas,
+          googleMapsUrl: auditData.googleMapsUrl,
           score: auditData.overall ?? auditData.score,
           aiVisibility: auditData.geo ?? 78,
           localPresence: auditData.seo ?? 85,
@@ -3980,7 +4027,7 @@ export default function Home() {
                     ========================================================= */}
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                   
-                  {/* Card 1: Estimated Website Traffic & Visitor Intelligence */}
+                  {/* Card 1: Estimated Website Traffic & Technical Infrastructure */}
                   <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50/70 via-slate-50 to-indigo-50/40 border border-blue-200/80 shadow-sm relative overflow-hidden">
                     <div className="flex items-center justify-between gap-2 mb-4">
                       <div className="flex items-center gap-2">
@@ -3989,10 +4036,10 @@ export default function Home() {
                         </span>
                         <div>
                           <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#080d24]">
-                            Estimated Website Traffic
+                            Website Traffic &amp; Infrastructure
                           </h4>
                           <p className="text-[10px] text-slate-500 font-medium">
-                            Organic &amp; Local Search Demand Model
+                            Live DNS Signals, GA4 Tracking &amp; Traffic Model
                           </p>
                         </div>
                       </div>
@@ -4007,6 +4054,44 @@ export default function Home() {
                         {geoResult.aiAnalysis?.trafficIntelligence?.estimatedMonthlyVisits || "1,800 – 3,500"}
                       </span>
                       <span className="text-xs font-bold text-slate-500">monthly visits (est.)</span>
+                    </div>
+
+                    {/* Real Technical Signals Pills */}
+                    <div className="grid grid-cols-2 gap-2 my-3 p-2.5 rounded-xl bg-white/80 border border-blue-100 text-[11px]">
+                      <div className="flex items-center justify-between gap-1 overflow-hidden">
+                        <span className="text-slate-500 font-medium">Server IP:</span>
+                        <span className="font-bold text-slate-800 font-mono truncate" title={geoResult.realInfrastructure?.serverIp || geoResult.aiAnalysis?.trafficIntelligence?.serverIp || "DNS Lookup"}>
+                          {geoResult.realInfrastructure?.serverIp || geoResult.aiAnalysis?.trafficIntelligence?.serverIp || "Resolved via DNS"}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between gap-1 overflow-hidden">
+                        <span className="text-slate-500 font-medium">Mail Host:</span>
+                        <span className="font-bold text-indigo-700 truncate" title={geoResult.realInfrastructure?.emailProvider || geoResult.aiAnalysis?.trafficIntelligence?.emailProvider || "DNS MX"}>
+                          {geoResult.realInfrastructure?.emailProvider || geoResult.aiAnalysis?.trafficIntelligence?.emailProvider || "DNS MX"}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between gap-1 col-span-2 pt-1 border-t border-slate-100">
+                        <span className="text-slate-500 font-medium">Analytics:</span>
+                        <span className={`px-2 py-0.5 rounded font-bold text-[10px] ${
+                          (geoResult.realInfrastructure?.hasGa4 || geoResult.realInfrastructure?.hasGtm || geoResult.aiAnalysis?.trafficIntelligence?.analyticsStatus?.includes("Active"))
+                            ? "bg-emerald-100 text-emerald-800"
+                            : "bg-amber-100 text-amber-800"
+                        }`}>
+                          {geoResult.realInfrastructure?.hasGa4
+                            ? `✓ GA4 Active (${geoResult.realInfrastructure.analyticsId || "Detected"})`
+                            : geoResult.realInfrastructure?.hasGtm
+                            ? "✓ GTM Container Active"
+                            : "⚠️ Traffic Untracked (Missing GA4)"}
+                        </span>
+                      </div>
+                      {(geoResult.trancoRank || geoResult.aiAnalysis?.trafficIntelligence?.trancoRank) && (
+                        <div className="flex items-center justify-between gap-1 col-span-2 text-[10.5px]">
+                          <span className="text-slate-500 font-medium">Global Tranco Rank:</span>
+                          <span className="font-bold text-blue-700">
+                            #{(geoResult.trancoRank || geoResult.aiAnalysis?.trafficIntelligence?.trancoRank)?.toLocaleString()} Global
+                          </span>
+                        </div>
+                      )}
                     </div>
 
                     {/* 4-Channel Traffic Split */}
@@ -4095,35 +4180,66 @@ export default function Home() {
                             Google Rating &amp; Reputation
                           </h4>
                           <p className="text-[10px] text-slate-500 font-medium">
-                            Google Business Profile (GBP) Trust Signal
+                            Google Business Profile &amp; Local Schema Verification
                           </p>
                         </div>
                       </div>
                       <span
                         className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${
-                          (geoResult.aiAnalysis?.googleRatingIntelligence?.rating ?? 4.8) >= 4.7
+                          geoResult.aiAnalysis?.googleRatingIntelligence?.rating
                             ? "bg-emerald-100 text-emerald-800 border-emerald-200"
                             : "bg-amber-100 text-amber-800 border-amber-200"
                         }`}
                       >
-                        {geoResult.aiAnalysis?.googleRatingIntelligence?.gbpStatus || "Needs Optimization"}
+                        {geoResult.aiAnalysis?.googleRatingIntelligence?.rating
+                          ? (geoResult.aiAnalysis?.googleRatingIntelligence?.gbpStatus || "Verified Rating")
+                          : "⚠️ GBP / Schema Not Linked"}
                       </span>
                     </div>
 
-                    {/* Big Rating Metric */}
-                    <div className="flex items-baseline gap-3 mb-2">
-                      <span className="text-3xl sm:text-4xl font-black text-[#080d24] tabular-nums tracking-tight">
-                        {geoResult.aiAnalysis?.googleRatingIntelligence?.rating ?? 4.8}
-                      </span>
-                      <div className="flex text-amber-400 text-lg">
-                        {"★★★★★"}
+                    {/* Big Rating Metric or Truthful Unlinked State */}
+                    {geoResult.aiAnalysis?.googleRatingIntelligence?.rating ? (
+                      <div>
+                        <div className="flex items-baseline gap-3 mb-2">
+                          <span className="text-3xl sm:text-4xl font-black text-[#080d24] tabular-nums tracking-tight">
+                            {geoResult.aiAnalysis.googleRatingIntelligence.rating}
+                          </span>
+                          <div className="flex text-amber-400 text-lg">
+                            {"★★★★★"}
+                          </div>
+                          <span className="text-xs font-bold text-slate-500">out of 5.0</span>
+                        </div>
+                        <p className="text-xs text-slate-600 mb-2 font-normal">
+                          {geoResult.aiAnalysis.googleRatingIntelligence.reviewCountText} •{" "}
+                          <span className="font-semibold text-slate-800">
+                            {geoResult.aiAnalysis.googleRatingIntelligence.source || "Google Business Profile"}
+                          </span>
+                        </p>
+                        {geoResult.aiAnalysis.googleRatingIntelligence.placeUrl && (
+                          <a
+                            href={geoResult.aiAnalysis.googleRatingIntelligence.placeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-[#1570ef] hover:underline font-bold inline-flex items-center gap-1 mb-3"
+                          >
+                            <span>View on Google Maps</span>
+                            <span>↗</span>
+                          </a>
+                        )}
                       </div>
-                      <span className="text-xs font-bold text-slate-500">out of 5.0</span>
-                    </div>
-
-                    <p className="text-xs text-slate-600 mb-4 font-normal">
-                      Based on organic Google local signals &amp; <strong className="text-slate-900 font-semibold">{geoResult.aiAnalysis?.googleRatingIntelligence?.reviewCountText || "38+ Verified Customer Reviews"}</strong>.
-                    </p>
+                    ) : (
+                      <div className="mb-4 p-3.5 rounded-xl bg-amber-50/90 border border-amber-200">
+                        <div className="flex items-baseline gap-2 mb-1">
+                          <span className="text-lg font-extrabold text-amber-900">
+                            Profile / Schema Not Linked
+                          </span>
+                          <span className="text-[11px] text-amber-700 font-semibold">(Unverified)</span>
+                        </div>
+                        <p className="text-[11.5px] text-slate-600 leading-relaxed">
+                          Website code me Google Business Profile ya AggregateRating Schema link nahi mila. Isse Google Maps 3-Pack aur AI Search Overviews me local credibility kam hoti hai.
+                        </p>
+                      </div>
+                    )}
 
                     {/* Reputation & Local Pack Metrics */}
                     <div className="space-y-2.5 pt-3 border-t border-slate-200/80">
@@ -4133,22 +4249,31 @@ export default function Home() {
                           Customer Sentiment Score
                         </span>
                         <span className="font-extrabold text-emerald-700">
-                          {geoResult.aiAnalysis?.googleRatingIntelligence?.sentiment ?? 94}% Positive
+                          {geoResult.aiAnalysis?.googleRatingIntelligence?.rating
+                            ? `${geoResult.aiAnalysis?.googleRatingIntelligence?.sentiment ?? 94}% Positive`
+                            : "Baseline Trust (65%)"}
                         </span>
                       </div>
                       <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-emerald-500 rounded-full"
                           style={{
-                            width: `${geoResult.aiAnalysis?.googleRatingIntelligence?.sentiment ?? 94}%`,
+                            width: `${
+                              geoResult.aiAnalysis?.googleRatingIntelligence?.rating
+                                ? (geoResult.aiAnalysis?.googleRatingIntelligence?.sentiment ?? 94)
+                                : 65
+                            }%`,
                           }}
                         />
                       </div>
 
                       <div className="flex items-center justify-between text-xs pt-1">
                         <span className="text-slate-600">Local Maps 3-Pack Rank Impact</span>
-                        <span className="font-extrabold text-blue-700 text-[11.5px]">
-                          {geoResult.aiAnalysis?.googleRatingIntelligence?.localPackImpact || "Top 3-Pack Contender"}
+                        <span className={`font-extrabold text-[11.5px] ${
+                          geoResult.aiAnalysis?.googleRatingIntelligence?.rating ? "text-blue-700" : "text-amber-700"
+                        }`}>
+                          {geoResult.aiAnalysis?.googleRatingIntelligence?.localPackImpact ||
+                            (geoResult.aiAnalysis?.googleRatingIntelligence?.rating ? "Top 3-Pack Contender" : "High Risk - Action Needed")}
                         </span>
                       </div>
 
@@ -4159,7 +4284,7 @@ export default function Home() {
                             ? "bg-emerald-100 text-emerald-800"
                             : "bg-amber-100 text-amber-800"
                         }`}>
-                          {geoResult.aiAnalysis?.googleRatingIntelligence?.hasReviewSchema ? "✓ Active on Page" : "⚠️ Needs Sync"}
+                          {geoResult.aiAnalysis?.googleRatingIntelligence?.hasReviewSchema ? "✓ Active on Page" : "⚠️ Missing Schema Markup"}
                         </span>
                       </div>
                     </div>

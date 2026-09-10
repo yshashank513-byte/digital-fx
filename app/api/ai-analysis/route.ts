@@ -13,6 +13,10 @@ export interface AIAnalysisResult {
   trafficIntelligence: {
     estimatedMonthlyVisits: string;
     trafficTier: "Emerging (<1K)" | "Growth Stage (1K–5K)" | "Established Authority (5K+)";
+    analyticsStatus: string;
+    serverIp: string;
+    emailProvider: string;
+    trancoRank?: number | null;
     channelSplit: {
       organicSearch: number;
       localMaps: number;
@@ -23,12 +27,15 @@ export interface AIAnalysisResult {
     projectedTrafficMonthly: string;
   };
   googleRatingIntelligence: {
-    rating: number;
+    rating: number | null;
     reviewCountText: string;
-    gbpStatus: "Verified" | "Needs Optimization" | "Unlinked Schema";
+    gbpStatus: string;
     sentiment: number;
     localPackImpact: string;
     hasReviewSchema: boolean;
+    source: string;
+    address?: string;
+    placeUrl?: string;
   };
   projectedGrowth: {
     estimatedScoreAfterFixes: number;
@@ -52,6 +59,30 @@ function generateEnterpriseAIAnalysis(input: {
   title?: string;
   description?: string;
   responseTime?: number;
+  realInfrastructure?: {
+    serverIp: string;
+    emailProvider: string;
+    isHttps: boolean;
+    hasAnalytics: boolean;
+    analyticsId?: string | null;
+  };
+  realGooglePlaces?: {
+    rating: number | null;
+    reviewCount: number | null;
+    status: string;
+    source: string;
+    address?: string;
+    placeId?: string;
+    url?: string;
+  };
+  realContentStats?: {
+    wordCount: number;
+    h1Count: number;
+    h2Count: number;
+    imageCount: number;
+    imagesWithoutAlt: number;
+  };
+  trancoRank?: number | null;
 }): AIAnalysisResult {
   const {
     url,
@@ -65,6 +96,10 @@ function generateEnterpriseAIAnalysis(input: {
     title = "",
     description = "",
     responseTime = 1200,
+    realInfrastructure,
+    realGooglePlaces,
+    realContentStats,
+    trancoRank,
   } = input;
 
   // Extract clean domain & brand name
@@ -225,38 +260,32 @@ function generateEnterpriseAIAnalysis(input: {
   const projectedUpper = Math.round((upperBound * 2.4) / 50) * 50;
   const projectedTrafficMonthly = `${projectedLower.toLocaleString("en-IN")} – ${projectedUpper.toLocaleString("en-IN")} /mo`;
 
-  // Google Rating & Review Intelligence Calculation
-  let rating = 4.8;
-  let reviewCountEstimate = 38;
-  let sentiment = 94;
-  let gbpStatus: "Verified" | "Needs Optimization" | "Unlinked Schema" = "Needs Optimization";
-  let localPackImpact = "Top 3-Pack Contender";
-  let hasReviewSchema = false;
+  // 100% Real Technical Infrastructure Data
+  const serverIp = realInfrastructure?.serverIp || "Not resolved";
+  const emailProvider = realInfrastructure?.emailProvider || "Not configured";
+  const analyticsStatus = realInfrastructure?.hasAnalytics
+    ? `Active (${realInfrastructure.analyticsId || "GA4 / GTM Verified"})`
+    : "⚠️ Missing (Traffic Is Untracked - No GA4/GTM Detected)";
 
-  if (geo >= 78) {
-    rating = 4.9;
-    reviewCountEstimate = 65 + (Math.abs(overall * 3) % 40);
-    sentiment = 97;
-    gbpStatus = "Verified";
-    localPackImpact = "Dominant Google Maps 3-Pack Authority";
-    hasReviewSchema = true;
-  } else if (geo >= 65) {
-    rating = 4.7;
-    reviewCountEstimate = 28 + (Math.abs(overall * 2) % 25);
-    sentiment = 93;
-    gbpStatus = "Needs Optimization";
-    localPackImpact = "Contender for Google Maps 3-Pack (Review Schema Missing)";
-    hasReviewSchema = false;
-  } else {
-    rating = 4.3;
-    reviewCountEstimate = 12 + (Math.abs(overall) % 15);
-    sentiment = 86;
-    gbpStatus = "Unlinked Schema";
-    localPackImpact = "Below Fold on Google Maps (GBP & Citation Gaps)";
-    hasReviewSchema = false;
-  }
-
-  const reviewCountText = `${reviewCountEstimate}+ Verified Reviews`;
+  // 100% Real Google Business & Review Data (from Google Places API or live Schema.org)
+  const isPlacesApi = Boolean(realGooglePlaces?.source?.includes("Google Places API"));
+  const isSchemaFound = Boolean(
+    realGooglePlaces?.rating || realGooglePlaces?.source?.includes("Schema")
+  );
+  const rating = realGooglePlaces?.rating ?? null;
+  const reviewCountText = realGooglePlaces?.reviewCount
+    ? `${realGooglePlaces.reviewCount} Verified Reviews`
+    : "No Review Schema Linked";
+  const gbpStatus =
+    realGooglePlaces?.status || "Unlinked Google Business Profile";
+  const hasReviewSchema = isSchemaFound;
+  const sentiment = rating ? Math.min(99, Math.round(rating * 19.8)) : 85;
+  const localPackImpact = rating
+    ? "Verified Google Maps Contender"
+    : "Unranked on Google Maps 3-Pack (Missing Review Schema)";
+  const source = realGooglePlaces?.source || "Unlinked / Missing Schema";
+  const address = realGooglePlaces?.address;
+  const placeUrl = realGooglePlaces?.url;
 
   const estimatedScoreAfterFixes = Math.min(96, Math.max(88, overall + 18));
   const potentialTrafficIncrease =
@@ -287,6 +316,10 @@ function generateEnterpriseAIAnalysis(input: {
     trafficIntelligence: {
       estimatedMonthlyVisits,
       trafficTier,
+      analyticsStatus,
+      serverIp,
+      emailProvider,
+      trancoRank: trancoRank || null,
       channelSplit: {
         organicSearch: organicSearchPct,
         localMaps: localMapsPct,
@@ -303,6 +336,9 @@ function generateEnterpriseAIAnalysis(input: {
       sentiment,
       localPackImpact,
       hasReviewSchema,
+      source,
+      address,
+      placeUrl,
     },
     projectedGrowth: {
       estimatedScoreAfterFixes,
@@ -449,6 +485,10 @@ export async function POST(request: Request) {
       title,
       description,
       responseTime,
+      realInfrastructure,
+      realGooglePlaces,
+      realContentStats,
+      trancoRank,
     } = body || {};
 
     if (!url) {
@@ -474,6 +514,10 @@ export async function POST(request: Request) {
       title,
       description,
       responseTime: Number(responseTime) || 1200,
+      realInfrastructure,
+      realGooglePlaces,
+      realContentStats,
+      trancoRank,
     });
 
     // Check for configured Free or Paid AI Keys
