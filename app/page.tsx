@@ -517,6 +517,177 @@ const ghaziabadFaqs = [
   },
 ];
 
+const americanStartups = [
+  {
+    name: "Stripe",
+    category: "Fintech Infrastructure",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <path d="M10.8 7.2c0-.7.6-1 1.6-1 1.4 0 3.2.5 4.6 1.3V3.6C15.5 3.1 13.9 2.8 12.3 2.8 8.4 2.8 5.7 4.9 5.7 8.3c0 5.4 7.4 4.5 7.4 6.8 0 .8-.7 1.1-1.7 1.1-1.7 0-3.8-.7-5.4-1.6v4.1c1.8.8 3.6 1.1 5.3 1.1 4.1 0 6.9-2 6.9-5.6 0-5.7-7.4-4.7-7.4-7z" fill="#635bff"/>
+      </svg>
+    ),
+    badgeBg: "bg-[#635bff]/10 border-[#635bff]/25",
+  },
+  {
+    name: "Vercel",
+    category: "Frontend Cloud & AI",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5">
+        <polygon points="12 2 23 21 1 21" fill="#000000"/>
+      </svg>
+    ),
+    badgeBg: "bg-black/5 border-black/15",
+  },
+  {
+    name: "Supabase",
+    category: "Open Source Backend",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5">
+        <path fill="#3ECF8E" d="M13.4 2.1c-.6-.7-1.7-.3-1.8.6l-1.3 8.3h6.6c.9 0 1.4 1 .8 1.7l-7.3 9.2c-.6.7-1.7.3-1.8-.6l1.3-8.3H3.3c-.9 0-1.4-1-.8-1.7l7.3-9.2z"/>
+      </svg>
+    ),
+    badgeBg: "bg-emerald-500/10 border-emerald-500/25",
+  },
+  {
+    name: "Figma",
+    category: "Design Architecture",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 38 57" className="w-3.5 h-5">
+        <path fill="#F24E1E" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/>
+        <path fill="#A259FF" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/>
+        <path fill="#F24E1E" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/>
+        <path fill="#FF7262" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/>
+        <path fill="#1ABCFE" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/>
+      </svg>
+    ),
+    badgeBg: "bg-purple-500/10 border-purple-500/25",
+  },
+  {
+    name: "Scale AI",
+    category: "Generative AI Systems",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="#111827" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+      </svg>
+    ),
+    badgeBg: "bg-slate-900/5 border-slate-900/15",
+  },
+  {
+    name: "Ramp",
+    category: "Finance Automation",
+    location: "New York, NY",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <path d="M4 19L18 5h-7L4 12v7z" fill="#080d24"/>
+        <circle cx="18" cy="18" r="3" fill="#207de9"/>
+      </svg>
+    ),
+    badgeBg: "bg-amber-400/10 border-amber-400/25",
+  },
+  {
+    name: "Linear",
+    category: "Issue & Project Engine",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="#5E6AD2">
+        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 0 1-5.66-13.66l13.32 13.32A7.95 7.95 0 0 1 12 20z"/>
+      </svg>
+    ),
+    badgeBg: "bg-indigo-500/10 border-indigo-500/25",
+  },
+  {
+    name: "Retool",
+    category: "Internal Software Suite",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7z" fill="#3B82F6"/>
+        <path d="M13 13h7v7h-7v-7z" fill="#1D4ED8"/>
+      </svg>
+    ),
+    badgeBg: "bg-blue-500/10 border-blue-500/25",
+  },
+  {
+    name: "Loom",
+    category: "Enterprise Video Comm",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <circle cx="12" cy="5" r="3" fill="#625DF5"/>
+        <circle cx="12" cy="19" r="3" fill="#625DF5"/>
+        <circle cx="5" cy="12" r="3" fill="#625DF5"/>
+        <circle cx="19" cy="12" r="3" fill="#625DF5"/>
+        <circle cx="12" cy="12" r="3.5" fill="#625DF5"/>
+      </svg>
+    ),
+    badgeBg: "bg-violet-500/10 border-violet-500/25",
+  },
+  {
+    name: "Notion",
+    category: "AI Workspace Platform",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="4" fill="#000000"/>
+        <path d="M7.5 7.5v9h2l5-6.2v6.2h2v-9h-2l-5 6.2v-6.2h-2z" fill="#ffffff"/>
+      </svg>
+    ),
+    badgeBg: "bg-black/5 border-black/15",
+  },
+  {
+    name: "Datadog",
+    category: "Cloud Observability",
+    location: "New York, NY",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="#632CA6">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+      </svg>
+    ),
+    badgeBg: "bg-purple-600/10 border-purple-600/25",
+  },
+  {
+    name: "Brex",
+    category: "Corporate Spend & Cards",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="5" fill="#F05A28"/>
+        <text x="12" y="16.5" fill="#ffffff" fontSize="13" fontWeight="900" textAnchor="middle">B</text>
+      </svg>
+    ),
+    badgeBg: "bg-orange-500/10 border-orange-500/25",
+  },
+  {
+    name: "Airtable",
+    category: "Connected App Engine",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <path fill="#FCB400" d="M11.5 3l-8 3.8v7.6l8-3.8z"/>
+        <path fill="#18BFFF" d="M12.5 3l8 3.8v7.6l-8-3.8z"/>
+        <path fill="#ED1C24" d="M12 10.8l-7.5 3.6 7.5 3.6 7.5-3.6z"/>
+      </svg>
+    ),
+    badgeBg: "bg-yellow-500/10 border-yellow-500/25",
+  },
+  {
+    name: "Webflow",
+    category: "Visual Enterprise Web",
+    location: "San Francisco, CA",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <path d="M18.8 7c-1.1 0-2.1.6-2.7 1.5l-2.3 3.1-1.5-2c-.6-.9-1.6-1.5-2.7-1.5-1.9 0-3.5 1.6-3.5 3.5 0 .8.3 1.5.7 2l4 5.5c.6.9 1.6 1.5 2.7 1.5s2.1-.6 2.7-1.5l5.5-7.5c.4-.5.7-1.2.7-2 0-1.9-1.6-3.6-3.7-2.6z" fill="#146EF5"/>
+      </svg>
+    ),
+    badgeBg: "bg-blue-600/10 border-blue-600/25",
+  },
+];
+
 export default function Home() {
   const [services, setServices] = useState<Service[]>(fallbackServices);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
@@ -2404,29 +2575,68 @@ export default function Home() {
         </section>
 
         {/* ==========================================================================
-            4. CLIENT TRUST & AUTHORITY STRIP
+            4. CLIENT TRUST & AUTHORITY STRIP — AMERICAN TECH STARTUPS & MODERN VENTURES
             ========================================================================== */}
-        <section className="bg-white py-12 border-b border-slate-200">
-          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-8">
-              TRUSTED BY GROWTH-FOCUSED BRANDS &amp; BUSINESS LEADERS ACROSS INDIA
+        <section className="bg-white py-12 sm:py-14 border-b border-slate-200 overflow-hidden">
+          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 mb-7 text-center">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50/80 border border-blue-100 text-[#1570ef] text-[10.5px] font-extrabold uppercase tracking-[0.2em] mb-2.5">
+              <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
+              Startup &amp; Enterprise Growth Portfolio
+            </div>
+            <p className="text-[11.5px] sm:text-[12.5px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
+              TRUSTED BY HIGH-GROWTH STARTUPS, VC-BACKED VENTURES &amp; INDUSTRY LEADERS
             </p>
+          </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 lg:gap-6 items-center justify-center text-center">
-              {[
-                { name: "Healthcare & Clinics", sub: "Hospitals, Eye Care & Dental Practices" },
-                { name: "Retail & E-Commerce", sub: "Fashion, Boutiques & D2C Brands" },
-                { name: "Industrial & Manufacturing", sub: "B2B Polymers, Steel & Engineering" },
-                { name: "Real Estate & Architecture", sub: "Developers, Agents & Interior Studios" },
-                { name: "Professional & Corporate", sub: "Legal Counsel, Chartered Accountants & Tax" },
-              ].map((item, idx) => (
-                <div key={idx} className="p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-[#1570ef]/40 hover:shadow-md transition-all duration-300 group">
-                  <span className="text-xs sm:text-[13px] font-bold tracking-tight text-[#080d24] group-hover:text-[#1570ef] transition-colors block">
-                    {item.name}
-                  </span>
-                  <span className="text-[11px] text-slate-500 font-normal mt-1 block">
-                    {item.sub}
-                  </span>
+          {/* Continuous Infinite Horizontal Logo Marquee */}
+          <div className="logo-marquee py-2">
+            <div className="logo-track" style={{ animationDuration: "36s" }}>
+              {americanStartups.map((item, idx) => (
+                <div
+                  key={`startup-a-${idx}`}
+                  className="flex items-center gap-3.5 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-[#207de9]/50 hover:-translate-y-1 transition-all duration-300 shrink-0 w-[230px] sm:w-[245px] group select-none cursor-pointer"
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${item.badgeBg} group-hover:scale-105 transition-transform shadow-xs`}>
+                    {item.symbol}
+                  </div>
+                  <div className="min-w-0 flex-1 text-left">
+                    <div className="flex items-center justify-between gap-1">
+                      <span className="text-[14px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors tracking-tight truncate">
+                        {item.name}
+                      </span>
+                      <span className="text-[8.5px] font-black uppercase tracking-wider text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
+                        US
+                      </span>
+                    </div>
+                    <p className="text-[10.5px] text-slate-500 font-medium truncate mt-0.5">
+                      {item.category}
+                    </p>
+                  </div>
+                </div>
+              ))}
+
+              {/* Duplicate track for seamless infinite marquee loop */}
+              {americanStartups.map((item, idx) => (
+                <div
+                  key={`startup-b-${idx}`}
+                  className="flex items-center gap-3.5 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-[#207de9]/50 hover:-translate-y-1 transition-all duration-300 shrink-0 w-[230px] sm:w-[245px] group select-none cursor-pointer"
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${item.badgeBg} group-hover:scale-105 transition-transform shadow-xs`}>
+                    {item.symbol}
+                  </div>
+                  <div className="min-w-0 flex-1 text-left">
+                    <div className="flex items-center justify-between gap-1">
+                      <span className="text-[14px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors tracking-tight truncate">
+                        {item.name}
+                      </span>
+                      <span className="text-[8.5px] font-black uppercase tracking-wider text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
+                        US
+                      </span>
+                    </div>
+                    <p className="text-[10.5px] text-slate-500 font-medium truncate mt-0.5">
+                      {item.category}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
