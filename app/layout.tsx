@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import {
+  CORE_CUSTOMER_SEARCH_KEYWORDS,
+  ALL_INDIA_AREA_SERVED_SCHEMA,
+} from "@/lib/indiaLocations";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,65 +20,14 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.digitalfx.in"),
 
   title: {
-    default: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR",
+    default: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR & Pan-India",
     template: "%s | Digital FX",
   },
 
   description:
-    "Digital FX is the best digital marketing agency in Ghaziabad - Delhi NCR (Rated 4.9★ by 128+ clients). We deliver ROI-driven SEO, Google Maps Top 3 rankings, high-converting website development, Google & Meta Ads, and AI search optimization (GEO) for businesses across Ghaziabad, Delhi NCR, India, and the USA (New York, California, Texas, Florida).",
+    "Digital FX is the #1 rated (4.9★) digital marketing agency in Ghaziabad - Delhi NCR serving businesses across all 28 States and 8 UTs of India & USA. High-converting SEO, Google Maps 3-Pack domination, custom web development, Google & Meta Ads, and AI search optimization (GEO).",
 
-  keywords: [
-    // 1. Core Ghaziabad & Delhi NCR Local Search Intent
-    "best digital marketing agency in Ghaziabad - Delhi",
-    "digital marketing agency in Ghaziabad",
-    "best digital marketing company in Ghaziabad",
-    "digital marketing agency Delhi NCR",
-    "best SEO agency in Ghaziabad",
-    "SEO services Ghaziabad Delhi",
-    "digital marketing agency in Crossings Republik",
-    "SEO agency Indirapuram Ghaziabad",
-    "digital marketing company Raj Nagar Ghaziabad",
-    "digital marketing agency Vaishali Ghaziabad",
-    "digital marketing company Vasundhara Ghaziabad",
-    "digital marketing agency Noida",
-    "digital marketing agency Gurgaon Gurugram",
-    "Google Maps ranking agency Ghaziabad",
-    "website development company in Ghaziabad",
-    "web design agency Delhi NCR",
-    "Google Ads PPC agency Ghaziabad",
-    "social media marketing agency Ghaziabad",
-    "lead generation company Delhi NCR",
-
-    // 2. State-Wise & Major Indian Tech/Business Hubs
-    "digital marketing agency Uttar Pradesh",
-    "best digital marketing company Delhi",
-    "digital marketing agency Mumbai Maharashtra",
-    "digital marketing company Bangalore Karnataka",
-    "digital marketing agency Hyderabad Telangana",
-    "SEO and digital marketing company Pune",
-    "digital marketing agency Ahmedabad Gujarat",
-    "digital marketing company Jaipur Rajasthan",
-    "digital marketing agency Kolkata West Bengal",
-    "digital marketing services Chandigarh Punjab",
-    "digital marketing agency Chennai Tamil Nadu",
-    "digital marketing agency Lucknow UP",
-
-    // 3. USA (America) Target Cities & States
-    "digital marketing agency USA",
-    "digital marketing agency New York NY",
-    "digital marketing agency Los Angeles California",
-    "SEO agency Chicago Illinois",
-    "digital marketing company Houston Texas",
-    "digital marketing agency Dallas TX",
-    "SEO and web development Miami Florida",
-    "digital marketing agency San Francisco Bay Area",
-    "digital marketing company Austin Texas",
-    "digital marketing agency Atlanta Georgia",
-    "digital marketing agency Seattle Washington",
-    "offshore digital marketing agency for USA businesses",
-    "AI search optimization agency USA",
-    "Digital FX",
-  ],
+  keywords: CORE_CUSTOMER_SEARCH_KEYWORDS,
 
   applicationName: "Digital FX",
 
@@ -212,27 +165,7 @@ export default function RootLayout({
                     closes: "19:00",
                   },
                 ],
-                areaServed: [
-                  { "@type": "City", name: "Ghaziabad" },
-                  { "@type": "AdministrativeArea", name: "Crossings Republik" },
-                  { "@type": "AdministrativeArea", name: "Indirapuram" },
-                  { "@type": "AdministrativeArea", name: "Raj Nagar" },
-                  { "@type": "AdministrativeArea", name: "Vaishali" },
-                  { "@type": "AdministrativeArea", name: "Vasundhara" },
-                  { "@type": "City", name: "Noida" },
-                  { "@type": "City", name: "Gurgaon" },
-                  { "@type": "State", name: "Delhi NCR" },
-                  { "@type": "State", name: "Uttar Pradesh" },
-                  { "@type": "State", name: "Maharashtra" },
-                  { "@type": "State", name: "Karnataka" },
-                  { "@type": "State", name: "Telangana" },
-                  { "@type": "Country", name: "India" },
-                  { "@type": "Country", name: "United States" },
-                  { "@type": "State", name: "New York" },
-                  { "@type": "State", name: "California" },
-                  { "@type": "State", name: "Texas" },
-                  { "@type": "State", name: "Florida" },
-                ],
+                areaServed: ALL_INDIA_AREA_SERVED_SCHEMA,
                 serviceType: [
                   "Digital Marketing",
                   "SEO (Search Engine Optimization)",
