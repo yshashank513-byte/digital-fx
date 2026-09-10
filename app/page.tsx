@@ -1,9 +1,11 @@
 "use client";
 
 import { FormEvent, useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import { supabase } from "./lib/supabase";
 import { INDIA_STATES_AND_UTS } from "@/lib/indiaLocations";
+import { toCitySlug } from "@/lib/citySeoData";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -1764,15 +1766,37 @@ export default function Home() {
             {/* Center Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center gap-6 xl:gap-8 mr-2">
               <a
+                href="#services"
+                onClick={scrollToServices}
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors cursor-pointer"
+              >
+                Services
+              </a>
+              <a
                 href="#geo-checker"
                 onClick={scrollToGeoAudit}
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-2 cursor-pointer"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <span>AI Search (GEO)</span>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9.5px] font-bold uppercase tracking-wider leading-none">
+                <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9.5px] font-bold uppercase tracking-wider leading-none">
                   FREE
                 </span>
               </a>
+              <Link
+                href="/locations"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5"
+              >
+                <span>350+ Cities</span>
+                <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9.5px] font-extrabold uppercase">
+                  IN
+                </span>
+              </Link>
+              <Link
+                href="/blog"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors"
+              >
+                Insights &amp; Blog
+              </Link>
             </nav>
 
             {/* Right Action & Menu Trigger */}
@@ -2043,6 +2067,51 @@ export default function Home() {
                     </div>
                     <span className="text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
                   </a>
+
+                  {/* Pan-India 350+ Cities Directory */}
+                  <Link
+                    href="/locations"
+                    onClick={closeMobileMenu}
+                    className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-blue-50/60 transition"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-[#207de9] transition font-black text-xs">
+                        📍
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition flex items-center gap-1.5">
+                          <span>Pan-India 350+ Cities</span>
+                          <span className="px-1.5 py-0.2 rounded bg-blue-100 text-blue-800 text-[9px] font-extrabold">28 STATES</span>
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-medium">
+                          Local SEO directory &amp; city blueprints
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                  </Link>
+
+                  {/* Insights & Blog */}
+                  <Link
+                    href="/blog"
+                    onClick={closeMobileMenu}
+                    className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-emerald-50/60 transition"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 transition font-black text-xs">
+                        📚
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-[#080d24] group-hover:text-emerald-700 transition">
+                          Insights &amp; Blueprints Blog
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-medium">
+                          Google 3-Pack, Next.js 16 &amp; AI Search
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                  </Link>
 
                   {/* Contact Strategy Team & Office Location */}
                   <a
@@ -5478,6 +5547,14 @@ export default function Home() {
                     >
                       Request Proposal for {selectedCity}
                     </button>
+
+                    <Link
+                      href={`/locations/${toCitySlug(selectedCity)}`}
+                      className="w-full py-2.5 px-4 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 font-semibold text-xs text-center border border-emerald-500/30 transition-all flex items-center justify-center gap-1.5"
+                    >
+                      <span>View Dedicated {selectedCity} Local SEO Page</span>
+                      <span>↗</span>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -5494,13 +5571,22 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={() => setIsDirectoryExpanded(!isDirectoryExpanded)}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-xs font-bold text-slate-700 transition cursor-pointer self-start sm:self-auto shrink-0"
-                  >
-                    <span>{isDirectoryExpanded ? "Hide Full Directory ▲" : "View Full State & City Directory ▼"}</span>
-                  </button>
+                  <div className="flex items-center gap-2.5 flex-wrap self-start sm:self-auto">
+                    <Link
+                      href="/locations"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#207de9] font-bold text-xs transition border border-blue-200"
+                    >
+                      <span>National Directory (350+ Cities)</span>
+                      <span>→</span>
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setIsDirectoryExpanded(!isDirectoryExpanded)}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-xs font-bold text-slate-700 transition cursor-pointer shrink-0"
+                    >
+                      <span>{isDirectoryExpanded ? "Hide Full Directory ▲" : "View Full State & City Directory ▼"}</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Directory Content when expanded */}
