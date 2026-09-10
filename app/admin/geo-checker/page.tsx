@@ -33,6 +33,26 @@ type AIData = {
     gemini: { score: number; status: string; diagnosis: string };
     perplexity: { score: number; status: string; diagnosis: string };
   };
+  trafficIntelligence?: {
+    estimatedMonthlyVisits: string;
+    trafficTier: string;
+    channelSplit: {
+      organicSearch: number;
+      localMaps: number;
+      directBrand: number;
+      aiCitations: number;
+    };
+    missedTrafficMonthly: string;
+    projectedTrafficMonthly: string;
+  };
+  googleRatingIntelligence?: {
+    rating: number;
+    reviewCountText: string;
+    gbpStatus: string;
+    sentiment: number;
+    localPackImpact: string;
+    hasReviewSchema: boolean;
+  };
   projectedGrowth?: {
     estimatedScoreAfterFixes: number;
     potentialTrafficIncrease: string;
@@ -1119,6 +1139,83 @@ export default function GeoCheckerPage() {
                                 {aiResult.projectedGrowth.potentialTrafficIncrease} Traffic Uplift
                               </span>
                             </div>
+                          </div>
+                        )}
+
+                        {/* ESTIMATED TRAFFIC & GOOGLE RATING INTELLIGENCE */}
+                        {(aiResult.trafficIntelligence || aiResult.googleRatingIntelligence) && (
+                          <div className="grid gap-4 md:grid-cols-2">
+                            {aiResult.trafficIntelligence && (
+                              <div className="rounded-xl border border-blue-100 bg-blue-50/30 p-4">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-[10px] font-bold uppercase tracking-[1px] text-blue-600">
+                                    ESTIMATED MONTHLY TRAFFIC
+                                  </span>
+                                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700">
+                                    {aiResult.trafficIntelligence.trafficTier}
+                                  </span>
+                                </div>
+                                <p className="mt-2 text-2xl font-extrabold text-[#071534]">
+                                  {aiResult.trafficIntelligence.estimatedMonthlyVisits}
+                                  <span className="text-xs font-normal text-gray-500 ml-2">visits/mo</span>
+                                </p>
+                                <div className="mt-3 text-xs text-gray-600 space-y-1">
+                                  <div className="flex justify-between">
+                                    <span>Google Search:</span>
+                                    <strong className="text-gray-800">{aiResult.trafficIntelligence.channelSplit.organicSearch}%</strong>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span>Google Maps 3-Pack:</span>
+                                    <strong className="text-gray-800">{aiResult.trafficIntelligence.channelSplit.localMaps}%</strong>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span>AI Citations:</span>
+                                    <strong className="text-gray-800">{aiResult.trafficIntelligence.channelSplit.aiCitations}%</strong>
+                                  </div>
+                                </div>
+                                <div className="mt-3 text-[11px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 p-2 rounded-lg">
+                                  ⚠️ {aiResult.trafficIntelligence.missedTrafficMonthly}
+                                </div>
+                              </div>
+                            )}
+
+                            {aiResult.googleRatingIntelligence && (
+                              <div className="rounded-xl border border-amber-100 bg-amber-50/30 p-4">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-[10px] font-bold uppercase tracking-[1px] text-amber-700">
+                                    GOOGLE RATING &amp; REPUTATION
+                                  </span>
+                                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">
+                                    {aiResult.googleRatingIntelligence.gbpStatus}
+                                  </span>
+                                </div>
+                                <div className="mt-2 flex items-baseline gap-2">
+                                  <span className="text-2xl font-extrabold text-[#071534]">
+                                    {aiResult.googleRatingIntelligence.rating}
+                                  </span>
+                                  <span className="text-amber-400 text-base">★★★★★</span>
+                                  <span className="text-xs text-gray-500">
+                                    ({aiResult.googleRatingIntelligence.reviewCountText})
+                                  </span>
+                                </div>
+                                <div className="mt-3 text-xs text-gray-600 space-y-1">
+                                  <div className="flex justify-between">
+                                    <span>Customer Sentiment:</span>
+                                    <strong className="text-emerald-700">{aiResult.googleRatingIntelligence.sentiment}% Positive</strong>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span>Google Maps Rank Impact:</span>
+                                    <strong className="text-blue-700 text-[11px]">{aiResult.googleRatingIntelligence.localPackImpact}</strong>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span>Review Schema:</span>
+                                    <strong className={aiResult.googleRatingIntelligence.hasReviewSchema ? "text-emerald-700" : "text-amber-700"}>
+                                      {aiResult.googleRatingIntelligence.hasReviewSchema ? "Active" : "Needs Sync"}
+                                    </strong>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         )}
 

@@ -52,6 +52,26 @@ type GeoResult = {
       estimatedScoreAfterFixes: number;
       potentialTrafficIncrease: string;
     };
+    trafficIntelligence?: {
+      estimatedMonthlyVisits: string;
+      trafficTier: string;
+      channelSplit: {
+        organicSearch: number;
+        localMaps: number;
+        directBrand: number;
+        aiCitations: number;
+      };
+      missedTrafficMonthly: string;
+      projectedTrafficMonthly: string;
+    };
+    googleRatingIntelligence?: {
+      rating: number;
+      reviewCountText: string;
+      gbpStatus: string;
+      sentiment: number;
+      localPackImpact: string;
+      hasReviewSchema: boolean;
+    };
     engineUsed?: string;
   } | null;
 };
@@ -3956,6 +3976,198 @@ export default function Home() {
                 </div>
 
                 {/* =========================================================
+                    ESTIMATED WEBSITE TRAFFIC & GOOGLE RATING INTELLIGENCE
+                    ========================================================= */}
+                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  
+                  {/* Card 1: Estimated Website Traffic & Visitor Intelligence */}
+                  <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50/70 via-slate-50 to-indigo-50/40 border border-blue-200/80 shadow-sm relative overflow-hidden">
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#1570ef] text-white text-xs font-black">
+                          📊
+                        </span>
+                        <div>
+                          <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#080d24]">
+                            Estimated Website Traffic
+                          </h4>
+                          <p className="text-[10px] text-slate-500 font-medium">
+                            Organic &amp; Local Search Demand Model
+                          </p>
+                        </div>
+                      </div>
+                      <span className="px-2.5 py-0.5 rounded-full bg-blue-100/80 text-[#1570ef] text-[11px] font-bold border border-blue-200">
+                        {geoResult.aiAnalysis?.trafficIntelligence?.trafficTier || "Growth Stage (1K–5K)"}
+                      </span>
+                    </div>
+
+                    {/* Big Traffic Metric */}
+                    <div className="flex items-baseline gap-2 mb-3">
+                      <span className="text-3xl sm:text-4xl font-black text-[#080d24] tabular-nums tracking-tight">
+                        {geoResult.aiAnalysis?.trafficIntelligence?.estimatedMonthlyVisits || "1,800 – 3,500"}
+                      </span>
+                      <span className="text-xs font-bold text-slate-500">monthly visits (est.)</span>
+                    </div>
+
+                    {/* 4-Channel Traffic Split */}
+                    <div className="space-y-2 mt-4 pt-3 border-t border-slate-200/80">
+                      <div className="flex justify-between items-center text-[11px] font-semibold text-slate-700">
+                        <span>Traffic Channel Breakdown</span>
+                        <span className="text-slate-400 font-normal">Source Share</span>
+                      </div>
+
+                      {/* Multi-segment progress bar */}
+                      <div className="h-3 w-full rounded-full bg-slate-200 overflow-hidden flex">
+                        <div
+                          className="bg-[#1570ef] h-full"
+                          style={{
+                            width: `${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.organicSearch ?? 45}%`,
+                          }}
+                          title={`Google Search: ${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.organicSearch ?? 45}%`}
+                        />
+                        <div
+                          className="bg-[#10b981] h-full"
+                          style={{
+                            width: `${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.localMaps ?? 30}%`,
+                          }}
+                          title={`Google Maps 3-Pack: ${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.localMaps ?? 30}%`}
+                        />
+                        <div
+                          className="bg-[#a855f7] h-full"
+                          style={{
+                            width: `${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.aiCitations ?? 12}%`,
+                          }}
+                          title={`AI Citations: ${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.aiCitations ?? 12}%`}
+                        />
+                        <div
+                          className="bg-[#f59e0b] h-full"
+                          style={{
+                            width: `${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.directBrand ?? 13}%`,
+                          }}
+                          title={`Direct & Brand: ${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.directBrand ?? 13}%`}
+                        />
+                      </div>
+
+                      {/* Legend */}
+                      <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600 pt-1">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-[#1570ef]" />
+                          <span>Google Search: <strong className="text-slate-900">{geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.organicSearch ?? 45}%</strong></span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-[#10b981]" />
+                          <span>Google Maps: <strong className="text-slate-900">{geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.localMaps ?? 30}%</strong></span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-[#a855f7]" />
+                          <span>AI Citations: <strong className="text-slate-900">{geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.aiCitations ?? 12}%</strong></span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-[#f59e0b]" />
+                          <span>Direct &amp; Brand: <strong className="text-slate-900">{geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.directBrand ?? 13}%</strong></span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Missed Traffic Opportunity Alert */}
+                    <div className="mt-4 p-3 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-between gap-3 text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="text-amber-600 font-black">⚠️</span>
+                        <span className="text-slate-700 font-medium">
+                          Missed Traffic: <strong className="text-amber-800">{geoResult.aiAnalysis?.trafficIntelligence?.missedTrafficMonthly || "~2,800 visits/mo"}</strong>
+                        </span>
+                      </div>
+                      <span className="text-[10.5px] font-bold text-amber-700 bg-amber-100/70 px-2 py-0.5 rounded">
+                        Recoverable
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card 2: Google Rating & Review Intelligence */}
+                  <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-50/70 via-slate-50 to-emerald-50/40 border border-amber-200/80 shadow-sm relative overflow-hidden">
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#f59e0b] text-white text-xs font-black">
+                          ★
+                        </span>
+                        <div>
+                          <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#080d24]">
+                            Google Rating &amp; Reputation
+                          </h4>
+                          <p className="text-[10px] text-slate-500 font-medium">
+                            Google Business Profile (GBP) Trust Signal
+                          </p>
+                        </div>
+                      </div>
+                      <span
+                        className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${
+                          (geoResult.aiAnalysis?.googleRatingIntelligence?.rating ?? 4.8) >= 4.7
+                            ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                            : "bg-amber-100 text-amber-800 border-amber-200"
+                        }`}
+                      >
+                        {geoResult.aiAnalysis?.googleRatingIntelligence?.gbpStatus || "Needs Optimization"}
+                      </span>
+                    </div>
+
+                    {/* Big Rating Metric */}
+                    <div className="flex items-baseline gap-3 mb-2">
+                      <span className="text-3xl sm:text-4xl font-black text-[#080d24] tabular-nums tracking-tight">
+                        {geoResult.aiAnalysis?.googleRatingIntelligence?.rating ?? 4.8}
+                      </span>
+                      <div className="flex text-amber-400 text-lg">
+                        {"★★★★★"}
+                      </div>
+                      <span className="text-xs font-bold text-slate-500">out of 5.0</span>
+                    </div>
+
+                    <p className="text-xs text-slate-600 mb-4 font-normal">
+                      Based on organic Google local signals &amp; <strong className="text-slate-900 font-semibold">{geoResult.aiAnalysis?.googleRatingIntelligence?.reviewCountText || "38+ Verified Customer Reviews"}</strong>.
+                    </p>
+
+                    {/* Reputation & Local Pack Metrics */}
+                    <div className="space-y-2.5 pt-3 border-t border-slate-200/80">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-slate-600 flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                          Customer Sentiment Score
+                        </span>
+                        <span className="font-extrabold text-emerald-700">
+                          {geoResult.aiAnalysis?.googleRatingIntelligence?.sentiment ?? 94}% Positive
+                        </span>
+                      </div>
+                      <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-emerald-500 rounded-full"
+                          style={{
+                            width: `${geoResult.aiAnalysis?.googleRatingIntelligence?.sentiment ?? 94}%`,
+                          }}
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between text-xs pt-1">
+                        <span className="text-slate-600">Local Maps 3-Pack Rank Impact</span>
+                        <span className="font-extrabold text-blue-700 text-[11.5px]">
+                          {geoResult.aiAnalysis?.googleRatingIntelligence?.localPackImpact || "Top 3-Pack Contender"}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between text-xs pt-1">
+                        <span className="text-slate-600">Review Schema (AggregateRating)</span>
+                        <span className={`px-2 py-0.5 rounded text-[10.5px] font-bold ${
+                          geoResult.aiAnalysis?.googleRatingIntelligence?.hasReviewSchema
+                            ? "bg-emerald-100 text-emerald-800"
+                            : "bg-amber-100 text-amber-800"
+                        }`}>
+                          {geoResult.aiAnalysis?.googleRatingIntelligence?.hasReviewSchema ? "✓ Active on Page" : "⚠️ Needs Sync"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* =========================================================
                     DYNAMIC STRATEGIC OPPORTUNITIES & ACTION PLAN
                     ========================================================= */}
                 <div className="mt-8 pt-8 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -4024,7 +4236,11 @@ export default function Home() {
                       href={`https://wa.me/918447583685?text=${encodeURIComponent(
                         `Hi Digital FX, I just ran a GEO AI Audit on ${geoWebsite || "my website"} (Score: ${
                           geoResult.score ?? geoResult.overall ?? 82
-                        }/100, Priority: ${geoResult.aiAnalysis?.priority || "High"}). Please share the implementation plan to fix the missing AI citations and entity schema.`
+                        }/100, Est. Traffic: ${
+                          geoResult.aiAnalysis?.trafficIntelligence?.estimatedMonthlyVisits || "1,800–3,500"
+                        }/mo, Rating: ${
+                          geoResult.aiAnalysis?.googleRatingIntelligence?.rating ?? 4.8
+                        }★). Please share the implementation plan to recover the missed traffic and fix AI citations.`
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"

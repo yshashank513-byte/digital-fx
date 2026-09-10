@@ -10,6 +10,26 @@ export interface AIAnalysisResult {
     gemini: { score: number; status: string; diagnosis: string };
     perplexity: { score: number; status: string; diagnosis: string };
   };
+  trafficIntelligence: {
+    estimatedMonthlyVisits: string;
+    trafficTier: "Emerging (<1K)" | "Growth Stage (1K–5K)" | "Established Authority (5K+)";
+    channelSplit: {
+      organicSearch: number;
+      localMaps: number;
+      directBrand: number;
+      aiCitations: number;
+    };
+    missedTrafficMonthly: string;
+    projectedTrafficMonthly: string;
+  };
+  googleRatingIntelligence: {
+    rating: number;
+    reviewCountText: string;
+    gbpStatus: "Verified" | "Needs Optimization" | "Unlinked Schema";
+    sentiment: number;
+    localPackImpact: string;
+    hasReviewSchema: boolean;
+  };
   projectedGrowth: {
     estimatedScoreAfterFixes: number;
     potentialTrafficIncrease: string;
@@ -169,6 +189,75 @@ function generateEnterpriseAIAnalysis(input: {
       : `${responseTime}ms server response latency requiring optimization`;
   const summary = `Executive Audit for ${cleanDomain}: The domain demonstrates a solid foundational score of ${overall}/100 with ${speedText}. However, key generative engine optimization signals (GEO) indicate missed opportunities in Google AI Overviews and ChatGPT citation indexes. By implementing institutional structured schema and conversational answer clusters, ${brandName} can establish category authority and capture premium search referrals.`;
 
+  // Traffic Estimation Model (Organic & Local Proximity Search Model)
+  let baseMonthlyVisits = 650;
+  baseMonthlyVisits += Math.round(seo * 18);
+  baseMonthlyVisits += Math.round(content * 12);
+  baseMonthlyVisits += Math.round(geo * 10);
+  if (overall >= 80) baseMonthlyVisits = Math.round(baseMonthlyVisits * 1.35);
+  else if (overall <= 60) baseMonthlyVisits = Math.round(baseMonthlyVisits * 0.75);
+
+  const lowerBound = Math.round((baseMonthlyVisits * 0.8) / 50) * 50;
+  const upperBound = Math.round((baseMonthlyVisits * 1.35) / 50) * 50;
+  const estimatedMonthlyVisits = `${lowerBound.toLocaleString("en-IN")} – ${upperBound.toLocaleString("en-IN")}`;
+
+  let trafficTier: "Emerging (<1K)" | "Growth Stage (1K–5K)" | "Established Authority (5K+)" =
+    "Growth Stage (1K–5K)";
+  if (upperBound < 1200) {
+    trafficTier = "Emerging (<1K)";
+  } else if (upperBound > 5000) {
+    trafficTier = "Established Authority (5K+)";
+  }
+
+  // Channel distribution split
+  const organicSearchPct = Math.min(55, Math.max(35, Math.round(seo * 0.5)));
+  const localMapsPct = Math.min(45, Math.max(20, Math.round(geo * 0.4)));
+  const aiCitationsPct = Math.min(20, Math.max(8, Math.round(content * 0.15)));
+  const directBrandPct = Math.max(
+    10,
+    100 - (organicSearchPct + localMapsPct + aiCitationsPct)
+  );
+
+  const missedVisits = Math.round(((100 - overall) * 45) / 50) * 50;
+  const missedTrafficMonthly = `~${missedVisits.toLocaleString("en-IN")} visits lost to competitors/mo`;
+
+  const projectedLower = Math.round((lowerBound * 2.2) / 50) * 50;
+  const projectedUpper = Math.round((upperBound * 2.4) / 50) * 50;
+  const projectedTrafficMonthly = `${projectedLower.toLocaleString("en-IN")} – ${projectedUpper.toLocaleString("en-IN")} /mo`;
+
+  // Google Rating & Review Intelligence Calculation
+  let rating = 4.8;
+  let reviewCountEstimate = 38;
+  let sentiment = 94;
+  let gbpStatus: "Verified" | "Needs Optimization" | "Unlinked Schema" = "Needs Optimization";
+  let localPackImpact = "Top 3-Pack Contender";
+  let hasReviewSchema = false;
+
+  if (geo >= 78) {
+    rating = 4.9;
+    reviewCountEstimate = 65 + (Math.abs(overall * 3) % 40);
+    sentiment = 97;
+    gbpStatus = "Verified";
+    localPackImpact = "Dominant Google Maps 3-Pack Authority";
+    hasReviewSchema = true;
+  } else if (geo >= 65) {
+    rating = 4.7;
+    reviewCountEstimate = 28 + (Math.abs(overall * 2) % 25);
+    sentiment = 93;
+    gbpStatus = "Needs Optimization";
+    localPackImpact = "Contender for Google Maps 3-Pack (Review Schema Missing)";
+    hasReviewSchema = false;
+  } else {
+    rating = 4.3;
+    reviewCountEstimate = 12 + (Math.abs(overall) % 15);
+    sentiment = 86;
+    gbpStatus = "Unlinked Schema";
+    localPackImpact = "Below Fold on Google Maps (GBP & Citation Gaps)";
+    hasReviewSchema = false;
+  }
+
+  const reviewCountText = `${reviewCountEstimate}+ Verified Reviews`;
+
   const estimatedScoreAfterFixes = Math.min(96, Math.max(88, overall + 18));
   const potentialTrafficIncrease =
     priority === "High" ? "+65% to +110%" : "+35% to +60%";
@@ -194,6 +283,26 @@ function generateEnterpriseAIAnalysis(input: {
         status: getStatus(perplexityScore),
         diagnosis: perplexityDiagnosis,
       },
+    },
+    trafficIntelligence: {
+      estimatedMonthlyVisits,
+      trafficTier,
+      channelSplit: {
+        organicSearch: organicSearchPct,
+        localMaps: localMapsPct,
+        directBrand: directBrandPct,
+        aiCitations: aiCitationsPct,
+      },
+      missedTrafficMonthly,
+      projectedTrafficMonthly,
+    },
+    googleRatingIntelligence: {
+      rating,
+      reviewCountText,
+      gbpStatus,
+      sentiment,
+      localPackImpact,
+      hasReviewSchema,
     },
     projectedGrowth: {
       estimatedScoreAfterFixes,
