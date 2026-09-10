@@ -517,11 +517,12 @@ const ghaziabadFaqs = [
   },
 ];
 
-const americanStartups = [
+const featuredStartups = [
   {
     name: "Stripe",
     category: "Fintech Infrastructure",
     location: "San Francisco, CA",
+    country: "US",
     symbol: (
       <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
         <path d="M10.8 7.2c0-.7.6-1 1.6-1 1.4 0 3.2.5 4.6 1.3V3.6C15.5 3.1 13.9 2.8 12.3 2.8 8.4 2.8 5.7 4.9 5.7 8.3c0 5.4 7.4 4.5 7.4 6.8 0 .8-.7 1.1-1.7 1.1-1.7 0-3.8-.7-5.4-1.6v4.1c1.8.8 3.6 1.1 5.3 1.1 4.1 0 6.9-2 6.9-5.6 0-5.7-7.4-4.7-7.4-7z" fill="#635bff"/>
@@ -530,9 +531,23 @@ const americanStartups = [
     badgeBg: "bg-[#635bff]/10 border-[#635bff]/25",
   },
   {
+    name: "Razorpay",
+    category: "Payment & Banking Suite",
+    location: "Bangalore, India",
+    country: "IN",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <path d="M14.5 3.5H7l-3 17h4l1.2-6.8h3.8c3.5 0 6-2 6-5.2 0-3.3-2-5-4.5-5zm-.5 6.5h-3.5l.8-4.2H14c1.8 0 2.8.8 2.8 2.1 0 1.3-1 2.1-2.8 2.1z" fill="#0C2340"/>
+        <path d="M11 13.5l4-7.5h5L12 20.5h-4l3-7z" fill="#3395FF"/>
+      </svg>
+    ),
+    badgeBg: "bg-blue-500/10 border-blue-500/25",
+  },
+  {
     name: "Vercel",
     category: "Frontend Cloud & AI",
     location: "San Francisco, CA",
+    country: "US",
     symbol: (
       <svg viewBox="0 0 24 24" className="w-5 h-5">
         <polygon points="12 2 23 21 1 21" fill="#000000"/>
@@ -541,20 +556,23 @@ const americanStartups = [
     badgeBg: "bg-black/5 border-black/15",
   },
   {
-    name: "Supabase",
-    category: "Open Source Backend",
-    location: "San Francisco, CA",
+    name: "Zerodha",
+    category: "Discount Broking & Wealth",
+    location: "Bangalore, India",
+    country: "IN",
     symbol: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5">
-        <path fill="#3ECF8E" d="M13.4 2.1c-.6-.7-1.7-.3-1.8.6l-1.3 8.3h6.6c.9 0 1.4 1 .8 1.7l-7.3 9.2c-.6.7-1.7.3-1.8-.6l1.3-8.3H3.3c-.9 0-1.4-1-.8-1.7l7.3-9.2z"/>
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <path d="M12 2l9 10-9 10-9-10z" fill="#387ED1"/>
+        <circle cx="12" cy="12" r="3.5" fill="#ffffff"/>
       </svg>
     ),
-    badgeBg: "bg-emerald-500/10 border-emerald-500/25",
+    badgeBg: "bg-[#387ED1]/10 border-[#387ED1]/25",
   },
   {
     name: "Figma",
     category: "Design Architecture",
     location: "San Francisco, CA",
+    country: "US",
     symbol: (
       <svg viewBox="0 0 38 57" className="w-3.5 h-5">
         <path fill="#F24E1E" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/>
@@ -567,9 +585,23 @@ const americanStartups = [
     badgeBg: "bg-purple-500/10 border-purple-500/25",
   },
   {
+    name: "Zomato",
+    category: "Food Tech & Quick Commerce",
+    location: "Delhi NCR, India",
+    country: "IN",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="6" fill="#E23744"/>
+        <text x="12" y="16.5" fill="#ffffff" fontSize="13" fontWeight="900" textAnchor="middle" fontStyle="italic">z</text>
+      </svg>
+    ),
+    badgeBg: "bg-red-500/10 border-red-500/25",
+  },
+  {
     name: "Scale AI",
     category: "Generative AI Systems",
     location: "San Francisco, CA",
+    country: "US",
     symbol: (
       <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="#111827" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
@@ -578,9 +610,48 @@ const americanStartups = [
     badgeBg: "bg-slate-900/5 border-slate-900/15",
   },
   {
+    name: "Groww",
+    category: "Investments & Mutual Funds",
+    location: "Bangalore, India",
+    country: "IN",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="6" fill="#00D09C"/>
+        <path d="M7 14l3-3 3 3 4-5" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    badgeBg: "bg-[#00D09C]/10 border-[#00D09C]/25",
+  },
+  {
+    name: "Supabase",
+    category: "Open Source Backend",
+    location: "San Francisco, CA",
+    country: "US",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5">
+        <path fill="#3ECF8E" d="M13.4 2.1c-.6-.7-1.7-.3-1.8.6l-1.3 8.3h6.6c.9 0 1.4 1 .8 1.7l-7.3 9.2c-.6.7-1.7.3-1.8-.6l1.3-8.3H3.3c-.9 0-1.4-1-.8-1.7l7.3-9.2z"/>
+      </svg>
+    ),
+    badgeBg: "bg-emerald-500/10 border-emerald-500/25",
+  },
+  {
+    name: "CRED",
+    category: "Premium Credit & Fintech",
+    location: "Bangalore, India",
+    country: "IN",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="5" fill="#1C1C1E"/>
+        <path d="M8 8h5a3 3 0 0 1 0 6H8V8zm0 8h8" stroke="#ffffff" strokeWidth="2" strokeLinecap="round"/>
+      </svg>
+    ),
+    badgeBg: "bg-neutral-900/10 border-neutral-900/20",
+  },
+  {
     name: "Ramp",
     category: "Finance Automation",
     location: "New York, NY",
+    country: "US",
     symbol: (
       <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
         <path d="M4 19L18 5h-7L4 12v7z" fill="#080d24"/>
@@ -590,9 +661,23 @@ const americanStartups = [
     badgeBg: "bg-amber-400/10 border-amber-400/25",
   },
   {
+    name: "Swiggy",
+    category: "On-Demand Hyperlocal Delivery",
+    location: "Bangalore, India",
+    country: "IN",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="6" fill="#FC8019"/>
+        <path d="M12 6a4 4 0 0 0-4 4c0 3 4 8 4 8s4-5 4-8a4 4 0 0 0-4-4zm0 5.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="#ffffff"/>
+      </svg>
+    ),
+    badgeBg: "bg-[#FC8019]/10 border-[#FC8019]/25",
+  },
+  {
     name: "Linear",
     category: "Issue & Project Engine",
     location: "San Francisco, CA",
+    country: "US",
     symbol: (
       <svg viewBox="0 0 24 24" className="w-5 h-5" fill="#5E6AD2">
         <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 0 1-5.66-13.66l13.32 13.32A7.95 7.95 0 0 1 12 20z"/>
@@ -601,9 +686,52 @@ const americanStartups = [
     badgeBg: "bg-indigo-500/10 border-indigo-500/25",
   },
   {
+    name: "Zepto",
+    category: "10-Min Quick Commerce",
+    location: "Mumbai, India",
+    country: "IN",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="6" fill="#7C22E8"/>
+        <path d="M7 8h10l-6 8h6" stroke="#FF5C8A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    badgeBg: "bg-[#7C22E8]/10 border-[#7C22E8]/25",
+  },
+  {
+    name: "Notion",
+    category: "AI Workspace Platform",
+    location: "San Francisco, CA",
+    country: "US",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="4" fill="#000000"/>
+        <path d="M7.5 7.5v9h2l5-6.2v6.2h2v-9h-2l-5 6.2v-6.2h-2z" fill="#ffffff"/>
+      </svg>
+    ),
+    badgeBg: "bg-black/5 border-black/15",
+  },
+  {
+    name: "Freshworks",
+    category: "Enterprise CRM & SaaS",
+    location: "Chennai, India",
+    country: "IN",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <circle cx="12" cy="7" r="3" fill="#F4511E"/>
+        <circle cx="17" cy="12" r="3" fill="#FB8C00"/>
+        <circle cx="12" cy="17" r="3" fill="#43A047"/>
+        <circle cx="7" cy="12" r="3" fill="#1E88E5"/>
+        <circle cx="12" cy="12" r="2.5" fill="#039BE5"/>
+      </svg>
+    ),
+    badgeBg: "bg-orange-500/10 border-orange-500/25",
+  },
+  {
     name: "Retool",
     category: "Internal Software Suite",
     location: "San Francisco, CA",
+    country: "US",
     symbol: (
       <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
         <path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7z" fill="#3B82F6"/>
@@ -613,9 +741,24 @@ const americanStartups = [
     badgeBg: "bg-blue-500/10 border-blue-500/25",
   },
   {
+    name: "Lenskart",
+    category: "Omnichannel Eyewear",
+    location: "Delhi NCR, India",
+    country: "IN",
+    symbol: (
+      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+        <circle cx="8" cy="12" r="4.5" stroke="#000042" strokeWidth="2"/>
+        <circle cx="16" cy="12" r="4.5" stroke="#000042" strokeWidth="2"/>
+        <line x1="12.5" y1="12" x2="11.5" y2="12" stroke="#000042" strokeWidth="2.5"/>
+      </svg>
+    ),
+    badgeBg: "bg-indigo-900/10 border-indigo-900/25",
+  },
+  {
     name: "Loom",
     category: "Enterprise Video Comm",
     location: "San Francisco, CA",
+    country: "US",
     symbol: (
       <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
         <circle cx="12" cy="5" r="3" fill="#625DF5"/>
@@ -628,63 +771,17 @@ const americanStartups = [
     badgeBg: "bg-violet-500/10 border-violet-500/25",
   },
   {
-    name: "Notion",
-    category: "AI Workspace Platform",
-    location: "San Francisco, CA",
+    name: "Urban Company",
+    category: "On-Demand Home Services",
+    location: "Delhi NCR, India",
+    country: "IN",
     symbol: (
       <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
-        <rect x="3" y="3" width="18" height="18" rx="4" fill="#000000"/>
-        <path d="M7.5 7.5v9h2l5-6.2v6.2h2v-9h-2l-5 6.2v-6.2h-2z" fill="#ffffff"/>
+        <rect x="3" y="3" width="18" height="18" rx="6" fill="#111111"/>
+        <text x="12" y="16.5" fill="#ffffff" fontSize="11" fontWeight="900" textAnchor="middle" letterSpacing="0.5">UC</text>
       </svg>
     ),
     badgeBg: "bg-black/5 border-black/15",
-  },
-  {
-    name: "Datadog",
-    category: "Cloud Observability",
-    location: "New York, NY",
-    symbol: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="#632CA6">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
-      </svg>
-    ),
-    badgeBg: "bg-purple-600/10 border-purple-600/25",
-  },
-  {
-    name: "Brex",
-    category: "Corporate Spend & Cards",
-    location: "San Francisco, CA",
-    symbol: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
-        <rect x="3" y="3" width="18" height="18" rx="5" fill="#F05A28"/>
-        <text x="12" y="16.5" fill="#ffffff" fontSize="13" fontWeight="900" textAnchor="middle">B</text>
-      </svg>
-    ),
-    badgeBg: "bg-orange-500/10 border-orange-500/25",
-  },
-  {
-    name: "Airtable",
-    category: "Connected App Engine",
-    location: "San Francisco, CA",
-    symbol: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
-        <path fill="#FCB400" d="M11.5 3l-8 3.8v7.6l8-3.8z"/>
-        <path fill="#18BFFF" d="M12.5 3l8 3.8v7.6l-8-3.8z"/>
-        <path fill="#ED1C24" d="M12 10.8l-7.5 3.6 7.5 3.6 7.5-3.6z"/>
-      </svg>
-    ),
-    badgeBg: "bg-yellow-500/10 border-yellow-500/25",
-  },
-  {
-    name: "Webflow",
-    category: "Visual Enterprise Web",
-    location: "San Francisco, CA",
-    symbol: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
-        <path d="M18.8 7c-1.1 0-2.1.6-2.7 1.5l-2.3 3.1-1.5-2c-.6-.9-1.6-1.5-2.7-1.5-1.9 0-3.5 1.6-3.5 3.5 0 .8.3 1.5.7 2l4 5.5c.6.9 1.6 1.5 2.7 1.5s2.1-.6 2.7-1.5l5.5-7.5c.4-.5.7-1.2.7-2 0-1.9-1.6-3.6-3.7-2.6z" fill="#146EF5"/>
-      </svg>
-    ),
-    badgeBg: "bg-blue-600/10 border-blue-600/25",
   },
 ];
 
@@ -2575,26 +2672,26 @@ export default function Home() {
         </section>
 
         {/* ==========================================================================
-            4. CLIENT TRUST & AUTHORITY STRIP — AMERICAN TECH STARTUPS & MODERN VENTURES
+            4. CLIENT TRUST & AUTHORITY STRIP — GLOBAL & INDIAN STARTUP ECOSYSTEM
             ========================================================================== */}
         <section className="bg-white py-12 sm:py-14 border-b border-slate-200 overflow-hidden">
           <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 mb-7 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50/80 border border-blue-100 text-[#1570ef] text-[10.5px] font-extrabold uppercase tracking-[0.2em] mb-2.5">
-              <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
-              Startup &amp; Enterprise Growth Portfolio
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100/90 border border-slate-200 text-slate-700 text-[10.5px] font-extrabold uppercase tracking-[0.2em] mb-2.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              Global &amp; Indian Startup Ecosystem
             </div>
             <p className="text-[11.5px] sm:text-[12.5px] font-extrabold uppercase tracking-[0.22em] text-slate-500">
-              TRUSTED BY HIGH-GROWTH STARTUPS, VC-BACKED VENTURES &amp; INDUSTRY LEADERS
+              TRUSTED BY HIGH-GROWTH STARTUPS, MODERN ENTERPRISES &amp; VC-BACKED SCALE-UPS
             </p>
           </div>
 
           {/* Continuous Infinite Horizontal Logo Marquee */}
           <div className="logo-marquee py-2">
-            <div className="logo-track" style={{ animationDuration: "36s" }}>
-              {americanStartups.map((item, idx) => (
+            <div className="logo-track" style={{ animationDuration: "44s" }}>
+              {featuredStartups.map((item, idx) => (
                 <div
                   key={`startup-a-${idx}`}
-                  className="flex items-center gap-3.5 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-[#207de9]/50 hover:-translate-y-1 transition-all duration-300 shrink-0 w-[230px] sm:w-[245px] group select-none cursor-pointer"
+                  className="flex items-center gap-3.5 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-[#207de9]/50 hover:-translate-y-1 transition-all duration-300 shrink-0 w-[235px] sm:w-[250px] group select-none cursor-pointer"
                 >
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${item.badgeBg} group-hover:scale-105 transition-transform shadow-xs`}>
                     {item.symbol}
@@ -2604,8 +2701,12 @@ export default function Home() {
                       <span className="text-[14px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors tracking-tight truncate">
                         {item.name}
                       </span>
-                      <span className="text-[8.5px] font-black uppercase tracking-wider text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
-                        US
+                      <span className={`text-[8.5px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded border ${
+                        item.country === "IN"
+                          ? "text-emerald-700 bg-emerald-50 border-emerald-200/90"
+                          : "text-blue-700 bg-blue-50 border-blue-200/90"
+                      }`}>
+                        {item.country}
                       </span>
                     </div>
                     <p className="text-[10.5px] text-slate-500 font-medium truncate mt-0.5">
@@ -2616,10 +2717,10 @@ export default function Home() {
               ))}
 
               {/* Duplicate track for seamless infinite marquee loop */}
-              {americanStartups.map((item, idx) => (
+              {featuredStartups.map((item, idx) => (
                 <div
                   key={`startup-b-${idx}`}
-                  className="flex items-center gap-3.5 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-[#207de9]/50 hover:-translate-y-1 transition-all duration-300 shrink-0 w-[230px] sm:w-[245px] group select-none cursor-pointer"
+                  className="flex items-center gap-3.5 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-[#207de9]/50 hover:-translate-y-1 transition-all duration-300 shrink-0 w-[235px] sm:w-[250px] group select-none cursor-pointer"
                 >
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${item.badgeBg} group-hover:scale-105 transition-transform shadow-xs`}>
                     {item.symbol}
@@ -2629,8 +2730,12 @@ export default function Home() {
                       <span className="text-[14px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors tracking-tight truncate">
                         {item.name}
                       </span>
-                      <span className="text-[8.5px] font-black uppercase tracking-wider text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
-                        US
+                      <span className={`text-[8.5px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded border ${
+                        item.country === "IN"
+                          ? "text-emerald-700 bg-emerald-50 border-emerald-200/90"
+                          : "text-blue-700 bg-blue-50 border-blue-200/90"
+                      }`}>
+                        {item.country}
                       </span>
                     </div>
                     <p className="text-[10.5px] text-slate-500 font-medium truncate mt-0.5">
