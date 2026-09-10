@@ -720,7 +720,7 @@ export default function Home() {
       form.reset();
       setSuccessMessage("Thank you! Your enquiry has been submitted successfully.");
 
-      const whatsappNumber = "919876543210";
+      const whatsappNumber = "918447583685";
       const whatsappText =
         `New enquiry from ${payload.name}. ` +
         `Service: ${payload.service}. ` +
@@ -1168,12 +1168,12 @@ export default function Home() {
                 <span>Client Checkout Portal</span>
               </button>
 
-              <a href="tel:+919876543210" className="hidden sm:inline-flex items-center gap-1.5 text-[12px] hover:text-white font-bold transition">
-                <span className="text-[#207de9]">☎</span> +91 98765 43210
+              <a href="tel:+918447583685" className="hidden sm:inline-flex items-center gap-1.5 text-[12px] hover:text-white font-bold transition">
+                <span className="text-[#207de9]">☎</span> +91 84475 83685
               </a>
 
               <a
-                href="https://wa.me/919876543210?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
+                href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-[12px] font-bold text-emerald-400 hover:text-emerald-300 transition"
@@ -1190,11 +1190,11 @@ export default function Home() {
             2. WEBFX MAIN HEADER WITH DESKTOP NAVIGATION (#fxheader)
             ========================================================================== */}
         <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all">
-          <div className="mx-auto flex h-[74px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto flex h-[74px] max-w-[1400px] items-center justify-between px-3.5 sm:px-6 lg:px-8">
 
-            {/* Brand Logo */}
-            <a href="#home" className="flex items-center gap-3 shrink-0 group">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white border border-slate-200/90 shadow-xs transition-transform group-hover:scale-105 p-1">
+            {/* Brand Logo - Enlarged Container & Bold Typography */}
+            <a href="#home" className="flex items-center gap-2.5 sm:gap-3.5 shrink-0 group">
+              <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white border border-slate-200/90 shadow-xs transition-transform group-hover:scale-105 p-0.5">
                 <img
                   src="/logo.png"
                   alt="Digital FX"
@@ -1202,10 +1202,10 @@ export default function Home() {
                 />
               </div>
               <div className="shrink-0">
-                <div className="text-[21px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+                <div className="text-[20px] sm:text-[23px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
                   DIGITAL <span className="text-[#207de9]">FX</span>
                 </div>
-                <div className="mt-1.5 text-[8.5px] font-bold uppercase tracking-[1.8px] text-slate-500 whitespace-nowrap">
+                <div className="mt-1 sm:mt-1.5 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.5px] sm:tracking-[1.8px] text-slate-500 whitespace-nowrap">
                   Digital Marketing That Drives Revenue®
                 </div>
               </div>
@@ -1223,14 +1223,13 @@ export default function Home() {
                   FREE
                 </span>
               </a>
-
             </nav>
 
             {/* Right Action & Menu Trigger */}
-            <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-              <a href="tel:+919876543210" className="hidden xl:flex flex-col text-right justify-center shrink-0 group">
+            <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+              <a href="tel:+918447583685" className="hidden xl:flex flex-col text-right justify-center shrink-0 group">
                 <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 leading-none">Direct Consultation</span>
-                <span className="mt-1 text-[13.5px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition whitespace-nowrap leading-none">+91 98765 43210</span>
+                <span className="mt-1 text-[13.5px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition whitespace-nowrap leading-none">+91 84475 83685</span>
               </a>
 
               <button
@@ -1241,6 +1240,18 @@ export default function Home() {
                 <span>Get Free Proposal</span>
                 <span className="text-sm font-bold">→</span>
               </button>
+
+              {/* Mobile Quick-Call Tap Button */}
+              <a
+                href="tel:+918447583685"
+                aria-label="Call +91 84475 83685"
+                className="sm:hidden flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-xs transition-all active:scale-95 cursor-pointer"
+                title="Call +91 84475 83685"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </a>
 
               {/* 3-LINE MENU BUTTON (Opens Complete Navigation Drawer) */}
               <button
@@ -1279,7 +1290,7 @@ export default function Home() {
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white border border-slate-200/90 shadow-xs flex items-center justify-center overflow-hidden p-1 shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/90 shadow-xs flex items-center justify-center overflow-hidden p-0.5 shrink-0">
                       <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
                     </div>
                     <div>
@@ -1552,10 +1563,10 @@ export default function Home() {
                       <div className="text-[11px] text-slate-500">Mon – Sat • 9:30 AM to 7:30 PM</div>
                     </div>
                     <a
-                      href="tel:+919876543210"
+                      href="tel:+918447583685"
                       className="text-xs font-bold text-[#207de9] hover:underline whitespace-nowrap"
                     >
-                      +91 98765 43210
+                      +91 84475 83685
                     </a>
                   </div>
                 </div>
@@ -1564,7 +1575,7 @@ export default function Home() {
               {/* Drawer Bottom Action */}
               <div className="pt-5 border-t border-slate-100">
                 <a
-                  href="https://wa.me/919876543210?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
+                  href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#080d24] hover:bg-[#1570ef] py-3 text-center text-xs font-black text-white shadow-xs transition cursor-pointer"
@@ -2042,60 +2053,60 @@ export default function Home() {
 
               </div>
 
-              {/* WebFX Proven Revenue Impact Grid - Realistic Data for Emerging Agency */}
-              <div className="mt-12 relative z-10 max-w-[1040px] mx-auto">
-                <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_12px_40px_rgba(8,13,36,0.06)] p-6 sm:p-8">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center lg:text-left divide-y sm:divide-y-0 lg:divide-x divide-slate-100">
+              {/* WebFX Proven Revenue Impact Grid - Responsive 2x2 on Mobile, 4-col on Desktop */}
+              <div className="mt-8 sm:mt-12 relative z-10 max-w-[1040px] mx-auto">
+                <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_12px_40px_rgba(8,13,36,0.06)] p-4 sm:p-6 lg:p-8">
+                  <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 text-center lg:text-left lg:divide-x lg:divide-slate-100">
                     
                     {/* Metric 1: Qualified Lead Growth */}
-                    <div className="pt-3 sm:pt-0 lg:px-4 first:lg:pl-0">
-                      <span className="text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-[#1570ef] tracking-tight tabular-nums block">
+                    <div className="p-3 sm:p-0 lg:px-4 first:lg:pl-0 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100">
+                      <span className="text-xl sm:text-3xl lg:text-[32px] font-extrabold text-[#1570ef] tracking-tight tabular-nums block">
                         15% Higher
                       </span>
-                      <h3 className="text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug">
+                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1 sm:mt-1.5 leading-snug">
                         Qualified Lead Growth
                       </h3>
-                      <p className="text-[11.5px] text-slate-500 font-normal mt-1 leading-relaxed">
-                        For clients who connect their data &amp; CRM attribution.
+                      <p className="text-[10px] sm:text-[11.5px] text-slate-500 font-normal mt-0.5 sm:mt-1 leading-relaxed">
+                        For clients who connect CRM attribution.
                       </p>
                     </div>
 
                     {/* Metric 2: AI Citations & Visibility */}
-                    <div className="pt-4 sm:pt-0 lg:px-4">
-                      <span className="text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-purple-600 tracking-tight tabular-nums block">
+                    <div className="p-3 sm:p-0 lg:px-4 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100">
+                      <span className="text-xl sm:text-3xl lg:text-[32px] font-extrabold text-purple-600 tracking-tight tabular-nums block">
                         2,500+
                       </span>
-                      <h3 className="text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug">
-                        Citations in AI Sources
+                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1 sm:mt-1.5 leading-snug">
+                        AI Citations Tracked
                       </h3>
-                      <p className="text-[11.5px] text-slate-500 font-normal mt-1 leading-relaxed">
-                        AI visibility tracked across ChatGPT, Gemini &amp; Copilot.
+                      <p className="text-[10px] sm:text-[11.5px] text-slate-500 font-normal mt-0.5 sm:mt-1 leading-relaxed">
+                        Across ChatGPT, Gemini &amp; Copilot.
                       </p>
                     </div>
 
                     {/* Metric 3: Rated Agency & Reviews */}
-                    <div className="pt-4 sm:pt-0 lg:px-4">
-                      <span className="text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-amber-500 tracking-tight tabular-nums block">
-                        #1 Rated
+                    <div className="p-3 sm:p-0 lg:px-4 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100">
+                      <span className="text-xl sm:text-3xl lg:text-[32px] font-extrabold text-amber-500 tracking-tight tabular-nums block">
+                        4.9 ★ Rating
                       </span>
-                      <h3 className="text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug">
-                        Agency on Google &amp; Clutch
+                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1 sm:mt-1.5 leading-snug">
+                        Google Verified
                       </h3>
-                      <p className="text-[11.5px] text-slate-500 font-normal mt-1 leading-relaxed">
-                        Verified from 50+ client reviews (5 / 5 Rating).
+                      <p className="text-[10px] sm:text-[11.5px] text-slate-500 font-normal mt-0.5 sm:mt-1 leading-relaxed">
+                        128+ verified reviews in Delhi NCR.
                       </p>
                     </div>
 
                     {/* Metric 4: Closed Revenue & Measurable ROI */}
-                    <div className="pt-4 sm:pt-0 lg:px-4 last:lg:pr-0">
-                      <span className="text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-emerald-600 tracking-tight tabular-nums block">
+                    <div className="p-3 sm:p-0 lg:px-4 last:lg:pr-0 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100">
+                      <span className="text-xl sm:text-3xl lg:text-[32px] font-extrabold text-emerald-600 tracking-tight tabular-nums block">
                         ₹100,000+
                       </span>
-                      <h3 className="text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug">
-                        Closed Client Revenue
+                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1 sm:mt-1.5 leading-snug">
+                        Client Revenue
                       </h3>
-                      <p className="text-[11.5px] text-slate-500 font-normal mt-1 leading-relaxed">
-                        Driving measurable ROI across 10+ delivered projects.
+                      <p className="text-[10px] sm:text-[11.5px] text-slate-500 font-normal mt-0.5 sm:mt-1 leading-relaxed">
+                        Driving measurable ROI on projects.
                       </p>
                     </div>
 
@@ -3653,7 +3664,7 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
                     <a
-                      href={`https://wa.me/919876543210?text=${encodeURIComponent(
+                      href={`https://wa.me/918447583685?text=${encodeURIComponent(
                         `Hi Digital FX, I just ran a GEO AI Audit on ${geoWebsite || "my website"} and got score ${
                           geoResult.score ?? geoResult.overall ?? 82
                         }/100. Please share the plan to fix the missing AI citations and entity schema.`
@@ -4154,13 +4165,13 @@ export default function Home() {
                         <span>Direct Telephone Desk</span>
                       </div>
                       <a
-                        href="tel:+919876543210"
+                        href="tel:+918447583685"
                         className="text-base sm:text-lg font-extrabold text-[#080d24] hover:text-[#1570ef] transition block font-mono"
                       >
-                        +91 98765 43210
+                        +91 84475 83685
                       </a>
                       <p className="text-[11px] text-slate-500 mt-0.5 font-normal">
-                        Toll-free routing for Delhi NCR &amp; national inquiries.
+                        Direct routing for Delhi NCR, national &amp; international inquiries.
                       </p>
                     </div>
 
@@ -4171,7 +4182,7 @@ export default function Home() {
                         <span>WhatsApp &amp; Inquiries</span>
                       </div>
                       <a
-                        href="https://wa.me/919876543210?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
+                        href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-base sm:text-lg font-extrabold text-emerald-800 hover:text-emerald-900 transition flex items-center gap-2 font-mono"
@@ -4280,7 +4291,7 @@ export default function Home() {
                           type="tel"
                           name="phone"
                           required
-                          placeholder="+91 98765..."
+                          placeholder="+91 84475..."
                           className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#207de9] focus:bg-white text-slate-800 font-medium transition"
                         />
                       </div>
@@ -4404,13 +4415,13 @@ export default function Home() {
 
               <div className="flex flex-wrap items-center gap-3 shrink-0">
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+918447583685"
                   className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5"
                 >
-                  <span>☎ Call +91 98765 43210</span>
+                  <span>☎ Call +91 84475 83685</span>
                 </a>
                 <a
-                  href="https://wa.me/919876543210?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
+                  href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-bold border border-white/15 transition-all"
@@ -4423,8 +4434,8 @@ export default function Home() {
 
             {/* Office & Brand Identity Strip */}
             <div className="py-8 border-b border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-300">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center overflow-hidden p-1 shrink-0 shadow-sm">
+              <div className="flex items-center gap-3.5">
+                <div className="w-13 h-13 rounded-2xl bg-white flex items-center justify-center overflow-hidden p-0.5 shrink-0 shadow-sm">
                   <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
                 </div>
                 <div>
@@ -4452,7 +4463,7 @@ export default function Home() {
                 <div className="text-[10px] font-bold uppercase tracking-wider text-[#207de9] mb-1">Direct Communications</div>
                 <div className="text-slate-300 leading-snug font-normal">
                   Email: <a href="mailto:hello@digitalfx.in" className="text-white hover:underline font-semibold">hello@digitalfx.in</a><br />
-                  Direct Phone: <span className="text-white font-semibold">+91 98765 43210</span>
+                  Direct Phone: <span className="text-white font-semibold tabular-nums">+91 84475 83685</span>
                 </div>
               </div>
             </div>
@@ -4937,7 +4948,7 @@ export default function Home() {
                       </div>
                     </div>
                     <a
-                      href="https://wa.me/919876543210?text=Hello%20Digital%20FX%20Team%2C%20we%20require%20a%20custom%20growth%20proposal%20or%20enterprise%20agreement."
+                      href="https://wa.me/918447583685?text=Hello%20Digital%20FX%20Team%2C%20we%20require%20a%20custom%20growth%20proposal%20or%20enterprise%20agreement."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-4 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 font-bold text-xs transition shrink-0 whitespace-nowrap"
@@ -5454,7 +5465,7 @@ export default function Home() {
                   <div className="mt-4 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
                     <span>Have urgent enterprise automation requirements?</span>
                     <a
-                      href="https://wa.me/919876543210?text=Hello%20Digital%20FX%20Team%2C%20I%20want%20to%20learn%20more%20about%20the%20upcoming%20AI%20Business%20Suite%20and%20early%20beta%20access."
+                      href="https://wa.me/918447583685?text=Hello%20Digital%20FX%20Team%2C%20I%20want%20to%20learn%20more%20about%20the%20upcoming%20AI%20Business%20Suite%20and%20early%20beta%20access."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#1570ef] hover:underline font-bold inline-flex items-center gap-1.5"
@@ -5515,10 +5526,10 @@ export default function Home() {
           )}
 
           {chatOpen && (
-            <div className="fixed bottom-24 right-6 w-[360px] sm:w-[400px] h-[520px] max-h-[85vh] bg-white rounded-2xl shadow-2xl border border-slate-200/90 flex flex-col overflow-hidden animate-fadeIn">
+            <div className="fixed bottom-24 right-4 sm:right-6 w-[92vw] sm:w-[400px] h-[520px] max-h-[85vh] bg-white rounded-2xl shadow-2xl border border-slate-200/90 flex flex-col overflow-hidden animate-fadeIn">
               <div className="bg-[#080d24] p-4 text-white flex justify-between items-center border-b border-white/10">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center overflow-hidden p-1 shadow-inner shrink-0">
+                  <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center overflow-hidden p-0.5 shadow-inner shrink-0">
                     <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
                   </div>
                   <div>
