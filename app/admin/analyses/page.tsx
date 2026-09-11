@@ -1,5 +1,7 @@
 "use client";
 
+import { adminFetch } from "@/lib/adminFetch";
+
 import { useEffect, useState, useCallback, useMemo } from "react";
 import CustomerDrawer, { DrawerRecord } from "../../../components/admin/CustomerDrawer";
 import { supabase } from "../../lib/supabase";
@@ -40,7 +42,7 @@ export default function WebsiteAnalysesPage() {
   const loadAnalyses = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/analyses", {
+      const res = await adminFetch("/api/admin/analyses", {
         method: "GET",
         cache: "no-store",
       });

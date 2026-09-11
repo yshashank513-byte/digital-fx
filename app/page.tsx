@@ -808,17 +808,6 @@ export default function Home() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [chatOpen, setChatOpen] = useState(false);
-  const [chatMessage, setChatMessage] = useState("");
-  const [chatMessages, setChatMessages] = useState<
-    Array<{ sender: "user" | "ai"; text: string }>
-  >([
-    {
-      sender: "ai",
-      text: "Hello! Welcome to Digital FX. How can we help grow your business?",
-    },
-  ]);
-
   const [selectedPaymentPlan, setSelectedPaymentPlan] =
     useState<PaymentPlan | null>(paymentPlans[2]);
   const [customPaymentAmount, setCustomPaymentAmount] = useState<string>("15000");
@@ -1284,29 +1273,6 @@ export default function Home() {
     } finally {
       setFormLoading(false);
     }
-  }
-
-  function sendChatMessage() {
-    const message = chatMessage.trim();
-    if (!message) return;
-
-    setChatMessages((prev) => [
-      ...prev,
-      { sender: "user", text: message },
-    ]);
-
-    setChatMessage("");
-
-    setTimeout(() => {
-      setChatMessages((prev) => [
-        ...prev,
-        {
-          sender: "ai",
-          text:
-            "Thanks! I can help you with SEO, website development, Google visibility, social media, PPC and digital growth. For a personalized strategy, submit your enquiry and our team will contact you.",
-        },
-      ]);
-    }, 700);
   }
 
   function closeMobileMenu() {
@@ -1883,7 +1849,7 @@ export default function Home() {
                 {/* Section Title */}
                 <div className="mt-5 mb-2 px-1 flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-slate-400">
                   <span>Navigation Directory</span>
-                  <span>6 Sections</span>
+                  <span>Directory &amp; All Pages</span>
                 </div>
 
                 {/* Primary Navigation Links - Sleek Linear Vector Icons & Editorial Subtitles */}
@@ -5869,36 +5835,34 @@ export default function Home() {
                 </ul>
               </div>
 
-              {/* Column 4: Growth Tools */}
+              {/* Column 4: National Network & Hubs */}
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-                  Growth Tools
+                  National Network
                 </h4>
                 <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition font-medium text-emerald-400">GEO AI Search Audit</a></li>
-                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition">ChatGPT Citation Diagnostic</a></li>
-                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition">Gemini AI Visibility Checker</a></li>
-                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition">Local Pack SEO Diagnostic</a></li>
-                  <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition cursor-pointer">Official PayU Terminal</button></li>
-                  <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition cursor-pointer">Retainer Calculator</button></li>
-                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition font-semibold text-[#207de9]">Run Instant Audit →</a></li>
+                  <li><Link href="/locations" className="hover:text-white transition font-semibold text-[#207de9]">Pan-India 350+ Cities Hub</Link></li>
+                  <li><Link href="/locations/punjab" className="hover:text-white transition">Punjab SEO &amp; Mohali Desk</Link></li>
+                  <li><Link href="/locations/uttar-pradesh" className="hover:text-white transition">Uttar Pradesh &amp; NCR Hub</Link></li>
+                  <li><Link href="/locations/haryana" className="hover:text-white transition">Haryana &amp; Gurugram Desk</Link></li>
+                  <li><Link href="/locations/maharashtra" className="hover:text-white transition">Maharashtra &amp; Mumbai Hub</Link></li>
+                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition font-medium text-emerald-400">Free AI GEO Search Audit →</a></li>
                 </ul>
               </div>
 
-              {/* Column 5: Explore */}
+              {/* Column 5: Insights & Legal */}
               <div className="col-span-2 sm:col-span-1">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                  Explore &amp; Grow
+                  Insights &amp; Legal
                 </h4>
                 <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition">Generative Engine Optimization</a></li>
-                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition">The Future of Search &amp; AI</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">10x Revenue Acceleration</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">Local Business Lead Engine</a></li>
-                  <li><a href="#contact" onClick={scrollToContact} className="hover:text-white transition">Regional Market Dominance</a></li>
-                  <li><a href="#contact" onClick={scrollToContact} className="hover:text-white transition">Book Discovery Call</a></li>
+                  <li><Link href="/blog" className="hover:text-white transition font-medium text-emerald-400">Search Engineering Blog</Link></li>
+                  <li><Link href="/privacy-policy" className="hover:text-white transition">Privacy Policy (DPDP 2023)</Link></li>
+                  <li><Link href="/terms-and-conditions" className="hover:text-white transition">Terms &amp; Conditions</Link></li>
+                  <li><Link href="/refund-policy" className="hover:text-white transition">Cancellation &amp; Refund</Link></li>
+                  <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition cursor-pointer">Official PayU Terminal</button></li>
                   <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition font-semibold text-emerald-400 cursor-pointer">Instant Checkout Desk →</button></li>
                 </ul>
               </div>
@@ -5914,10 +5878,13 @@ export default function Home() {
                 <span className="hidden sm:inline text-slate-600">•</span>
                 <span className="font-normal">© {new Date().getFullYear()} Digital FX®. All rights reserved.</span>
               </div>
-              <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-6 font-normal">
-                <a href="#services" onClick={scrollToServices} className="hover:text-white transition cursor-pointer">Sitemap &amp; Services</a>
-                <a href="#contact" onClick={scrollToContact} className="hover:text-white transition cursor-pointer">Privacy &amp; Terms of Use</a>
-                <button type="button" onClick={() => openPricingModal("custom")} className="hover:text-white transition text-[#207de9] font-medium cursor-pointer">Client Billing Portal</button>
+              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-normal">
+                <Link href="/locations" className="hover:text-white transition cursor-pointer">350+ Cities</Link>
+                <Link href="/blog" className="hover:text-white transition cursor-pointer">Insights Blog</Link>
+                <Link href="/privacy-policy" className="hover:text-white transition cursor-pointer">Privacy Policy</Link>
+                <Link href="/terms-and-conditions" className="hover:text-white transition cursor-pointer">Terms of Service</Link>
+                <Link href="/refund-policy" className="hover:text-white transition cursor-pointer">Refund Policy</Link>
+                <button type="button" onClick={() => openPricingModal("custom")} className="hover:text-white transition text-[#207de9] font-medium cursor-pointer">Billing Portal</button>
                 <a href="/admin/login" className="hover:text-slate-200 transition text-slate-500 hover:text-slate-300 text-[11px] font-normal cursor-pointer">Admin Login</a>
               </div>
             </div>
@@ -7143,98 +7110,6 @@ export default function Home() {
             </div>
           </div>
         )}
-
-        {/* ==========================================================================
-            13. FLOATING STRATEGIST ADVISORY DESK (INSTITUTIONAL AGENCY CONCIERGE)
-            ========================================================================== */}
-        <div className="fixed bottom-6 right-6 z-[95] flex items-end gap-3">
-          {!chatOpen && (
-            <button
-              type="button"
-              onClick={() => setChatOpen(true)}
-              className="group flex items-center gap-3 rounded-full border border-slate-200 bg-white/95 backdrop-blur-md pl-4 pr-5 py-2.5 shadow-[0_12px_36px_rgba(15,23,42,0.12)] hover:border-[#207de9] hover:shadow-[0_16px_40px_rgba(32,125,233,0.18)] transition-all cursor-pointer"
-            >
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-              </span>
-              <div className="text-left">
-                <p className="text-xs font-bold text-slate-900 tracking-tight leading-none group-hover:text-[#207de9] transition">
-                  Strategist Desk
-                </p>
-                <p className="text-[10px] text-slate-500 font-medium leading-none mt-1">
-                  Delhi NCR Advisory Team
-                </p>
-              </div>
-              <div className="w-8 h-8 rounded-full bg-[#080d24] text-white flex items-center justify-center shrink-0">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-              </div>
-            </button>
-          )}
-
-          {chatOpen && (
-            <div className="fixed bottom-24 right-4 sm:right-6 w-[92vw] sm:w-[400px] h-[520px] max-h-[85vh] bg-white rounded-2xl shadow-2xl border border-slate-200/90 flex flex-col overflow-hidden animate-fadeIn">
-              <div className="bg-[#080d24] p-4 text-white flex justify-between items-center border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center overflow-hidden p-0.5 shadow-inner shrink-0">
-                    <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold tracking-wide text-white">Senior Growth Advisory Desk</h4>
-                    <p className="text-[10px] text-emerald-400 font-semibold flex items-center gap-1.5 mt-0.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" /> Crossings Republik Strategists Available
-                    </p>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setChatOpen(false)}
-                  className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center text-sm font-bold transition cursor-pointer"
-                >
-                  ✕
-                </button>
-              </div>
-
-              <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 text-xs">
-                {chatMessages.map((msg, i) => (
-                  <div
-                    key={i}
-                    className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
-                  >
-                    <div
-                      className={`max-w-[82%] p-3.5 rounded-2xl text-[13px] leading-relaxed ${
-                        msg.sender === "user"
-                          ? "bg-[#207de9] text-white rounded-br-none shadow-xs font-medium"
-                          : "bg-white text-slate-800 border border-slate-200/90 rounded-bl-none shadow-xs font-normal"
-                      }`}
-                    >
-                      {msg.text}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="p-3.5 bg-white border-t border-slate-200 flex gap-2">
-                <input
-                  type="text"
-                  value={chatMessage}
-                  onChange={(e) => setChatMessage(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && sendChatMessage()}
-                  placeholder="Ask about SEO, GEO AI, PPC, or custom retainer..."
-                  className="flex-1 px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#207de9] focus:bg-white transition"
-                />
-                <button
-                  type="button"
-                  onClick={sendChatMessage}
-                  className="px-4 py-2.5 bg-[#207de9] hover:bg-[#1866c2] text-white font-bold rounded-xl text-xs transition cursor-pointer shadow-xs"
-                >
-                  Send
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
 
       </main>
     </>

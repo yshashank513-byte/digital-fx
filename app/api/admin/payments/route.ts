@@ -1,35 +1,35 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { verifyAdminAuth } from "@/lib/adminApiAuth";
 
-export async function GET() {
+export const dynamic = "force-dynamic";
+
+export async function GET(request: Request) {
   try {
-    const supabaseUrl =
-      process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
 
-    const serviceRoleKey =
-      process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     if (!supabaseUrl || !serviceRoleKey) {
       return NextResponse.json(
         {
           success: false,
-          error:
-            "Supabase server credentials are missing.",
+          error: "Supabase server credentials are missing.",
         },
         { status: 500 }
       );
     }
 
-    const supabase = createClient(
-      supabaseUrl,
-      serviceRoleKey,
-      {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false,
-        },
-      }
-    );
+    const supabase = createClient(supabaseUrl, serviceRoleKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    });
 
     const { data, error } = await supabase
       .from("payments")
@@ -39,11 +39,7 @@ export async function GET() {
       });
 
     if (error) {
-      console.error(
-        "PAYMENTS DATABASE ERROR:",
-        error
-      );
-
+      console.error("PAYMENTS DATABASE ERROR:", error);
       return NextResponse.json(
         {
           success: false,
@@ -58,11 +54,7 @@ export async function GET() {
       data: data || [],
     });
   } catch (error) {
-    console.error(
-      "PAYMENTS API ERROR:",
-      error
-    );
-
+    console.error("PAYMENTS API ERROR:", error);
     return NextResponse.json(
       {
         success: false,

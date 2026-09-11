@@ -1,5 +1,7 @@
 "use client";
 
+import { adminFetch } from "@/lib/adminFetch";
+
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { supabase } from "../lib/supabase";
@@ -46,7 +48,7 @@ export default function AdminDashboardPage() {
   const loadData = useCallback(async () => {
     try {
       setError("");
-      const res = await fetch("/api/admin/stats", {
+      const res = await adminFetch("/api/admin/stats", {
         method: "GET",
         cache: "no-store",
       });
@@ -158,7 +160,7 @@ export default function AdminDashboardPage() {
     // If it's an enquiry/proposal id
     const numId = typeof id === "string" ? parseInt(id.replace(/\D/g, ""), 10) : id;
     if (numId) {
-      await fetch("/api/admin/enquiries", {
+      await adminFetch("/api/admin/enquiries", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: numId, status: newStatus }),

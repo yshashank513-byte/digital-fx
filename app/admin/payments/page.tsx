@@ -1,5 +1,7 @@
 "use client";
 
+import { adminFetch } from "@/lib/adminFetch";
+
 import { useEffect, useState, useCallback, useMemo } from "react";
 import CustomerDrawer, { DrawerRecord } from "../../../components/admin/CustomerDrawer";
 import { supabase } from "../../lib/supabase";
@@ -30,7 +32,7 @@ export default function PaymentsPage() {
   const loadPayments = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/payments", {
+      const res = await adminFetch("/api/admin/payments", {
         method: "GET",
         cache: "no-store",
       });

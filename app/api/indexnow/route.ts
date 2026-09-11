@@ -7,11 +7,35 @@ export async function GET() {
   const urlList = [
     "https://www.digitalfx.in",
     "https://www.digitalfx.in/sitemap.xml",
+    "https://www.digitalfx.in/locations",
+    "https://www.digitalfx.in/blog",
+    "https://www.digitalfx.in/privacy-policy",
+    "https://www.digitalfx.in/terms-and-conditions",
+    "https://www.digitalfx.in/refund-policy",
+    // Core State Hubs
+    "https://www.digitalfx.in/locations/uttar-pradesh",
+    "https://www.digitalfx.in/locations/delhi",
+    "https://www.digitalfx.in/locations/maharashtra",
+    "https://www.digitalfx.in/locations/punjab",
+    "https://www.digitalfx.in/locations/haryana",
+    "https://www.digitalfx.in/locations/karnataka",
+    // Top Strategic City Hubs
+    "https://www.digitalfx.in/locations/ghaziabad",
+    "https://www.digitalfx.in/locations/noida",
+    "https://www.digitalfx.in/locations/mohali",
+    "https://www.digitalfx.in/locations/mumbai",
+    "https://www.digitalfx.in/locations/bengaluru",
+    "https://www.digitalfx.in/locations/gurugram",
+    "https://www.digitalfx.in/locations/lucknow",
+    // Top Blog Insights
+    "https://www.digitalfx.in/blog/google-maps-3-pack-domination-2026",
+    "https://www.digitalfx.in/blog/geo-generative-engine-optimization-guide",
+    "https://www.digitalfx.in/blog/zero-click-searches-ai-overviews-strategy",
   ];
 
   const results: Record<string, any> = {};
 
-  // 1. Submit to IndexNow (Bing, Yandex, Seznam, AI search bots)
+  // 1. Submit to IndexNow (Bing, Yahoo, Seznam, AI search bots)
   try {
     const indexNowRes = await fetch("https://api.indexnow.org/indexnow", {
       method: "POST",
@@ -25,9 +49,10 @@ export async function GET() {
     });
     results.indexnow = {
       status: indexNowRes.status,
-      message: indexNowRes.status === 200 || indexNowRes.status === 202
-        ? "Successfully submitted to IndexNow (Bing/Yahoo/AI Crawlers)"
-        : `IndexNow returned status ${indexNowRes.status}`,
+      message:
+        indexNowRes.status === 200 || indexNowRes.status === 202
+          ? "Successfully submitted to IndexNow (Bing/Yahoo/AI Crawlers)"
+          : `IndexNow returned status ${indexNowRes.status}`,
     };
   } catch (err: any) {
     results.indexnow = { status: 500, error: err?.message || String(err) };
@@ -51,6 +76,7 @@ export async function GET() {
 
   return NextResponse.json({
     success: true,
+    totalUrlsSubmitted: urlList.length,
     timestamp: new Date().toISOString(),
     results,
   });

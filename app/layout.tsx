@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Digital FX is the #1 rated (4.9★) digital marketing agency in Ghaziabad - Delhi NCR serving businesses across all 28 States and 8 UTs of India & USA. High-converting SEO, Google Maps 3-Pack domination, custom web development, Google & Meta Ads, and AI search optimization (GEO).",
+    "Digital FX (4.9★) is Ghaziabad's top digital marketing agency. Dominating Google Maps 3-Pack, SEO, sub-second web design & high-ROI ads across India & USA.",
 
   keywords: CORE_CUSTOMER_SEARCH_KEYWORDS,
 

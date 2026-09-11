@@ -1,5 +1,7 @@
 "use client";
 
+import { adminFetch } from "@/lib/adminFetch";
+
 import { useEffect, useState, useCallback, useMemo } from "react";
 import CustomerDrawer, { DrawerRecord } from "../../../components/admin/CustomerDrawer";
 import { supabase } from "../../lib/supabase";
@@ -27,7 +29,7 @@ export default function StrategicProposalsPage() {
   const loadProposals = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/admin/proposals", {
+      const res = await adminFetch("/api/admin/proposals", {
         method: "GET",
         cache: "no-store",
       });
@@ -82,7 +84,7 @@ export default function StrategicProposalsPage() {
 
   async function handleStatusChange(id: string | number, newStatus: string) {
     const numId = Number(id);
-    const res = await fetch("/api/admin/proposals", {
+    const res = await adminFetch("/api/admin/proposals", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: numId, status: newStatus }),
