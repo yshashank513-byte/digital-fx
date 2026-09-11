@@ -788,6 +788,42 @@ const featuredStartups = [
 
 export default function Home() {
   const [services, setServices] = useState<Service[]>(fallbackServices);
+  const [liveRevenue, setLiveRevenue] = useState<number>(104993);
+
+  useEffect(() => {
+    async function loadLiveRevenue() {
+      try {
+        const res = await fetch("/api/revenue");
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && typeof json.totalRevenue === "number") {
+            setLiveRevenue(json.totalRevenue);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load live revenue:", err);
+      }
+    }
+
+    loadLiveRevenue();
+
+    try {
+      const channel = supabase
+        .channel("public-revenue-feed")
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "payments" },
+          () => {
+            loadLiveRevenue();
+          }
+        )
+        .subscribe();
+
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    } catch {}
+  }, []);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeGrowthPillar, setActiveGrowthPillar] = useState<string | null>(null);
@@ -1458,7 +1494,7 @@ export default function Home() {
       title: "Phase 04: Attributable Compounding Revenue",
       desc: "Attributes closed-loop revenue back to campaign sources, automatically reinvesting high-performing signals into a compounding growth flywheel.",
       scope: "Closed-Loop Attribution & LTV Expansion",
-      metric: "₹100,000+ Closed Revenue Scale",
+      metric: `₹${liveRevenue.toLocaleString("en-IN")}+ Closed Revenue Scale`,
     },
   ];
 
@@ -2591,7 +2627,7 @@ export default function Home() {
                       >
                         {activeFlywheelQuadrant === 0 && "15% Higher Lead Growth"}
                         {activeFlywheelQuadrant === 1 && "84% Higher Lead Velocity"}
-                        {activeFlywheelQuadrant === 2 && "₹100,000+ Closed Scale"}
+                        {activeFlywheelQuadrant === 2 && `₹${liveRevenue.toLocaleString("en-IN")}+ Closed Scale`}
                         {activeFlywheelQuadrant === 3 && "#1 AI Search Citations"}
                       </text>
                     </g>
@@ -2683,16 +2719,22 @@ export default function Home() {
                       </p>
                     </div>
 
-                    {/* Metric 4: Closed Revenue & Measurable ROI */}
+                    {/* Metric 4: Closed Revenue & Measurable ROI (Live from Admin Payments) */}
                     <div className="p-3 sm:p-0 lg:px-4 last:lg:pr-0 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100">
-                      <span className="text-xl sm:text-3xl lg:text-[32px] font-extrabold text-emerald-600 tracking-tight tabular-nums block">
-                        ₹100,000+
-                      </span>
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <span className="text-xl sm:text-3xl lg:text-[32px] font-extrabold text-emerald-600 tracking-tight tabular-nums block">
+                          ₹{liveRevenue.toLocaleString("en-IN")}+
+                        </span>
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-100/90 border border-emerald-200 text-emerald-800 text-[8.5px] font-black uppercase tracking-wider">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          Live
+                        </span>
+                      </div>
                       <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1 sm:mt-1.5 leading-snug">
-                        Client Revenue
+                        Verified Client Revenue
                       </h3>
                       <p className="text-[10px] sm:text-[11.5px] text-slate-500 font-normal mt-0.5 sm:mt-1 leading-relaxed">
-                        Driving measurable ROI on projects.
+                        Live gateway collections &amp; tracked ROI.
                       </p>
                     </div>
 
