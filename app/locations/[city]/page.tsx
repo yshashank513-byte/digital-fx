@@ -30,6 +30,7 @@ export async function generateStaticParams() {
     "indore",
     "bhopal",
     "chandigarh",
+    "mohali",
     "kochi",
     "patna",
     "surat",
@@ -182,156 +183,231 @@ export default async function CityLocationPage({ params }: PageProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-[#207de9] selection:text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Header */}
-      <header className="border-b border-white/10 bg-slate-950/90 backdrop-blur-md sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-0.5 border border-slate-200">
-              <img src="/logo.png" alt="Digital FX" className="w-full h-full object-contain" />
+      {/* 1. TOP INSTITUTIONAL BAR */}
+      <div className="bg-[#080d24] text-white py-2 border-b border-white/10 text-xs">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-3 text-slate-300 text-[11.5px] font-medium">
+            <span className="inline-flex items-center gap-1.5 font-semibold text-slate-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+              Google Premier Partner Certified
+            </span>
+            <span className="hidden sm:inline text-slate-600">•</span>
+            <span className="hidden sm:inline text-slate-300">
+              {profile.name}, {profile.state} Growth Desk
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 text-[12px] font-medium ml-auto sm:ml-0">
+            <a href="tel:+918447583685" className="hover:text-white font-bold transition flex items-center gap-1.5">
+              <span className="text-[#207de9]">☎</span> +91 84475 83685
+            </a>
+            <a
+              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20am%20from%20${encodeURIComponent(profile.name)}%20and%20need%20a%20strategy.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-400 hover:text-emerald-300 font-bold transition flex items-center gap-1.5"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>WhatsApp Strategy Desk</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. MAIN HEADER (MATCHES HOMEPAGE DESIGN) */}
+      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
+        <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
+          <Link href="/" className="flex items-center gap-3 group shrink-0">
+            <div className="flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center overflow-hidden rounded-2xl bg-white border border-slate-200/90 shadow-xs p-0.5 group-hover:scale-105 transition-transform">
+              <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
             </div>
             <div>
-              <span className="text-lg font-black tracking-tight text-white group-hover:text-blue-400 transition">
-                DIGITAL <span className="text-blue-400">FX</span>
-              </span>
-              <span className="block text-[8.5px] font-bold tracking-[1.8px] text-slate-400 uppercase">
-                {profile.name} Growth Desk
-              </span>
+              <div className="text-[20px] sm:text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+                DIGITAL <span className="text-[#207de9]">FX</span>
+              </div>
+              <div className="mt-1 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.6px] text-slate-500">
+                {profile.name} Local Search Architecture
+              </div>
             </div>
           </Link>
 
+          {/* Center Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <Link
+              href="/#services"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition"
+            >
+              Services
+            </Link>
+            <Link
+              href="/#geo-checker"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition inline-flex items-center gap-1.5"
+            >
+              <span>AI Search (GEO)</span>
+              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9.5px] font-bold uppercase">
+                FREE
+              </span>
+            </Link>
+            <Link
+              href="/locations"
+              className="text-[14px] font-semibold text-[#207de9] transition inline-flex items-center gap-1.5"
+            >
+              <span>350+ Cities</span>
+              <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9.5px] font-extrabold uppercase">
+                IN
+              </span>
+            </Link>
+            <Link
+              href="/blog"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition"
+            >
+              Insights &amp; Blog
+            </Link>
+          </nav>
+
+          {/* Right Action */}
           <div className="flex items-center gap-3">
             <Link
               href="/locations"
-              className="text-xs font-semibold text-slate-300 hover:text-white transition hidden md:inline"
+              className="text-xs font-bold text-slate-600 hover:text-[#207de9] transition hidden sm:inline"
             >
-              ← All Cities
+              ← All Locations
             </Link>
             <a
               href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20rank%20my%20business%20in%20${encodeURIComponent(profile.name)}.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-bold px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white transition flex items-center gap-1.5 shadow-xs"
+              className="h-[42px] px-5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xs transition cursor-pointer"
             >
-              <span>WhatsApp Strategist</span>
+              <span>Speak with Strategist</span>
+              <span>→</span>
             </a>
           </div>
         </div>
       </header>
 
-      {/* Breadcrumb Trail */}
-      <div className="border-b border-white/5 bg-slate-900/60 py-3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-xs text-slate-400 flex items-center gap-2 flex-wrap">
-          <Link href="/" className="hover:text-white transition">Home</Link>
-          <span>/</span>
-          <Link href="/locations" className="hover:text-white transition">Locations</Link>
-          <span>/</span>
-          <span className="text-slate-300">{profile.state}</span>
-          <span>/</span>
-          <span className="text-blue-400 font-bold">{profile.name}</span>
+      {/* 3. BREADCRUMBS */}
+      <div className="bg-slate-50 border-b border-slate-200/80 py-3">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 text-xs text-slate-500 flex items-center gap-2 flex-wrap">
+          <Link href="/" className="hover:text-[#207de9] transition font-medium">Home</Link>
+          <span className="text-slate-400">/</span>
+          <Link href="/locations" className="hover:text-[#207de9] transition font-medium">Locations</Link>
+          <span className="text-slate-400">/</span>
+          <span className="text-slate-600 font-medium">{profile.state}</span>
+          <span className="text-slate-400">/</span>
+          <span className="text-[#207de9] font-bold">{profile.name}</span>
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="py-16 sm:py-24 border-b border-white/10 bg-gradient-to-b from-slate-900 to-slate-950">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-5">
-            <span>📍 Local SEO &amp; Performance Marketing • {profile.name}, {profile.state}</span>
+      {/* 4. HERO SECTION (WHITE CORPORATE AGENCY STYLE) */}
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-slate-50/80 via-white to-white border-b border-slate-200">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-[#1570ef] text-xs font-bold tracking-wider uppercase mb-5">
+            <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
+            <span>Local SEO &amp; Performance Marketing Hub • {profile.name}, {profile.state}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6 leading-[1.15]">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#080d24] leading-[1.14] mb-6">
             Best Digital Marketing Agency in{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-emerald-400">
+            <span className="text-[#207de9] underline decoration-blue-200 underline-offset-8">
               {profile.name}
             </span>
           </h1>
 
-          <p className="text-slate-300 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed mb-8">
-            Digital FX helps commercial enterprises, retail brands, healthcare centers, and manufacturers in <strong>{profile.name}</strong> capture Rank #1 on Google Maps 3-Pack, build sub-second websites, and convert high-intent buyers into paying clients.
+          <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-3xl mx-auto mb-8">
+            Digital FX helps commercial enterprises, retail brands, healthcare clinics, immigration firms, and manufacturing businesses in <strong>{profile.name}</strong> capture Rank #1 on Google Maps 3-Pack, build sub-second Next.js web applications, and generate high-intent customer inquiries that convert into revenue.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-3.5 mb-10">
+          {/* Action Buttons with Full Details Open */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-2xl mx-auto mb-10">
             <a
-              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20need%20a%20local%20SEO%20proposal%20for%20my%20business%20in%20${encodeURIComponent(profile.name)}.`}
+              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20am%20from%20${encodeURIComponent(profile.name)}%20and%20want%20a%20free%20growth%20audit.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-sm transition shadow-lg shadow-blue-500/25 flex items-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm transition shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2"
             >
-              <span>Get Free {profile.name} Proposal</span>
+              <span>💬 Chat with Senior Strategist (WhatsApp)</span>
               <span>→</span>
             </a>
 
             <Link
               href="/#geo-checker"
-              className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-sm transition border border-white/15 flex items-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-extrabold text-xs sm:text-sm transition shadow-md shadow-blue-500/20 flex items-center justify-center gap-2"
             >
-              <span>⚡ Run AI Geo-Audit</span>
+              <span>⚡ Run Free AI Geo-Audit for {profile.name}</span>
             </Link>
           </div>
 
-          {/* Key Proof Points */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto pt-6 border-t border-white/10 text-left">
-            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-              <div className="text-xl font-black text-white">4.9 ★</div>
-              <div className="text-[11px] text-slate-400 mt-0.5">128+ Verified Reviews</div>
+          {/* Proof Badges Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto pt-6 border-t border-slate-200 text-left">
+            <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+              <div className="text-xl font-extrabold text-[#080d24]">4.9 ★★★★★</div>
+              <div className="text-xs text-slate-500 font-medium mt-0.5">128+ Verified Reviews</div>
             </div>
-            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-              <div className="text-xl font-black text-emerald-400">&lt; 0.8s</div>
-              <div className="text-[11px] text-slate-400 mt-0.5">Next.js Mobile Speed</div>
+            <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+              <div className="text-xl font-extrabold text-emerald-600">&lt; 0.8s</div>
+              <div className="text-xs text-slate-500 font-medium mt-0.5">Sub-Second Mobile Load</div>
             </div>
-            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-              <div className="text-xl font-black text-blue-400">45-90 Days</div>
-              <div className="text-[11px] text-slate-400 mt-0.5">Google Maps 3-Pack Target</div>
+            <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+              <div className="text-xl font-extrabold text-[#207de9]">45-90 Days</div>
+              <div className="text-xs text-slate-500 font-medium mt-0.5">Google Maps 3-Pack Target</div>
             </div>
-            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-              <div className="text-xl font-black text-purple-400">100% ROI</div>
-              <div className="text-[11px] text-slate-400 mt-0.5">Attributable Pipeline Focus</div>
+            <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+              <div className="text-xl font-extrabold text-purple-600">Zero Lock-In</div>
+              <div className="text-xs text-slate-500 font-medium mt-0.5">Cancel Anytime Retainers</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Local Commercial Landscape & Challenges */}
-      <section className="py-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/10">
+      {/* 5. LOCAL MARKET REALITY & CORRIDORS */}
+      <section className="py-16 sm:py-20 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <div className="lg:col-span-5 space-y-4">
-            <span className="text-xs font-bold uppercase tracking-widest text-blue-400">Market Intelligence</span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
-              The Digital Reality for Businesses in {profile.name}
+            <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+              Commercial Intelligence
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] leading-tight tracking-tight">
+              The Digital Reality for Growing Businesses in {profile.name}
             </h2>
-            <p className="text-slate-300 text-sm leading-relaxed">
-              Consumer behavior in {profile.name} has fundamentally changed. Whether it&apos;s a healthcare patient, a commercial B2B buyer, or a retail shopper, over 85% of purchases now begin with a mobile search for <em>&ldquo;best near me&rdquo;</em> on Google Maps or generative search engines like ChatGPT and Perplexity.
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Consumer behavior in {profile.name} has fundamentally changed. Whether it&apos;s a healthcare patient, a commercial B2B buyer, or an overseas visa applicant, over 85% of purchases now begin with a mobile search for <em>&ldquo;best near me&rdquo;</em> on Google Maps or generative search engines like ChatGPT and Perplexity.
             </p>
-            <div className="p-4 rounded-xl bg-blue-950/40 border border-blue-800/40 text-xs text-blue-200 leading-relaxed">
-              <strong>Key Corridors Targeted in {profile.name}:</strong>
-              <div className="flex flex-wrap gap-1.5 mt-2">
+
+            <div className="p-5 rounded-2xl bg-blue-50/70 border border-blue-200 text-xs text-slate-800 space-y-2">
+              <strong className="text-[#080d24] font-bold block text-sm">
+                Primary Commercial Corridors Targeted in {profile.name}:
+              </strong>
+              <div className="flex flex-wrap gap-1.5 pt-1">
                 {profile.landmarks.map((landmark) => (
-                  <span key={landmark} className="px-2 py-0.5 rounded bg-blue-900/60 border border-blue-700/50 text-[11px]">
-                    {landmark}
+                  <span key={landmark} className="px-2.5 py-1 rounded-lg bg-white border border-blue-200 text-[#080d24] text-xs font-semibold shadow-2xs">
+                    📍 {landmark}
                   </span>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-7 space-y-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-2">
-              Common Growth Bottlenecks Faced by {profile.name} Companies:
+          <div className="lg:col-span-7 space-y-3.5">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+              Core Growth Bottlenecks Faced by Businesses in {profile.name}:
             </h3>
             {profile.localChallenges.map((challenge, idx) => (
               <div
                 key={idx}
-                className="p-4 rounded-xl bg-white/[0.02] border border-white/10 flex items-start gap-3.5"
+                className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5 shadow-2xs"
               >
-                <div className="w-6 h-6 rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+                <div className="w-6 h-6 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                   ✕
                 </div>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
                   {challenge}
                 </p>
               </div>
@@ -340,176 +416,270 @@ export default async function CityLocationPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* 4-Stage Agency Execution System */}
-      <section className="py-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/10">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Proven Playbook</span>
-          <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
+      {/* 6. PROVEN 4-STAGE EXECUTION SYSTEM (DETAILS FULLY OPEN) */}
+      <section className="py-16 sm:py-20 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+            Engineered Playbook
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mt-3 tracking-tight">
             Our 4-Stage Local Dominance Framework in {profile.name}
           </h2>
-          <p className="text-slate-400 text-xs sm:text-sm mt-2">
-            No vanity impressions. We execute the exact technical signals Google requires to place your business at the top of organic results.
+          <p className="text-slate-600 text-xs sm:text-sm mt-2">
+            Every step is transparent with clear deliverable milestones. No hidden fluff.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {profile.localStrategyPoints.map((point, idx) => (
-            <div
-              key={idx}
-              className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-blue-500/50 transition group"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-8 h-8 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center font-black text-xs">
-                  0{idx + 1}
+          {profile.localStrategyPoints.map((point, idx) => {
+            const [title, desc] = point.includes(":") ? point.split(":") : [`Stage 0${idx + 1}`, point];
+            return (
+              <div
+                key={idx}
+                className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover:border-[#207de9] hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#207de9] border border-blue-200 flex items-center justify-center font-black text-xs">
+                      0{idx + 1}
+                    </div>
+                    <h3 className="text-base font-bold text-[#080d24]">
+                      {title}
+                    </h3>
+                  </div>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    {desc || point}
+                  </p>
                 </div>
-                <h3 className="text-sm font-bold text-white group-hover:text-blue-400 transition">
-                  {point.split(":")[0]}
-                </h3>
+
+                <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-semibold">
+                  <span>Implementation Phase</span>
+                  <span className="text-emerald-700 font-bold">Verified Deliverable ✓</span>
+                </div>
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                {point.split(":")[1] || point}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      {/* Verified Local Case Study */}
-      <section className="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/10">
-        <div className="rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-950/40 via-slate-950 to-slate-900 p-6 sm:p-8">
-          <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">
+      {/* 7. VERIFIED LOCAL CASE STUDY */}
+      <section className="py-16 sm:py-20 max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+        <div className="rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/40 via-white to-blue-50/30 p-7 sm:p-10 shadow-xs">
+          <div className="flex items-center gap-2 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
             <span>✓ Verified Case Study Benchmark • {profile.name} Region</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-white mb-2">
+          <h2 className="text-2xl sm:text-3xl font-black text-[#080d24] mb-2 tracking-tight">
             {profile.sampleCaseStudy.clientType}
           </h2>
-          <div className="text-xs text-slate-400 mb-4">
-            Corridor: <span className="text-slate-200 font-semibold">{profile.sampleCaseStudy.neighborhood}</span>
+          <div className="text-xs text-slate-500 mb-5">
+            Commercial Corridor: <strong className="text-slate-800">{profile.sampleCaseStudy.neighborhood}</strong>
           </div>
-          <div className="p-4 rounded-xl bg-black/40 border border-white/10 mb-4 inline-block">
-            <span className="text-xs text-slate-400 block mb-1">Impact Metric:</span>
-            <span className="text-lg sm:text-xl font-extrabold text-emerald-400">
+
+          <div className="p-4 rounded-2xl bg-white border border-emerald-200 mb-5 inline-block shadow-xs">
+            <span className="text-xs text-slate-500 block mb-1 font-medium">Attributable Growth Metric:</span>
+            <span className="text-xl sm:text-2xl font-extrabold text-emerald-700">
               {profile.sampleCaseStudy.metrics}
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+
+          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
             {profile.sampleCaseStudy.result}
           </p>
         </div>
       </section>
 
-      {/* Transparent Pricing Packages */}
-      <section className="py-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/10">
+      {/* 8. TRANSPARENT PRICING TIERS (ALL DETAILS ADDED & BUTTONS OPEN) */}
+      <section className="py-16 sm:py-20 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-blue-400">Transparent Investment</span>
-          <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
-            Service Packages for {profile.name}
+          <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+            Clear Investment
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mt-3 tracking-tight">
+            Transparent Pricing &amp; Packages for {profile.name}
           </h2>
-          <p className="text-slate-400 text-xs sm:text-sm mt-2">
-            Clear deliverables with zero lock-in contracts. Pay securely via RBI-authorized PayU terminal.
+          <p className="text-slate-600 text-xs sm:text-sm mt-2">
+            All details, deliverables, and terms are fully listed below. Zero hidden charges.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Tier 1 */}
-          <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 flex flex-col justify-between">
+          {/* Plan 1 */}
+          <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between">
             <div>
-              <div className="text-xs font-bold text-blue-400 uppercase tracking-wider">Tier 01</div>
-              <h3 className="text-lg font-black text-white mt-1">Google Maps Local Growth</h3>
-              <div className="mt-3 mb-4">
-                <span className="text-2xl font-black text-white">₹2,000</span>
-                <span className="text-xs text-slate-400 font-normal"> / month</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Tier 01</span>
+              <h3 className="text-lg font-black text-[#080d24] mt-1">Google Maps Local Growth</h3>
+              <div className="mt-3 mb-5">
+                <span className="text-3xl font-black text-[#080d24]">₹2,000</span>
+                <span className="text-xs text-slate-500 font-medium"> / month</span>
               </div>
-              <ul className="space-y-2.5 text-xs text-slate-300 mb-6">
-                <li className="flex items-center gap-2">✓ Complete GBP Audit &amp; Optimization</li>
-                <li className="flex items-center gap-2">✓ 30 High-DA Local Indian Citations</li>
-                <li className="flex items-center gap-2">✓ Review Capture Guidance</li>
-                <li className="flex items-center gap-2">✓ Monthly Rank Tracking Report</li>
+
+              {/* Full Inclusions Open */}
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                What&apos;s Included (Full Deliverables):
+              </div>
+              <ul className="space-y-2.5 text-xs text-slate-700 mb-8">
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>Complete GBP Category &amp; NAP Audit</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>30 High-DA Local Indian Citations</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>Automated WhatsApp Review Capture Playbook</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>Geo-Tagged Storefront Photo Optimization</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>Monthly Local Search Rank Tracking Report</span>
+                </li>
               </ul>
             </div>
+
+            {/* Button with Details */}
             <a
-              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20the%20₹2,000/mo%20Google%20Maps%20Growth%20plan%20for%20${encodeURIComponent(profile.name)}.`}
+              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20activate%20the%20₹2,000/mo%20Google%20Maps%20Growth%20plan%20for%20${encodeURIComponent(profile.name)}.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs text-center transition"
+              className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-[#207de9] text-white font-bold text-xs text-center transition shadow-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer"
             >
-              Select Plan
+              <span>Activate Plan on WhatsApp</span>
+              <span className="text-[10px] text-slate-300 font-normal">₹2,000/mo • Instant Onboarding</span>
             </a>
           </div>
 
-          {/* Tier 2 - Featured */}
-          <div className="p-6 rounded-2xl bg-blue-950/40 border-2 border-blue-500 flex flex-col justify-between relative shadow-xl shadow-blue-500/10">
-            <div className="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-blue-500 text-white text-[10px] font-black uppercase tracking-wider">
+          {/* Plan 2 - Featured */}
+          <div className="p-6 sm:p-7 rounded-2xl bg-blue-50/40 border-2 border-[#207de9] shadow-md flex flex-col justify-between relative">
+            <div className="absolute -top-3 right-5 px-3 py-0.5 rounded-full bg-[#207de9] text-white text-[10px] font-black uppercase tracking-wider shadow-xs">
               Most Popular
             </div>
             <div>
-              <div className="text-xs font-bold text-blue-300 uppercase tracking-wider">Tier 02</div>
-              <h3 className="text-lg font-black text-white mt-1">Next.js Web Architecture</h3>
-              <div className="mt-3 mb-4">
-                <span className="text-2xl font-black text-white">₹10,000</span>
-                <span className="text-xs text-slate-400 font-normal"> one-time</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#207de9]">Tier 02</span>
+              <h3 className="text-lg font-black text-[#080d24] mt-1">Next.js Web Architecture</h3>
+              <div className="mt-3 mb-5">
+                <span className="text-3xl font-black text-[#080d24]">₹10,000</span>
+                <span className="text-xs text-slate-500 font-medium"> one-time</span>
               </div>
-              <ul className="space-y-2.5 text-xs text-slate-200 mb-6">
-                <li className="flex items-center gap-2">✓ Sub-second (&lt; 0.8s) Mobile Speed</li>
-                <li className="flex items-center gap-2">✓ 1-Click WhatsApp Conversion Engine</li>
-                <li className="flex items-center gap-2">✓ Full Schema.org JSON-LD Markup</li>
-                <li className="flex items-center gap-2">✓ Free SSL &amp; High-Speed CDN Hosting</li>
+
+              {/* Full Inclusions Open */}
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                What&apos;s Included (Full Deliverables):
+              </div>
+              <ul className="space-y-2.5 text-xs text-slate-800 mb-8 font-medium">
+                <li className="flex items-start gap-2">
+                  <span className="text-[#207de9] font-bold">✓</span>
+                  <span>Sub-Second (&lt; 0.8s) Mobile Load Speed</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#207de9] font-bold">✓</span>
+                  <span>1-Click WhatsApp Floating Conversion Engine</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#207de9] font-bold">✓</span>
+                  <span>Complete Schema.org JSON-LD Structured Data</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#207de9] font-bold">✓</span>
+                  <span>Free SSL, Domain Setup &amp; Edge CDN Hosting</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#207de9] font-bold">✓</span>
+                  <span>Delivered in 7 Days with 100% Mobile Score</span>
+                </li>
               </ul>
             </div>
+
+            {/* Button with Details */}
             <a
-              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20a%20Next.js%20Website%20for%20my%20business%20in%20${encodeURIComponent(profile.name)}.`}
+              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20build%20a%20Next.js%20Website%20for%20my%20business%20in%20${encodeURIComponent(profile.name)}.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs text-center transition shadow-md"
+              className="w-full py-3 px-4 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs text-center transition shadow-md shadow-blue-500/25 flex flex-col items-center justify-center gap-0.5 cursor-pointer"
             >
-              Build My Website
+              <span>Build My Website</span>
+              <span className="text-[10px] text-blue-100 font-normal">₹10,000 One-Time • 7-Day Launch</span>
             </a>
           </div>
 
-          {/* Tier 3 */}
-          <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 flex flex-col justify-between">
+          {/* Plan 3 */}
+          <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between">
             <div>
-              <div className="text-xs font-bold text-purple-400 uppercase tracking-wider">Tier 03</div>
-              <h3 className="text-lg font-black text-white mt-1">360° Growth Partner Retainer</h3>
-              <div className="mt-3 mb-4">
-                <span className="text-2xl font-black text-white">₹25,000</span>
-                <span className="text-xs text-slate-400 font-normal"> / month</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-purple-600">Tier 03</span>
+              <h3 className="text-lg font-black text-[#080d24] mt-1">360° Growth Retainer</h3>
+              <div className="mt-3 mb-5">
+                <span className="text-3xl font-black text-[#080d24]">₹25,000</span>
+                <span className="text-xs text-slate-500 font-medium"> / month</span>
               </div>
-              <ul className="space-y-2.5 text-xs text-slate-300 mb-6">
-                <li className="flex items-center gap-2">✓ Google Maps + Organic SEO Domination</li>
-                <li className="flex items-center gap-2">✓ Google Search Ads &amp; Meta Funnels</li>
-                <li className="flex items-center gap-2">✓ GEO &amp; AI Search Engine Placement</li>
-                <li className="flex items-center gap-2">✓ Dedicated Senior Strategist Desk</li>
+
+              {/* Full Inclusions Open */}
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                What&apos;s Included (Full Deliverables):
+              </div>
+              <ul className="space-y-2.5 text-xs text-slate-700 mb-8">
+                <li className="flex items-start gap-2">
+                  <span className="text-purple-600 font-bold">✓</span>
+                  <span>Google Maps 3-Pack + National SEO Domination</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-purple-600 font-bold">✓</span>
+                  <span>High-Intent Google Search Ads + Meta Retargeting</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-purple-600 font-bold">✓</span>
+                  <span>Generative Engine Optimization (GEO for AI Search)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-purple-600 font-bold">✓</span>
+                  <span>Dedicated Senior Growth Strategist Phone Desk</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-purple-600 font-bold">✓</span>
+                  <span>Weekly Closed-Loop Lead Attribution Reports</span>
+                </li>
               </ul>
             </div>
+
+            {/* Button with Details */}
             <a
               href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20discuss%20the%20360°%20Growth%20Retainer%20for%20${encodeURIComponent(profile.name)}.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs text-center transition"
+              className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-purple-700 text-white font-bold text-xs text-center transition shadow-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer"
             >
-              Book Consultation
+              <span>Retain Growth Strategist</span>
+              <span className="text-[10px] text-slate-300 font-normal">₹25,000/mo • Dedicated Line</span>
             </a>
           </div>
         </div>
       </section>
 
-      {/* Local FAQs */}
-      <section className="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/10">
-        <div className="text-center mb-10">
-          <span className="text-xs font-bold uppercase tracking-widest text-blue-400">Questions &amp; Answers</span>
-          <h2 className="text-2xl font-black text-white mt-1">
-            Frequently Asked Questions by {profile.name} Clients
+      {/* 9. LOCAL FAQS - ALL QUESTIONS & ANSWERS FULLY OPEN */}
+      <section className="py-16 sm:py-20 max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+        <div className="text-center mb-12">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+            Frequently Answered Questions
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mt-3 tracking-tight">
+            Client Inquiries &amp; Answers for {profile.name}
           </h2>
+          <p className="text-slate-500 text-xs sm:text-sm mt-1">
+            All details are fully visible below. Click nothing to read.
+          </p>
         </div>
 
         <div className="space-y-4">
           {profile.faqs.map((faq, idx) => (
-            <div key={idx} className="p-5 rounded-xl bg-white/[0.02] border border-white/10">
-              <h3 className="text-sm font-bold text-white mb-2">
-                {faq.question}
+            <div key={idx} className="p-6 rounded-2xl bg-slate-50/70 border border-slate-200">
+              <h3 className="text-base font-bold text-[#080d24] mb-2 flex items-start gap-2.5">
+                <span className="text-[#207de9] font-black">Q{idx + 1}.</span>
+                <span>{faq.question}</span>
               </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-6 font-normal">
                 {faq.answer}
               </p>
             </div>
@@ -517,29 +687,36 @@ export default async function CityLocationPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Bottom CTA Banner */}
-      <section className="py-16 max-w-5xl mx-auto px-4 text-center">
-        <h2 className="text-2xl sm:text-4xl font-black text-white mb-4">
-          Ready to Dominate Local Search in {profile.name}?
-        </h2>
-        <p className="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto mb-8">
-          Get a complimentary, no-obligation AI Geo-Audit report analyzing your business against top {profile.name} competitors on Google Maps and organic search.
-        </p>
-        <div className="flex flex-wrap justify-center gap-3.5">
-          <Link
-            href="/#geo-checker"
-            className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition"
-          >
-            ⚡ Free AI Geo-Audit on Homepage
-          </Link>
-          <a
-            href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20am%20from%20${encodeURIComponent(profile.name)}%20and%20want%20to%20grow%20my%20business.`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs transition"
-          >
-            Chat with Strategist on WhatsApp
-          </a>
+      {/* 10. BOTTOM CONSULTATION BANNER */}
+      <section className="py-16 sm:py-20 bg-slate-50">
+        <div className="max-w-[1000px] mx-auto px-4 text-center">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#080d24] mb-3 tracking-tight">
+            Ready to Dominate Local Search in {profile.name}?
+          </h2>
+          <p className="text-slate-600 text-xs sm:text-sm max-w-2xl mx-auto mb-8 leading-relaxed">
+            Get a complimentary, no-obligation AI Geo-Audit report analyzing your business against top {profile.name} competitors on Google Maps and organic search.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
+            <Link
+              href="/#geo-checker"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs sm:text-sm transition shadow-sm"
+            >
+              ⚡ Run Free AI Geo-Audit on Homepage
+            </Link>
+            <a
+              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20am%20from%20${encodeURIComponent(profile.name)}%20and%20want%20to%20consult.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm transition shadow-sm"
+            >
+              Chat on WhatsApp (+91 84475 83685)
+            </a>
+          </div>
+
+          <div className="mt-8 text-xs text-slate-500 font-medium">
+            Official Headquarters: Shop No. 210, Orbit Plaza, Crossings Republik, Ghaziabad • Serving {profile.name} &amp; Pan-India
+          </div>
         </div>
       </section>
     </div>

@@ -224,6 +224,66 @@ const BESPOKE_CITY_DATA: Record<string, Partial<CityProfile>> = {
     },
     coordinates: { lat: 23.0225, lng: 72.5714 },
   },
+  mohali: {
+    landmarks: [
+      "Phase 7 Commercial Market",
+      "Phase 8 Industrial Area & Focal Point",
+      "IT City Mohali",
+      "Sector 67 Commercial Corridor",
+      "Aerocity & GMADA Belt",
+      "Phase 3B2 Food & Retail Hub",
+      "QuarkCity Special Economic Zone",
+      "Sector 70 & Tribune Chowk Access",
+    ],
+    primaryIndustries: [
+      "IT & Software Product Companies (IT City & QuarkCity)",
+      "Immigration, Study Visa & IELTS Consultancies",
+      "Multispecialty Hospitals & Diagnostic Centers (Fortis Corridor)",
+      "Real Estate Promoters & Township Developers (Aerocity)",
+      "Precision Engineering & Fabrication (Phase 7 & 8 Focal Point)",
+      "Coaching Institutes & Higher Education",
+    ],
+    localChallenges: [
+      "Fierce cross-border competition across the Chandigarh-Mohali-Panchkula Tricity region, where businesses struggle to rank when prospective clients search from adjacent sectors.",
+      "Immigration and visa consultants burning lakhs of rupees on generic Google Ads with high click-fraud and unqualified student inquiries.",
+      "Slow, outdated WordPress websites taking 4+ seconds to load, losing over 60% of mobile search traffic from Punjab and Haryana.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Overseas Education & Study Visa Advisory",
+      neighborhood: "Phase 7 Market & Sector 70, Mohali",
+      metrics: "+340% Verified In-Office Walk-ins in 60 Days",
+      result: "Restructured Google Business Profile categories, eliminated duplicate map pins across the Tricity border, built a sub-second Next.js web application, and secured Rank #1 for 'visa consultant in Mohali' without paid ad spend.",
+    },
+    coordinates: { lat: 30.7046, lng: 76.7179 },
+  },
+  chandigarh: {
+    landmarks: [
+      "Sector 17 Commercial Plaza",
+      "Sector 35 Business Market",
+      "Sector 22 Electronics & Retail Hub",
+      "Madhya Marg Sector 26 Corridor",
+      "Industrial Area Phase 1 & 2 (Near Elante)",
+      "Sector 8 & 9 High-Street Belt",
+    ],
+    primaryIndustries: [
+      "Corporate Legal Practices & High Court Advocates",
+      "Specialist Dental & Cosmetic Clinics",
+      "Overseas Immigration & Visa Consultants",
+      "Luxury Interior Design & Architectural Studios",
+      "High-End Retail & Hospitality Showrooms",
+    ],
+    localChallenges: [
+      "Hyper-fragmented sector search intent where residents in South sectors search differently from North Chandigarh.",
+      "High ad auction costs on Google Search for education, healthcare, and property queries.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Cosmetic & Implant Dental Practice",
+      neighborhood: "Sector 35 & Madhya Marg, Chandigarh",
+      metrics: "160+ In-Clinic Consultations Booked / Mo",
+      result: "Secured Rank #1 on Google Maps 3-Pack for 'best dentist Chandigarh' with automated patient review syndication and localized schema markup.",
+    },
+    coordinates: { lat: 30.7333, lng: 76.7794 },
+  },
 };
 
 /**
@@ -243,12 +303,12 @@ export function getCitySeoProfile(citySlug: string): CityProfile | null {
   const bespoke = BESPOKE_CITY_DATA[citySlug.toLowerCase().trim()] || {};
 
   const landmarks = bespoke.landmarks || [
-    `Central Business District ${cityName}`,
-    `Commercial Hub ${cityName}`,
-    `Civil Lines`,
-    `Station Road`,
-    `Industrial Area ${cityName}`,
-    `Ring Road Corridor`,
+    `Main Commercial Market & City Center ${cityName}`,
+    `Civil Lines & Administrative Corridor`,
+    `Railway Road & Station Market`,
+    `Industrial Area Phase 1 & Focal Point`,
+    `Ring Road / GT Road Commercial Belt`,
+    `Sector / Colony High-Street Market`,
   ];
 
   const primaryIndustries = bespoke.primaryIndustries || [

@@ -100,33 +100,64 @@ export default async function BlogPostPage({ params }: PageProps) {
   const shareUrl = encodeURIComponent(`https://www.digitalfx.in/blog/${post.slug}`);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-[#207de9] selection:text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Header */}
-      <header className="border-b border-white/10 bg-slate-950/90 backdrop-blur-md sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-0.5 border border-slate-200">
-              <img src="/logo.png" alt="Digital FX" className="w-full h-full object-contain" />
+      {/* 1. TOP BAR */}
+      <div className="bg-[#080d24] text-white py-2 border-b border-white/10 text-xs">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-3 text-slate-300 text-[11.5px] font-medium">
+            <span className="inline-flex items-center gap-1.5 font-semibold text-slate-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+              Google Premier Partner Certified
+            </span>
+            <span className="hidden sm:inline text-slate-600">•</span>
+            <span className="hidden sm:inline text-slate-300">
+              Digital FX Search Engineering Insights
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 text-[12px] font-medium ml-auto sm:ml-0">
+            <a href="tel:+918447583685" className="hover:text-white font-bold transition flex items-center gap-1.5">
+              <span className="text-[#207de9]">☎</span> +91 84475 83685
+            </a>
+            <a
+              href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20consult."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-400 hover:text-emerald-300 font-bold transition flex items-center gap-1.5"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>WhatsApp Strategy Desk</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. MAIN HEADER */}
+      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
+        <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
+          <Link href="/" className="flex items-center gap-3 group shrink-0">
+            <div className="flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center overflow-hidden rounded-2xl bg-white border border-slate-200/90 shadow-xs p-0.5 group-hover:scale-105 transition-transform">
+              <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
             </div>
             <div>
-              <span className="text-lg font-black tracking-tight text-white group-hover:text-blue-400 transition">
-                DIGITAL <span className="text-blue-400">FX</span>
-              </span>
-              <span className="block text-[8.5px] font-bold tracking-[1.8px] text-slate-400 uppercase">
+              <div className="text-[20px] sm:text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+                DIGITAL <span className="text-[#207de9]">FX</span>
+              </div>
+              <div className="mt-1 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.6px] text-slate-500">
                 Search Architecture
-              </span>
+              </div>
             </div>
           </Link>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Link
               href="/blog"
-              className="text-xs font-semibold text-slate-300 hover:text-white transition"
+              className="text-xs font-bold text-slate-600 hover:text-[#207de9] transition"
             >
               ← All Insights
             </Link>
@@ -134,7 +165,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20discuss%20an%20SEO%20strategy."
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-bold px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white transition flex items-center gap-1.5 shadow-xs"
+              className="h-[40px] px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs transition"
             >
               <span>WhatsApp Strategist</span>
             </a>
@@ -142,49 +173,49 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
       </header>
 
-      {/* Breadcrumbs */}
-      <div className="border-b border-white/5 bg-slate-900/40 py-3">
-        <div className="max-w-4xl mx-auto px-4 text-xs text-slate-400 flex items-center gap-2 flex-wrap">
-          <Link href="/" className="hover:text-white transition">Home</Link>
-          <span>/</span>
-          <Link href="/blog" className="hover:text-white transition">Insights</Link>
-          <span>/</span>
-          <span className="text-blue-400 font-medium truncate max-w-[280px] sm:max-w-none">
+      {/* 3. BREADCRUMBS */}
+      <div className="bg-slate-50 border-b border-slate-200/80 py-3">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-xs text-slate-500 flex items-center gap-2 flex-wrap">
+          <Link href="/" className="hover:text-[#207de9] transition font-medium">Home</Link>
+          <span className="text-slate-400">/</span>
+          <Link href="/blog" className="hover:text-[#207de9] transition font-medium">Insights</Link>
+          <span className="text-slate-400">/</span>
+          <span className="text-[#207de9] font-semibold truncate max-w-[280px] sm:max-w-none">
             {post.title}
           </span>
         </div>
       </div>
 
-      {/* Article Content Container */}
+      {/* 4. ARTICLE CONTAINER */}
       <article className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         {/* Metadata Header */}
         <header className="mb-10">
           <div className="flex items-center gap-3 mb-4 text-xs">
-            <span className="px-3 py-1 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/25 font-bold uppercase tracking-wider text-[11px]">
+            <span className="px-3 py-1 rounded-full bg-blue-50 text-[#207de9] border border-blue-200 font-bold uppercase tracking-wider text-[11px]">
               {post.category}
             </span>
-            <span className="text-slate-400">{post.publishedAt}</span>
-            <span className="text-slate-600">•</span>
-            <span className="text-slate-400">{post.readingTime}</span>
+            <span className="text-slate-500 font-medium">{post.publishedAt}</span>
+            <span className="text-slate-300">•</span>
+            <span className="text-slate-500 font-medium">{post.readingTime}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#080d24] leading-tight tracking-tight mb-6">
             {post.title}
           </h1>
 
-          <p className="text-slate-300 text-base sm:text-lg leading-relaxed mb-8">
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8 font-normal">
             {post.description}
           </p>
 
           {/* Author Card */}
-          <div className="flex items-center justify-between gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+          <div className="flex items-center justify-between gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200">
             <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-black text-white text-sm">
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-extrabold text-white text-sm shadow-xs">
                 SY
               </div>
               <div>
-                <p className="text-sm font-bold text-white">{post.author.name}</p>
-                <p className="text-xs text-slate-400">{post.author.role} • {post.author.location}</p>
+                <p className="text-sm font-bold text-[#080d24]">{post.author.name}</p>
+                <p className="text-xs text-slate-500">{post.author.role} • {post.author.location}</p>
               </div>
             </div>
 
@@ -192,7 +223,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               href={`https://wa.me/?text=${shareText}%20${shareUrl}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-bold px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition flex items-center gap-1.5 border border-white/10"
+              className="text-xs font-bold px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 transition flex items-center gap-1.5 border border-slate-200 shadow-2xs"
               title="Share via WhatsApp"
             >
               <span>Share</span>
@@ -201,24 +232,24 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
         </header>
 
-        {/* Key Takeaways Callout Box */}
-        <div className="p-6 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 mb-12">
-          <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-3">
-            <span>⚡ Practitioner Summary &amp; Key Takeaways</span>
+        {/* Key Takeaways Box (Light Emerald) */}
+        <div className="p-6 sm:p-7 rounded-2xl bg-emerald-50/70 border border-emerald-200 mb-12 shadow-2xs">
+          <div className="flex items-center gap-2 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3">
+            <span>⚡ Practitioner Summary &amp; Key Action Items</span>
           </div>
-          <ul className="space-y-2.5 text-xs sm:text-sm text-slate-200">
+          <ul className="space-y-2.5 text-xs sm:text-sm text-slate-800">
             {post.keyTakeaways.map((takeaway, idx) => (
               <li key={idx} className="flex items-start gap-2.5">
-                <span className="text-emerald-400 font-bold shrink-0">✓</span>
-                <span className="leading-relaxed">{takeaway}</span>
+                <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                <span className="leading-relaxed font-medium">{takeaway}</span>
               </li>
             ))}
           </ul>
         </div>
 
         {/* Table of Contents */}
-        <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 mb-12">
-          <p className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+        <div className="p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200 mb-12">
+          <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
             Table of Contents
           </p>
           <div className="space-y-2 text-xs sm:text-sm">
@@ -226,7 +257,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               <a
                 key={toc.id}
                 href={`#${toc.id}`}
-                className="block text-slate-300 hover:text-blue-400 transition"
+                className="block text-slate-700 hover:text-[#207de9] font-medium transition"
               >
                 {toc.title}
               </a>
@@ -235,32 +266,32 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
 
         {/* Body Sections */}
-        <div className="space-y-12 text-slate-300 leading-relaxed text-sm sm:text-base">
+        <div className="space-y-12 text-slate-700 leading-relaxed text-sm sm:text-base">
           {post.sections.map((sec) => (
             <section key={sec.id} id={sec.id} className="scroll-mt-24 space-y-4">
-              <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight border-b border-white/10 pb-2">
+              <h2 className="text-xl sm:text-2xl font-extrabold text-[#080d24] tracking-tight border-b border-slate-200 pb-2">
                 {sec.heading}
               </h2>
 
               {sec.body.map((para, pIdx) => (
-                <p key={pIdx} className="leading-relaxed text-slate-300">
+                <p key={pIdx} className="leading-relaxed text-slate-700">
                   {para}
                 </p>
               ))}
 
               {/* Callout if present */}
               {sec.callout && (
-                <div className="p-5 rounded-2xl bg-blue-950/40 border border-blue-800/40 my-4 text-xs sm:text-sm">
-                  <div className="font-bold text-blue-300 mb-1">{sec.callout.title}</div>
-                  <div className="text-blue-100/90 leading-relaxed">{sec.callout.text}</div>
+                <div className="p-5 rounded-2xl bg-blue-50/70 border border-blue-200 my-4 text-xs sm:text-sm">
+                  <div className="font-bold text-[#080d24] mb-1">{sec.callout.title}</div>
+                  <div className="text-slate-700 leading-relaxed">{sec.callout.text}</div>
                 </div>
               )}
 
               {/* Table if present */}
               {sec.table && (
-                <div className="overflow-x-auto my-6 rounded-2xl border border-white/10 bg-white/[0.02]">
+                <div className="overflow-x-auto my-6 rounded-2xl border border-slate-200 bg-white shadow-2xs">
                   <table className="w-full text-left text-xs sm:text-sm">
-                    <thead className="bg-white/5 border-b border-white/10 text-white font-bold">
+                    <thead className="bg-slate-50 border-b border-slate-200 text-[#080d24] font-bold">
                       <tr>
                         {sec.table.headers.map((h, hIdx) => (
                           <th key={hIdx} className="p-3.5 sm:p-4">
@@ -269,11 +300,11 @@ export default async function BlogPostPage({ params }: PageProps) {
                         ))}
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 text-slate-300">
+                    <tbody className="divide-y divide-slate-100 text-slate-700">
                       {sec.table.rows.map((row, rIdx) => (
-                        <tr key={rIdx} className="hover:bg-white/[0.02] transition">
+                        <tr key={rIdx} className="hover:bg-slate-50/50 transition">
                           {row.map((cell, cIdx) => (
-                            <td key={cIdx} className="p-3.5 sm:p-4 leading-normal">
+                            <td key={cIdx} className="p-3.5 sm:p-4 leading-normal font-medium">
                               {cell}
                             </td>
                           ))}
@@ -286,13 +317,13 @@ export default async function BlogPostPage({ params }: PageProps) {
 
               {/* Checklist if present */}
               {sec.checklist && (
-                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 my-4 space-y-2.5 text-xs sm:text-sm">
+                <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 my-4 space-y-2.5 text-xs sm:text-sm">
                   {sec.checklist.map((item, cIdx) => (
-                    <div key={cIdx} className="flex items-start gap-2.5 text-slate-200">
-                      <span className="w-5 h-5 rounded-full bg-blue-600/30 text-blue-400 flex items-center justify-center text-xs font-black shrink-0 mt-0.5">
+                    <div key={cIdx} className="flex items-start gap-2.5 text-slate-800">
+                      <span className="w-5 h-5 rounded-full bg-blue-100 text-[#207de9] flex items-center justify-center text-xs font-black shrink-0 mt-0.5">
                         {cIdx + 1}
                       </span>
-                      <span className="leading-relaxed">{item}</span>
+                      <span className="leading-relaxed font-medium">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -302,18 +333,18 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
 
         {/* Bottom CTA Block */}
-        <div className="mt-16 pt-10 border-t border-white/10">
-          <div className="rounded-3xl border border-blue-500/30 bg-gradient-to-r from-blue-950/50 via-slate-900 to-slate-950 p-8 sm:p-10 text-center">
-            <h3 className="text-2xl sm:text-3xl font-black text-white mb-3">
+        <div className="mt-16 pt-10 border-t border-slate-200">
+          <div className="rounded-3xl border border-blue-200 bg-gradient-to-r from-blue-50/70 via-white to-slate-50 p-8 sm:p-10 text-center shadow-xs">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mb-3 tracking-tight">
               Need a Custom Growth Strategy for Your Business?
             </h3>
-            <p className="text-slate-300 text-xs sm:text-sm max-w-xl mx-auto mb-6 leading-relaxed">
+            <p className="text-slate-600 text-xs sm:text-sm max-w-xl mx-auto mb-6 leading-relaxed">
               Skip generic templates. Partner with Digital FX to execute verified Google Maps 3-Pack rankings and custom Next.js web development.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Link
                 href="/#geo-checker"
-                className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition"
+                className="px-5 py-2.5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs transition shadow-xs"
               >
                 ⚡ Free AI Geo-Audit
               </Link>
@@ -321,9 +352,9 @@ export default async function BlogPostPage({ params }: PageProps) {
                 href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20read%20your%20blog%20post%20and%20want%20to%20consult."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs transition flex items-center gap-1.5"
+                className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-xs"
               >
-                <span>WhatsApp Strategist Desk</span>
+                <span>WhatsApp Strategist (+91 84475 83685)</span>
                 <span>→</span>
               </a>
             </div>
