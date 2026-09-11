@@ -168,13 +168,20 @@ export default function LocationsDirectoryPage() {
             >
               <div>
                 <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-3">
-                  <h2 className="text-base font-extrabold text-[#080d24] tracking-tight flex items-center gap-2">
-                    <span className="text-[#207de9] text-sm">📍</span>
-                    <span>{region.name}</span>
-                  </h2>
-                  <span className="text-[10px] uppercase font-extrabold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
-                    {region.cities.length} Cities
-                  </span>
+                  <Link
+                    href={`/locations/${toCitySlug(region.name)}`}
+                    className="text-base font-extrabold text-[#080d24] hover:text-[#207de9] tracking-tight flex items-center gap-2 group transition"
+                    title={`Explore ${region.name} statewide SEO & digital marketing hub`}
+                  >
+                    <span className="text-[#207de9] text-sm group-hover:scale-110 transition-transform">📍</span>
+                    <span className="group-hover:underline underline-offset-4">{region.name}</span>
+                  </Link>
+                  <Link
+                    href={`/locations/${toCitySlug(region.name)}`}
+                    className="text-[10px] uppercase font-extrabold px-2.5 py-1 rounded-full bg-blue-50 hover:bg-blue-100 text-[#207de9] border border-blue-200 transition"
+                  >
+                    {region.cities.length} Cities Hub →
+                  </Link>
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 mb-4">
@@ -195,7 +202,13 @@ export default function LocationsDirectoryPage() {
               </div>
 
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-                <span>Local Search Coverage</span>
+                <Link
+                  href={`/locations/${toCitySlug(region.name)}`}
+                  className="font-bold text-[#207de9] hover:underline flex items-center gap-1"
+                >
+                  <span>Explore {region.name} Hub</span>
+                  <span>→</span>
+                </Link>
                 <span className="text-emerald-700 font-bold">Verified Active ✓</span>
               </div>
             </div>

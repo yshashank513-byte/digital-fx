@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCitySeoProfile, toCitySlug, ALL_CITIES_FLAT } from "@/lib/citySeoData";
+import {
+  getCitySeoProfile,
+  toCitySlug,
+  ALL_LOCATIONS_FLAT,
+  getCitiesInState,
+} from "@/lib/citySeoData";
 
 interface PageProps {
   params: Promise<{
@@ -9,8 +14,9 @@ interface PageProps {
   }>;
 }
 
-// Pre-render top 35 high-impact commercial hubs across India
+// Pre-render all 36 States & UTs + top high-impact commercial hubs across India
 export async function generateStaticParams() {
+  const stateSlugs = ALL_LOCATIONS_FLAT.filter((l) => l.isState).map((l) => l.slug);
   const topCities = [
     "ghaziabad",
     "noida",
@@ -50,7 +56,8 @@ export async function generateStaticParams() {
     "rajkot",
   ];
 
-  return topCities.map((slug) => ({ city: slug }));
+  const allSlugs = Array.from(new Set([...stateSlugs, ...topCities]));
+  return allSlugs.map((slug) => ({ city: slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -95,6 +102,58 @@ export default async function CityLocationPage({ params }: PageProps) {
     notFound();
   }
 
+  const siblingCities = !profile.isState
+    ? getCitiesInState(profile.state).filter((c) => c.slug !== profile.slug)
+    : [];
+
+  const breadcrumbItems = profile.isState
+    ? [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.digitalfx.in",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Locations",
+          item: "https://www.digitalfx.in/locations",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: profile.name,
+          item: `https://www.digitalfx.in/locations/${profile.slug}`,
+        },
+      ]
+    : [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.digitalfx.in",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Locations",
+          item: "https://www.digitalfx.in/locations",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: profile.state,
+          item: `https://www.digitalfx.in/locations/${toCitySlug(profile.state)}`,
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: profile.name,
+          item: `https://www.digitalfx.in/locations/${profile.slug}`,
+        },
+      ];
+
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -115,16 +174,27 @@ export default async function CityLocationPage({ params }: PageProps) {
         postalCode: "201016",
         addressCountry: "IN",
       },
-      areaServed: [
-        {
-          "@type": "City",
-          name: profile.name,
-        },
-        {
-          "@type": "State",
-          name: profile.state,
-        },
-      ],
+      areaServed: profile.isState
+        ? [
+            {
+              "@type": "State",
+              name: profile.name,
+            },
+            ...(profile.citiesInState?.slice(0, 15).map((c) => ({
+              "@type": "City",
+              name: c.name,
+            })) || []),
+          ]
+        : [
+            {
+              "@type": "City",
+              name: profile.name,
+            },
+            {
+              "@type": "State",
+              name: profile.state,
+            },
+          ],
       geo: {
         "@type": "GeoCoordinates",
         latitude: profile.coordinates.lat,
@@ -153,32 +223,7 @@ export default async function CityLocationPage({ params }: PageProps) {
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://www.digitalfx.in",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Locations",
-          item: "https://www.digitalfx.in/locations",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: profile.state,
-          item: "https://www.digitalfx.in/locations",
-        },
-        {
-          "@type": "ListItem",
-          position: 4,
-          name: profile.name,
-          item: `https://www.digitalfx.in/locations/${profile.slug}`,
-        },
-      ],
+      itemListElement: breadcrumbItems,
     },
   ];
 
@@ -199,7 +244,9 @@ export default async function CityLocationPage({ params }: PageProps) {
             </span>
             <span className="hidden sm:inline text-slate-600">•</span>
             <span className="hidden sm:inline text-slate-300">
-              {profile.name}, {profile.state} Growth Desk
+              {profile.isState
+                ? `${profile.name} State Growth Desk`
+                : `${profile.name}, ${profile.state} Growth Desk`}
             </span>
           </div>
 
@@ -232,7 +279,9 @@ export default async function CityLocationPage({ params }: PageProps) {
                 DIGITAL <span className="text-[#207de9]">FX</span>
               </div>
               <div className="mt-1 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.6px] text-slate-500">
-                {profile.name} Local Search Architecture
+                {profile.isState
+                  ? `${profile.name} State Search Architecture`
+                  : `${profile.name} Local Search Architecture`}
               </div>
             </div>
           </Link>
@@ -299,9 +348,20 @@ export default async function CityLocationPage({ params }: PageProps) {
           <span className="text-slate-400">/</span>
           <Link href="/locations" className="hover:text-[#207de9] transition font-medium">Locations</Link>
           <span className="text-slate-400">/</span>
-          <span className="text-slate-600 font-medium">{profile.state}</span>
-          <span className="text-slate-400">/</span>
-          <span className="text-[#207de9] font-bold">{profile.name}</span>
+          {profile.isState ? (
+            <span className="text-[#207de9] font-bold">{profile.name}</span>
+          ) : (
+            <>
+              <Link
+                href={`/locations/${toCitySlug(profile.state)}`}
+                className="hover:text-[#207de9] transition font-medium"
+              >
+                {profile.state}
+              </Link>
+              <span className="text-slate-400">/</span>
+              <span className="text-[#207de9] font-bold">{profile.name}</span>
+            </>
+          )}
         </div>
       </div>
 
@@ -311,7 +371,11 @@ export default async function CityLocationPage({ params }: PageProps) {
           
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-[#1570ef] text-xs font-bold tracking-wider uppercase mb-5">
             <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
-            <span>Local SEO &amp; Performance Marketing Hub • {profile.name}, {profile.state}</span>
+            <span>
+              {profile.isState
+                ? `State-Wide Local SEO & Enterprise Performance Hub • ${profile.name}`
+                : `Local SEO & Performance Marketing Hub • ${profile.name}, ${profile.state}`}
+            </span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#080d24] leading-[1.14] mb-6">
@@ -322,7 +386,15 @@ export default async function CityLocationPage({ params }: PageProps) {
           </h1>
 
           <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-3xl mx-auto mb-8">
-            Digital FX helps commercial enterprises, retail brands, healthcare clinics, immigration firms, and manufacturing businesses in <strong>{profile.name}</strong> capture Rank #1 on Google Maps 3-Pack, build sub-second Next.js web applications, and generate high-intent customer inquiries that convert into revenue.
+            {profile.isState ? (
+              <>
+                Digital FX helps commercial enterprises, manufacturers, healthcare institutions, retail brands, and fast-growing businesses across all districts of <strong>{profile.name}</strong> capture Rank #1 on Google Maps 3-Pack, build sub-second Next.js web applications, and generate high-intent customer inquiries that convert into revenue.
+              </>
+            ) : (
+              <>
+                Digital FX helps commercial enterprises, retail brands, healthcare clinics, immigration firms, and manufacturing businesses in <strong>{profile.name}</strong> capture Rank #1 on Google Maps 3-Pack, build sub-second Next.js web applications, and generate high-intent customer inquiries that convert into revenue.
+              </>
+            )}
           </p>
 
           {/* Action Buttons with Full Details Open */}
@@ -366,6 +438,44 @@ export default async function CityLocationPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* 4B. STATE CITIES & DISTRICTS DIRECTORY (EXCLUSIVE FOR STATE PAGES) */}
+      {profile.isState && profile.citiesInState && profile.citiesInState.length > 0 && (
+        <section className="py-14 sm:py-16 bg-slate-50 border-b border-slate-200">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-2xl mx-auto mb-10">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                District &amp; City Coverage
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mt-3 tracking-tight">
+                All Commercial Cities &amp; Districts Covered in {profile.name}
+              </h2>
+              <p className="text-slate-600 text-xs sm:text-sm mt-2">
+                Click any city below to inspect custom local search rankings, commercial corridors, and transparent pricing.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5">
+              {profile.citiesInState.map((city) => (
+                <Link
+                  key={city.slug}
+                  href={`/locations/${city.slug}`}
+                  className="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-[#207de9] hover:shadow-md transition group flex flex-col justify-between"
+                  title={`Digital Marketing & Local SEO in ${city.name}, ${profile.name}`}
+                >
+                  <div className="text-xs font-extrabold text-[#080d24] group-hover:text-[#207de9] transition flex items-center justify-between">
+                    <span>📍 {city.name}</span>
+                    <span className="text-[10px] text-slate-400 group-hover:text-[#207de9]">→</span>
+                  </div>
+                  <span className="text-[10.5px] text-slate-500 font-medium mt-1.5">
+                    Local SEO &amp; Maps Hub
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 5. LOCAL MARKET REALITY & CORRIDORS */}
       <section className="py-16 sm:py-20 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
@@ -657,6 +767,44 @@ export default async function CityLocationPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* 8B. SIBLING HUBS IN THIS STATE (FOR CITY PAGES) */}
+      {!profile.isState && siblingCities.length > 0 && (
+        <section className="py-14 sm:py-16 bg-slate-50 border-b border-slate-200">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                  Regional Network • {profile.state}
+                </span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-[#080d24] mt-2 tracking-tight">
+                  Other Commercial Hubs Served in {profile.state}
+                </h2>
+              </div>
+              <Link
+                href={`/locations/${toCitySlug(profile.state)}`}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-slate-200 text-[#207de9] font-bold text-xs hover:border-[#207de9] hover:shadow-xs transition self-start sm:self-auto"
+              >
+                <span>View {profile.state} State Hub</span>
+                <span>→</span>
+              </Link>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {siblingCities.map((city) => (
+                <Link
+                  key={city.slug}
+                  href={`/locations/${city.slug}`}
+                  className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-[#207de9] hover:bg-blue-50 text-slate-700 hover:text-[#207de9] text-xs font-semibold transition shadow-2xs"
+                  title={`Digital Marketing & SEO in ${city.name}, ${profile.state}`}
+                >
+                  📍 {city.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 9. LOCAL FAQS - ALL QUESTIONS & ANSWERS FULLY OPEN */}
       <section className="py-16 sm:py-20 max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
