@@ -1,33 +1,29 @@
 "use client";
 
 import { adminFetch } from "@/lib/adminFetch";
-
 import { useEffect, useState, useCallback, useMemo } from "react";
 import CustomerDrawer, { DrawerRecord } from "../../../components/admin/CustomerDrawer";
 import { supabase } from "../../lib/supabase";
 
 type AnalysisItem = {
-  id: number;
+  id: string;
   url: string;
-  seo: number;
-  performance: number;
-  mobile: number;
-  content: number;
-  geo: number;
-  overall: number;
   title: string | null;
-  description: string | null;
+  overall: number;
+  ai_visibility: number;
+  local_presence: number;
+  technical: number;
+  insights: string[] | null;
   recommendations: string[] | null;
-  ai_analysis: {
+  created_at: string;
+  ai_analysis?: {
+    analysis_type?: string;
     customer_name?: string;
     customer_phone?: string;
     customer_email?: string;
     service?: string;
-    analysis_type?: string;
     analysis_status?: string;
-    payment_status?: string;
-  } | null;
-  created_at: string;
+  };
 };
 
 const FILTERS = ["All", "Free", "Paid", "Completed", "Pending"];
@@ -76,11 +72,10 @@ export default function WebsiteAnalysesPage() {
     };
   }, [loadAnalyses]);
 
-  // Filter & Search Logic
   const filtered = useMemo(() => {
     return analyses.filter((item) => {
-      const type = (item.ai_analysis?.analysis_type || "free").toLowerCase();
-      const status = (item.ai_analysis?.analysis_status || "completed").toLowerCase();
+      const type = item.ai_analysis?.analysis_type || "free";
+      const status = item.ai_analysis?.analysis_status || "completed";
 
       let matchesFilter = true;
       if (filter === "Free") matchesFilter = type === "free";
@@ -94,39 +89,25 @@ export default function WebsiteAnalysesPage() {
         (item.url || "").toLowerCase().includes(q) ||
         (item.title || "").toLowerCase().includes(q) ||
         (item.ai_analysis?.customer_name || "").toLowerCase().includes(q) ||
-        (item.ai_analysis?.customer_email || "").toLowerCase().includes(q) ||
-        (item.ai_analysis?.customer_phone || "").toLowerCase().includes(q);
+        (item.ai_analysis?.customer_phone || "").toLowerCase().includes(q) ||
+        (item.ai_analysis?.customer_email || "").toLowerCase().includes(q);
 
       return matchesFilter && matchesSearch;
     });
   }, [analyses, filter, search]);
 
   function exportCSV() {
-    const headers = [
-      "ID",
-      "Customer",
-      "Phone",
-      "Email",
-      "Website",
-      "Overall Score",
-      "GEO Score",
-      "SEO Score",
-      "Type",
-      "Status",
-      "Date",
-    ];
+    const headers = ["ID", "URL", "Overall Score", "GEO Score", "Local Score", "Type", "Status", "Customer", "Date"];
     const rows = filtered.map((a) => [
-      a.id,
-      `"${(a.ai_analysis?.customer_name || "Website Visitor").replace(/"/g, '""')}"`,
-      `"${a.ai_analysis?.customer_phone || ""}"`,
-      `"${a.ai_analysis?.customer_email || ""}"`,
-      `"${(a.url || "").replace(/"/g, '""')}"`,
-      a.overall || 0,
-      a.geo || 0,
-      a.seo || 0,
-      `"${a.ai_analysis?.analysis_type || "free"}"`,
-      `"${a.ai_analysis?.analysis_status || "completed"}"`,
-      `"${new Date(a.created_at).toLocaleString("en-IN")}"`,
+      '"' + a.id + '"',
+      '"' + (a.url || "") + '"',
+      a.overall,
+      a.ai_visibility,
+      a.local_presence,
+      '"' + (a.ai_analysis?.analysis_type || "free") + '"',
+      '"' + (a.ai_analysis?.analysis_status || "completed") + '"',
+      '"' + (a.ai_analysis?.customer_name || "").replace(/"/g, '""') + '"',
+      '"' + (a.created_at ? new Date(a.created_at).toLocaleString("en-IN") : "") + '"',
     ]);
 
     const csvContent =
@@ -135,7 +116,7 @@ export default function WebsiteAnalysesPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `digitalfx_analyses_${Date.now()}.csv`);
+    link.setAttribute("download", "digitalfx_analyses_" + Date.now() + ".csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -152,26 +133,20 @@ export default function WebsiteAnalysesPage() {
     });
   }
 
-  function getScoreColor(score: number) {
-    if (score >= 80) return "text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
-    if (score >= 60) return "text-amber-400 bg-amber-500/10 border-amber-500/20";
-    return "text-red-400 bg-red-500/10 border-red-500/20";
-  }
-
   return (
     <div className="space-y-6">
       
-      {/* Page Header */}
+      {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400">
-              Intelligence Audit Pipeline
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-600">
+              Audit Intelligence
             </span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">Website &amp; GEO Analyses</h1>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Monitor and review website audit submissions, generative AI search scores, and diagnostic health.
+          <h1 className="text-2xl font-black text-[#080d24] mt-1">Website Analyses</h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Realtime AI visibility, Google Maps citation health, and audit audit records.
           </p>
         </div>
 
@@ -179,13 +154,13 @@ export default function WebsiteAnalysesPage() {
           <button
             onClick={exportCSV}
             disabled={filtered.length === 0}
-            className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-bold text-slate-200 hover:bg-white/10 transition disabled:opacity-40"
+            className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 shadow-xs transition disabled:opacity-40 cursor-pointer"
           >
             <span>📥 Export CSV</span>
           </button>
           <button
             onClick={loadAnalyses}
-            className="flex items-center gap-2 rounded-xl bg-[#315df5] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#234bd6] transition"
+            className="flex items-center gap-2 rounded-xl bg-[#207de9] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#1570ef] shadow-xs transition cursor-pointer"
           >
             <span>↻ Refresh</span>
           </button>
@@ -193,9 +168,9 @@ export default function WebsiteAnalysesPage() {
       </div>
 
       {/* Controls */}
-      <div className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 rounded-2xl border border-slate-200/90 bg-white p-4 shadow-xs sm:flex-row sm:items-center sm:justify-between">
         <div className="relative flex-1 max-w-md">
-          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs">
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">
             🔍
           </span>
           <input
@@ -203,12 +178,12 @@ export default function WebsiteAnalysesPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by website URL, customer name, email..."
-            className="w-full h-10 rounded-xl border border-white/10 bg-black/20 pl-9 pr-4 text-xs font-medium text-white placeholder:text-slate-500 outline-none focus:border-[#315df5]"
+            className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50 pl-9 pr-4 text-xs font-medium text-[#080d24] placeholder:text-slate-400 outline-none focus:bg-white focus:border-[#207de9] transition"
           />
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
             >
               ✕
             </button>
@@ -220,11 +195,12 @@ export default function WebsiteAnalysesPage() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
-                filter === f
-                  ? "bg-[#315df5] text-white"
-                  : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200"
-              }`}
+              className={
+                "px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer " +
+                (filter === f
+                  ? "bg-[#207de9] text-white shadow-xs"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200/60 hover:text-[#080d24]")
+              }
             >
               {f}
             </button>
@@ -233,10 +209,10 @@ export default function WebsiteAnalysesPage() {
       </div>
 
       {/* Data Table */}
-      <div className="rounded-3xl border border-white/10 bg-white/[0.02] shadow-xl overflow-hidden">
+      <div className="rounded-2xl border border-slate-200/90 bg-white shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="border-b border-white/10 bg-black/30 text-[10.5px] uppercase tracking-wider text-slate-400">
+            <thead className="border-b border-slate-200 bg-slate-50 text-[10.5px] uppercase tracking-wider text-slate-500 font-bold">
               <tr>
                 <th className="py-3.5 px-5">Customer &amp; Website</th>
                 <th className="py-3.5 px-4">Scores (Overall / GEO / SEO)</th>
@@ -246,17 +222,17 @@ export default function WebsiteAnalysesPage() {
                 <th className="py-3.5 px-5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 font-medium">
+            <tbody className="divide-y divide-slate-100 font-medium">
               {loading ? (
                 <tr>
                   <td colSpan={6} className="py-12 text-center text-slate-400">
-                    <span className="inline-block h-5 w-5 border-2 border-white/30 border-t-emerald-500 rounded-full animate-spin mr-2" />
+                    <span className="inline-block h-5 w-5 border-2 border-slate-200 border-t-[#207de9] rounded-full animate-spin mr-2" />
                     Loading website analyses...
                   </td>
                 </tr>
               ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-500">
+                  <td colSpan={6} className="py-12 text-center text-slate-400">
                     No website analyses found.
                   </td>
                 </tr>
@@ -276,72 +252,65 @@ export default function WebsiteAnalysesPage() {
                         status: a.ai_analysis?.analysis_status || "completed",
                         date: formatDate(a.created_at),
                         overallScore: a.overall,
-                        seoScore: a.seo,
-                        geoScore: a.geo,
-                        mobileScore: a.mobile,
-                        performanceScore: a.performance,
+                        seoScore: a.local_presence,
+                        geoScore: a.ai_visibility,
+                        performanceScore: a.technical,
                         recommendations: a.recommendations,
-                        title: a.title,
                       })
                     }
-                    className="hover:bg-white/[0.03] transition cursor-pointer group"
+                    className="hover:bg-slate-50/70 transition group cursor-pointer"
                   >
-                    <td className="py-4 px-5">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-xs font-black text-white shadow-sm shrink-0">
-                          ⚡
-                        </div>
-                        <div className="min-w-0">
-                          <p className="font-bold text-sm text-white group-hover:text-emerald-400 transition truncate">
-                            {a.ai_analysis?.customer_name || "Website Visitor"}
-                          </p>
-                          <p className="text-[11px] text-blue-300 font-mono truncate">
-                            {a.url}
-                          </p>
-                        </div>
-                      </div>
+                    <td className="py-3.5 px-5">
+                      <span className="font-bold text-[#080d24] group-hover:text-[#207de9] transition block">
+                        {a.ai_analysis?.customer_name || "Website Visitor"}
+                      </span>
+                      <span className="font-mono text-[11px] text-[#207de9] block truncate">
+                        {a.url}
+                      </span>
                     </td>
-
-                    <td className="py-4 px-4 whitespace-nowrap">
-                      <div className="flex items-center gap-1.5">
-                        <span
-                          className={`px-2 py-0.5 rounded-md font-mono font-bold text-xs border ${getScoreColor(
-                            a.overall || 0
-                          )}`}
-                        >
+                    <td className="py-3.5 px-4">
+                      <div className="flex items-center gap-2">
+                        <span className="px-2 py-0.5 rounded-md bg-blue-50 text-[#207de9] font-black border border-blue-200 tabular-nums">
                           {a.overall || 0}/100
                         </span>
-                        <span className="text-slate-500 text-[11px]">
-                          (G:{a.geo || 0}% • S:{a.seo || 0}%)
+                        <span className="text-[11px] text-purple-600 font-bold">
+                          GEO {a.ai_visibility || 0}%
+                        </span>
+                        <span className="text-[11px] text-emerald-600 font-bold">
+                          SEO {a.local_presence || 0}%
                         </span>
                       </div>
                     </td>
-
-                    <td className="py-4 px-4 whitespace-nowrap">
+                    <td className="py-3.5 px-4">
                       <span
-                        className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${
-                          (a.ai_analysis?.analysis_type || "free") === "paid"
-                            ? "bg-violet-500/15 text-violet-400 border-violet-500/30"
-                            : "bg-blue-500/15 text-blue-400 border-blue-500/30"
-                        }`}
+                        className={
+                          "px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase border " +
+                          (a.ai_analysis?.analysis_type === "paid"
+                            ? "bg-violet-50 text-violet-700 border-violet-200"
+                            : "bg-slate-100 text-slate-600 border-slate-200")
+                        }
                       >
-                        {a.ai_analysis?.analysis_type || "free"}
+                        {a.ai_analysis?.analysis_type === "paid" ? "★ Paid Audit" : "Free Audit"}
                       </span>
                     </td>
-
-                    <td className="py-4 px-4 whitespace-nowrap">
-                      <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border bg-emerald-500/15 text-emerald-400 border-emerald-500/30">
-                        {a.ai_analysis?.analysis_status || "completed"}
+                    <td className="py-3.5 px-4">
+                      <span
+                        className={
+                          "px-2 py-0.5 rounded-md text-[10px] font-bold uppercase border " +
+                          (a.ai_analysis?.analysis_status === "completed" || !a.ai_analysis?.analysis_status
+                            ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                            : "bg-amber-50 text-amber-700 border-amber-200")
+                        }
+                      >
+                        {a.ai_analysis?.analysis_status || "Completed"}
                       </span>
                     </td>
-
-                    <td className="py-4 px-4 text-slate-400 whitespace-nowrap text-[11px]">
+                    <td className="py-3.5 px-4 font-mono text-[11px] text-slate-500">
                       {formatDate(a.created_at)}
                     </td>
-
-                    <td className="py-4 px-5 text-right">
-                      <button className="text-xs font-bold text-emerald-400 hover:text-white transition">
-                        Full Audit →
+                    <td className="py-3.5 px-5 text-right">
+                      <button className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-[#080d24] transition shadow-2xs">
+                        Audit Report →
                       </button>
                     </td>
                   </tr>
@@ -352,7 +321,6 @@ export default function WebsiteAnalysesPage() {
         </div>
       </div>
 
-      {/* Customer Detail Drawer */}
       <CustomerDrawer
         record={selectedRecord}
         onClose={() => setSelectedRecord(null)}

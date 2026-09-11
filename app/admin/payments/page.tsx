@@ -1,23 +1,22 @@
 "use client";
 
 import { adminFetch } from "@/lib/adminFetch";
-
 import { useEffect, useState, useCallback, useMemo } from "react";
 import CustomerDrawer, { DrawerRecord } from "../../../components/admin/CustomerDrawer";
 import { supabase } from "../../lib/supabase";
 
 type Payment = {
-  id?: string;
+  id: string;
   txnid: string;
-  customer_name?: string | null;
-  customer_email?: string | null;
-  customer_phone?: string | null;
-  plan_id?: string | null;
-  product_name?: string | null;
-  amount?: number | string | null;
-  status?: string | null;
-  created_at?: string | null;
-  updated_at?: string | null;
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  amount: number;
+  status: string;
+  plan_id: string | null;
+  product_name: string | null;
+  created_at: string;
+  updated_at?: string;
 };
 
 const FILTERS = ["All", "Paid", "Pending", "Failed"];
@@ -66,7 +65,6 @@ export default function PaymentsPage() {
     };
   }, [loadPayments]);
 
-  // Verified Revenue calculation (Successful payments ONLY)
   const verifiedRevenue = useMemo(() => {
     return payments
       .filter((p) => {
@@ -113,14 +111,14 @@ export default function PaymentsPage() {
       "Date",
     ];
     const rows = filtered.map((p) => [
-      `"${p.txnid || ""}"`,
-      `"${(p.customer_name || "").replace(/"/g, '""')}"`,
-      `"${p.customer_phone || ""}"`,
-      `"${p.customer_email || ""}"`,
-      `"${(p.product_name || p.plan_id || "").replace(/"/g, '""')}"`,
+      '"' + (p.txnid || "") + '"',
+      '"' + (p.customer_name || "").replace(/"/g, '""') + '"',
+      '"' + (p.customer_phone || "") + '"',
+      '"' + (p.customer_email || "") + '"',
+      '"' + (p.product_name || p.plan_id || "").replace(/"/g, '""') + '"',
       p.amount || 0,
-      `"${p.status || ""}"`,
-      `"${p.created_at ? new Date(p.created_at).toLocaleString("en-IN") : ""}"`,
+      '"' + (p.status || "") + '"',
+      '"' + (p.created_at ? new Date(p.created_at).toLocaleString("en-IN") : "") + '"',
     ]);
 
     const csvContent =
@@ -129,7 +127,7 @@ export default function PaymentsPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `digitalfx_payments_${Date.now()}.csv`);
+    link.setAttribute("download", "digitalfx_payments_" + Date.now() + ".csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -150,11 +148,11 @@ export default function PaymentsPage() {
     switch ((st || "").toLowerCase()) {
       case "success":
       case "paid":
-        return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
+        return "bg-emerald-50 text-emerald-700 border-emerald-200 font-bold";
       case "pending":
-        return "bg-amber-500/15 text-amber-400 border-amber-500/30";
+        return "bg-amber-50 text-amber-700 border-amber-200 font-bold";
       default:
-        return "bg-red-500/15 text-red-400 border-red-500/30";
+        return "bg-rose-50 text-rose-700 border-rose-200 font-bold";
     }
   }
 
@@ -165,12 +163,12 @@ export default function PaymentsPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400">
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-600">
               Financial Operations
             </span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">Payment Transactions</h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <h1 className="text-2xl font-black text-[#080d24] mt-1">Payment Transactions</h1>
+          <p className="text-xs text-slate-500 mt-0.5">
             Verified gateway transactions, invoice settlement, and real attributable revenue.
           </p>
         </div>
@@ -179,38 +177,38 @@ export default function PaymentsPage() {
           <button
             onClick={exportCSV}
             disabled={filtered.length === 0}
-            className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-bold text-slate-200 hover:bg-white/10 transition disabled:opacity-40"
+            className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 shadow-xs transition disabled:opacity-40 cursor-pointer"
           >
             <span>📥 Export CSV</span>
           </button>
           <button
             onClick={loadPayments}
-            className="flex items-center gap-2 rounded-xl bg-[#315df5] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#234bd6] transition"
+            className="flex items-center gap-2 rounded-xl bg-[#207de9] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#1570ef] shadow-xs transition cursor-pointer"
           >
             <span>↻ Refresh</span>
           </button>
         </div>
       </div>
 
-      {/* Financial Summary Cards */}
+      {/* Financial Summary Cards (Clean Corporate White) */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 rounded-2xl border border-emerald-500/30 bg-emerald-500/[0.05]">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-300">
+        <div className="p-5 rounded-2xl border border-emerald-300 bg-emerald-50/30 shadow-xs">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800">
             Total Verified Revenue
           </span>
-          <p className="mt-2 text-2xl font-black text-emerald-400 tabular-nums">
+          <p className="mt-2 text-2xl font-black text-emerald-700 tabular-nums">
             ₹{verifiedRevenue.toLocaleString("en-IN")}
           </p>
-          <p className="mt-1 text-[10px] text-emerald-400/60">
+          <p className="mt-1 text-[10px] text-emerald-700/80">
             Calculated exclusively from successful payments
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl border border-white/10 bg-white/[0.03]">
+        <div className="p-5 rounded-2xl border border-slate-200/90 bg-white shadow-xs">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Total Transactions Recorded
           </span>
-          <p className="mt-2 text-2xl font-black text-white tabular-nums">
+          <p className="mt-2 text-2xl font-black text-[#080d24] tabular-nums">
             {payments.length}
           </p>
           <p className="mt-1 text-[10px] text-slate-500">
@@ -218,23 +216,23 @@ export default function PaymentsPage() {
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl border border-amber-500/30 bg-amber-500/[0.04]">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300">
+        <div className="p-5 rounded-2xl border border-amber-300 bg-amber-50/30 shadow-xs">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800">
             Pending Checkouts
           </span>
-          <p className="mt-2 text-2xl font-black text-amber-400 tabular-nums">
+          <p className="mt-2 text-2xl font-black text-amber-800 tabular-nums">
             {pendingCount}
           </p>
-          <p className="mt-1 text-[10px] text-amber-400/60">
+          <p className="mt-1 text-[10px] text-amber-700/80">
             Awaiting customer completion
           </p>
         </div>
       </div>
 
       {/* Controls */}
-      <div className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 rounded-2xl border border-slate-200/90 bg-white p-4 shadow-xs sm:flex-row sm:items-center sm:justify-between">
         <div className="relative flex-1 max-w-md">
-          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs">
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">
             🔍
           </span>
           <input
@@ -242,12 +240,12 @@ export default function PaymentsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search payments by customer, transaction ID, email..."
-            className="w-full h-10 rounded-xl border border-white/10 bg-black/20 pl-9 pr-4 text-xs font-medium text-white placeholder:text-slate-500 outline-none focus:border-[#315df5]"
+            className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50 pl-9 pr-4 text-xs font-medium text-[#080d24] placeholder:text-slate-400 outline-none focus:bg-white focus:border-[#207de9] transition"
           />
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
             >
               ✕
             </button>
@@ -259,11 +257,12 @@ export default function PaymentsPage() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
-                filter === f
-                  ? "bg-[#315df5] text-white"
-                  : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200"
-              }`}
+              className={
+                "px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer " +
+                (filter === f
+                  ? "bg-[#207de9] text-white shadow-xs"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200/60 hover:text-[#080d24]")
+              }
             >
               {f}
             </button>
@@ -272,32 +271,31 @@ export default function PaymentsPage() {
       </div>
 
       {/* Data Table */}
-      <div className="rounded-3xl border border-white/10 bg-white/[0.02] shadow-xl overflow-hidden">
+      <div className="rounded-2xl border border-slate-200/90 bg-white shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="border-b border-white/10 bg-black/30 text-[10.5px] uppercase tracking-wider text-slate-400">
+            <thead className="border-b border-slate-200 bg-slate-50 text-[10.5px] uppercase tracking-wider text-slate-500 font-bold">
               <tr>
                 <th className="py-3.5 px-5">Customer</th>
-                <th className="py-3.5 px-4">Package / Scope</th>
                 <th className="py-3.5 px-4">Amount</th>
-                <th className="py-3.5 px-4">Txn ID</th>
-                <th className="py-3.5 px-4">Date</th>
+                <th className="py-3.5 px-4">Product / Plan</th>
                 <th className="py-3.5 px-4">Status</th>
+                <th className="py-3.5 px-4">Date</th>
                 <th className="py-3.5 px-5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 font-medium">
+            <tbody className="divide-y divide-slate-100 font-medium">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-slate-400">
-                    <span className="inline-block h-5 w-5 border-2 border-white/30 border-t-emerald-500 rounded-full animate-spin mr-2" />
+                  <td colSpan={6} className="py-12 text-center text-slate-400">
+                    <span className="inline-block h-5 w-5 border-2 border-slate-200 border-t-[#207de9] rounded-full animate-spin mr-2" />
                     Loading payment records...
                   </td>
                 </tr>
               ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-slate-500">
-                    No payment records match the selected filter.
+                  <td colSpan={6} className="py-12 text-center text-slate-400">
+                    No payment records found.
                   </td>
                 </tr>
               ) : (
@@ -311,64 +309,48 @@ export default function PaymentsPage() {
                         name: p.customer_name || "Customer",
                         phone: p.customer_phone,
                         email: p.customer_email,
-                        service: p.product_name || p.plan_id || "Package",
-                        status: p.status === "success" ? "Paid" : p.status || "Pending",
+                        status: p.status,
                         date: formatDate(p.created_at),
                         amount: p.amount,
                         txnid: p.txnid,
-                        productName: p.product_name,
                         planId: p.plan_id,
+                        productName: p.product_name,
                       })
                     }
-                    className="hover:bg-white/[0.03] transition cursor-pointer group"
+                    className="hover:bg-slate-50/70 transition group cursor-pointer"
                   >
-                    <td className="py-4 px-5">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-xs font-black text-white shadow-sm shrink-0">
-                          ₹
-                        </div>
-                        <div>
-                          <p className="font-bold text-sm text-white group-hover:text-emerald-300 transition">
-                            {p.customer_name || "Customer"}
-                          </p>
-                          {p.customer_phone && (
-                            <p className="text-[11px] text-slate-400 font-mono">
-                              {p.customer_phone}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </td>
-
-                    <td className="py-4 px-4 text-slate-200 max-w-[200px] truncate">
-                      {p.product_name || p.plan_id || "Bespoke Service"}
-                    </td>
-
-                    <td className="py-4 px-4 font-mono font-bold text-white text-sm whitespace-nowrap">
-                      ₹{Number(p.amount || 0).toLocaleString("en-IN")}
-                    </td>
-
-                    <td className="py-4 px-4 font-mono text-[11px] text-blue-300 max-w-[150px] truncate">
-                      {p.txnid}
-                    </td>
-
-                    <td className="py-4 px-4 text-slate-400 whitespace-nowrap text-[11px]">
-                      {formatDate(p.created_at)}
-                    </td>
-
-                    <td className="py-4 px-4 whitespace-nowrap">
-                      <span
-                        className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border ${getStatusStyle(
-                          p.status
-                        )}`}
-                      >
-                        {p.status === "success" ? "Paid" : p.status || "Pending"}
+                    <td className="py-3.5 px-5">
+                      <span className="font-bold text-[#080d24] group-hover:text-[#207de9] transition block">
+                        {p.customer_name || "Customer"}
+                      </span>
+                      <span className="font-mono text-[11px] text-slate-400 block truncate">
+                        {p.txnid}
                       </span>
                     </td>
-
-                    <td className="py-4 px-5 text-right">
-                      <button className="text-xs font-bold text-emerald-400 hover:text-white transition">
-                        Receipt →
+                    <td className="py-3.5 px-4">
+                      <span className="font-black text-base text-[#080d24] tabular-nums">
+                        ₹{Number(p.amount || 0).toLocaleString("en-IN")}
+                      </span>
+                    </td>
+                    <td className="py-3.5 px-4 text-[#080d24]">
+                      {p.product_name || p.plan_id || "Package Payment"}
+                    </td>
+                    <td className="py-3.5 px-4">
+                      <span
+                        className={
+                          "px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border " +
+                          getStatusStyle(p.status)
+                        }
+                      >
+                        {p.status}
+                      </span>
+                    </td>
+                    <td className="py-3.5 px-4 font-mono text-[11px] text-slate-500">
+                      {formatDate(p.created_at)}
+                    </td>
+                    <td className="py-3.5 px-5 text-right">
+                      <button className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-[#080d24] transition shadow-2xs">
+                        Invoice →
                       </button>
                     </td>
                   </tr>
@@ -379,7 +361,6 @@ export default function PaymentsPage() {
         </div>
       </div>
 
-      {/* Customer Detail Drawer */}
       <CustomerDrawer
         record={selectedRecord}
         onClose={() => setSelectedRecord(null)}

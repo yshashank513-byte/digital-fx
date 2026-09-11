@@ -15,7 +15,6 @@ export default function AdminLogin() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // If already logged in, redirect to /admin
     async function checkExistingSession() {
       const { data } = await supabase.auth.getSession();
       const hasLocalFlag =
@@ -37,20 +36,17 @@ export default function AdminLogin() {
     const cleanEmail = email.trim().toLowerCase();
 
     try {
-      // 1. Authenticate with Supabase Auth
       const { data, error: authError } = await supabase.auth.signInWithPassword({
         email: cleanEmail,
         password: password,
       });
 
       if (authError || !data.user) {
-        // Provide friendly message without leaking system internals
         setError("Invalid email address or password. Please verify your credentials.");
         setLoading(false);
         return;
       }
 
-      // 2. Authorize Admin Access
       const userEmail = data.user.email?.toLowerCase();
       const userRole = data.user.user_metadata?.role;
 
@@ -61,7 +57,6 @@ export default function AdminLogin() {
         return;
       }
 
-      // 3. Store local session flag securely
       localStorage.setItem("digitalfx_admin", "true");
       if (remember) {
         localStorage.setItem("digitalfx_remember", "true");
@@ -69,7 +64,6 @@ export default function AdminLogin() {
         localStorage.removeItem("digitalfx_remember");
       }
 
-      // 4. Redirect to Admin Command Center
       router.push("/admin");
     } catch (err) {
       console.error("Login unexpected error:", err);
@@ -79,27 +73,13 @@ export default function AdminLogin() {
   }
 
   return (
-    <main className="min-h-screen bg-[#050b1a] text-white flex flex-col justify-center relative overflow-hidden font-sans">
+    <main className="min-h-screen bg-[#f8fafc] text-[#080d24] flex flex-col justify-center relative font-sans antialiased py-12 px-4 sm:px-6">
       
-      {/* Dynamic Background Glows */}
-      <div className="pointer-events-none absolute left-1/4 top-1/4 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#315df5]/15 blur-[140px]" />
-      <div className="pointer-events-none absolute right-1/4 bottom-1/4 h-[500px] w-[500px] translate-x-1/2 translate-y-1/2 rounded-full bg-[#7047f5]/15 blur-[140px]" />
-      
-      {/* Subtle Grid Lines */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.035]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-        }}
-      />
-
-      <div className="relative z-10 w-full max-w-md mx-auto px-5 py-12 sm:px-6">
+      <div className="relative z-10 w-full max-w-md mx-auto">
         
         {/* Brand Header */}
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white p-1 shadow-[0_10px_35px_rgba(49,93,245,0.4)] mb-4 border border-white/20">
+          <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white p-1 shadow-sm mb-4 border border-slate-200">
             <img
               src="/logo.png"
               alt="Digital FX"
@@ -108,31 +88,31 @@ export default function AdminLogin() {
           </div>
 
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-black tracking-tight text-white">
-              DIGITAL <span className="text-[#6f8cff]">FX</span>
+            <h1 className="text-2xl font-black tracking-tight text-[#080d24]">
+              DIGITAL <span className="text-[#207de9]">FX</span>
             </h1>
-            <span className="px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider rounded-md bg-[#315df5]/20 text-[#6f8cff] border border-[#315df5]/30">
+            <span className="px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider rounded-md bg-blue-50 text-[#207de9] border border-blue-200">
               Admin Portal
             </span>
           </div>
 
-          <p className="mt-2 text-xs text-slate-400 max-w-xs">
-            Enter authorized administrator credentials to access the Digital FX Intelligence Workspace.
+          <p className="mt-2 text-xs text-slate-500 max-w-xs">
+            Enter authorized administrator credentials to access the Digital FX Operations Console.
           </p>
         </div>
 
-        {/* Login Card */}
-        <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-7 sm:p-9 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+        {/* Login Card (Clean Corporate White) */}
+        <div className="rounded-3xl border border-slate-200/90 bg-white p-8 sm:p-10 shadow-[0_12px_40px_rgba(8,13,36,0.06)]">
           
           <form onSubmit={handleLogin} className="space-y-5">
             
             {/* Email Field */}
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-2">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-2">
                 Administrator Email
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
                   ✉
                 </span>
                 <input
@@ -142,7 +122,7 @@ export default function AdminLogin() {
                   placeholder="admin@digitalfx.in"
                   required
                   autoComplete="email"
-                  className="w-full h-12 rounded-xl border border-white/15 bg-black/30 pl-11 pr-4 text-xs font-medium text-white placeholder:text-slate-500 outline-none transition focus:border-[#315df5] focus:ring-2 focus:ring-[#315df5]/20"
+                  className="w-full h-12 rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-xs font-medium text-[#080d24] placeholder:text-slate-400 outline-none transition focus:bg-white focus:border-[#207de9] focus:ring-2 focus:ring-[#207de9]/15"
                 />
               </div>
             </div>
@@ -150,19 +130,19 @@ export default function AdminLogin() {
             {/* Password Field */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600">
                   Password
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="text-[11px] font-semibold text-[#6f8cff] hover:underline"
+                  className="text-[11px] font-semibold text-[#207de9] hover:underline cursor-pointer"
                 >
                   {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
                   🔒
                 </span>
                 <input
@@ -172,19 +152,19 @@ export default function AdminLogin() {
                   placeholder="Enter administrator password"
                   required
                   autoComplete="current-password"
-                  className="w-full h-12 rounded-xl border border-white/15 bg-black/30 pl-11 pr-11 text-xs font-medium text-white placeholder:text-slate-500 outline-none transition focus:border-[#315df5] focus:ring-2 focus:ring-[#315df5]/20"
+                  className="w-full h-12 rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-11 text-xs font-medium text-[#080d24] placeholder:text-slate-400 outline-none transition focus:bg-white focus:border-[#207de9] focus:ring-2 focus:ring-[#207de9]/15"
                 />
               </div>
             </div>
 
             {/* Remember Me */}
             <div className="flex items-center justify-between pt-1">
-              <label className="flex items-center gap-2 text-xs text-slate-400 cursor-pointer select-none">
+              <label className="flex items-center gap-2 text-xs text-slate-600 cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={remember}
                   onChange={(e) => setRemember(e.target.checked)}
-                  className="h-4 w-4 rounded border-white/20 bg-black/40 accent-[#315df5]"
+                  className="h-4 w-4 rounded border-slate-300 text-[#207de9] focus:ring-[#207de9] accent-[#207de9]"
                 />
                 <span>Remember session on this device</span>
               </label>
@@ -192,7 +172,7 @@ export default function AdminLogin() {
 
             {/* Error Message */}
             {error && (
-              <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-3.5 text-xs text-red-400 leading-relaxed">
+              <div className="rounded-xl border border-rose-200 bg-rose-50 p-3.5 text-xs text-rose-700 leading-relaxed font-medium">
                 {error}
               </div>
             )}
@@ -201,7 +181,7 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-12 rounded-xl bg-gradient-to-r from-[#315df5] to-[#5842f4] text-xs font-bold uppercase tracking-wider text-white shadow-[0_10px_30px_rgba(49,93,245,0.35)] hover:shadow-[0_12px_35px_rgba(49,93,245,0.5)] transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer mt-6"
+              className="w-full h-12 rounded-xl bg-[#207de9] hover:bg-[#1570ef] text-xs font-bold uppercase tracking-wider text-white shadow-sm transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer mt-6"
             >
               {loading ? (
                 <>
@@ -221,11 +201,11 @@ export default function AdminLogin() {
         </div>
 
         {/* Security Assurance Strip */}
-        <div className="mt-8 flex items-center justify-center gap-2 text-slate-500 text-[11px]">
-          <span className="text-emerald-400">🛡️</span>
+        <div className="mt-8 flex items-center justify-center gap-2 text-slate-400 text-[11px]">
+          <span className="text-emerald-600 font-bold">🛡️</span>
           <span>256-Bit SSL Encrypted Enterprise Auth</span>
           <span>•</span>
-          <a href="/" className="text-slate-400 hover:text-white transition underline">
+          <a href="/" className="text-slate-600 hover:text-[#207de9] transition underline font-medium">
             Return to Public Site
           </a>
         </div>

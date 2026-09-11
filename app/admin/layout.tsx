@@ -20,7 +20,6 @@ export default function AdminLayout({
     name: "Shashank Yadav",
   });
 
-  // If on login page, skip layout shell
   const isLoginPage = pathname === "/admin/login";
 
   useEffect(() => {
@@ -30,7 +29,6 @@ export default function AdminLayout({
     }
 
     async function checkAuth() {
-      // Check Supabase Auth Session
       const { data } = await supabase.auth.getSession();
       const sessionUser = data.session?.user;
 
@@ -73,10 +71,10 @@ export default function AdminLayout({
 
   if (authChecking) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#07122d] text-white">
+      <div className="flex min-h-screen items-center justify-center bg-[#f8fafc] text-[#080d24]">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-[#315df5]" />
-          <p className="text-xs font-bold tracking-widest uppercase text-slate-400">
+          <div className="h-10 w-10 animate-spin rounded-full border-2 border-slate-200 border-t-[#207de9]" />
+          <p className="text-xs font-bold tracking-widest uppercase text-slate-500">
             Verifying Digital FX Credentials...
           </p>
         </div>
@@ -124,48 +122,49 @@ export default function AdminLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-[#060e22] text-[#f1f5f9] font-sans">
+    <div className="min-h-screen bg-[#f8fafc] text-[#080d24] font-sans antialiased">
       
       {/* =========================================================================
-          DESKTOP LEFT SIDEBAR
+          DESKTOP LEFT SIDEBAR (Corporate White Style matching Website)
           ========================================================================= */}
-      <aside className="fixed left-0 top-0 z-40 hidden h-screen w-[260px] flex-col border-r border-white/10 bg-[#07122d] text-white lg:flex">
+      <aside className="fixed left-0 top-0 z-40 hidden h-screen w-[260px] flex-col border-r border-slate-200 bg-white text-[#080d24] shadow-xs lg:flex">
         
         {/* Brand Header */}
-        <div className="flex h-[82px] shrink-0 items-center border-b border-white/10 px-6">
+        <div className="flex h-[76px] shrink-0 items-center border-b border-slate-100 px-6">
           <Link href="/admin" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white p-0.5 shadow-md">
+            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-slate-200/90 bg-white p-0.5 shadow-xs">
               <img
                 src="/logo.png"
                 alt="Digital FX"
-                className="h-10 w-10 object-contain"
+                className="h-9 w-9 object-contain"
               />
             </div>
             <div className="text-left">
-              <div className="text-[17px] font-black tracking-tight text-white">
-                DIGITAL <span className="text-[#6f8cff]">FX</span>
+              <div className="text-[17px] font-black tracking-tight text-[#080d24]">
+                DIGITAL <span className="text-[#207de9]">FX</span>
               </div>
-              <div className="text-[7.5px] font-extrabold uppercase tracking-[2.5px] text-blue-300/60">
-                AI OPERATIONS
+              <div className="text-[8px] font-extrabold uppercase tracking-[2.5px] text-slate-400">
+                MANAGEMENT PORTAL
               </div>
             </div>
           </Link>
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex-1 space-y-1.5 overflow-y-auto p-4">
-          <div className="px-3 pb-2 text-[9px] font-extrabold uppercase tracking-[2px] text-slate-500">
-            Navigation Menu
+        <nav className="flex-1 space-y-1 overflow-y-auto p-4">
+          <div className="px-3 pb-2 text-[9px] font-extrabold uppercase tracking-[2px] text-slate-400">
+            Workspace Navigation
           </div>
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold transition ${
-                item.active
-                  ? "bg-[#315df5] text-white shadow-[0_4px_20px_rgba(49,93,245,0.35)]"
-                  : "text-slate-400 hover:bg-white/5 hover:text-white"
-              }`}
+              className={
+                "flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold transition duration-150 " +
+                (item.active
+                  ? "bg-[#207de9] text-white shadow-xs"
+                  : "text-slate-600 hover:bg-slate-100/80 hover:text-[#080d24]")
+              }
             >
               <span className="w-5 text-center text-sm">{item.icon}</span>
               <span>{item.label}</span>
@@ -174,40 +173,40 @@ export default function AdminLayout({
         </nav>
 
         {/* Live System Indicator */}
-        <div className="mx-4 mb-3 rounded-xl border border-white/5 bg-black/20 p-3">
+        <div className="mx-4 mb-3 rounded-xl border border-emerald-200 bg-emerald-50/70 p-3 shadow-xs">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
-                <span className="absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative h-2 w-2 rounded-full bg-emerald-500" />
+                <span className="absolute h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative h-2 w-2 rounded-full bg-emerald-600" />
               </span>
-              <span className="text-[10px] font-bold text-slate-300">Live Engine</span>
+              <span className="text-[10px] font-bold text-emerald-900">Database Live</span>
             </div>
-            <span className="text-[9px] font-mono text-emerald-400 font-bold">200 OK</span>
+            <span className="text-[9px] font-mono text-emerald-700 font-bold bg-white/90 px-2 py-0.5 rounded-md border border-emerald-200">200 OK</span>
           </div>
-          <p className="mt-1 text-[9px] text-slate-500">
-            Realtime Supabase sync connected
+          <p className="mt-1 text-[9.5px] text-slate-500">
+            Realtime database sync active
           </p>
         </div>
 
         {/* Admin Profile & Logout */}
-        <div className="shrink-0 border-t border-white/10 p-4">
-          <div className="flex items-center gap-3 rounded-xl bg-white/[0.04] p-3 border border-white/5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#315df5] to-[#7888ff] text-sm font-black text-white shadow-sm shrink-0">
+        <div className="shrink-0 border-t border-slate-100 p-4">
+          <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-3 border border-slate-200/80">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#207de9] to-[#1570ef] text-sm font-black text-white shadow-xs shrink-0">
               {adminUser.name?.charAt(0).toUpperCase() || "S"}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-xs font-bold text-white">
+              <p className="truncate text-xs font-bold text-[#080d24]">
                 {adminUser.name || "Shashank Yadav"}
               </p>
-              <p className="truncate text-[9.5px] text-blue-200/50">
+              <p className="truncate text-[10px] text-slate-500">
                 Super Administrator
               </p>
             </div>
             <button
               onClick={handleLogout}
               title="Sign Out"
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition cursor-pointer"
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition cursor-pointer"
             >
               ↪
             </button>
@@ -219,17 +218,17 @@ export default function AdminLayout({
       {/* =========================================================================
           MOBILE TOPBAR + SLIDE-OUT DRAWER
           ========================================================================= */}
-      <div className="sticky top-0 z-30 flex h-[72px] items-center justify-between border-b border-white/10 bg-[#07122d]/95 px-5 backdrop-blur-md lg:hidden">
+      <div className="sticky top-0 z-30 flex h-[70px] items-center justify-between border-b border-slate-200 bg-white/95 px-5 backdrop-blur-md lg:hidden">
         <Link href="/admin" className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-white p-0.5">
+          <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-white p-0.5 shadow-xs">
             <img src="/logo.png" alt="Digital FX" className="h-8 w-8 object-contain" />
           </div>
           <div>
-            <span className="text-base font-black text-white">
-              DIGITAL <span className="text-[#6f8cff]">FX</span>
+            <span className="text-base font-black text-[#080d24]">
+              DIGITAL <span className="text-[#207de9]">FX</span>
             </span>
-            <span className="block text-[7px] font-bold tracking-[2px] text-blue-300/60">
-              OPERATIONS
+            <span className="block text-[7px] font-bold tracking-[2px] text-slate-400">
+              MANAGEMENT
             </span>
           </div>
         </Link>
@@ -237,7 +236,7 @@ export default function AdminLayout({
         <div className="flex items-center gap-2">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-[#080d24]"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? "✕" : "☰"}
@@ -249,22 +248,22 @@ export default function AdminLayout({
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <div className="relative z-10 flex h-full w-[280px] flex-col bg-[#07122d] border-r border-white/10 p-5 shadow-2xl overflow-y-auto">
-            <div className="flex items-center justify-between pb-5 border-b border-white/10">
+          <div className="relative z-10 flex h-full w-[280px] flex-col bg-white border-r border-slate-200 p-5 shadow-2xl overflow-y-auto">
+            <div className="flex items-center justify-between pb-5 border-b border-slate-100">
               <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-white p-0.5">
+                <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-white p-0.5 shadow-xs">
                   <img src="/logo.png" alt="Digital FX" className="h-8 w-8 object-contain" />
                 </div>
-                <span className="text-base font-black text-white">
-                  DIGITAL <span className="text-[#6f8cff]">FX</span>
+                <span className="text-base font-black text-[#080d24]">
+                  DIGITAL <span className="text-[#207de9]">FX</span>
                 </span>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="h-8 w-8 rounded-lg bg-white/5 text-slate-400 hover:text-white"
+                className="h-8 w-8 rounded-lg bg-slate-100 text-slate-600 hover:text-[#080d24]"
               >
                 ✕
               </button>
@@ -276,11 +275,12 @@ export default function AdminLayout({
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold transition ${
-                    item.active
-                      ? "bg-[#315df5] text-white"
-                      : "text-slate-300 hover:bg-white/5"
-                  }`}
+                  className={
+                    "flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold transition " +
+                    (item.active
+                      ? "bg-[#207de9] text-white"
+                      : "text-slate-700 hover:bg-slate-100")
+                  }
                 >
                   <span className="w-5 text-center text-sm">{item.icon}</span>
                   <span>{item.label}</span>
@@ -288,19 +288,19 @@ export default function AdminLayout({
               ))}
             </nav>
 
-            <div className="mt-auto pt-4 border-t border-white/10">
-              <div className="mb-3 flex items-center gap-3 rounded-xl bg-white/5 p-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#315df5] text-xs font-bold text-white">
+            <div className="mt-auto pt-4 border-t border-slate-100">
+              <div className="mb-3 flex items-center gap-3 rounded-xl bg-slate-50 p-3 border border-slate-200">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#207de9] text-xs font-bold text-white">
                   {adminUser.name?.charAt(0) || "S"}
                 </div>
                 <div className="min-w-0 flex-1 text-xs">
-                  <p className="font-bold text-white truncate">{adminUser.name}</p>
-                  <p className="text-[10px] text-blue-300/50">Super Admin</p>
+                  <p className="font-bold text-[#080d24] truncate">{adminUser.name}</p>
+                  <p className="text-[10px] text-slate-500">Super Admin</p>
                 </div>
               </div>
               <button
                 onClick={handleLogout}
-                className="w-full py-2.5 text-center rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold hover:bg-red-500/20 transition"
+                className="w-full py-2.5 text-center rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold hover:bg-rose-100 transition"
               >
                 Sign Out
               </button>
@@ -315,13 +315,13 @@ export default function AdminLayout({
       <div className="lg:ml-[260px] min-h-screen flex flex-col">
         
         {/* Desktop Top Header Strip */}
-        <header className="hidden h-[82px] items-center justify-between border-b border-white/10 bg-[#07122d]/60 px-8 backdrop-blur-md lg:flex">
+        <header className="hidden h-[76px] items-center justify-between border-b border-slate-200/90 bg-white/90 px-8 backdrop-blur-md lg:flex shadow-xs">
           <div className="flex items-center gap-3 text-xs">
-            <span className="font-extrabold uppercase tracking-wider text-blue-400">
-              ADMIN PORTAL
+            <span className="font-extrabold uppercase tracking-wider text-[#207de9]">
+              ADMIN CONSOLE
             </span>
-            <span className="text-slate-600">/</span>
-            <span className="font-bold text-slate-300">
+            <span className="text-slate-300">/</span>
+            <span className="font-bold text-[#080d24]">
               {navItems.find((n) => n.active)?.label || "Dashboard"}
             </span>
           </div>
@@ -332,16 +332,16 @@ export default function AdminLayout({
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3.5 py-2 text-xs font-semibold text-slate-300 hover:bg-white/10 hover:text-white transition"
+              className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-[#080d24] transition shadow-xs"
             >
               <span>🌐 Public Site</span>
               <span className="text-[10px]">↗</span>
             </a>
 
             {/* Live System active status */}
-            <div className="flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-3.5 py-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-emerald-400">
+            <div className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3.5 py-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-emerald-700">
                 SYSTEM ACTIVE
               </span>
             </div>
@@ -349,7 +349,7 @@ export default function AdminLayout({
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 p-5 md:p-8 overflow-x-hidden">
+        <main className="flex-1 p-6 md:p-8 overflow-x-hidden bg-[#f8fafc]">
           {children}
         </main>
 

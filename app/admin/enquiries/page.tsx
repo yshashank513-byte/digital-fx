@@ -1,7 +1,6 @@
 "use client";
 
 import { adminFetch } from "@/lib/adminFetch";
-
 import { useEffect, useState, useCallback, useMemo } from "react";
 import CustomerDrawer, { DrawerRecord } from "../../../components/admin/CustomerDrawer";
 import { supabase } from "../../lib/supabase";
@@ -9,9 +8,9 @@ import { supabase } from "../../lib/supabase";
 type Enquiry = {
   id: number;
   name: string;
+  email: string;
   phone: string;
-  email: string | null;
-  service: string;
+  service: string | null;
   message: string | null;
   status: string;
   created_at: string;
@@ -47,7 +46,6 @@ export default function EnquiriesPage() {
   useEffect(() => {
     loadEnquiries();
 
-    // Supabase realtime subscription
     const channel = supabase
       .channel("admin-enquiries-page")
       .on(
@@ -64,12 +62,11 @@ export default function EnquiriesPage() {
     };
   }, [loadEnquiries]);
 
-  // Filtered & Searched Data
   const filtered = useMemo(() => {
     return enquiries.filter((item) => {
       const matchesStatus =
         statusFilter === "All" ||
-        item.status?.toLowerCase() === statusFilter.toLowerCase();
+        (item.status || "").toLowerCase() === statusFilter.toLowerCase();
 
       const q = search.toLowerCase().trim();
       const matchesSearch =
@@ -100,16 +97,16 @@ export default function EnquiriesPage() {
   }
 
   function exportCSV() {
-    const headers = ["ID", "Name", "Phone", "Email", "Service", "Status", "Date", "Message"];
+    const headers = ["ID", "Name", "Email", "Phone", "Service", "Status", "Date", "Message"];
     const rows = filtered.map((e) => [
       e.id,
-      `"${(e.name || "").replace(/"/g, '""')}"`,
-      `"${e.phone || ""}"`,
-      `"${e.email || ""}"`,
-      `"${(e.service || "").replace(/"/g, '""')}"`,
-      `"${e.status || ""}"`,
-      `"${new Date(e.created_at).toLocaleString("en-IN")}"`,
-      `"${(e.message || "").replace(/"/g, '""').replace(/\n/g, " ")}"`,
+      '"' + (e.name || "").replace(/"/g, '""') + '"',
+      '"' + (e.email || "") + '"',
+      '"' + (e.phone || "") + '"',
+      '"' + (e.service || "").replace(/"/g, '""') + '"',
+      '"' + (e.status || "") + '"',
+      '"' + (e.created_at ? new Date(e.created_at).toLocaleString("en-IN") : "") + '"',
+      '"' + (e.message || "").replace(/"/g, '""') + '"',
     ]);
 
     const csvContent =
@@ -118,7 +115,7 @@ export default function EnquiriesPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `digitalfx_enquiries_${Date.now()}.csv`);
+    link.setAttribute("download", "digitalfx_enquiries_" + Date.now() + ".csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -138,15 +135,15 @@ export default function EnquiriesPage() {
   function getStatusStyle(st: string) {
     switch ((st || "").toLowerCase()) {
       case "converted":
-        return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
+        return "bg-emerald-50 text-emerald-700 border-emerald-200";
       case "in progress":
-        return "bg-violet-500/15 text-violet-400 border-violet-500/30";
+        return "bg-blue-50 text-blue-700 border-blue-200";
       case "contacted":
-        return "bg-amber-500/15 text-amber-400 border-amber-500/30";
+        return "bg-amber-50 text-amber-700 border-amber-200";
       case "closed":
-        return "bg-slate-700 text-slate-300 border-slate-600";
+        return "bg-rose-50 text-rose-700 border-rose-200";
       default:
-        return "bg-blue-500/15 text-blue-400 border-blue-500/30";
+        return "bg-slate-100 text-slate-700 border-slate-200";
     }
   }
 
@@ -157,12 +154,12 @@ export default function EnquiriesPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-blue-400">
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#207de9]">
               Customer Acquisition
             </span>
           </div>
-          <h1 className="text-2xl font-black text-white mt-1">Customer Enquiries</h1>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <h1 className="text-2xl font-black text-[#080d24] mt-1">Customer Enquiries</h1>
+          <p className="text-xs text-slate-500 mt-0.5">
             Manage incoming contact requests and lead statuses in real time.
           </p>
         </div>
@@ -171,13 +168,13 @@ export default function EnquiriesPage() {
           <button
             onClick={exportCSV}
             disabled={filtered.length === 0}
-            className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-bold text-slate-200 hover:bg-white/10 transition disabled:opacity-40"
+            className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 shadow-xs transition disabled:opacity-40 cursor-pointer"
           >
             <span>📥 Export CSV</span>
           </button>
           <button
             onClick={loadEnquiries}
-            className="flex items-center gap-2 rounded-xl bg-[#315df5] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#234bd6] transition"
+            className="flex items-center gap-2 rounded-xl bg-[#207de9] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#1570ef] shadow-xs transition cursor-pointer"
           >
             <span>↻ Refresh</span>
           </button>
@@ -185,9 +182,9 @@ export default function EnquiriesPage() {
       </div>
 
       {/* Controls: Search & Status Filter */}
-      <div className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 rounded-2xl border border-slate-200/90 bg-white p-4 shadow-xs sm:flex-row sm:items-center sm:justify-between">
         <div className="relative flex-1 max-w-md">
-          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs">
+          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">
             🔍
           </span>
           <input
@@ -195,12 +192,12 @@ export default function EnquiriesPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by customer name, phone, email, service..."
-            className="w-full h-10 rounded-xl border border-white/10 bg-black/20 pl-9 pr-4 text-xs font-medium text-white placeholder:text-slate-500 outline-none focus:border-[#315df5]"
+            className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50 pl-9 pr-4 text-xs font-medium text-[#080d24] placeholder:text-slate-400 outline-none focus:bg-white focus:border-[#207de9] transition"
           />
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
             >
               ✕
             </button>
@@ -212,11 +209,12 @@ export default function EnquiriesPage() {
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
-                statusFilter === st
-                  ? "bg-[#315df5] text-white"
-                  : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200"
-              }`}
+              className={
+                "px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer " +
+                (statusFilter === st
+                  ? "bg-[#207de9] text-white shadow-xs"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200/60 hover:text-[#080d24]")
+              }
             >
               {st}
             </button>
@@ -224,11 +222,11 @@ export default function EnquiriesPage() {
         </div>
       </div>
 
-      {/* Data Table */}
-      <div className="rounded-3xl border border-white/10 bg-white/[0.02] shadow-xl overflow-hidden">
+      {/* Data Table Card */}
+      <div className="rounded-2xl border border-slate-200/90 bg-white shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="border-b border-white/10 bg-black/30 text-[10.5px] uppercase tracking-wider text-slate-400">
+            <thead className="border-b border-slate-200 bg-slate-50 text-[10.5px] uppercase tracking-wider text-slate-500 font-bold">
               <tr>
                 <th className="py-3.5 px-5">Customer</th>
                 <th className="py-3.5 px-4">Contact</th>
@@ -238,86 +236,90 @@ export default function EnquiriesPage() {
                 <th className="py-3.5 px-5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 font-medium">
+            <tbody className="divide-y divide-slate-100 font-medium">
               {loading ? (
                 <tr>
                   <td colSpan={6} className="py-12 text-center text-slate-400">
-                    <span className="inline-block h-5 w-5 border-2 border-white/30 border-t-blue-500 rounded-full animate-spin mr-2" />
+                    <span className="inline-block h-5 w-5 border-2 border-slate-200 border-t-[#207de9] rounded-full animate-spin mr-2" />
                     Loading enquiries from database...
                   </td>
                 </tr>
               ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-500">
-                    No enquiries match the selected filters.
+                  <td colSpan={6} className="py-12 text-center text-slate-400">
+                    No enquiries found.
                   </td>
                 </tr>
               ) : (
                 filtered.map((e) => (
                   <tr
                     key={e.id}
+                    className="hover:bg-slate-50/70 transition group cursor-pointer"
                     onClick={() =>
                       setSelectedRecord({
                         id: e.id,
                         type: "enquiry",
                         name: e.name,
-                        phone: e.phone,
                         email: e.email,
+                        phone: e.phone,
                         service: e.service,
-                        status: e.status,
+                        website: e.message?.match(/Target Website:\s*([^\s\n]+)/i)?.[1] || "—",
+                        status: e.status || "New",
                         date: formatDate(e.created_at),
                         message: e.message,
-                        website:
-                          e.message?.match(/Target Website:\s*([^\s\n]+)/i)?.[1] ||
-                          e.message?.match(/Website:\s*([^\s\n|]+)/i)?.[1] ||
-                          null,
                       })
                     }
-                    className="hover:bg-white/[0.03] transition cursor-pointer group"
                   >
-                    <td className="py-4 px-5">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#315df5] to-[#7888ff] text-xs font-black text-white shadow-sm shrink-0">
-                          {e.name?.charAt(0).toUpperCase() || "C"}
-                        </div>
-                        <div>
-                          <p className="font-bold text-sm text-white group-hover:text-blue-300 transition">
-                            {e.name}
-                          </p>
-                          {e.email && (
-                            <p className="text-[11px] text-slate-400 font-mono">
-                              {e.email}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </td>
-
-                    <td className="py-4 px-4 font-mono text-slate-200">
-                      {e.phone}
-                    </td>
-
-                    <td className="py-4 px-4 text-slate-300 max-w-[200px] truncate">
-                      {e.service}
-                    </td>
-
-                    <td className="py-4 px-4 text-slate-400 whitespace-nowrap text-[11px]">
-                      {formatDate(e.created_at)}
-                    </td>
-
-                    <td className="py-4 px-4">
-                      <span
-                        className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border ${getStatusStyle(
-                          e.status
-                        )}`}
-                      >
-                        {e.status}
+                    <td className="py-3.5 px-5">
+                      <span className="font-bold text-[#080d24] group-hover:text-[#207de9] transition block">
+                        {e.name}
                       </span>
                     </td>
-
-                    <td className="py-4 px-5 text-right">
-                      <button className="text-xs font-bold text-[#6f8cff] hover:text-white transition">
-                        Inspect →
+                    <td className="py-3.5 px-4 text-slate-600">
+                      <div>{e.phone || "—"}</div>
+                      <div className="text-[11px] text-slate-400">{e.email}</div>
+                    </td>
+                    <td className="py-3.5 px-4 text-[#080d24]">
+                      {e.service || "General Growth Enquiry"}
+                    </td>
+                    <td className="py-3.5 px-4 font-mono text-[11px] text-slate-500">
+                      {formatDate(e.created_at)}
+                    </td>
+                    <td className="py-3.5 px-4" onClick={(ev) => ev.stopPropagation()}>
+                      <select
+                        value={e.status || "New"}
+                        onChange={(ev) => handleStatusChange(e.id, ev.target.value)}
+                        className={
+                          "text-xs font-bold rounded-lg border px-2.5 py-1 outline-none cursor-pointer " +
+                          getStatusStyle(e.status)
+                        }
+                      >
+                        {STATUSES.filter((s) => s !== "All").map((s) => (
+                          <option key={s} value={s} className="bg-white text-[#080d24]">
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="py-3.5 px-5 text-right" onClick={(ev) => ev.stopPropagation()}>
+                      <button
+                        onClick={() =>
+                          setSelectedRecord({
+                            id: e.id,
+                            type: "enquiry",
+                            name: e.name,
+                            email: e.email,
+                            phone: e.phone,
+                            service: e.service,
+                            website: e.message?.match(/Target Website:\s*([^\s\n]+)/i)?.[1] || "—",
+                            status: e.status || "New",
+                            date: formatDate(e.created_at),
+                            message: e.message,
+                          })
+                        }
+                        className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-[#080d24] transition shadow-2xs"
+                      >
+                        Details →
                       </button>
                     </td>
                   </tr>
@@ -328,7 +330,6 @@ export default function EnquiriesPage() {
         </div>
       </div>
 
-      {/* Customer Detail Drawer */}
       <CustomerDrawer
         record={selectedRecord}
         onClose={() => setSelectedRecord(null)}

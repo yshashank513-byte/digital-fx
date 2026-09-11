@@ -60,8 +60,6 @@ export default function CustomerDrawer({
       try {
         setUpdating(true);
         await onStatusChange(record.id, status);
-      } catch (err) {
-        console.error("Status update error:", err);
       } finally {
         setUpdating(false);
       }
@@ -69,70 +67,73 @@ export default function CustomerDrawer({
   }
 
   function getStatusColor(st: string) {
-    switch (st.toLowerCase()) {
+    switch ((st || "").toLowerCase()) {
       case "converted":
-      case "success":
       case "paid":
-        return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
+      case "completed":
+        return "bg-emerald-50 text-emerald-700 border-emerald-200";
       case "in progress":
       case "proposal sent":
-        return "bg-violet-500/15 text-violet-400 border-violet-500/30";
+        return "bg-blue-50 text-blue-700 border-blue-200";
       case "contacted":
-        return "bg-amber-500/15 text-amber-400 border-amber-500/30";
+      case "pending":
+      case "payment pending":
+        return "bg-amber-50 text-amber-700 border-amber-200";
       case "closed":
       case "failed":
-        return "bg-slate-700 text-slate-300 border-slate-600";
+        return "bg-rose-50 text-rose-700 border-rose-200";
       default:
-        return "bg-blue-500/15 text-blue-400 border-blue-500/30";
+        return "bg-slate-100 text-slate-700 border-slate-200";
     }
   }
 
   const cleanPhone = (record.phone || "").replace(/[^0-9]/g, "");
   const waUrl = cleanPhone
-    ? `https://wa.me/${cleanPhone.startsWith("91") ? cleanPhone : "91" + cleanPhone}?text=${encodeURIComponent(
-        `Hi ${record.name}, Digital FX here regarding your ${record.service || "digital growth enquiry"}.`
-      )}`
+    ? "https://wa.me/" + (cleanPhone.startsWith("91") ? cleanPhone : "91" + cleanPhone) + "?text=" + encodeURIComponent(
+        "Hi " + record.name + ", Digital FX here regarding your " + (record.service || "digital growth enquiry") + "."
+      )
     : null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/40 backdrop-blur-xs">
       {/* Backdrop overlay */}
       <div
         className="absolute inset-0 cursor-pointer"
         onClick={onClose}
       />
 
-      {/* Drawer content */}
-      <div className="relative z-10 flex h-full w-full max-w-xl flex-col bg-[#07122d] border-l border-white/10 text-white shadow-2xl overflow-y-auto animate-slideLeft">
+      {/* Drawer content (Corporate White) */}
+      <div className="relative z-10 flex h-full w-full max-w-xl flex-col bg-white border-l border-slate-200 text-[#080d24] shadow-2xl overflow-y-auto">
         
         {/* Top Header */}
-        <div className="sticky top-0 z-20 flex items-center justify-between border-b border-white/10 bg-[#07122d]/95 px-6 py-5 backdrop-blur-md">
+        <div className="sticky top-0 z-20 flex items-center justify-between border-b border-slate-200 bg-white/95 px-6 py-5 backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#315df5] to-[#7888ff] text-base font-black text-white shadow-lg">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#207de9] to-[#1570ef] text-base font-black text-white shadow-xs">
               {record.name.charAt(0).toUpperCase() || "C"}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-lg font-black tracking-tight text-white">
+                <h3 className="text-lg font-black tracking-tight text-[#080d24]">
                   {record.name}
                 </h3>
                 <span
-                  className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border ${getStatusColor(
-                    currentStatus
-                  )}`}
+                  className={
+                    "px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border " +
+                    getStatusColor(currentStatus)
+                  }
                 >
                   {currentStatus}
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
-                Type: <span className="font-semibold uppercase text-blue-300">{record.type}</span> • Added {record.date}
+              <p className="text-xs text-slate-500">
+                Type: <span className="font-semibold uppercase text-[#207de9]">{record.type}</span> • Added {record.date}
               </p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white transition"
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-[#080d24] transition cursor-pointer"
             aria-label="Close drawer"
           >
             ✕
@@ -140,19 +141,19 @@ export default function CustomerDrawer({
         </div>
 
         {/* Action Bar: Call & WhatsApp */}
-        <div className="grid grid-cols-2 gap-3 border-b border-white/10 bg-black/20 p-5">
+        <div className="grid grid-cols-2 gap-3 border-b border-slate-200 bg-slate-50 p-5">
           {record.phone ? (
             <a
-              href={`tel:${record.phone}`}
-              className="flex items-center justify-center gap-2 rounded-xl bg-[#315df5] py-2.5 text-xs font-bold text-white shadow-md hover:bg-[#254cd6] transition"
+              href={"tel:" + record.phone}
+              className="flex items-center justify-center gap-2 rounded-xl bg-[#207de9] py-2.5 text-xs font-bold text-white shadow-xs hover:bg-[#1570ef] transition"
             >
               <span>📞 Call Now</span>
-              <span className="font-mono text-[11px] opacity-80">{record.phone}</span>
+              <span className="font-mono text-[11px] opacity-90">{record.phone}</span>
             </a>
           ) : (
             <button
               disabled
-              className="flex items-center justify-center gap-2 rounded-xl bg-white/5 py-2.5 text-xs font-bold text-slate-500 cursor-not-allowed"
+              className="flex items-center justify-center gap-2 rounded-xl bg-slate-200/60 py-2.5 text-xs font-bold text-slate-400 cursor-not-allowed"
             >
               No Phone Available
             </button>
@@ -163,14 +164,14 @@ export default function CustomerDrawer({
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 text-xs font-bold text-white shadow-md hover:bg-emerald-500 transition"
+              className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-emerald-700 transition"
             >
               <span>💬 WhatsApp</span>
             </a>
           ) : (
             <button
               disabled
-              className="flex items-center justify-center gap-2 rounded-xl bg-white/5 py-2.5 text-xs font-bold text-slate-500 cursor-not-allowed"
+              className="flex items-center justify-center gap-2 rounded-xl bg-slate-200/60 py-2.5 text-xs font-bold text-slate-400 cursor-not-allowed"
             >
               No WhatsApp
             </button>
@@ -181,13 +182,13 @@ export default function CustomerDrawer({
         <div className="space-y-6 p-6">
           
           {/* Status Updater */}
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold tracking-wider uppercase text-slate-400">
+              <span className="text-xs font-bold tracking-wider uppercase text-slate-500">
                 Update Lead Status
               </span>
               {updating && (
-                <span className="text-[11px] text-blue-400 font-semibold animate-pulse">
+                <span className="text-[11px] text-[#207de9] font-semibold animate-pulse">
                   Saving to database...
                 </span>
               )}
@@ -198,11 +199,12 @@ export default function CustomerDrawer({
                   key={st}
                   onClick={() => handleStatusSelect(st)}
                   disabled={updating}
-                  className={`py-2 px-2.5 rounded-xl text-xs font-bold border transition ${
-                    currentStatus.toLowerCase() === st.toLowerCase()
-                      ? "bg-[#315df5] border-[#315df5] text-white shadow-md"
-                      : "bg-white/5 border-white/10 text-slate-300 hover:bg-white/10"
-                  }`}
+                  className={
+                    "rounded-xl py-2 px-2 text-center text-xs font-bold transition border cursor-pointer " +
+                    (currentStatus.toLowerCase() === st.toLowerCase()
+                      ? "bg-[#207de9] text-white border-[#207de9] shadow-xs"
+                      : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-slate-300")
+                  }
                 >
                   {st}
                 </button>
@@ -210,108 +212,125 @@ export default function CustomerDrawer({
             </div>
           </div>
 
-          {/* Customer Profile Card */}
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 space-y-3.5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-blue-400">
-              Customer Contact Attributes
+          {/* Primary Lead / Customer Information */}
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs space-y-4">
+            <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400">
+              Customer Details
             </h4>
-
-            <div className="grid grid-cols-2 gap-4 text-xs">
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
-                <p className="text-slate-400 text-[11px]">Full Name</p>
-                <p className="font-bold text-white mt-0.5">{record.name}</p>
-              </div>
-              <div>
-                <p className="text-slate-400 text-[11px]">Phone Number</p>
-                <p className="font-mono font-bold text-white mt-0.5">
-                  {record.phone || "—"}
-                </p>
-              </div>
-              <div className="col-span-2">
-                <p className="text-slate-400 text-[11px]">Email Address</p>
-                <p className="font-mono font-medium text-slate-200 mt-0.5">
+                <span className="text-slate-400 block text-[10.5px] uppercase font-bold tracking-wider">Email Address</span>
+                <p className="font-semibold text-[#080d24] mt-0.5 truncate">
                   {record.email || "—"}
                 </p>
               </div>
-              <div className="col-span-2">
-                <p className="text-slate-400 text-[11px]">Service Requested</p>
-                <p className="font-bold text-blue-300 mt-0.5">
-                  {record.service || "General Enquiry"}
+
+              <div>
+                <span className="text-slate-400 block text-[10.5px] uppercase font-bold tracking-wider">Contact Number</span>
+                <p className="font-semibold text-[#080d24] mt-0.5">
+                  {record.phone || "—"}
+                </p>
+              </div>
+
+              <div>
+                <span className="text-slate-400 block text-[10.5px] uppercase font-bold tracking-wider">Requested Service</span>
+                <p className="font-semibold text-[#080d24] mt-0.5">
+                  {record.service || "General Growth Enquiry"}
+                </p>
+              </div>
+
+              <div>
+                <span className="text-slate-400 block text-[10.5px] uppercase font-bold tracking-wider">Target Website</span>
+                <p className="font-semibold text-[#207de9] mt-0.5 truncate">
+                  {record.website && record.website !== "—" ? (
+                    <a
+                      href={record.website.startsWith("http") ? record.website : "https://" + record.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {record.website} ↗
+                    </a>
+                  ) : (
+                    "—"
+                  )}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Website / Target URL */}
-          {record.website && record.website !== "—" && (
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-              <div className="flex items-center justify-between">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-blue-400">
-                  Target Website URL
-                </h4>
-                <a
-                  href={
-                    record.website.startsWith("http")
-                      ? record.website
-                      : `https://${record.website}`
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-bold text-[#6f8cff] hover:underline flex items-center gap-1"
-                >
-                  <span>Visit Site</span>
-                  <span>↗</span>
-                </a>
+          {/* Payment Details Section (if record is payment) */}
+          {record.type === "payment" && (
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-5 space-y-3">
+              <h4 className="text-xs font-black uppercase tracking-wider text-emerald-800">
+                Payment Breakdown
+              </h4>
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div>
+                  <span className="text-emerald-700/80 text-[10.5px] block font-bold uppercase">Amount Paid</span>
+                  <p className="text-xl font-black text-emerald-700 mt-0.5 tabular-nums">
+                    ₹{Number(record.amount || 0).toLocaleString("en-IN")}
+                  </p>
+                </div>
+                <div>
+                  <span className="text-emerald-700/80 text-[10.5px] block font-bold uppercase">Gateway Txn ID</span>
+                  <p className="font-mono text-[11px] text-[#080d24] mt-0.5 truncate">
+                    {record.txnid || "—"}
+                  </p>
+                </div>
+                <div className="col-span-2">
+                  <span className="text-emerald-700/80 text-[10.5px] block font-bold uppercase">Package / Plan Scope</span>
+                  <p className="font-semibold text-[#080d24] mt-0.5">
+                    {record.productName || record.planId || "Digital Marketing Retainer"}
+                  </p>
+                </div>
               </div>
-              <p className="mt-2 font-mono text-sm font-bold text-white break-all">
-                {record.website}
-              </p>
             </div>
           )}
 
-          {/* Analysis Diagnostic Scores (if available) */}
-          {(record.overallScore !== undefined || record.seoScore !== undefined) && (
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 space-y-4">
-              <div className="flex items-center justify-between">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-                  Audit &amp; Intelligence Scores
-                </h4>
-                <span className="text-lg font-black text-emerald-400">
-                  {record.overallScore || 0}/100
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                {[
-                  { label: "GEO AI Score", val: record.geoScore ?? 80, col: "#1570ef" },
-                  { label: "Technical SEO", val: record.seoScore ?? 85, col: "#00b894" },
-                  { label: "Mobile Crawl", val: record.mobileScore ?? 90, col: "#10b981" },
-                  { label: "Speed & Perf", val: record.performanceScore ?? 75, col: "#a855f7" },
-                ].map((s) => (
-                  <div key={s.label} className="p-3 rounded-xl bg-black/20 border border-white/5">
-                    <div className="flex justify-between font-bold mb-1">
-                      <span className="text-slate-400 text-[11px]">{s.label}</span>
-                      <span style={{ color: s.col }}>{s.val}%</span>
-                    </div>
-                    <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full"
-                        style={{ width: `${s.val}%`, backgroundColor: s.col }}
-                      />
-                    </div>
-                  </div>
-                ))}
+          {/* Website Analysis Details Section (if record is analysis) */}
+          {record.type === "analysis" && (
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs space-y-4">
+              <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400">
+                AI Search &amp; GEO Scores
+              </h4>
+              <div className="grid grid-cols-4 gap-2 text-center">
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <span className="text-[10px] text-slate-400 block font-bold">Overall</span>
+                  <span className="text-base font-black text-[#207de9] tabular-nums">
+                    {record.overallScore || 78}/100
+                  </span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <span className="text-[10px] text-slate-400 block font-bold">GEO AI</span>
+                  <span className="text-base font-black text-purple-600 tabular-nums">
+                    {record.geoScore || 82}%
+                  </span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <span className="text-[10px] text-slate-400 block font-bold">Local Maps</span>
+                  <span className="text-base font-black text-emerald-600 tabular-nums">
+                    {record.seoScore || 74}%
+                  </span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <span className="text-[10px] text-slate-400 block font-bold">Speed</span>
+                  <span className="text-base font-black text-amber-600 tabular-nums">
+                    {record.performanceScore || 91}%
+                  </span>
+                </div>
               </div>
 
               {record.recommendations && record.recommendations.length > 0 && (
-                <div className="pt-3 border-t border-white/10">
-                  <p className="text-[11px] font-bold text-slate-400 mb-2 uppercase tracking-wider">
-                    Diagnostic Recommendations:
-                  </p>
-                  <ul className="space-y-1.5 text-xs text-slate-300">
+                <div>
+                  <span className="text-[10.5px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                    Action Recommendations
+                  </span>
+                  <ul className="space-y-1.5 text-xs text-slate-600">
                     {record.recommendations.map((rec, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <span className="text-emerald-400">•</span>
+                        <span className="text-[#207de9] font-bold mt-0.5">•</span>
                         <span>{rec}</span>
                       </li>
                     ))}
@@ -321,52 +340,13 @@ export default function CustomerDrawer({
             </div>
           )}
 
-          {/* Payment Attributes (if payment) */}
-          {(record.amount !== undefined || record.txnid) && (
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 space-y-3 text-xs">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400">
-                Payment &amp; Transaction Details
-              </h4>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <p className="text-slate-400 text-[11px]">Amount Paid / Due</p>
-                  <p className="text-lg font-black text-white mt-0.5">
-                    ₹{Number(record.amount || 0).toLocaleString("en-IN")}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-slate-400 text-[11px]">Payment Status</p>
-                  <span
-                    className={`inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border ${getStatusColor(
-                      record.status
-                    )}`}
-                  >
-                    {record.status}
-                  </span>
-                </div>
-                <div className="col-span-2">
-                  <p className="text-slate-400 text-[11px]">Transaction ID (TxnID)</p>
-                  <p className="font-mono text-xs text-slate-300 mt-0.5 break-all">
-                    {record.txnid || "—"}
-                  </p>
-                </div>
-                <div className="col-span-2">
-                  <p className="text-slate-400 text-[11px]">Product / Scope</p>
-                  <p className="font-semibold text-white mt-0.5">
-                    {record.productName || record.planId || "Bespoke Package"}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Message / Requirement Notes */}
+          {/* Raw Message / Additional Request Details */}
           {record.message && (
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                Original Requirement / Message
-              </h4>
-              <p className="text-xs leading-relaxed text-slate-200 whitespace-pre-line bg-black/20 p-3.5 rounded-xl border border-white/5">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 space-y-2">
+              <span className="text-[10.5px] font-bold uppercase tracking-wider text-slate-400 block">
+                Customer Message &amp; Requirements
+              </span>
+              <p className="text-xs text-slate-700 whitespace-pre-wrap leading-relaxed">
                 {record.message}
               </p>
             </div>
