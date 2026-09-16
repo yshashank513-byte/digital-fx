@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${post.title} | Digital FX Insights`,
+    title: post.title,
     description: post.description,
     alternates: {
       canonical: `https://www.digitalfx.in/blog/${post.slug}`,
@@ -65,36 +65,62 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "@id": `https://www.digitalfx.in/blog/${post.slug}#article`,
-    headline: post.title,
-    description: post.description,
-    datePublished: "2026-03-01T00:00:00+05:30",
-    dateModified: "2026-03-04T00:00:00+05:30",
-    mainEntityOfPage: `https://www.digitalfx.in/blog/${post.slug}`,
-    author: {
-      "@type": "Person",
-      name: post.author.name,
-      jobTitle: post.author.role,
-      worksFor: {
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "@id": `https://www.digitalfx.in/blog/${post.slug}#article`,
+      headline: post.title,
+      description: post.description,
+      datePublished: "2026-03-01T00:00:00+05:30",
+      dateModified: "2026-03-04T00:00:00+05:30",
+      mainEntityOfPage: `https://www.digitalfx.in/blog/${post.slug}`,
+      author: {
+        "@type": "Person",
+        name: post.author.name,
+        jobTitle: post.author.role,
+        worksFor: {
+          "@type": "Organization",
+          name: "Digital FX",
+          url: "https://www.digitalfx.in",
+        },
+      },
+      publisher: {
         "@type": "Organization",
         name: "Digital FX",
         url: "https://www.digitalfx.in",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://www.digitalfx.in/logo.png",
+        },
       },
+      image: "https://www.digitalfx.in/logo.png",
     },
-    publisher: {
-      "@type": "Organization",
-      name: "Digital FX",
-      url: "https://www.digitalfx.in",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://www.digitalfx.in/logo.png",
-      },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.digitalfx.in",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Insights & Blueprints",
+          item: "https://www.digitalfx.in/blog",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: post.title,
+          item: `https://www.digitalfx.in/blog/${post.slug}`,
+        },
+      ],
     },
-    image: "https://www.digitalfx.in/logo.png",
-  };
+  ];
 
   const shareText = encodeURIComponent(`Check out this blueprint from Digital FX: ${post.title}`);
   const shareUrl = encodeURIComponent(`https://www.digitalfx.in/blog/${post.slug}`);

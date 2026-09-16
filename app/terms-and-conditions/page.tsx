@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Digital FX",
+  title: "Terms of Service & Commercial Agreement",
   description:
     "Official Terms of Service and Commercial Engagement Agreement of Digital FX. Commercial terms, scope of services, intellectual property, and payment conditions.",
   alternates: {
@@ -13,6 +13,29 @@ export const metadata: Metadata = {
 export default function TermsAndConditionsPage() {
   return (
     <main className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-[#207de9] selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.digitalfx.in",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Terms & Conditions",
+                item: "https://www.digitalfx.in/terms-and-conditions",
+              },
+            ],
+          }),
+        }}
+      />
       {/* 1. TOP INSTITUTIONAL BAR */}
       <div className="bg-[#080d24] text-white py-2 border-b border-white/10 text-xs">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2">

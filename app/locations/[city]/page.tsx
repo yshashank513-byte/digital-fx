@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!profile) {
     return {
-      title: "City Not Found | Digital FX",
+      title: "City Not Found",
     };
   }
 

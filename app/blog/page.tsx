@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BLOG_POSTS } from "@/lib/blogData";
 
 export const metadata: Metadata = {
-  title: "Insights & Search Engineering Blog | Digital FX",
+  title: "Insights & Search Engineering Blueprints",
   description:
     "Battle-tested insights, real Indian market benchmarks, and architectural blueprints for Google Maps 3-Pack domination, Next.js web performance, Generative Engine Optimization (GEO), and high-ROI digital marketing.",
   alternates: {
@@ -25,6 +25,29 @@ export default function BlogIndexPage() {
 
   return (
     <main className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-[#207de9] selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.digitalfx.in",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Insights & Blueprints",
+                item: "https://www.digitalfx.in/blog",
+              },
+            ],
+          }),
+        }}
+      />
       {/* 1. TOP BAR */}
       <div className="bg-[#080d24] text-white py-2 border-b border-white/10 text-xs">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2">

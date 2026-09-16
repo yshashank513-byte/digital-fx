@@ -58,28 +58,46 @@ export interface LocationMapping {
   cities?: string[];
 }
 
-// All 28 States & 8 UTs + all 350+ Cities
-export const ALL_LOCATIONS_FLAT: LocationMapping[] = [
+// All 28 States & 8 UTs + all 350+ Cities with guaranteed unique slugs
+export const ALL_LOCATIONS_FLAT: LocationMapping[] = (() => {
+  const list: LocationMapping[] = [];
+  const seenSlugs = new Set<string>();
+
   // 1. All 28 States & 8 Union Territories
-  ...INDIA_STATES_AND_UTS.map((s) => ({
-    name: s.name,
-    slug: toCitySlug(s.name),
-    stateName: s.name,
-    type: s.type,
-    isState: true,
-    cities: s.cities,
-  })),
-  // 2. All 350+ Cities
-  ...INDIA_STATES_AND_UTS.flatMap((s) =>
-    s.cities.map((c) => ({
-      name: c,
-      slug: toCitySlug(c),
+  for (const s of INDIA_STATES_AND_UTS) {
+    const slug = toCitySlug(s.name);
+    seenSlugs.add(slug);
+    list.push({
+      name: s.name,
+      slug,
       stateName: s.name,
       type: s.type,
-      isState: false,
-    }))
-  ),
-];
+      isState: true,
+      cities: s.cities,
+    });
+  }
+
+  // 2. All 350+ Cities (disambiguated if duplicate slug found)
+  for (const s of INDIA_STATES_AND_UTS) {
+    for (const c of s.cities) {
+      let slug = toCitySlug(c);
+      if (seenSlugs.has(slug)) {
+        const stateSlug = toCitySlug(s.name);
+        slug = `${slug}-${stateSlug}`;
+      }
+      seenSlugs.add(slug);
+      list.push({
+        name: c,
+        slug,
+        stateName: s.name,
+        type: s.type,
+        isState: false,
+      });
+    }
+  }
+
+  return list;
+})();
 
 // Alias for backwards compatibility
 export const ALL_CITIES_FLAT = ALL_LOCATIONS_FLAT;
@@ -634,7 +652,7 @@ export function getCitySeoProfile(slugInput: string): CityProfile | null {
       isState: true,
       citiesInState: cities ? cities.map((c) => ({ name: c, slug: toCitySlug(c) })) : [],
       heroTagline: `#1 Rated Digital Marketing & Local SEO Agency Serving ${name}`,
-      metaTitle: `Best Digital Marketing Agency in ${name} | State-Wide SEO & Google Maps | Digital FX`,
+      metaTitle: `Best Digital Marketing Agency in ${name} | State-Wide SEO & Google Maps`,
       metaDescription: `Dominate local search across ${name} with Digital FX (4.9★ Rated). Google Maps 3-Pack ranking, sub-second Next.js websites, and high-converting performance marketing across ${cities ? cities.slice(0, 5).join(", ") : name} and all commercial hubs in ${name}.`,
       landmarks,
       primaryIndustries,
@@ -727,7 +745,7 @@ export function getCitySeoProfile(slugInput: string): CityProfile | null {
     regionType: type,
     isState: false,
     heroTagline: `#1 Rated Digital Marketing & Local SEO Agency Serving ${name}, ${stateName}`,
-    metaTitle: `Best Digital Marketing Agency in ${name} | SEO & Google Maps Ranking | Digital FX`,
+    metaTitle: `Best Digital Marketing Agency in ${name} | SEO & Google Maps Ranking`,
     metaDescription: `Grow your ${name} business with Digital FX (4.9★ Rated). Rank #1 on Google Maps 3-Pack, dominate local SEO in ${name}, ${stateName}, and scale qualified customer inquiries with custom Next.js websites and ROI-driven paid ads.`,
     landmarks,
     primaryIndustries,

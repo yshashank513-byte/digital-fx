@@ -4,7 +4,7 @@ import { INDIA_STATES_AND_UTS } from "@/lib/indiaLocations";
 import { toCitySlug } from "@/lib/citySeoData";
 
 export const metadata: Metadata = {
-  title: "Pan-India Local SEO & Digital Marketing Directory | 350+ Cities | Digital FX",
+  title: "Pan-India Local SEO & Digital Marketing Directory (350+ Cities)",
   description:
     "Explore Digital FX's Pan-India local SEO and digital marketing coverage across all 28 Indian States, 8 Union Territories, and 350+ cities. Dominate Google Maps Top 3, scale qualified leads, and outperform competitors in your city.",
   alternates: {
@@ -21,6 +21,29 @@ export default function LocationsDirectoryPage() {
 
   return (
     <main className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-[#207de9] selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.digitalfx.in",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Locations Directory",
+                item: "https://www.digitalfx.in/locations",
+              },
+            ],
+          }),
+        }}
+      />
       {/* 1. TOP BAR */}
       <div className="bg-[#080d24] text-white py-2 border-b border-white/10 text-xs">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2">
