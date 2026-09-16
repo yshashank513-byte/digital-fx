@@ -9,6 +9,11 @@ const PLANS = {
     amount: "2999.00",
   },
 
+  email_marketing: {
+    name: "Email Marketing & Automation",
+    amount: "4999.00",
+  },
+
   website: {
     name: "Website Development",
     amount: "5999.00",

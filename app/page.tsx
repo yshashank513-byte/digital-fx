@@ -114,7 +114,7 @@ type GeoResult = {
 };
 
 type PaymentPlan = {
-  id: "google_listing" | "website" | "growth" | "custom";
+  id: "google_listing" | "email_marketing" | "website" | "growth" | "custom";
   name: string;
   amount: string;
 };
@@ -184,6 +184,14 @@ const fallbackServices: Service[] = [
     icon: "★",
     status: true,
   },
+  {
+    id: 9,
+    name: "Email Marketing & CRM Automation",
+    description:
+      "High-deliverability newsletters, drip sequences, Klaviyo & Mailchimp setup, and SPF/DKIM/DMARC inbox placement.",
+    icon: "✉",
+    status: true,
+  },
 ];
 
 const pricingPlans = [
@@ -201,6 +209,22 @@ const pricingPlans = [
       "Verification guidance",
     ],
     button: "Get Started",
+    popular: false,
+  },
+  {
+    name: "Email Marketing & CRM Automation",
+    price: "4,999",
+    description:
+      "Turn subscribers into repeat revenue with automated drip campaigns and deliverability engineering.",
+    features: [
+      "Technical ESP Setup (Mailchimp / Klaviyo / Brevo)",
+      "100% Deliverability: SPF, DKIM, DMARC authentication",
+      "Custom responsive HTML email template",
+      "3-step automated welcome & lead nurture drip",
+      "Audience segmentation & bounce cleaning",
+      "Conversion copywriting & A/B subject line tests",
+    ],
+    button: "Launch Email Marketing",
     popular: false,
   },
   {
@@ -472,6 +496,11 @@ const paymentPlans: PaymentPlan[] = [
     amount: "2999",
   },
   {
+    id: "email_marketing",
+    name: "Email Marketing & Automation",
+    amount: "4999",
+  },
+  {
     id: "website",
     name: "Website Development",
     amount: "5999",
@@ -507,7 +536,7 @@ const ghaziabadFaqs = [
   },
   {
     q: "What is your pricing for digital marketing and SEO in Ghaziabad?",
-    a: "Our Google Listing Growth plan starts at ₹2,000/month, custom high-speed websites start from ₹10,000, and our comprehensive 360° Growth Retainer starts at ₹25,000/month. We also provide flexible custom amount retainer billing via our secure RBI-authorized PayU terminal.",
+    a: "Our Google Listing setup starts at ₹2,999, Email Marketing & Automation starts at ₹4,999, custom high-speed websites start from ₹5,999, and comprehensive 360° Growth Retainers start from ₹9,999. We also provide flexible custom amount retainer billing via our secure RBI-authorized PayU terminal.",
   },
   {
     q: "How quickly can we see results from SEO and digital marketing campaigns?",
@@ -1332,7 +1361,7 @@ export default function Home() {
   }
 
   function openPricingModal(planId?: PaymentPlan["id"]) {
-    const plan = (planId && paymentPlans.find((item) => item.id === planId)) || selectedPaymentPlan || paymentPlans[2];
+    const plan = (planId && paymentPlans.find((item) => item.id === planId)) || selectedPaymentPlan || paymentPlans.find((p) => p.id === "growth") || paymentPlans[0];
     setSelectedPaymentPlan(plan);
     setPaymentError("");
     setPaymentOpen(true);
@@ -2344,6 +2373,38 @@ export default function Home() {
                   </div>
                   <div className="text-xs text-slate-300 mt-0.5">
                     Fixed pricing from ₹2,999 • Instant GST invoice
+                  </div>
+                  <div className="mt-2.5 flex flex-wrap gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        closeMobileMenu();
+                        openPricingModal("google_listing");
+                      }}
+                      className="px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 text-[10px] font-semibold transition cursor-pointer"
+                    >
+                      Maps ₹2,999
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        closeMobileMenu();
+                        openPricingModal("email_marketing");
+                      }}
+                      className="px-2 py-0.5 rounded-md bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 border border-amber-400/30 text-[10px] font-bold transition cursor-pointer"
+                    >
+                      Email ₹4,999
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        closeMobileMenu();
+                        openPricingModal("website");
+                      }}
+                      className="px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 text-[10px] font-semibold transition cursor-pointer"
+                    >
+                      Web ₹5,999
+                    </button>
                   </div>
                   <button
                     type="button"
@@ -4350,6 +4411,10 @@ export default function Home() {
                     </li>
                     <li className="flex items-center gap-2.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#1570ef] shrink-0" />
+                      <span>Email Marketing &amp; Nurture Drips (₹4,999)</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1570ef] shrink-0" />
                       <span>Mobile Booking &amp; Lead Capture CRO</span>
                     </li>
                     <li className="flex items-center gap-2.5">
@@ -6042,6 +6107,7 @@ export default function Home() {
                 <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
                   <li><button type="button" onClick={() => openPricingModal("google_listing")} className="text-left hover:text-white transition cursor-pointer">Google Maps Top 3 Rank</button></li>
                   <li><button type="button" onClick={() => openPricingModal("website")} className="text-left hover:text-white transition cursor-pointer">High-Converting Websites</button></li>
+                  <li><button type="button" onClick={() => openPricingModal("email_marketing")} className="text-left hover:text-white transition cursor-pointer text-amber-300 font-medium">Email Marketing (₹4,999) →</button></li>
                   <li><button type="button" onClick={() => openPricingModal("growth")} className="text-left hover:text-white transition cursor-pointer">360° Growth Retainer</button></li>
                   <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition cursor-pointer">Custom Retainer Payment</button></li>
                   <li><a href="#home" onClick={(e) => scrollToSection("home", e)} className="hover:text-white transition">Revenue Engine Matrix</a></li>
@@ -6193,7 +6259,7 @@ export default function Home() {
                     <div className="space-y-3.5">
                       {/* Plan 1: Google Business Profile */}
                       <div
-                        onClick={() => setSelectedPaymentPlan(paymentPlans[0])}
+                        onClick={() => setSelectedPaymentPlan(paymentPlans.find((p) => p.id === "google_listing") || paymentPlans[0])}
                         className={`p-5 rounded-2xl border transition-all cursor-pointer ${
                           selectedPaymentPlan?.id === "google_listing"
                             ? "bg-white border-[#207de9] shadow-md ring-2 ring-[#207de9]/20"
@@ -6250,9 +6316,73 @@ export default function Home() {
                         </ul>
                       </div>
 
+                      {/* Plan 2: Email Marketing & CRM Automation */}
+                      <div
+                        onClick={() => setSelectedPaymentPlan(paymentPlans.find((p) => p.id === "email_marketing") || paymentPlans[1])}
+                        className={`p-5 rounded-2xl border transition-all cursor-pointer ${
+                          selectedPaymentPlan?.id === "email_marketing"
+                            ? "bg-white border-[#207de9] shadow-md ring-2 ring-[#207de9]/20"
+                            : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/50 shadow-xs"
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-start gap-3.5">
+                            <div className={`w-5 h-5 rounded-full border mt-1 flex items-center justify-center shrink-0 transition ${
+                              selectedPaymentPlan?.id === "email_marketing"
+                                ? "border-[#207de9] bg-[#207de9]"
+                                : "border-slate-300 bg-white"
+                            }`}>
+                              {selectedPaymentPlan?.id === "email_marketing" && (
+                                <span className="w-2 h-2 rounded-full bg-white block" />
+                              )}
+                            </div>
+                            <div>
+                              <div className="flex flex-wrap items-center gap-2">
+                                <span className="text-base sm:text-lg font-bold text-[#080d24]">
+                                  Email Marketing &amp; Automation
+                                </span>
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-md">
+                                  LIFECYCLE ROI
+                                </span>
+                              </div>
+                              <div className="text-xs sm:text-[13px] text-slate-500 font-normal mt-0.5">
+                                ESP Setup, 100% Inbox Placement (SPF/DKIM/DMARC) &amp; Nurture Drips
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="text-right shrink-0">
+                            <div className="text-xl sm:text-2xl font-extrabold text-[#080d24] tabular-nums">₹4,999</div>
+                            <div className="text-[9.5px] font-bold text-slate-400 uppercase tracking-wider">One-Time / Mo</div>
+                          </div>
+                        </div>
+
+                        {/* Professional Deliverables Checklist */}
+                        <ul className="mt-3.5 pt-3.5 border-t border-slate-100 space-y-2 text-xs sm:text-[13px] text-slate-700 font-normal">
+                          <li className="flex items-center gap-2.5">
+                            <svg className="w-4 h-4 text-emerald-600 shrink-0 font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Technical ESP setup (Mailchimp / Klaviyo / Brevo / Resend)</span>
+                          </li>
+                          <li className="flex items-center gap-2.5">
+                            <svg className="w-4 h-4 text-emerald-600 shrink-0 font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>100% Deliverability: SPF, DKIM, DMARC &amp; custom domain authentication</span>
+                          </li>
+                          <li className="flex items-center gap-2.5">
+                            <svg className="w-4 h-4 text-emerald-600 shrink-0 font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>3-step automated lead welcome drip &amp; conversion copywriting</span>
+                          </li>
+                        </ul>
+                      </div>
+
                       {/* Plan 2: Website Development */}
                       <div
-                        onClick={() => setSelectedPaymentPlan(paymentPlans[1])}
+                        onClick={() => setSelectedPaymentPlan(paymentPlans.find((p) => p.id === "website") || paymentPlans[2])}
                         className={`p-5 rounded-2xl border transition-all cursor-pointer ${
                           selectedPaymentPlan?.id === "website"
                             ? "bg-white border-[#207de9] shadow-md ring-2 ring-[#207de9]/20"
@@ -6310,7 +6440,7 @@ export default function Home() {
 
                       {/* Plan 3: Business Growth Package (Flagship Engine) */}
                       <div
-                        onClick={() => setSelectedPaymentPlan(paymentPlans[2])}
+                        onClick={() => setSelectedPaymentPlan(paymentPlans.find((p) => p.id === "growth") || paymentPlans[3])}
                         className={`p-5 rounded-2xl border transition-all cursor-pointer relative ${
                           selectedPaymentPlan?.id === "growth"
                             ? "bg-white border-[#207de9] shadow-md ring-2 ring-[#207de9]/20"
@@ -6373,7 +6503,7 @@ export default function Home() {
 
                       {/* Plan 4: Custom Amount (Client's Choice) */}
                       <div
-                        onClick={() => setSelectedPaymentPlan(paymentPlans[3])}
+                        onClick={() => setSelectedPaymentPlan(paymentPlans.find((p) => p.id === "custom") || paymentPlans[4])}
                         className={`p-5 rounded-2xl border transition-all cursor-pointer relative ${
                           selectedPaymentPlan?.id === "custom"
                             ? "bg-white border-[#207de9] shadow-md ring-2 ring-[#207de9]/20"
@@ -6431,12 +6561,12 @@ export default function Home() {
                               onChange={(e) => {
                                 setCustomPaymentAmount(e.target.value);
                                 if (selectedPaymentPlan?.id !== "custom") {
-                                  setSelectedPaymentPlan(paymentPlans[3]);
+                                  setSelectedPaymentPlan(paymentPlans.find((p) => p.id === "custom") || paymentPlans[4]);
                                 }
                               }}
                               onFocus={() => {
                                 if (selectedPaymentPlan?.id !== "custom") {
-                                  setSelectedPaymentPlan(paymentPlans[3]);
+                                  setSelectedPaymentPlan(paymentPlans.find((p) => p.id === "custom") || paymentPlans[4]);
                                 }
                               }}
                               placeholder="e.g. 15000"
@@ -6453,7 +6583,7 @@ export default function Home() {
                                 type="button"
                                 onClick={() => {
                                   setCustomPaymentAmount(String(amt));
-                                  setSelectedPaymentPlan(paymentPlans[3]);
+                                  setSelectedPaymentPlan(paymentPlans.find((p) => p.id === "custom") || paymentPlans[4]);
                                 }}
                                 className={`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer border ${
                                   selectedPaymentPlan?.id === "custom" && customPaymentAmount === String(amt)
@@ -7172,6 +7302,9 @@ export default function Home() {
                         onChange={(e) => setProposalService(e.target.value)}
                         className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition"
                       >
+                        <option value="Email Marketing & CRM Automation">
+                          Email Marketing &amp; CRM Automation (Newsletters &amp; Drips)
+                        </option>
                         <option value="Generative Engine Optimization (GEO)">
                           Generative Engine Optimization (GEO &amp; ChatGPT Citation)
                         </option>
@@ -7313,6 +7446,7 @@ export default function Home() {
                     onChange={(e) => setAuditCustomerService(e.target.value)}
                     className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition"
                   >
+                    <option value="Email Marketing & CRM Automation">Email Marketing &amp; CRM Automation</option>
                     <option value="GEO & AI Search Audit">GEO &amp; Generative AI Search Audit</option>
                     <option value="Local SEO & Google Maps 3-Pack">Local SEO &amp; Google Maps 3-Pack</option>
                     <option value="High-Speed Website Architecture">High-Speed Website Development</option>
