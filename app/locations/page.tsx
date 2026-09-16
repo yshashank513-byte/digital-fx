@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { INDIA_STATES_AND_UTS } from "@/lib/indiaLocations";
-import { toCitySlug } from "@/lib/citySeoData";
+import { toCitySlug, GLOBAL_HUBS_LIST } from "@/lib/citySeoData";
 
 export const metadata: Metadata = {
   title: "Pan-India Local SEO & Digital Marketing Directory (350+ Cities)",
@@ -177,6 +177,48 @@ export default function LocationsDirectoryPage() {
               <span className="w-2 h-2 rounded-full bg-purple-500" />
               <span>4.9★ Rating • 128+ Client Reviews</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3B. INTERNATIONAL & GLOBAL OFFSHORE HUBS (DUBAI FLAGSHIP) */}
+      <section className="py-12 bg-gradient-to-b from-slate-50 via-white to-slate-50 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+            <div>
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold uppercase tracking-wider mb-2">
+                <span>🇦🇪</span> Flagship Global Hubs • Dubai, GCC, US &amp; UK
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] tracking-tight">
+                International Commercial &amp; Offshore Authority Hubs
+              </h2>
+              <p className="mt-1 text-xs sm:text-sm text-slate-600 font-normal">
+                Digital FX engineers bespoke search dominance and Next.js platforms for international enterprises. Direct localized landing pages:
+              </p>
+            </div>
+            <Link
+              href="/#global-markets"
+              className="px-4 py-2 rounded-xl bg-[#080d24] text-white hover:bg-slate-800 text-xs font-bold transition shrink-0"
+            >
+              1,098+ Global Keywords Explorer →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3.5">
+            {GLOBAL_HUBS_LIST.map((hub) => (
+              <Link
+                key={hub.slug}
+                href={`/locations/${hub.slug}`}
+                className="flex flex-col items-center justify-center p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-500 hover:shadow-md transition-all group text-center"
+              >
+                <span className="text-3xl mb-1.5 group-hover:scale-110 transition-transform">{hub.flag}</span>
+                <span className="font-extrabold text-xs text-[#080d24] group-hover:text-blue-600 transition-colors">{hub.name}</span>
+                <span className="text-[10px] text-slate-500 font-medium mt-0.5">{hub.country}</span>
+                <span className="mt-2 text-[9.5px] font-bold text-amber-900 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                  {hub.cta}
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

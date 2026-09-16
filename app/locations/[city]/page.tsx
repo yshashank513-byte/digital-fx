@@ -54,6 +54,17 @@ export async function generateStaticParams() {
     "amritsar",
     "nashik",
     "rajkot",
+    // International Flagship Commercial Hubs
+    "dubai",
+    "abu-dhabi",
+    "sharjah",
+    "riyadh",
+    "doha",
+    "new-york",
+    "london",
+    "singapore",
+    "toronto",
+    "sydney",
   ];
 
   const allSlugs = Array.from(new Set([...stateSlugs, ...topCities]));

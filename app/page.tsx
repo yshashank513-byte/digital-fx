@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import { supabase } from "./lib/supabase";
+import GlobalKeywordsSection from "@/components/GlobalKeywordsSection";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -1846,6 +1847,15 @@ export default function Home() {
                   IN
                 </span>
               </Link>
+              <a
+                href="#global-markets"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5"
+              >
+                <span>Global Hubs</span>
+                <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-200 text-[9.5px] font-extrabold uppercase inline-flex items-center gap-1">
+                  <span>🇦🇪</span> Dubai
+                </span>
+              </a>
               <Link
                 href="/blog"
                 className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors"
@@ -5345,6 +5355,11 @@ export default function Home() {
         </section>
 
         {/* ==========================================================================
+            9B-2. GLOBAL SEARCH ENGINEERING & DUBAI GCC EXPANSION (#global-markets)
+            ========================================================================== */}
+        <GlobalKeywordsSection />
+
+        {/* ==========================================================================
             9C. FREQUENTLY ASKED QUESTIONS (FAQ) & LOCAL GHAZIABAD SEO AUTHORITY (#faq)
             ========================================================================== */}
         <section
@@ -5936,19 +5951,20 @@ export default function Home() {
                 </ul>
               </div>
 
-              {/* Column 4: National Network & Hubs */}
+              {/* Column 4: Global & National Hubs */}
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-                  National Network
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                  Global &amp; India Hubs
                 </h4>
                 <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><Link href="/locations" className="hover:text-white transition font-semibold text-[#207de9]">Pan-India 350+ Cities Hub</Link></li>
-                  <li><Link href="/locations/punjab" className="hover:text-white transition">Punjab SEO &amp; Mohali Desk</Link></li>
-                  <li><Link href="/locations/uttar-pradesh" className="hover:text-white transition">Uttar Pradesh &amp; NCR Hub</Link></li>
-                  <li><Link href="/locations/haryana" className="hover:text-white transition">Haryana &amp; Gurugram Desk</Link></li>
-                  <li><Link href="/locations/maharashtra" className="hover:text-white transition">Maharashtra &amp; Mumbai Hub</Link></li>
-                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition font-medium text-emerald-400">Free AI GEO Search Audit →</a></li>
+                  <li><Link href="/locations/dubai" className="hover:text-white transition font-semibold text-amber-300 flex items-center gap-1.5"><span>🇦🇪</span> Dubai Hub (AED Retainers)</Link></li>
+                  <li><Link href="/locations/abu-dhabi" className="hover:text-white transition flex items-center gap-1.5"><span>🇦🇪</span> Abu Dhabi &amp; ADGM</Link></li>
+                  <li><Link href="/locations/new-york" className="hover:text-white transition flex items-center gap-1.5"><span>🇺🇸</span> New York &amp; US Offshore</Link></li>
+                  <li><Link href="/locations/london" className="hover:text-white transition flex items-center gap-1.5"><span>🇬🇧</span> London &amp; UK Desk</Link></li>
+                  <li><Link href="/locations/singapore" className="hover:text-white transition flex items-center gap-1.5"><span>🇸🇬</span> Singapore &amp; APAC</Link></li>
+                  <li><Link href="/locations" className="hover:text-white transition font-medium text-[#207de9]">Pan-India 350+ Cities Hub →</Link></li>
+                  <li><a href="#global-markets" className="hover:text-white transition font-medium text-emerald-400">1,098+ Global Keywords Explorer →</a></li>
                 </ul>
               </div>
 

@@ -96,8 +96,38 @@ export const ALL_LOCATIONS_FLAT: LocationMapping[] = (() => {
     }
   }
 
+  // 3. International Commercial & Offshore Hubs (Dubai Flagship)
+  const globalHubs: LocationMapping[] = [
+    { name: "Dubai", slug: "dubai", stateName: "United Arab Emirates", type: "union_territory", isState: false },
+    { name: "Abu Dhabi", slug: "abu-dhabi", stateName: "United Arab Emirates", type: "union_territory", isState: false },
+    { name: "Sharjah", slug: "sharjah", stateName: "United Arab Emirates", type: "union_territory", isState: false },
+    { name: "Riyadh", slug: "riyadh", stateName: "Saudi Arabia", type: "union_territory", isState: false },
+    { name: "Doha", slug: "doha", stateName: "Qatar", type: "union_territory", isState: false },
+    { name: "New York", slug: "new-york", stateName: "United States", type: "union_territory", isState: false },
+    { name: "London", slug: "london", stateName: "United Kingdom", type: "union_territory", isState: false },
+    { name: "Toronto", slug: "toronto", stateName: "Canada", type: "union_territory", isState: false },
+    { name: "Sydney", slug: "sydney", stateName: "Australia", type: "union_territory", isState: false },
+    { name: "Singapore", slug: "singapore", stateName: "Singapore", type: "union_territory", isState: false },
+  ];
+
+  for (const g of globalHubs) {
+    seenSlugs.add(g.slug);
+    list.push(g);
+  }
+
   return list;
 })();
+
+export const GLOBAL_HUBS_LIST = [
+  { name: "Dubai", country: "United Arab Emirates", slug: "dubai", code: "AE", flag: "🇦🇪", cta: "AED Retainers" },
+  { name: "Abu Dhabi", country: "United Arab Emirates", slug: "abu-dhabi", code: "AE", flag: "🇦🇪", cta: "ADGM & Oil/Gas" },
+  { name: "Riyadh", country: "Saudi Arabia", slug: "riyadh", code: "SA", flag: "🇸🇦", cta: "Vision 2030" },
+  { name: "New York", country: "United States", slug: "new-york", code: "US", flag: "🇺🇸", cta: "SaaS & Scaleup" },
+  { name: "London", country: "United Kingdom", slug: "london", code: "GB", flag: "🇬🇧", cta: "Fintech & Property" },
+  { name: "Toronto", country: "Canada", slug: "toronto", code: "CA", flag: "🇨🇦", cta: "Tech & Growth" },
+  { name: "Sydney", country: "Australia", slug: "sydney", code: "AU", flag: "🇦🇺", cta: "Tradie & B2B" },
+  { name: "Singapore", country: "Singapore", slug: "singapore", code: "SG", flag: "🇸🇬", cta: "APAC Enterprise" },
+];
 
 // Alias for backwards compatibility
 export const ALL_CITIES_FLAT = ALL_LOCATIONS_FLAT;
@@ -580,6 +610,136 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
       result: "Targeted technical SEO and Google Search B2B campaigns capturing infrastructure contractors across Gujarat and Maharashtra.",
     },
     coordinates: { lat: 23.0225, lng: 72.5714 },
+  },
+
+  // ================= GLOBAL INTERNATIONAL HUBS =================
+  dubai: {
+    landmarks: [
+      "Downtown Dubai & Burj Khalifa",
+      "Business Bay Commercial Towers",
+      "Dubai Marina & JBR",
+      "DIFC (Dubai International Financial Centre)",
+      "Palm Jumeirah Luxury Corridor",
+      "Dubai Healthcare City & Jumeirah",
+    ],
+    primaryIndustries: [
+      "Real Estate & Luxury Off-Plan Developers",
+      "Aesthetics, Plastic Surgery & Cosmetology Clinics",
+      "Dental Implant Centers & Healthcare",
+      "Fine Dining, Beach Clubs & Hospitality",
+      "Yacht Charters & Exotic Car Rentals",
+      "Corporate Law, Tax & DIFC Wealth Management",
+      "Crypto, Web3 & FinTech Ventures",
+      "Commercial Fitout & Architecture",
+    ],
+    localChallenges: [
+      "Sky-high Cost-Per-Click (CPC) on Google Ads in Dubai (often exceeding AED 45 - AED 120 per click on real estate, aesthetic clinics, and legal terms).",
+      "Fierce local competition where legacy agencies charge inflated AED 25,000+ monthly retainers without transparent ROAS or pipeline reporting.",
+      "Slow, outdated WordPress websites taking over 3 seconds to load on UAE 5G networks, causing over 65% of affluent mobile users to bounce.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Luxury Real Estate Brokerage & Off-Plan Advisory",
+      neighborhood: "Downtown Dubai & Business Bay",
+      metrics: "AED 34M+ High-Ticket Investor Pipeline",
+      result: "Rebuilt property acquisition portal on sub-second Next.js 16, secured Rank #1 for high-intent off-plan queries across Dubai, and generated 240+ verified HNW investor inquiries within 90 days.",
+    },
+    coordinates: { lat: 25.2048, lng: 55.2708 },
+  },
+
+  "abu-dhabi": {
+    landmarks: [
+      "Al Maryah Island (ADGM Financial Freezone)",
+      "Corniche Commercial Belt",
+      "Yas Island Commercial & Tourism Hub",
+      "Saadiyat Cultural District",
+      "Mussafah Industrial Hub",
+    ],
+    primaryIndustries: [
+      "Government Contracting & Public Sector B2B",
+      "Oil & Gas Industrial Equipment Supply",
+      "Luxury Tourism & World-Class Hospitality",
+      "Corporate Legal & Financial Advisory",
+      "Private Multispecialty Hospitals",
+    ],
+    sampleCaseStudy: {
+      clientType: "Commercial Infrastructure & Engineering Contractor",
+      neighborhood: "Al Maryah Island & Mussafah",
+      metrics: "AED 18M+ Contract Pipeline",
+      result: "Enterprise technical SEO and B2B LinkedIn/Google Ads funnels capturing government tenders and corporate developers across Abu Dhabi.",
+    },
+    coordinates: { lat: 24.4539, lng: 54.3773 },
+  },
+
+  "new-york": {
+    landmarks: [
+      "Manhattan Financial District & Wall Street",
+      "Midtown Tech Corridor",
+      "Silicon Alley & Flatiron",
+      "Brooklyn Tech Triangle",
+      "Long Island City Commercial",
+    ],
+    primaryIndustries: [
+      "B2B SaaS & Tech Scaleups",
+      "Corporate Law & Wealth Management",
+      "Healthcare & Specialized Medical Practices",
+      "High-Growth E-commerce Brands",
+      "Commercial Real Estate & Architecture",
+    ],
+    sampleCaseStudy: {
+      clientType: "Enterprise B2B Cloud Data Platform",
+      neighborhood: "Midtown Manhattan",
+      metrics: "$3.2M Added Enterprise Pipeline ARR",
+      result: "Outsourced search engineering team to Digital FX, capturing Rank #1 for competitive US enterprise cloud queries with 0.7s Next.js web architecture.",
+    },
+    coordinates: { lat: 40.7128, lng: -74.0060 },
+  },
+
+  london: {
+    landmarks: [
+      "City of London Financial Square",
+      "Canary Wharf Banking Hub",
+      "Shoreditch Tech City",
+      "West End Commercial",
+      "Mayfair Luxury Corridor",
+    ],
+    primaryIndustries: [
+      "Fintech & Open Banking Services",
+      "Property Investment & Commercial Real Estate",
+      "B2B Professional Services & Corporate Law",
+      "D2C E-commerce Scaleups",
+      "Private Harley Street Clinics",
+    ],
+    sampleCaseStudy: {
+      clientType: "FCA-Regulated Boutique Wealth Advisory",
+      neighborhood: "City of London & Mayfair",
+      metrics: "£14M+ Inbound AUM Inquiries",
+      result: "High-intent Google Ads PPC and Generative AI search optimization positioning the firm as the top wealth advisory in UK AI Overviews.",
+    },
+    coordinates: { lat: 51.5074, lng: -0.1278 },
+  },
+
+  singapore: {
+    landmarks: [
+      "Marina Bay Financial Centre",
+      "Raffles Place Central",
+      "Orchard Road Commercial District",
+      "One-North Tech Cluster",
+      "Jurong Industrial Belt",
+    ],
+    primaryIndustries: [
+      "Regional APAC Corporate Headquarters",
+      "Fintech & Wealth Tech Platforms",
+      "Global Supply Chain & Logistics",
+      "Biotech & Specialty Healthcare",
+      "Cross-Border B2B Trade",
+    ],
+    sampleCaseStudy: {
+      clientType: "Cross-Border Logistics & Freight Scaleup",
+      neighborhood: "Marina Bay & Jurong",
+      metrics: "$2.4M Verified APAC Contract Inquiries",
+      result: "Custom Next.js web architecture and localized search optimization establishing dominant authority across Singapore and Southeast Asia.",
+    },
+    coordinates: { lat: 1.3521, lng: 103.8198 },
   },
 };
 
