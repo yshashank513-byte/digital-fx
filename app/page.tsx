@@ -883,6 +883,9 @@ export default function Home() {
   const [aiSuiteBusiness, setAiSuiteBusiness] = useState("");
   const [aiSuitePhone, setAiSuitePhone] = useState("");
 
+  // Global Markets & Keywords Explorer Modal State
+  const [isGlobalModalOpen, setIsGlobalModalOpen] = useState(false);
+
   const [showScrollControls, setShowScrollControls] = useState(false);
 
   // Interactive Revenue Funnel Split Comparison Slider State (Flat, Working Slider)
@@ -1847,15 +1850,6 @@ export default function Home() {
                   IN
                 </span>
               </Link>
-              <a
-                href="#global-markets"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5"
-              >
-                <span>Global Hubs</span>
-                <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-200 text-[9.5px] font-extrabold uppercase inline-flex items-center gap-1">
-                  <span>🇦🇪</span> Dubai
-                </span>
-              </a>
               <Link
                 href="/blog"
                 className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors"
@@ -2156,6 +2150,32 @@ export default function Home() {
                     <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
                   </Link>
 
+                  {/* Global Hubs & Dubai */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeMobileMenu();
+                      setIsGlobalModalOpen(true);
+                    }}
+                    className="w-full group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-amber-50/60 transition text-left cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-50 text-amber-600 transition font-black text-xs shrink-0">
+                        🌍
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-[#080d24] group-hover:text-amber-700 transition flex items-center gap-1.5">
+                          <span>Global Hubs &amp; Dubai</span>
+                          <span className="px-1.5 py-0.2 rounded bg-amber-100 text-amber-900 border border-amber-200 text-[9px] font-extrabold">10 COUNTRIES</span>
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-medium">
+                          Dubai 🇦🇪, USA, UK, KSA • 1,098+ keywords
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-slate-300 group-hover:text-amber-600 group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                  </button>
+
                   {/* Insights & Blog */}
                   <Link
                     href="/blog"
@@ -2203,6 +2223,108 @@ export default function Home() {
                     <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
                   </a>
                 </nav>
+
+                {/* Global & Dubai Hubs Featured Expansion Card (In 3-Line Menu Drawer) */}
+                <div className="mt-4 rounded-2xl bg-gradient-to-br from-[#080d24] via-[#0d163d] to-[#080d24] text-white border border-slate-700/80 p-4 shadow-md">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-amber-300">
+                      <span>🇦🇪</span>
+                      <span>Global Search &amp; Offshore Desk</span>
+                    </div>
+                    <span className="text-[9px] font-black bg-amber-400/20 text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-full uppercase">
+                      Dubai Hub
+                    </span>
+                  </div>
+
+                  <div className="mt-2">
+                    <h4 className="text-[13.5px] font-extrabold text-white leading-tight">
+                      Dubai &amp; International Search Hubs
+                    </h4>
+                    <p className="text-[11px] text-slate-300 mt-1 font-light leading-snug">
+                      High-ticket acquisition in Dubai, USA, UK, KSA &amp; Singapore. Dual-index Maps 3-Pack &amp; sub-second Next.js speed.
+                    </p>
+                  </div>
+
+                  {/* Dubai Flagship CTA Button */}
+                  <Link
+                    href="/locations/dubai"
+                    onClick={closeMobileMenu}
+                    className="mt-3 w-full py-2.5 px-3 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white font-extrabold text-xs transition flex items-center justify-between shadow-xs group"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">🇦🇪</span>
+                      <div className="text-left">
+                        <div className="leading-tight">Dubai Authority Hub</div>
+                        <div className="text-[9.5px] font-normal text-blue-100">AED 2,500/mo • Retainers &amp; Maps</div>
+                      </div>
+                    </div>
+                    <span className="text-sm group-hover:translate-x-1 transition-transform">→</span>
+                  </Link>
+
+                  {/* International Hubs Quick Selector */}
+                  <div className="mt-2.5 pt-2.5 border-t border-slate-800 grid grid-cols-2 gap-1.5 text-[11px]">
+                    <Link
+                      href="/locations/abu-dhabi"
+                      onClick={closeMobileMenu}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white transition flex items-center gap-1.5 border border-white/5"
+                    >
+                      <span>🇦🇪</span>
+                      <span className="font-semibold truncate">Abu Dhabi</span>
+                    </Link>
+                    <Link
+                      href="/locations/riyadh"
+                      onClick={closeMobileMenu}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white transition flex items-center gap-1.5 border border-white/5"
+                    >
+                      <span>🇸🇦</span>
+                      <span className="font-semibold truncate">Riyadh GCC</span>
+                    </Link>
+                    <Link
+                      href="/locations/new-york"
+                      onClick={closeMobileMenu}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white transition flex items-center gap-1.5 border border-white/5"
+                    >
+                      <span>🇺🇸</span>
+                      <span className="font-semibold truncate">New York</span>
+                    </Link>
+                    <Link
+                      href="/locations/london"
+                      onClick={closeMobileMenu}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white transition flex items-center gap-1.5 border border-white/5"
+                    >
+                      <span>🇬🇧</span>
+                      <span className="font-semibold truncate">London UK</span>
+                    </Link>
+                  </div>
+
+                  {/* 1,098+ Keywords Explorer Button */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeMobileMenu();
+                      setIsGlobalModalOpen(true);
+                    }}
+                    className="mt-2.5 w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-amber-300 border border-amber-400/30 font-bold text-xs transition flex items-center justify-between cursor-pointer"
+                  >
+                    <span className="flex items-center gap-1.5">
+                      <span>🔍</span>
+                      <span>1,098+ Global Keywords</span>
+                    </span>
+                    <span className="text-[9px] font-black bg-amber-400 text-slate-900 px-1.5 py-0.5 rounded uppercase">
+                      Open Explorer
+                    </span>
+                  </button>
+
+                  <div className="mt-2 text-center">
+                    <Link
+                      href="/global-markets"
+                      onClick={closeMobileMenu}
+                      className="text-[10px] text-slate-400 hover:text-slate-200 underline transition"
+                    >
+                      Standalone Global Search Page ↗
+                    </Link>
+                  </div>
+                </div>
 
                 {/* Executive Client Portal & Payment Card */}
                 <div className="mt-5 p-4 rounded-2xl bg-gradient-to-br from-[#080d24] via-[#0d163d] to-[#080d24] text-white border border-slate-800 shadow-md">
@@ -5355,11 +5477,6 @@ export default function Home() {
         </section>
 
         {/* ==========================================================================
-            9B-2. GLOBAL SEARCH ENGINEERING & DUBAI GCC EXPANSION (#global-markets)
-            ========================================================================== */}
-        <GlobalKeywordsSection />
-
-        {/* ==========================================================================
             9C. FREQUENTLY ASKED QUESTIONS (FAQ) & LOCAL GHAZIABAD SEO AUTHORITY (#faq)
             ========================================================================== */}
         <section
@@ -5964,7 +6081,7 @@ export default function Home() {
                   <li><Link href="/locations/london" className="hover:text-white transition flex items-center gap-1.5"><span>🇬🇧</span> London &amp; UK Desk</Link></li>
                   <li><Link href="/locations/singapore" className="hover:text-white transition flex items-center gap-1.5"><span>🇸🇬</span> Singapore &amp; APAC</Link></li>
                   <li><Link href="/locations" className="hover:text-white transition font-medium text-[#207de9]">Pan-India 350+ Cities Hub →</Link></li>
-                  <li><a href="#global-markets" className="hover:text-white transition font-medium text-emerald-400">1,098+ Global Keywords Explorer →</a></li>
+                  <li><Link href="/global-markets" className="hover:text-white transition font-medium text-emerald-400">1,098+ Global Keywords Explorer →</Link></li>
                 </ul>
               </div>
 
@@ -7224,6 +7341,67 @@ export default function Home() {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        )}
+
+        {/* ==========================================================================
+            GLOBAL SEARCH ENGINEERING & 1,098+ KEYWORDS MODAL
+            ========================================================================== */}
+        {isGlobalModalOpen && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-2 sm:p-4 md:p-6 bg-slate-950/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
+            <div className="relative w-full max-w-[1400px] max-h-[92vh] my-auto bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-300 overflow-hidden flex flex-col font-[var(--font-plus-jakarta)]">
+              {/* Modal Header */}
+              <div className="bg-[#080d24] text-white px-5 sm:px-8 py-4 border-b border-slate-800 flex items-center justify-between shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white/10 text-xl shrink-0">
+                    🌍
+                  </div>
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-base sm:text-lg font-extrabold text-white">
+                        Global Search Engineering Explorer
+                      </span>
+                      <span className="text-[10px] uppercase font-black bg-amber-400 text-slate-900 px-2 py-0.5 rounded">
+                        1,098+ Verified Keywords
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-400 hidden sm:block">
+                      Dubai 🇦🇪, USA 🇺🇸, UK 🇬🇧, Saudi Arabia 🇸🇦, Canada 🇨🇦, Australia 🇦🇺, Singapore 🇸🇬
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <Link
+                    href="/locations/dubai"
+                    onClick={() => setIsGlobalModalOpen(false)}
+                    className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold hover:bg-amber-400/30 transition"
+                  >
+                    <span>🇦🇪 Dubai Hub (AED 2,500)</span>
+                  </Link>
+                  <Link
+                    href="/global-markets"
+                    onClick={() => setIsGlobalModalOpen(false)}
+                    className="hidden sm:inline-flex items-center gap-1 text-xs text-slate-300 hover:text-white underline transition"
+                  >
+                    Full Page ↗
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setIsGlobalModalOpen(false)}
+                    aria-label="Close modal"
+                    className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white transition cursor-pointer text-base font-bold ml-1"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Body */}
+              <div className="overflow-y-auto p-3 sm:p-6 bg-slate-50/50">
+                <GlobalKeywordsSection />
+              </div>
             </div>
           </div>
         )}

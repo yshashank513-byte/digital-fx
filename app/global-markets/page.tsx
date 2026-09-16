@@ -1,0 +1,272 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import GlobalKeywordsSection from "@/components/GlobalKeywordsSection";
+
+export const metadata: Metadata = {
+  title: "Global Search Engineering & Dubai GCC SEO Hub (1,000+ Keywords) | Digital FX",
+  description:
+    "Explore Digital FX's global SEO architecture, Dubai flagship hub, and 1,098+ verified high-intent search keywords across UAE (Dubai, Abu Dhabi), USA, UK, Saudi Arabia, Canada, Australia, and Singapore. Dual-index Maps 3-Pack and sub-second Next.js web portals.",
+  alternates: {
+    canonical: "https://www.digitalfx.in/global-markets",
+  },
+  openGraph: {
+    title: "Global Search Engineering & Dubai GCC SEO Hub | Digital FX",
+    description:
+      "Explore Digital FX's global SEO architecture, Dubai flagship hub, and 1,098+ verified high-intent keywords across UAE, USA, UK, KSA, and Singapore.",
+    url: "https://www.digitalfx.in/global-markets",
+    siteName: "Digital FX",
+    type: "website",
+  },
+};
+
+export default function GlobalMarketsPage() {
+  return (
+    <main className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-[#207de9] selection:text-white">
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.digitalfx.in",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Global Markets & Keywords Explorer",
+                item: "https://www.digitalfx.in/global-markets",
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* 1. TOP BAR */}
+      <div className="bg-[#080d24] text-white py-2 border-b border-white/10 text-xs">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-3 text-slate-300 text-[11.5px] font-medium">
+            <span className="inline-flex items-center gap-1.5 font-semibold text-amber-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+              🇦🇪 Dubai &amp; GCC Offshore Strategy Desk
+            </span>
+            <span className="hidden sm:inline text-slate-600">•</span>
+            <span className="hidden sm:inline text-slate-300">
+              1,098+ Verified High-Intent Global Keywords
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 text-[12px] font-medium ml-auto sm:ml-0">
+            <a href="tel:+918447583685" className="hover:text-white font-bold transition flex items-center gap-1.5">
+              <span className="text-[#207de9]">☎</span> +91 84475 83685
+            </a>
+            <a
+              href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20consult%20regarding%20Dubai%20and%20Global%20SEO."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-400 hover:text-emerald-300 font-bold transition flex items-center gap-1.5"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>WhatsApp Strategy Desk</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. MAIN HEADER */}
+      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
+        <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
+          <Link href="/" className="flex items-center gap-3 group shrink-0">
+            <div className="flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center overflow-hidden rounded-2xl bg-white border border-slate-200/90 shadow-xs p-0.5 group-hover:scale-105 transition-transform">
+              <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
+            </div>
+            <div>
+              <div className="text-[20px] sm:text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+                DIGITAL <span className="text-[#207de9]">FX</span>
+              </div>
+              <div className="mt-1 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.6px] text-slate-500">
+                Global Search Engineering Hub
+              </div>
+            </div>
+          </Link>
+
+          {/* Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <Link
+              href="/#services"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition"
+            >
+              Services
+            </Link>
+            <Link
+              href="/#geo-checker"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition inline-flex items-center gap-1.5"
+            >
+              <span>AI Search (GEO)</span>
+              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9.5px] font-bold uppercase">
+                FREE
+              </span>
+            </Link>
+            <Link
+              href="/locations/dubai"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition inline-flex items-center gap-1.5"
+            >
+              <span>🇦🇪 Dubai Hub</span>
+              <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-200 text-[9.5px] font-extrabold uppercase">
+                AED 2,500
+              </span>
+            </Link>
+            <Link
+              href="/locations"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition inline-flex items-center gap-1.5"
+            >
+              <span>350+ Cities</span>
+              <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9.5px] font-extrabold uppercase">
+                IN
+              </span>
+            </Link>
+            <Link
+              href="/blog"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition"
+            >
+              Insights &amp; Blog
+            </Link>
+          </nav>
+
+          {/* Action Button */}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="text-xs font-bold text-slate-600 hover:text-[#207de9] transition hidden sm:inline"
+            >
+              ← Back to Home
+            </Link>
+            <Link
+              href="/locations/dubai"
+              className="h-[42px] px-5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xs transition cursor-pointer"
+            >
+              <span>Explore Dubai Hub</span>
+              <span>→</span>
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      {/* 3. HERO INTRO */}
+      <section className="py-12 sm:py-16 bg-gradient-to-b from-slate-900 via-[#080d24] to-[#0d163d] text-white border-b border-slate-800">
+        <div className="max-w-5xl mx-auto px-4 text-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-amber-300 text-xs font-bold uppercase tracking-wider mb-4">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span>Dubai, GCC, USA, UK &amp; APAC Global Expansion Desk</span>
+          </div>
+
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4 leading-tight">
+            International Search Engine Domination <br className="hidden sm:block" />
+            <span className="text-[#207de9]">&amp; 1,098+ High-Intent Keywords</span>
+          </h1>
+
+          <p className="text-slate-300 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed mb-6 font-light">
+            Headquartered in India with a dedicated international offshore desk, Digital FX delivers sub-second Next.js web applications, Google Maps 3-Pack authority, and high-ROI digital marketing in high-CPC commercial centers worldwide. Explore our verified global keyword database and city hubs below.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3 text-xs font-semibold">
+            <Link
+              href="/locations/dubai"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/10 transition"
+            >
+              <span>🇦🇪</span>
+              <span>Dubai Flagship (AED 2,500/mo)</span>
+            </Link>
+            <Link
+              href="/locations/abu-dhabi"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/10 transition"
+            >
+              <span>🇦🇪</span>
+              <span>Abu Dhabi &amp; ADGM</span>
+            </Link>
+            <Link
+              href="/locations/riyadh"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/10 transition"
+            >
+              <span>🇸🇦</span>
+              <span>Riyadh &amp; GCC</span>
+            </Link>
+            <Link
+              href="/locations/new-york"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/10 transition"
+            >
+              <span>🇺🇸</span>
+              <span>New York &amp; US</span>
+            </Link>
+            <Link
+              href="/locations/london"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/10 transition"
+            >
+              <span>🇬🇧</span>
+              <span>London &amp; UK</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. INTERACTIVE GLOBAL KEYWORDS SECTION */}
+      <GlobalKeywordsSection />
+
+      {/* 5. FOOTER CTA */}
+      <section className="py-16 border-t border-slate-200 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mb-3 tracking-tight">
+            Ready to Outrank Competitors in Dubai or Globally?
+          </h3>
+          <p className="text-slate-600 text-xs sm:text-sm mb-6 max-w-xl mx-auto leading-relaxed">
+            Schedule a direct strategy consultation with our International Growth Lead. We analyze your commercial target market, estimate organic acquisition cost, and deliver an actionable 90-day search blueprint.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/"
+              className="px-5 py-2.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-100 text-slate-800 font-bold text-xs transition shadow-2xs"
+            >
+              ← Back to Main Website
+            </Link>
+            <Link
+              href="/locations/dubai"
+              className="px-5 py-2.5 rounded-xl bg-[#080d24] hover:bg-[#0d163d] text-white font-bold text-xs transition flex items-center gap-2 shadow-xs"
+            >
+              <span>🇦🇪 View Dubai Hub Blueprint</span>
+              <span>→</span>
+            </Link>
+            <a
+              href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20consult%20regarding%20Dubai%20and%20Global%20SEO."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2.5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs transition flex items-center gap-2 shadow-xs"
+            >
+              <span>WhatsApp Strategy Desk</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom Sub-footer */}
+      <footer className="py-8 bg-[#080d24] text-slate-400 text-xs border-t border-white/10">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            © {new Date().getFullYear()} Digital FX®. Registered Headquarters: Shop No. 210, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016 India.
+          </div>
+          <div className="flex items-center gap-4">
+            <Link href="/" className="hover:text-white transition">Home</Link>
+            <Link href="/locations" className="hover:text-white transition">Pan-India Cities</Link>
+            <Link href="/locations/dubai" className="hover:text-white transition text-amber-300">Dubai Hub</Link>
+            <Link href="/blog" className="hover:text-white transition">Blog</Link>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+}
