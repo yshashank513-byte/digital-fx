@@ -75,17 +75,18 @@ export const metadata: Metadata = {
 
   icons: {
     icon: [
-      { url: "/logo.png", type: "image/png" },
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
       { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-48x48.png", type: "image/png", sizes: "48x48" },
+      { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
       { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
       { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/android-chrome-192x192.png", type: "image/png", sizes: "192x192" },
+      { url: "/android-chrome-512x512.png", type: "image/png", sizes: "512x512" },
     ],
     apple: [
-      { url: "/logo.png", sizes: "180x180", type: "image/png" },
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
-    shortcut: "/logo.png",
+    shortcut: "/favicon.ico",
   },
 
   manifest: "/site.webmanifest",
@@ -102,9 +103,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <link rel="icon" type="image/png" href="/logo.png" />
-        <link rel="shortcut icon" href="/logo.png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
       </head>
       <body className="min-h-full flex flex-col">
         {/* Comprehensive Local Business, Rating & FAQ Schema */}
