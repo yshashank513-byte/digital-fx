@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { INDIA_STATES_AND_UTS } from "@/lib/indiaLocations";
-import { toCitySlug, GLOBAL_HUBS_LIST } from "@/lib/citySeoData";
+import { toCitySlug, GLOBAL_HUBS_LIST, isCanonicalLocation } from "@/lib/citySeoData";
 
 export const metadata: Metadata = {
   title: "Pan-India Local SEO & Digital Marketing Directory (350+ Cities)",
@@ -252,12 +252,22 @@ export default function LocationsDirectoryPage() {
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {region.cities.map((city) => {
                     const slug = toCitySlug(city);
-                    return (
+                    const isCanonicalCity = isCanonicalLocation(slug);
+                    return isCanonicalCity ? (
                       <Link
                         key={city}
                         href={`/locations/${slug}`}
-                        className="text-xs px-2.5 py-1 rounded-lg bg-slate-50 hover:bg-[#207de9] text-slate-700 hover:text-white transition font-medium border border-slate-200/80 hover:border-[#207de9]"
+                        className="text-xs px-2.5 py-1 rounded-lg bg-blue-50/80 hover:bg-[#207de9] text-[#1570ef] hover:text-white transition font-semibold border border-blue-200/80 hover:border-[#207de9]"
                         title={`Digital Marketing & SEO in ${city}, ${region.name}`}
+                      >
+                        {city} ★
+                      </Link>
+                    ) : (
+                      <Link
+                        key={city}
+                        href={`/locations/${toCitySlug(region.name)}`}
+                        className="text-xs px-2 py-0.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-600 transition font-normal border border-slate-200/70"
+                        title={`${city} covered under ${region.name} Authority Hub`}
                       >
                         {city}
                       </Link>

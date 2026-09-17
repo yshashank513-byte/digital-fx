@@ -5,8 +5,16 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
-        disallow: ["/admin/", "/payment/", "/api/"],
+        allow: [
+          "/",
+          "/locations",
+          "/global-markets",
+          "/blog",
+          "/privacy-policy",
+          "/terms-and-conditions",
+          "/refund-policy",
+        ],
+        disallow: ["/admin/", "/payment/", "/payments/", "/api/"],
       },
       {
         userAgent: [
@@ -18,8 +26,16 @@ export default function robots(): MetadataRoute.Robots {
           "Applebot-Extended",
           "Bingbot",
         ],
-        allow: ["/", "/locations/", "/blog/", "/privacy-policy", "/terms-and-conditions", "/refund-policy"],
-        disallow: ["/admin/", "/payment/", "/api/"],
+        allow: [
+          "/",
+          "/locations",
+          "/global-markets",
+          "/blog",
+          "/privacy-policy",
+          "/terms-and-conditions",
+          "/refund-policy",
+        ],
+        disallow: ["/admin/", "/payment/", "/payments/", "/api/"],
       },
     ],
     sitemap: "https://www.digitalfx.in/sitemap.xml",

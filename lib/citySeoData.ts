@@ -118,6 +118,51 @@ export const ALL_LOCATIONS_FLAT: LocationMapping[] = (() => {
   return list;
 })();
 
+
+export const TOP_COMMERCIAL_CITIES = [
+  "ghaziabad", "noida", "delhi", "gurugram", "faridabad", "mumbai", "pune",
+  "bengaluru", "hyderabad", "ahmedabad", "chennai", "kolkata", "jaipur",
+  "lucknow", "kanpur", "indore", "bhopal", "chandigarh", "mohali", "kochi",
+  "patna", "surat", "nagpur", "visakhapatnam", "bhubaneswar", "ludhiana",
+  "dehradun", "vadodara", "coimbatore", "varanasi", "agra", "prayagraj",
+  "meerut", "amritsar", "nashik", "rajkot"
+];
+
+export const GLOBAL_HUBS_SLUGS = [
+  "dubai", "abu-dhabi", "sharjah", "riyadh", "doha", "new-york", "london",
+  "singapore", "toronto", "sydney"
+];
+
+export const CANONICAL_LOCATION_SLUGS: string[] = (() => {
+  const stateSlugs = INDIA_STATES_AND_UTS.map((s) => toCitySlug(s.name));
+  return Array.from(new Set([...stateSlugs, ...TOP_COMMERCIAL_CITIES, ...GLOBAL_HUBS_SLUGS]));
+})();
+
+export function isCanonicalLocation(slug: string): boolean {
+  return CANONICAL_LOCATION_SLUGS.includes(slug.toLowerCase().trim());
+}
+
+export function getParentStateSlugForCity(citySlug: string): string | null {
+  const clean = citySlug.toLowerCase().trim();
+  const stateDirect = INDIA_STATES_AND_UTS.find((s) => toCitySlug(s.name) === clean);
+  if (stateDirect) return clean;
+
+  const loc = ALL_LOCATIONS_FLAT.find((c) => c.slug === clean);
+  if (loc && loc.stateName) {
+    return toCitySlug(loc.stateName);
+  }
+  for (const s of INDIA_STATES_AND_UTS) {
+    const stateSlug = toCitySlug(s.name);
+    for (const c of s.cities) {
+      const cSlug = toCitySlug(c);
+      if (cSlug === clean || `${cSlug}-${stateSlug}` === clean) {
+        return stateSlug;
+      }
+    }
+  }
+  return null;
+}
+
 export const GLOBAL_HUBS_LIST = [
   { name: "Dubai", country: "United Arab Emirates", slug: "dubai", code: "AE", flag: "🇦🇪", cta: "AED Retainers" },
   { name: "Abu Dhabi", country: "United Arab Emirates", slug: "abu-dhabi", code: "AE", flag: "🇦🇪", cta: "ADGM & Oil/Gas" },
@@ -134,6 +179,397 @@ export const ALL_CITIES_FLAT = ALL_LOCATIONS_FLAT;
 
 // Map of tailored nuances for priority Indian commercial hubs and states
 const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
+  "uttar-pradesh": {
+    landmarks: [
+      "Noida (Sector 62, Sector 18 Commercial & Expressways)",
+      "Greater Noida (Knowledge Park & Pari Chowk)",
+      "Ghaziabad (Crossings Republik, Raj Nagar & Sahibabad)",
+      "Lucknow (Hazratganj, Gomti Nagar & Vibhuti Khand)",
+      "Kanpur (Civil Lines, Panki & Swaroop Nagar)",
+      "Agra (Sanjay Place & MG Road Corridor)",
+      "Varanasi (Sigra, Cantonment & Kashi Cultural Commerce Belt)",
+      "Prayagraj (Civil Lines & Katra Market)",
+      "Meerut (Delhi Road, Partapur & Abu Lane)",
+    ],
+    primaryIndustries: [
+      "IT, Software & SaaS Services (Noida & Greater Noida Hubs)",
+      "Manufacturing, Auto Components & Heavy Engineering (Ghaziabad & Kanpur)",
+      "Leather, Footwear & Apparel Exports (Kanpur & Agra)",
+      "Healthcare, Multi-Specialty Hospitals & Diagnostic Networks",
+      "Real Estate Development, Commercial Townships & Infrastructure",
+      "Textiles, Silk Handlooms & Handicrafts (Varanasi & Meerut)",
+    ],
+    localChallenges: [
+      "Intense regional competition between Delhi NCR agencies and local state providers, leading to missed customer acquisition.",
+      "Outdated, slow-loading websites losing over 55% of prospective mobile inquiries across UP districts.",
+      "Unoptimized Google Business Profiles failing to appear in the Google Maps 3-Pack for local buyers searching across UP district headquarters.",
+    ],
+    localStrategyPoints: [
+      "Google Maps 3-Pack Authority: Dominating Top 3 rankings for 'best digital marketing agency in Uttar Pradesh' and regional intent.",
+      "Sub-Second Next.js Web Platforms: Built to load in 0.8s on 4G/5G mobile networks across all UP commercial corridors.",
+      "Full Schema.org Entity Integration: Directly connecting your business entity with UP commercial registries and Google Knowledge Graph.",
+      "Hyper-Local Regional Citation Network: 50+ high-DA business citations ensuring accurate NAP across all UP districts.",
+      "Generative AI Search (GEO): Formatting digital footprint so ChatGPT, Perplexity, and Google AI Overviews highlight your business first in UP.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Leading Healthcare & Commercial Services Group in Uttar Pradesh",
+      neighborhood: "Ghaziabad & Noida NCR Corridor",
+      metrics: "+285% Verified Inbound Inquiries in 90 Days",
+      result: "Restructured Google Business Profiles across multiple centers, built a sub-second Next.js web application, and established state-wide ranking dominance.",
+    },
+    coordinates: { lat: 26.8467, lng: 80.9462 },
+  },
+
+  "tamil-nadu": {
+    landmarks: [
+      "Chennai (OMR IT Corridor, Guindy Industrial & Anna Nagar)",
+      "Coimbatore (Tidel Park, Avinashi Road & Peelamedu)",
+      "Madurai (KK Nagar & Town Hall Commercial Market)",
+      "Tirupur (Apparel Export Corridor & Court Street)",
+      "Salem (Steel & Textile Trade Corridor)",
+      "Trichy (Thillai Nagar & Cantonment)",
+    ],
+    primaryIndustries: [
+      "IT Services, SaaS & Product Engineering (Chennai OMR & Coimbatore)",
+      "Automotive Manufacturing & Precision Engineering (Chennai & Sriperumbudur)",
+      "Textiles, Garments & Apparel Exports (Tirupur & Coimbatore)",
+      "Tertiary Healthcare, Medical Tourism & Diagnostic Centers",
+      "Hardware Manufacturing & Electronics SEZs",
+    ],
+    sampleCaseStudy: {
+      clientType: "B2B Precision Engineering & Tech Exporter in Tamil Nadu",
+      neighborhood: "OMR Tech Corridor, Chennai",
+      metrics: "+240% Qualified Inbound Inquiries in 75 Days",
+      result: "Executed deep technical SEO, structured data markup, and high-converting performance PPC campaigns across South India and export markets.",
+    },
+    coordinates: { lat: 13.0827, lng: 80.2707 },
+  },
+
+  "west-bengal": {
+    landmarks: [
+      "Kolkata (Salt Lake Sector V IT Hub & Rajarhat New Town)",
+      "Park Street & BBD Bagh Commercial Corridor",
+      "Howrah (Industrial & Machinery Trade Belt)",
+      "Siliguri (Sevoke Road & North Bengal Logistics Hub)",
+      "Durgapur (City Centre & Steel Industrial Zone)",
+      "Asansol (Burnpur Commercial Corridor)",
+    ],
+    primaryIndustries: [
+      "IT & Enterprise Software Development (Sector V & New Town)",
+      "Jute, Tea & Agro Commodity Exports",
+      "Steel, Heavy Engineering & Foundry Manufacturing",
+      "Healthcare Clinics, Diagnostic Networks & Higher Education",
+      "Retail, E-commerce & FMCG Distribution",
+    ],
+    sampleCaseStudy: {
+      clientType: "Premier Healthcare & Education Group in West Bengal",
+      neighborhood: "Salt Lake Sector V, Kolkata",
+      metrics: "+195% Verified Local Patient Enquiries in 60 Days",
+      result: "Rebuilt local search citations, optimized Google Maps 3-Pack placement, and launched hyper-targeted search ads.",
+    },
+    coordinates: { lat: 22.5726, lng: 88.3639 },
+  },
+
+  "bihar": {
+    landmarks: [
+      "Patna (Boring Road, Fraser Road & Exhibition Road Corridor)",
+      "Kankarbagh & Bailey Road Tech Corridor",
+      "Muzaffarpur (Motijheel & Commercial Center)",
+      "Gaya (Civil Lines & Bodhgaya Hospitality Belt)",
+      "Bhagalpur (Silk & Trade Market)",
+      "Darbhanga (Laheriasarai Commercial Hub)",
+    ],
+    primaryIndustries: [
+      "Healthcare Clinics, Nursing Homes & Medical Distribution",
+      "Competitive Exam Coaching & Higher Education Institutes",
+      "Retail Chains, Automobile Dealerships & FMCG Wholesale",
+      "Real Estate Construction & Commercial Contracting",
+      "Agri-Tech & Food Processing Enterprises",
+    ],
+    sampleCaseStudy: {
+      clientType: "Top Coaching & Career Institute in Bihar",
+      neighborhood: "Boring Road, Patna",
+      metrics: "+310% Inbound Student Inquiries in 45 Days",
+      result: "Dominated local Google Maps ranking across Patna district and implemented high-speed Next.js landing pages with direct WhatsApp lead capture.",
+    },
+    coordinates: { lat: 25.5941, lng: 85.1376 },
+  },
+
+  "madhya-pradesh": {
+    landmarks: [
+      "Indore (Vijay Nagar, AB Road & Super Corridor IT SEZ)",
+      "Bhopal (MP Nagar Zones I & II, Arera Colony)",
+      "Jabalpur (Civic Centre & Russell Chowk)",
+      "Gwalior (City Centre & Lashkar Market)",
+      "Pithampur & Mandideep (Automobile & Industrial Belts)",
+      "Ujjain (Freeganj & Religious Tourism Corridor)",
+    ],
+    primaryIndustries: [
+      "IT Software & Global Service Exports (Indore Super Corridor)",
+      "Automobile & Heavy Commercial Vehicle Manufacturing (Pithampur)",
+      "Pharmaceutical Formulations & Active Ingredients",
+      "Healthcare, Diagnostic Hubs & Higher Education",
+      "Agro-Processing, Soya & FMCG Trading",
+    ],
+    sampleCaseStudy: {
+      clientType: "Multi-Specialty Hospital & Wellness Chain in MP",
+      neighborhood: "Vijay Nagar, Indore",
+      metrics: "+230% Organic Inbound Call Volume in 60 Days",
+      result: "Optimized GBP profiles across Indore and Bhopal, deployed structured FAQ schema, and ran high-intent local search campaigns.",
+    },
+    coordinates: { lat: 22.7196, lng: 75.8577 },
+  },
+
+  "kerala": {
+    landmarks: [
+      "Kochi (Infopark Kakkanad, Marine Drive & MG Road)",
+      "Thiruvananthapuram (Technopark Phases 1-4 & Kazhakkoottam)",
+      "Kozhikode (Mavoor Road & Cyberpark)",
+      "Thrissur (Swaraj Round Commercial Hub)",
+      "Kollam & Alappuzha (Tourism & Maritime Trade Belts)",
+    ],
+    primaryIndustries: [
+      "Software Development, IT Services & AI (Technopark & Infopark)",
+      "Ayurveda, Wellness Centers & Hospitality Tourism",
+      "Healthcare Services & Medical Diagnostics",
+      "Spice Exports, Seafood & Plantation Commodities",
+      "Jewellery Retail & Real Estate Construction",
+    ],
+    sampleCaseStudy: {
+      clientType: "Luxury Wellness & Ayurvedic Healthcare Resort in Kerala",
+      neighborhood: "Kochi Marine Drive & Coastal Belt",
+      metrics: "+270% International & Domestic Direct Bookings",
+      result: "Executed multi-lingual SEO, rich Schema markup, and Google AI Overviews optimization to attract high-net-worth travellers.",
+    },
+    coordinates: { lat: 9.9312, lng: 76.2673 },
+  },
+
+  "andhra-pradesh": {
+    landmarks: [
+      "Visakhapatnam (Cyber Valley, Rushikonda & Siripuram)",
+      "Vijayawada (Benz Circle, MG Road & Auto Nagar)",
+      "Guntur (Brodipet & Arundelpet Trade Hub)",
+      "Tirupati (Renigunta Road & Pilgrimage Corridor)",
+      "Kakinada & Rajahmundry (Port & Industrial Zones)",
+    ],
+    primaryIndustries: [
+      "Information Technology & ITES (Visakhapatnam SEZ)",
+      "Port Operations, Shipping & Marine Logistics",
+      "Pharmaceutical Manufacturing & Chemical Belts",
+      "Agro-Commodity Exports, Chilli & Tobacco Trade",
+      "Healthcare Networks & Engineering Education",
+    ],
+    sampleCaseStudy: {
+      clientType: "Industrial Logistics & Trade Exporter in Andhra Pradesh",
+      neighborhood: "Rushikonda Tech Park, Visakhapatnam",
+      metrics: "+180% Verified Corporate Inquiries in 90 Days",
+      result: "Deployed specialized B2B SEO, local entity syndication, and high-conversion landing pages.",
+    },
+    coordinates: { lat: 17.6868, lng: 83.2185 },
+  },
+
+  "odisha": {
+    landmarks: [
+      "Bhubaneswar (Infocity Patia, Chandrasekharpur & Saheed Nagar)",
+      "Cuttack (Badambadi & Malgodown Wholesale Corridor)",
+      "Rourkela (Steel Industrial Corridor & Panposh Road)",
+      "Puri (Grand Road & Tourism Belt)",
+      "Berhampur (Bada Bazaar Trade Center)",
+    ],
+    primaryIndustries: [
+      "IT Services, Fintech & Software Centers (Infocity Bhubaneswar)",
+      "Metals, Mining & Steel Heavy Industries",
+      "Healthcare Hospitals & Technical Universities",
+      "Handloom, Handicrafts & Cultural Tourism",
+      "Port-Based Logistics & Seafood Exports",
+    ],
+    sampleCaseStudy: {
+      clientType: "Premier Higher Education & Training Academy in Odisha",
+      neighborhood: "Infocity Patia, Bhubaneswar",
+      metrics: "+250% Verified Admissions Leads in 60 Days",
+      result: "Rebuilt mobile landing page with Next.js 16, optimized Google Maps 3-Pack ranking, and captured student search intent.",
+    },
+    coordinates: { lat: 20.2961, lng: 85.8245 },
+  },
+
+  "uttarakhand": {
+    landmarks: [
+      "Dehradun (Rajpur Road, Clock Tower & IT Park Sahastradhara)",
+      "Haridwar (SIDCUL Industrial Area & Ranipur)",
+      "Rishikesh (Tapovan & Wellness Corridor)",
+      "Haldwani (Nainital Road Commercial Belt)",
+      "Roorkee (IIT Road & Engineering Hub)",
+    ],
+    primaryIndustries: [
+      "Boarding Schools, Universities & Professional Institutes",
+      "Pharmaceuticals & FMCG Manufacturing (SIDCUL Haridwar)",
+      "Wellness Tourism, Yoga Retreats & Hospitality",
+      "Real Estate & Second-Home Townships",
+      "IT Software & Ecological Startups",
+    ],
+    sampleCaseStudy: {
+      clientType: "Elite Boarding School & Academy in Uttarakhand",
+      neighborhood: "Rajpur Road, Dehradun",
+      metrics: "+210% Pan-India Parent Enquiries in 60 Days",
+      result: "Engineered high-intent national and international search rankings, fast Next.js mobile pages, and localized Google Maps profiles.",
+    },
+    coordinates: { lat: 30.3165, lng: 78.0322 },
+  },
+
+  // Priority Metro Cities
+  kanpur: {
+    landmarks: ["Civil Lines", "Panki Industrial Estate", "Swaroop Nagar", "Mall Road", "Fazalganj"],
+    primaryIndustries: ["Leather & Footwear Manufacturing", "Textiles & Hosiery", "Engineering & Defense Components", "Chemicals & Plastics"],
+    sampleCaseStudy: { clientType: "Industrial Manufacturer in Kanpur", neighborhood: "Panki Industrial Area", metrics: "+240% B2B Sales Leads", result: "Scaled national B2B SEO and Google Ads campaigns." },
+    coordinates: { lat: 26.4499, lng: 80.3319 },
+  },
+  indore: {
+    landmarks: ["Vijay Nagar", "AB Road Commercial Hub", "Palasia", "Super Corridor", "56 Dukan Market"],
+    primaryIndustries: ["IT & Software Services", "Pharmaceuticals", "Textiles & Garments", "Soybean & FMCG Trade"],
+    sampleCaseStudy: { clientType: "Healthcare & Dental Clinic in Indore", neighborhood: "Vijay Nagar", metrics: "+225% Direct Patient Calls", result: "Achieved Google Maps 3-Pack Rank #1 within 45 days." },
+    coordinates: { lat: 22.7196, lng: 75.8577 },
+  },
+  bhopal: {
+    landmarks: ["MP Nagar Zone 1 & 2", "Arera Colony", "Bittan Market", "New Market", "Govindpura Industrial"],
+    primaryIndustries: ["Governance & Public Sector Consulting", "Higher Education & Coaching", "Healthcare & Hospitals", "Electrical Manufacturing"],
+    sampleCaseStudy: { clientType: "Professional Institute in Bhopal", neighborhood: "MP Nagar Zone 2", metrics: "+195% Verified Student Inquiries", result: "Re-engineered website performance and local citation architecture." },
+    coordinates: { lat: 23.2599, lng: 77.4126 },
+  },
+  patna: {
+    landmarks: ["Boring Road", "Fraser Road", "Kankarbagh", "Exhibition Road", "Bailey Road"],
+    primaryIndustries: ["Competitive Coaching & Education", "Healthcare & Diagnostic Centers", "Retail & Automobile Dealerships", "Commercial Contracting"],
+    sampleCaseStudy: { clientType: "Premier Coaching Institute in Patna", neighborhood: "Boring Road", metrics: "+290% Inbound Inquiries", result: "Captured #1 rankings on Google Maps and organic mobile search." },
+    coordinates: { lat: 25.5941, lng: 85.1376 },
+  },
+  surat: {
+    landmarks: ["Ring Road Textile Market", "Varachha Diamond Market", "Vesu", "Ghod Dod Road", "Hazira Industrial Belt"],
+    primaryIndustries: ["Textiles & Synthetic Fabrics", "Diamond Polishing & Jewelry", "Petrochemicals & Heavy Industry", "Real Estate Development"],
+    sampleCaseStudy: { clientType: "Textile Exporter in Surat", neighborhood: "Ring Road Market", metrics: "+265% Domestic & Export Leads", result: "Targeted Google Ads and multi-region SEO campaigns." },
+    coordinates: { lat: 21.1702, lng: 72.8311 },
+  },
+  nagpur: {
+    landmarks: ["Sitabuldi", "Dharampeth", "MIHAN SEZ", "Wardha Road", "Hingna MIDC"],
+    primaryIndustries: ["Multimodal Logistics & Transport", "IT Services (MIHAN)", "Textiles & Agro-Trading", "Healthcare & Medical Education"],
+    sampleCaseStudy: { clientType: "Logistics Enterprise in Nagpur", neighborhood: "MIHAN SEZ", metrics: "+210% High-Value Freight Inquiries", result: "Built a high-converting web presence and localized B2B SEO." },
+    coordinates: { lat: 21.1458, lng: 79.0882 },
+  },
+  visakhapatnam: {
+    landmarks: ["Siripuram", "Jagadamba Centre", "Rushikonda IT Park", "Gajuwaka Industrial Belt", "Daba Gardens"],
+    primaryIndustries: ["Port Operations & Marine Cargo", "IT & BPO (Rushikonda)", "Steel & Heavy Engineering", "Pharmaceutical Manufacturing"],
+    sampleCaseStudy: { clientType: "Marine Engineering Firm in Visakhapatnam", neighborhood: "Rushikonda", metrics: "+200% Qualified Inquiries", result: "Optimized Google Business Profile and global search rankings." },
+    coordinates: { lat: 17.6868, lng: 83.2185 },
+  },
+  bhubaneswar: {
+    landmarks: ["Infocity Patia", "Saheed Nagar", "Nayapalli", "Janpath Commercial", "Chandrasekharpur"],
+    primaryIndustries: ["IT & Software Startups", "Healthcare & Super-Specialty Hospitals", "Higher Education Universities", "Handloom & Tourism"],
+    sampleCaseStudy: { clientType: "IT Consulting Startup in Bhubaneswar", neighborhood: "Infocity Patia", metrics: "+235% Corporate Pipeline Growth", result: "Ranked for competitive SaaS and software development keywords." },
+    coordinates: { lat: 20.2961, lng: 85.8245 },
+  },
+  ludhiana: {
+    landmarks: ["Focal Point Phase 1-8", "Model Town", "Chaura Bazaar", "Ferozepur Road", "Gill Road"],
+    primaryIndustries: ["Woolen Hosiery & Garments", "Bicycle & Auto Parts", "Textile Machinery", "Wholesale Trading"],
+    sampleCaseStudy: { clientType: "Garment Brand in Ludhiana", neighborhood: "Model Town", metrics: "+250% Wholesale & Retail Orders", result: "Google Maps 3-Pack and targeted Meta catalogue advertising." },
+    coordinates: { lat: 30.9010, lng: 75.8573 },
+  },
+  dehradun: {
+    landmarks: ["Rajpur Road", "Sahastradhara Road IT Park", "Paltan Bazaar", "Clock Tower", "Ballupur"],
+    primaryIndustries: ["Boarding Schools & Academies", "Healthcare & Wellness", "Hospitality & Tourism", "Real Estate"],
+    sampleCaseStudy: { clientType: "Wellness & Spa Resort in Dehradun", neighborhood: "Rajpur Road", metrics: "+215% Weekend Bookings", result: "Local SEO, Google Ads, and optimized GEO entity citations." },
+    coordinates: { lat: 30.3165, lng: 78.0322 },
+  },
+  vadodara: {
+    landmarks: ["Alkapuri", "Makarpura GIDC", "Sayajigunj", "Manjalpur", "Old Padra Road"],
+    primaryIndustries: ["Chemicals & Petrochemicals", "Heavy Engineering & Transformers", "Pharmaceutical Formulations", "Plastics"],
+    sampleCaseStudy: { clientType: "Engineering Machinery Firm in Vadodara", neighborhood: "Makarpura GIDC", metrics: "+205% Industrial Leads", result: "Targeted technical SEO and high-converting B2B inquiry funnels." },
+    coordinates: { lat: 22.3072, lng: 73.1812 },
+  },
+  coimbatore: {
+    landmarks: ["RS Puram", "Peelamedu", "Gandhipuram", "Avinashi Road", "Tidel Park"],
+    primaryIndustries: ["Textile Machinery & Pumps", "Auto Components & Foundries", "IT & Software Services", "Jewelry Manufacturing"],
+    sampleCaseStudy: { clientType: "Pump & Motor Manufacturer in Coimbatore", neighborhood: "Peelamedu", metrics: "+240% Dealer & Buyer Inquiries", result: "Secured top organic search spots across South Indian B2B keywords." },
+    coordinates: { lat: 11.0168, lng: 76.9558 },
+  },
+  varanasi: {
+    landmarks: ["Sigra Commercial", "Cantonment", "Lanka & BHU Corridor", "Bhelupur", "Godowlia"],
+    primaryIndustries: ["Silk Handloom & Textiles", "Cultural Tourism & Hospitality", "Healthcare Clinics", "Handicrafts & Metalware"],
+    sampleCaseStudy: { clientType: "Boutique Heritage Hotel in Varanasi", neighborhood: "Cantonment", metrics: "+280% Direct Inbound Bookings", result: "Dominant Google Business Profile rankings and GEO AI Search placement." },
+    coordinates: { lat: 25.3176, lng: 82.9739 },
+  },
+  agra: {
+    landmarks: ["Sanjay Place Commercial", "MG Road", "Fatehabad Road", "Kamla Nagar", "Sikandra Industrial"],
+    primaryIndustries: ["Footwear & Leather Goods", "Tourism, Hotels & Hospitality", "Handicrafts & Marble Inlay", "Automobile Ancillaries"],
+    sampleCaseStudy: { clientType: "Footwear Brand in Agra", neighborhood: "Sanjay Place", metrics: "+220% Qualified Inquiries", result: "Next.js performance website and Google Maps 3-Pack domination." },
+    coordinates: { lat: 27.1767, lng: 78.0081 },
+  },
+  prayagraj: {
+    landmarks: ["Civil Lines", "Katra Commercial", "Georgetown", "Allahabad High Court Corridor", "Naini Industrial Area"],
+    primaryIndustries: ["Judicial & Legal Consulting", "Competitive Exam Coaching", "Healthcare & Medical Services", "Food Processing & Agriculture"],
+    sampleCaseStudy: { clientType: "Coaching Academy in Prayagraj", neighborhood: "Civil Lines", metrics: "+230% Student Enrollments", result: "Optimized GBP review funnels and high-speed mobile pages." },
+    coordinates: { lat: 25.4358, lng: 81.8463 },
+  },
+  meerut: {
+    landmarks: ["Partapur Industrial Area", "Abu Lane", "Delhi Road", "Shastri Nagar", "Modipuram"],
+    primaryIndustries: ["Sports Goods Manufacturing", "Publishing & Printing", "Auto Parts & Precision Tools", "Healthcare & Hospitals"],
+    sampleCaseStudy: { clientType: "Sports Equipment Brand in Meerut", neighborhood: "Partapur Industrial Area", metrics: "+210% Verified Wholesale Inquiries", result: "Scaled national keyword rankings and Google Maps Top 3 presence." },
+    coordinates: { lat: 28.9845, lng: 77.7064 },
+  },
+  amritsar: {
+    landmarks: ["Mall Road", "Ranjit Avenue", "Lawrence Road", "Hall Bazaar", "GT Road Commercial"],
+    primaryIndustries: ["Hospitality & Tourism", "Textiles & Shawls", "Food Processing & Dining", "Handicrafts & Trade"],
+    sampleCaseStudy: { clientType: "Hospitality & Restaurant Group in Amritsar", neighborhood: "Ranjit Avenue", metrics: "+245% Footfall & Private Bookings", result: "Dominant Google Maps 3-Pack placement and geo-targeted review syndication." },
+    coordinates: { lat: 31.6340, lng: 74.8723 },
+  },
+  nashik: {
+    landmarks: ["College Road", "Ambad MIDC", "Satpur Industrial", "Gangapur Road", "Mahatma Nagar"],
+    primaryIndustries: ["Automotive & Precision Engineering", "Wine Production & Agro-Tourism", "Electrical Equipment", "Pharmaceuticals"],
+    sampleCaseStudy: { clientType: "Engineering Components Supplier in Nashik", neighborhood: "Ambad MIDC", metrics: "+220% Corporate RFQ Pipeline", result: "Targeted B2B SEO and sub-second landing page architecture." },
+    coordinates: { lat: 19.9975, lng: 73.7898 },
+  },
+  rajkot: {
+    landmarks: ["Yagnik Road", "Kalawad Road", "Aji GIDC", "Bhakti Nagar", "150 Feet Ring Road"],
+    primaryIndustries: ["Diesel Engines & Machine Tools", "Auto Components & Forging", "Gold Jewelry Manufacturing", "Kitchenware & Castings"],
+    sampleCaseStudy: { clientType: "Machine Tool Exporter in Rajkot", neighborhood: "Aji GIDC", metrics: "+230% Inbound Inquiries", result: "Global and domestic SEO optimization with verified schema integration." },
+    coordinates: { lat: 22.3039, lng: 70.8022 },
+  },
+  faridabad: {
+    landmarks: ["Sector 15 Commercial Hub", "Mathura Road Industrial Area", "NIT Market", "Sector 31", "Old Faridabad"],
+    primaryIndustries: ["Heavy Engineering & Machinery", "Auto Ancillaries & Parts", "Fabrication & Sheet Metal", "Consumer Appliances"],
+    sampleCaseStudy: { clientType: "Industrial Ancillary Manufacturer in Faridabad", neighborhood: "Mathura Road Industrial Area", metrics: "+215% High-Value Orders", result: "B2B local search dominance and Google Ads campaign optimization." },
+    coordinates: { lat: 28.4089, lng: 77.3178 },
+  },
+
+  // Global Commercial Hubs
+  "abu-dhabi": {
+    landmarks: ["Al Maryah Island Financial Free Zone", "Corniche Commercial Belt", "Yas Island Business Hub", "Masdar City", "Khalifa City"],
+    primaryIndustries: ["Sovereign Investment & Private Equity", "Oil, Gas & Clean Energy", "Government & Enterprise Consulting", "Commercial Real Estate"],
+    sampleCaseStudy: { clientType: "ADGM Corporate Services Firm in Abu Dhabi", neighborhood: "Al Maryah Island", metrics: "+280% UAE Enterprise Contracts", result: "Full-funnel organic search, AI answer engine citations, and executive lead funnels." },
+    coordinates: { lat: 24.4539, lng: 54.3773 },
+  },
+  riyadh: {
+    landmarks: ["King Abdullah Financial District (KAFD)", "Olaya Commercial District", "Al Malqa", "Digital City", "Diplomatic Quarter"],
+    primaryIndustries: ["Vision 2030 Mega Projects", "Enterprise SaaS & Cloud Infrastructure", "Construction & Engineering Management", "Fintech & Banking"],
+    sampleCaseStudy: { clientType: "Enterprise Tech & Cloud Consultancy in Riyadh", neighborhood: "KAFD & Olaya", metrics: "+320% Inbound Corporate Pipeline", result: "Multi-lingual Arabic/English SEO, local entity Knowledge Graph integration, and GEO dominance." },
+    coordinates: { lat: 24.7136, lng: 46.6753 },
+  },
+  "new-york": {
+    landmarks: ["Silicon Alley (Flatiron)", "Midtown Manhattan", "Financial District Wall Street", "DUMBO Brooklyn", "Grand Central Corridor"],
+    primaryIndustries: ["B2B SaaS & Tech Scaleups", "Fintech & Capital Markets", "Professional & Legal Services", "Direct-to-Consumer (DTC) Brands"],
+    sampleCaseStudy: { clientType: "B2B SaaS Scaleup in New York", neighborhood: "Silicon Alley, Manhattan", metrics: "+310% US Qualified Demo Requests", result: "Deployed high-speed Next.js landing pages, technical SEO, and programmatic GEO positioning." },
+    coordinates: { lat: 40.7128, lng: -74.0060 },
+  },
+  toronto: {
+    landmarks: ["Downtown Financial District", "King West Tech Strip", "Markham Silicon Valley North", "Yorkville", "Liberty Village"],
+    primaryIndustries: ["Artificial Intelligence & Software Engineering", "Financial Services & WealthTech", "Biotech & Healthcare", "CleanTech"],
+    sampleCaseStudy: { clientType: "Fintech Platform in Toronto", neighborhood: "Financial District", metrics: "+260% Qualified Canadian Inquiries", result: "Accelerated technical SEO and local entity syndication." },
+    coordinates: { lat: 43.6532, lng: -79.3832 },
+  },
+  sydney: {
+    landmarks: ["Barangaroo Financial Corridor", "Sydney CBD", "Surry Hills Tech Hub", "North Sydney Commercial", "Macquarie Park"],
+    primaryIndustries: ["Fintech & Scaleups", "Tradie & Home Services Franchises", "Property & Commercial Development", "Professional Advisory"],
+    sampleCaseStudy: { clientType: "B2B Commercial Services Firm in Sydney", neighborhood: "Barangaroo & Surry Hills", metrics: "+275% High-Ticket Contracts", result: "Engineered local Google Maps 3-Pack authority and high-converting paid search." },
+    coordinates: { lat: -33.8688, lng: 151.2093 },
+  },
+
   // ================= STATES =================
   punjab: {
     landmarks: [
@@ -165,32 +601,6 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
       result: "Unified Google Business Profiles across all Punjab branches, eliminated duplicate citations, built a centralized sub-second Next.js web application, and secured Rank #1 for study visa queries state-wide.",
     },
     coordinates: { lat: 31.1471, lng: 75.3412 },
-  },
-  "uttar-pradesh": {
-    landmarks: [
-      "Ghaziabad (Crossings Republik, Indirapuram, Raj Nagar)",
-      "Noida & Greater Noida (Sector 62, Sector 18, Expressway)",
-      "Lucknow (Gomti Nagar, Hazratganj, Vibhuti Khand)",
-      "Kanpur (Civil Lines, Fazalganj, Leather & Chemical Hub)",
-      "Agra (Foundry, Tourism & Footwear Manufacturing)",
-      "Varanasi (Silk, Tourism & Educational Hub)",
-      "Meerut (Sports Goods, Scissors & Delhi-NCR Expressway)",
-      "Prayagraj (Civil Lines, Education & Legal Hub)",
-    ],
-    primaryIndustries: [
-      "B2B Manufacturing & Export (Noida, Ghaziabad, Kanpur)",
-      "IT, Software & Corporate Hubs (Noida Sector 62 & 137)",
-      "Healthcare, Medical Colleges & Diagnostics",
-      "Real Estate, High-Rise Townships & Commercial Complexes",
-      "Handicrafts, Textiles & Brassware (Lucknow, Varanasi, Moradabad)",
-    ],
-    sampleCaseStudy: {
-      clientType: "Industrial Valves & Mechanical Component Manufacturer",
-      neighborhood: "Ghaziabad & Noida Industrial Corridors",
-      metrics: "₹84L+ Domestic & Export Supply Contracts",
-      result: "Deployed technical B2B SEO and high-intent Google Search campaigns, capturing verified purchase managers across Uttar Pradesh, Delhi NCR, and international export markets.",
-    },
-    coordinates: { lat: 26.8467, lng: 80.9462 },
   },
   haryana: {
     landmarks: [
@@ -264,30 +674,7 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
     },
     coordinates: { lat: 15.3173, lng: 75.7139 },
   },
-  "tamil-nadu": {
-    landmarks: [
-      "Chennai (OMR IT Expressway, Guindy, Ambattur, Sriperumbudur)",
-      "Coimbatore (Peelamedu, SIDCO Industrial Estate, Saravanampatti)",
-      "Tiruppur (Textile Knitwear & Export Apparel Hub)",
-      "Madurai (Mattuthavani Commercial Belt & Automobile Cluster)",
-      "Salem (Steel, Sago & Power Loom Industrial Belt)",
-      "Tiruchirappalli (Fabrication & Heavy Engineering BHEL Corridor)",
-    ],
-    primaryIndustries: [
-      "Automotive, EV & Auto Ancillaries ('Detroit of Asia')",
-      "Textiles, Yarn & Knitwear Exports (Tiruppur & Coimbatore)",
-      "IT, BPO & Enterprise Software (Chennai & Coimbatore)",
-      "Heavy Engineering, Boilers & Metal Fabrication (Trichy & Salem)",
-      "Super-Specialty Hospitals & Medical Tourism (Chennai)",
-    ],
-    sampleCaseStudy: {
-      clientType: "Precision EV Component & Motor Manufacturer",
-      neighborhood: "Ambattur & Sriperumbudur, Chennai",
-      metrics: "48 Qualified Procurement RFQs from Automotive Tier-1s",
-      result: "Constructed high-speed technical spec catalog, localized Google Maps optimization, and targeted B2B SEO capturing purchasing directors across Tamil Nadu.",
-    },
-    coordinates: { lat: 11.1271, lng: 78.6569 },
-  },
+
   gujarat: {
     landmarks: [
       "Ahmedabad (SG Highway, Prahlad Nagar, Sanand GIDC)",
@@ -360,29 +747,7 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
     },
     coordinates: { lat: 18.1124, lng: 79.0193 },
   },
-  "west-bengal": {
-    landmarks: [
-      "Kolkata (Salt Lake Sector V, New Town Action Area, Park Street)",
-      "Howrah (Industrial & Engineering Belt, Kona Expressway)",
-      "Durgapur (City Centre & DSP Industrial Corridor)",
-      "Siliguri (Sevoke Road, Matigara & Hill Gateway)",
-      "Asansol (Burnpur & Commercial GT Road Belt)",
-    ],
-    primaryIndustries: [
-      "IT, ITeS & FinTech Hubs (Salt Lake Sector V & New Town)",
-      "Steel, Foundry & Heavy Industrial Equipment (Durgapur & Asansol)",
-      "Tea Trade, Processing & Logistics (Siliguri & North Bengal)",
-      "Leather Goods & Textile Apparel Exporters (Bantala & Kolkata)",
-      "Specialty Medical Chains & Education Institutes",
-    ],
-    sampleCaseStudy: {
-      clientType: "Tea Brand & Organic CTC Wholesale Exporter",
-      neighborhood: "Siliguri Sevoke Road & Kolkata BBD Bagh",
-      metrics: "₹62L+ Inbound Bulk Supply Inquiries",
-      result: "Constructed direct B2B buyer portal with instant WhatsApp RFQs, achieving Rank #1 for 'wholesale organic CTC tea suppliers India'.",
-    },
-    coordinates: { lat: 22.9868, lng: 87.855 },
-  },
+
 
   // ================= CITIES =================
   mohali: {
@@ -646,53 +1011,9 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
     coordinates: { lat: 25.2048, lng: 55.2708 },
   },
 
-  "abu-dhabi": {
-    landmarks: [
-      "Al Maryah Island (ADGM Financial Freezone)",
-      "Corniche Commercial Belt",
-      "Yas Island Commercial & Tourism Hub",
-      "Saadiyat Cultural District",
-      "Mussafah Industrial Hub",
-    ],
-    primaryIndustries: [
-      "Government Contracting & Public Sector B2B",
-      "Oil & Gas Industrial Equipment Supply",
-      "Luxury Tourism & World-Class Hospitality",
-      "Corporate Legal & Financial Advisory",
-      "Private Multispecialty Hospitals",
-    ],
-    sampleCaseStudy: {
-      clientType: "Commercial Infrastructure & Engineering Contractor",
-      neighborhood: "Al Maryah Island & Mussafah",
-      metrics: "AED 18M+ Contract Pipeline",
-      result: "Enterprise technical SEO and B2B LinkedIn/Google Ads funnels capturing government tenders and corporate developers across Abu Dhabi.",
-    },
-    coordinates: { lat: 24.4539, lng: 54.3773 },
-  },
 
-  "new-york": {
-    landmarks: [
-      "Manhattan Financial District & Wall Street",
-      "Midtown Tech Corridor",
-      "Silicon Alley & Flatiron",
-      "Brooklyn Tech Triangle",
-      "Long Island City Commercial",
-    ],
-    primaryIndustries: [
-      "B2B SaaS & Tech Scaleups",
-      "Corporate Law & Wealth Management",
-      "Healthcare & Specialized Medical Practices",
-      "High-Growth E-commerce Brands",
-      "Commercial Real Estate & Architecture",
-    ],
-    sampleCaseStudy: {
-      clientType: "Enterprise B2B Cloud Data Platform",
-      neighborhood: "Midtown Manhattan",
-      metrics: "$3.2M Added Enterprise Pipeline ARR",
-      result: "Outsourced search engineering team to Digital FX, capturing Rank #1 for competitive US enterprise cloud queries with 0.7s Next.js web architecture.",
-    },
-    coordinates: { lat: 40.7128, lng: -74.0060 },
-  },
+
+
 
   london: {
     landmarks: [

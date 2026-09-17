@@ -306,7 +306,7 @@ function PaymentInvoiceContent() {
                     Phone: <strong className="text-slate-800">+91 8447583685</strong> | Email: <strong className="text-slate-800">hello@digitalfx.in</strong>
                   </p>
                   <p className="text-[11px] text-slate-600">
-                    Website: <a href="https://digitalfx.in" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-semibold">https://digitalfx.in</a> | GSTIN: <span className="font-mono font-bold">07AABCD1234E1Z5</span>
+                    Website: <a href="https://www.digitalfx.in" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-semibold">https://www.digitalfx.in</a> | GSTIN: <span className="font-mono font-bold">07AABCD1234E1Z5</span>
                   </p>
                 </div>
               </div>

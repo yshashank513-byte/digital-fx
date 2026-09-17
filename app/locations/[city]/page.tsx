@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import {
   getCitySeoProfile,
   toCitySlug,
   ALL_LOCATIONS_FLAT,
   getCitiesInState,
+  CANONICAL_LOCATION_SLUGS,
+  isCanonicalLocation,
+  getParentStateSlugForCity,
 } from "@/lib/citySeoData";
 
 interface PageProps {
@@ -14,70 +17,28 @@ interface PageProps {
   }>;
 }
 
-// Pre-render all 36 States & UTs + top high-impact commercial hubs across India
+// Pre-render all 100% of canonical authority hubs (States, Metros & Global Commercial Hubs)
 export async function generateStaticParams() {
-  const stateSlugs = ALL_LOCATIONS_FLAT.filter((l) => l.isState).map((l) => l.slug);
-  const topCities = [
-    "ghaziabad",
-    "noida",
-    "delhi",
-    "gurugram",
-    "faridabad",
-    "mumbai",
-    "pune",
-    "bengaluru",
-    "hyderabad",
-    "ahmedabad",
-    "chennai",
-    "kolkata",
-    "jaipur",
-    "lucknow",
-    "kanpur",
-    "indore",
-    "bhopal",
-    "chandigarh",
-    "mohali",
-    "kochi",
-    "patna",
-    "surat",
-    "nagpur",
-    "visakhapatnam",
-    "bhubaneswar",
-    "ludhiana",
-    "dehradun",
-    "vadodara",
-    "coimbatore",
-    "varanasi",
-    "agra",
-    "prayagraj",
-    "meerut",
-    "amritsar",
-    "nashik",
-    "rajkot",
-    // International Flagship Commercial Hubs
-    "dubai",
-    "abu-dhabi",
-    "sharjah",
-    "riyadh",
-    "doha",
-    "new-york",
-    "london",
-    "singapore",
-    "toronto",
-    "sydney",
-  ];
-
-  const allSlugs = Array.from(new Set([...stateSlugs, ...topCities]));
-  return allSlugs.map((slug) => ({ city: slug }));
+  return CANONICAL_LOCATION_SLUGS.map((slug) => ({ city: slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
-  const profile = getCitySeoProfile(resolvedParams.city);
+  const rawCity = resolvedParams.city.toLowerCase().trim();
+
+  // If this is a secondary minor town that consolidates into parent state
+  if (!isCanonicalLocation(rawCity)) {
+    const parentState = getParentStateSlugForCity(rawCity);
+    if (parentState && parentState !== rawCity) {
+      permanentRedirect(`/locations/${parentState}`);
+    }
+  }
+
+  const profile = getCitySeoProfile(rawCity);
 
   if (!profile) {
     return {
-      title: "City Not Found",
+      title: "Location Not Found",
     };
   }
 
@@ -107,7 +68,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function CityLocationPage({ params }: PageProps) {
   const resolvedParams = await params;
-  const profile = getCitySeoProfile(resolvedParams.city);
+  const rawCity = resolvedParams.city.toLowerCase().trim();
+
+  // If this is a secondary minor town, issue an immediate 308 Permanent Redirect to parent State Hub
+  if (!isCanonicalLocation(rawCity)) {
+    const parentState = getParentStateSlugForCity(rawCity);
+    if (parentState && parentState !== rawCity) {
+      permanentRedirect(`/locations/${parentState}`);
+    } else {
+      notFound();
+    }
+  }
+
+  const profile = getCitySeoProfile(rawCity);
 
   if (!profile) {
     notFound();

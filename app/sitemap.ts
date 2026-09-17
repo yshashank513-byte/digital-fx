@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/lib/blogData";
-import { ALL_LOCATIONS_FLAT } from "@/lib/citySeoData";
+import { CANONICAL_LOCATION_SLUGS } from "@/lib/citySeoData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.digitalfx.in";
   const now = new Date();
 
-  // Core Pages
+  // Core 200-OK Indexable Static Pages
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -18,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/locations`,
       lastModified: now,
       changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/global-markets`,
+      lastModified: now,
+      changeFrequency: "daily",
       priority: 0.9,
     },
     {
@@ -46,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Blog Posts
+  // Verified In-Depth Blog Articles
   const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: now,
@@ -54,16 +60,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Unique Location Slugs (All 28 States & 8 UTs + all 350+ Cities)
-  const uniqueLocationSlugs = Array.from(
-    new Set(ALL_LOCATIONS_FLAT.map((loc) => loc.slug))
-  );
-
-  const locationRoutes: MetadataRoute.Sitemap = uniqueLocationSlugs.map((slug) => ({
+  // Canonical Authority Hubs Only (All 28 States, 8 UTs, Top 36 Indian Metros, 10 Global Hubs)
+  // Secondary minor localities redirect permanently (308) to their parent state hubs and are excluded from sitemap.
+  const locationRoutes: MetadataRoute.Sitemap = CANONICAL_LOCATION_SLUGS.map((slug) => ({
     url: `${baseUrl}/locations/${slug}`,
     lastModified: now,
     changeFrequency: "weekly",
-    priority: 0.8,
+    priority: 0.85,
   }));
 
   return [...staticRoutes, ...blogRoutes, ...locationRoutes];

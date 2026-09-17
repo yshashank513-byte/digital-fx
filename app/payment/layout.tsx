@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import AdminClientLayout from "./AdminClientLayout";
 
 export const metadata: Metadata = {
-  title: "Digital FX Admin Console",
+  title: "Secure Payment | Digital FX",
   robots: {
     index: false,
     follow: false,
@@ -10,10 +9,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AdminLayout({
+export default function PaymentLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <AdminClientLayout>{children}</AdminClientLayout>;
+  return <>{children}</>;
 }
