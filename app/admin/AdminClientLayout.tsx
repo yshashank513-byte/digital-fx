@@ -42,6 +42,9 @@ export default function AdminClientLayout({
       }
 
       if (sessionUser) {
+        if (data.session?.access_token) {
+          localStorage.setItem("digitalfx_admin_token", data.session.access_token);
+        }
         setAdminUser({
           email: sessionUser.email || "yshashank513@gmail.com",
           name: sessionUser.user_metadata?.name || "Shashank Yadav",
@@ -62,6 +65,7 @@ export default function AdminClientLayout({
     }
     localStorage.removeItem("digitalfx_admin");
     localStorage.removeItem("digitalfx_remember");
+    localStorage.removeItem("digitalfx_admin_token");
     router.replace("/admin/login");
   }
 

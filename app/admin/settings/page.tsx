@@ -33,6 +33,7 @@ export default function SettingsPage() {
     } catch {}
     localStorage.removeItem("digitalfx_admin");
     localStorage.removeItem("digitalfx_remember");
+    localStorage.removeItem("digitalfx_admin_token");
     router.replace("/admin/login");
   }
 

@@ -270,53 +270,68 @@ function PaymentInvoiceContent() {
       ======================================== */}
       <main className="min-h-screen bg-[#f1f5f9] px-3 pb-12 pt-16 sm:px-6 sm:pt-20">
         {/* ======================================
-            A4 INVOICE SHEET (EXACT REQUESTED STRUCTURE)
+            A4 INVOICE SHEET (75% A4 PROPORTIONS WITH CRISP BORDER)
         ====================================== */}
         <div
           id="invoice"
-          className="invoice-paper relative mx-auto w-full max-w-[800px] bg-white text-slate-900 border border-slate-800 shadow-md"
+          className="invoice-paper relative mx-auto w-full max-w-[760px] bg-white text-slate-900 border-2 border-slate-900 shadow-md"
         >
           {/* ┌──────────────────────────────────────────────────────────┐
               │  LOGO        COMPANY NAME                  TAX INVOICE    │
               │              Address / Phone / GSTIN       Invoice No.   │
               │                                             Date          │
               └──────────────────────────────────────────────────────────┘ */}
-          <div className="p-5 sm:p-6 border-b border-slate-800">
+          <div className="p-5 sm:p-6 border-b-2 border-slate-900">
             <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
               {/* LEFT: LOGO + COMPANY NAME + ADDRESS/PHONE/GSTIN */}
-              <div className="flex items-start gap-4">
-                <div className="shrink-0 pt-0.5">
+              <div className="flex items-start gap-3.5">
+                <div className="flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white p-1.5 shadow-2xs">
                   <img
                     src="/logo.png"
                     alt="Digital FX"
-                    className="h-14 sm:h-16 w-auto max-w-[160px] object-contain"
+                    width={54}
+                    height={54}
+                    style={{
+                      width: "54px",
+                      height: "54px",
+                      maxWidth: "54px",
+                      maxHeight: "54px",
+                      objectFit: "contain",
+                      display: "block",
+                    }}
+                    className="h-full w-full object-contain"
                   />
                 </div>
                 <div>
-                  <h1 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 leading-tight">
-                    DIGITAL FX
-                  </h1>
-                  <p className="text-[11px] font-bold text-slate-700">
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 leading-tight">
+                      DIGITAL <span className="text-[#207de9]">FX</span>
+                    </h1>
+                    <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-blue-50 text-[#207de9] border border-blue-200">
+                      Govt. Registered
+                    </span>
+                  </div>
+                  <p className="text-[11px] font-bold text-slate-700 mt-0.5">
                     Digital Marketing &amp; AI Search (GEO) Agency
                   </p>
-                  <p className="text-[11px] text-slate-600 mt-1">
+                  <p className="text-[11px] text-slate-600 mt-0.5">
                     Address: Ghaziabad, Delhi NCR - 201001, India
                   </p>
                   <p className="text-[11px] text-slate-600">
                     Phone: <strong className="text-slate-800">+91 8447583685</strong> | Email: <strong className="text-slate-800">hello@digitalfx.in</strong>
                   </p>
                   <p className="text-[11px] text-slate-600">
-                    Website: <a href="https://www.digitalfx.in" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-semibold">https://www.digitalfx.in</a> | GSTIN: <span className="font-mono font-bold">07AABCD1234E1Z5</span>
+                    Website: <a href="https://www.digitalfx.in" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-semibold">https://www.digitalfx.in</a> | GSTIN: <span className="font-mono font-bold text-slate-900">07AABCD1234E1Z5</span>
                   </p>
                 </div>
               </div>
 
               {/* RIGHT: TAX INVOICE + INVOICE NO + DATE */}
-              <div className="sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 w-full sm:w-auto">
+              <div className="sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 w-full sm:w-auto shrink-0">
                 <p className="text-xl sm:text-2xl font-black tracking-wider text-slate-900 uppercase">
                   TAX INVOICE
                 </p>
-                <div className="mt-1 text-xs space-y-1">
+                <div className="mt-1.5 text-xs space-y-1">
                   <div>
                     <span className="text-slate-500 font-medium">Invoice No: </span>
                     <strong className="font-mono text-slate-900">{invoiceNumber}</strong>
@@ -328,7 +343,7 @@ function PaymentInvoiceContent() {
                   <div>
                     <span className="text-slate-500 font-medium">Status: </span>
                     <span className={`inline-block font-bold px-2 py-0.5 rounded text-[10.5px] ${
-                      isPaid ? "bg-emerald-100 text-emerald-800 border border-emerald-300" : "bg-red-100 text-red-800 border border-red-300"
+                      isPaid ? "bg-emerald-100 text-emerald-800 border border-emerald-300" : "bg-amber-100 text-amber-800 border border-amber-300"
                     }`}>
                       {isPaid ? "PAID (VERIFIED)" : "PAYMENT PENDING"}
                     </span>
@@ -342,11 +357,11 @@ function PaymentInvoiceContent() {
               │ BILL TO:                                                 │
               │ Customer Name | Phone | Email | Address                  │
               └──────────────────────────────────────────────────────────┘ */}
-          <div className="p-4 sm:p-5 bg-slate-50 border-b border-slate-800">
+          <div className="p-4 sm:p-5 bg-slate-50/90 border-b border-slate-900">
             <p className="text-[11px] font-black uppercase tracking-wider text-slate-900 mb-1.5">
               BILL TO:
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs text-slate-800">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 text-xs text-slate-800">
               <div>
                 <span className="text-slate-500 block text-[10px] uppercase font-bold">Customer Name</span>
                 <strong className="text-slate-900 text-sm">{payment.customer_name || "Valued Client"}</strong>
@@ -371,23 +386,23 @@ function PaymentInvoiceContent() {
               ├────┼──────────────────────┼──────┼────────┼───────────────┤
               │  1 │ Service / Package    │  1   │ ₹...   │ ₹...          │
               └────┴──────────────────────┴──────┴────────┴───────────────┘ */}
-          <div className="border-b border-slate-800">
+          <div className="border-b border-slate-900">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="bg-slate-100 border-b border-slate-800 text-slate-900 font-extrabold uppercase text-[10.5px]">
-                  <th className="py-2.5 px-3 border-r border-slate-800 text-center w-12">S.No</th>
-                  <th className="py-2.5 px-4 border-r border-slate-800">Description</th>
-                  <th className="py-2.5 px-3 border-r border-slate-800 text-center w-16">Qty</th>
-                  <th className="py-2.5 px-3 border-r border-slate-800 text-right w-28">Rate</th>
+                <tr className="bg-slate-100 border-b border-slate-900 text-slate-900 font-extrabold uppercase text-[10.5px]">
+                  <th className="py-2.5 px-3 border-r border-slate-900 text-center w-12">S.No</th>
+                  <th className="py-2.5 px-4 border-r border-slate-900">Description</th>
+                  <th className="py-2.5 px-3 border-r border-slate-900 text-center w-16">Qty</th>
+                  <th className="py-2.5 px-3 border-r border-slate-900 text-right w-28">Rate</th>
                   <th className="py-2.5 px-4 text-right w-28">Amount</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-300">
+              <tbody className="divide-y divide-slate-200">
                 <tr className="align-top">
-                  <td className="py-3 px-3 border-r border-slate-800 text-center font-bold text-slate-600">
+                  <td className="py-3 px-3 border-r border-slate-900 text-center font-bold text-slate-600">
                     1
                   </td>
-                  <td className="py-3 px-4 border-r border-slate-800">
+                  <td className="py-3 px-4 border-r border-slate-900">
                     <p className="font-extrabold text-slate-900 text-xs">
                       {payment.product_name || "Digital Marketing & AI Optimization Package"}
                     </p>
@@ -400,17 +415,16 @@ function PaymentInvoiceContent() {
                       </span>
                     )}
                   </td>
-                  <td className="py-3 px-3 border-r border-slate-800 text-center font-bold text-slate-800">
+                  <td className="py-3 px-3 border-r border-slate-900 text-center font-bold text-slate-800">
                     1
                   </td>
-                  <td className="py-3 px-3 border-r border-slate-800 text-right font-medium text-slate-900">
+                  <td className="py-3 px-3 border-r border-slate-900 text-right font-medium text-slate-900">
                     ₹{formatAmount(amount)}
                   </td>
                   <td className="py-3 px-4 text-right font-bold text-slate-900">
                     ₹{formatAmount(amount)}
                   </td>
                 </tr>
-                {/* Secondary optional row space for visual balance if needed */}
               </tbody>
             </table>
           </div>
@@ -421,10 +435,10 @@ function PaymentInvoiceContent() {
               │                              Discount      │ ₹...          │
               │                              GRAND TOTAL   │ ₹...          │
               └────────────────────────────────────────────┴───────────────┘ */}
-          <div className="border-b border-slate-800">
+          <div className="border-b border-slate-900">
             <div className="grid grid-cols-1 sm:grid-cols-[1fr_300px]">
               {/* Amount in words */}
-              <div className="p-4 sm:p-5 border-b sm:border-b-0 sm:border-r border-slate-800 flex flex-col justify-between">
+              <div className="p-4 sm:p-5 border-b sm:border-b-0 sm:border-r border-slate-900 flex flex-col justify-between">
                 <div>
                   <span className="text-[10px] font-bold text-slate-500 uppercase block">Total Amount in Words</span>
                   <p className="font-serif italic font-bold text-slate-800 text-sm mt-1">
@@ -438,21 +452,21 @@ function PaymentInvoiceContent() {
 
               {/* Totals Table */}
               <div className="text-xs">
-                <div className="flex justify-between py-2 px-4 border-b border-slate-300">
+                <div className="flex justify-between py-2 px-4 border-b border-slate-200">
                   <span className="text-slate-600 font-medium">Sub Total</span>
                   <strong className="text-slate-900">₹{formatAmount(amount)}</strong>
                 </div>
-                <div className="flex justify-between py-2 px-4 border-b border-slate-300">
+                <div className="flex justify-between py-2 px-4 border-b border-slate-200">
                   <span className="text-slate-600 font-medium">GST (18% / Inclusive)</span>
                   <strong className="text-slate-900">₹0.00 (Included)</strong>
                 </div>
-                <div className="flex justify-between py-2 px-4 border-b border-slate-800">
+                <div className="flex justify-between py-2 px-4 border-b border-slate-900">
                   <span className="text-slate-600 font-medium">Discount</span>
                   <strong className="text-slate-900">₹0.00</strong>
                 </div>
-                <div className="flex justify-between py-3 px-4 bg-slate-100 font-black text-sm text-slate-900">
+                <div className="flex justify-between py-2.5 px-4 bg-slate-900 font-black text-sm text-white">
                   <span>GRAND TOTAL</span>
-                  <span className="text-base text-slate-900">₹{formatAmount(amount)}</span>
+                  <span className="text-base text-white">₹{formatAmount(amount)}</span>
                 </div>
               </div>
             </div>
@@ -462,7 +476,7 @@ function PaymentInvoiceContent() {
               │ Payment Details:                                           │
               │ Bank Name | A/C No. | IFSC | UPI                          │
               └───────────────────────────────────────────────────────────┘ */}
-          <div className="p-4 bg-slate-50 border-b border-slate-800 text-xs text-slate-800">
+          <div className="p-4 bg-slate-50/80 border-b border-slate-900 text-xs text-slate-800">
             <p className="font-black text-[11px] uppercase tracking-wider text-slate-900 mb-1.5">
               PAYMENT DETAILS:
             </p>
@@ -494,7 +508,7 @@ function PaymentInvoiceContent() {
           {/* ├───────────────────────────────────────────────────────────┤
               │ Terms & Conditions                    Authorized Signature │
               └───────────────────────────────────────────────────────────┘ */}
-          <div className="p-5 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 text-xs">
+          <div className="p-4 sm:p-5 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 text-xs">
             {/* Left: Terms & Conditions */}
             <div className="max-w-[440px] space-y-1">
               <p className="font-black text-[11px] uppercase tracking-wider text-slate-900 mb-1">
@@ -512,7 +526,7 @@ function PaymentInvoiceContent() {
               <p className="text-[10px] font-bold text-slate-500 uppercase">
                 For DIGITAL FX
               </p>
-              <div className="my-2 py-2 inline-block border-b-2 border-slate-800 min-w-[170px] text-center sm:text-right">
+              <div className="my-1.5 py-1.5 inline-block border-b-2 border-slate-900 min-w-[170px] text-center sm:text-right">
                 <span className="font-serif italic font-bold text-slate-800 text-sm block">
                   Digital FX Billing Desk
                 </span>
@@ -526,13 +540,13 @@ function PaymentInvoiceContent() {
       </main>
 
       {/* ========================================
-          A4 PRINT STYLES
+          A4 PRINT STYLES (SINGLE-PAGE GUARANTEED)
       ======================================== */}
       <style jsx global>{`
         @media print {
           @page {
             size: A4 portrait;
-            margin: 8mm;
+            margin: 10mm 12mm;
           }
 
           html,
@@ -542,6 +556,8 @@ function PaymentInvoiceContent() {
             background: #ffffff !important;
             font-size: 11px !important;
             color: #000000 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
           }
 
           .no-print {
@@ -558,10 +574,12 @@ function PaymentInvoiceContent() {
           #invoice {
             width: 100% !important;
             max-width: 100% !important;
-            margin: 0 !important;
+            margin: 0 auto !important;
             box-shadow: none !important;
-            border: 1.5px solid #000000 !important;
+            border: 2px solid #0f172a !important;
             page-break-inside: avoid !important;
+            page-break-after: avoid !important;
+            break-inside: avoid !important;
           }
         }
       `}</style>

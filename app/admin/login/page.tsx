@@ -58,6 +58,9 @@ export default function AdminLogin() {
       }
 
       localStorage.setItem("digitalfx_admin", "true");
+      if (data.session?.access_token) {
+        localStorage.setItem("digitalfx_admin_token", data.session.access_token);
+      }
       if (remember) {
         localStorage.setItem("digitalfx_remember", "true");
       } else {
