@@ -495,24 +495,24 @@ export default function PackersEnquiryPage() {
   const openWhatsAppModal = (item: PackersEnquiry) => {
     setWhatsAppModalEnquiry(item);
 
-    const defaultMsg = `*DIGITAL FX PACKERS & MOVERS ESTIMATE*\n\n` +
+    const defaultMsg = `*OM PACKERS AND MOVERS ESTIMATE*\n\n` +
       `Dear ${item.name},\n` +
-      `Greetings from Digital FX Logistics. Here is your shifting quotation summary:\n\n` +
+      `Greetings from Om Packers and Movers. Here is your shifting quotation summary:\n\n` +
       `Pickup: ${item.from_location || "As discussed"}\n` +
       `Drop: ${item.to_location || "As discussed"}\n` +
       `Vehicle: ${item.truck_feet}\n` +
       `All-Inclusive Rate: ₹${(item.customer_rate || 0).toLocaleString("en-IN")}/-\n` +
       `Items: ${item.remark || "Household / Commercial Goods"}\n\n` +
       `Would you like to confirm the movement slot and driver allocation? Let us know if you have any questions.\n\n` +
-      `*Digital FX Logistics & Relocation Desk*\n` +
-      `Phone: +91 98765 43210 | www.digitalfx.in`;
+      `*Om Packers and Movers Relocation Desk*\n` +
+      `Phone: +91 9717586641 | www.ompackersindia.com`;
 
     setWhatsAppCustomText(defaultMsg);
   };
 
   // Send WhatsApp message directly
   const sendWhatsAppDirect = (phone: string, text: string) => {
-    const clean = phone.replace(/\\D/g, "");
+    const clean = phone.replace(/\D/g, "");
     const targetPhone = clean.startsWith("91") ? clean : clean.length === 10 ? `91${clean}` : clean;
     const url = `https://wa.me/${targetPhone}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
@@ -524,7 +524,7 @@ export default function PackersEnquiryPage() {
     const e = quotationSlipEnquiry;
     const text =
       `====================================\n` +
-      `      DIGITAL FX PACKERS & MOVERS   \n` +
+      `       OM PACKERS AND MOVERS        \n` +
       `        OFFICIAL QUOTATION SLIP     \n` +
       `====================================\n` +
       `Quote ID: #${e.id}\n` +
@@ -547,7 +547,7 @@ export default function PackersEnquiryPage() {
       `2. Toll taxes and state permits included as per quotation.\n` +
       `3. Loading & unloading handled by trained professional handlers.\n` +
       `====================================\n` +
-      `Digital FX Logistics | Support: www.digitalfx.in\n`;
+      `Om Packers and Movers | Phone: +91 9717586641 | www.ompackersindia.com\n`;
 
     navigator.clipboard.writeText(text);
     setCopiedQuote(true);
@@ -1204,7 +1204,7 @@ export default function PackersEnquiryPage() {
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="e.g. 9876543210"
+                    placeholder="e.g. 9717586641"
                     className="mt-1 h-9 w-full rounded-lg border border-slate-200 bg-slate-50/70 px-3 text-xs text-slate-900 outline-none focus:bg-white focus:border-[#207de9] focus:ring-1 focus:ring-[#207de9]"
                   />
                 </div>
@@ -1437,15 +1437,15 @@ export default function PackersEnquiryPage() {
               {/* Slip Header */}
               <div className="flex items-start justify-between border-b border-slate-200 pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 overflow-hidden rounded-lg border border-slate-200 bg-white p-1">
-                    <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-600 text-white font-black text-xs shadow-xs">
+                    OM
                   </div>
                   <div>
-                    <div className="text-base font-bold tracking-tight text-slate-900">
-                      DIGITAL <span className="text-[#207de9]">FX</span> LOGISTICS
+                    <div className="text-base font-black tracking-tight text-slate-900">
+                      OM PACKERS AND MOVERS
                     </div>
-                    <div className="text-[9px] font-semibold uppercase tracking-wider text-slate-400">
-                      Packers &amp; Movers Relocation Desk
+                    <div className="text-[9px] font-semibold uppercase tracking-wider text-slate-500">
+                      Phone: +91 9717586641 • www.ompackersindia.com
                     </div>
                   </div>
                 </div>
@@ -1579,7 +1579,7 @@ export default function PackersEnquiryPage() {
               <div className="border-t border-slate-200 pt-3 text-[10px] text-slate-400 space-y-0.5">
                 <p>1. Transit insurance available upon declared inventory value.</p>
                 <p>2. Vehicle booking confirmed upon advance transfer.</p>
-                <p>3. Digital FX Logistics guarantees verified trucks with GPS movement updates.</p>
+                <p>3. Om Packers and Movers guarantees verified trucks with GPS movement updates.</p>
               </div>
 
               <div className="flex items-center justify-between border-t border-slate-100 pt-3 text-[10px] text-slate-500 font-medium">
