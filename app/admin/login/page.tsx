@@ -13,53 +13,100 @@ export default function AdminLogin() {
   const [remember, setRemember] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [sessionExpiredNotice, setSessionExpiredNotice] = useState(false);
 
   useEffect(() => {
-    async function checkExistingSession() {
-      const { data } = await supabase.auth.getSession();
-      const hasLocalFlag =
-        typeof window !== "undefined" &&
-        localStorage.getItem("digitalfx_admin") === "true";
-
-      if (data.session?.user || hasLocalFlag) {
-        router.replace("/admin");
+    // Check if user landed here due to an expired session
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("expired") === "true") {
+        setSessionExpiredNotice(true);
+        localStorage.removeItem("digitalfx_admin");
+        localStorage.removeItem("digitalfx_admin_token");
+        return;
       }
     }
+
+    async function checkExistingSession() {
+      const storedToken =
+        typeof window !== "undefined"
+          ? localStorage.getItem("digitalfx_admin_token")
+          : null;
+
+      // Verify stored persistent token against server
+      if (storedToken) {
+        try {
+          const res = await fetch("/api/admin/auth/session", {
+            headers: { Authorization: `Bearer ${storedToken}` },
+            credentials: "same-origin",
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.authorized) {
+              router.replace("/admin");
+              return;
+            }
+          }
+        } catch {
+          // Fallback to supabase check
+        }
+      }
+
+      // Check active Supabase session
+      try {
+        const { data } = await supabase.auth.getSession();
+        if (data.session?.user) {
+          router.replace("/admin");
+        }
+      } catch {
+        // No valid session
+      }
+    }
+
     checkExistingSession();
   }, [router]);
 
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
+    setSessionExpiredNotice(false);
     setLoading(true);
 
     const cleanEmail = email.trim().toLowerCase();
 
     try {
-      const { data, error: authError } = await supabase.auth.signInWithPassword({
-        email: cleanEmail,
-        password: password,
+      // 1. Authenticate via server-side API (creates signed 30-day token & cookie)
+      const res = await fetch("/api/admin/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: cleanEmail, password, remember }),
       });
 
-      if (authError || !data.user) {
-        setError("Invalid email address or password. Please verify your credentials.");
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setError(
+          data.error ||
+            "Invalid email address or password. Please verify your credentials."
+        );
         setLoading(false);
         return;
       }
 
-      const userEmail = data.user.email?.toLowerCase();
-      const userRole = data.user.user_metadata?.role;
-
-      if (userEmail !== "yshashank513@gmail.com" && userRole !== "admin") {
-        await supabase.auth.signOut();
-        setError("Access denied. This account does not possess administrator privileges.");
-        setLoading(false);
-        return;
+      // 2. Also authenticate client-side Supabase instance for realtime channels
+      try {
+        await supabase.auth.signInWithPassword({
+          email: cleanEmail,
+          password: password,
+        });
+      } catch {
+        // Non-blocking if client instance fails
       }
 
+      // 3. Save admin state in localStorage
       localStorage.setItem("digitalfx_admin", "true");
-      if (data.session?.access_token) {
-        localStorage.setItem("digitalfx_admin_token", data.session.access_token);
+      if (data.token) {
+        localStorage.setItem("digitalfx_admin_token", data.token);
       }
       if (remember) {
         localStorage.setItem("digitalfx_remember", "true");
@@ -67,19 +114,19 @@ export default function AdminLogin() {
         localStorage.removeItem("digitalfx_remember");
       }
 
-      router.push("/admin");
+      router.replace("/admin");
     } catch (err) {
       console.error("Login unexpected error:", err);
-      setError("An unexpected error occurred while connecting to authentication service.");
+      setError(
+        "An unexpected error occurred while connecting to authentication service."
+      );
       setLoading(false);
     }
   }
 
   return (
     <main className="min-h-screen bg-[#f8fafc] text-[#080d24] flex flex-col justify-center relative font-sans antialiased py-12 px-4 sm:px-6">
-      
       <div className="relative z-10 w-full max-w-md mx-auto">
-        
         {/* Brand Header */}
         <div className="flex flex-col items-center text-center mb-8">
           <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white p-1 shadow-sm mb-4 border border-slate-200">
@@ -104,11 +151,19 @@ export default function AdminLogin() {
           </p>
         </div>
 
+        {/* Session Expired Notice */}
+        {sessionExpiredNotice && (
+          <div className="mb-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-800 leading-relaxed font-medium flex items-center gap-3 shadow-xs">
+            <span className="text-base">⏳</span>
+            <span>
+              Your administrator session has timed out. Please enter your credentials to log back in.
+            </span>
+          </div>
+        )}
+
         {/* Login Card (Clean Corporate White) */}
         <div className="rounded-3xl border border-slate-200/90 bg-white p-8 sm:p-10 shadow-[0_12px_40px_rgba(8,13,36,0.06)]">
-          
           <form onSubmit={handleLogin} className="space-y-5">
-            
             {/* Email Field */}
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-2">
@@ -169,7 +224,7 @@ export default function AdminLogin() {
                   onChange={(e) => setRemember(e.target.checked)}
                   className="h-4 w-4 rounded border-slate-300 text-[#207de9] focus:ring-[#207de9] accent-[#207de9]"
                 />
-                <span>Remember session on this device</span>
+                <span>Remember session on this device (30 Days)</span>
               </label>
             </div>
 
@@ -198,9 +253,7 @@ export default function AdminLogin() {
                 </>
               )}
             </button>
-
           </form>
-
         </div>
 
         {/* Security Assurance Strip */}
@@ -208,13 +261,14 @@ export default function AdminLogin() {
           <span className="text-emerald-600 font-bold">🛡️</span>
           <span>256-Bit SSL Encrypted Enterprise Auth</span>
           <span>•</span>
-          <a href="/" className="text-slate-600 hover:text-[#207de9] transition underline font-medium">
+          <a
+            href="/"
+            className="text-slate-600 hover:text-[#207de9] transition underline font-medium"
+          >
             Return to Public Site
           </a>
         </div>
-
       </div>
-
     </main>
   );
 }

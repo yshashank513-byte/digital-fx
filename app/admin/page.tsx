@@ -53,6 +53,15 @@ export default function AdminDashboardPage() {
       });
 
       if (!res.ok) {
+        if (res.status === 401) {
+          setError("Administrative session expired. Redirecting to login portal...");
+          if (typeof window !== "undefined") {
+            setTimeout(() => {
+              window.location.href = "/admin/login?expired=true";
+            }, 1000);
+          }
+          return;
+        }
         throw new Error("Failed to load dashboard metrics (HTTP " + res.status + ").");
       }
 
@@ -208,8 +217,29 @@ export default function AdminDashboardPage() {
       </div>
 
       {error && (
-        <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-xs text-rose-700 font-medium">
-          {error}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-xs text-rose-800 font-medium shadow-xs">
+          <div className="flex items-center gap-2.5">
+            <span className="text-base">⚠️</span>
+            <span>{error}</span>
+          </div>
+          {error.toLowerCase().includes("expired") || error.includes("401") ? (
+            <Link
+              href="/admin/login?expired=true"
+              className="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs hover:bg-rose-700 transition shrink-0"
+            >
+              Sign In Again →
+            </Link>
+          ) : (
+            <button
+              onClick={() => {
+                setLoading(true);
+                loadData();
+              }}
+              className="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-white border border-rose-200 text-rose-700 font-bold text-xs hover:bg-rose-100 transition shrink-0 cursor-pointer"
+            >
+              Try Again ↻
+            </button>
+          )}
         </div>
       )}
 

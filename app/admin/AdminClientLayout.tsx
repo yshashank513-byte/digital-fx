@@ -29,22 +29,89 @@ export default function AdminClientLayout({
     }
 
     async function checkAuth() {
-      const { data } = await supabase.auth.getSession();
-      const sessionUser = data.session?.user;
+      let sessionUser: any = null;
+      try {
+        const { data } = await supabase.auth.getSession();
+        sessionUser = data.session?.user;
+        if (data.session?.access_token) {
+          localStorage.setItem("digitalfx_admin_token", data.session.access_token);
+        }
+      } catch {
+        // Session retrieval fallback
+      }
 
+      const storedToken =
+        typeof window !== "undefined"
+          ? localStorage.getItem("digitalfx_admin_token")
+          : null;
       const localStorageLoggedIn =
         typeof window !== "undefined" &&
         localStorage.getItem("digitalfx_admin") === "true";
 
-      if (!sessionUser && !localStorageLoggedIn) {
-        router.replace("/admin/login");
+      // If no active session user, attempt Supabase session refresh
+      if (!sessionUser && (localStorageLoggedIn || storedToken)) {
+        try {
+          const { data: refreshData, error } = await supabase.auth.refreshSession();
+          if (!error && refreshData?.session?.user) {
+            sessionUser = refreshData.session.user;
+            if (refreshData.session.access_token) {
+              localStorage.setItem(
+                "digitalfx_admin_token",
+                refreshData.session.access_token
+              );
+            }
+          }
+        } catch {
+          // ignore refresh error
+        }
+      }
+
+      // Verify credentials with server-side session API
+      let isServerVerified = false;
+      try {
+        const headers: Record<string, string> = {};
+        const activeToken =
+          storedToken ||
+          (typeof window !== "undefined"
+            ? localStorage.getItem("digitalfx_admin_token")
+            : "");
+        if (activeToken) {
+          headers["Authorization"] = `Bearer ${activeToken}`;
+        }
+        const verifyRes = await fetch("/api/admin/auth/session", {
+          headers,
+          credentials: "same-origin",
+        });
+        if (verifyRes.ok) {
+          const verifyData = await verifyRes.json();
+          if (verifyData.authorized) {
+            isServerVerified = true;
+            if (!sessionUser && verifyData.user) {
+              sessionUser = {
+                email: verifyData.user.email,
+                user_metadata: {
+                  name: verifyData.user.name || "Shashank Yadav",
+                  role: verifyData.user.role || "admin",
+                },
+              };
+            }
+          }
+        }
+      } catch {
+        // ignore server verify failure
+      }
+
+      // If neither Supabase session nor server token is valid, redirect cleanly to login
+      if (!sessionUser && !isServerVerified) {
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("digitalfx_admin");
+          localStorage.removeItem("digitalfx_admin_token");
+        }
+        router.replace("/admin/login?expired=true");
         return;
       }
 
       if (sessionUser) {
-        if (data.session?.access_token) {
-          localStorage.setItem("digitalfx_admin_token", data.session.access_token);
-        }
         setAdminUser({
           email: sessionUser.email || "yshashank513@gmail.com",
           name: sessionUser.user_metadata?.name || "Shashank Yadav",
@@ -58,6 +125,11 @@ export default function AdminClientLayout({
   }, [pathname, isLoginPage, router]);
 
   async function handleLogout() {
+    try {
+      await fetch("/api/admin/auth/logout", { method: "POST" });
+    } catch {
+      // Ignore logout API errors
+    }
     try {
       await supabase.auth.signOut();
     } catch {
