@@ -31,85 +31,11 @@ const TRUCK_PRESETS = [
   "Other / Custom",
 ];
 
-const INITIAL_DEMO_DATA: PackersEnquiry[] = [
-  {
-    id: "PK-1001",
-    name: "Rajesh Sharma",
-    phone: "9876543210",
-    from_location: "Ghaziabad (Raj Nagar)",
-    to_location: "Bengaluru (Whitefield)",
-    address: "Flat 402, Royal Palms, Sector 14, Ghaziabad",
-    truck_feet: "19 Feet Container",
-    vendor_rate: 32000,
-    customer_rate: 45000,
-    follow_up_date: new Date(Date.now() + 86400000).toISOString().slice(0, 16),
-    remark: "3BHK Household furniture, 1 Double Bed, Fridge, Washing Machine + TV",
-    status: "interested",
-    created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
-  },
-  {
-    id: "PK-1002",
-    name: "Vikram Malhotra",
-    phone: "9811223344",
-    from_location: "Noida Sector 62",
-    to_location: "Pune (Hinjewadi)",
-    address: "Tower 3, Floor 8, Cyber City Park, Sector 62 Noida",
-    truck_feet: "14 Feet Closed Container",
-    vendor_rate: 22000,
-    customer_rate: 30000,
-    follow_up_date: new Date().toISOString().slice(0, 16),
-    remark: "2BHK shifting, fragile crockery, needs 3 layers bubble wrapping",
-    status: "pending",
-    created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
-  },
-  {
-    id: "PK-1003",
-    name: "Amit Patel",
-    phone: "9900112233",
-    from_location: "Delhi (Dwarka)",
-    to_location: "Ahmedabad (SG Highway)",
-    address: "Pocket 2, Dwarka Sector 11, New Delhi",
-    truck_feet: "17 Feet Container",
-    vendor_rate: 26000,
-    customer_rate: 35000,
-    follow_up_date: new Date(Date.now() - 86400000).toISOString().slice(0, 16),
-    remark: "Client said rates are high from other vendors, re-negotiate on evening call",
-    status: "pending",
-    created_at: new Date(Date.now() - 3600000 * 48).toISOString(),
-  },
-  {
-    id: "PK-1004",
-    name: "Sunil Verma",
-    phone: "9712345678",
-    from_location: "Gurugram (Golf Course Road)",
-    to_location: "Mumbai (Andheri East)",
-    address: "A-501, The Magnolias, DLF Phase 5, Gurugram",
-    truck_feet: "32 Feet Single Axle (SXL)",
-    vendor_rate: 55000,
-    customer_rate: 72000,
-    follow_up_date: "",
-    remark: "Booked! Advance ₹15,000 received. Loading scheduled for 25th morning.",
-    status: "booked",
-    created_at: new Date(Date.now() - 3600000 * 72).toISOString(),
-  },
-  {
-    id: "PK-1005",
-    name: "Pooja Hegde",
-    phone: "9845012345",
-    from_location: "Faridabad",
-    to_location: "Hyderabad",
-    address: "Sector 15, Near Crown Plaza, Faridabad",
-    truck_feet: "14 Feet Closed Container",
-    vendor_rate: 24000,
-    customer_rate: 32000,
-    follow_up_date: "",
-    remark: "Customer postponed shifting to next month due to transfer hold",
-    status: "cancel",
-    created_at: new Date(Date.now() - 3600000 * 96).toISOString(),
-  },
-];
+// Initial data is strictly empty so users start with a clean slate
+const INITIAL_DEMO_DATA: PackersEnquiry[] = [];
 
-const STORAGE_KEY = "digitalfx_packers_enquiries_v1";
+// Storage key bumped to v2 to cleanly separate from old cached demo items
+const STORAGE_KEY = "digitalfx_packers_enquiries_v2";
 
 export default function PackersEnquiryPage() {
   const [enquiries, setEnquiries] = useState<PackersEnquiry[]>([]);
@@ -157,24 +83,43 @@ export default function PackersEnquiryPage() {
 
   const printRef = useRef<HTMLDivElement>(null);
 
-  // 1. Initial Load from LocalStorage
+  // 1. Initial Load from LocalStorage (Permanent Persistence & Clean Reset)
   useEffect(() => {
     setIsClient(true);
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
+      if (stored !== null) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
+        if (Array.isArray(parsed)) {
           setEnquiries(parsed);
           return;
         }
       }
-      // Seed with initial realistic data if empty
+
+      // Check legacy v1 key in user's browser: filter out demo entries (PK-1001 to PK-1005)
+      const oldStored = localStorage.getItem("digitalfx_packers_enquiries_v1");
+      if (oldStored) {
+        try {
+          const oldParsed = JSON.parse(oldStored);
+          const demoIds = new Set(["PK-1001", "PK-1002", "PK-1003", "PK-1004", "PK-1005"]);
+          const userCreatedOnly = Array.isArray(oldParsed)
+            ? oldParsed.filter((item: PackersEnquiry) => item && !demoIds.has(item.id))
+            : [];
+          setEnquiries(userCreatedOnly);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(userCreatedOnly));
+          localStorage.removeItem("digitalfx_packers_enquiries_v1");
+          return;
+        } catch {
+          // ignore error and start empty
+        }
+      }
+
+      // Default initial state is strictly empty
       setEnquiries(INITIAL_DEMO_DATA);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_DEMO_DATA));
     } catch (e) {
       console.error("Failed to load local enquiries:", e);
-      setEnquiries(INITIAL_DEMO_DATA);
+      setEnquiries([]);
     }
   }, []);
 
@@ -192,7 +137,7 @@ export default function PackersEnquiryPage() {
   const generateEnquiryId = () => {
     const existingNums = enquiries
       .map((e) => {
-        const m = e.id.match(/\d+/);
+        const m = e.id.match(/\\d+/);
         return m ? parseInt(m[0], 10) : 0;
       })
       .filter((n) => !isNaN(n));
@@ -247,7 +192,7 @@ export default function PackersEnquiryPage() {
   const handleSaveEnquiry = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.phone.trim()) {
-      alert("Please enter at least customer Name and Phone Number.");
+      alert("Please enter customer Name and Phone Number.");
       return;
     }
 
@@ -255,7 +200,7 @@ export default function PackersEnquiryPage() {
     const cRate = parseFloat(formData.customer_rate) || 0;
 
     if (editingEnquiry) {
-      // Update
+      // Update existing
       const updated = enquiries.map((item) => {
         if (item.id === editingEnquiry.id) {
           return {
@@ -308,15 +253,26 @@ export default function PackersEnquiryPage() {
     saveToStorage(updated);
   };
 
-  // Delete Enquiry
+  // Delete Enquiry (Permanently stays deleted)
   const handleDeleteEnquiry = (id: string, name: string) => {
     const confirmDelete = window.confirm(
-      `Are you sure you want to delete enquiry #${id} for "${name}"? This action cannot be undone.`
+      `Delete enquiry #${id} (${name})? This record will be permanently removed.`
     );
     if (!confirmDelete) return;
 
     const updated = enquiries.filter((item) => item.id !== id);
     saveToStorage(updated);
+  };
+
+  // Clear All Enquiries
+  const handleClearAll = () => {
+    if (enquiries.length === 0) return;
+    const confirmClear = window.confirm(
+      `Are you sure you want to delete ALL ${enquiries.length} enquiry records? This will completely empty your enquiry register.`
+    );
+    if (!confirmClear) return;
+
+    saveToStorage([]);
   };
 
   // Format Display Date
@@ -350,56 +306,21 @@ export default function PackersEnquiryPage() {
     return "upcoming";
   };
 
-  // Get Row Color Styles according to Status
+  // Professional row color coding based on status
   // User Prompt: "pending intrsetsed or cancel kru to colourint ho jana chahiye puri enquiry pr"
+  // Clean, high-end corporate tints paired with solid status indicator border
   const getRowColorClasses = (status: PackersEnquiry["status"]) => {
     switch (status) {
       case "pending":
-        // Light warm yellow/amber tint on entire enquiry row
-        return "bg-amber-50/85 hover:bg-amber-100/80 border-amber-300/90 text-amber-950";
+        return "border-l-4 border-l-amber-500 bg-amber-50/35 hover:bg-amber-50/65";
       case "interested":
-        // Light fresh emerald/green tint on entire enquiry row
-        return "bg-emerald-50/85 hover:bg-emerald-100/80 border-emerald-300/90 text-emerald-950";
+        return "border-l-4 border-l-emerald-500 bg-emerald-50/35 hover:bg-emerald-50/65";
       case "cancel":
-        // Light soft rose/red tint on entire enquiry row
-        return "bg-rose-50/80 hover:bg-rose-100/80 border-rose-300/90 text-rose-950 opacity-90";
+        return "border-l-4 border-l-rose-400 bg-rose-50/30 hover:bg-rose-50/55 text-slate-600";
       case "booked":
-        // Light soft royal blue tint on entire enquiry row
-        return "bg-blue-50/85 hover:bg-blue-100/80 border-blue-300/90 text-blue-950";
+        return "border-l-4 border-l-[#207de9] bg-blue-50/35 hover:bg-blue-50/65";
       default:
-        return "bg-white hover:bg-slate-50 border-slate-200 text-slate-900";
-    }
-  };
-
-  // Status Badge Helper
-  const getStatusBadge = (status: PackersEnquiry["status"]) => {
-    switch (status) {
-      case "pending":
-        return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-black uppercase tracking-wider bg-amber-200/80 text-amber-900 border border-amber-400/60 shadow-2xs">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-600 animate-pulse" />
-            Pending
-          </span>
-        );
-      case "interested":
-        return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-black uppercase tracking-wider bg-emerald-200/80 text-emerald-900 border border-emerald-400/60 shadow-2xs">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
-            Interested
-          </span>
-        );
-      case "cancel":
-        return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-black uppercase tracking-wider bg-rose-200/80 text-rose-900 border border-rose-400/60 shadow-2xs">
-            ✕ Cancelled
-          </span>
-        );
-      case "booked":
-        return (
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-black uppercase tracking-wider bg-blue-200/80 text-blue-900 border border-blue-400/60 shadow-2xs">
-            🚚 Booked
-          </span>
-        );
+        return "border-l-4 border-l-slate-200 bg-white hover:bg-slate-50";
     }
   };
 
@@ -547,21 +468,21 @@ export default function PackersEnquiryPage() {
         if (Array.isArray(json)) {
           if (
             window.confirm(
-              `Found ${json.length} enquiry records. Do you want to load and merge them into your book?`
+              `Found ${json.length} enquiry records in file. Load and overwrite current register?`
             )
           ) {
             saveToStorage(json);
-            alert("Backup imported successfully!");
+            alert("Enquiry register restored successfully!");
           }
         } else {
-          alert("Invalid backup JSON format.");
+          alert("Invalid backup file format.");
         }
-      } catch (err) {
-        alert("Error parsing backup JSON file.");
+      } catch {
+        alert("Error reading JSON file.");
       }
     };
     reader.readAsText(file);
-    e.target.value = ""; // Reset
+    e.target.value = "";
   };
 
   // Open Quotation / Slip Generator
@@ -573,31 +494,25 @@ export default function PackersEnquiryPage() {
   // Open WhatsApp Modal
   const openWhatsAppModal = (item: PackersEnquiry) => {
     setWhatsAppModalEnquiry(item);
-    const cleanPhone = (item.phone || "").replace(/\D/g, "");
-    const formattedPhone = cleanPhone.startsWith("91")
-      ? cleanPhone
-      : cleanPhone.length === 10
-      ? `91${cleanPhone}`
-      : cleanPhone;
 
     const defaultMsg = `*DIGITAL FX PACKERS & MOVERS ESTIMATE*\n\n` +
-      `नमस्ते ${item.name} जी,\n` +
-      `Digital FX Logistics की तरफ से आपकी शिफ्टिंग का कोटेशन:\n\n` +
-      `📍 *Pickup:* ${item.from_location || "—"}\n` +
-      `🏁 *Drop:* ${item.to_location || "—"}\n` +
-      `🚚 *Vehicle / Truck:* ${item.truck_feet}\n` +
-      `💰 *Quotation Amount:* ₹${(item.customer_rate || 0).toLocaleString("en-IN")}/- (All Inclusive)\n` +
-      `📦 *Items:* ${item.remark || "Household Goods"}\n\n` +
-      `क्या हम आपकी गाड़ी और लोडिंग टीम बुक करें? अगर कोई सवाल हो तो कृपया बताएं।\n\n` +
-      `*Digital FX Logistics & Movers*\n` +
-      `📞 24/7 Helpline: +91 98765 43210 | www.digitalfx.in`;
+      `Dear ${item.name},\n` +
+      `Greetings from Digital FX Logistics. Here is your shifting quotation summary:\n\n` +
+      `Pickup: ${item.from_location || "As discussed"}\n` +
+      `Drop: ${item.to_location || "As discussed"}\n` +
+      `Vehicle: ${item.truck_feet}\n` +
+      `All-Inclusive Rate: ₹${(item.customer_rate || 0).toLocaleString("en-IN")}/-\n` +
+      `Items: ${item.remark || "Household / Commercial Goods"}\n\n` +
+      `Would you like to confirm the movement slot and driver allocation? Let us know if you have any questions.\n\n` +
+      `*Digital FX Logistics & Relocation Desk*\n` +
+      `Phone: +91 98765 43210 | www.digitalfx.in`;
 
     setWhatsAppCustomText(defaultMsg);
   };
 
   // Send WhatsApp message directly
   const sendWhatsAppDirect = (phone: string, text: string) => {
-    const clean = phone.replace(/\D/g, "");
+    const clean = phone.replace(/\\D/g, "");
     const targetPhone = clean.startsWith("91") ? clean : clean.length === 10 ? `91${clean}` : clean;
     const url = `https://wa.me/${targetPhone}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
@@ -621,16 +536,16 @@ export default function PackersEnquiryPage() {
       `• Destination: ${e.to_location}\n\n` +
       `MOVEMENT DETAILS:\n` +
       `• Vehicle / Truck: ${e.truck_feet}\n` +
-      `• Description: ${e.remark || "Domestic Shifting"}\n\n` +
+      `• Description: ${e.remark || "Domestic / Commercial Relocation"}\n\n` +
       `FINANCIAL SUMMARY:\n` +
       `• Transportation & Loading: ₹${(e.customer_rate || 0).toLocaleString("en-IN")}/-\n` +
       `• Net Quoted Amount: ₹${(e.customer_rate || 0).toLocaleString("en-IN")}/-\n` +
       `• Advance Required: ₹${Math.round((e.customer_rate || 0) * 0.2).toLocaleString("en-IN")}/- (20%)\n` +
       `• Balance on Delivery: ₹${(Math.round((e.customer_rate || 0) * 0.8)).toLocaleString("en-IN")}/-\n\n` +
       `TERMS & CONDITIONS:\n` +
-      `1. Standard transit insurance applicable.\n` +
-      `2. Toll taxes and state permits included as per agreement.\n` +
-      `3. Loading & unloading by trained professional staff.\n` +
+      `1. Standard transit insurance applicable upon declared goods value.\n` +
+      `2. Toll taxes and state permits included as per quotation.\n` +
+      `3. Loading & unloading handled by trained professional handlers.\n` +
       `====================================\n` +
       `Digital FX Logistics | Support: www.digitalfx.in\n`;
 
@@ -639,18 +554,13 @@ export default function PackersEnquiryPage() {
     setTimeout(() => setCopiedQuote(false), 3000);
   };
 
-  // Trigger Print
-  const handlePrintSlip = () => {
-    window.print();
-  };
-
   if (!isClient) {
     return (
-      <div className="flex h-[70vh] items-center justify-center">
+      <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-10 w-10 animate-spin rounded-full border-2 border-slate-200 border-t-[#207de9]" />
-          <p className="text-xs font-bold uppercase tracking-widest text-slate-500">
-            Loading Packers CRM...
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-[#207de9]" />
+          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+            Loading Enquiry Desk...
           </p>
         </div>
       </div>
@@ -661,58 +571,74 @@ export default function PackersEnquiryPage() {
     <div className="space-y-6">
       
       {/* =========================================================================
-          TOP HEADER & ACTION BAR
+          TOP HEADER & ACTIONS (Clean Enterprise Style)
           ========================================================================= */}
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between border-b border-slate-200 pb-5">
         <div>
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-blue-50 text-sm">
-              🚚
+            <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-50 px-2.5 py-0.5 text-[11px] font-semibold text-[#207de9]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#207de9]" />
+              Internal Logistics Desk
             </span>
-            <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-[#207de9]">
-              Internal Logistics &amp; Transport CRM
-            </span>
-            <span className="rounded-full bg-slate-200/80 px-2.5 py-0.5 text-[9.5px] font-extrabold text-slate-700">
-              Offline Manual Book
-            </span>
+            <span className="text-[11px] font-medium text-slate-400">/</span>
+            <span className="text-[11px] font-medium text-slate-500">Packers &amp; Movers</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#080d24] mt-1 tracking-tight">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 mt-1.5">
             Packers &amp; Movers Enquiries
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5 max-w-2xl">
-            Complete manual enquiry log, vendor rate comparison, follow-up scheduler, and instant quotation generator.
+          <p className="text-xs text-slate-500 mt-0.5">
+            Log manual leads, negotiate vendor &amp; client rates, manage follow-up schedules, and generate PDF quotations.
           </p>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-2.5">
+        {/* Action Buttons with Crisp SVGs */}
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={openAddModal}
-            className="flex items-center gap-2 rounded-xl bg-[#207de9] hover:bg-[#1570ef] px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-[#207de9]/20 transition cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#207de9] hover:bg-[#1570ef] px-4 py-2 text-xs font-semibold text-white shadow-xs transition cursor-pointer"
           >
-            <span className="text-sm font-black">+</span>
-            <span>Add New Enquiry</span>
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            <span>New Enquiry</span>
           </button>
 
           <button
             onClick={exportCSV}
             disabled={filteredEnquiries.length === 0}
-            className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-3.5 py-2.5 text-xs font-bold text-slate-700 shadow-xs transition disabled:opacity-40 cursor-pointer"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 shadow-xs transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
             title="Export filtered records as CSV"
           >
-            <span>📥 Export CSV</span>
+            <svg className="w-3.5 h-3.5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span>Export CSV</span>
           </button>
 
           <button
             onClick={exportJSONBackup}
-            className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2.5 text-xs font-bold text-slate-700 shadow-xs transition cursor-pointer"
-            title="Download full backup file"
+            disabled={enquiries.length === 0}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 shadow-xs transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+            title="Download JSON backup"
           >
-            <span>💾 Backup</span>
+            <svg className="w-3.5 h-3.5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+              <polyline points="17 21 17 13 7 13 7 21" />
+              <polyline points="7 3 7 8 15 8" />
+            </svg>
+            <span>Backup</span>
           </button>
 
-          <label className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2.5 text-xs font-bold text-slate-700 shadow-xs transition cursor-pointer">
-            <span>📂 Restore</span>
+          <label className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 shadow-xs transition cursor-pointer">
+            <svg className="w-3.5 h-3.5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            <span>Restore</span>
             <input
               type="file"
               accept=".json"
@@ -720,333 +646,388 @@ export default function PackersEnquiryPage() {
               className="hidden"
             />
           </label>
+
+          {enquiries.length > 0 && (
+            <button
+              onClick={handleClearAll}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-rose-200 bg-rose-50/50 hover:bg-rose-100/70 px-3 py-2 text-xs font-medium text-rose-700 transition cursor-pointer"
+              title="Delete all records from table"
+            >
+              <svg className="w-3.5 h-3.5 text-rose-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+              </svg>
+              <span>Clear All</span>
+            </button>
+          )}
         </div>
       </div>
 
       {/* =========================================================================
-          KPI STATS CARDS (Matching Dashboard Style)
+          EXECUTIVE KPI METRICS CARDS
           ========================================================================= */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         
-        {/* Total */}
+        {/* Total Book */}
         <div
           onClick={() => {
             setStatusFilter("all");
             setFollowUpFilter("all");
           }}
           className={
-            "rounded-2xl border p-4 shadow-xs transition cursor-pointer " +
+            "rounded-xl border p-3.5 transition cursor-pointer bg-white " +
             (statusFilter === "all" && followUpFilter === "all"
-              ? "bg-white border-[#207de9] ring-2 ring-[#207de9]/15"
-              : "bg-white border-slate-200/90 hover:border-slate-300")
+              ? "border-[#207de9] ring-2 ring-[#207de9]/15 shadow-sm"
+              : "border-slate-200/90 hover:border-slate-300 shadow-xs")
           }
         >
-          <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+          <div className="flex items-center justify-between text-[11px] font-medium text-slate-500">
             <span>Total Leads</span>
-            <span className="text-slate-600">📋</span>
+            <span className="h-2 w-2 rounded-full bg-slate-400" />
           </div>
-          <p className="mt-2 text-2xl font-black text-[#080d24] tabular-nums">
+          <p className="mt-2 text-2xl font-bold text-slate-900 tabular-nums">
             {metrics.total}
           </p>
-          <p className="mt-0.5 text-[10px] text-slate-500 font-medium">All enquiries</p>
+          <p className="mt-0.5 text-[11px] text-slate-400">All registered</p>
         </div>
 
-        {/* Pending (Amber) */}
+        {/* Pending */}
         <div
           onClick={() => setStatusFilter("pending")}
           className={
-            "rounded-2xl border p-4 shadow-xs transition cursor-pointer " +
+            "rounded-xl border p-3.5 transition cursor-pointer bg-white " +
             (statusFilter === "pending"
-              ? "bg-amber-100/90 border-amber-500 ring-2 ring-amber-400/30"
-              : "bg-amber-50/70 border-amber-200/80 hover:bg-amber-100/60")
+              ? "border-amber-500 ring-2 ring-amber-400/20 shadow-sm"
+              : "border-slate-200/90 hover:border-amber-300 shadow-xs")
           }
         >
-          <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-wider text-amber-800">
+          <div className="flex items-center justify-between text-[11px] font-medium text-slate-600">
             <span>Pending</span>
-            <span className="text-amber-600">⏳</span>
+            <span className="h-2 w-2 rounded-full bg-amber-500" />
           </div>
-          <p className="mt-2 text-2xl font-black text-amber-900 tabular-nums">
+          <p className="mt-2 text-2xl font-bold text-amber-950 tabular-nums">
             {metrics.pending}
           </p>
-          <p className="mt-0.5 text-[10px] text-amber-700/80 font-medium">Awaiting update</p>
+          <p className="mt-0.5 text-[11px] text-slate-400">Awaiting action</p>
         </div>
 
-        {/* Interested (Green) */}
+        {/* Interested */}
         <div
           onClick={() => setStatusFilter("interested")}
           className={
-            "rounded-2xl border p-4 shadow-xs transition cursor-pointer " +
+            "rounded-xl border p-3.5 transition cursor-pointer bg-white " +
             (statusFilter === "interested"
-              ? "bg-emerald-100/90 border-emerald-500 ring-2 ring-emerald-400/30"
-              : "bg-emerald-50/70 border-emerald-200/80 hover:bg-emerald-100/60")
+              ? "border-emerald-500 ring-2 ring-emerald-400/20 shadow-sm"
+              : "border-slate-200/90 hover:border-emerald-300 shadow-xs")
           }
         >
-          <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-wider text-emerald-800">
+          <div className="flex items-center justify-between text-[11px] font-medium text-slate-600">
             <span>Interested</span>
-            <span className="text-emerald-600">🎯</span>
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
           </div>
-          <p className="mt-2 text-2xl font-black text-emerald-900 tabular-nums">
+          <p className="mt-2 text-2xl font-bold text-emerald-950 tabular-nums">
             {metrics.interested}
           </p>
-          <p className="mt-0.5 text-[10px] text-emerald-700/80 font-medium">Hot discussions</p>
+          <p className="mt-0.5 text-[11px] text-slate-400">In negotiation</p>
         </div>
 
-        {/* Cancel (Red) */}
+        {/* Cancel */}
         <div
           onClick={() => setStatusFilter("cancel")}
           className={
-            "rounded-2xl border p-4 shadow-xs transition cursor-pointer " +
+            "rounded-xl border p-3.5 transition cursor-pointer bg-white " +
             (statusFilter === "cancel"
-              ? "bg-rose-100/90 border-rose-500 ring-2 ring-rose-400/30"
-              : "bg-rose-50/70 border-rose-200/80 hover:bg-rose-100/60")
+              ? "border-rose-400 ring-2 ring-rose-400/20 shadow-sm"
+              : "border-slate-200/90 hover:border-rose-300 shadow-xs")
           }
         >
-          <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-wider text-rose-800">
+          <div className="flex items-center justify-between text-[11px] font-medium text-slate-600">
             <span>Cancelled</span>
-            <span className="text-rose-600">✕</span>
+            <span className="h-2 w-2 rounded-full bg-rose-400" />
           </div>
-          <p className="mt-2 text-2xl font-black text-rose-900 tabular-nums">
+          <p className="mt-2 text-2xl font-bold text-rose-950 tabular-nums">
             {metrics.cancel}
           </p>
-          <p className="mt-0.5 text-[10px] text-rose-700/80 font-medium">Lost / Postponed</p>
+          <p className="mt-0.5 text-[11px] text-slate-400">Lost / dropped</p>
         </div>
 
-        {/* Booked (Blue) */}
+        {/* Booked */}
         <div
           onClick={() => setStatusFilter("booked")}
           className={
-            "rounded-2xl border p-4 shadow-xs transition cursor-pointer " +
+            "rounded-xl border p-3.5 transition cursor-pointer bg-white " +
             (statusFilter === "booked"
-              ? "bg-blue-100/90 border-[#207de9] ring-2 ring-blue-400/30"
-              : "bg-blue-50/70 border-blue-200/80 hover:bg-blue-100/60")
+              ? "border-[#207de9] ring-2 ring-blue-400/20 shadow-sm"
+              : "border-slate-200/90 hover:border-blue-300 shadow-xs")
           }
         >
-          <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-wider text-blue-800">
+          <div className="flex items-center justify-between text-[11px] font-medium text-slate-600">
             <span>Booked</span>
-            <span className="text-blue-600">🚚</span>
+            <span className="h-2 w-2 rounded-full bg-[#207de9]" />
           </div>
-          <p className="mt-2 text-2xl font-black text-[#207de9] tabular-nums">
+          <p className="mt-2 text-2xl font-bold text-[#207de9] tabular-nums">
             {metrics.booked}
           </p>
-          <p className="mt-0.5 text-[10px] text-blue-700/80 font-medium">Deal converted</p>
+          <p className="mt-0.5 text-[11px] text-slate-400">Converted orders</p>
         </div>
 
-        {/* Expected Net Profit */}
-        <div className="rounded-2xl border border-emerald-300/80 bg-gradient-to-br from-emerald-50 to-teal-50/40 p-4 shadow-xs">
-          <div className="flex items-center justify-between text-[10px] font-extrabold uppercase tracking-wider text-emerald-800">
+        {/* Expected Net Margin */}
+        <div className="rounded-xl border border-slate-200/90 bg-white p-3.5 shadow-xs">
+          <div className="flex items-center justify-between text-[11px] font-medium text-slate-600">
             <span>Net Margin</span>
-            <span className="text-emerald-700 font-black">₹</span>
+            <span className="text-[10px] font-bold text-emerald-600">EST. PROFIT</span>
           </div>
-          <p className="mt-2 text-2xl font-black text-emerald-700 tabular-nums">
+          <p className="mt-2 text-2xl font-bold text-emerald-600 tabular-nums">
             ₹{metrics.expectedProfit.toLocaleString("en-IN")}
           </p>
-          <p className="mt-0.5 text-[10px] text-emerald-700/80 font-medium">
-            Cust: ₹{metrics.totalCustomerVal.toLocaleString("en-IN")}
+          <p className="mt-0.5 text-[11px] text-slate-400 truncate">
+            Quoted: ₹{metrics.totalCustomerVal.toLocaleString("en-IN")}
           </p>
         </div>
 
       </div>
 
       {/* =========================================================================
-          FILTERS & SEARCH BAR
+          SEARCH & FILTER STRIP
           ========================================================================= */}
-      <div className="flex flex-col gap-3 rounded-2xl border border-slate-200/90 bg-white p-4 shadow-xs lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-3 rounded-xl border border-slate-200/90 bg-white p-3 shadow-xs lg:flex-row lg:items-center lg:justify-between">
         
-        {/* Search input */}
+        {/* Search input with SVG */}
         <div className="relative flex-1 max-w-md">
-          <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">
-            🔍
-          </span>
+          <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search by customer name, phone, from, to, truck, remarks..."
-            className="w-full h-10 rounded-xl border border-slate-200 bg-slate-50 pl-9 pr-8 text-xs font-medium text-[#080d24] placeholder:text-slate-400 outline-none focus:bg-white focus:border-[#207de9] transition"
+            placeholder="Search by customer name, phone, route, truck, or notes..."
+            className="w-full h-9 rounded-lg border border-slate-200 bg-slate-50/70 pl-9.5 pr-8 text-xs font-normal text-slate-900 placeholder:text-slate-400 outline-none focus:bg-white focus:border-[#207de9] focus:ring-1 focus:ring-[#207de9] transition"
           />
           {searchTerm && (
             <button
               onClick={() => setSearchTerm("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs p-1"
             >
               ✕
             </button>
           )}
         </div>
 
-        {/* Status Filters */}
+        {/* Clean Status Pill Filters (No Emojis) */}
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[10px] font-extrabold uppercase text-slate-400 mr-1">
-            Status:
-          </span>
           {[
-            { key: "all", label: "All" },
-            { key: "pending", label: "Pending (🟡)" },
-            { key: "interested", label: "Interested (🟢)" },
-            { key: "cancel", label: "Cancel (🔴)" },
-            { key: "booked", label: "Booked (🔵)" },
-          ].map((st) => (
+            { key: "all", label: "All", dot: null, count: metrics.total },
+            { key: "pending", label: "Pending", dot: "bg-amber-500", count: metrics.pending },
+            { key: "interested", label: "Interested", dot: "bg-emerald-500", count: metrics.interested },
+            { key: "cancel", label: "Cancelled", dot: "bg-rose-400", count: metrics.cancel },
+            { key: "booked", label: "Booked", dot: "bg-[#207de9]", count: metrics.booked },
+          ].map((tab) => (
             <button
-              key={st.key}
-              onClick={() => setStatusFilter(st.key)}
+              key={tab.key}
+              onClick={() => setStatusFilter(tab.key)}
               className={
-                "px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer " +
-                (statusFilter === st.key
+                "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer " +
+                (statusFilter === tab.key
                   ? "bg-[#207de9] text-white shadow-xs"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200/70 hover:text-[#080d24]")
+                  : "bg-slate-100/90 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900")
               }
             >
-              {st.label}
+              {tab.dot && (
+                <span
+                  className={
+                    "w-1.5 h-1.5 rounded-full " +
+                    (statusFilter === tab.key ? "bg-white" : tab.dot)
+                  }
+                />
+              )}
+              <span>{tab.label}</span>
+              <span
+                className={
+                  "text-[10px] px-1 rounded " +
+                  (statusFilter === tab.key
+                    ? "bg-white/25 text-white"
+                    : "bg-slate-200/80 text-slate-500")
+                }
+              >
+                {tab.count}
+              </span>
             </button>
           ))}
         </div>
 
-        {/* Follow up quick filter */}
-        <div className="flex items-center gap-1.5 border-t border-slate-100 pt-3 lg:border-t-0 lg:pt-0">
-          <span className="text-[10px] font-extrabold uppercase text-slate-400 mr-1">
-            Follow-Up:
+        {/* Follow-up filter dropdown */}
+        <div className="flex items-center gap-2 border-t border-slate-100 pt-2 lg:border-t-0 lg:pt-0">
+          <span className="text-[11px] font-medium text-slate-400 whitespace-nowrap">
+            Follow-up:
           </span>
           <select
             value={followUpFilter}
             onChange={(e) => setFollowUpFilter(e.target.value)}
-            className="h-9 rounded-lg border border-slate-200 bg-slate-50 px-2.5 text-xs font-bold text-slate-700 outline-none focus:border-[#207de9] cursor-pointer"
+            className="h-8 rounded-lg border border-slate-200 bg-slate-50 px-2.5 text-xs font-medium text-slate-700 outline-none focus:border-[#207de9] cursor-pointer"
           >
-            <option value="all">All Dates</option>
-            <option value="today">🔔 Today Only ({metrics.followUpToday})</option>
-            <option value="overdue">⚠️ Overdue</option>
-            <option value="upcoming">📅 Upcoming</option>
-            <option value="none">None Set</option>
+            <option value="all">All Schedules</option>
+            <option value="today">Scheduled Today ({metrics.followUpToday})</option>
+            <option value="overdue">Overdue</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="none">No Follow-up</option>
           </select>
         </div>
 
       </div>
 
       {/* =========================================================================
-          MAIN TABLE: WITH FULL ROW COLOR CODING
+          MAIN CRM TABLE
           ========================================================================= */}
-      <div className="rounded-2xl border border-slate-200/90 bg-white shadow-xs overflow-hidden">
+      <div className="rounded-xl border border-slate-200/90 bg-white shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
-            <thead className="border-b border-slate-200 bg-slate-100/80 text-[10.5px] uppercase tracking-wider text-slate-600 font-black">
+            <thead className="border-b border-slate-200 bg-slate-50/80 text-[11px] uppercase tracking-wider text-slate-500 font-semibold">
               <tr>
-                <th className="py-3.5 px-4">ID &amp; Date</th>
-                <th className="py-3.5 px-4">Customer &amp; Contact</th>
-                <th className="py-3.5 px-4">Route &amp; Address</th>
-                <th className="py-3.5 px-4">Truck / Feet</th>
-                <th className="py-3.5 px-4">Rates &amp; Profit</th>
-                <th className="py-3.5 px-4">Follow-Up</th>
-                <th className="py-3.5 px-4">Status &amp; Color</th>
-                <th className="py-3.5 px-4 text-right">Actions</th>
+                <th className="py-3 px-4">ID &amp; Date</th>
+                <th className="py-3 px-4">Customer</th>
+                <th className="py-3 px-4">Route &amp; Destination</th>
+                <th className="py-3 px-4">Vehicle / Truck</th>
+                <th className="py-3 px-4">Pricing &amp; Margin</th>
+                <th className="py-3 px-4">Follow-Up</th>
+                <th className="py-3 px-4">Status</th>
+                <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200/80 font-medium">
+            <tbody className="divide-y divide-slate-100">
               {filteredEnquiries.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-16 text-center text-slate-400">
-                    <div className="text-3xl mb-2">🚚</div>
-                    <p className="font-bold text-slate-600 text-sm">No enquiries found</p>
-                    <p className="text-xs text-slate-400 mt-1">
+                  <td colSpan={8} className="py-16 text-center text-slate-500">
+                    <div className="mx-auto w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3">
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="1" y="3" width="15" height="13" />
+                        <polygon points="16 8 20 8 23 11 23 16 16 16 8" />
+                        <circle cx="5.5" cy="18.5" r="2.5" />
+                        <circle cx="18.5" cy="18.5" r="2.5" />
+                      </svg>
+                    </div>
+                    <p className="font-semibold text-slate-800 text-sm">
                       {searchTerm || statusFilter !== "all" || followUpFilter !== "all"
-                        ? "Try clearing your filters or search terms."
-                        : "Click '+ Add New Enquiry' above to log your first Packers lead."}
+                        ? "No matching enquiries found"
+                        : "No enquiries recorded yet"}
                     </p>
+                    <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
+                      {searchTerm || statusFilter !== "all" || followUpFilter !== "all"
+                        ? "Try clearing your search query or reset filter selections."
+                        : "Your enquiry desk is clear. Click 'New Enquiry' above to log your first client shipment."}
+                    </p>
+                    {!searchTerm && statusFilter === "all" && followUpFilter === "all" && (
+                      <button
+                        onClick={openAddModal}
+                        className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-[#207de9] hover:bg-[#1570ef] px-4 py-2 text-xs font-semibold text-white shadow-xs transition cursor-pointer"
+                      >
+                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="12" y1="5" x2="12" y2="19" />
+                          <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        <span>Add First Enquiry</span>
+                      </button>
+                    )}
                   </td>
                 </tr>
               ) : (
                 filteredEnquiries.map((item) => {
                   const fuStatus = getFollowUpStatus(item.follow_up_date);
                   const profit = (item.customer_rate || 0) - (item.vendor_rate || 0);
-                  const colorClass = getRowColorClasses(item.status);
+                  const rowStyle = getRowColorClasses(item.status);
 
                   return (
                     <tr
                       key={item.id}
-                      className={
-                        "transition border-b border-slate-200/80 group " + colorClass
-                      }
+                      className={"transition group " + rowStyle}
                     >
-                      {/* ID & Creation */}
-                      <td className="py-3.5 px-4 align-top">
-                        <span className="font-mono text-xs font-black text-slate-900 block">
+                      {/* ID & Date */}
+                      <td className="py-3 px-4 align-top">
+                        <span className="font-mono text-xs font-bold text-slate-900 block">
                           #{item.id}
                         </span>
-                        <span className="text-[10.5px] text-slate-500 block mt-0.5">
+                        <span className="text-[11px] text-slate-400 block mt-0.5 whitespace-nowrap">
                           {formatDisplayDate(item.created_at)}
                         </span>
                       </td>
 
-                      {/* Customer & Mobile */}
-                      <td className="py-3.5 px-4 align-top min-w-[170px]">
-                        <span className="font-bold text-sm text-slate-900 block leading-tight">
+                      {/* Customer & Phone */}
+                      <td className="py-3 px-4 align-top min-w-[170px]">
+                        <span className="font-semibold text-xs text-slate-900 block leading-tight">
                           {item.name}
                         </span>
                         <div className="mt-1.5 flex items-center gap-2">
                           <a
                             href={`tel:${item.phone}`}
-                            className="inline-flex items-center gap-1 text-slate-700 hover:text-[#207de9] font-mono text-xs font-bold"
-                            title="Call directly"
+                            className="inline-flex items-center gap-1 text-slate-600 hover:text-[#207de9] font-mono text-[11px] font-medium"
+                            title="Call customer"
                           >
-                            <span>📞</span>
+                            <svg className="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
                             <span>{item.phone}</span>
                           </a>
 
                           <button
                             onClick={() => openWhatsAppModal(item)}
-                            className="flex h-6 w-6 items-center justify-center rounded-md bg-emerald-500 hover:bg-emerald-600 text-white shadow-2xs transition cursor-pointer"
-                            title="Open WhatsApp Generator"
+                            className="inline-flex items-center justify-center h-5 w-5 rounded bg-emerald-500 hover:bg-emerald-600 text-white transition cursor-pointer"
+                            title="Generate WhatsApp estimate"
                           >
-                            <span className="text-[11px] font-bold">💬</span>
+                            <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                            </svg>
                           </button>
                         </div>
                       </td>
 
                       {/* Route & Address */}
-                      <td className="py-3.5 px-4 align-top min-w-[210px]">
-                        <div className="flex items-center gap-1.5 font-bold text-slate-900 text-xs">
-                          <span className="text-emerald-700">📍 {item.from_location || "—"}</span>
-                          <span className="text-slate-400">➔</span>
-                          <span className="text-blue-700">🏁 {item.to_location || "—"}</span>
+                      <td className="py-3 px-4 align-top min-w-[220px]">
+                        <div className="flex items-center gap-1.5 font-medium text-slate-800 text-xs">
+                          <span className="text-emerald-700">{item.from_location || "—"}</span>
+                          <span className="text-slate-300">→</span>
+                          <span className="text-blue-700">{item.to_location || "—"}</span>
                         </div>
                         {item.address && (
-                          <p className="text-[11px] text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+                          <p className="text-[11px] text-slate-500 mt-1 line-clamp-1 leading-normal" title={item.address}>
                             {item.address}
                           </p>
                         )}
                         {item.remark && (
-                          <div className="mt-1.5 rounded-md bg-white/70 border border-slate-200/80 px-2 py-1 text-[10.5px] text-slate-700">
-                            <span className="font-bold text-slate-500">Remark:</span> {item.remark}
+                          <div className="mt-1 text-[11px] text-slate-500 line-clamp-1">
+                            <span className="font-semibold text-slate-400">Note:</span> {item.remark}
                           </div>
                         )}
                       </td>
 
                       {/* Truck Feet */}
-                      <td className="py-3.5 px-4 align-top min-w-[140px]">
-                        <span className="inline-block font-extrabold text-xs text-slate-800 bg-white/80 border border-slate-200/90 rounded-lg px-2.5 py-1 shadow-2xs">
-                          {item.truck_feet || "14 Feet Closed"}
+                      <td className="py-3 px-4 align-top min-w-[130px]">
+                        <span className="inline-block font-medium text-[11px] text-slate-700 bg-white border border-slate-200/90 rounded-md px-2 py-0.5 shadow-2xs">
+                          {item.truck_feet || "14 Ft Closed"}
                         </span>
                       </td>
 
                       {/* Rates & Profit */}
-                      <td className="py-3.5 px-4 align-top min-w-[150px]">
-                        <div className="text-[11.5px] text-slate-700 font-semibold space-y-0.5">
-                          <div>
-                            <span className="text-slate-500">Vendor: </span>
-                            <span className="font-bold font-mono">
+                      <td className="py-3 px-4 align-top min-w-[140px]">
+                        <div className="text-[11px] space-y-0.5">
+                          <div className="flex items-center justify-between text-slate-500">
+                            <span>Cost:</span>
+                            <span className="font-mono font-medium text-slate-700">
                               ₹{(item.vendor_rate || 0).toLocaleString("en-IN")}
                             </span>
                           </div>
-                          <div>
-                            <span className="text-slate-500">Cust: </span>
-                            <span className="font-black text-[#207de9] font-mono">
+                          <div className="flex items-center justify-between text-slate-500">
+                            <span>Quote:</span>
+                            <span className="font-mono font-semibold text-[#207de9]">
                               ₹{(item.customer_rate || 0).toLocaleString("en-IN")}
                             </span>
                           </div>
-                          <div className="border-t border-slate-200/60 pt-0.5 mt-1">
-                            <span className="text-slate-500">Margin: </span>
+                          <div className="flex items-center justify-between border-t border-slate-200/60 pt-0.5 font-medium">
+                            <span className="text-slate-400">Margin:</span>
                             <span
                               className={
-                                "font-black font-mono " +
-                                (profit >= 0 ? "text-emerald-700" : "text-rose-700")
+                                "font-mono font-bold " +
+                                (profit >= 0 ? "text-emerald-600" : "text-rose-600")
                               }
                             >
                               {profit >= 0 ? "+" : ""}₹{profit.toLocaleString("en-IN")}
@@ -1056,35 +1037,36 @@ export default function PackersEnquiryPage() {
                       </td>
 
                       {/* Follow-up */}
-                      <td className="py-3.5 px-4 align-top min-w-[140px]">
+                      <td className="py-3 px-4 align-top min-w-[130px]">
                         {item.follow_up_date ? (
                           <div>
-                            <div className="font-mono text-[11px] font-bold text-slate-800">
+                            <div className="font-mono text-[11px] text-slate-700 font-medium whitespace-nowrap">
                               {formatDisplayDate(item.follow_up_date)}
                             </div>
                             {fuStatus === "today" && (
-                              <span className="mt-1 inline-flex items-center gap-1 rounded-md bg-amber-500 text-white font-extrabold text-[9px] px-2 py-0.5 animate-pulse">
-                                🔔 TODAY
+                              <span className="mt-1 inline-flex items-center gap-1 rounded bg-amber-100 text-amber-900 font-bold text-[9px] px-1.5 py-0.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-amber-600 animate-ping" />
+                                Today
                               </span>
                             )}
                             {fuStatus === "overdue" && (
-                              <span className="mt-1 inline-flex items-center gap-1 rounded-md bg-rose-600 text-white font-extrabold text-[9px] px-2 py-0.5">
-                                ⚠️ OVERDUE
+                              <span className="mt-1 inline-flex items-center gap-1 rounded bg-rose-100 text-rose-800 font-bold text-[9px] px-1.5 py-0.5">
+                                Overdue
                               </span>
                             )}
                             {fuStatus === "upcoming" && (
-                              <span className="mt-1 inline-flex items-center gap-1 rounded-md bg-blue-100 text-blue-800 border border-blue-200 font-extrabold text-[9px] px-2 py-0.5">
-                                📅 UPCOMING
+                              <span className="mt-1 inline-flex items-center gap-1 rounded bg-slate-100 text-slate-700 font-medium text-[9px] px-1.5 py-0.5">
+                                Upcoming
                               </span>
                             )}
                           </div>
                         ) : (
-                          <span className="text-slate-400 text-[11px]">Not scheduled</span>
+                          <span className="text-slate-400 text-[11px]">—</span>
                         )}
                       </td>
 
-                      {/* Status Dropdown (User changes this, entire row changes color!) */}
-                      <td className="py-3.5 px-4 align-top min-w-[130px]">
+                      {/* Single Clean Status Selector (No emojis, no duplicate badges!) */}
+                      <td className="py-3 px-4 align-top min-w-[125px]">
                         <select
                           value={item.status}
                           onChange={(e) =>
@@ -1093,44 +1075,65 @@ export default function PackersEnquiryPage() {
                               e.target.value as PackersEnquiry["status"]
                             )
                           }
-                          className="h-8 rounded-lg border border-slate-300 bg-white/95 px-2 text-xs font-black text-slate-900 shadow-2xs outline-none cursor-pointer hover:border-[#207de9] transition"
+                          className={
+                            "h-7 rounded-md border text-xs font-semibold px-2 outline-none cursor-pointer transition shadow-2xs " +
+                            (item.status === "pending"
+                              ? "bg-amber-100/90 text-amber-900 border-amber-300"
+                              : item.status === "interested"
+                              ? "bg-emerald-100/90 text-emerald-900 border-emerald-300"
+                              : item.status === "cancel"
+                              ? "bg-rose-100/90 text-rose-800 border-rose-300"
+                              : "bg-blue-100/90 text-blue-900 border-blue-300")
+                          }
                         >
-                          <option value="pending">🟡 Pending</option>
-                          <option value="interested">🟢 Interested</option>
-                          <option value="cancel">🔴 Cancel</option>
-                          <option value="booked">🔵 Booked</option>
+                          <option value="pending">Pending</option>
+                          <option value="interested">Interested</option>
+                          <option value="cancel">Cancelled</option>
+                          <option value="booked">Booked</option>
                         </select>
-                        <div className="mt-1.5">{getStatusBadge(item.status)}</div>
                       </td>
 
                       {/* Actions */}
-                      <td className="py-3.5 px-4 align-top text-right min-w-[130px]">
-                        <div className="flex items-center justify-end gap-1.5">
-                          {/* Quotation Slip Generator button ("i generator") */}
+                      <td className="py-3 px-4 align-top text-right min-w-[110px]">
+                        <div className="flex items-center justify-end gap-1">
+                          {/* Slip Generator button */}
                           <button
                             onClick={() => openQuotationSlip(item)}
-                            className="flex h-8 items-center gap-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 px-2 text-xs font-bold text-slate-700 shadow-2xs transition cursor-pointer"
-                            title="Generate Printable Quotation Slip"
+                            className="inline-flex items-center gap-1 h-7 rounded border border-slate-200 bg-white hover:bg-slate-50 px-2 text-[11px] font-medium text-slate-700 shadow-2xs transition cursor-pointer"
+                            title="Generate Print/PDF Quote Slip"
                           >
-                            <span>📄 Slip</span>
+                            <svg className="w-3 h-3 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                              <polyline points="14 2 14 8 20 8" />
+                              <line x1="16" y1="13" x2="8" y2="13" />
+                              <line x1="16" y1="17" x2="8" y2="17" />
+                              <polyline points="10 9 9 9 8 9" />
+                            </svg>
+                            <span>Slip</span>
                           </button>
 
                           {/* Edit button */}
                           <button
                             onClick={() => openEditModal(item)}
-                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 shadow-2xs transition cursor-pointer"
-                            title="Edit enquiry details"
+                            className="flex h-7 w-7 items-center justify-center rounded border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 shadow-2xs transition cursor-pointer"
+                            title="Edit enquiry"
                           >
-                            ✏️
+                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                            </svg>
                           </button>
 
                           {/* Delete button */}
                           <button
                             onClick={() => handleDeleteEnquiry(item.id, item.name)}
-                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-600 shadow-2xs transition cursor-pointer"
+                            className="flex h-7 w-7 items-center justify-center rounded border border-rose-200 bg-white hover:bg-rose-50 text-rose-600 shadow-2xs transition cursor-pointer"
                             title="Delete enquiry"
                           >
-                            🗑️
+                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="3 6 5 6 21 6" />
+                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                            </svg>
                           </button>
                         </div>
                       </td>
@@ -1144,21 +1147,21 @@ export default function PackersEnquiryPage() {
       </div>
 
       {/* =========================================================================
-          ADD / EDIT ENQUIRY MODAL
+          ADD / EDIT MODAL
           ========================================================================= */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs overflow-y-auto">
-          <div className="relative w-full max-w-2xl rounded-2xl bg-white p-6 shadow-2xl border border-slate-200 my-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-xs overflow-y-auto">
+          <div className="relative w-full max-w-xl rounded-2xl bg-white p-6 shadow-xl border border-slate-200 my-8">
             
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#207de9]">
-                  {editingEnquiry ? "Edit Record" : "New Record"}
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#207de9]">
+                  {editingEnquiry ? "Update Record" : "New Lead"}
                 </span>
-                <h3 className="text-xl font-black text-[#080d24] mt-0.5">
+                <h3 className="text-lg font-bold text-slate-900 mt-0.5">
                   {editingEnquiry
-                    ? `Update Enquiry #${editingEnquiry.id}`
+                    ? `Edit Enquiry #${editingEnquiry.id}`
                     : "Add Packers & Movers Enquiry"}
                 </h3>
               </div>
@@ -1167,19 +1170,19 @@ export default function PackersEnquiryPage() {
                   setIsAddModalOpen(false);
                   resetForm();
                 }}
-                className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition"
+                className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 transition"
               >
                 ✕
               </button>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSaveEnquiry} className="mt-5 space-y-4">
+            <form onSubmit={handleSaveEnquiry} className="mt-4 space-y-4">
               
-              {/* Row 1: Name & Phone */}
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {/* Customer Name & Phone */}
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div>
-                  <label className="text-xs font-bold text-slate-700">
+                  <label className="text-xs font-semibold text-slate-700">
                     Customer Name <span className="text-rose-500">*</span>
                   </label>
                   <input
@@ -1188,12 +1191,12 @@ export default function PackersEnquiryPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Ramesh Kumar"
-                    className="mt-1.5 h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-xs font-medium text-[#080d24] outline-none focus:bg-white focus:border-[#207de9] focus:ring-2 focus:ring-[#207de9]/15 transition"
+                    className="mt-1 h-9 w-full rounded-lg border border-slate-200 bg-slate-50/70 px-3 text-xs text-slate-900 outline-none focus:bg-white focus:border-[#207de9] focus:ring-1 focus:ring-[#207de9]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-slate-700">
+                  <label className="text-xs font-semibold text-slate-700">
                     Mobile Number <span className="text-rose-500">*</span>
                   </label>
                   <input
@@ -1202,15 +1205,15 @@ export default function PackersEnquiryPage() {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="e.g. 9876543210"
-                    className="mt-1.5 h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-xs font-medium text-[#080d24] outline-none focus:bg-white focus:border-[#207de9] focus:ring-2 focus:ring-[#207de9]/15 transition"
+                    className="mt-1 h-9 w-full rounded-lg border border-slate-200 bg-slate-50/70 px-3 text-xs text-slate-900 outline-none focus:bg-white focus:border-[#207de9] focus:ring-1 focus:ring-[#207de9]"
                   />
                 </div>
               </div>
 
-              {/* Row 2: From & To */}
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {/* From & To Route */}
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div>
-                  <label className="text-xs font-bold text-slate-700">
+                  <label className="text-xs font-semibold text-slate-700">
                     From Location (Pickup)
                   </label>
                   <input
@@ -1218,48 +1221,48 @@ export default function PackersEnquiryPage() {
                     value={formData.from_location}
                     onChange={(e) => setFormData({ ...formData, from_location: e.target.value })}
                     placeholder="e.g. Ghaziabad / Sector 62 Noida"
-                    className="mt-1.5 h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-xs font-medium text-[#080d24] outline-none focus:bg-white focus:border-[#207de9] focus:ring-2 focus:ring-[#207de9]/15 transition"
+                    className="mt-1 h-9 w-full rounded-lg border border-slate-200 bg-slate-50/70 px-3 text-xs text-slate-900 outline-none focus:bg-white focus:border-[#207de9] focus:ring-1 focus:ring-[#207de9]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-slate-700">
-                    To Location (Drop)
+                  <label className="text-xs font-semibold text-slate-700">
+                    To Location (Destination)
                   </label>
                   <input
                     type="text"
                     value={formData.to_location}
                     onChange={(e) => setFormData({ ...formData, to_location: e.target.value })}
                     placeholder="e.g. Bengaluru / Pune / Mumbai"
-                    className="mt-1.5 h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-xs font-medium text-[#080d24] outline-none focus:bg-white focus:border-[#207de9] focus:ring-2 focus:ring-[#207de9]/15 transition"
+                    className="mt-1 h-9 w-full rounded-lg border border-slate-200 bg-slate-50/70 px-3 text-xs text-slate-900 outline-none focus:bg-white focus:border-[#207de9] focus:ring-1 focus:ring-[#207de9]"
                   />
                 </div>
               </div>
 
               {/* Detailed Address */}
               <div>
-                <label className="text-xs font-bold text-slate-700">
-                  Detailed Address (House / Flat / Floor / Landmark)
+                <label className="text-xs font-semibold text-slate-700">
+                  Detailed Address (House / Floor / Street)
                 </label>
                 <input
                   type="text"
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  placeholder="e.g. Flat 301, Tower B, Supertech Estate, Vaishali, Ghaziabad"
-                  className="mt-1.5 h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-xs font-medium text-[#080d24] outline-none focus:bg-white focus:border-[#207de9] focus:ring-2 focus:ring-[#207de9]/15 transition"
+                  placeholder="e.g. Flat 301, Tower B, Sector 14, Ghaziabad"
+                  className="mt-1 h-9 w-full rounded-lg border border-slate-200 bg-slate-50/70 px-3 text-xs text-slate-900 outline-none focus:bg-white focus:border-[#207de9] focus:ring-1 focus:ring-[#207de9]"
                 />
               </div>
 
               {/* Truck Feet & Status */}
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div>
-                  <label className="text-xs font-bold text-slate-700">
+                  <label className="text-xs font-semibold text-slate-700">
                     Truck Size / Feet
                   </label>
                   <select
                     value={formData.truck_feet}
                     onChange={(e) => setFormData({ ...formData, truck_feet: e.target.value })}
-                    className="mt-1.5 h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-xs font-medium text-[#080d24] outline-none focus:bg-white focus:border-[#207de9] transition"
+                    className="mt-1 h-9 w-full rounded-lg border border-slate-200 bg-slate-50/70 px-2.5 text-xs text-slate-900 outline-none focus:bg-white focus:border-[#207de9]"
                   >
                     {TRUCK_PRESETS.map((t) => (
                       <option key={t} value={t}>
@@ -1270,8 +1273,8 @@ export default function PackersEnquiryPage() {
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-slate-700">
-                    Initial Status
+                  <label className="text-xs font-semibold text-slate-700">
+                    Status
                   </label>
                   <select
                     value={formData.status}
@@ -1281,25 +1284,25 @@ export default function PackersEnquiryPage() {
                         status: e.target.value as PackersEnquiry["status"],
                       })
                     }
-                    className="mt-1.5 h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-xs font-bold text-[#080d24] outline-none focus:bg-white focus:border-[#207de9] transition"
+                    className="mt-1 h-9 w-full rounded-lg border border-slate-200 bg-slate-50/70 px-2.5 text-xs font-semibold text-slate-900 outline-none focus:bg-white focus:border-[#207de9]"
                   >
-                    <option value="pending">🟡 Pending (Yellow Row)</option>
-                    <option value="interested">🟢 Interested (Green Row)</option>
-                    <option value="cancel">🔴 Cancel (Red Row)</option>
-                    <option value="booked">🔵 Booked (Blue Row)</option>
+                    <option value="pending">Pending</option>
+                    <option value="interested">Interested</option>
+                    <option value="cancel">Cancelled</option>
+                    <option value="booked">Booked</option>
                   </select>
                 </div>
               </div>
 
-              {/* Rates & Profit Calculator */}
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              {/* Rate & Profit Summary */}
+              <div className="rounded-xl border border-slate-200/90 bg-slate-50/80 p-3.5">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-black text-slate-700">
-                    Pricing &amp; Margin Calculator (₹)
+                  <span className="text-xs font-bold text-slate-700">
+                    Rates &amp; Profit Calculator (₹)
                   </span>
                   {formData.customer_rate && formData.vendor_rate && (
-                    <span className="text-xs font-extrabold text-emerald-700">
-                      Expected Profit: ₹
+                    <span className="text-xs font-bold text-emerald-600">
+                      Margin: ₹
                       {(
                         (parseFloat(formData.customer_rate) || 0) -
                         (parseFloat(formData.vendor_rate) || 0)
@@ -1310,28 +1313,28 @@ export default function PackersEnquiryPage() {
 
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <div>
-                    <label className="text-[11px] font-bold text-slate-500">
-                      Vendor Rate (₹ Cost from Driver/Transporter)
+                    <label className="text-[11px] font-medium text-slate-500">
+                      Vendor Rate (₹ Cost)
                     </label>
                     <input
                       type="number"
                       value={formData.vendor_rate}
                       onChange={(e) => setFormData({ ...formData, vendor_rate: e.target.value })}
                       placeholder="e.g. 25000"
-                      className="mt-1 h-9 w-full rounded-lg border border-slate-200 bg-white px-3 text-xs font-mono font-bold text-slate-800 outline-none focus:border-[#207de9]"
+                      className="mt-1 h-8 w-full rounded-md border border-slate-200 bg-white px-2.5 text-xs font-mono font-medium text-slate-800 outline-none focus:border-[#207de9]"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-bold text-slate-500">
-                      Customer Quoted Rate (₹ Selling Price)
+                    <label className="text-[11px] font-medium text-slate-500">
+                      Customer Quoted Rate (₹ Selling)
                     </label>
                     <input
                       type="number"
                       value={formData.customer_rate}
                       onChange={(e) => setFormData({ ...formData, customer_rate: e.target.value })}
                       placeholder="e.g. 35000"
-                      className="mt-1 h-9 w-full rounded-lg border border-slate-200 bg-white px-3 text-xs font-mono font-black text-[#207de9] outline-none focus:border-[#207de9]"
+                      className="mt-1 h-8 w-full rounded-md border border-slate-200 bg-white px-2.5 text-xs font-mono font-bold text-[#207de9] outline-none focus:border-[#207de9]"
                     />
                   </div>
                 </div>
@@ -1339,48 +1342,48 @@ export default function PackersEnquiryPage() {
 
               {/* Follow-up Date */}
               <div>
-                <label className="text-xs font-bold text-slate-700">
+                <label className="text-xs font-semibold text-slate-700">
                   Follow-up Date &amp; Time
                 </label>
                 <input
                   type="datetime-local"
                   value={formData.follow_up_date}
                   onChange={(e) => setFormData({ ...formData, follow_up_date: e.target.value })}
-                  className="mt-1.5 h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-xs font-medium text-[#080d24] outline-none focus:bg-white focus:border-[#207de9] transition"
+                  className="mt-1 h-9 w-full rounded-lg border border-slate-200 bg-slate-50/70 px-2.5 text-xs text-slate-900 outline-none focus:bg-white focus:border-[#207de9]"
                 />
               </div>
 
               {/* Remark */}
               <div>
-                <label className="text-xs font-bold text-slate-700">
-                  Remark / Goods Details / Special Notes
+                <label className="text-xs font-semibold text-slate-700">
+                  Remark / Goods Details
                 </label>
                 <textarea
                   rows={2}
                   value={formData.remark}
                   onChange={(e) => setFormData({ ...formData, remark: e.target.value })}
-                  placeholder="e.g. 2BHK furniture, 1 Double bed, fridge, washing machine, fragile packing..."
-                  className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs font-medium text-[#080d24] outline-none focus:bg-white focus:border-[#207de9] transition"
+                  placeholder="e.g. 2BHK shifting, 1 Double Bed, Fridge, fragile packaging required..."
+                  className="mt-1 w-full rounded-lg border border-slate-200 bg-slate-50/70 p-2.5 text-xs text-slate-900 outline-none focus:bg-white focus:border-[#207de9]"
                 />
               </div>
 
-              {/* Footer Buttons */}
-              <div className="flex items-center justify-end gap-2.5 border-t border-slate-100 pt-4">
+              {/* Footer */}
+              <div className="flex items-center justify-end gap-2 border-t border-slate-100 pt-3">
                 <button
                   type="button"
                   onClick={() => {
                     setIsAddModalOpen(false);
                     resetForm();
                   }}
-                  className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition cursor-pointer"
+                  className="rounded-lg border border-slate-200 px-3.5 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 transition cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#207de9] hover:bg-[#1570ef] px-5 py-2.5 text-xs font-bold text-white shadow-md shadow-[#207de9]/20 transition cursor-pointer"
+                  className="rounded-lg bg-[#207de9] hover:bg-[#1570ef] px-4 py-2 text-xs font-semibold text-white shadow-xs transition cursor-pointer"
                 >
-                  {editingEnquiry ? "Update Enquiry" : "Save Enquiry"}
+                  {editingEnquiry ? "Save Changes" : "Create Enquiry"}
                 </button>
               </div>
 
@@ -1390,36 +1393,36 @@ export default function PackersEnquiryPage() {
       )}
 
       {/* =========================================================================
-          QUOTATION & BOOKING SLIP GENERATOR MODAL ("i generator")
+          PRINTABLE QUOTATION SLIP MODAL
           ========================================================================= */}
       {quotationSlipEnquiry && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/65 p-4 backdrop-blur-xs overflow-y-auto">
-          <div className="relative w-full max-w-xl rounded-2xl bg-white p-6 shadow-2xl border border-slate-200 my-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/55 p-4 backdrop-blur-xs overflow-y-auto">
+          <div className="relative w-full max-w-xl rounded-2xl bg-white p-6 shadow-xl border border-slate-200 my-8">
             
-            {/* Modal Actions Bar (Not printed) */}
+            {/* Modal Actions Bar (hidden when printed) */}
             <div className="print:hidden flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-sm">📄</span>
-                <span className="text-xs font-black uppercase tracking-wider text-[#207de9]">
-                  Packers Quotation Slip Generator
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                  Quotation Slip
                 </span>
+                <span className="font-mono text-xs text-slate-400">#{quotationSlipEnquiry.id}</span>
               </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={copyQuotationToClipboard}
-                  className="rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700 transition cursor-pointer"
+                  className="rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-700 transition cursor-pointer"
                 >
-                  {copiedQuote ? "✓ Copied!" : "📋 Copy Text"}
+                  {copiedQuote ? "✓ Copied" : "Copy Text"}
                 </button>
                 <button
-                  onClick={handlePrintSlip}
-                  className="rounded-lg bg-[#207de9] hover:bg-[#1570ef] px-3.5 py-1.5 text-xs font-bold text-white shadow-xs transition cursor-pointer"
+                  onClick={() => window.print()}
+                  className="rounded-lg bg-[#207de9] hover:bg-[#1570ef] px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition cursor-pointer"
                 >
-                  🖨️ Print / Save PDF
+                  Print / Save PDF
                 </button>
                 <button
                   onClick={() => setQuotationSlipEnquiry(null)}
-                  className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs"
+                  className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 text-xs"
                 >
                   ✕
                 </button>
@@ -1429,26 +1432,26 @@ export default function PackersEnquiryPage() {
             {/* Printable Document Body */}
             <div
               ref={printRef}
-              className="rounded-xl border border-slate-200 p-6 bg-white text-slate-900 text-xs font-sans space-y-4 shadow-xs"
+              className="rounded-xl border border-slate-200 p-6 bg-white text-slate-900 text-xs space-y-4 shadow-xs"
             >
               {/* Slip Header */}
               <div className="flex items-start justify-between border-b border-slate-200 pb-4">
-                <div className="flex items-center gap-2.5">
-                  <div className="h-10 w-10 overflow-hidden rounded-lg border border-slate-200 bg-white p-0.5 shadow-2xs">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 overflow-hidden rounded-lg border border-slate-200 bg-white p-1">
                     <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
                   </div>
                   <div>
-                    <div className="text-base font-black tracking-tight text-[#080d24]">
+                    <div className="text-base font-bold tracking-tight text-slate-900">
                       DIGITAL <span className="text-[#207de9]">FX</span> LOGISTICS
                     </div>
-                    <div className="text-[8px] font-extrabold uppercase tracking-[2px] text-slate-400">
-                      PACKERS &amp; MOVERS DIVISION
+                    <div className="text-[9px] font-semibold uppercase tracking-wider text-slate-400">
+                      Packers &amp; Movers Relocation Desk
                     </div>
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <span className="inline-block rounded-md bg-blue-50 border border-blue-200 px-2.5 py-0.5 text-[10px] font-mono font-black text-[#207de9]">
+                  <span className="inline-block rounded bg-blue-50 border border-blue-200 px-2 py-0.5 text-[10px] font-mono font-bold text-[#207de9]">
                     QUOTE #{quotationSlipEnquiry.id}
                   </span>
                   <p className="text-[10px] text-slate-400 mt-1">
@@ -1460,35 +1463,35 @@ export default function PackersEnquiryPage() {
               {/* Customer & Route Box */}
               <div className="grid grid-cols-2 gap-4 rounded-lg bg-slate-50 p-3.5 border border-slate-200/80">
                 <div>
-                  <span className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400">
                     Customer Information
                   </span>
-                  <p className="text-sm font-black text-slate-900 mt-0.5">
+                  <p className="text-xs font-bold text-slate-900 mt-0.5">
                     {quotationSlipEnquiry.name}
                   </p>
-                  <p className="font-mono text-xs font-bold text-slate-700 mt-0.5">
-                    📞 {quotationSlipEnquiry.phone}
+                  <p className="font-mono text-xs text-slate-600 mt-0.5">
+                    Phone: {quotationSlipEnquiry.phone}
                   </p>
                   {quotationSlipEnquiry.address && (
-                    <p className="text-[10.5px] text-slate-500 mt-1">
+                    <p className="text-[11px] text-slate-500 mt-1">
                       {quotationSlipEnquiry.address}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <span className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400">
                     Shifting Movement
                   </span>
                   <div className="mt-1 space-y-1">
-                    <p className="font-bold text-emerald-800 text-xs">
-                      📍 From: <span className="font-medium text-slate-800">{quotationSlipEnquiry.from_location || "—"}</span>
+                    <p className="text-xs font-semibold text-emerald-800">
+                      From: <span className="font-normal text-slate-700">{quotationSlipEnquiry.from_location || "—"}</span>
                     </p>
-                    <p className="font-bold text-blue-800 text-xs">
-                      🏁 To: <span className="font-medium text-slate-800">{quotationSlipEnquiry.to_location || "—"}</span>
+                    <p className="text-xs font-semibold text-blue-800">
+                      To: <span className="font-normal text-slate-700">{quotationSlipEnquiry.to_location || "—"}</span>
                     </p>
-                    <p className="font-bold text-slate-700 text-xs">
-                      🚚 Truck: <span className="font-medium text-slate-800">{quotationSlipEnquiry.truck_feet}</span>
+                    <p className="text-xs font-semibold text-slate-600">
+                      Vehicle: <span className="font-normal text-slate-700">{quotationSlipEnquiry.truck_feet}</span>
                     </p>
                   </div>
                 </div>
@@ -1497,10 +1500,10 @@ export default function PackersEnquiryPage() {
               {/* Remarks / Goods Description */}
               {quotationSlipEnquiry.remark && (
                 <div className="rounded-lg border border-slate-200 p-3 bg-white">
-                  <span className="text-[9.5px] font-extrabold uppercase tracking-wider text-slate-400 block mb-1">
-                    Material / Goods Description
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+                    Goods / Consignment Notes
                   </span>
-                  <p className="text-[11px] text-slate-700 leading-relaxed font-medium">
+                  <p className="text-[11px] text-slate-700 leading-relaxed">
                     {quotationSlipEnquiry.remark}
                   </p>
                 </div>
@@ -1509,24 +1512,24 @@ export default function PackersEnquiryPage() {
               {/* Financial Quotation Summary */}
               <div className="border border-slate-200 rounded-lg overflow-hidden">
                 <table className="w-full text-left">
-                  <thead className="bg-slate-100 text-[9.5px] uppercase tracking-wider text-slate-600 font-bold border-b border-slate-200">
+                  <thead className="bg-slate-50 text-[10px] uppercase tracking-wider text-slate-500 font-semibold border-b border-slate-200">
                     <tr>
                       <th className="py-2 px-3">Description</th>
                       <th className="py-2 px-3 text-right">Amount (₹)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 font-medium text-xs">
+                  <tbody className="divide-y divide-slate-100 text-xs">
                     <tr>
-                      <td className="py-2.5 px-3">
-                        Transportation &amp; Freight ({quotationSlipEnquiry.truck_feet})
+                      <td className="py-2.5 px-3 text-slate-700">
+                        Freight &amp; Transportation ({quotationSlipEnquiry.truck_feet})
                       </td>
-                      <td className="py-2.5 px-3 text-right font-mono font-bold">
+                      <td className="py-2.5 px-3 text-right font-mono font-medium text-slate-900">
                         ₹{(quotationSlipEnquiry.customer_rate || 0).toLocaleString("en-IN")}
                       </td>
                     </tr>
                     <tr>
                       <td className="py-2 px-3 text-slate-500">
-                        Professional Packing &amp; Loading Charges
+                        Professional Packing &amp; Loading Support
                       </td>
                       <td className="py-2 px-3 text-right text-slate-500 font-mono">
                         Included
@@ -1534,17 +1537,17 @@ export default function PackersEnquiryPage() {
                     </tr>
                     <tr>
                       <td className="py-2 px-3 text-slate-500">
-                        Toll Taxes &amp; State Border Permits
+                        Transit Tolls &amp; Border Permits
                       </td>
                       <td className="py-2 px-3 text-right text-slate-500 font-mono">
                         Included
                       </td>
                     </tr>
-                    <tr className="bg-emerald-50/70 font-black text-emerald-900 border-t border-emerald-200">
-                      <td className="py-3 px-3 text-xs uppercase tracking-wider">
-                        Total Final Quoted Amount
+                    <tr className="bg-emerald-50/60 font-bold text-emerald-950 border-t border-emerald-200">
+                      <td className="py-2.5 px-3 text-xs uppercase tracking-wider">
+                        Net Final Quoted Amount
                       </td>
-                      <td className="py-3 px-3 text-right font-mono text-sm">
+                      <td className="py-2.5 px-3 text-right font-mono text-sm">
                         ₹{(quotationSlipEnquiry.customer_rate || 0).toLocaleString("en-IN")}/-
                       </td>
                     </tr>
@@ -1552,36 +1555,36 @@ export default function PackersEnquiryPage() {
                 </table>
               </div>
 
-              {/* Payment Schedule */}
+              {/* Payment Terms */}
               <div className="grid grid-cols-2 gap-3 text-center">
                 <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50">
-                  <span className="text-[9px] font-bold text-slate-400 uppercase">
+                  <span className="text-[9px] font-semibold text-slate-400 uppercase">
                     20% Booking Advance
                   </span>
-                  <p className="font-mono font-black text-slate-900 mt-0.5">
+                  <p className="font-mono font-bold text-slate-900 mt-0.5">
                     ₹{Math.round((quotationSlipEnquiry.customer_rate || 0) * 0.2).toLocaleString("en-IN")}
                   </p>
                 </div>
                 <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50">
-                  <span className="text-[9px] font-bold text-slate-400 uppercase">
+                  <span className="text-[9px] font-semibold text-slate-400 uppercase">
                     80% Balance on Delivery
                   </span>
-                  <p className="font-mono font-black text-slate-900 mt-0.5">
+                  <p className="font-mono font-bold text-slate-900 mt-0.5">
                     ₹{Math.round((quotationSlipEnquiry.customer_rate || 0) * 0.8).toLocaleString("en-IN")}
                   </p>
                 </div>
               </div>
 
-              {/* Terms & Footer */}
-              <div className="border-t border-slate-200 pt-3 text-[9.5px] text-slate-400 leading-relaxed space-y-0.5">
+              {/* Terms & Signatures */}
+              <div className="border-t border-slate-200 pt-3 text-[10px] text-slate-400 space-y-0.5">
                 <p>1. Transit insurance available upon declared inventory value.</p>
-                <p>2. Unloading at upper floors without service lift may incur extra labor charge.</p>
-                <p>3. Digital FX Logistics guarantees verified vehicles and GPS tracking support.</p>
+                <p>2. Vehicle booking confirmed upon advance transfer.</p>
+                <p>3. Digital FX Logistics guarantees verified trucks with GPS movement updates.</p>
               </div>
 
-              <div className="flex items-center justify-between border-t border-slate-100 pt-3 text-[10px] text-slate-500 font-semibold">
+              <div className="flex items-center justify-between border-t border-slate-100 pt-3 text-[10px] text-slate-500 font-medium">
                 <span>Authorized Signatory: ________________</span>
-                <span>Customer Signature: ________________</span>
+                <span>Customer Acceptance: ________________</span>
               </div>
             </div>
 
@@ -1593,20 +1596,17 @@ export default function PackersEnquiryPage() {
           WHATSAPP MESSAGE GENERATOR MODAL
           ========================================================================= */}
       {whatsAppModalEnquiry && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs">
-          <div className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl border border-slate-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-xs">
+          <div className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl border border-slate-200">
             
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div className="flex items-center gap-2">
-                <span className="text-emerald-600 text-lg">💬</span>
-                <div>
-                  <h3 className="text-base font-black text-[#080d24]">
-                    WhatsApp Message Generator
-                  </h3>
-                  <p className="text-[11px] text-slate-500">
-                    Direct communication for {whatsAppModalEnquiry.name} ({whatsAppModalEnquiry.phone})
-                  </p>
-                </div>
+              <div>
+                <h3 className="text-sm font-bold text-slate-900">
+                  WhatsApp Estimate Generator
+                </h3>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Send directly to {whatsAppModalEnquiry.name} ({whatsAppModalEnquiry.phone})
+                </p>
               </div>
               <button
                 onClick={() => setWhatsAppModalEnquiry(null)}
@@ -1616,22 +1616,22 @@ export default function PackersEnquiryPage() {
               </button>
             </div>
 
-            <div className="mt-4 space-y-3">
-              <label className="text-xs font-bold text-slate-700">
-                Generated Message (You can edit before sending):
+            <div className="mt-4 space-y-2">
+              <label className="text-xs font-semibold text-slate-700">
+                Message Preview (Editable):
               </label>
               <textarea
-                rows={10}
+                rows={9}
                 value={whatsAppCustomText}
                 onChange={(e) => setWhatsAppCustomText(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs font-mono text-slate-800 outline-none focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/15"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs font-mono text-slate-800 outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
               />
             </div>
 
-            <div className="mt-4 flex items-center justify-end gap-2.5">
+            <div className="mt-4 flex items-center justify-end gap-2">
               <button
                 onClick={() => setWhatsAppModalEnquiry(null)}
-                className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition"
+                className="rounded-lg border border-slate-200 px-3.5 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 transition cursor-pointer"
               >
                 Cancel
               </button>
@@ -1640,9 +1640,12 @@ export default function PackersEnquiryPage() {
                   sendWhatsAppDirect(whatsAppModalEnquiry.phone, whatsAppCustomText);
                   setWhatsAppModalEnquiry(null);
                 }}
-                className="flex items-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 px-5 py-2 text-xs font-bold text-white shadow-md shadow-emerald-600/20 transition cursor-pointer"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 px-4 py-2 text-xs font-semibold text-white shadow-xs transition cursor-pointer"
               >
-                <span>🚀 Send on WhatsApp</span>
+                <span>Send WhatsApp Message</span>
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                </svg>
               </button>
             </div>
 
