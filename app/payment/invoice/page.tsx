@@ -28,27 +28,30 @@ function PaymentInvoiceContent() {
   const queryPlan = searchParams.get("plan") || "";
   const queryStatus = searchParams.get("status") || "success";
 
-  // Immediate optimistic fallback so customer sees their receipt in 0.00 seconds
-  const initialPayment: Payment | null = txnid
-    ? {
-        txnid,
-        customer_name: queryName || "Valued Client",
-        customer_email: queryEmail || null,
-        customer_phone: queryPhone || null,
-        plan_id: queryPlan || null,
-        product_name:
-          queryProduct ||
-          (queryPlan
-            ? queryPlan.replace(/_/g, " ").toUpperCase()
-            : "Digital FX Growth Package"),
-        amount: queryAmount || 0,
-        status: queryStatus,
-        created_at: new Date().toISOString(),
-      }
-    : null;
+  const isDemoPreview = !txnid;
+  const activeTxnid = txnid || "DFX_1789761250076_fb8b435d";
 
-  const [payment, setPayment] = useState<Payment | null>(initialPayment);
-  const [loading, setLoading] = useState(!initialPayment);
+  // Immediate optimistic fallback so customer sees their receipt in 0.00 seconds
+  const initialPayment: Payment = {
+    txnid: activeTxnid,
+    customer_name: queryName || (isDemoPreview ? "Shashank Yadav" : "Valued Client"),
+    customer_email: queryEmail || (isDemoPreview ? "yshashank513@gmail.com" : null),
+    customer_phone: queryPhone || (isDemoPreview ? "+91 8546758573" : null),
+    plan_id: queryPlan || (isDemoPreview ? "GROWTH" : null),
+    product_name:
+      queryProduct ||
+      (queryPlan
+        ? queryPlan.replace(/_/g, " ").toUpperCase()
+        : isDemoPreview
+        ? "Digital Growth & AI Search (GEO) Package"
+        : "Digital FX Growth Package"),
+    amount: queryAmount || (isDemoPreview ? 9999 : 0),
+    status: queryStatus || "success",
+    created_at: new Date().toISOString(),
+  };
+
+  const [payment, setPayment] = useState<Payment>(initialPayment);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   /* ============================================
@@ -57,10 +60,7 @@ function PaymentInvoiceContent() {
   useEffect(() => {
     async function loadPayment() {
       if (!txnid) {
-        if (!initialPayment) {
-          setError("Transaction ID is missing.");
-          setLoading(false);
-        }
+        // Direct page visit: already initialized with sample preview
         return;
       }
 
@@ -79,11 +79,11 @@ function PaymentInvoiceContent() {
             setPayment((prev) => ({
               ...prev,
               ...result.data,
-              customer_name: result.data.customer_name || prev?.customer_name || "Valued Client",
-              customer_email: result.data.customer_email || prev?.customer_email,
-              customer_phone: result.data.customer_phone || prev?.customer_phone,
-              product_name: result.data.product_name || prev?.product_name || "Digital FX Growth Package",
-              amount: Number(result.data.amount) || prev?.amount || queryAmount || 0,
+              customer_name: result.data.customer_name || prev.customer_name || "Valued Client",
+              customer_email: result.data.customer_email || prev.customer_email,
+              customer_phone: result.data.customer_phone || prev.customer_phone,
+              product_name: result.data.product_name || prev.product_name || "Digital FX Growth Package",
+              amount: Number(result.data.amount) || prev.amount || queryAmount || 0,
             }));
           }
         }
@@ -95,7 +95,7 @@ function PaymentInvoiceContent() {
     }
 
     loadPayment();
-  }, [txnid, initialPayment, queryAmount]);
+  }, [txnid, queryAmount]);
 
   /* ============================================
      HELPERS
