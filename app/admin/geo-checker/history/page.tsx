@@ -68,9 +68,11 @@ export default function GeoHistoryPage() {
 
       setAnalyses([]);
     } else {
-      setAnalyses(
-        (data || []) as GeoAnalysis[]
+      const PURGE_TIMESTAMP = "2026-09-19T00:00:00.000Z";
+      const validAnalyses = ((data || []) as GeoAnalysis[]).filter(
+        (a) => new Date(a.created_at) > new Date(PURGE_TIMESTAMP)
       );
+      setAnalyses(validAnalyses);
     }
 
     setLoading(false);

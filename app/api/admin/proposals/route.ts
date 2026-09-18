@@ -43,7 +43,9 @@ export async function GET(request: Request) {
       );
     }
 
-    let proposals = data || [];
+    let proposals = (data || []).filter(
+      (p) => String(p.status || "").toLowerCase() !== "deleted"
+    );
 
     if (status !== "All") {
       proposals = proposals.filter(
@@ -144,6 +146,69 @@ export async function PATCH(request: Request) {
         success: false,
         error: error instanceof Error ? error.message : "Unable to update proposal status.",
       },
+      { status: 500 }
+    );
+  }
+}
+
+
+export async function DELETE(request: Request) {
+  try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const anonKey =
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+    if (!supabaseUrl || !anonKey) {
+      return NextResponse.json(
+        { success: false, error: "Supabase configuration is missing." },
+        { status: 500 }
+      );
+    }
+
+    const client = createClient(supabaseUrl, anonKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+
+    const body = await request.json();
+    if (body?.clearAll) {
+      const { data: allItems } = await client
+        .from("enquiries")
+        .select("id")
+        .ilike("service", "%Strategic Proposal%");
+      if (Array.isArray(allItems)) {
+        for (const item of allItems) {
+          await client.from("enquiries").update({ status: "deleted" }).eq("id", item.id);
+        }
+      }
+      return NextResponse.json({ success: true, message: "All proposals cleared." });
+    }
+
+    const id = Number(body?.id);
+    if (!id) {
+      return NextResponse.json(
+        { success: false, error: "Proposal ID is required." },
+        { status: 400 }
+      );
+    }
+
+    const { error } = await client
+      .from("enquiries")
+      .update({ status: "deleted" })
+      .eq("id", id);
+
+    if (error) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, message: "Proposal deleted." });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: error instanceof Error ? error.message : "Delete failed." },
       { status: 500 }
     );
   }

@@ -51,9 +51,16 @@ export async function GET(request: Request) {
         .order("created_at", { ascending: false }),
     ]);
 
-    const enquiries = enquiriesRes.data || [];
-    const geoAnalyses = geoRes.data || [];
-    const payments = paymentsRes.data || [];
+    const PURGE_TIMESTAMP = "2026-09-19T00:00:00.000Z";
+    const enquiries = (enquiriesRes.data || []).filter(
+      (e) => String(e.status || "").toLowerCase() !== "deleted"
+    );
+    const geoAnalyses = (geoRes.data || []).filter(
+      (g) => new Date(g.created_at) > new Date(PURGE_TIMESTAMP)
+    );
+    const payments = (paymentsRes.data || []).filter(
+      (p) => String(p.status || "").toLowerCase() !== "deleted"
+    );
 
     // Separate regular enquiries vs strategic proposals
     const regularEnquiries = enquiries.filter(

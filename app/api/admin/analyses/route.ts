@@ -42,7 +42,10 @@ export async function GET(request: Request) {
       );
     }
 
-    let analyses = data || [];
+    const PURGE_TIMESTAMP = "2026-09-19T00:00:00.000Z";
+    let analyses = (data || []).filter(
+      (a) => new Date(a.created_at) > new Date(PURGE_TIMESTAMP)
+    );
 
     // Filter by type
     if (filter === "free") {

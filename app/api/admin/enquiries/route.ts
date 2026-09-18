@@ -42,7 +42,9 @@ export async function GET(request: Request) {
       );
     }
 
-    let enquiries = data || [];
+    let enquiries = (data || []).filter(
+      (e) => String(e.status || "").toLowerCase() !== "deleted"
+    );
 
     // Exclude proposals if needed or keep both with filter
     const onlyEnquiries = url.searchParams.get("type") === "general";
@@ -151,6 +153,66 @@ export async function PATCH(request: Request) {
         success: false,
         error: error instanceof Error ? error.message : "Unable to update enquiry status.",
       },
+      { status: 500 }
+    );
+  }
+}
+
+
+export async function DELETE(request: Request) {
+  try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const anonKey =
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+    if (!supabaseUrl || !anonKey) {
+      return NextResponse.json(
+        { success: false, error: "Supabase configuration is missing." },
+        { status: 500 }
+      );
+    }
+
+    const client = createClient(supabaseUrl, anonKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+
+    const body = await request.json();
+    if (body?.clearAll) {
+      const { data: allItems } = await client.from("enquiries").select("id");
+      if (Array.isArray(allItems)) {
+        for (const item of allItems) {
+          await client.from("enquiries").update({ status: "deleted" }).eq("id", item.id);
+        }
+      }
+      return NextResponse.json({ success: true, message: "All enquiries cleared." });
+    }
+
+    const id = Number(body?.id);
+    if (!id) {
+      return NextResponse.json(
+        { success: false, error: "Enquiry ID is required." },
+        { status: 400 }
+      );
+    }
+
+    const { error } = await client
+      .from("enquiries")
+      .update({ status: "deleted" })
+      .eq("id", id);
+
+    if (error) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, message: "Enquiry deleted." });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: error instanceof Error ? error.message : "Delete failed." },
       { status: 500 }
     );
   }

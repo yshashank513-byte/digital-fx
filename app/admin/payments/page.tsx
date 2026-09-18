@@ -99,6 +99,30 @@ export default function PaymentsPage() {
     });
   }, [payments, filter, search]);
 
+  async function handleDeletePayment(id: string) {
+    if (!window.confirm(`Delete payment record #${id}?`)) return;
+    const res = await adminFetch("/api/admin/payments", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    if (res.ok) {
+      setPayments((prev) => prev.filter((p) => p.id !== id));
+    }
+  }
+
+  async function handleClearAll() {
+    if (!window.confirm(`Are you sure you want to delete all payment records?`)) return;
+    const res = await adminFetch("/api/admin/payments", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ clearAll: true }),
+    });
+    if (res.ok) {
+      setPayments([]);
+    }
+  }
+
   function exportCSV() {
     const headers = [
       "Txn ID",
@@ -187,6 +211,14 @@ export default function PaymentsPage() {
           >
             <span>↻ Refresh</span>
           </button>
+          {payments.length > 0 && (
+            <button
+              onClick={handleClearAll}
+              className="flex items-center gap-1.5 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-2.5 text-xs font-bold text-rose-700 hover:bg-rose-100 shadow-xs transition cursor-pointer"
+            >
+              <span>🗑️ Clear All</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -349,9 +381,18 @@ export default function PaymentsPage() {
                       {formatDate(p.created_at)}
                     </td>
                     <td className="py-3.5 px-5 text-right">
-                      <button className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-[#080d24] transition shadow-2xs">
-                        Invoice →
-                      </button>
+                      <div className="flex items-center justify-end gap-1.5">
+                        <button className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-[#080d24] transition shadow-2xs">
+                          Invoice →
+                        </button>
+                        <button
+                          onClick={() => handleDeletePayment(p.id)}
+                          className="flex h-7 w-7 items-center justify-center rounded-lg border border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100 transition shadow-2xs cursor-pointer"
+                          title="Delete transaction"
+                        >
+                          🗑️
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
