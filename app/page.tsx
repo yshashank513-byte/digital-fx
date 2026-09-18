@@ -1768,6 +1768,13 @@ export default function Home() {
           font-weight: 400 !important;
           letter-spacing: -0.01em !important;
         }
+
+        @media (max-width: 640px) {
+          .webfx-serif {
+            display: block !important;
+            line-height: 1.15 !important;
+          }
+        }
       `}</style>
 
       <main className={`${plusJakartaSans.variable} ${playfairDisplay.variable} min-h-screen overflow-x-hidden font-[var(--font-plus-jakarta)] text-[#101828] antialiased`}>
@@ -1775,12 +1782,12 @@ export default function Home() {
         {/* ==========================================================================
             1. INSTITUTIONAL TOP BAR (#fxtopbar) - ACCREDITATION & DIRECT CLIENT DESK
             ========================================================================== */}
-        <div id="fxtopbar" className="bg-[#080d24] text-white py-2 border-b border-white/10 block">
+        <div id="fxtopbar" className="bg-[#080d24] text-white py-2 border-b border-white/10 block w-full overflow-hidden">
           <div className="mx-auto flex h-auto min-h-[34px] max-w-[1400px] flex-wrap items-center justify-between gap-y-2 px-4 sm:px-6 lg:px-8 text-xs">
             
             {/* Left: Certifications & Regional Presence */}
-            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-slate-300 text-[11.5px] font-medium">
-              <span className="inline-flex items-center gap-1.5 text-slate-300 font-semibold">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-slate-300 text-[11px] sm:text-[11.5px] font-medium">
+              <span className="inline-flex items-center gap-1.5 text-slate-300 font-semibold shrink-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
                 Google Premier Partner Certified
               </span>
@@ -1795,14 +1802,14 @@ export default function Home() {
             </div>
 
             {/* Right: Client Checkout Portal & Direct Strategist Communications */}
-            <div className="flex items-center gap-3.5 sm:gap-5 text-[12px] font-medium text-slate-300 ml-auto sm:ml-0">
+            <div className="flex items-center justify-between sm:justify-end gap-2.5 sm:gap-5 text-[11px] sm:text-[12px] font-medium text-slate-300 w-full sm:w-auto">
               <button
                 type="button"
                 onClick={() => openPricingModal()}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 text-slate-200 hover:text-white text-[11.5px] font-bold transition-all cursor-pointer shadow-xs hover:border-blue-400/50"
+                className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 text-slate-200 hover:text-white text-[10.5px] sm:text-[11.5px] font-bold transition-all cursor-pointer shadow-xs hover:border-blue-400/50 shrink-0"
                 title="Secure Client Invoicing & Packages"
               >
-                <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                 </svg>
                 <span>Client Checkout Portal</span>
@@ -1816,9 +1823,9 @@ export default function Home() {
                 href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-[12px] font-bold text-emerald-400 hover:text-emerald-300 transition"
+                className="inline-flex items-center gap-1.5 text-[11px] sm:text-[12px] font-bold text-emerald-400 hover:text-emerald-300 transition shrink-0"
               >
-                <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-emerald inline-block" />
+                <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-emerald inline-block shrink-0" />
                 <span>WhatsApp Strategy Desk</span>
               </a>
             </div>
@@ -1829,12 +1836,12 @@ export default function Home() {
         {/* ==========================================================================
             2. WEBFX MAIN HEADER WITH DESKTOP NAVIGATION (#fxheader)
             ========================================================================== */}
-        <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all">
-          <div className="mx-auto flex h-[74px] max-w-[1400px] items-center justify-between px-3.5 sm:px-6 lg:px-8">
+        <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
+          <div className="mx-auto flex h-[74px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
 
             {/* Brand Logo - Enlarged Container & Bold Typography */}
-            <a href="#home" className="flex items-center gap-2.5 sm:gap-3.5 shrink-0 group">
-              <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white border border-slate-200/90 shadow-xs transition-transform group-hover:scale-105 p-0.5">
+            <a href="#home" className="flex items-center gap-2.5 sm:gap-3.5 shrink-0 group min-w-0">
+              <div className="flex h-11 w-11 sm:h-14 sm:w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-xs transition-transform group-hover:scale-105 p-0.5">
                 <img
                   src="/logo.png"
                   alt="Digital FX"
@@ -1842,10 +1849,10 @@ export default function Home() {
                 />
               </div>
               <div className="shrink-0">
-                <div className="text-[20px] sm:text-[23px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+                <div className="text-[19px] sm:text-[23px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
                   DIGITAL <span className="text-[#207de9]">FX</span>
                 </div>
-                <div className="mt-1 sm:mt-1.5 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.5px] sm:tracking-[1.8px] text-slate-500 whitespace-nowrap">
+                <div className="mt-1 sm:mt-1.5 text-[7.5px] sm:text-[8.5px] font-bold uppercase tracking-[1.2px] sm:tracking-[1.8px] text-slate-500 whitespace-nowrap">
                   Digital Marketing That Drives Revenue®
                 </div>
               </div>
@@ -1907,7 +1914,7 @@ export default function Home() {
               <a
                 href="tel:+918447583685"
                 aria-label="Call +91 84475 83685"
-                className="sm:hidden flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-xs transition-all active:scale-95 cursor-pointer"
+                className="sm:hidden flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-xs transition-all active:scale-95 cursor-pointer shrink-0"
                 title="Call +91 84475 83685"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1920,9 +1927,9 @@ export default function Home() {
                 type="button"
                 onClick={() => setMobileOpen(true)}
                 aria-label="Open Navigation Menu"
-                className="flex h-[42px] items-center gap-2.5 px-3.5 sm:px-4 rounded-xl border border-slate-300 bg-slate-50 hover:bg-white hover:border-[#207de9] shadow-xs transition-all cursor-pointer group"
+                className="flex h-[42px] min-w-[42px] items-center justify-center gap-2 px-3 sm:px-4 rounded-xl border border-slate-300 bg-slate-50 hover:bg-white hover:border-[#207de9] shadow-xs transition-all cursor-pointer group shrink-0"
               >
-                <span className="flex flex-col gap-[4.5px]">
+                <span className="flex flex-col gap-[4.5px] items-center justify-center">
                   <span className="h-[2.5px] w-5 bg-[#080d24] group-hover:bg-[#207de9] rounded-full transition-colors" />
                   <span className="h-[2.5px] w-5 bg-[#080d24] group-hover:bg-[#207de9] rounded-full transition-colors" />
                   <span className="h-[2.5px] w-3.5 bg-[#207de9] rounded-full ml-auto" />
@@ -2464,7 +2471,7 @@ export default function Home() {
             ========================================================================== */}
         <section
           id="home"
-          className="relative overflow-hidden bg-[#f8faff] pt-12 lg:pt-16 pb-20 border-b border-slate-200"
+          className="relative overflow-hidden bg-[#f8faff] pt-8 sm:pt-12 lg:pt-16 pb-12 sm:pb-16 lg:pb-20 border-b border-slate-200"
         >
           {/* Clean Institutional Square Grid Background System (Zero Conflicting Overlap) */}
           <div
@@ -2480,46 +2487,49 @@ export default function Home() {
             }}
           />
 
-          <div className="relative z-10 mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 mx-auto max-w-[1360px] px-5 sm:px-6 lg:px-8">
             
             {/* Top Area: WebFX Headline & Website Proposal Input Bar */}
             <div className="max-w-[860px]">
               {/* Overline Subhead & Google Rating */}
-              <div className="mb-4 inline-flex flex-wrap items-center gap-2.5 rounded-full border border-blue-200/90 bg-blue-50/90 px-3.5 sm:px-4 py-1.5 text-[11px] font-bold text-[#1570ef] shadow-xs">
-                <div className="flex items-center gap-1">
+              <div className="mb-4 inline-flex flex-wrap items-center gap-x-2 gap-y-1.5 rounded-2xl sm:rounded-full border border-blue-200/90 bg-blue-50/90 px-3.5 py-2 sm:px-4 sm:py-1.5 text-[10px] sm:text-[11px] font-bold text-[#1570ef] shadow-xs max-w-full">
+                <div className="flex items-center gap-1 shrink-0">
                   <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
                     <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
                     <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
                   </svg>
-                  <span className="text-amber-500 tracking-tighter">★ ★ ★ ★ ★</span>
+                  <span className="text-amber-500 tracking-tighter text-[11px]">★ ★ ★ ★ ★</span>
                   <span className="font-extrabold text-[#080d24]">4.9</span>
                 </div>
-                <span className="text-blue-300">•</span>
-                <span className="uppercase tracking-[0.12em]">128+ Reviews • Best Digital Marketing Agency in Ghaziabad - Delhi NCR</span>
+                <span className="text-blue-300 hidden xs:inline">•</span>
+                <span className="uppercase tracking-normal sm:tracking-[0.1em] text-slate-700">
+                  <strong className="text-[#1570ef]">128+ Reviews</strong> • Best Digital Marketing Agency in Ghaziabad - Delhi NCR
+                </span>
               </div>
 
               {/* WebFX Signature Headline */}
-              <h1 className="text-[36px] sm:text-[50px] lg:text-[62px] font-extrabold leading-[1.1] tracking-[-0.035em] text-[#080d24]">
-                Digital Marketing &amp; SEO Agency in Ghaziabad —{" "}
-                <span className="webfx-serif text-[#207de9] block font-normal sm:inline">
+              <h1 className="text-[clamp(32px,8.5vw,58px)] font-extrabold leading-[1.04] tracking-[-0.035em] text-[#080d24]">
+                <span className="block">Digital Marketing &amp; SEO</span>
+                <span className="block">Agency in Ghaziabad —</span>{" "}
+                <span className="webfx-serif text-[#207de9] font-normal text-[clamp(26px,7vw,50px)] leading-[1.12] block mt-1 sm:mt-2">
                   Your Revenue Partner in the AI Era.
                 </span>
               </h1>
 
               {/* Subtitle Description */}
-              <p className="mt-5 max-w-[720px] text-[15.5px] sm:text-[17.5px] leading-[1.68] text-slate-600 font-normal">
+              <p className="mt-4 sm:mt-5 max-w-[720px] text-[15px] sm:text-[17.5px] leading-[1.55] sm:leading-[1.65] text-slate-600 font-normal">
                 Most agencies report vanity metrics like impressions and clicks. Digital FX engineers connected customer acquisition systems that turn search visibility into qualified pipeline and measurable revenue for businesses across India.
               </p>
 
               {/* WebFX Exact Website Proposal Bar */}
               <form
                 onSubmit={handleHeroProposal}
-                className="mt-8 flex flex-col sm:flex-row items-stretch max-w-[620px] bg-white border border-slate-300 rounded-2xl overflow-hidden shadow-sm hover:border-slate-400 focus-within:border-[#1570ef] focus-within:ring-2 focus-within:ring-blue-100 transition-all"
+                className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch w-full max-w-[620px] bg-white border border-slate-300 rounded-2xl overflow-hidden shadow-sm hover:border-slate-400 focus-within:border-[#1570ef] focus-within:ring-2 focus-within:ring-blue-100 transition-all"
               >
-                <div className="flex-1 flex items-center px-4 bg-transparent">
-                  <svg className="w-4 h-4 text-slate-400 mr-2.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="flex-1 flex items-center px-4 min-h-[64px] sm:min-h-[58px] bg-transparent">
+                  <svg className="w-5 h-5 text-slate-400 mr-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a8.997 8.997 0 01-7.843-4.582M12 3a8.997 8.997 0 017.843 4.582M12 3v18" />
                   </svg>
                   <input
@@ -2527,24 +2537,25 @@ export default function Home() {
                     value={heroWebsite}
                     onChange={(e) => setHeroWebsite(e.target.value)}
                     placeholder="Enter your website (e.g. yourcompany.com)"
-                    className="w-full py-4 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none bg-transparent font-medium"
+                    className="w-full py-3.5 text-[13px] sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none bg-transparent font-medium"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="px-7 py-4 bg-[#080d24] hover:bg-[#207de9] text-white font-bold text-sm tracking-wide transition-colors whitespace-nowrap cursor-pointer shadow-xs"
+                  className="w-full sm:w-auto min-h-[58px] sm:min-h-[58px] px-6 sm:px-7 bg-[#080d24] hover:bg-[#207de9] text-white font-bold text-[14px] sm:text-sm tracking-wide transition-colors whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center text-center shrink-0 border-t sm:border-t-0 sm:border-l border-slate-200"
                 >
-                  Analyze Growth Potential →
+                  <span>Analyze Growth Potential</span>
+                  <span className="ml-1.5 text-base">→</span>
                 </button>
               </form>
 
               {/* Strategic Proposal Quick Trigger */}
-              <div className="mt-3.5 flex flex-wrap items-center gap-3 text-xs text-slate-500 font-medium">
+              <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 font-medium">
                 <span>Need a customized multi-channel plan?</span>
                 <button
                   type="button"
                   onClick={() => openProposalModal(heroWebsite, "Enterprise Growth Roadmap")}
-                  className="text-[#1570ef] font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
+                  className="text-[#1570ef] font-bold hover:underline inline-flex items-center gap-1 cursor-pointer whitespace-nowrap"
                 >
                   <span>Request Strategic Proposal</span>
                   <span>→</span>
@@ -2552,35 +2563,35 @@ export default function Home() {
               </div>
 
               {/* Trust Badges */}
-              <div className="mt-3.5 flex flex-wrap items-center gap-5 text-[12px] text-slate-500 font-medium">
-                <span className="flex items-center gap-1.5">
-                  <svg className="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="mt-3.5 flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2 text-[11.5px] sm:text-[12px] text-slate-600 font-medium">
+                <span className="inline-flex items-center gap-1.5 shrink-0">
+                  <svg className="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
                   </svg>
-                  Confidential Website Audit
+                  <span>Confidential Website Audit</span>
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <svg className="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <span className="inline-flex items-center gap-1.5 shrink-0">
+                  <svg className="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
                   </svg>
-                  Direct Strategist Review
+                  <span>Direct Strategist Review</span>
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <svg className="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <span className="inline-flex items-center gap-1.5 shrink-0">
+                  <svg className="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
                   </svg>
-                  Zero Obligation
+                  <span>Zero Obligation</span>
                 </span>
               </div>
             </div>
 
             {/* Centerpiece: WebFX Circular 4-Quadrant Revenue Engine with Callouts */}
-            <div className="relative mx-auto max-w-[1040px] px-2 sm:px-4 mt-12 sm:mt-16 select-none">
+            <div className="relative mx-auto w-full max-w-[1040px] px-0 sm:px-4 mt-10 sm:mt-16 select-none overflow-hidden">
 
               {/* Vector SVG Graphic Container with Centered Elements & Widened Callout Margins */}
               <div className="relative z-10 w-full max-w-[1040px] mx-auto aspect-[1040/560]">
                 
-                <svg viewBox="0 0 1040 560" className="w-full h-full drop-shadow-sm overflow-visible">
+                <svg viewBox="0 0 1040 560" className="w-full h-full drop-shadow-sm overflow-hidden sm:overflow-visible">
                   <defs>
                     {/* Center Disc Soft Drop Shadow */}
                     <filter id="hub-shadow" x="-20%" y="-20%" width="140%" height="140%">

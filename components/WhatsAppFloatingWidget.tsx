@@ -36,7 +36,7 @@ export default function WhatsAppFloatingWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 left-4 sm:left-6 z-[95] font-sans antialiased">
+    <div className="fixed bottom-[20px] left-[20px] z-[999] font-sans antialiased pointer-events-auto">
       {/* 1. Floating WhatsApp Trigger Button */}
       {!isOpen && (
         <div className="relative group">
@@ -55,7 +55,7 @@ export default function WhatsAppFloatingWidget() {
               setHasInteracted(true);
             }}
             aria-label="Open WhatsApp Chat with Digital FX Strategist"
-            className="relative flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] hover:shadow-[0_12px_32px_rgba(37,211,102,0.5)] transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
+            className="relative flex items-center justify-center w-[56px] h-[56px] sm:w-[60px] sm:h-[60px] rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] hover:shadow-[0_12px_32px_rgba(37,211,102,0.5)] transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
           >
             {/* Pulsing Ripple Effect */}
             <span className="absolute inset-0 rounded-full bg-[#25D366]/40 animate-ping pointer-events-none" />
