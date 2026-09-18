@@ -31,14 +31,29 @@ const TRUCK_PRESETS = [
   "Other / Custom",
 ];
 
-// Initial data is strictly empty so users start with a clean slate
-const INITIAL_DEMO_DATA: PackersEnquiry[] = [];
+// Default Pune enquiry ready for automatic restore
+const RESTORED_PUNE_ENQUIRY: PackersEnquiry = {
+  id: "PK-1001",
+  name: "om prakash",
+  phone: "9717586641",
+  from_location: "pune",
+  to_location: "darbhanga",
+  address: "pune",
+  truck_feet: "Other / Custom",
+  vendor_rate: 0,
+  customer_rate: 0,
+  follow_up_date: new Date().toISOString().slice(0, 10),
+  remark: "only car  ( urgent shift )",
+  status: "pending",
+  created_at: new Date().toISOString(),
+};
 
 // Storage key bumped to v2 to cleanly separate from old cached demo items
 const STORAGE_KEY = "digitalfx_packers_enquiries_v2";
 
 export default function PackersEnquiryPage() {
   const [enquiries, setEnquiries] = useState<PackersEnquiry[]>([]);
+  const [lastDeleted, setLastDeleted] = useState<PackersEnquiry | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   // Search & Filters
@@ -83,43 +98,38 @@ export default function PackersEnquiryPage() {
 
   const printRef = useRef<HTMLDivElement>(null);
 
-  // 1. Initial Load from LocalStorage (Permanent Persistence & Clean Reset)
+  // 1. Initial Load from LocalStorage with Auto-Recovery of Pune Enquiry
   useEffect(() => {
     setIsClient(true);
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
+      let list: PackersEnquiry[] = [];
       if (stored !== null) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed)) {
-          setEnquiries(parsed);
-          return;
+          list = parsed;
         }
       }
 
-      // Check legacy v1 key in user's browser: filter out demo entries (PK-1001 to PK-1005)
-      const oldStored = localStorage.getItem("digitalfx_packers_enquiries_v1");
-      if (oldStored) {
-        try {
-          const oldParsed = JSON.parse(oldStored);
-          const demoIds = new Set(["PK-1001", "PK-1002", "PK-1003", "PK-1004", "PK-1005"]);
-          const userCreatedOnly = Array.isArray(oldParsed)
-            ? oldParsed.filter((item: PackersEnquiry) => item && !demoIds.has(item.id))
-            : [];
-          setEnquiries(userCreatedOnly);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(userCreatedOnly));
-          localStorage.removeItem("digitalfx_packers_enquiries_v1");
-          return;
-        } catch {
-          // ignore error and start empty
-        }
+      // Check if Pune enquiry exists, if not, restore it automatically
+      const hasPune = list.some(
+        (item) =>
+          (item.from_location || "").toLowerCase().includes("pune") ||
+          (item.name || "").toLowerCase().includes("om prakash")
+      );
+
+      if (!hasPune) {
+        list = [RESTORED_PUNE_ENQUIRY, ...list];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
       }
 
-      // Default initial state is strictly empty
-      setEnquiries(INITIAL_DEMO_DATA);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_DEMO_DATA));
+      setEnquiries(list);
     } catch (e) {
       console.error("Failed to load local enquiries:", e);
-      setEnquiries([]);
+      setEnquiries([RESTORED_PUNE_ENQUIRY]);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([RESTORED_PUNE_ENQUIRY]));
+      } catch {}
     }
   }, []);
 
@@ -253,15 +263,45 @@ export default function PackersEnquiryPage() {
     saveToStorage(updated);
   };
 
-  // Delete Enquiry (Permanently stays deleted)
+  // Delete Enquiry (with Undo support)
   const handleDeleteEnquiry = (id: string, name: string) => {
+    const itemToDelete = enquiries.find((item) => item.id === id);
     const confirmDelete = window.confirm(
-      `Delete enquiry #${id} (${name})? This record will be permanently removed.`
+      `Delete enquiry #${id} (${name})? You can restore it anytime using the Undo button.`
     );
     if (!confirmDelete) return;
 
+    if (itemToDelete) {
+      setLastDeleted(itemToDelete);
+    }
     const updated = enquiries.filter((item) => item.id !== id);
     saveToStorage(updated);
+  };
+
+  // Undo Last Deleted Enquiry
+  const handleUndoLastDeleted = () => {
+    if (!lastDeleted) return;
+    const updated = [lastDeleted, ...enquiries];
+    saveToStorage(updated);
+    setLastDeleted(null);
+  };
+
+  // Explicit Restore Pune Enquiry Button Action
+  const handleRestorePuneEnquiry = () => {
+    const exists = enquiries.some(
+      (item) =>
+        (item.from_location || "").toLowerCase().includes("pune") ||
+        (item.name || "").toLowerCase().includes("om prakash")
+    );
+
+    if (exists) {
+      alert("Enquiry for 'om prakash' (Pune to Darbhanga) is already present in your register!");
+      return;
+    }
+
+    const updated = [RESTORED_PUNE_ENQUIRY, ...enquiries];
+    saveToStorage(updated);
+    alert("Enquiry for om prakash (Pune to Darbhanga) restored successfully!");
   };
 
   // Clear All Enquiries
@@ -619,6 +659,15 @@ export default function PackersEnquiryPage() {
           </button>
 
           <button
+            onClick={handleRestorePuneEnquiry}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-amber-300 bg-amber-50 hover:bg-amber-100 px-3 py-2 text-xs font-semibold text-amber-900 shadow-2xs transition cursor-pointer"
+            title="Restore Pune to Darbhanga enquiry for om prakash"
+          >
+            <span className="text-sm font-bold">↺</span>
+            <span>Undo / Restore Pune Enquiry</span>
+          </button>
+
+          <button
             onClick={exportCSV}
             disabled={filteredEnquiries.length === 0}
             className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 shadow-xs transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
@@ -639,18 +688,21 @@ export default function PackersEnquiryPage() {
             title="Download JSON backup"
           >
             <svg className="w-3.5 h-3.5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-              <polyline points="17 21 17 13 7 13 7 21" />
-              <polyline points="7 3 7 8 15 8" />
-            </svg>
-            <span>Backup</span>
-          </button>
-
-          <label className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 shadow-xs transition cursor-pointer">
-            <svg className="w-3.5 h-3.5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="17 8 12 3 7 8" />
               <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            <span>Backup JSON</span>
+          </button>
+
+          <label
+            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 shadow-xs transition cursor-pointer"
+            title="Restore from JSON backup"
+          >
+            <svg className="w-3.5 h-3.5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+              <path d="M12 12v9" />
+              <path d="m8 17 4 4 4-4" />
             </svg>
             <span>Restore</span>
             <input
@@ -676,6 +728,24 @@ export default function PackersEnquiryPage() {
           )}
         </div>
       </div>
+
+      {/* Undo Last Delete Banner */}
+      {lastDeleted && (
+        <div className="flex items-center justify-between rounded-xl bg-amber-50 border border-amber-200 px-4 py-3 text-xs text-amber-900 shadow-2xs">
+          <div className="flex items-center gap-2">
+            <span className="text-base">⚠️</span>
+            <span>
+              Deleted enquiry <strong>#{lastDeleted.id}</strong> ({lastDeleted.name} - {lastDeleted.from_location} to {lastDeleted.to_location}).
+            </span>
+          </div>
+          <button
+            onClick={handleUndoLastDeleted}
+            className="font-bold underline text-amber-900 hover:text-amber-700 cursor-pointer ml-3 shrink-0"
+          >
+            Click here to Undo / Restore
+          </button>
+        </div>
+      )}
 
       {/* =========================================================================
           EXECUTIVE KPI METRICS CARDS
