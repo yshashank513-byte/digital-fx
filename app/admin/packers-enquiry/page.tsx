@@ -495,17 +495,31 @@ export default function PackersEnquiryPage() {
   const openWhatsAppModal = (item: PackersEnquiry) => {
     setWhatsAppModalEnquiry(item);
 
-    const defaultMsg = `*OM PACKERS AND MOVERS ESTIMATE*\n\n` +
-      `Dear ${item.name},\n` +
-      `Greetings from Om Packers and Movers. Here is your shifting quotation summary:\n\n` +
-      `Pickup: ${item.from_location || "As discussed"}\n` +
-      `Drop: ${item.to_location || "As discussed"}\n` +
-      `Vehicle: ${item.truck_feet}\n` +
-      `All-Inclusive Rate: ₹${(item.customer_rate || 0).toLocaleString("en-IN")}/-\n` +
-      `Items: ${item.remark || "Household / Commercial Goods"}\n\n` +
-      `Would you like to confirm the movement slot and driver allocation? Let us know if you have any questions.\n\n` +
-      `*Om Packers and Movers Relocation Desk*\n` +
-      `Phone: +91 9717586641 | www.ompackersindia.com`;
+    const rateText = item.customer_rate && item.customer_rate > 0
+      ? `₹${item.customer_rate.toLocaleString("en-IN")}/- (All-Inclusive)`
+      : `As Discussed`;
+
+    const defaultMsg =
+      `🚚 *OM PACKERS AND MOVERS*\n` +
+      `_All India Relocation & Vehicle Transport Services_\n` +
+      `━━━━━━━━━━━━━━━━━━━━━\n` +
+      `Dear *${item.name || "Customer"}*,\n\n` +
+      `Thank you for contacting *Om Packers and Movers*. Here is your official shifting quotation summary:\n\n` +
+      `📍 *Pickup:* ${item.from_location || "As discussed"}\n` +
+      `📍 *Drop:* ${item.to_location || "As discussed"}\n` +
+      `🚛 *Vehicle / Truck:* ${item.truck_feet}\n` +
+      `📦 *Items / Notes:* ${item.remark || "Household Goods / Vehicle Relocation"}\n` +
+      `💰 *Net Quoted Rate:* *${rateText}*\n` +
+      `━━━━━━━━━━━━━━━━━━━━━\n` +
+      `✨ *Service Highlights:*\n` +
+      `✔ Door-to-Door Safe Pickup & Delivery\n` +
+      `✔ Scratch-Free Loading & Professional Handling\n` +
+      `✔ Verified Driver & GPS Movement Updates\n` +
+      `✔ On-Time Delivery Guarantee\n\n` +
+      `Would you like us to confirm your booking and assign the vehicle slot?\n\n` +
+      `📞 *Helpline / WhatsApp:* +91 9717586641\n` +
+      `🌐 *Website:* www.ompackersindia.com\n\n` +
+      `_Om Packers and Movers — Delivering Trust Nationwide_`;
 
     setWhatsAppCustomText(defaultMsg);
   };
