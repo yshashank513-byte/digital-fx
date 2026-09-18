@@ -96,6 +96,12 @@ export default function AdminClientLayout({
       active: pathname === "/admin/enquiries",
     },
     {
+      label: "Packers Enquiry",
+      href: "/admin/packers-enquiry",
+      icon: "🚚",
+      active: pathname === "/admin/packers-enquiry",
+    },
+    {
       label: "Website Analyses",
       href: "/admin/analyses",
       icon: "⚡",

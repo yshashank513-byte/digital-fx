@@ -349,7 +349,36 @@ export default function AdminDashboardPage() {
             <span className="opacity-0 group-hover:opacity-100 transition">→</span>
           </p>
         </Link>
+      </div>
 
+      {/* Packers & Movers CRM Spotlight Card */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl border border-blue-200/80 bg-gradient-to-r from-blue-50/70 via-white to-slate-50 p-5 shadow-xs">
+        <div className="flex items-center gap-3.5">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#207de9] text-xl text-white shadow-xs">
+            🚚
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="text-sm font-black text-[#080d24]">
+                Packers &amp; Movers Enquiry Book
+              </h3>
+              <span className="rounded-full bg-blue-100 text-[#207de9] px-2 py-0.5 text-[9.5px] font-extrabold uppercase">
+                Manual CRM Active
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Manage transport leads, truck sizes (14ft, 17ft, 19ft, 32ft), vendor rates, follow-ups, and generate quotation slips.
+            </p>
+          </div>
+        </div>
+
+        <Link
+          href="/admin/packers-enquiry"
+          className="flex items-center gap-2 rounded-xl bg-[#207de9] hover:bg-[#1570ef] px-4 py-2.5 text-xs font-bold text-white shadow-xs transition cursor-pointer shrink-0"
+        >
+          <span>Open Packers CRM</span>
+          <span>→</span>
+        </Link>
       </div>
 
       {/* =========================================================================
