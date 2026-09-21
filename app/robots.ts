@@ -7,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "*",
         allow: [
           "/",
+          "/services",
           "/locations",
           "/global-markets",
           "/blog",
@@ -28,6 +29,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
         allow: [
           "/",
+          "/services",
           "/locations",
           "/global-markets",
           "/blog",

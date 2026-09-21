@@ -1911,7 +1911,10 @@ export default function Home() {
             <a href="#home" className="flex items-center gap-3 sm:gap-3.5 shrink-0 group min-w-0">
               <img
                 src="/logo.png"
-                alt="Digital FX"
+                alt="Digital FX - Digital Marketing & SEO Agency in Ghaziabad"
+                width="1024"
+                height="1024"
+                decoding="async"
                 className="h-10 sm:h-12 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
               />
               <div className="shrink-0">
@@ -2024,7 +2027,7 @@ export default function Home() {
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-3">
-                    <img src="/logo.png" alt="Digital FX" className="h-10 w-auto object-contain shrink-0" />
+                    <img src="/logo.png" alt="Digital FX" width="1024" height="1024" decoding="async" className="h-10 w-auto object-contain shrink-0" />
                     <div>
                       <p className="text-lg font-black text-[#080d24] leading-tight">
                         DIGITAL <span className="text-[#207de9]">FX</span>
@@ -2161,7 +2164,7 @@ export default function Home() {
                     className="w-full group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-blue-50/60 transition text-left cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
-                      <img src="/logo.png" alt="Digital FX" className="h-8 w-auto object-contain shrink-0" />
+                      <img src="/logo.png" alt="Digital FX" width="1024" height="1024" decoding="async" className="h-8 w-auto object-contain shrink-0" />
                       <div>
                         <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition flex items-center gap-2">
                           <span>AI Business Suite</span>
@@ -6185,7 +6188,7 @@ export default function Home() {
               <div className="space-y-5">
                 {/* Brand Logo & Name - Proportional & Clean (40px/48px) */}
                 <div className="flex items-center gap-3 sm:gap-3.5">
-                  <img src="/logo.png" alt="Digital FX" className="h-10 sm:h-12 w-auto object-contain shrink-0" />
+                  <img src="/logo.png" alt="Digital FX - Best Digital Marketing Agency in Ghaziabad" width="1024" height="1024" loading="lazy" decoding="async" className="h-10 sm:h-12 w-auto object-contain shrink-0" />
                   <span className="text-xl sm:text-2xl font-extrabold text-[#080d24] tracking-tight">
                     DIGITAL <span className="text-[#207de9]">FX</span>
                   </span>
@@ -6328,7 +6331,7 @@ export default function Home() {
               {/* Top Institutional Header Bar - Big Bold Typography */}
               <div className="bg-[#080d24] text-white px-6 sm:px-8 py-5 border-b border-slate-800 flex items-center justify-between">
                 <div className="flex items-center gap-3.5">
-                  <img src="/logo.png" alt="Digital FX" className="h-10 w-auto object-contain shrink-0" />
+                  <img src="/logo.png" alt="Digital FX" width="1024" height="1024" decoding="async" className="h-10 w-auto object-contain shrink-0" />
                   <div>
                     <div className="flex flex-wrap items-center gap-2.5">
                       <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-white">

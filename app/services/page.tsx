@@ -647,7 +647,10 @@ export default function ServicesPage() {
           <Link href="/" className="flex items-center gap-3 sm:gap-3.5 shrink-0 group min-w-0">
             <img
               src="/logo.png"
-              alt="Digital FX"
+              alt="Digital FX Services Division"
+              width="1024"
+              height="1024"
+              decoding="async"
               className="h-10 sm:h-12 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
             />
             <div className="shrink-0">
@@ -1090,7 +1093,7 @@ export default function ServicesPage() {
             {/* Col 1: Brand */}
             <div>
               <div className="flex items-center gap-3 sm:gap-3.5">
-                <img src="/logo.png" alt="Digital FX" className="h-10 sm:h-12 w-auto object-contain shrink-0" />
+                <img src="/logo.png" alt="Digital FX" width="1024" height="1024" loading="lazy" decoding="async" className="h-10 sm:h-12 w-auto object-contain shrink-0" />
                 <div className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
                   DIGITAL <span className="text-[#207de9]">FX</span>
                 </div>

@@ -21,12 +21,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.digitalfx.in"),
 
   title: {
-    default: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR & Pan-India",
+    default: "Digital FX | Digital Marketing & SEO Agency in Ghaziabad",
     template: "%s | Digital FX",
   },
 
   description:
-    "Digital FX (4.9★) is Ghaziabad's top digital marketing agency. Dominating Google Maps 3-Pack, SEO, sub-second web design & high-ROI ads across India & USA.",
+    "Digital FX is the top digital marketing & SEO agency in Ghaziabad, Delhi NCR. Offering local SEO services, Google Ads PPC, social media & web development.",
 
   keywords: CORE_CUSTOMER_SEARCH_KEYWORDS,
 
