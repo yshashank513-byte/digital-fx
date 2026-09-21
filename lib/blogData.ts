@@ -4,7 +4,7 @@ export interface BlogPost {
   description: string;
   publishedAt: string;
   readingTime: string;
-  category: "Local SEO" | "Web Architecture" | "AI & GEO" | "Paid Growth" | "Agency Strategy";
+  category: "Local SEO" | "Web Architecture" | "AI & GEO" | "Paid Growth" | "Agency Strategy" | "E-Commerce & Q-Commerce" | "Programmatic & CTV";
   author: {
     name: string;
     role: string;
@@ -30,10 +30,647 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "first-party-data-marketing-effectiveness",
+    title: "The Impact of First-Party Data on Marketing Effectiveness in 2026",
+    description: "Learn how first-party data marketing helps brands improve personalization, understand customers, protect privacy, and achieve better marketing results.",
+    publishedAt: "March 21, 2026",
+    readingTime: "8 min read",
+    category: "Paid Growth",
+    author: {
+      name: "Digital FX Strategy Desk",
+      role: "Performance Marketing Lab",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Third-party cookies are obsolete; first-party data provides 45% higher conversion efficiency.",
+      "Direct customer consent and CRM data integration dramatically improve ad targeting precision.",
+      "First-party data shields your marketing budget from privacy policy changes and ad network price spikes.",
+    ],
+    tableOfContents: [
+      { id: "why-first-party-data-matters", title: "1. Why First-Party Data Dominates 2026" },
+      { id: "building-your-data-pipeline", title: "2. Building Your First-Party Data Pipeline" },
+      { id: "privacy-compliance-and-trust", title: "3. Privacy Compliance & Consumer Trust" },
+      { id: "roi-benchmarks", title: "4. Empirical ROI Benchmarks" },
+    ],
+    sections: [
+      {
+        id: "why-first-party-data-matters",
+        heading: "1. Why First-Party Data Dominates 2026",
+        body: [
+          "With major web browsers and operating systems enforcing strict privacy controls, relying on third-party tracking cookies is a recipe for wasted ad spend.",
+          "First-party data—information collected directly from your website visitors, mobile app users, and CRM contacts with explicit consent—is now the foundation of high-ROI marketing.",
+          "Brands using verified first-party data achieve 3x higher ad recall, lower Customer Acquisition Cost (CAC), and higher lifetime customer value.",
+        ],
+        callout: {
+          title: "Strategy Insight",
+          text: "Collect first-party data using high-value lead magnets, instant WhatsApp opt-in forms, and interactive quizzes rather than aggressive popup forms.",
+        },
+      },
+      {
+        id: "building-your-data-pipeline",
+        heading: "2. Building Your First-Party Data Pipeline",
+        body: [
+          "To build an effective data pipeline, integrate your Next.js web application directly with your CRM and Meta Conversions API (CAPI) / Google Ads Server-Side GTM.",
+          "This ensures that user actions like form submissions, purchases, and call requests are fed directly to your advertising algorithms without signal loss.",
+        ],
+      },
+      {
+        id: "privacy-compliance-and-trust",
+        heading: "3. Privacy Compliance & Consumer Trust",
+        body: [
+          "Transparency builds consumer trust. Always display clear privacy terms and offer simple opt-out controls.",
+        ],
+      },
+      {
+        id: "roi-benchmarks",
+        heading: "4. Empirical ROI Benchmarks",
+        body: [
+          "Here is how first-party targeting compares against generic third-party audience buying:",
+        ],
+        table: {
+          headers: ["Strategy", "Avg. Conversion Rate", "Cost Per Lead (CPL)", "Ad Retention"],
+          rows: [
+            ["Third-Party Cookie Buying", "1.4%", "₹950", "Low"],
+            ["First-Party CRM Match", "4.8%", "₹320", "High"],
+            ["WhatsApp Direct First-Party Funnel", "7.2%", "₹210", "Maximum"],
+          ],
+        },
+      },
+    ],
+  },
+  {
+    slug: "real-estate-website-not-getting-enquiries",
+    title: "Why Your Real Estate Website Isn't Getting Property Enquiries? (7 Real Reasons & Fixes)",
+    description: "Your real estate website gets traffic but no enquiries? Discover the 7 real reasons — from weak technical SEO to long forms and missing buyer-intent pages — and how to fix them.",
+    publishedAt: "March 20, 2026",
+    readingTime: "9 min read",
+    category: "Agency Strategy",
+    author: {
+      name: "Shashank Yadav",
+      role: "Head of Growth & Search Architecture",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Sluggish mobile load times cause 60%+ of homebuyers to abandon real estate sites before viewing property floor plans.",
+      "Multi-step 10-field contact forms destroy conversion rates; instant WhatsApp property inquiry buttons convert at 22%.",
+      "Lack of localized neighborhood landing pages (e.g., '3 BHK Apartments in Crossings Republik') leads to bounce rates over 75%.",
+    ],
+    tableOfContents: [
+      { id: "the-7-real-reasons", title: "1. The 7 Real Reasons Real Estate Sites Fail" },
+      { id: "whatsapp-vs-form-conversion", title: "2. Form Friction: Why Buyers Hate Long Forms" },
+      { id: "local-seo-neighborhood-pages", title: "3. Hyper-Local Neighborhood Landing Pages" },
+      { id: "actionable-fix-checklist", title: "4. The 7-Step Real Estate Conversion Fix" },
+    ],
+    sections: [
+      {
+        id: "the-7-real-reasons",
+        heading: "1. The 7 Real Reasons Real Estate Sites Fail",
+        body: [
+          "Real estate developers and brokers across Delhi NCR, Mumbai, and Bengaluru spend millions driving traffic to landing pages, only to be met with disappointing lead numbers.",
+          "Our audits reveal 7 recurring flaws: 1. Slow mobile page speed, 2. Missing floor plan downloads without forced registration, 3. Unclear project possession dates, 4. Generic stock photos instead of site progress videos, 5. Overwhelming contact forms, 6. Poor Google Maps directions, and 7. Missing Schema markup.",
+        ],
+        callout: {
+          title: "Real Estate Rule",
+          text: "Homebuyers in 2026 make decisions based on video walkthroughs, clear pricing breakdowns, and immediate WhatsApp response times.",
+        },
+      },
+      {
+        id: "whatsapp-vs-form-conversion",
+        heading: "2. Form Friction: Why Buyers Hate Long Forms",
+        body: [
+          "Forcing a prospective buyer to fill in name, email, phone, city, budget, and timeline just to see a price list guarantees high drop-offs.",
+          "Replacing multi-field forms with an instant 'Get Instant Price Sheet on WhatsApp' button increases lead volume by up to 280%.",
+        ],
+      },
+      {
+        id: "local-seo-neighborhood-pages",
+        heading: "3. Hyper-Local Neighborhood Landing Pages",
+        body: [
+          "Buyers don't search for 'property in UP'; they search for '3 BHK ready to move flats in Raj Nagar Extension' or 'commercial shops for sale in Orbit Plaza'.",
+          "Creating high-speed dynamic neighborhood pages targets high-intent buyers ready to schedule site visits.",
+        ],
+      },
+      {
+        id: "actionable-fix-checklist",
+        heading: "4. The 7-Step Real Estate Conversion Fix",
+        body: [
+          "Follow this checklist to transform your real estate site into a lead machine:",
+        ],
+        checklist: [
+          "Migrate to sub-second Next.js architecture to render floor plans instantly on mobile 5G.",
+          "Add 1-click WhatsApp buttons on every property listing.",
+          "Embed 360-degree virtual tour videos and genuine site progress photos.",
+          "Add Schema.org SingleFamilyResidence & RealEstateListing structured data.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "seo-vs-aeo-vs-geo-guide",
+    title: "SEO vs AEO vs GEO: The Total Guide for Ranking in Google and AI Search",
+    description: "Google alone no longer decides who gets found. Traffic now splits across traditional SEO, AI Overviews (AEO), and AI chat platforms like ChatGPT & Perplexity (GEO). Winning all three.",
+    publishedAt: "March 19, 2026",
+    readingTime: "10 min read",
+    category: "AI & GEO",
+    author: {
+      name: "Shashank Yadav",
+      role: "Head of Growth & Search Architecture",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Traditional SEO targets Google 10 blue links; AEO targets Google AI Overviews; GEO targets ChatGPT and Perplexity.",
+      "A unified search engineering strategy optimizes for all three channels with structured data and high factual density.",
+      "Brands cited in AI responses capture premium buyers who skip search ads entirely.",
+    ],
+    tableOfContents: [
+      { id: "the-search-triad", title: "1. The Search Triad: SEO, AEO, and GEO Explained" },
+      { id: "how-ai-overviews-select-data", title: "2. How Google AI Overviews (AEO) Work" },
+      { id: "winning-chatgpt-and-perplexity", title: "3. Winning ChatGPT & Perplexity (GEO)" },
+      { id: "unified-strategy-playbook", title: "4. The Unified Search Engineering Playbook" },
+    ],
+    sections: [
+      {
+        id: "the-search-triad",
+        heading: "1. The Search Triad: SEO, AEO, and GEO Explained",
+        body: [
+          "Search landscape in 2026 is no longer monolithic. Organic traffic is divided across three distinct search paradigms:",
+          "1. SEO (Search Engine Optimization): Traditional keyword ranking on Google and Bing SERP links.",
+          "2. AEO (Answer Engine Optimization): Ranking inside Google AI Overviews and featured answer snippets.",
+          "3. GEO (Generative Engine Optimization): Getting cited as a recommended brand inside conversational AI like ChatGPT, Perplexity, and Claude.",
+        ],
+      },
+      {
+        id: "how-ai-overviews-select-data",
+        heading: "2. How Google AI Overviews (AEO) Work",
+        body: [
+          "Google AI Overviews extract concise factual answers from top-ranking, high-speed pages that feature clear heading hierarchy and FAQ Schema.",
+        ],
+      },
+      {
+        id: "winning-chatgpt-and-perplexity",
+        heading: "3. Winning ChatGPT & Perplexity (GEO)",
+        body: [
+          "LLMs favor entity clarity and quantitative proof. Including concrete numbers, clear pricing tiers, and verified customer review data dramatically increases citation probability.",
+        ],
+      },
+      {
+        id: "unified-strategy-playbook",
+        heading: "4. The Unified Search Engineering Playbook",
+        body: [
+          "Instead of running 3 separate campaigns, deploy a single unified architecture:",
+        ],
+        table: {
+          headers: ["Pillar", "SEO Focus", "AEO Focus", "GEO Focus"],
+          rows: [
+            ["Content", "Long-form keyword articles", "Concise Q&A bullet points", "Factual entity data & tables"],
+            ["Technical", "Mobile Core Web Vitals", "Structured FAQ JSON-LD", "Clean markdown & open API metadata"],
+            ["Authority", "High-DA Backlinks", "Knowledge Graph triples", "Consensus media mentions"],
+          ],
+        },
+      },
+    ],
+  },
+  {
+    slug: "best-ctv-advertising-agency-india",
+    title: "Best CTV Advertising Agency India | Connected TV Ads - Digital FX",
+    description: "Discover how Digital FX helps brands cut CAC, boost ROAS, and reach premium OTT audiences across Disney+ Hotstar, JioCinema, SonyLIV, Netflix & Smart TVs.",
+    publishedAt: "March 18, 2026",
+    readingTime: "8 min read",
+    category: "Programmatic & CTV",
+    author: {
+      name: "Digital FX Strategy Desk",
+      role: "Performance Marketing Lab",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Connected TV ads reach top 20% household income decision-makers on Smart TVs and OTT apps.",
+      "Non-skippable 15s/30s HD video ads deliver over 88% verified video completion rates.",
+      "Cross-device retargeting bridges the gap between TV awareness and instant mobile website purchases.",
+    ],
+    tableOfContents: [
+      { id: "the-ctv-revolution-in-india", title: "1. The CTV Advertising Revolution in India" },
+      { id: "targeting-capabilities", title: "2. Surgical Household Targeting Capabilities" },
+      { id: "cross-device-retargeting", title: "3. Smart TV to Smartphone Retargeting" },
+      { id: "digital-fx-ctv-playbook", title: "4. Why Digital FX is India's Premier CTV Partner" },
+    ],
+    sections: [
+      {
+        id: "the-ctv-revolution-in-india",
+        heading: "1. The CTV Advertising Revolution in India",
+        body: [
+          "With over 45 million Smart TV households in India, Connected TV (CTV) advertising has superseded traditional linear television.",
+          "Unlike legacy TV ads with zero targeting or measurement, CTV allows brands to target high-income households by location, interest, and watching habits.",
+        ],
+      },
+      {
+        id: "targeting-capabilities",
+        heading: "2. Surgical Household Targeting Capabilities",
+        body: [
+          "Target specific postal codes, affluent residential societies, and premium OTT apps like Disney+ Hotstar, JioCinema, and SonyLIV.",
+        ],
+      },
+      {
+        id: "cross-device-retargeting",
+        heading: "3. Smart TV to Smartphone Retargeting",
+        body: [
+          "When a viewer watches your 30-second video ad on their Smart TV, Digital FX immediately retargets their mobile device on Meta and Google Ads, driving instant website visits.",
+        ],
+      },
+      {
+        id: "digital-fx-ctv-playbook",
+        heading: "4. Why Digital FX is India's Premier CTV Partner",
+        body: [
+          "We offer direct publisher inventory deals, real-time VCR analytics, and transparent campaign reporting.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "how-to-get-products-listed-on-blinkit-and-zepto",
+    title: "How to Get Your Products Listed on Blinkit and Zepto? (Quick Commerce Onboarding)",
+    description: "Struggling to get your products listed on Blinkit and Zepto? Learn about vendor registration, seller onboarding, document requirements, and quick commerce growth tips.",
+    publishedAt: "March 17, 2026",
+    readingTime: "9 min read",
+    category: "E-Commerce & Q-Commerce",
+    author: {
+      name: "Digital FX Strategy Desk",
+      role: "Q-Commerce & Marketplace Division",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Quick Commerce (10-minute delivery) is India's fastest-growing retail sales channel in 2026.",
+      "Proper FSSAI, GST, barcode compliance, and dark store inventory mapping speed up onboarding by 3x.",
+      "Sponsored product listings and hyper-local inventory replenishment are critical for maintaining rank on Blinkit & Zepto.",
+    ],
+    tableOfContents: [
+      { id: "the-qcommerce-explosion", title: "1. The Quick Commerce Opportunity in India" },
+      { id: "step-by-step-onboarding", title: "2. Step-by-Step Vendor Registration Guide" },
+      { id: "dark-store-inventory-strategy", title: "3. Dark Store & Inventory Replenishment Strategy" },
+      { id: "scaling-sales-on-blinkit-zepto", title: "4. How Digital FX Scales Quick Commerce Sales" },
+    ],
+    sections: [
+      {
+        id: "the-qcommerce-explosion",
+        heading: "1. The Quick Commerce Opportunity in India",
+        body: [
+          "Blinkit, Zepto, and Instamart have transformed consumer buying habits across metro and Tier-1 Indian cities.",
+          "Getting your FMCG, grocery, personal care, or lifestyle brand listed on Quick Commerce platforms opens direct access to millions of daily impulse buyers.",
+        ],
+      },
+      {
+        id: "step-by-step-onboarding",
+        heading: "2. Step-by-Step Vendor Registration Guide",
+        body: [
+          "Prepare your GST registration, FSSAI license (for food/supplements), EAN/UPC barcodes, trade mark certificates, and lab test reports before applying on partner portals.",
+        ],
+      },
+      {
+        id: "dark-store-inventory-strategy",
+        heading: "3. Dark Store & Inventory Replenishment Strategy",
+        body: [
+          "Out-of-stock items lose ranking instantly. Maintain inventory distribution across local dark store clusters.",
+        ],
+      },
+      {
+        id: "scaling-sales-on-blinkit-zepto",
+        heading: "4. How Digital FX Scales Quick Commerce Sales",
+        body: [
+          "We manage in-app banner placement, sponsored keyword bidding, and inventory forecasting to maximize sales.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "does-publishing-more-blogs-improve-google-rankings",
+    title: "Does Publishing More Blogs Improve Google Rankings? (Quality vs Frequency in 2026)",
+    description: "More blogs don't automatically mean higher rankings. Learn the real relationship between blog frequency, quality, and Google rankings — plus AI search (AEO/GEO) optimization.",
+    publishedAt: "March 16, 2026",
+    readingTime: "7 min read",
+    category: "Agency Strategy",
+    author: {
+      name: "Shashank Yadav",
+      role: "Head of Growth & Search Architecture",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Publishing 50 low-quality AI-generated posts hurts domain authority due to Google's Helpful Content System.",
+      "4 deeply researched, practitioner-grade articles per month outperform 30 generic articles.",
+      "Updating existing high-performing posts with fresh data yields faster traffic gains than publishing new pages.",
+    ],
+    tableOfContents: [
+      { id: "quality-vs-quantity-myth", title: "1. The Quality vs Quantity Myth" },
+      { id: "google-helpful-content-system", title: "2. Understanding Google's Helpful Content System" },
+      { id: "the-ideal-publishing-cadence", title: "3. The Ideal Publishing Cadence for Indian SMEs" },
+      { id: "content-pruning-and-updates", title: "4. Content Pruning & Refresh Strategy" },
+    ],
+    sections: [
+      {
+        id: "quality-vs-quantity-myth",
+        heading: "1. The Quality vs Quantity Myth",
+        body: [
+          "Many business owners believe that publishing daily blogs is guaranteed to increase search traffic. In 2026, this is false.",
+          "Google penalizes thin, repetitive, or unverified AI content created solely for keyword targeting.",
+        ],
+      },
+      {
+        id: "google-helpful-content-system",
+        heading: "2. Understanding Google's Helpful Content System",
+        body: [
+          "Google measures E-E-A-T (Experience, Expertise, Authoritativeness, and Trustworthiness). Content written from first-hand practitioner experience ranks significantly higher.",
+        ],
+      },
+      {
+        id: "the-ideal-publishing-cadence",
+        heading: "3. The Ideal Publishing Cadence for Indian SMEs",
+        body: [
+          "Focus on publishing 1 to 2 high-authority topic clusters per week with original research, data tables, and video embeds.",
+        ],
+      },
+      {
+        id: "content-pruning-and-updates",
+        heading: "4. Content Pruning & Refresh Strategy",
+        body: [
+          "Prune outdated low-traffic posts and merge overlapping articles into comprehensive master guides.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "how-to-rank-on-google-first-page-without-ads",
+    title: "How to Rank on Google's First Page Without Spending on Ads?",
+    description: "Discover proven organic SEO strategies to rank on Google's first page without spending on ads — covering technical SEO, on-page optimization, backlinks, and AI search readiness.",
+    publishedAt: "March 15, 2026",
+    readingTime: "10 min read",
+    category: "Local SEO",
+    author: {
+      name: "Shashank Yadav",
+      role: "Head of Growth & Search Architecture",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Technical Core Web Vitals speed (sub-second load) is the entry barrier for Page 1 Google rankings.",
+      "High-intent long-tail keywords have lower competition and 3x higher conversion rates.",
+      "Building high-DA Indian directory citations and niche editorial links drives sustainable organic traffic.",
+    ],
+    tableOfContents: [
+      { id: "the-organic-ranking-formula", title: "1. The Organic Page 1 Ranking Formula" },
+      { id: "technical-seo-foundation", title: "2. Technical SEO & Speed Foundation" },
+      { id: "keyword-intent-mapping", title: "3. Buyer Intent Keyword Mapping" },
+      { id: "link-building-and-citations", title: "4. Authority Citation & Link Building" },
+    ],
+    sections: [
+      {
+        id: "the-organic-ranking-formula",
+        heading: "1. The Organic Page 1 Ranking Formula",
+        body: [
+          "Ranking on Google's Page 1 organically requires a balanced approach combining technical performance, on-page relevance, and off-page domain authority.",
+        ],
+      },
+      {
+        id: "technical-seo-foundation",
+        heading: "2. Technical SEO & Speed Foundation",
+        body: [
+          "Ensure your website scores 95+ on Google PageSpeed Insights and passes all Core Web Vitals checks.",
+        ],
+      },
+      {
+        id: "keyword-intent-mapping",
+        heading: "3. Buyer Intent Keyword Mapping",
+        body: [
+          "Target transactional and commercial queries rather than generic informational terms.",
+        ],
+      },
+      {
+        id: "link-building-and-citations",
+        heading: "4. Authority Citation & Link Building",
+        body: [
+          "Acquire verified business listings and niche editorial mentions to boost domain authority.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "how-to-rank-business-on-google-maps",
+    title: "How to Rank Your Business on Google Maps? Complete Local SEO Guide",
+    description: "Struggling with Google Maps ranking? Here's a practical guide to Google Maps SEO, local visibility, and getting more walk-in customers.",
+    publishedAt: "March 14, 2026",
+    readingTime: "9 min read",
+    category: "Local SEO",
+    author: {
+      name: "Shashank Yadav",
+      role: "Head of Growth & Search Architecture",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Consistent NAP (Name, Address, Phone) data across all directories is essential for local ranking.",
+      "Review recency and geo-tagged photo uploads directly influence Google Maps 3-Pack placement.",
+      "Optimizing secondary business categories expands local search visibility across neighboring towns.",
+    ],
+    tableOfContents: [
+      { id: "google-maps-algorithm-overview", title: "1. How the Google Maps Algorithm Works" },
+      { id: "optimizing-gbp-profile", title: "2. Step-by-Step GBP Profile Optimization" },
+      { id: "review-velocity-playbook", title: "3. Automated Review Acceleration Playbook" },
+      { id: "local-citation-syndication", title: "4. Indian Directory Citation Syndication" },
+    ],
+    sections: [
+      {
+        id: "google-maps-algorithm-overview",
+        heading: "1. How the Google Maps Algorithm Works",
+        body: [
+          "Google Maps ranks local businesses based on three core factors: Proximity (how close you are to the searcher), Prominence (reviews and web authority), and Relevance (how well your profile matches the search query).",
+        ],
+      },
+      {
+        id: "optimizing-gbp-profile",
+        heading: "2. Step-by-Step GBP Profile Optimization",
+        body: [
+          "Verify your primary and secondary categories, add detailed service descriptions, and upload 15+ high-resolution photos.",
+        ],
+      },
+      {
+        id: "review-velocity-playbook",
+        heading: "3. Automated Review Acceleration Playbook",
+        body: [
+          "Use automated WhatsApp review request templates to request reviews from satisfied customers consistently.",
+        ],
+      },
+      {
+        id: "local-citation-syndication",
+        heading: "4. Indian Directory Citation Syndication",
+        body: [
+          "List your business with exact NAP consistency on Justdial, Sulekha, IndiaMART, and Google Maps.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "what-are-rich-media-ads-and-how-can-they-boost-engagement",
+    title: "What Are Rich Media Ads and How Can They Boost Engagement?",
+    description: "Rich media ads boost engagement with interactive videos, dynamic visuals, and gamified experiences. Learn how Digital FX creates campaigns that drive results.",
+    publishedAt: "March 12, 2026",
+    readingTime: "7 min read",
+    category: "Web Architecture",
+    author: {
+      name: "Digital FX Strategy Desk",
+      role: "Creative Tech Division",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Rich media ads deliver up to 300% higher engagement than standard static banner ads.",
+      "Interactive 3D models, gamified banners, and expandable canvas ads captivate user attention.",
+      "Lightweight HTML5 ad creative design prevents page load delays while maximizing CTR.",
+    ],
+    tableOfContents: [
+      { id: "what-is-rich-media", title: "1. What is Rich Media Advertising?" },
+      { id: "top-rich-media-formats", title: "2. Top 5 Rich Media Formats for 2026" },
+      { id: "engagement-benchmarks", title: "3. Engagement & CTR Benchmarks" },
+      { id: "how-digital-fx-builds-rich-media", title: "4. How Digital FX Engineers Rich Media Ads" },
+    ],
+    sections: [
+      {
+        id: "what-is-rich-media",
+        heading: "1. What is Rich Media Advertising?",
+        body: [
+          "Rich media ads include advanced features like video, audio, interactive 3D objects, or expandable elements that encourage viewers to interact with the ad creative.",
+        ],
+      },
+      {
+        id: "top-rich-media-formats",
+        heading: "2. Top 5 Rich Media Formats for 2026",
+        body: [
+          "Explore expandable banners, interactive product visualizers, gamified ad units, dynamic video overlays, and augmented reality try-ons.",
+        ],
+      },
+      {
+        id: "engagement-benchmarks",
+        heading: "3. Engagement & CTR Benchmarks",
+        body: [
+          "Rich media ads average a 3.2x higher click-through rate and 18 seconds of average dwell time compared to 2 seconds for static banners.",
+        ],
+      },
+      {
+        id: "how-digital-fx-builds-rich-media",
+        heading: "4. How Digital FX Engineers Rich Media Ads",
+        body: [
+          "We code IAB-compliant lightweight HTML5 ad formats that load instantaneously on mobile networks.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "programmatic-marketing-trends-to-watch-in-2025",
+    title: "Programmatic Marketing & Automated Media Buying Trends to Watch in 2026",
+    description: "Programmatic marketing is entering an era of innovation driven by advancements in AI, immersive ad formats, and connected platforms like OTT and mobile.",
+    publishedAt: "March 10, 2026",
+    readingTime: "8 min read",
+    category: "Programmatic & CTV",
+    author: {
+      name: "Digital FX Strategy Desk",
+      role: "Programmatic Buying Division",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Global programmatic ad spend is projected to surpass $780 billion by 2028.",
+      "AI-driven dynamic creative optimization (DCO) personalizes ad messaging in real time.",
+      "Supply Path Optimization (SPO) eliminates publisher middlemen and lowers effective CPMs by 25%.",
+    ],
+    tableOfContents: [
+      { id: "the-evolution-of-programmatic", title: "1. The Evolution of Programmatic Advertising" },
+      { id: "ai-and-dco-advancements", title: "2. AI & Dynamic Creative Optimization (DCO)" },
+      { id: "supply-path-optimization", title: "3. Supply Path Optimization (SPO)" },
+      { id: "future-of-automated-media", title: "4. The Future of Automated Media Buying" },
+    ],
+    sections: [
+      {
+        id: "the-evolution-of-programmatic",
+        heading: "1. The Evolution of Programmatic Advertising",
+        body: [
+          "Programmatic advertising uses automated technology and data algorithms to buy and sell digital ad space in real time.",
+        ],
+      },
+      {
+        id: "ai-and-dco-advancements",
+        heading: "2. AI & Dynamic Creative Optimization (DCO)",
+        body: [
+          "DCO tailors ad copy, images, and offers automatically based on viewer location, weather, and browsing behavior.",
+        ],
+      },
+      {
+        id: "supply-path-optimization",
+        heading: "3. Supply Path Optimization (SPO)",
+        body: [
+          "SPO ensures your ad dollars go directly to high-quality publishers rather than intermediary ad tech fees.",
+        ],
+      },
+      {
+        id: "future-of-automated-media",
+        heading: "4. The Future of Automated Media Buying",
+        body: [
+          "Digital FX leverages Demand-Side Platforms (DSPs) to deliver automated transparency and ROI.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "tips-to-optimize-website-for-mobile",
+    title: "10 Tested Tips to Optimize Your Business Website for Mobile",
+    description: "Discover 10 practical tips to optimize your website for mobile devices, reduce bounce rates, and enhance user experience across mobile search.",
+    publishedAt: "March 08, 2026",
+    readingTime: "8 min read",
+    category: "Web Architecture",
+    author: {
+      name: "Shashank Yadav",
+      role: "Head of Growth & Search Architecture",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Over 85% of organic traffic in India comes from mobile devices on 4G/5G mobile networks.",
+      "Compressing images into WebP/AVIF formats reduces mobile page payload by 70%.",
+      "Touch-friendly buttons, readable typography, and sub-second rendering prevent mobile bounce rates.",
+    ],
+    tableOfContents: [
+      { id: "why-mobile-optimization-matters", title: "1. Why Mobile Speed Dictates Conversions" },
+      { id: "10-mobile-optimization-tips", title: "2. The 10 Tested Mobile Optimization Tips" },
+      { id: "mobile-core-web-vitals", title: "3. Passing Mobile Core Web Vitals" },
+    ],
+    sections: [
+      {
+        id: "why-mobile-optimization-matters",
+        heading: "1. Why Mobile Speed Dictates Conversions",
+        body: [
+          "Google uses mobile-first indexing, meaning the mobile version of your website determines your search rankings.",
+        ],
+      },
+      {
+        id: "10-mobile-optimization-tips",
+        heading: "2. The 10 Tested Mobile Optimization Tips",
+        body: [
+          "1. Use responsive Next.js layout structures.",
+          "2. Convert all site images to modern WebP or AVIF formats.",
+          "3. Minify CSS, JavaScript, and HTML bundles.",
+          "4. Eliminate render-blocking fonts.",
+          "5. Implement tap targets with minimum 48px height.",
+          "6. Enable Cloudflare CDN caching.",
+          "7. Avoid annoying full-screen mobile popups.",
+          "8. Implement 1-click WhatsApp and call buttons.",
+          "9. Enable browser caching for static assets.",
+          "10. Continuously monitor performance via Google PageSpeed Insights.",
+        ],
+      },
+      {
+        id: "mobile-core-web-vitals",
+        heading: "3. Passing Mobile Core Web Vitals",
+        body: [
+          "Digital FX builds custom web solutions scoring 99/100 on mobile PageSpeed benchmarks.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "google-maps-3-pack-domination-2026",
     title: "Google Maps 3-Pack Domination in 2026: The Non-Negotiable Local SEO Blueprint for Indian Businesses",
     description: "An unfiltered practitioner breakdown of how Google ranks the top 3 businesses on Google Maps across Indian commercial hubs, and why 85% of agencies fail to maintain rank.",
-    publishedAt: "March 4, 2026",
+    publishedAt: "March 04, 2026",
     readingTime: "9 min read",
     category: "Local SEO",
     author: {
@@ -279,125 +916,6 @@ export const BLOG_POSTS: BlogPost[] = [
           "Add structured Schema.org JSON-LD linking your brand to specific service categories and geographic coordinates.",
           "Include quantitative case study figures (e.g. '+280% growth in 75 days') rather than subjective claims.",
           "Ensure your brand name and exact location are consistent across all web directory mentions.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "delhi-ncr-local-search-playbook",
-    title: "The Delhi NCR Local Search Playbook: How Small Brands Beat Multi-Million Funded Aggregators",
-    description: "How independent businesses across Ghaziabad, Noida, Gurgaon, and Delhi outrank Justdial, Sulekha, and Practo on high-intent local queries.",
-    publishedAt: "February 08, 2026",
-    readingTime: "8 min read",
-    category: "Agency Strategy",
-    author: {
-      name: "Shashank Yadav",
-      role: "Head of Growth & Search Architecture",
-      location: "Digital FX • Crossings Republik, Ghaziabad",
-    },
-    keyTakeaways: [
-      "Aggregator portals like Justdial and Sulekha cannot compete on hyper-local proximity and authentic customer photo uploads.",
-      "Targeting micro-markets (e.g. Crossings Republik, Sector 62, Indirapuram, DLF Phase 1) captures buyers with 4x higher purchase intent than generic city queries.",
-      "Direct 1-click WhatsApp booking on mobile converts at 18-24%, while aggregator forms suffer from 65% drop-offs.",
-    ],
-    tableOfContents: [
-      { id: "the-aggregator-illusion", title: "1. The Aggregator Illusion in Delhi NCR" },
-      { id: "hyper-local-micro-markets", title: "2. The Power of Micro-Market Domination" },
-      { id: "the-conversion-speed-advantage", title: "3. Conversion Velocity: Instant WhatsApp vs Lead Portals" },
-      { id: "real-world-ncr-case", title: "4. Real-World NCR Case Study" },
-    ],
-    sections: [
-      {
-        id: "the-aggregator-illusion",
-        heading: "1. The Aggregator Illusion in Delhi NCR",
-        body: [
-          "When business owners in Delhi NCR search for their services, they often get discouraged seeing Justdial, Sulekha, TradeIndia, or Practo holding top organic positions.",
-          "Here is the secret: Google does not want to show aggregator directories for high-intent local queries. Google wants to show real, verified businesses with physical addresses, authentic reviews, and transparent pricing.",
-          "On Google Maps and mobile 'near me' searches, aggregators cannot compete because they lack physical storefront locations. By optimizing your Google Business Profile and local landing pages, you automatically bypass these billion-rupee directories.",
-        ],
-      },
-      {
-        id: "hyper-local-micro-markets",
-        heading: "2. The Power of Micro-Market Domination",
-        body: [
-          "Delhi NCR is not a single city; it is a federation of dozens of high-density micro-economies. A customer in Indirapuram or Crossings Republik will rarely drive to West Delhi for a routine service.",
-          "Instead of burning budget trying to rank for 'digital marketing agency India', win your micro-radius first. Once you capture the #1 position in your 10-kilometer radius, your organic authority naturally expands outward to adjacent sectors and cities.",
-        ],
-      },
-      {
-        id: "the-conversion-speed-advantage",
-        heading: "3. Conversion Velocity: Instant WhatsApp vs Lead Portals",
-        body: [
-          "When a customer submits an inquiry on Justdial, their phone number is immediately sold to 5 different competing vendors who call simultaneously. Buyers hate this experience.",
-          "When a customer finds Digital FX or our clients, they click a single green button that opens a direct WhatsApp chat with the business owner or specialist in under 2 seconds. The lead is closed before the aggregators have even processed their SMS notification.",
-        ],
-      },
-      {
-        id: "real-world-ncr-case",
-        heading: "4. Real-World NCR Case Study",
-        body: [
-          "A manufacturing fabrication shop in Ghaziabad was spending ₹35,000/month buying shared portal leads. Over 70% were junk inquiries or students.",
-          "We redirected their investment into a custom Next.js landing page and localized Google Maps optimization. Within 90 days, they were receiving 22 direct inbound phone calls per month from genuine commercial builders across NCR—with zero platform fees.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "google-ads-vs-local-seo-roi-benchmarks",
-    title: "Google Ads PPC vs Organic Local SEO: The Honest ROI Benchmark for Indian Business Owners in 2026",
-    description: "A no-nonsense cost-per-lead and lifetime ROI comparison between paid advertising and organic search for SMEs in India.",
-    publishedAt: "January 28, 2026",
-    readingTime: "9 min read",
-    category: "Paid Growth",
-    author: {
-      name: "Shashank Yadav",
-      role: "Head of Growth & Search Architecture",
-      location: "Digital FX • Crossings Republik, Ghaziabad",
-    },
-    keyTakeaways: [
-      "Google Ads delivers qualified customer inquiries within 48 hours, making it ideal for immediate cash flow.",
-      "Local SEO compounds exponentially: by Month 6, cost-per-acquisition (CPA) on organic is typically 70% lower than paid ads.",
-      "The winning formula is a hybrid flywheel: launch Google Ads for instant validation while building organic Google Maps 3-Pack rankings.",
-    ],
-    tableOfContents: [
-      { id: "the-cost-per-lead-breakdown", title: "1. Real Indian Cost-Per-Lead (CPL) Breakdown" },
-      { id: "the-cash-flow-timeline", title: "2. The Cash Flow Timeline: Day 1 to Month 12" },
-      { id: "when-to-use-google-ads", title: "3. When to Spend on Google Ads" },
-      { id: "when-to-invest-in-local-seo", title: "4. When to Double Down on Local SEO" },
-      { id: "the-hybrid-flywheel-model", title: "5. The Hybrid Flywheel Strategy" },
-    ],
-    sections: [
-      {
-        id: "the-cost-per-lead-breakdown",
-        heading: "1. Real Indian Cost-Per-Lead (CPL) Breakdown",
-        body: [
-          "Business owners constantly ask us: 'Should I spend ₹20,000 on Google Ads or invest in SEO?'",
-          "The answer depends entirely on your unit economics and cash flow timeline. Below is an honest, benchmarked comparison across typical service industries in India:",
-        ],
-        table: {
-          headers: ["Industry", "Avg. Google Ads CPL", "Month 6 Organic CPL", "Break-Even Horizon"],
-          rows: [
-            ["Dental & Healthcare", "₹450 - ₹950", "₹120 - ₹220", "45 - 60 Days"],
-            ["B2B Manufacturing & Export", "₹1,200 - ₹2,800", "₹350 - ₹600", "60 - 90 Days"],
-            ["Home Interiors & Architecture", "₹850 - ₹1,800", "₹200 - ₹400", "60 Days"],
-            ["Corporate Legal & Accounting", "₹1,500 - ₹3,200", "₹400 - ₹750", "90 Days"],
-          ],
-        },
-      },
-      {
-        id: "the-cash-flow-timeline",
-        heading: "2. The Cash Flow Timeline: Day 1 to Month 12",
-        body: [
-          "With Google Ads, you turn the tap on and inquiries arrive within 24 to 48 hours. But the moment you stop paying Google, the tap shuts off instantly.",
-          "With Local SEO, the first 30 days are focused on infrastructure: cleaning citations, schema markup, and GBP optimization. By Month 3, rankings reach the top 5. By Month 6, you dominate the 3-Pack and receive high-ticket inquiries daily with zero ongoing ad spend.",
-        ],
-      },
-      {
-        id: "the-hybrid-flywheel-model",
-        heading: "5. The Hybrid Flywheel Strategy",
-        body: [
-          "At Digital FX, we recommend the Hybrid Flywheel: allocate 60% of marketing investment into Google Ads during the first 60 days to secure immediate paying clients and positive cash flow.",
-          "Simultaneously reinvest 40% into organic Google Maps 3-Pack and Next.js web speed optimization. As organic search climbs and begins delivering free qualified leads, gradually reduce reliance on paid ad auctions.",
         ],
       },
     ],

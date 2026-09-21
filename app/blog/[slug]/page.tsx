@@ -57,6 +57,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
+import BlogPoster from "@/components/BlogPoster";
+
 export default async function BlogPostPage({ params }: PageProps) {
   const resolvedParams = await params;
   const post = getBlogPost(resolvedParams.slug);
@@ -214,6 +216,14 @@ export default async function BlogPostPage({ params }: PageProps) {
       <article className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         {/* Metadata Header */}
         <header className="mb-10">
+          <BlogPoster
+            title={post.title}
+            category={post.category}
+            date={post.publishedAt}
+            readingTime={post.readingTime}
+            className="mb-8"
+          />
+
           <div className="flex items-center gap-3 mb-4 text-xs">
             <span className="px-3 py-1 rounded-full bg-blue-50 text-[#207de9] border border-blue-200 font-bold uppercase tracking-wider text-[11px]">
               {post.category}

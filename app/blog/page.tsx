@@ -1,30 +1,30 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { BLOG_POSTS } from "@/lib/blogData";
-
-export const metadata: Metadata = {
-  title: "Insights & Search Engineering Blueprints",
-  description:
-    "Battle-tested insights, real Indian market benchmarks, and architectural blueprints for Google Maps 3-Pack domination, Next.js web performance, Generative Engine Optimization (GEO), and high-ROI digital marketing.",
-  alternates: {
-    canonical: "https://www.digitalfx.in/blog",
-  },
-  openGraph: {
-    title: "Digital FX Insights & Search Engineering Blog",
-    description:
-      "Practitioner-grade playbooks for Google Maps SEO, Next.js speed, and Generative AI search optimization from Delhi NCR's #1 digital agency.",
-    url: "https://www.digitalfx.in/blog",
-    siteName: "Digital FX",
-    images: [{ url: "/logo.png", width: 1024, height: 1024, alt: "Digital FX Insights" }],
-  },
-};
+import BlogPoster from "@/components/BlogPoster";
 
 export default function BlogIndexPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const filteredPosts = BLOG_POSTS.filter((post) => {
+    const matchesCategory =
+      selectedCategory === "All" || post.category === selectedCategory;
+    const matchesSearch =
+      searchQuery.trim() === "" ||
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.slug.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
   const featuredPost = BLOG_POSTS[0];
-  const regularPosts = BLOG_POSTS.slice(1);
 
   return (
-    <main className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-[#207de9] selection:text-white">
+    <main className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased selection:bg-[#207de9] selection:text-white">
+      {/* Schema Breadcrumb */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -32,23 +32,14 @@ export default function BlogIndexPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Home",
-                item: "https://www.digitalfx.in",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Insights & Blueprints",
-                item: "https://www.digitalfx.in/blog",
-              },
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.digitalfx.in" },
+              { "@type": "ListItem", position: 2, name: "Insights & Blueprints", item: "https://www.digitalfx.in/blog" },
             ],
           }),
         }}
       />
-      {/* 1. TOP BAR */}
+
+      {/* 1. TOP INSTITUTIONAL BAR */}
       <div className="bg-[#080d24] text-white py-2 border-b border-white/10 text-xs">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-3 text-slate-300 text-[11.5px] font-medium">
@@ -58,7 +49,7 @@ export default function BlogIndexPage() {
             </span>
             <span className="hidden sm:inline text-slate-600">•</span>
             <span className="hidden sm:inline text-slate-300">
-              Digital FX Search Engineering &amp; Growth Insights
+              Digital FX Search Engineering &amp; Daily Growth Blueprints
             </span>
           </div>
 
@@ -79,7 +70,7 @@ export default function BlogIndexPage() {
         </div>
       </div>
 
-      {/* 2. MAIN HEADER */}
+      {/* 2. MAIN STICKY HEADER */}
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
         <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-3 sm:gap-4 group shrink-0">
@@ -94,204 +85,259 @@ export default function BlogIndexPage() {
             </div>
           </Link>
 
-          {/* Center Navigation Links */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-            <Link
-              href="/#services"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition"
-            >
+            <Link href="/" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition">
+              Home
+            </Link>
+            <Link href="/services" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition">
               Services
             </Link>
-            <Link
-              href="/#geo-checker"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition inline-flex items-center gap-1.5"
-            >
+            <Link href="/#geo-checker" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition flex items-center gap-1">
               <span>AI Search (GEO)</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9.5px] font-bold uppercase">
-                FREE
-              </span>
+              <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[9px] font-bold">FREE</span>
             </Link>
-            <Link
-              href="/locations"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition inline-flex items-center gap-1.5"
-            >
-              <span>350+ Cities</span>
-              <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9.5px] font-extrabold uppercase">
-                IN
-              </span>
+            <Link href="/locations" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition">
+              350+ Cities
             </Link>
-            <Link
-              href="/blog"
-              className="text-[14px] font-semibold text-[#207de9] transition"
-            >
+            <Link href="/blog" className="text-[14px] font-bold text-[#207de9] transition border-b-2 border-[#207de9] pb-0.5">
               Insights &amp; Blog
             </Link>
           </nav>
 
-          {/* Right Action */}
           <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="text-xs font-bold text-slate-600 hover:text-[#207de9] transition hidden sm:inline"
-            >
-              ← Back to Home
-            </Link>
             <a
-              href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20read%20your%20blog%20and%20want%20to%20consult."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-[42px] px-5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xs transition cursor-pointer"
+              href="tel:+918447583685"
+              className="hidden sm:inline-flex h-[42px] items-center gap-2 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] px-5 text-[13px] font-bold text-white shadow-sm transition"
             >
-              <span>Speak with Strategist</span>
+              <span>Call Strategy Lab</span>
               <span>→</span>
             </a>
           </div>
         </div>
       </header>
 
-      {/* 3. HERO SECTION (CLEAN WHITE) */}
-      <section className="py-16 sm:py-20 border-b border-slate-200 bg-gradient-to-b from-slate-50/80 via-white to-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-xs font-bold uppercase tracking-wider mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
-            <span>Practitioner Knowledge Base</span>
+      {/* 3. HERO & DAILY FEED BANNER */}
+      <section className="bg-gradient-to-b from-[#080d24] via-[#0b1333] to-[#080d24] text-white py-14 sm:py-20 relative overflow-hidden border-b border-slate-800">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-black uppercase tracking-widest mb-4">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              DAILY DIGITAL MARKETING STRATEGY FEED
+            </div>
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
+              Search Engineering &amp;{" "}
+              <span className="text-[#207de9] font-serif italic font-normal">Revenue Growth</span> Blueprints
+            </h1>
+            <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+              Practical, battle-tested strategies for Google Maps 3-Pack domination, Generative Engine Optimization (GEO for ChatGPT &amp; Perplexity), Next.js speed, CTV ads, and direct WhatsApp sales funnels.
+            </p>
+
+            {/* Search Input Bar */}
+            <div className="mt-8 max-w-xl relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search topics (e.g. Google Maps, CTV Ads, Conversion Fix, GEO, Blinkit)..."
+                className="w-full px-5 py-3.5 pl-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-[#207de9] transition shadow-lg"
+              />
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-base">🔍</span>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs font-bold"
+                >
+                  Clear ✕
+                </button>
+              )}
+            </div>
           </div>
-
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#080d24] mb-4 leading-tight">
-            Digital Growth &amp; Search Engineering{" "}
-            <span className="text-[#207de9]">Blueprints</span>
-          </h1>
-
-          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Zero fluff, zero generic regurgitation. Unfiltered, practitioner-tested playbooks on Google Maps 3-Pack domination, Next.js web speed, Generative AI Search (GEO), and paid advertising in India.
-          </p>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        {/* Featured Post Card (White with Blue Accent) */}
-        {featuredPost && (
+      {/* 4. CATEGORY TABS & FEATURED POST WITH POSTER */}
+      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Category Pill Filters */}
+        <div className="flex flex-wrap items-center gap-2 mb-10 pb-4 border-b border-slate-200">
+          {(["All", "Local SEO", "AI & GEO", "Paid Growth", "Programmatic & CTV", "E-Commerce & Q-Commerce", "Web Architecture", "Agency Strategy"] as const).map(
+            (cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 rounded-full text-xs font-bold transition cursor-pointer ${
+                  selectedCategory === cat
+                    ? "bg-[#207de9] text-white shadow-sm"
+                    : "bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"
+                }`}
+              >
+                {cat}
+              </button>
+            )
+          )}
+        </div>
+
+        {/* Featured Today's Strategy Poster */}
+        {selectedCategory === "All" && !searchQuery && featuredPost && (
           <div className="mb-14">
-            <div className="rounded-3xl border-2 border-blue-200 bg-white hover:border-[#207de9] hover:shadow-lg transition p-6 sm:p-10 relative overflow-hidden group shadow-xs">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="px-3 py-1 rounded-full bg-blue-50 text-[#207de9] border border-blue-200 text-[11px] font-bold uppercase tracking-wider">
-                  Featured Blueprint
-                </span>
-                <span className="text-xs text-slate-500 font-medium">{featuredPost.publishedAt}</span>
-                <span className="text-slate-300">•</span>
-                <span className="text-xs text-slate-500 font-medium">{featuredPost.readingTime}</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#080d24] group-hover:text-[#207de9] transition mb-4 leading-tight">
-                <Link href={`/blog/${featuredPost.slug}`}>
-                  {featuredPost.title}
-                </Link>
-              </h2>
-
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-6 max-w-3xl">
-                {featuredPost.description}
-              </p>
-
-              <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-slate-100">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-xs font-bold text-[#207de9]">
-                    SY
+            <div className="text-xs font-black uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>TODAY'S FEATURED STRATEGY BLUEPRINT</span>
+            </div>
+            <Link href={`/blog/${featuredPost.slug}`} className="block group">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center bg-white rounded-3xl border border-slate-200 p-4 sm:p-6 shadow-md hover:shadow-2xl transition duration-300">
+                <div className="lg:col-span-7">
+                  <BlogPoster
+                    title={featuredPost.title}
+                    category={featuredPost.category}
+                    date={featuredPost.publishedAt}
+                    readingTime={featuredPost.readingTime}
+                  />
+                </div>
+                <div className="lg:col-span-5 p-2 sm:p-4 space-y-4">
+                  <div className="inline-flex items-center gap-2 text-xs font-bold text-[#207de9]">
+                    <span>Author: {featuredPost.author.name}</span>
+                    <span>•</span>
+                    <span>{featuredPost.author.location}</span>
                   </div>
-                  <div>
-                    <p className="text-xs font-bold text-[#080d24]">{featuredPost.author.name}</p>
-                    <p className="text-[11px] text-slate-500">{featuredPost.author.role}</p>
+                  <h3 className="text-2xl font-black text-slate-900 group-hover:text-[#207de9] transition leading-snug">
+                    {featuredPost.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                    {featuredPost.description}
+                  </p>
+
+                  <div className="pt-2">
+                    <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#080d24] text-white text-xs font-bold group-hover:bg-[#207de9] transition shadow-md">
+                      <span>Read Full Practitioner Guide</span>
+                      <span>→</span>
+                    </span>
                   </div>
                 </div>
-
-                <Link
-                  href={`/blog/${featuredPost.slug}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white text-xs font-bold transition shadow-xs"
-                >
-                  <span>Read Full Blueprint</span>
-                  <span>→</span>
-                </Link>
               </div>
-            </div>
+            </Link>
           </div>
         )}
 
-        {/* Regular Articles Grid (White Cards) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {regularPosts.map((post) => (
-            <article
-              key={post.slug}
-              className="rounded-2xl border border-slate-200 bg-white hover:border-[#207de9] hover:shadow-md transition p-6 sm:p-8 flex flex-col justify-between group shadow-xs"
-            >
-              <div>
-                <div className="flex items-center gap-3 mb-3 text-xs text-slate-500">
-                  <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[10px] font-bold uppercase tracking-wider">
-                    {post.category}
-                  </span>
-                  <span>{post.publishedAt}</span>
-                  <span>•</span>
-                  <span>{post.readingTime}</span>
-                </div>
+        {/* 5. ALL BLOG POSTS GRID WITH DIGITAL FX POSTERS */}
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-extrabold text-slate-900">
+              {selectedCategory === "All" ? "Latest Digital Marketing Guides" : `${selectedCategory} Blueprints`}
+            </h2>
+            <span className="text-xs font-bold text-slate-500 bg-slate-200/70 px-2.5 py-1 rounded-full">
+              Showing {filteredPosts.length} Articles
+            </span>
+          </div>
 
-                <h3 className="text-xl font-bold text-[#080d24] group-hover:text-[#207de9] transition mb-3 leading-snug">
-                  <Link href={`/blog/${post.slug}`}>
-                    {post.title}
-                  </Link>
-                </h3>
-
-                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
-                  {post.description}
-                </p>
-
-                {/* Key Takeaway Snippet */}
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 mb-6 text-xs text-slate-700">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 block mb-1">
-                    Key Actionable Takeaway:
-                  </span>
-                  <p className="line-clamp-2">{post.keyTakeaways[0]}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between pt-4 border-t border-slate-100 text-xs">
-                <span className="text-slate-500 font-medium">{post.author.name}</span>
+          {filteredPosts.length === 0 ? (
+            <div className="py-16 text-center bg-white rounded-3xl border border-slate-200 p-8">
+              <div className="text-4xl mb-3">🔍</div>
+              <h3 className="text-lg font-bold text-slate-900">No articles matching your search</h3>
+              <p className="text-xs text-slate-500 mt-1">Try adjusting your category filter or search keywords.</p>
+              <button
+                onClick={() => {
+                  setSelectedCategory("All");
+                  setSearchQuery("");
+                }}
+                className="mt-4 px-4 py-2 bg-[#207de9] text-white font-bold text-xs rounded-xl"
+              >
+                Reset Filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredPosts.map((post) => (
                 <Link
+                  key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className="text-[#207de9] font-bold group-hover:translate-x-1 transition flex items-center gap-1"
+                  className="group flex flex-col bg-white rounded-3xl border border-slate-200/90 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
-                  <span>Read Article</span>
-                  <span>→</span>
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+                  {/* Dynamic Branded Poster Header */}
+                  <div className="p-3 bg-slate-900">
+                    <BlogPoster
+                      title={post.title}
+                      category={post.category}
+                      date={post.publishedAt}
+                      readingTime={post.readingTime}
+                      className="min-h-[200px] sm:min-h-[220px] p-4 text-xs"
+                    />
+                  </div>
 
-        {/* Bottom CTA Card (Clean Light Style) */}
-        <div className="rounded-3xl border border-blue-200 bg-gradient-to-r from-blue-50/70 via-white to-slate-50 p-8 sm:p-12 text-center max-w-4xl mx-auto shadow-xs">
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mb-3 tracking-tight">
-            Want Us to Execute These Blueprints For Your Business?
-          </h3>
-          <p className="text-slate-600 text-xs sm:text-sm mb-6 max-w-xl mx-auto leading-relaxed">
-            Run a complimentary AI Geo-Audit on your website or speak directly with our Senior Growth Strategist at Orbit Plaza, Crossings Republik, Ghaziabad.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              href="/#geo-checker"
-              className="px-5 py-2.5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs transition shadow-xs"
-            >
-              ⚡ Free AI Geo-Audit
-            </Link>
-            <a
-              href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20discuss%20a%20growth%20strategy."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition flex items-center gap-2 shadow-xs"
-            >
-              <span>Chat on WhatsApp (+91 84475 83685)</span>
-              <span>→</span>
-            </a>
+                  {/* Body Content */}
+                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                      <div className="flex items-center gap-2 text-[11px] font-bold text-slate-500 mb-2">
+                        <span className="text-[#207de9]">{post.category}</span>
+                        <span>•</span>
+                        <span>{post.publishedAt}</span>
+                      </div>
+                      <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-[#207de9] transition leading-snug line-clamp-2">
+                        {post.title}
+                      </h3>
+                      <p className="text-xs text-slate-600 mt-2 leading-relaxed line-clamp-3 font-normal">
+                        {post.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#207de9]">
+                      <span>Read Strategy Guide</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* 6. INSTITUTIONAL FOOTER */}
+      <footer className="bg-[#080d24] text-slate-300 pt-16 pb-12 border-t border-slate-800 mt-20">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
+            <div>
+              <div className="flex items-center gap-3">
+                <img src="/logo.png" alt="Digital FX" className="h-12 w-auto object-contain" />
+                <div className="text-xl font-extrabold text-white tracking-tight">
+                  DIGITAL <span className="text-[#207de9]">FX</span>
+                </div>
+              </div>
+              <p className="mt-4 text-xs text-slate-400 leading-relaxed">
+                Digital FX is a premier search engineering &amp; digital marketing agency headquartered at Orbit Plaza, Crossings Republik, Ghaziabad (Delhi NCR). Serving 350+ cities across India and international markets.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xs font-black uppercase tracking-wider text-white mb-4">Core Divisions</h3>
+              <ul className="space-y-2 text-xs font-medium text-slate-400">
+                <li><Link href="/services" className="hover:text-white transition">CTV &amp; Programmatic Ads</Link></li>
+                <li><Link href="/services" className="hover:text-white transition">Google Maps 3-Pack SEO</Link></li>
+                <li><Link href="/services" className="hover:text-white transition">Generative AI Search (GEO)</Link></li>
+                <li><Link href="/services" className="hover:text-white transition">Next.js Web Development</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xs font-black uppercase tracking-wider text-white mb-4">Navigation</h3>
+              <ul className="space-y-2 text-xs font-medium text-slate-400">
+                <li><Link href="/" className="hover:text-white transition">Home</Link></li>
+                <li><Link href="/services" className="hover:text-white transition">Services Hub</Link></li>
+                <li><Link href="/locations" className="hover:text-white transition">350+ Cities</Link></li>
+                <li><Link href="/blog" className="hover:text-white transition">Insights &amp; Blog</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xs font-black uppercase tracking-wider text-white mb-4">Headquarters</h3>
+              <div className="text-xs text-slate-400 space-y-2 font-medium">
+                <div>Shop No. 210, 2nd Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016</div>
+                <div>Phone: <a href="tel:+918447583685" className="text-blue-400 hover:underline">+91 84475 83685</a></div>
+              </div>
+            </div>
+          </div>
+          <div className="pt-8 text-center text-xs text-slate-500 font-medium">
+            © {new Date().getFullYear()} Digital FX. All rights reserved. Registered Digital Marketing Agency.
           </div>
         </div>
-      </div>
+      </footer>
     </main>
   );
 }
