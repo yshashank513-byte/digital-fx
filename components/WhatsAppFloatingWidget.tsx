@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const DEFAULT_OM_WHATSAPP_MSG = `Dear Sir/Madam,
 
@@ -18,10 +19,15 @@ You can also share item photos/videos for an accurate estimate.
 Thank you for choosing OM Packers & Movers.`;
 
 export default function WhatsAppFloatingWidget() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [customMsg, setCustomMsg] = useState("");
   const [hasInteracted, setHasInteracted] = useState(false);
   const [hasDismissed, setHasDismissed] = useState(false);
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   // Quick action templates for OM Packers & Movers
   const quickPrompts = [
