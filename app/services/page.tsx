@@ -648,10 +648,10 @@ export default function ServicesPage() {
             <img
               src="/logo.png"
               alt="Digital FX"
-              className="h-9 sm:h-11 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
+              className="h-10 sm:h-12 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
             />
             <div className="shrink-0">
-              <div className="text-[19px] sm:text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+              <div className="text-[20px] sm:text-[23px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
                 DIGITAL <span className="text-[#207de9]">FX</span>
               </div>
               <div className="mt-1 sm:mt-1.5 text-[7.5px] sm:text-[8.5px] font-bold uppercase tracking-[1.2px] sm:tracking-[1.8px] text-slate-500 whitespace-nowrap">
@@ -1090,7 +1090,7 @@ export default function ServicesPage() {
             {/* Col 1: Brand */}
             <div>
               <div className="flex items-center gap-3 sm:gap-3.5">
-                <img src="/logo.png" alt="Digital FX" className="h-11 sm:h-13 w-auto object-contain shrink-0" />
+                <img src="/logo.png" alt="Digital FX" className="h-10 sm:h-12 w-auto object-contain shrink-0" />
                 <div className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
                   DIGITAL <span className="text-[#207de9]">FX</span>
                 </div>

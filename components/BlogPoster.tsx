@@ -28,7 +28,7 @@ export default function BlogPoster({
       <div className="relative z-10 flex items-center justify-between gap-4">
         {/* Clean Logo without border/box */}
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="Digital FX" className="h-9 sm:h-11 w-auto object-contain" />
+          <img src="/logo.png" alt="Digital FX" className="h-10 sm:h-12 w-auto object-contain" />
           <div>
             <div className="text-lg sm:text-xl font-extrabold tracking-tight text-white leading-none">
               DIGITAL <span className="text-[#207de9]">FX</span>
