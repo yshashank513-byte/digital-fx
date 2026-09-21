@@ -125,7 +125,8 @@ export const TOP_COMMERCIAL_CITIES = [
   "lucknow", "kanpur", "indore", "bhopal", "chandigarh", "mohali", "kochi",
   "patna", "surat", "nagpur", "visakhapatnam", "bhubaneswar", "ludhiana",
   "dehradun", "vadodara", "coimbatore", "varanasi", "agra", "prayagraj",
-  "meerut", "amritsar", "nashik", "rajkot"
+  "meerut", "amritsar", "nashik", "rajkot", "cuttack", "alappuzha", "kottayam",
+  "rewari", "lajpat-nagar"
 ];
 
 export const GLOBAL_HUBS_SLUGS = [
@@ -536,6 +537,36 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
     primaryIndustries: ["Heavy Engineering & Machinery", "Auto Ancillaries & Parts", "Fabrication & Sheet Metal", "Consumer Appliances"],
     sampleCaseStudy: { clientType: "Industrial Ancillary Manufacturer in Faridabad", neighborhood: "Mathura Road Industrial Area", metrics: "+215% High-Value Orders", result: "B2B local search dominance and Google Ads campaign optimization." },
     coordinates: { lat: 28.4089, lng: 77.3178 },
+  },
+  cuttack: {
+    landmarks: ["Badambadi Bus Stand Market", "Malgodown Wholesale Trade Corridor", "Choudwar Industrial Area", "Buxi Bazaar", "Cantonment Road"],
+    primaryIndustries: ["Agro-Commodity & Spices Wholesale", "Healthcare & Specialty Medical Clinics", "Metals, Paper & Printing Manufacturing", "Higher Education & Legal Advisory"],
+    sampleCaseStudy: { clientType: "Agro-Commodity & Wholesale Group in Cuttack", neighborhood: "Malgodown & Badambadi", metrics: "+240% B2B Buyer Inquiries", result: "Engineered local SEO, Google Maps 3-Pack placement, and fast Next.js mobile catalog." },
+    coordinates: { lat: 20.4625, lng: 85.8828 },
+  },
+  alappuzha: {
+    landmarks: ["Kalarcode Commercial Hub", "Alleppey Beach Resort Corridor", "Finishing Point Jetty", "Vazhicherry Market", "Cherthala Industrial Belt"],
+    primaryIndustries: ["Coir & Matting Exports", "Houseboat Tourism & Eco-Resorts", "Seafood & Marine Exports", "Ayurvedic Healthcare & Wellness"],
+    sampleCaseStudy: { clientType: "Coir Goods Exporter & Eco-Resort in Alappuzha", neighborhood: "Finishing Point & Beach Road", metrics: "+225% Direct Tourist & Export Bookings", result: "Optimized multilingual local SEO, Google Business Profile, and high-conversion landing pages." },
+    coordinates: { lat: 9.4981, lng: 76.3388 },
+  },
+  kottayam: {
+    landmarks: ["Collectorate Junction", "Kanjikuzhy Commercial Area", "KK Road Trade Belt", "Ettumanoor Industrial Belt", "Chingavanam"],
+    primaryIndustries: ["Natural Rubber & Latex Processing", "Publishing & Print Media", "Tertiary Healthcare & Diagnostics", "Plantation Commodity Exports"],
+    sampleCaseStudy: { clientType: "Rubber Goods & Latex Processor in Kottayam", neighborhood: "Kanjikuzhy & KK Road", metrics: "+210% Pan-India B2B Orders", result: "Dominant organic search ranking and verified Google Knowledge Graph entity structure." },
+    coordinates: { lat: 9.5916, lng: 76.5222 },
+  },
+  rewari: {
+    landmarks: ["Bawal Industrial Growth Centre (GIDC)", "Dharuhera Industrial Corridor", "Brass Market Rewari", "Model Town Rewari", "Delhi-Jaipur Highway Belt"],
+    primaryIndustries: ["Automotive Components & OEM Suppliers (Bawal)", "Traditional Brassware & Metal Handicrafts", "Heavy Equipment & Warehousing Logistics", "Real Estate & Commercial Contracting"],
+    sampleCaseStudy: { clientType: "Auto Component OEM Supplier in Rewari & Bawal", neighborhood: "Bawal Industrial Area & Dharuhera", metrics: "+235% Corporate RFQ Opportunities", result: "Targeted B2B industrial SEO, sub-second landing page architecture, and Google Maps 3-Pack domination." },
+    coordinates: { lat: 28.1833, lng: 76.6167 },
+  },
+  "lajpat-nagar": {
+    landmarks: ["Central Market Lajpat Nagar", "Amar Colony Commercial Hub", "Ring Road Lajpat Nagar Metro Station Corridor", "Lajpat Nagar II & III"],
+    primaryIndustries: ["Ethnic Fashion & Bridal Apparel Boutiques", "Specialty Healthcare & Dental Centers", "Interior Decoration & Home Furnishings", "Food Retail & Dining Enterprises"],
+    sampleCaseStudy: { clientType: "Bridal Wear & Designer Fashion Boutique in Lajpat Nagar", neighborhood: "Central Market & Amar Colony", metrics: "+310% Walk-in Customer Inquiries", result: "Ranked #1 on Google Maps 3-Pack across South Delhi for 'bridal lehenga boutique Lajpat Nagar' with 4.9★ review syndication." },
+    coordinates: { lat: 28.5685, lng: 77.2433 },
   },
 
   // Global Commercial Hubs
