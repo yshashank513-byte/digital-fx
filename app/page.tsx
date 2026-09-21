@@ -1928,13 +1928,12 @@ export default function Home() {
 
             {/* Center Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center gap-6 xl:gap-8 mr-2">
-              <a
-                href="#services"
-                onClick={scrollToServices}
+              <Link
+                href="/services"
                 className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors cursor-pointer"
               >
                 Services
-              </a>
+              </Link>
               <a
                 href="#geo-checker"
                 onClick={scrollToGeoAudit}
