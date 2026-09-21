@@ -2,18 +2,33 @@
 
 import { useState, useEffect } from "react";
 
+const DEFAULT_OM_WHATSAPP_MSG = `Dear Sir/Madam,
+
+Greetings from OM Packers & Movers.
+
+Please share the following details to prepare your quotation:
+
+Pickup Address:
+Drop Address:
+Shifting Date:
+Household Item List:
+
+You can also share item photos/videos for an accurate estimate.
+
+Thank you for choosing OM Packers & Movers.`;
+
 export default function WhatsAppFloatingWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [customMsg, setCustomMsg] = useState("");
   const [hasInteracted, setHasInteracted] = useState(false);
   const [hasDismissed, setHasDismissed] = useState(false);
 
-  // Quick action templates grounded in real client inquiries
+  // Quick action templates for OM Packers & Movers
   const quickPrompts = [
-    "📍 Need Local SEO & Google Maps 3-Pack in my city",
-    "📈 Want high-ROI Google & Meta Ads campaigns",
-    "⚡ Quote for sub-second Next.js website development",
-    "📊 Request a Free Growth Audit & Strategy Proposal",
+    "🚛 Request Instant Quotation for Shifting",
+    "📍 Household Goods Shifting Estimate",
+    "🚗 Car / Bike Relocation Inquiry",
+    "📦 Packing & Unpacking Services Rate",
   ];
 
   // Auto-prompt subtly after 7 seconds if user hasn't dismissed
@@ -28,7 +43,7 @@ export default function WhatsAppFloatingWidget() {
 
   const handleSend = (textToSend?: string) => {
     const message = (textToSend || customMsg).trim();
-    const finalMsg = message || "Hi Digital FX, I want to discuss a digital marketing strategy for my business.";
+    const finalMsg = message || DEFAULT_OM_WHATSAPP_MSG;
     const url = `https://wa.me/918447583685?text=${encodeURIComponent(finalMsg)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     setIsOpen(false);
@@ -44,7 +59,7 @@ export default function WhatsAppFloatingWidget() {
           {!hasDismissed && (
             <div className="hidden md:flex items-center gap-2 absolute left-16 top-1/2 -translate-y-1/2 bg-white text-slate-800 text-xs font-semibold px-3.5 py-1.5 rounded-xl shadow-lg border border-slate-200 whitespace-nowrap animate-fadeIn pointer-events-none">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block" />
-              <span>Chat with Growth Desk (Online)</span>
+              <span>Chat with OM Packers (Online)</span>
             </div>
           )}
 
@@ -54,7 +69,7 @@ export default function WhatsAppFloatingWidget() {
               setIsOpen(true);
               setHasInteracted(true);
             }}
-            aria-label="Open WhatsApp Chat with Digital FX Strategist"
+            aria-label="Open WhatsApp Chat with OM Packers & Movers"
             className="relative flex items-center justify-center w-[56px] h-[56px] sm:w-[60px] sm:h-[60px] rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] hover:shadow-[0_12px_32px_rgba(37,211,102,0.5)] transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
           >
             {/* Pulsing Ripple Effect */}
@@ -81,12 +96,12 @@ export default function WhatsAppFloatingWidget() {
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center p-0.5 overflow-hidden">
-                  <img src="/logo.png" alt="Digital FX" className="w-full h-full object-contain" />
+                  <img src="/logo.png" alt="OM Packers & Movers" className="w-full h-full object-contain" />
                 </div>
                 <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#25D366] border-2 border-[#075E54]" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white leading-tight">Digital FX Growth Desk</h4>
+                <h4 className="text-sm font-bold text-white leading-tight">OM Packers &amp; Movers</h4>
                 <p className="text-[11px] text-emerald-200 font-medium mt-0.5">
                   Replies typically in &lt; 5 mins
                 </p>
@@ -109,14 +124,14 @@ export default function WhatsAppFloatingWidget() {
           {/* Chat Body */}
           <div className="p-4 bg-[#EFEAE2] space-y-3 max-h-[320px] overflow-y-auto">
             {/* Incoming Message Bubble */}
-            <div className="flex flex-col items-start max-w-[85%]">
+            <div className="flex flex-col items-start max-w-[90%]">
               <div className="bg-white text-slate-800 p-3 rounded-2xl rounded-tl-none shadow-xs text-xs leading-relaxed">
-                <p className="font-semibold text-[#075E54] mb-1">Shashank Yadav • Senior Strategist</p>
+                <p className="font-semibold text-[#075E54] mb-1">OM Packers &amp; Movers • Support Desk</p>
                 <p>
-                  Namaste! 👋 Welcome to <strong>Digital FX</strong>.
+                  Namaste! 👋 Welcome to <strong>OM Packers &amp; Movers</strong>.
                 </p>
                 <p className="mt-1">
-                  Looking to rank #1 on Google Maps in your city or scale qualified customer inquiries? Tap an option below or type your requirement:
+                  Please share your shifting details to get an instant quotation estimate:
                 </p>
                 <span className="block text-[9px] text-slate-400 text-right mt-1.5">
                   Just now ✓✓
@@ -133,7 +148,7 @@ export default function WhatsAppFloatingWidget() {
                 <button
                   key={idx}
                   type="button"
-                  onClick={() => handleSend(prompt)}
+                  onClick={() => handleSend(`${DEFAULT_OM_WHATSAPP_MSG}\n\n*Note:* Inquiry regarding ${prompt}`)}
                   className="w-full text-left p-2.5 rounded-xl bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-slate-700 hover:text-emerald-900 text-xs font-medium transition flex items-center justify-between group cursor-pointer shadow-2xs"
                 >
                   <span className="line-clamp-1">{prompt}</span>
@@ -152,7 +167,7 @@ export default function WhatsAppFloatingWidget() {
               value={customMsg}
               onChange={(e) => setCustomMsg(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              placeholder="Type your business requirement..."
+              placeholder="Type message or click send..."
               className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#25D366] focus:bg-white transition"
             />
             <button
@@ -171,3 +186,4 @@ export default function WhatsAppFloatingWidget() {
     </div>
   );
 }
+

@@ -98,7 +98,7 @@ export default function PackersEnquiryPage() {
 
   const printRef = useRef<HTMLDivElement>(null);
 
-  // 1. Initial Load from LocalStorage with Auto-Recovery of Pune Enquiry
+  // 1. Initial Load from LocalStorage with Auto-Recovery of Pune Enquiry & Clean Sequential IDs
   useEffect(() => {
     setIsClient(true);
     try {
@@ -120,10 +120,35 @@ export default function PackersEnquiryPage() {
 
       if (!hasPune) {
         list = [RESTORED_PUNE_ENQUIRY, ...list];
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
       }
 
-      setEnquiries(list);
+      // Fix duplicate or invalid IDs so numbers increment sequentially (1001, 1002, 1003...)
+      const seenIds = new Set<string>();
+      let maxNum = 1000;
+      list.forEach((item) => {
+        if (item.id) {
+          const m = item.id.match(/\d+/);
+          if (m) {
+            const num = parseInt(m[0], 10);
+            if (num > maxNum) maxNum = num;
+          }
+        }
+      });
+
+      const cleanedList = list.map((item) => {
+        if (!item.id || seenIds.has(item.id)) {
+          maxNum += 1;
+          const newId = `PK-${maxNum}`;
+          seenIds.add(newId);
+          return { ...item, id: newId };
+        } else {
+          seenIds.add(item.id);
+          return item;
+        }
+      });
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cleanedList));
+      setEnquiries(cleanedList);
     } catch (e) {
       console.error("Failed to load local enquiries:", e);
       setEnquiries([RESTORED_PUNE_ENQUIRY]);
@@ -143,14 +168,15 @@ export default function PackersEnquiryPage() {
     }
   };
 
-  // Helper to generate Next Enquiry ID
+  // Helper to generate Next Enquiry ID sequentially
   const generateEnquiryId = () => {
     const existingNums = enquiries
       .map((e) => {
-        const m = e.id.match(/\\d+/);
+        const m = e.id ? e.id.match(/\d+/) : null;
         return m ? parseInt(m[0], 10) : 0;
       })
-      .filter((n) => !isNaN(n));
+      .filter((n) => !isNaN(n) && n > 0);
+
     const max = existingNums.length > 0 ? Math.max(...existingNums) : 1000;
     return `PK-${max + 1}`;
   };

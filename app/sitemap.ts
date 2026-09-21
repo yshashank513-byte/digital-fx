@@ -4,49 +4,50 @@ import { CANONICAL_LOCATION_SLUGS } from "@/lib/citySeoData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.digitalfx.in";
-  const now = new Date();
+  // Use a fixed recent date so Googlebot sees fresh lastModified consistently
+  const sitemapDate = new Date("2026-09-20T18:00:00.000Z");
 
   // Core 200-OK Indexable Static Pages
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: now,
+      lastModified: sitemapDate,
       changeFrequency: "daily",
       priority: 1.0,
     },
     {
       url: `${baseUrl}/locations`,
-      lastModified: now,
+      lastModified: sitemapDate,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/global-markets`,
-      lastModified: now,
+      lastModified: sitemapDate,
       changeFrequency: "daily",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/blog`,
-      lastModified: now,
+      lastModified: sitemapDate,
       changeFrequency: "daily",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/privacy-policy`,
-      lastModified: now,
+      lastModified: sitemapDate,
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/terms-and-conditions`,
-      lastModified: now,
+      lastModified: sitemapDate,
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/refund-policy`,
-      lastModified: now,
+      lastModified: sitemapDate,
       changeFrequency: "monthly",
       priority: 0.5,
     },
@@ -55,19 +56,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Verified In-Depth Blog Articles
   const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: now,
+    lastModified: sitemapDate,
     changeFrequency: "monthly",
     priority: 0.8,
   }));
 
-  // Canonical Authority Hubs Only (All 28 States, 8 UTs, Top 36 Indian Metros, 10 Global Hubs)
-  // Secondary minor localities redirect permanently (308) to their parent state hubs and are excluded from sitemap.
+  // Canonical Authority Hubs Only (All 28 States, 8 UTs, Top 36 Indian Metros, 10 Global Hubs).
+  // All secondary/minor locality pages (308 redirects) are EXCLUDED from the sitemap.
+  // Google only sees 200-OK canonical pages here to prevent "Crawled - currently not indexed" confusion.
   const locationRoutes: MetadataRoute.Sitemap = CANONICAL_LOCATION_SLUGS.map((slug) => ({
     url: `${baseUrl}/locations/${slug}`,
-    lastModified: now,
+    lastModified: sitemapDate,
     changeFrequency: "weekly",
     priority: 0.85,
   }));
 
   return [...staticRoutes, ...blogRoutes, ...locationRoutes];
 }
+
