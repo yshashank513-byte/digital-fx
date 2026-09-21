@@ -1,41 +1,30 @@
 import { NextResponse } from "next/server";
+import { CANONICAL_LOCATION_SLUGS } from "@/lib/citySeoData";
+import { BLOG_POSTS } from "@/lib/blogData";
 
 const INDEXNOW_KEY = "dfx7e29b14c3894a0f684c9823eb512a";
 const HOST = "www.digitalfx.in";
 
 export async function GET() {
-  const urlList = [
-    "https://www.digitalfx.in",
-    "https://www.digitalfx.in/sitemap.xml",
-    "https://www.digitalfx.in/locations",
-    "https://www.digitalfx.in/blog",
-    "https://www.digitalfx.in/privacy-policy",
-    "https://www.digitalfx.in/terms-and-conditions",
-    "https://www.digitalfx.in/refund-policy",
-    // Core State Hubs
-    "https://www.digitalfx.in/locations/uttar-pradesh",
-    "https://www.digitalfx.in/locations/delhi",
-    "https://www.digitalfx.in/locations/maharashtra",
-    "https://www.digitalfx.in/locations/punjab",
-    "https://www.digitalfx.in/locations/haryana",
-    "https://www.digitalfx.in/locations/karnataka",
-    // Top Strategic City Hubs
-    "https://www.digitalfx.in/locations/ghaziabad",
-    "https://www.digitalfx.in/locations/noida",
-    "https://www.digitalfx.in/locations/mohali",
-    "https://www.digitalfx.in/locations/mumbai",
-    "https://www.digitalfx.in/locations/bengaluru",
-    "https://www.digitalfx.in/locations/gurugram",
-    "https://www.digitalfx.in/locations/lucknow",
-    // Top Blog Insights
-    "https://www.digitalfx.in/blog/google-maps-3-pack-domination-2026",
-    "https://www.digitalfx.in/blog/geo-generative-engine-optimization-guide",
-    "https://www.digitalfx.in/blog/zero-click-searches-ai-overviews-strategy",
+  const staticUrls = [
+    `https://${HOST}`,
+    `https://${HOST}/sitemap.xml`,
+    `https://${HOST}/locations`,
+    `https://${HOST}/global-markets`,
+    `https://${HOST}/blog`,
+    `https://${HOST}/privacy-policy`,
+    `https://${HOST}/terms-and-conditions`,
+    `https://${HOST}/refund-policy`,
   ];
+
+  const blogUrls = BLOG_POSTS.map((post) => `https://${HOST}/blog/${post.slug}`);
+  const locationUrls = CANONICAL_LOCATION_SLUGS.map((slug) => `https://${HOST}/locations/${slug}`);
+
+  const urlList = Array.from(new Set([...staticUrls, ...blogUrls, ...locationUrls]));
 
   const results: Record<string, any> = {};
 
-  // 1. Submit to IndexNow (Bing, Yahoo, Seznam, AI search bots)
+  // 1. Submit all canonical URLs to IndexNow (Bing, Yahoo, Seznam, AI search bots)
   try {
     const indexNowRes = await fetch("https://api.indexnow.org/indexnow", {
       method: "POST",
@@ -51,7 +40,7 @@ export async function GET() {
       status: indexNowRes.status,
       message:
         indexNowRes.status === 200 || indexNowRes.status === 202
-          ? "Successfully submitted to IndexNow (Bing/Yahoo/AI Crawlers)"
+          ? "Successfully submitted all canonical location & blog URLs to IndexNow"
           : `IndexNow returned status ${indexNowRes.status}`,
     };
   } catch (err: any) {
@@ -81,3 +70,4 @@ export async function GET() {
     results,
   });
 }
+

@@ -747,7 +747,49 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
     },
     coordinates: { lat: 18.1124, lng: 79.0193 },
   },
-
+  "arunachal-pradesh": {
+    landmarks: [
+      "Itanagar (Bank Tinali, Ganga Market & Secretariate Road)",
+      "Naharlagun (A-Sector Commercial Belt)",
+      "Pasighat (Main Market & Trade Center)",
+      "Tawang (Hospitality & Eco-Tourism Belt)",
+      "Ziro (Cultural Tourism Corridor)",
+    ],
+    primaryIndustries: [
+      "Eco-Tourism, Heritage Resorts & Adventure Hospitality",
+      "Hydroelectric Power, Infrastructure & Civil Construction",
+      "Organic Agri-Products & Horticulture Exports",
+      "Government Contracting, Healthcare & Digital Infrastructure",
+    ],
+    sampleCaseStudy: {
+      clientType: "Premier Hospitality & Regional Tourism Group in Arunachal Pradesh",
+      neighborhood: "Itanagar & Tawang Corridor",
+      metrics: "+260% Direct Inbound Tourist Bookings",
+      result: "Deployed high-speed Next.js web presence, optimized Google Maps local citations, and captured national search traffic for North-East travel.",
+    },
+    coordinates: { lat: 27.0844, lng: 93.6053 },
+  },
+  "dadra-nagar-haveli-and-daman-diu": {
+    landmarks: [
+      "Daman (Nani Daman Fort, Moti Daman & Somnath Industrial Estate)",
+      "Silvassa (Amli Industrial Estate & Piparia GIDC Belt)",
+      "Diu (Nagoa Beach Hospitality Corridor)",
+      "Khanvel (Resort & Eco-Tourism Belt)",
+    ],
+    primaryIndustries: [
+      "Plastics, Packaging & Polymer Manufacturing",
+      "Pharmaceuticals, Chemicals & Textile Manufacturing",
+      "Beach Tourism, Hospitality & Food Enterprises",
+      "Industrial Logistics & Export Packaging",
+    ],
+    sampleCaseStudy: {
+      clientType: "Industrial Packaging & Polymer Manufacturer in Daman & Silvassa",
+      neighborhood: "Somnath Industrial Estate, Daman",
+      metrics: "+215% High-Value B2B Supplier Enquiries",
+      result: "Executed targeted industrial SEO, Google Business Profile optimization, and fast mobile landing pages for pan-India B2B buyers.",
+    },
+    coordinates: { lat: 20.3974, lng: 72.8328 },
+  },
 
   // ================= CITIES =================
   mohali: {
