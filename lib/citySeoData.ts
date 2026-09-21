@@ -126,7 +126,7 @@ export const TOP_COMMERCIAL_CITIES = [
   "patna", "surat", "nagpur", "visakhapatnam", "bhubaneswar", "ludhiana",
   "dehradun", "vadodara", "coimbatore", "varanasi", "agra", "prayagraj",
   "meerut", "amritsar", "nashik", "rajkot", "cuttack", "alappuzha", "kottayam",
-  "rewari", "lajpat-nagar"
+  "rewari", "lajpat-nagar", "dharmanagar", "diglipur"
 ];
 
 export const GLOBAL_HUBS_SLUGS = [
@@ -567,6 +567,24 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
     primaryIndustries: ["Ethnic Fashion & Bridal Apparel Boutiques", "Specialty Healthcare & Dental Centers", "Interior Decoration & Home Furnishings", "Food Retail & Dining Enterprises"],
     sampleCaseStudy: { clientType: "Bridal Wear & Designer Fashion Boutique in Lajpat Nagar", neighborhood: "Central Market & Amar Colony", metrics: "+310% Walk-in Customer Inquiries", result: "Ranked #1 on Google Maps 3-Pack across South Delhi for 'bridal lehenga boutique Lajpat Nagar' with 4.9★ review syndication." },
     coordinates: { lat: 28.5685, lng: 77.2433 },
+  },
+  "andaman-nicobar-islands": {
+    landmarks: ["Port Blair (Aberdeen Bazaar, MG Road & Haddo)", "Cellular Jail Heritage Corridor", "Havelock Island (Radhanagar Beach Resort Belt)", "Neil Island & Diglipur"],
+    primaryIndustries: ["Eco-Tourism, Island Resorts & Water Sports", "Marine Logistics & Inter-Island Shipping", "Handicrafts & Pearl Jewelry Exports", "Fisheries & Agro-Commodities"],
+    sampleCaseStudy: { clientType: "Luxury Beach Resort & Marine Charter in Port Blair", neighborhood: "Havelock & Port Blair", metrics: "+275% Direct Island Bookings", result: "Optimized Google Business Profile, high-speed Next.js web application, and rich tourism Schema markup." },
+    coordinates: { lat: 11.6234, lng: 92.7265 },
+  },
+  dharmanagar: {
+    landmarks: ["Dharmanagar Main Market", "Naya Para Commercial Corridor", "Rajbari Trade Center", "ISBT Dharmanagar Belt"],
+    primaryIndustries: ["Timber & Bamboo Product Manufacturing", "Rubber & Tea Plantation Logistics", "Cross-Border Trade & Agriculture", "Retail & Local Commerce"],
+    sampleCaseStudy: { clientType: "Timber & Agro-Commodity Exporter in Dharmanagar", neighborhood: "Naya Para & Main Market", metrics: "+210% Pan-India Buyer Orders", result: "Targeted B2B local search dominance, Google Knowledge Graph integration, and fast mobile landing page." },
+    coordinates: { lat: 24.3767, lng: 92.1643 },
+  },
+  diglipur: {
+    landmarks: ["Aerial Bay Jetty", "Subhash Gram Commercial Market", "Kalipur Beach Corridor", "Ross & Smith Islands Gateway"],
+    primaryIndustries: ["Eco-Tourism & Island Homestays", "Fisheries & Marine Produce", "Spices & Coconut Processing", "Local Logistics & Retail"],
+    sampleCaseStudy: { clientType: "Eco-Tourism & Diving Operator in Diglipur", neighborhood: "Subhash Gram & Aerial Bay", metrics: "+230% Direct Tourist Reservations", result: "Engineered high-ranking Google Maps 3-Pack presence and fast Next.js mobile booking portal." },
+    coordinates: { lat: 13.2667, lng: 92.9833 },
   },
 
   // Global Commercial Hubs
