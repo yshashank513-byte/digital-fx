@@ -81,44 +81,41 @@ export default function PackersEnquiryPage() {
 
   const printRef = useRef<HTMLDivElement>(null);
 
+  // Helper to re-sequence ALL saved enquiries chronologically into clean #PK-1001, #PK-1002... order
+  const normalizeEnquirySerialNumbers = (list: PackersEnquiry[]): PackersEnquiry[] => {
+    if (!list || list.length === 0) return [];
+
+    // Sort chronologically ascending by creation date
+    const sorted = [...list].sort((a, b) => {
+      const tA = a.created_at ? new Date(a.created_at).getTime() : 0;
+      const tB = b.created_at ? new Date(b.created_at).getTime() : 0;
+      return tA - tB;
+    });
+
+    return sorted.map((item, idx) => ({
+      ...item,
+      id: `PK-${1001 + idx}`,
+    }));
+  };
+
   // 1. Initial Load from LocalStorage & Clean Sequential IDs
   useEffect(() => {
     setIsClient(true);
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
       let list: PackersEnquiry[] = [];
-      if (stored !== null) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          list = parsed;
-        }
+      const storedV2 = localStorage.getItem(STORAGE_KEY);
+      const storedV1 = localStorage.getItem("digitalfx_packers_enquiries");
+
+      if (storedV2 !== null) {
+        const parsed = JSON.parse(storedV2);
+        if (Array.isArray(parsed)) list = parsed;
+      } else if (storedV1 !== null) {
+        const parsed = JSON.parse(storedV1);
+        if (Array.isArray(parsed)) list = parsed;
       }
 
-      // Fix duplicate or invalid IDs so numbers increment sequentially (1001, 1002, 1003...)
-      const seenIds = new Set<string>();
-      let maxNum = 1000;
-      list.forEach((item) => {
-        if (item.id) {
-          const m = item.id.match(/\d+/);
-          if (m) {
-            const num = parseInt(m[0], 10);
-            if (num > maxNum) maxNum = num;
-          }
-        }
-      });
-
-      const cleanedList = list.map((item) => {
-        if (!item.id || seenIds.has(item.id)) {
-          maxNum += 1;
-          const newId = `PK-${maxNum}`;
-          seenIds.add(newId);
-          return { ...item, id: newId };
-        } else {
-          seenIds.add(item.id);
-          return item;
-        }
-      });
-
+      // Re-sequence all saved enquiries so serial numbers are 100% clean and sequential
+      const cleanedList = normalizeEnquirySerialNumbers(list);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(cleanedList));
       setEnquiries(cleanedList);
     } catch (e) {
@@ -129,9 +126,10 @@ export default function PackersEnquiryPage() {
 
   // 2. Save back to LocalStorage whenever enquiries change
   const saveToStorage = (updated: PackersEnquiry[]) => {
-    setEnquiries(updated);
+    const normalized = normalizeEnquirySerialNumbers(updated);
+    setEnquiries(normalized);
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
     } catch (e) {
       console.error("Storage error:", e);
     }
@@ -139,15 +137,7 @@ export default function PackersEnquiryPage() {
 
   // Helper to generate Next Enquiry ID sequentially
   const generateEnquiryId = () => {
-    const existingNums = enquiries
-      .map((e) => {
-        const m = e.id ? e.id.match(/\d+/) : null;
-        return m ? parseInt(m[0], 10) : 0;
-      })
-      .filter((n) => !isNaN(n) && n > 0);
-
-    const max = existingNums.length > 0 ? Math.max(...existingNums) : 1000;
-    return `PK-${max + 1}`;
+    return `PK-${1001 + enquiries.length}`;
   };
 
   // Reset Form
@@ -633,6 +623,15 @@ export default function PackersEnquiryPage() {
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
             <span>New Enquiry</span>
+          </button>
+
+          <button
+            onClick={() => saveToStorage(enquiries)}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 shadow-xs transition cursor-pointer"
+            title="Re-sequence all serial numbers chronologically (#PK-1001, #PK-1002...)"
+          >
+            <span className="text-sm font-bold">🔢</span>
+            <span>Fix Serial Numbers</span>
           </button>
 
           <button
