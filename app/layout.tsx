@@ -232,11 +232,74 @@ export default function RootLayout({
                 "@id": "https://www.digitalfx.in/#website",
                 url: "https://www.digitalfx.in",
                 name: "Digital FX",
+                alternateName: ["Digital FX Agency", "Digital FX Ghaziabad", "Digital FX Marketing"],
                 description:
                   "Best Digital Marketing & SEO Agency in Ghaziabad - Delhi NCR serving India & USA",
                 publisher: {
                   "@id": "https://www.digitalfx.in/#organization",
                 },
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: "https://www.digitalfx.in/locations?q={search_term_string}",
+                  },
+                  "query-input": "required name=search_term_string",
+                },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SiteNavigationElement",
+                "@id": "https://www.digitalfx.in/#sitelink-services",
+                name: "Digital Marketing Services",
+                url: "https://www.digitalfx.in/#services",
+                description:
+                  "Full-funnel local SEO, Google Maps 3-Pack domination, sub-second web design, and high-ROI ad campaigns across India and USA.",
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SiteNavigationElement",
+                "@id": "https://www.digitalfx.in/#sitelink-locations",
+                name: "Local SEO & 350+ Cities Directory",
+                url: "https://www.digitalfx.in/locations",
+                description:
+                  "Explore Digital FX local SEO coverage across all 28 Indian States, 8 UTs, and major commercial hubs.",
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SiteNavigationElement",
+                "@id": "https://www.digitalfx.in/#sitelink-global",
+                name: "Global Search Engineering (Dubai & US)",
+                url: "https://www.digitalfx.in/global-markets",
+                description:
+                  "Enterprise SEO and digital growth strategy for UAE (Dubai, Abu Dhabi), USA, UK, and international exporters.",
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SiteNavigationElement",
+                "@id": "https://www.digitalfx.in/#sitelink-blog",
+                name: "SEO & AI Search Insights Blog",
+                url: "https://www.digitalfx.in/blog",
+                description:
+                  "Proven guides on Google Maps 3-Pack domination, Next.js web performance, and Generative Engine Optimization (GEO).",
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SiteNavigationElement",
+                "@id": "https://www.digitalfx.in/#sitelink-audit",
+                name: "Free Growth Audit & Strategy Proposal",
+                url: "https://www.digitalfx.in/#geo-checker",
+                description:
+                  "Run an instant 60-second AI & SEO audit of your business website and Google Maps entity.",
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SiteNavigationElement",
+                "@id": "https://www.digitalfx.in/#sitelink-contact",
+                name: "Contact & Strategy Desk",
+                url: "https://www.digitalfx.in/#contact",
+                description:
+                  "Book a direct consultation with Shashank Yadav and Digital FX senior growth strategists.",
               },
             ]),
           }}
