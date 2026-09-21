@@ -78,12 +78,10 @@ export default function LocationsDirectoryPage() {
       {/* 2. MAIN HEADER */}
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
         <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
-            <div className="flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center overflow-hidden rounded-2xl bg-white border border-slate-200/90 shadow-xs p-0.5 group-hover:scale-105 transition-transform">
-              <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
-            </div>
+          <Link href="/" className="flex items-center gap-3 sm:gap-4 group shrink-0">
+            <img src="/logo.png" alt="Digital FX" className="h-12 sm:h-15 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
             <div>
-              <div className="text-[20px] sm:text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+              <div className="text-[20px] sm:text-[24px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
                 DIGITAL <span className="text-[#207de9]">FX</span>
               </div>
               <div className="mt-1 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.6px] text-slate-500">

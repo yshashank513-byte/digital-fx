@@ -1907,20 +1907,18 @@ export default function Home() {
         <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
           <div className="mx-auto flex h-[74px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
 
-            {/* Brand Logo - Enlarged Container & Bold Typography */}
-            <a href="#home" className="flex items-center gap-2.5 sm:gap-3.5 shrink-0 group min-w-0">
-              <div className="flex h-11 w-11 sm:h-14 sm:w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl sm:rounded-2xl bg-white border border-slate-200/90 shadow-xs transition-transform group-hover:scale-105 p-0.5">
-                <img
-                  src="/logo.png"
-                  alt="Digital FX"
-                  className="h-full w-full object-contain"
-                />
-              </div>
+            {/* Brand Logo - Clean, Large & Borderless */}
+            <a href="#home" className="flex items-center gap-3 sm:gap-4 shrink-0 group min-w-0">
+              <img
+                src="/logo.png"
+                alt="Digital FX"
+                className="h-12 sm:h-15 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
+              />
               <div className="shrink-0">
-                <div className="text-[19px] sm:text-[23px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+                <div className="text-[20px] sm:text-[24px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
                   DIGITAL <span className="text-[#207de9]">FX</span>
                 </div>
-                <div className="mt-1 sm:mt-1.5 text-[7.5px] sm:text-[8.5px] font-bold uppercase tracking-[1.2px] sm:tracking-[1.8px] text-slate-500 whitespace-nowrap">
+                <div className="mt-1 sm:mt-1.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-[1.2px] sm:tracking-[1.8px] text-slate-500 whitespace-nowrap">
                   Digital Marketing That Drives Revenue®
                 </div>
               </div>
@@ -2026,9 +2024,7 @@ export default function Home() {
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/90 shadow-xs flex items-center justify-center overflow-hidden p-0.5 shrink-0">
-                      <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
-                    </div>
+                    <img src="/logo.png" alt="Digital FX" className="h-12 w-auto object-contain shrink-0" />
                     <div>
                       <p className="text-lg font-black text-[#080d24] leading-tight">
                         DIGITAL <span className="text-[#207de9]">FX</span>
@@ -2165,9 +2161,7 @@ export default function Home() {
                     className="w-full group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-blue-50/60 transition text-left cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white border border-slate-200/90 shadow-xs p-0.5 shrink-0">
-                        <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
-                      </div>
+                      <img src="/logo.png" alt="Digital FX" className="h-9 w-auto object-contain shrink-0" />
                       <div>
                         <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition flex items-center gap-2">
                           <span>AI Business Suite</span>
@@ -6189,12 +6183,10 @@ export default function Home() {
               
               {/* Column 1: Brand Logo, Description & Certified Trust Badges */}
               <div className="space-y-5">
-                {/* Brand Logo & Name */}
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#080d24] flex items-center justify-center overflow-hidden p-1 shadow-xs">
-                    <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
-                  </div>
-                  <span className="text-xl font-extrabold text-[#080d24] tracking-tight">
+                {/* Brand Logo & Name - Large & Borderless */}
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <img src="/logo.png" alt="Digital FX" className="h-16 sm:h-20 w-auto object-contain shrink-0" />
+                  <span className="text-2xl sm:text-3xl font-extrabold text-[#080d24] tracking-tight">
                     DIGITAL <span className="text-[#207de9]">FX</span>
                   </span>
                 </div>
@@ -6336,9 +6328,7 @@ export default function Home() {
               {/* Top Institutional Header Bar - Big Bold Typography */}
               <div className="bg-[#080d24] text-white px-6 sm:px-8 py-5 border-b border-slate-800 flex items-center justify-between">
                 <div className="flex items-center gap-3.5">
-                  <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white p-1 shadow-md border border-white/20 shrink-0">
-                    <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
-                  </div>
+                  <img src="/logo.png" alt="Digital FX" className="h-12 w-auto object-contain shrink-0" />
                   <div>
                     <div className="flex flex-wrap items-center gap-2.5">
                       <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-white">
