@@ -309,8 +309,46 @@ body {
 ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .logo-track {
+  .logo-track, .reviews-marquee-track {
     animation: none;
     transform: none;
   }
+}
+
+/* =========================================
+   GOOGLE REVIEWS CAROUSEL & MARQUEE TRACK
+========================================= */
+.reviews-scroll-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 8px 4px 16px;
+}
+
+.reviews-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes reviewsInfiniteScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(-50% - 10px), 0, 0);
+  }
+}
+
+.reviews-marquee-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: reviewsInfiniteScroll 55s linear infinite;
+  will-change: transform;
+}
+
+.reviews-marquee-track:hover {
+  animation-play-state: paused;
 }

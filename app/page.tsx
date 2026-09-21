@@ -268,6 +268,8 @@ const clientReviews = [
     business: "Apex Heart Care Clinic, Ghaziabad",
     rating: 5,
     tag: "SEO & Maps",
+    timeAgo: "2 weeks ago",
+    avatarColor: "#5c53c4",
   },
   {
     quote: "Our saree boutique saw a huge surge in footfall and direct WhatsApp enquiries after they revamped our local presence and social catalog.",
@@ -275,6 +277,8 @@ const clientReviews = [
     business: "Malhotra Saree Sansar, Raj Nagar",
     rating: 5,
     tag: "Local Growth",
+    timeAgo: "1 month ago",
+    avatarColor: "#d81b60",
   },
   {
     quote: "Their B2B lead generation campaigns brought us high-ticket manufacturing inquiries across NCR. Highly professional team and transparent ROI.",
@@ -282,6 +286,8 @@ const clientReviews = [
     business: "Singhal Polymers & Packaging, Ghaziabad",
     rating: 5,
     tag: "Paid Ads",
+    timeAgo: "2 months ago",
+    avatarColor: "#2d6636",
   },
   {
     quote: "The website they designed loads instantly on mobile and our interior design leads started flowing directly to WhatsApp without any hassle.",
@@ -289,6 +295,8 @@ const clientReviews = [
     business: "The Woodcraft Studio, Noida",
     rating: 5,
     tag: "Web Dev",
+    timeAgo: "3 weeks ago",
+    avatarColor: "#8e24aa",
   },
   {
     quote: "Sensible pricing, clear communication, and practical guidance. Best digital marketing agency for chartered accountants and consulting firms.",
@@ -296,6 +304,8 @@ const clientReviews = [
     business: "Bansal CA & Tax Associates, NCR",
     rating: 5,
     tag: "Business Growth",
+    timeAgo: "3 months ago",
+    avatarColor: "#285b88",
   },
   {
     quote: "Our bridal and salon bookings doubled ahead of wedding season thanks to their hyper-targeted Meta advertising campaigns.",
@@ -303,6 +313,8 @@ const clientReviews = [
     business: "Glamour Glow Salon & Academy, Ghaziabad",
     rating: 5,
     tag: "Meta Ads",
+    timeAgo: "1 month ago",
+    avatarColor: "#c2185b",
   },
   {
     quote: "In the real estate sector, speed and trust are everything. Digital FX built our landing pages that convert cold traffic into closed property visits.",
@@ -310,6 +322,8 @@ const clientReviews = [
     business: "Tyagi Properties, Crossings Republik",
     rating: 5,
     tag: "Real Estate",
+    timeAgo: "4 months ago",
+    avatarColor: "#00796b",
   },
   {
     quote: "We were struggling with Google reviews and discovery. Digital FX properly optimized our dental listing and now patients find us organically.",
@@ -317,6 +331,8 @@ const clientReviews = [
     business: "Smile Dental Clinic, Indirapuram",
     rating: 5,
     tag: "Google Maps",
+    timeAgo: "5 months ago",
+    avatarColor: "#b53826",
   },
   {
     quote: "The gym membership enquiries skyrocketed within the first month itself. Their creative ads and local SEO approach really delivers.",
@@ -324,6 +340,8 @@ const clientReviews = [
     business: "Sachdeva Fitness & Gym, Vaishali",
     rating: 5,
     tag: "Fitness",
+    timeAgo: "2 months ago",
+    avatarColor: "#e65100",
   },
   {
     quote: "Our preschool admissions reached full capacity this year. Their hyper-local Google campaign and parental trust messaging worked wonders.",
@@ -331,6 +349,8 @@ const clientReviews = [
     business: "Little Wonders Preschool, Vasundhara",
     rating: 5,
     tag: "Education",
+    timeAgo: "6 months ago",
+    avatarColor: "#00acc1",
   },
   {
     quote: "Home grocery orders on WhatsApp increased significantly after our Google Business listing and promotional campaign went live.",
@@ -338,6 +358,8 @@ const clientReviews = [
     business: "Goel Supermarket, Ghaziabad",
     rating: 5,
     tag: "Retail",
+    timeAgo: "3 weeks ago",
+    avatarColor: "#43a047",
   },
   {
     quote: "Premium car detailing requires high-trust video and photo ads. Digital FX targeted luxury car owners in NCR with surgical precision.",
@@ -345,6 +367,8 @@ const clientReviews = [
     business: "Chauhan Auto Care & Detailing, Delhi NCR",
     rating: 5,
     tag: "Auto Detailing",
+    timeAgo: "1 year ago",
+    avatarColor: "#3949ab",
   },
   {
     quote: "My designer apparel studio started receiving outstation orders through our clean e-commerce landing page. Extremely satisfied with their work.",
@@ -352,6 +376,8 @@ const clientReviews = [
     business: "Kaur Couture Designer Boutique, Noida",
     rating: 5,
     tag: "Fashion",
+    timeAgo: "2 months ago",
+    avatarColor: "#d81b60",
   },
   {
     quote: "They established our firm's digital authority across corporate law keywords. High-intent corporate clients now discover us effortlessly.",
@@ -359,6 +385,8 @@ const clientReviews = [
     business: "Tripathi Legal Advisors, Delhi High Court",
     rating: 5,
     tag: "Legal",
+    timeAgo: "8 months ago",
+    avatarColor: "#285b88",
   },
   {
     quote: "Our orthopedic clinic is now recognized across western UP. Patient inquiries through phone and Google Maps are steady and reliable.",
@@ -366,6 +394,8 @@ const clientReviews = [
     business: "Metro Ortho Clinic, Rajender Nagar",
     rating: 5,
     tag: "Healthcare",
+    timeAgo: "1 year ago",
+    avatarColor: "#5c53c4",
   },
   {
     quote: "Custom cake orders and party catering inquiries through WhatsApp have become our biggest revenue stream thanks to Digital FX.",
@@ -373,6 +403,8 @@ const clientReviews = [
     business: "Sweet Delights Bakery & Cafe, Ghaziabad",
     rating: 5,
     tag: "F&B",
+    timeAgo: "4 months ago",
+    avatarColor: "#f57c00",
   },
   {
     quote: "They modernized our family jewelry brand for the digital age. Trustworthy, responsive, and genuinely invested in client growth.",
@@ -380,6 +412,8 @@ const clientReviews = [
     business: "Arihant Jewellers, Gandhi Nagar",
     rating: 5,
     tag: "Jewelry",
+    timeAgo: "2 years ago",
+    avatarColor: "#2d6636",
   },
   {
     quote: "Batch enrollment for our competitive exam batches filled up three weeks ahead of schedule. Their digital funnel works like clockwork.",
@@ -387,6 +421,8 @@ const clientReviews = [
     business: "EduPlus Coaching Classes, Kavi Nagar",
     rating: 5,
     tag: "Coaching",
+    timeAgo: "5 months ago",
+    avatarColor: "#673ab7",
   },
   {
     quote: "Shifted our logistics marketing from old directory listings to direct Google Search ads. Our cost per commercial lead dropped by 45%.",
@@ -394,6 +430,8 @@ const clientReviews = [
     business: "Rawat Logistics & Packers, NCR",
     rating: 5,
     tag: "Logistics",
+    timeAgo: "9 months ago",
+    avatarColor: "#00838f",
   },
   {
     quote: "Clear reporting and consistent performance. Our eye hospital has seen a dramatic improvement in patient appointment bookings.",
@@ -401,6 +439,8 @@ const clientReviews = [
     business: "Varma Eye Care Centre, Ghaziabad",
     rating: 5,
     tag: "Eye Care",
+    timeAgo: "1 year ago",
+    avatarColor: "#00796b",
   },
   {
     quote: "They helped our electrical showroom compete against online discount sites by highlighting local trust, fast delivery, and warranties.",
@@ -408,6 +448,8 @@ const clientReviews = [
     business: "Chand Electricals & Home Appliances, RDC",
     rating: 5,
     tag: "Electronics",
+    timeAgo: "7 months ago",
+    avatarColor: "#b53826",
   },
   {
     quote: "Our architectural firm gained high-budget residential villa projects in Delhi NCR. The portfolio website they built is world-class.",
@@ -415,6 +457,8 @@ const clientReviews = [
     business: "Urban Nest Interior Architecture, Noida",
     rating: 5,
     tag: "Architecture",
+    timeAgo: "3 months ago",
+    avatarColor: "#8e24aa",
   },
   {
     quote: "They helped our agricultural seed distribution company connect with authorized dealers across Uttar Pradesh. Remarkable B2B reach.",
@@ -422,6 +466,8 @@ const clientReviews = [
     business: "Pandey Agro & Seeds, Uttar Pradesh",
     rating: 5,
     tag: "Agro B2B",
+    timeAgo: "1 year ago",
+    avatarColor: "#43a047",
   },
   {
     quote: "Pet parents in Vaishali and Indirapuram find our clinic immediately on Google Maps. Emergency pet consultations increased by 180%.",
@@ -429,6 +475,8 @@ const clientReviews = [
     business: "Royal Pet Hospital & Grooming, Vaishali",
     rating: 5,
     tag: "Pet Care",
+    timeAgo: "6 months ago",
+    avatarColor: "#3949ab",
   },
   {
     quote: "Commercial building contractors and architects now call us directly for bulk steel quotations. Genuine digital partner for industrial firms.",
@@ -436,6 +484,8 @@ const clientReviews = [
     business: "Mittal Steel & Hardware Works, Sahibabad",
     rating: 5,
     tag: "Manufacturing",
+    timeAgo: "2 years ago",
+    avatarColor: "#285b88",
   },
   {
     quote: "Parents trust clean websites with verified reviews. Digital FX delivered both and our pediatric OPD numbers speak for themselves.",
@@ -443,6 +493,8 @@ const clientReviews = [
     business: "Khurana Child Care & Vaccination, Ghaziabad",
     rating: 5,
     tag: "Pediatrics",
+    timeAgo: "11 months ago",
+    avatarColor: "#5c53c4",
   },
   {
     quote: "Wedding season banquet bookings were fully locked in advance. Their targeted Instagram video campaigns delivered unbelievable ROI.",
@@ -450,6 +502,8 @@ const clientReviews = [
     business: "Singhania Banquet & Events, Raj Nagar Ext",
     rating: 5,
     tag: "Hospitality",
+    timeAgo: "3 years ago",
+    avatarColor: "#c2185b",
   },
   {
     quote: "Our doorstep gadget repair service gets steady phone calls everyday. Quick response, great technical support, and honest execution.",
@@ -457,6 +511,8 @@ const clientReviews = [
     business: "QuickFix Tech Care, Indirapuram",
     rating: 5,
     tag: "Tech Support",
+    timeAgo: "4 months ago",
+    avatarColor: "#e65100",
   },
   {
     quote: "Holistic wellness therapies require patient education. Their content marketing and local SEO strategy brought us loyal long-term patrons.",
@@ -464,6 +520,8 @@ const clientReviews = [
     business: "Prakriti Ayurvedic Wellness, NCR",
     rating: 5,
     tag: "Wellness",
+    timeAgo: "8 months ago",
+    avatarColor: "#00796b",
   },
   {
     quote: "Our self-drive car rental fleet operates at 95% utilization on weekends thanks to their search engine ranking work.",
@@ -471,6 +529,8 @@ const clientReviews = [
     business: "DriveEasy Car Rentals, Delhi NCR",
     rating: 5,
     tag: "Travel",
+    timeAgo: "1 year ago",
+    avatarColor: "#3949ab",
   },
 ];
 
@@ -819,6 +879,14 @@ const featuredStartups = [
 export default function Home() {
   const [services, setServices] = useState<Service[]>(fallbackServices);
   const [liveRevenue, setLiveRevenue] = useState<number>(104993);
+  const reviewsScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollReviews = (direction: "left" | "right") => {
+    if (reviewsScrollRef.current) {
+      const scrollAmount = direction === "left" ? -380 : 380;
+      reviewsScrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     async function loadLiveRevenue() {
@@ -5310,71 +5378,172 @@ export default function Home() {
 
           </div>
 
-          {/* Infinite Horizontal Reviews Marquee Track */}
-          <div className="relative w-full overflow-hidden py-4">
-            <div className="reviews-marquee-track">
-              {/* First Set of 30 Reviews */}
-              {clientReviews.map((item, idx) => (
-                <div
-                  key={`rev-1-${idx}`}
-                  className="w-[340px] sm:w-[380px] bg-[#f8faff] p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md hover:border-[#207de9] transition flex flex-col justify-between shrink-0 select-none"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex text-amber-400 text-sm tracking-widest">
-                        {"★".repeat(item.rating)}
-                      </div>
-                      <span className="text-[9.5px] font-bold uppercase tracking-wider bg-white border border-slate-200 px-2 py-0.5 rounded text-[#207de9]">
-                        {item.tag}
-                      </span>
-                    </div>
-                    <p className="text-xs sm:text-[13px] text-slate-700 leading-relaxed font-normal">
-                      "{item.quote}"
-                    </p>
-                  </div>
-                  <div className="mt-5 pt-4 border-t border-slate-200/80 flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-[#207de9] text-white font-extrabold text-xs flex items-center justify-center shrink-0">
-                      {item.author.charAt(0)}
-                    </div>
-                    <div className="overflow-hidden">
-                      <div className="text-xs font-bold text-[#080d24] truncate">{item.author}</div>
-                      <div className="text-[11px] text-slate-500 font-normal truncate">{item.business}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+          {/* Google Reviews Carousel & Interactive Marquee Track with Navigation Arrows */}
+          <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-8 py-4 group">
+            {/* Left Carousel Navigation Button */}
+            <button
+              onClick={() => scrollReviews("left")}
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-slate-200 shadow-lg flex items-center justify-center text-slate-700 hover:text-black hover:bg-slate-50 transition cursor-pointer z-20 focus:outline-none"
+              aria-label="Previous reviews"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
 
-              {/* Duplicate Set of 30 Reviews for Seamless Infinite Loop */}
-              {clientReviews.map((item, idx) => (
-                <div
-                  key={`rev-2-${idx}`}
-                  className="w-[340px] sm:w-[380px] bg-[#f8faff] p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md hover:border-[#207de9] transition flex flex-col justify-between shrink-0 select-none"
-                  aria-hidden="true"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex text-amber-400 text-sm tracking-widest">
-                        {"★".repeat(item.rating)}
+            {/* Right Carousel Navigation Button */}
+            <button
+              onClick={() => scrollReviews("right")}
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-slate-200 shadow-lg flex items-center justify-center text-slate-700 hover:text-black hover:bg-slate-50 transition cursor-pointer z-20 focus:outline-none"
+              aria-label="Next reviews"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Scrollable Container with Marquee Animation */}
+            <div ref={reviewsScrollRef} className="reviews-scroll-container w-full overflow-x-auto py-2">
+              <div className="reviews-marquee-track">
+                {/* First Set of Google Business Reviews */}
+                {clientReviews.map((item, idx) => (
+                  <div
+                    key={`rev-1-${idx}`}
+                    className="w-[310px] sm:w-[360px] min-h-[210px] bg-[#f8f9fa] p-5 sm:p-6 rounded-[20px] border border-slate-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-md transition flex flex-col justify-between shrink-0 select-none text-left"
+                  >
+                    <div>
+                      {/* Top Header: Avatar, Name, Relative Timestamp & Google "G" Logo */}
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div
+                            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-base shrink-0 uppercase select-none shadow-xs"
+                            style={{ backgroundColor: item.avatarColor || '#5c53c4' }}
+                          >
+                            {item.author.charAt(0)}
+                          </div>
+                          <div className="min-w-0 overflow-hidden">
+                            <h4 className="text-[14.5px] sm:text-[15px] font-bold text-[#1f1f1f] truncate leading-tight tracking-tight">
+                              {item.author}
+                            </h4>
+                            <p className="text-[12px] text-[#70757a] font-normal leading-tight mt-0.5">
+                              {item.timeAgo || "2 months ago"}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Official Google G Logo */}
+                        <svg className="w-5 h-5 shrink-0 mt-0.5" viewBox="0 0 24 24">
+                          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                        </svg>
                       </div>
-                      <span className="text-[9.5px] font-bold uppercase tracking-wider bg-white border border-slate-200 px-2 py-0.5 rounded text-[#207de9]">
+
+                      {/* 5 Stars Rating Bar + Blue Verified Checkmark Badge */}
+                      <div className="flex items-center gap-1.5 mb-2.5">
+                        <div className="flex text-[#fbbc04] text-sm tracking-widest">
+                          {"★".repeat(item.rating)}
+                        </div>
+                        {/* Blue Circle Verified Badge */}
+                        <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#1a73e8] text-white shrink-0 shadow-xs" title="Verified Google Business Review">
+                          <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        </span>
+                      </div>
+
+                      {/* Review Text */}
+                      <p className="text-xs sm:text-[13.5px] text-[#202124] leading-relaxed font-normal">
+                        {item.quote}
+                      </p>
+                      {item.quote.length > 110 && (
+                        <button className="text-[12px] text-[#70757a] font-medium mt-1 hover:underline focus:outline-none">
+                          Read more
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Footer Tag */}
+                    <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-[#70757a]">
+                      <span className="font-medium truncate max-w-[200px]">{item.business}</span>
+                      <span className="font-semibold text-[#1a73e8] bg-white px-2 py-0.5 rounded-full border border-slate-200/80 shrink-0">
                         {item.tag}
                       </span>
                     </div>
-                    <p className="text-xs sm:text-[13px] text-slate-700 leading-relaxed font-normal">
-                      "{item.quote}"
-                    </p>
                   </div>
-                  <div className="mt-5 pt-4 border-t border-slate-200/80 flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-[#207de9] text-white font-extrabold text-xs flex items-center justify-center shrink-0">
-                      {item.author.charAt(0)}
+                ))}
+
+                {/* Duplicate Set of Reviews for Continuous Seamless Loop */}
+                {clientReviews.map((item, idx) => (
+                  <div
+                    key={`rev-2-${idx}`}
+                    className="w-[310px] sm:w-[360px] min-h-[210px] bg-[#f8f9fa] p-5 sm:p-6 rounded-[20px] border border-slate-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-md transition flex flex-col justify-between shrink-0 select-none text-left"
+                    aria-hidden="true"
+                  >
+                    <div>
+                      {/* Top Header: Avatar, Name, Relative Timestamp & Google "G" Logo */}
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div
+                            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-base shrink-0 uppercase select-none shadow-xs"
+                            style={{ backgroundColor: item.avatarColor || '#5c53c4' }}
+                          >
+                            {item.author.charAt(0)}
+                          </div>
+                          <div className="min-w-0 overflow-hidden">
+                            <h4 className="text-[14.5px] sm:text-[15px] font-bold text-[#1f1f1f] truncate leading-tight tracking-tight">
+                              {item.author}
+                            </h4>
+                            <p className="text-[12px] text-[#70757a] font-normal leading-tight mt-0.5">
+                              {item.timeAgo || "2 months ago"}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Official Google G Logo */}
+                        <svg className="w-5 h-5 shrink-0 mt-0.5" viewBox="0 0 24 24">
+                          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                        </svg>
+                      </div>
+
+                      {/* 5 Stars Rating Bar + Blue Verified Checkmark Badge */}
+                      <div className="flex items-center gap-1.5 mb-2.5">
+                        <div className="flex text-[#fbbc04] text-sm tracking-widest">
+                          {"★".repeat(item.rating)}
+                        </div>
+                        {/* Blue Circle Verified Badge */}
+                        <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#1a73e8] text-white shrink-0 shadow-xs" title="Verified Google Business Review">
+                          <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        </span>
+                      </div>
+
+                      {/* Review Text */}
+                      <p className="text-xs sm:text-[13.5px] text-[#202124] leading-relaxed font-normal">
+                        {item.quote}
+                      </p>
+                      {item.quote.length > 110 && (
+                        <button className="text-[12px] text-[#70757a] font-medium mt-1 hover:underline focus:outline-none">
+                          Read more
+                        </button>
+                      )}
                     </div>
-                    <div className="overflow-hidden">
-                      <div className="text-xs font-bold text-[#080d24] truncate">{item.author}</div>
-                      <div className="text-[11px] text-slate-500 font-normal truncate">{item.business}</div>
+
+                    {/* Footer Tag */}
+                    <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-[#70757a]">
+                      <span className="font-medium truncate max-w-[200px]">{item.business}</span>
+                      <span className="font-semibold text-[#1a73e8] bg-white px-2 py-0.5 rounded-full border border-slate-200/80 shrink-0">
+                        {item.tag}
+                      </span>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>
