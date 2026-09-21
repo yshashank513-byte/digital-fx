@@ -352,3 +352,34 @@ body {
 .reviews-marquee-track:hover {
   animation-play-state: paused;
 }
+
+/* =========================================
+   CIRCULAR WORKFLOW LIGHT FLOW ANIMATION
+========================================= */
+@keyframes dashOrbitFlow {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-dash-flow {
+  animation: dashOrbitFlow 20s linear infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.4));
+  }
+  50% {
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 16px rgba(59, 130, 246, 0.7));
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}

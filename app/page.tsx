@@ -5574,127 +5574,121 @@ export default function Home() {
               </p>
             </div>
 
-            {/* 3 Research Cards Grid */}
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {/* Animated Circular Workflow Diagram matching Image 1 */}
+            <div className="mt-10 relative w-full max-w-[950px] mx-auto min-h-[520px] sm:min-h-[620px] flex items-center justify-center p-4 sm:p-8 bg-gradient-to-b from-blue-50/40 via-white to-slate-50/80 rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden select-none">
               
-              {/* Card 1: Google AI Overviews */}
-              <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
-                <div>
-                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 shadow-xs">
-                    <img
-                      src="/research-ai-overviews.jpg"
-                      alt="Google AI Overviews Search Study"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
-                      2.3M Query Analysis
-                    </div>
+              {/* World Map Silhouette Background */}
+              <div className="absolute inset-0 opacity-15 pointer-events-none flex items-center justify-center">
+                <svg className="w-full h-full text-slate-400" fill="currentColor" viewBox="0 0 1000 500">
+                  <path d="M150 120c10-20 40-10 60 10s40 50 20 70-50 10-70-10-20-50-10-70zm200 80c30-30 80-10 90 20s-20 60-50 60-60-40-40-80zm300-40c20-20 60 0 70 30s-30 50-60 40-30-50-10-70z" />
+                </svg>
+              </div>
+
+              {/* SVG Dotted Orbit Path with Continuous Moving Glowing Beam Light */}
+              <svg className="absolute w-[340px] h-[340px] sm:w-[500px] sm:h-[500px] pointer-events-none" viewBox="0 0 500 500">
+                {/* Dotted Orbit Path */}
+                <circle
+                  cx="250"
+                  cy="250"
+                  r="200"
+                  fill="none"
+                  stroke="#64748b"
+                  strokeWidth="2.5"
+                  strokeDasharray="8 8"
+                  className="opacity-50"
+                />
+                {/* Flowing Light Beam */}
+                <circle
+                  cx="250"
+                  cy="250"
+                  r="200"
+                  fill="none"
+                  stroke="url(#orbitGradientFlow)"
+                  strokeWidth="4"
+                  strokeDasharray="140 450"
+                  className="animate-dash-flow"
+                  strokeLinecap="round"
+                />
+                <defs>
+                  <linearGradient id="orbitGradientFlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#207de9" stopOpacity="0.2" />
+                    <stop offset="50%" stopColor="#207de9" stopOpacity="1" />
+                    <stop offset="100%" stopColor="#00f2fe" stopOpacity="1" />
+                  </linearGradient>
+                </defs>
+              </svg>
+
+              {/* Node 1: Top-Left - Blue Analytics Bar Chart Card */}
+              <div className="absolute top-[2%] left-[4%] sm:left-[8%] w-[160px] sm:w-[220px] bg-[#427df7] p-3.5 sm:p-5 rounded-[24px] shadow-2xl text-white border border-blue-400 hover:scale-105 transition-all duration-300 z-10">
+                <div className="w-full h-24 sm:h-32 bg-[#336ee3] rounded-xl p-2.5 flex flex-col justify-end border border-white/20 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:10px_10px]" />
+                  <div className="relative flex items-end justify-between gap-1.5 h-full pt-4 px-1">
+                    <div className="w-1/4 bg-white/95 rounded-t-sm h-[90%] animate-pulse" />
+                    <div className="w-1/4 bg-white/95 rounded-t-sm h-[75%]" />
+                    <div className="w-1/4 bg-white/95 rounded-t-sm h-[48%]" />
+                    <div className="w-1/4 bg-white/95 rounded-t-sm h-[28%]" />
                   </div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-[#1570ef] bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full">
-                      AI Search Study
-                    </span>
-                    <span className="text-[11px] font-mono font-semibold text-slate-400">2.3M Data Points</span>
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-extrabold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug tracking-tight">
-                    Where and Why Google’s AI Overviews Appear
-                  </h3>
-                  <p className="mt-2.5 text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed">
-                    Our study of 2.3m keywords reveals the query types and industries most impacted by Google’s AI-generated answers.
-                  </p>
-                </div>
-                <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
-                  <a
-                    href="#geo-checker"
-                    onClick={scrollToGeoAudit}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1570ef] hover:underline cursor-pointer"
-                  >
-                    Run AI Search Audit <span className="transition-transform group-hover:translate-x-1">→</span>
-                  </a>
-                  <span className="text-[11px] text-slate-400 font-medium">Study Report</span>
                 </div>
               </div>
 
-              {/* Card 2: How Gen AI is Changing Search */}
-              <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
-                <div>
-                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 shadow-xs">
-                    <img
-                      src="/research-gen-ai-search.jpg"
-                      alt="How Generative AI is Changing Search"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
-                      GEO &amp; LLM Citations
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full">
-                      Search Intelligence
-                    </span>
-                    <span className="text-[11px] font-mono font-semibold text-slate-400">GEO Strategy</span>
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-extrabold text-[#080d24] group-hover:text-emerald-600 transition-colors leading-snug tracking-tight">
-                    How Gen AI is Changing Search
-                  </h3>
-                  <p className="mt-2.5 text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed">
-                    Understand how generative AI is transforming search engines and what it means for your marketing strategy.
-                  </p>
-                </div>
-                <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
-                  <a
-                    href="#geo-checker"
-                    onClick={scrollToGeoAudit}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:underline cursor-pointer"
-                  >
-                    Explore GEO Strategy <span className="transition-transform group-hover:translate-x-1">→</span>
-                  </a>
-                  <span className="text-[11px] text-slate-400 font-medium">Trend Analysis</span>
+              {/* Node 2: Top-Right - Yellow Megaphone & Audience Badge */}
+              <div className="absolute top-[3%] right-[8%] sm:right-[14%] w-14 h-14 sm:w-20 sm:h-20 bg-[#fdd835] rounded-2xl sm:rounded-[22px] shadow-xl border border-amber-300 flex items-center justify-center hover:scale-110 transition-transform duration-300 z-10">
+                <svg className="w-7 h-7 sm:w-10 sm:h-10 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14" />
+                </svg>
+              </div>
+
+              {/* Node 3: Upper-Right Circle - #1 Podium & Gold Trophy */}
+              <div className="absolute top-[30%] right-[1%] sm:right-[3%] w-16 h-16 sm:w-24 sm:h-24 bg-blue-100/95 backdrop-blur-md rounded-full border-2 border-blue-300 shadow-xl flex flex-col items-center justify-center hover:scale-110 transition-transform duration-300 z-10">
+                <span className="text-xl sm:text-3xl">🏆</span>
+                <div className="flex gap-0.5 mt-0.5">
+                  <span className="w-3.5 h-2.5 bg-blue-600 rounded-t-xs text-[7px] text-white font-bold flex items-center justify-center">2</span>
+                  <span className="w-3.5 h-3.5 bg-blue-800 rounded-t-xs text-[7px] text-white font-bold flex items-center justify-center">1</span>
+                  <span className="w-3.5 h-2 bg-blue-400 rounded-t-xs text-[7px] text-white font-bold flex items-center justify-center">3</span>
                 </div>
               </div>
 
-              {/* Card 3: How Different Generations Use AI */}
-              <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-purple-300 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
-                <div>
-                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 shadow-xs">
-                    <img
-                      src="/research-ai-demographics.jpg"
-                      alt="How Different Generations Use AI to Search"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
-                      User Behavior Study
-                    </div>
+              {/* Node 4: Bottom-Right - Businessman Stairs & Target Goal Card */}
+              <div className="absolute bottom-[2%] right-[4%] sm:right-[8%] w-[170px] sm:w-[240px] bg-blue-50/95 backdrop-blur-md p-4 sm:p-5 rounded-[24px] shadow-2xl border border-blue-200 hover:scale-105 transition-all duration-300 z-10">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="w-8 h-8 rounded-full bg-amber-400/25 border border-amber-400/50 flex items-center justify-center text-amber-600 text-sm">
+                    🎯
                   </div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-purple-600 bg-purple-50 border border-purple-200 px-2.5 py-1 rounded-full">
-                      Demographic Study
-                    </span>
-                    <span className="text-[11px] font-mono font-semibold text-slate-400">User Behavior</span>
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-extrabold text-[#080d24] group-hover:text-purple-600 transition-colors leading-snug tracking-tight">
-                    How Different Generations Use AI to Search
-                  </h3>
-                  <p className="mt-2.5 text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed">
-                    Our original research reveals insights into how Gen Z, Millennials, Gen X, and Boomers are using AI.
-                  </p>
+                  <svg className="w-8 h-8 text-[#207de9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
                 </div>
-                <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
-                  <button
-                    type="button"
-                    onClick={() => setIsAiSuiteOpen(true)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:underline cursor-pointer"
-                  >
-                    Preview AI Suite <span className="transition-transform group-hover:translate-x-1">→</span>
-                  </button>
-                  <span className="text-[11px] text-slate-400 font-medium">User Insights</span>
+                <div className="flex items-end gap-1.5 h-16 sm:h-20 pt-2">
+                  <div className="w-1/3 bg-white border border-slate-200 rounded-t-md h-[38%] flex items-center justify-center text-[9px] font-bold text-slate-600">Step 1</div>
+                  <div className="w-1/3 bg-white border border-slate-200 rounded-t-md h-[68%] flex items-center justify-center text-[9px] font-bold text-slate-700">Step 2</div>
+                  <div className="w-1/3 bg-[#207de9] rounded-t-md h-[100%] flex items-center justify-center text-[9px] font-bold text-white shadow-xs">Goal</div>
                 </div>
+              </div>
+
+              {/* Node 5: Bottom-Center - Globe & Pin Badge */}
+              <div className="absolute bottom-[2%] left-1/2 -translate-x-1/2 w-14 h-14 sm:w-18 sm:h-18 bg-slate-900 rounded-full border-2 border-slate-700 shadow-xl flex items-center justify-center text-2xl sm:text-3xl hover:scale-110 transition-transform duration-300 z-10">
+                🌐
+              </div>
+
+              {/* Node 6: Bottom-Left - Green Thumbs Up Circle */}
+              <div className="absolute bottom-[22%] left-[10%] sm:left-[16%] w-13 h-13 sm:w-17 sm:h-17 bg-emerald-500 rounded-full border-2 border-emerald-300 shadow-xl flex items-center justify-center text-white text-2xl sm:text-3xl hover:scale-110 transition-transform duration-300 z-10">
+                👍
+              </div>
+
+              {/* Node 7: Mid-Left - Blue Verified User Badge */}
+              <div className="absolute top-[42%] left-[1%] sm:left-[3%] w-13 h-13 sm:w-17 sm:h-17 bg-[#3b82f6] rounded-full border-2 border-blue-200 shadow-xl flex items-center justify-center text-white text-2xl sm:text-3xl hover:scale-110 transition-transform duration-300 z-10">
+                👨‍💼
+              </div>
+
+              {/* Node 8: Bottom-Left - Red 5-Star Rating Badge */}
+              <div className="absolute bottom-[3%] left-[3%] sm:left-[6%] bg-red-600 text-white px-3 py-1 rounded-md text-xs font-bold flex gap-0.5 shadow-lg tracking-wider">
+                ★ ★ ★ ★ ★
               </div>
 
             </div>
 
-            {/* Careers Spotlight Card / Banner */}
-            <div className="mt-8 rounded-2xl sm:rounded-3xl bg-[#080d24] p-6 sm:p-8 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl border border-slate-800">
+            {/* Careers Spotlight Banner */}
+            <div className="mt-10 rounded-2xl sm:rounded-3xl bg-[#080d24] p-6 sm:p-8 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl border border-slate-800">
               <div className="space-y-1.5 max-w-2xl">
                 <div className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#207de9] bg-blue-950/80 px-2.5 py-1 rounded-full border border-blue-500/30">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -6185,187 +6179,148 @@ export default function Home() {
         {/* ==========================================================================
             11. DIGITAL FX MEGA FOOTER
             ========================================================================== */}
-        <footer className="bg-[#080d24] text-white pt-16 pb-12 border-t border-white/10">
+        {/* ==========================================================================
+            11. DIGITAL FX PROFESSIONAL FOOTER (MATCHING IMAGE 2 LAYOUT)
+            ========================================================================== */}
+        <footer className="bg-white text-slate-900 pt-16 pb-12 border-t border-slate-200 font-[var(--font-plus-jakarta)]">
           <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             
-            {/* Top Bar: Premier Digital Marketing & Give us a ring CTA */}
-            <div className="pb-10 border-b border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-300 text-xs font-bold tracking-wider uppercase mb-3">
-                  <span className="text-blue-400 text-sm">★</span>
-                  Premier Digital Marketing &amp; GEO AI Search Agency
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                  Ready to speak with a marketing expert? <span className="text-[#207de9]">Give us a ring</span>
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl font-normal leading-relaxed">
-                  Call our senior strategists directly for bespoke organic search, paid advertising, and revenue engine architecture.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-3 shrink-0">
-                <a
-                  href="tel:+918447583685"
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5"
-                >
-                  <span>☎ Call +91 84475 83685</span>
-                </a>
-                <a
-                  href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs sm:text-sm font-bold border border-white/15 transition-all"
-                >
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>WhatsApp Us</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Office & Brand Identity Strip */}
-            <div className="py-8 border-b border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-300">
-              <div className="flex items-center gap-3.5">
-                <div className="w-13 h-13 rounded-2xl bg-white flex items-center justify-center overflow-hidden p-0.5 shrink-0 shadow-sm">
-                  <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
-                </div>
-                <div>
-                  <div className="text-base font-extrabold text-white">DIGITAL <span className="text-[#207de9]">FX</span></div>
-                  <div className="text-[9px] font-bold uppercase tracking-wider text-slate-400">Digital Marketing That Drives Revenue®</div>
-                </div>
-              </div>
-
-              <div>
-                <div className="text-[10px] font-bold uppercase tracking-wider text-[#207de9] mb-1">Office &amp; Headquarters</div>
-                <div className="text-slate-300 leading-snug font-normal">
-                  Shop No. 210, Orbit Plaza, Second Floor, Crossings Republik, Ghaziabad, UP 201016 India
-                </div>
-                <a
-                  href="https://share.google/EIVnaRy9WhkPCi8U8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[11px] text-[#207de9] hover:underline font-semibold mt-1.5"
-                >
-                  <span>View on Google Maps</span> <span>↗</span>
-                </a>
-              </div>
-
-              <div>
-                <div className="text-[10px] font-bold uppercase tracking-wider text-[#207de9] mb-1">Direct Communications</div>
-                <div className="text-slate-300 leading-snug font-normal">
-                  Email: <a href="mailto:hello@digitalfx.in" className="text-white hover:underline font-semibold">hello@digitalfx.in</a><br />
-                  Direct Phone: <span className="text-white font-semibold tabular-nums">+91 84475 83685</span>
-                </div>
-              </div>
-            </div>
-
-            {/* 5 Mega Footer Columns */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 py-12 border-b border-white/10">
+            {/* 4 Professional Columns Grid matching Image 2 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 pb-12 border-b border-slate-200">
               
-              {/* Column 1: Services */}
+              {/* Column 1: Brand Logo, Description & Certified Trust Badges */}
+              <div className="space-y-5">
+                {/* Brand Logo & Name */}
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#080d24] flex items-center justify-center overflow-hidden p-1 shadow-xs">
+                    <img src="/logo.png" alt="Digital FX" className="h-full w-full object-contain" />
+                  </div>
+                  <span className="text-xl font-extrabold text-[#080d24] tracking-tight">
+                    DIGITAL <span className="text-[#207de9]">FX</span>
+                  </span>
+                </div>
+
+                {/* Company Tagline / Description */}
+                <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-normal">
+                  We are the leading digital advertising &amp; SEO company that turns bold ideas into powerful results. Since our inception, innovation has been at the heart of what we do. At Digital FX, we&apos;re not just redefining digital marketing; we&apos;re reaching the unimaginable.
+                </p>
+
+                {/* Certified Trust Badges Row (Google 5-Star, Amazing Workplaces, Glassdoor) */}
+                <div className="space-y-3 pt-2">
+                  {/* Badge 1: Google Verified 5-Star Badge */}
+                  <div className="flex items-center gap-2.5">
+                    <svg className="w-6 h-6 shrink-0" viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                    </svg>
+                    <div className="flex text-amber-400 text-xs tracking-tight">★ ★ ★ ★ ★</div>
+                  </div>
+
+                  {/* Badge 2: Amazing Workplaces Certified */}
+                  <div className="inline-block px-3 py-1.5 rounded bg-[#fdd835] text-[#080d24] font-extrabold text-[10px] uppercase tracking-wider border border-amber-400 shadow-xs">
+                    AMAZING WORKPLACES CERTIFIED INDIA
+                  </div>
+
+                  {/* Badge 3: Glassdoor 4.5 Badge */}
+                  <div className="flex items-center gap-2 text-xs pt-1">
+                    <span className="font-extrabold text-emerald-600 font-mono tracking-wider">GLASSDOOR</span>
+                    <span className="font-bold text-slate-900">4.5</span>
+                    <div className="flex text-amber-400 text-xs">★ ★ ★ ★ ★</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Column 2: Quick Links & Follow Us */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#207de9]" />
-                  Services
+                <h4 className="text-sm sm:text-base font-bold text-slate-900 mb-4">
+                  Quick Links
                 </h4>
-                <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">Digital Marketing Strategy</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">SEO &amp; Organic Ranking</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">PPC &amp; Google Ads Campaign</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">Content &amp; Inbound Marketing</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">Social Media Acceleration</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-white transition">Full-Stack Web Development</a></li>
-                  <li><a href="#geo-checker" onClick={scrollToGeoAudit} className="hover:text-white transition text-[#207de9] font-medium">GEO AI Optimization →</a></li>
+                <ul className="space-y-2 text-xs text-slate-700 font-normal">
+                  <li><a href="#home" onClick={scrollToTop} className="hover:text-[#207de9] transition">Home</a></li>
+                  <li><a href="#case-studies" onClick={(e) => scrollToSection("case-studies", e)} className="hover:text-[#207de9] transition">Portfolio</a></li>
+                  <li><Link href="/blog" className="hover:text-[#207de9] transition">Blog Posts</Link></li>
+                  <li><a href="#case-studies" onClick={(e) => scrollToSection("case-studies", e)} className="hover:text-[#207de9] transition">Case Studies</a></li>
+                  <li><a href="#insights" onClick={(e) => scrollToSection("insights", e)} className="hover:text-[#207de9] transition">Press Release</a></li>
+                  <li><a href="#insights" onClick={(e) => scrollToSection("insights", e)} className="hover:text-[#207de9] transition">What&apos;s New</a></li>
+                  <li><a href="mailto:careers@digitalfx.in" className="hover:text-[#207de9] transition">Careers</a></li>
+                  <li><a href="#contact" onClick={scrollToContact} className="hover:text-[#207de9] transition">Contact Us</a></li>
+                  <li><Link href="/privacy-policy" className="hover:text-[#207de9] transition">Privacy Policy</Link></li>
+                  <li><Link href="/terms-and-conditions" className="hover:text-[#207de9] transition">Terms &amp; Conditions</Link></li>
+                  <li><Link href="/sitemap.xml" className="hover:text-[#207de9] transition">Sitemap</Link></li>
+                </ul>
+
+                {/* Follow Us Sub-section */}
+                <div className="mt-6">
+                  <h5 className="text-xs font-bold text-slate-900 mb-3">
+                    Follow Us
+                  </h5>
+                  <div className="flex items-center gap-2">
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg bg-[#1877f2] text-white flex items-center justify-center font-bold text-xs hover:opacity-90 transition">f</a>
+                    <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-xs hover:opacity-90 transition">𝕏</a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg bg-[#0a66c2] text-white flex items-center justify-center font-bold text-xs hover:opacity-90 transition">in</a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center font-bold text-xs hover:opacity-90 transition">📷</a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg bg-[#ff0000] text-white flex items-center justify-center font-bold text-xs hover:opacity-90 transition">►</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Column 3: Solutions & Services */}
+              <div>
+                <h4 className="text-sm sm:text-base font-bold text-slate-900 mb-4">
+                  Solutions &amp; Services
+                </h4>
+                <ul className="space-y-2 text-xs text-slate-700 font-normal">
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">CTV Advertising</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Rich Media Innovation</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Media Planning &amp; Buying</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Programmatic Advertising</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Pay Per Click (PPC / Google Ads)</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Content Marketing</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Search Engine Optimization (SEO)</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Website &amp; App Development</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Social Media Marketing</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Reputation Management</a></li>
+                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Influencer Marketing</a></li>
+                  <li><button type="button" onClick={() => openPricingModal("email_marketing")} className="hover:text-[#207de9] transition text-left cursor-pointer">Email Marketing (₹4,999)</button></li>
+                  <li><a href="#contact" onClick={scrollToContact} className="hover:text-[#207de9] transition">WhatsApp Lead Automation</a></li>
                 </ul>
               </div>
 
-              {/* Column 2: Solutions */}
+              {/* Column 4: Industries */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  Solutions
+                <h4 className="text-sm sm:text-base font-bold text-slate-900 mb-4">
+                  Industries
                 </h4>
-                <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><button type="button" onClick={() => openPricingModal("google_listing")} className="text-left hover:text-white transition cursor-pointer">Google Maps Top 3 Rank</button></li>
-                  <li><button type="button" onClick={() => openPricingModal("website")} className="text-left hover:text-white transition cursor-pointer">High-Converting Websites</button></li>
-                  <li><button type="button" onClick={() => openPricingModal("email_marketing")} className="text-left hover:text-white transition cursor-pointer text-amber-300 font-medium">Email Marketing (₹4,999) →</button></li>
-                  <li><button type="button" onClick={() => openPricingModal("growth")} className="text-left hover:text-white transition cursor-pointer">360° Growth Retainer</button></li>
-                  <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition cursor-pointer">Custom Retainer Payment</button></li>
-                  <li><a href="#home" onClick={(e) => scrollToSection("home", e)} className="hover:text-white transition">Revenue Engine Matrix</a></li>
-                  <li><a href="#growth-dashboard" onClick={(e) => scrollToSection("growth-dashboard", e)} className="hover:text-white transition">Performance Dashboard</a></li>
-                  <li><button type="button" onClick={() => setIsAiSuiteOpen(true)} className="text-left hover:text-white transition cursor-pointer text-emerald-400 font-medium">AI Business Suite (Preview)</button></li>
-                </ul>
-              </div>
-
-              {/* Column 3: Company */}
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  Company
-                </h4>
-                <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><a href="#home" onClick={scrollToTop} className="hover:text-white transition">About Digital FX</a></li>
-                  <li><a href="#case-studies" onClick={(e) => scrollToSection("case-studies", e)} className="hover:text-white transition">Client Case Studies</a></li>
-                  <li><a href="#case-studies" onClick={(e) => scrollToSection("case-studies", e)} className="hover:text-white transition">Verified 5-Star Reviews</a></li>
-                  <li><a href="#faq" onClick={(e) => scrollToSection("faq", e)} className="hover:text-white transition font-medium text-emerald-400">Local SEO &amp; FAQs</a></li>
-                  <li><a href="#contact" onClick={scrollToContact} className="hover:text-white transition">Contact Strategy Team</a></li>
-                  <li><a href="#insights" onClick={(e) => scrollToSection("insights", e)} className="hover:text-white transition">Industry Research</a></li>
-                  <li><a href="https://share.google/EIVnaRy9WhkPCi8U8" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Ghaziabad HQ Map ↗</a></li>
-                  <li><a href="mailto:careers@digitalfx.in" className="hover:text-white transition">Careers (Join Us)</a></li>
-                </ul>
-              </div>
-
-              {/* Column 4: Global & National Hubs */}
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  Global &amp; India Hubs
-                </h4>
-                <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><Link href="/locations/dubai" className="hover:text-white transition font-semibold text-amber-300 flex items-center gap-1.5"><span>🇦🇪</span> Dubai Hub (AED Retainers)</Link></li>
-                  <li><Link href="/locations/abu-dhabi" className="hover:text-white transition flex items-center gap-1.5"><span>🇦🇪</span> Abu Dhabi &amp; ADGM</Link></li>
-                  <li><Link href="/locations/new-york" className="hover:text-white transition flex items-center gap-1.5"><span>🇺🇸</span> New York &amp; US Offshore</Link></li>
-                  <li><Link href="/locations/london" className="hover:text-white transition flex items-center gap-1.5"><span>🇬🇧</span> London &amp; UK Desk</Link></li>
-                  <li><Link href="/locations/singapore" className="hover:text-white transition flex items-center gap-1.5"><span>🇸🇬</span> Singapore &amp; APAC</Link></li>
-                  <li><Link href="/locations" className="hover:text-white transition font-medium text-[#207de9]">Pan-India 350+ Cities Hub →</Link></li>
-                  <li><Link href="/global-markets" className="hover:text-white transition font-medium text-emerald-400">1,098+ Global Keywords Explorer →</Link></li>
-                </ul>
-              </div>
-
-              {/* Column 5: Insights & Legal */}
-              <div className="col-span-2 sm:col-span-1">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                  Insights &amp; Legal
-                </h4>
-                <ul className="space-y-2.5 text-xs text-slate-400 font-normal">
-                  <li><Link href="/blog" className="hover:text-white transition font-medium text-emerald-400">Search Engineering Blog</Link></li>
-                  <li><Link href="/privacy-policy" className="hover:text-white transition">Privacy Policy (DPDP 2023)</Link></li>
-                  <li><Link href="/terms-and-conditions" className="hover:text-white transition">Terms &amp; Conditions</Link></li>
-                  <li><Link href="/refund-policy" className="hover:text-white transition">Cancellation &amp; Refund</Link></li>
-                  <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition cursor-pointer">Official PayU Terminal</button></li>
-                  <li><button type="button" onClick={() => openPricingModal("custom")} className="text-left hover:text-white transition font-semibold text-emerald-400 cursor-pointer">Instant Checkout Desk →</button></li>
+                <ul className="space-y-2 text-xs text-slate-700 font-normal">
+                  <li><span className="hover:text-[#207de9] transition cursor-default">Hospitals &amp; Healthcare</span></li>
+                  <li><span className="hover:text-[#207de9] transition cursor-default">Automobile &amp; Detailing</span></li>
+                  <li><span className="hover:text-[#207de9] transition cursor-default">Real Estate &amp; Builders</span></li>
+                  <li><span className="hover:text-[#207de9] transition cursor-default">Travel &amp; Hospitality</span></li>
+                  <li><span className="hover:text-[#207de9] transition cursor-default">FMCG &amp; FMCD Brands</span></li>
+                  <li><span className="hover:text-[#207de9] transition cursor-default">Education &amp; Institutes</span></li>
+                  <li><span className="hover:text-[#207de9] transition cursor-default">E-Commerce &amp; D2C</span></li>
+                  <li><span className="hover:text-[#207de9] transition cursor-default">Security &amp; Legal Services</span></li>
+                  <li><span className="hover:text-[#207de9] transition cursor-default">Information Technology</span></li>
+                  <li><span className="hover:text-[#207de9] transition cursor-default">Banking &amp; Financial Services</span></li>
                 </ul>
               </div>
 
             </div>
 
-            {/* Bottom Bar / Sub-footer */}
-            <div className="mt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-center sm:text-left">
-                <span className="font-bold text-white">Digital FX®</span>
-                <span className="hidden sm:inline text-slate-600">•</span>
-                <span className="font-normal">Premier Digital Marketing &amp; GEO AI Search Agency</span>
-                <span className="hidden sm:inline text-slate-600">•</span>
-                <span className="font-normal">© {new Date().getFullYear()} Digital FX®. All rights reserved.</span>
+            {/* Bottom Sub-footer Bar */}
+            <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-600 gap-4 font-normal">
+              <div>
+                © {new Date().getFullYear()} Digital FX®. All rights reserved. Registered Office: Orbit Plaza, Crossings Republik, Ghaziabad.
               </div>
-              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-normal">
-                <Link href="/locations" className="hover:text-white transition cursor-pointer">350+ Cities</Link>
-                <Link href="/blog" className="hover:text-white transition cursor-pointer">Insights Blog</Link>
-                <Link href="/privacy-policy" className="hover:text-white transition cursor-pointer">Privacy Policy</Link>
-                <Link href="/terms-and-conditions" className="hover:text-white transition cursor-pointer">Terms of Service</Link>
-                <Link href="/refund-policy" className="hover:text-white transition cursor-pointer">Refund Policy</Link>
-                <button type="button" onClick={() => openPricingModal("custom")} className="hover:text-white transition text-[#207de9] font-medium cursor-pointer">Billing Portal</button>
-                <a href="/admin/login" className="hover:text-slate-200 transition text-slate-500 hover:text-slate-300 text-[11px] font-normal cursor-pointer">Admin Login</a>
+              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+                <Link href="/locations" className="hover:text-[#207de9] transition">350+ Cities Hub</Link>
+                <Link href="/blog" className="hover:text-[#207de9] transition">Blog</Link>
+                <Link href="/privacy-policy" className="hover:text-[#207de9] transition">Privacy Policy</Link>
+                <Link href="/terms-and-conditions" className="hover:text-[#207de9] transition">Terms of Service</Link>
+                <Link href="/refund-policy" className="hover:text-[#207de9] transition">Refund Policy</Link>
+                <a href="/admin/login" className="hover:text-slate-900 transition text-slate-400">Admin Login</a>
               </div>
             </div>
 
