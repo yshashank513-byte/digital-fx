@@ -31,23 +31,6 @@ const TRUCK_PRESETS = [
   "Other / Custom",
 ];
 
-// Default Pune enquiry ready for automatic restore
-const RESTORED_PUNE_ENQUIRY: PackersEnquiry = {
-  id: "PK-1001",
-  name: "om prakash",
-  phone: "9717586641",
-  from_location: "pune",
-  to_location: "darbhanga",
-  address: "pune",
-  truck_feet: "Other / Custom",
-  vendor_rate: 0,
-  customer_rate: 0,
-  follow_up_date: new Date().toISOString().slice(0, 10),
-  remark: "only car  ( urgent shift )",
-  status: "pending",
-  created_at: new Date().toISOString(),
-};
-
 // Storage key bumped to v2 to cleanly separate from old cached demo items
 const STORAGE_KEY = "digitalfx_packers_enquiries_v2";
 
@@ -98,7 +81,7 @@ export default function PackersEnquiryPage() {
 
   const printRef = useRef<HTMLDivElement>(null);
 
-  // 1. Initial Load from LocalStorage with Auto-Recovery of Pune Enquiry & Clean Sequential IDs
+  // 1. Initial Load from LocalStorage & Clean Sequential IDs
   useEffect(() => {
     setIsClient(true);
     try {
@@ -109,17 +92,6 @@ export default function PackersEnquiryPage() {
         if (Array.isArray(parsed)) {
           list = parsed;
         }
-      }
-
-      // Check if Pune enquiry exists, if not, restore it automatically
-      const hasPune = list.some(
-        (item) =>
-          (item.from_location || "").toLowerCase().includes("pune") ||
-          (item.name || "").toLowerCase().includes("om prakash")
-      );
-
-      if (!hasPune) {
-        list = [RESTORED_PUNE_ENQUIRY, ...list];
       }
 
       // Fix duplicate or invalid IDs so numbers increment sequentially (1001, 1002, 1003...)
@@ -151,10 +123,7 @@ export default function PackersEnquiryPage() {
       setEnquiries(cleanedList);
     } catch (e) {
       console.error("Failed to load local enquiries:", e);
-      setEnquiries([RESTORED_PUNE_ENQUIRY]);
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify([RESTORED_PUNE_ENQUIRY]));
-      } catch {}
+      setEnquiries([]);
     }
   }, []);
 
@@ -310,24 +279,6 @@ export default function PackersEnquiryPage() {
     const updated = [lastDeleted, ...enquiries];
     saveToStorage(updated);
     setLastDeleted(null);
-  };
-
-  // Explicit Restore Pune Enquiry Button Action
-  const handleRestorePuneEnquiry = () => {
-    const exists = enquiries.some(
-      (item) =>
-        (item.from_location || "").toLowerCase().includes("pune") ||
-        (item.name || "").toLowerCase().includes("om prakash")
-    );
-
-    if (exists) {
-      alert("Enquiry for 'om prakash' (Pune to Darbhanga) is already present in your register!");
-      return;
-    }
-
-    const updated = [RESTORED_PUNE_ENQUIRY, ...enquiries];
-    saveToStorage(updated);
-    alert("Enquiry for om prakash (Pune to Darbhanga) restored successfully!");
   };
 
   // Clear All Enquiries
@@ -682,15 +633,6 @@ export default function PackersEnquiryPage() {
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
             <span>New Enquiry</span>
-          </button>
-
-          <button
-            onClick={handleRestorePuneEnquiry}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-amber-300 bg-amber-50 hover:bg-amber-100 px-3 py-2 text-xs font-semibold text-amber-900 shadow-2xs transition cursor-pointer"
-            title="Restore Pune to Darbhanga enquiry for om prakash"
-          >
-            <span className="text-sm font-bold">↺</span>
-            <span>Undo / Restore Pune Enquiry</span>
           </button>
 
           <button
