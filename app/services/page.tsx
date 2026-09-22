@@ -648,16 +648,13 @@ export default function ServicesPage() {
             <img
               src="/logo.png"
               alt="Digital FX Services Division"
-              width={36}
-              height={36}
-              decoding="async"
-              className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0 transition-transform group-hover:scale-105"
+              width={42} height={42} decoding="async" className="h-9 w-9 sm:h-[42px] sm:w-[42px] object-contain shrink-0 transition-transform group-hover:scale-105"
             />
             <div className="shrink-0">
-              <div className="text-[19px] sm:text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+              <div className="text-[20px] sm:text-[23.5px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
                 DIGITAL <span className="text-[#207de9]">FX</span>
               </div>
-              <div className="mt-1 sm:mt-1.5 text-[7.5px] sm:text-[8px] font-bold uppercase tracking-[1.2px] sm:tracking-[1.6px] text-slate-500 whitespace-nowrap">
+              <div className="mt-1 sm:mt-1.5 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.2px] sm:tracking-[1.6px] text-slate-500 whitespace-nowrap">
                 360° Services Hub
               </div>
             </div>
@@ -1093,7 +1090,7 @@ export default function ServicesPage() {
             {/* Col 1: Brand */}
             <div>
               <div className="flex items-center gap-2.5 sm:gap-3">
-                <img src="/logo.png" alt="Digital FX" width={36} height={36} loading="lazy" decoding="async" className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0" />
+                <img src="/logo.png" alt="Digital FX" width={42} height={42} loading="lazy" decoding="async" className="h-9 w-9 sm:h-10 sm:w-10 object-contain shrink-0" />
                 <div className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
                   DIGITAL <span className="text-[#207de9]">FX</span>
                 </div>

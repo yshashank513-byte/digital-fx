@@ -1999,16 +1999,16 @@ export default function Home() {
               <img
                 src="/logo.png"
                 alt="Digital FX - Digital Marketing & SEO Agency in Ghaziabad"
-                width={36}
-                height={36}
+                width={42}
+                height={42}
                 decoding="async"
-                className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0 transition-transform group-hover:scale-105"
+                className="h-9 w-9 sm:h-[42px] sm:w-[42px] object-contain shrink-0 transition-transform group-hover:scale-105"
               />
               <div className="shrink-0">
-                <div className="text-[19px] sm:text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+                <div className="text-[20px] sm:text-[23.5px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
                   DIGITAL <span className="text-[#207de9]">FX</span>
                 </div>
-                <div className="mt-1 sm:mt-1.5 text-[7.5px] sm:text-[8px] font-bold uppercase tracking-[1.2px] sm:tracking-[1.6px] text-slate-500 whitespace-nowrap">
+                <div className="mt-1 sm:mt-1.5 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.3px] sm:tracking-[1.7px] text-slate-500 whitespace-nowrap">
                   Digital Marketing That Drives Revenue®
                 </div>
               </div>
@@ -2971,10 +2971,10 @@ export default function Home() {
                       {/* Digital FX Official Brand Logo placed before 'Digital' */}
                       <image
                         href="/logo.png"
-                        x="-66"
-                        y="-15"
-                        width="30"
-                        height="30"
+                        x="-70"
+                        y="-17"
+                        width="34"
+                        height="34"
                         preserveAspectRatio="xMidYMid meet"
                       />
                       <text
@@ -2982,7 +2982,7 @@ export default function Home() {
                         y="0"
                         textAnchor="start"
                         dominantBaseline="central"
-                        fontSize="18px"
+                        fontSize="20px"
                         fontWeight="900"
                         letterSpacing="-0.4px"
                       >
@@ -6457,7 +6457,7 @@ export default function Home() {
               <div className="space-y-5">
                 {/* Brand Logo & Name - Proportional & Clean */}
                 <div className="flex items-center gap-2.5 sm:gap-3">
-                  <img src="/logo.png" alt="Digital FX - Best Digital Marketing Agency in Ghaziabad" width={36} height={36} loading="lazy" decoding="async" className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0" />
+                  <img src="/logo.png" alt="Digital FX - Best Digital Marketing Agency in Ghaziabad" width={42} height={42} loading="lazy" decoding="async" className="h-9 w-9 sm:h-10 sm:w-10 object-contain shrink-0" />
                   <span className="text-xl sm:text-2xl font-extrabold text-[#080d24] tracking-tight">
                     DIGITAL <span className="text-[#207de9]">FX</span>
                   </span>
@@ -6600,7 +6600,7 @@ export default function Home() {
               {/* Top Institutional Header Bar - Big Bold Typography */}
               <div className="bg-[#080d24] text-white px-6 sm:px-8 py-5 border-b border-slate-800 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <img src="/logo.png" alt="Digital FX" width={36} height={36} decoding="async" className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0" />
+                  <img src="/logo.png" alt="Digital FX" width={42} height={42} decoding="async" className="h-9 w-9 sm:h-10 sm:w-10 object-contain shrink-0" />
                   <div>
                     <div className="flex flex-wrap items-center gap-2.5">
                       <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-white">
