@@ -5,7 +5,6 @@ import {
   CORE_CUSTOMER_SEARCH_KEYWORDS,
   ALL_INDIA_AREA_SERVED_SCHEMA,
 } from "@/lib/indiaLocations";
-import WhatsAppFloatingWidget from "@/components/WhatsAppFloatingWidget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -306,7 +305,6 @@ export default function RootLayout({
         />
 
         {children}
-        <WhatsAppFloatingWidget />
       </body>
     </html>
   );
