@@ -1812,6 +1812,93 @@ export default function Home() {
           animation-play-state: paused;
         }
 
+        /* Anti-Gravity Zero-G Floating Ecosystem Styles */
+        @keyframes antigravityScroll {
+          0% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        @keyframes antigravityLevitate1 {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-14px) rotate(1.2deg); }
+        }
+
+        @keyframes antigravityLevitate2 {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(16px) rotate(-1.5deg); }
+        }
+
+        @keyframes antigravityLevitate3 {
+          0%, 100% { transform: translateY(-6px) rotate(0.8deg); }
+          50% { transform: translateY(12px) rotate(-1deg); }
+        }
+
+        @keyframes antigravityLevitate4 {
+          0%, 100% { transform: translateY(8px) rotate(-1deg); }
+          50% { transform: translateY(-12px) rotate(1.5deg); }
+        }
+
+        @keyframes dynamicBar1 {
+          0%, 100% { height: 90%; }
+          50% { height: 68%; }
+        }
+        @keyframes dynamicBar2 {
+          0%, 100% { height: 75%; }
+          50% { height: 95%; }
+        }
+        @keyframes dynamicBar3 {
+          0%, 100% { height: 52%; }
+          50% { height: 78%; }
+        }
+        @keyframes dynamicBar4 {
+          0%, 100% { height: 35%; }
+          50% { height: 55%; }
+        }
+
+        @keyframes acousticRingPulse {
+          0% { transform: scale(0.85); opacity: 0.8; }
+          50% { transform: scale(1.18); opacity: 0.25; }
+          100% { transform: scale(0.85); opacity: 0.8; }
+        }
+
+        @keyframes slowOrbitSpin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        @keyframes microBob {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-6px); }
+        }
+
+        .antigravity-track {
+          display: flex;
+          width: max-content;
+          gap: 28px;
+          animation: antigravityScroll 65s linear infinite;
+          will-change: transform;
+        }
+        .antigravity-track:hover {
+          animation-play-state: paused;
+        }
+
+        .ag-card-1 { animation: antigravityLevitate1 4.8s ease-in-out infinite; }
+        .ag-card-2 { animation: antigravityLevitate2 5.6s ease-in-out infinite 0.4s; }
+        .ag-card-3 { animation: antigravityLevitate3 6.2s ease-in-out infinite 0.8s; }
+        .ag-card-4 { animation: antigravityLevitate4 5.2s ease-in-out infinite 0.2s; }
+        .ag-card-5 { animation: antigravityLevitate1 5.8s ease-in-out infinite 1s; }
+        .ag-card-6 { animation: antigravityLevitate2 4.6s ease-in-out infinite 0.6s; }
+        .ag-card-7 { animation: antigravityLevitate3 5.4s ease-in-out infinite 1.2s; }
+
+        .ag-bar-1 { animation: dynamicBar1 3.2s ease-in-out infinite; }
+        .ag-bar-2 { animation: dynamicBar2 4.1s ease-in-out infinite 0.5s; }
+        .ag-bar-3 { animation: dynamicBar3 3.6s ease-in-out infinite 1s; }
+        .ag-bar-4 { animation: dynamicBar4 4.5s ease-in-out infinite 0.2s; }
+
+        .ag-acoustic-ring { animation: acousticRingPulse 2.4s ease-in-out infinite; }
+        .ag-orbit-spin { animation: slowOrbitSpin 32s linear infinite; }
+        .ag-micro-bob { animation: microBob 3s ease-in-out infinite; }
+
         .hover-lift {
           transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -5545,163 +5632,587 @@ export default function Home() {
         </section>
 
         {/* ==========================================================================
-            9B. PROPRIETARY RESEARCH & INDUSTRY TRENDS (WEBFX EDITORIAL)
+            9B. PROPRIETARY RESEARCH & ANTI-GRAVITY GROWTH ECOSYSTEM
             ========================================================================== */}
         <section
           id="insights"
-          className="py-20 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-slate-50 border-b border-slate-200"
+          className="py-20 sm:py-28 bg-[#040818] text-white border-b border-slate-800 relative overflow-hidden select-none"
         >
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Ambient Cosmic Background Lighting & Grid Elements */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(32,125,233,0.25),transparent_70%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_70%,rgba(0,240,255,0.1),transparent_45%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_65%,rgba(139,92,246,0.1),transparent_45%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff07_1px,transparent_1px),linear-gradient(to_bottom,#ffffff07_1px,transparent_1px)] bg-[size:48px_48px] opacity-40 pointer-events-none" />
+
+          {/* Central Orbit Silhouette in Deep Background (From Reference Screenshot) */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] pointer-events-none opacity-20 hidden md:block">
+            <svg className="w-full h-full ag-orbit-spin" viewBox="0 0 500 500">
+              <circle cx="250" cy="250" r="210" fill="none" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="10 14" opacity="0.4" />
+              <circle cx="250" cy="250" r="140" fill="none" stroke="#207de9" strokeWidth="1.2" strokeDasharray="6 8" opacity="0.3" />
+              <circle cx="250" cy="250" r="210" fill="none" stroke="url(#agOrbitBeam)" strokeWidth="3.5" strokeDasharray="120 400" strokeLinecap="round" />
+              <defs>
+                <linearGradient id="agOrbitBeam" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#00f0ff" stopOpacity="0" />
+                  <stop offset="60%" stopColor="#00f0ff" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#207de9" stopOpacity="1" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             
             {/* Header: We Don’t Just Follow Industry Trends — We Publish Them */}
-            <div className="text-center max-w-[880px] mx-auto">
-              <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef]">
-                <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse"></span>
-                Original Market Research &amp; Publications
-              </span>
-              <h2 className="mt-4 text-[30px] sm:text-[42px] lg:text-[46px] font-extrabold text-[#080d24] tracking-[-0.03em] leading-[1.14]">
+            <div className="text-center max-w-[900px] mx-auto mb-14 sm:mb-16">
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-cyan-400/30 bg-cyan-950/40 backdrop-blur-md px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-[#00f0ff] shadow-[0_0_20px_rgba(0,240,255,0.2)] mb-4">
+                <span className="w-2 h-2 rounded-full bg-[#00f0ff] animate-ping" />
+                <span>Zero-Gravity Growth System • 60 FPS Telemetry Engine</span>
+              </div>
+              <h2 className="text-[32px] sm:text-[46px] lg:text-[52px] font-extrabold text-white tracking-[-0.03em] leading-[1.12]">
                 We Don’t Just Follow Industry Trends —{" "}
-                <span className="text-[#1570ef] webfx-serif block sm:inline font-normal">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-300 webfx-serif block sm:inline font-normal">
                   We Publish Them
                 </span>
               </h2>
-              <p className="mt-4 text-[15px] sm:text-[17px] leading-relaxed text-slate-600 font-normal max-w-[780px] mx-auto">
-                The Digital FX experts regularly leverage our first-party data along with original research to produce insights for marketing managers and business teams to make smarter marketing decisions.
+              <p className="mt-4 text-[15px] sm:text-[17px] leading-relaxed text-slate-300 font-normal max-w-[780px] mx-auto">
+                The Digital FX experts regularly leverage proprietary first-party telemetry and original research to engineer high-velocity growth. Explore our weightless marketing ecosystem floating in continuous real-time synchronization.
               </p>
             </div>
 
-            {/* Animated Circular Workflow Diagram matching Image 1 */}
-            <div className="mt-10 relative w-full max-w-[950px] mx-auto min-h-[520px] sm:min-h-[620px] flex items-center justify-center p-4 sm:p-8 bg-gradient-to-b from-blue-50/40 via-white to-slate-50/80 rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden select-none">
-              
-              {/* World Map Silhouette Background */}
-              <div className="absolute inset-0 opacity-15 pointer-events-none flex items-center justify-center">
-                <svg className="w-full h-full text-slate-400" fill="currentColor" viewBox="0 0 1000 500">
-                  <path d="M150 120c10-20 40-10 60 10s40 50 20 70-50 10-70-10-20-50-10-70zm200 80c30-30 80-10 90 20s-20 60-50 60-60-40-40-80zm300-40c20-20 60 0 70 30s-30 50-60 40-30-50-10-70z" />
-                </svg>
-              </div>
+            {/* Seamless Infinite Horizontal Anti-Gravity Marquee Stream */}
+            <div className="relative w-full overflow-hidden py-6 -my-6 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+              <div className="antigravity-track">
+                
+                {/* SET A: Core Anti-Gravity Cards (Inspired by Reference Diagram) */}
+                
+                {/* 1. Real-Time Analytics Velocity Card (Bar Chart with Grid) */}
+                <div className="ag-card-1 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#0a1435]/90 backdrop-blur-xl border border-blue-400/30 hover:border-cyan-400/60 shadow-[0_20px_50px_-10px_rgba(32,125,233,0.35)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Telemetry Stream</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-blue-500/20 text-cyan-300 border border-cyan-400/30 shadow-[0_0_12px_rgba(0,240,255,0.25)]">
+                      +285% Velocity
+                    </span>
+                  </div>
 
-              {/* SVG Dotted Orbit Path with Continuous Moving Glowing Beam Light */}
-              <svg className="absolute w-[340px] h-[340px] sm:w-[500px] sm:h-[500px] pointer-events-none" viewBox="0 0 500 500">
-                {/* Dotted Orbit Path */}
-                <circle
-                  cx="250"
-                  cy="250"
-                  r="200"
-                  fill="none"
-                  stroke="#64748b"
-                  strokeWidth="2.5"
-                  strokeDasharray="8 8"
-                  className="opacity-50"
-                />
-                {/* Flowing Light Beam */}
-                <circle
-                  cx="250"
-                  cy="250"
-                  r="200"
-                  fill="none"
-                  stroke="url(#orbitGradientFlow)"
-                  strokeWidth="4"
-                  strokeDasharray="140 450"
-                  className="animate-dash-flow"
-                  strokeLinecap="round"
-                />
-                <defs>
-                  <linearGradient id="orbitGradientFlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#207de9" stopOpacity="0.2" />
-                    <stop offset="50%" stopColor="#207de9" stopOpacity="1" />
-                    <stop offset="100%" stopColor="#00f2fe" stopOpacity="1" />
-                  </linearGradient>
-                </defs>
-              </svg>
+                  <div className="w-full h-32 bg-[#10245e]/90 rounded-2xl p-3 flex flex-col justify-end border border-blue-400/30 relative overflow-hidden shadow-inner my-2">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:12px_12px]" />
+                    <div className="relative flex items-end justify-between gap-2 h-full pt-4 px-1.5">
+                      <div className="w-1/4 flex flex-col items-center gap-1 h-full justify-end">
+                        <div className="w-full bg-gradient-to-t from-blue-500 to-cyan-300 rounded-t-md ag-bar-1 shadow-[0_0_12px_rgba(0,240,255,0.5)]" />
+                        <span className="text-[9px] font-bold text-cyan-200">92%</span>
+                      </div>
+                      <div className="w-1/4 flex flex-col items-center gap-1 h-full justify-end">
+                        <div className="w-full bg-gradient-to-t from-blue-500 to-white/95 rounded-t-md ag-bar-2" />
+                        <span className="text-[9px] font-bold text-slate-300">78%</span>
+                      </div>
+                      <div className="w-1/4 flex flex-col items-center gap-1 h-full justify-end">
+                        <div className="w-full bg-gradient-to-t from-blue-600 to-white/75 rounded-t-md ag-bar-3" />
+                        <span className="text-[9px] font-bold text-slate-400">56%</span>
+                      </div>
+                      <div className="w-1/4 flex flex-col items-center gap-1 h-full justify-end">
+                        <div className="w-full bg-gradient-to-t from-blue-700 to-white/60 rounded-t-md ag-bar-4" />
+                        <span className="text-[9px] font-bold text-slate-400">38%</span>
+                      </div>
+                    </div>
+                  </div>
 
-              {/* Node 1: Top-Left - Blue Analytics Bar Chart Card */}
-              <div className="absolute top-[2%] left-[4%] sm:left-[8%] w-[160px] sm:w-[220px] bg-[#427df7] p-3.5 sm:p-5 rounded-[24px] shadow-2xl text-white border border-blue-400 hover:scale-105 transition-all duration-300 z-10">
-                <div className="w-full h-24 sm:h-32 bg-[#336ee3] rounded-xl p-2.5 flex flex-col justify-end border border-white/20 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:10px_10px]" />
-                  <div className="relative flex items-end justify-between gap-1.5 h-full pt-4 px-1">
-                    <div className="w-1/4 bg-white/95 rounded-t-sm h-[90%] animate-pulse" />
-                    <div className="w-1/4 bg-white/95 rounded-t-sm h-[75%]" />
-                    <div className="w-1/4 bg-white/95 rounded-t-sm h-[48%]" />
-                    <div className="w-1/4 bg-white/95 rounded-t-sm h-[28%]" />
+                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                    <span>Sub-Second Telemetry Ingestion</span>
+                    <span className="text-cyan-300 font-bold">Calls &amp; Bookings ↑</span>
                   </div>
                 </div>
-              </div>
 
-              {/* Node 2: Top-Right - Yellow Megaphone & Audience Badge */}
-              <div className="absolute top-[3%] right-[8%] sm:right-[14%] w-14 h-14 sm:w-20 sm:h-20 bg-[#fdd835] rounded-2xl sm:rounded-[22px] shadow-xl border border-amber-300 flex items-center justify-center hover:scale-110 transition-transform duration-300 z-10">
-                <svg className="w-7 h-7 sm:w-10 sm:h-10 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14" />
-                </svg>
-              </div>
-
-              {/* Node 3: Upper-Right Circle - #1 Podium & Gold Trophy */}
-              <div className="absolute top-[30%] right-[1%] sm:right-[3%] w-16 h-16 sm:w-24 sm:h-24 bg-blue-100/95 backdrop-blur-md rounded-full border-2 border-blue-300 shadow-xl flex flex-col items-center justify-center hover:scale-110 transition-transform duration-300 z-10">
-                <span className="text-xl sm:text-3xl">🏆</span>
-                <div className="flex gap-0.5 mt-0.5">
-                  <span className="w-3.5 h-2.5 bg-blue-600 rounded-t-xs text-[7px] text-white font-bold flex items-center justify-center">2</span>
-                  <span className="w-3.5 h-3.5 bg-blue-800 rounded-t-xs text-[7px] text-white font-bold flex items-center justify-center">1</span>
-                  <span className="w-3.5 h-2 bg-blue-400 rounded-t-xs text-[7px] text-white font-bold flex items-center justify-center">3</span>
-                </div>
-              </div>
-
-              {/* Node 4: Bottom-Right - Businessman Stairs & Target Goal Card */}
-              <div className="absolute bottom-[2%] right-[4%] sm:right-[8%] w-[170px] sm:w-[240px] bg-blue-50/95 backdrop-blur-md p-4 sm:p-5 rounded-[24px] shadow-2xl border border-blue-200 hover:scale-105 transition-all duration-300 z-10">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="w-8 h-8 rounded-full bg-amber-400/25 border border-amber-400/50 flex items-center justify-center text-amber-600 text-sm">
-                    🎯
+                {/* 2. Campaign Broadcaster & Ad Reach Card (Yellow Megaphone) */}
+                <div className="ag-card-2 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#161a2b]/90 backdrop-blur-xl border border-amber-400/30 hover:border-amber-300/60 shadow-[0_20px_50px_-10px_rgba(245,158,11,0.25)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Audience Engine</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/35 shadow-[0_0_12px_rgba(245,158,11,0.25)]">
+                      ROAS 5.4x
+                    </span>
                   </div>
-                  <svg className="w-8 h-8 text-[#207de9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
+
+                  <div className="relative py-2 flex items-center justify-center">
+                    <div className="absolute w-24 h-24 rounded-full border border-amber-400/30 ag-acoustic-ring" />
+                    <div className="absolute w-32 h-32 rounded-full border border-amber-400/15 ag-acoustic-ring [animation-delay:0.8s]" />
+                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#fdd835] via-amber-400 to-amber-600 shadow-[0_10px_30px_rgba(245,158,11,0.4)] flex items-center justify-center border border-amber-200/50 group-hover:scale-105 transition-transform duration-300">
+                      <svg className="w-10 h-10 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-white flex items-center justify-between">
+                      <span>High-Intent Ad Reach</span>
+                      <span className="text-amber-400 font-extrabold">4.8M+</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                      <span>Google Search &amp; Meta PPC</span>
+                      <span className="text-amber-300 font-medium">Verified CPL ↓</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-end gap-1.5 h-16 sm:h-20 pt-2">
-                  <div className="w-1/3 bg-white border border-slate-200 rounded-t-md h-[38%] flex items-center justify-center text-[9px] font-bold text-slate-600">Step 1</div>
-                  <div className="w-1/3 bg-white border border-slate-200 rounded-t-md h-[68%] flex items-center justify-center text-[9px] font-bold text-slate-700">Step 2</div>
-                  <div className="w-1/3 bg-[#207de9] rounded-t-md h-[100%] flex items-center justify-center text-[9px] font-bold text-white shadow-xs">Goal</div>
+
+                {/* 3. Google Maps 3-Pack Authority Card (Podium & Gold Trophy) */}
+                <div className="ag-card-3 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#0a183d]/90 backdrop-blur-xl border border-blue-400/30 hover:border-blue-300/60 shadow-[0_20px_50px_-10px_rgba(32,125,233,0.3)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Local Authority</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-blue-500/20 text-cyan-300 border border-blue-400/35 shadow-[0_0_12px_rgba(32,125,233,0.25)]">
+                      Rank #1 Leader
+                    </span>
+                  </div>
+
+                  <div className="relative flex flex-col items-center justify-center py-2">
+                    <div className="w-24 h-24 rounded-full bg-gradient-to-b from-blue-600/30 to-blue-950/80 border border-blue-400/40 flex flex-col items-center justify-center shadow-lg relative group-hover:scale-105 transition-transform duration-300">
+                      <span className="text-3xl filter drop-shadow-[0_4px_10px_rgba(234,179,8,0.6)]">🏆</span>
+                      <div className="flex gap-1 mt-1">
+                        <span className="w-4 h-3 bg-blue-600 rounded-t-xs text-[8px] text-white font-bold flex items-center justify-center">2</span>
+                        <span className="w-4 h-4.5 bg-blue-400 rounded-t-xs text-[8px] text-slate-950 font-black flex items-center justify-center shadow-xs">1</span>
+                        <span className="w-4 h-2.5 bg-blue-800 rounded-t-xs text-[8px] text-white font-bold flex items-center justify-center">3</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-white flex items-center justify-between">
+                      <span>Google Maps 3-Pack</span>
+                      <span className="text-amber-400 font-extrabold">★ 4.9 / 5.0</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                      <span>128+ Verified Reviews</span>
+                      <span className="text-emerald-400 font-semibold">Active #1 Pack</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              {/* Node 5: Bottom-Center - Globe & Pin Badge */}
-              <div className="absolute bottom-[2%] left-1/2 -translate-x-1/2 w-14 h-14 sm:w-18 sm:h-18 bg-slate-900 rounded-full border-2 border-slate-700 shadow-xl flex items-center justify-center text-2xl sm:text-3xl hover:scale-110 transition-transform duration-300 z-10">
-                🌐
-              </div>
+                {/* 4. Strategic 3-Step Milestone Roadmap (Step 1, Step 2, Goal) */}
+                <div className="ag-card-4 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#0d163a]/90 backdrop-blur-xl border border-cyan-400/30 hover:border-cyan-300/60 shadow-[0_20px_50px_-10px_rgba(0,240,255,0.25)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 rounded-full bg-amber-400/25 border border-amber-400/50 flex items-center justify-center text-[10px]">🎯</div>
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Milestone Roadmap</span>
+                    </div>
+                    <svg className="w-6 h-6 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  </div>
 
-              {/* Node 6: Bottom-Left - Green Thumbs Up Circle */}
-              <div className="absolute bottom-[22%] left-[10%] sm:left-[16%] w-13 h-13 sm:w-17 sm:h-17 bg-emerald-500 rounded-full border-2 border-emerald-300 shadow-xl flex items-center justify-center text-white text-2xl sm:text-3xl hover:scale-110 transition-transform duration-300 z-10">
-                👍
-              </div>
+                  <div className="flex items-end gap-2 h-28 pt-2 my-1 px-1">
+                    <div className="w-1/3 bg-white/10 border border-white/20 rounded-t-xl h-[40%] flex flex-col items-center justify-center text-[9.5px] font-bold text-slate-300 p-1 hover:bg-white/15 transition">
+                      <span>Step 1</span>
+                      <span className="text-[8px] text-slate-400 font-normal">Audit</span>
+                    </div>
+                    <div className="w-1/3 bg-white/15 border border-white/25 rounded-t-xl h-[70%] flex flex-col items-center justify-center text-[9.5px] font-bold text-cyan-200 p-1 hover:bg-white/20 transition">
+                      <span>Step 2</span>
+                      <span className="text-[8px] text-cyan-300 font-normal">GEO Entity</span>
+                    </div>
+                    <div className="w-1/3 bg-gradient-to-t from-[#1570ef] to-[#00f0ff] rounded-t-xl h-[100%] flex flex-col items-center justify-center text-[10px] font-black text-slate-950 p-1 shadow-[0_0_20px_rgba(0,240,255,0.4)] relative">
+                      <span className="w-2 h-2 rounded-full bg-white animate-ping absolute top-2 right-2" />
+                      <span>Goal</span>
+                      <span className="text-[8px] font-bold text-slate-950">Dominate</span>
+                    </div>
+                  </div>
 
-              {/* Node 7: Mid-Left - Blue Verified User Badge */}
-              <div className="absolute top-[42%] left-[1%] sm:left-[3%] w-13 h-13 sm:w-17 sm:h-17 bg-[#3b82f6] rounded-full border-2 border-blue-200 shadow-xl flex items-center justify-center text-white text-2xl sm:text-3xl hover:scale-110 transition-transform duration-300 z-10">
-                👨‍💼
-              </div>
+                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                    <span>30-60 Day Target Horizon</span>
+                    <span className="text-cyan-300 font-semibold">Attributable ROI</span>
+                  </div>
+                </div>
 
-              {/* Node 8: Bottom-Left - Red 5-Star Rating Badge */}
-              <div className="absolute bottom-[3%] left-[3%] sm:left-[6%] bg-red-600 text-white px-3 py-1 rounded-md text-xs font-bold flex gap-0.5 shadow-lg tracking-wider">
-                ★ ★ ★ ★ ★
-              </div>
+                {/* 5. Global Search & Infrastructure Network Card (Globe) */}
+                <div className="ag-card-5 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#07122e]/90 backdrop-blur-xl border border-indigo-400/30 hover:border-indigo-300/60 shadow-[0_20px_50px_-10px_rgba(99,102,241,0.25)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-indigo-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Global Architecture</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/35">
+                      350+ Cities
+                    </span>
+                  </div>
 
+                  <div className="relative py-2 flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-slate-900 via-indigo-950 to-[#080d24] border-2 border-indigo-400/40 shadow-[0_0_25px_rgba(99,102,241,0.35)] flex items-center justify-center text-4xl group-hover:scale-105 transition-transform duration-300">
+                      🌐
+                    </div>
+                    <div className="absolute w-28 h-28 rounded-full border border-indigo-400/25 ag-orbit-spin pointer-events-none" />
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-white flex items-center justify-between">
+                      <span>Pan-India &amp; Global Desks</span>
+                      <span className="text-indigo-400 font-extrabold">&lt; 0.8s</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                      <span>28 States, 8 UTs + Dubai &amp; US</span>
+                      <span className="text-cyan-300 font-semibold">Sub-Second CDN</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 6. Executive Trust & Verified Conversions (Thumbs-up, Avatar & 5-Stars) */}
+                <div className="ag-card-6 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#08182b]/90 backdrop-blur-xl border border-emerald-400/30 hover:border-emerald-300/60 shadow-[0_20px_50px_-10px_rgba(16,185,129,0.25)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Client Confidence</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-red-600 text-white shadow-md">
+                      ★ ★ ★ ★ ★
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-center gap-4 py-3 my-auto">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-700 flex items-center justify-center text-3xl border-2 border-cyan-400/50 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                      👨‍💼
+                    </div>
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-3xl border-2 border-emerald-300 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                      👍
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-white flex items-center justify-between">
+                      <span>Attributable ROI</span>
+                      <span className="text-emerald-400 font-extrabold">100% Attributable</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                      <span>Transparent Retainers</span>
+                      <span className="text-emerald-300 font-semibold">Zero Lock-In</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 7. Generative Engine Optimization (GEO AI) */}
+                <div className="ag-card-7 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#110e30]/90 backdrop-blur-xl border border-purple-400/30 hover:border-purple-300/60 shadow-[0_20px_50px_-10px_rgba(168,85,247,0.25)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-purple-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">AI Search Engine</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/35">
+                      GEO Tier-1
+                    </span>
+                  </div>
+
+                  <div className="relative py-2 flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-900 to-indigo-950 border border-purple-400/50 shadow-[0_0_25px_rgba(168,85,247,0.35)] flex items-center justify-center text-3xl group-hover:scale-105 transition-transform duration-300">
+                      🧠
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-white flex items-center justify-between">
+                      <span>AI Entity Authority</span>
+                      <span className="text-purple-300 font-extrabold">96/100</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                      <span>ChatGPT &amp; Perplexity Ready</span>
+                      <span className="text-cyan-300 font-semibold">Rank #1 Entity</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SET B: Exact Duplicate for Seamless 100% Infinite Loop */}
+
+                {/* 1. Real-Time Analytics Velocity Card (Duplicate) */}
+                <div className="ag-card-1 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#0a1435]/90 backdrop-blur-xl border border-blue-400/30 hover:border-cyan-400/60 shadow-[0_20px_50px_-10px_rgba(32,125,233,0.35)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Telemetry Stream</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-blue-500/20 text-cyan-300 border border-cyan-400/30 shadow-[0_0_12px_rgba(0,240,255,0.25)]">
+                      +285% Velocity
+                    </span>
+                  </div>
+
+                  <div className="w-full h-32 bg-[#10245e]/90 rounded-2xl p-3 flex flex-col justify-end border border-blue-400/30 relative overflow-hidden shadow-inner my-2">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:12px_12px]" />
+                    <div className="relative flex items-end justify-between gap-2 h-full pt-4 px-1.5">
+                      <div className="w-1/4 flex flex-col items-center gap-1 h-full justify-end">
+                        <div className="w-full bg-gradient-to-t from-blue-500 to-cyan-300 rounded-t-md ag-bar-1 shadow-[0_0_12px_rgba(0,240,255,0.5)]" />
+                        <span className="text-[9px] font-bold text-cyan-200">92%</span>
+                      </div>
+                      <div className="w-1/4 flex flex-col items-center gap-1 h-full justify-end">
+                        <div className="w-full bg-gradient-to-t from-blue-500 to-white/95 rounded-t-md ag-bar-2" />
+                        <span className="text-[9px] font-bold text-slate-300">78%</span>
+                      </div>
+                      <div className="w-1/4 flex flex-col items-center gap-1 h-full justify-end">
+                        <div className="w-full bg-gradient-to-t from-blue-600 to-white/75 rounded-t-md ag-bar-3" />
+                        <span className="text-[9px] font-bold text-slate-400">56%</span>
+                      </div>
+                      <div className="w-1/4 flex flex-col items-center gap-1 h-full justify-end">
+                        <div className="w-full bg-gradient-to-t from-blue-700 to-white/60 rounded-t-md ag-bar-4" />
+                        <span className="text-[9px] font-bold text-slate-400">38%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                    <span>Sub-Second Telemetry Ingestion</span>
+                    <span className="text-cyan-300 font-bold">Calls &amp; Bookings ↑</span>
+                  </div>
+                </div>
+
+                {/* 2. Campaign Broadcaster & Ad Reach Card (Duplicate) */}
+                <div className="ag-card-2 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#161a2b]/90 backdrop-blur-xl border border-amber-400/30 hover:border-amber-300/60 shadow-[0_20px_50px_-10px_rgba(245,158,11,0.25)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Audience Engine</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/35 shadow-[0_0_12px_rgba(245,158,11,0.25)]">
+                      ROAS 5.4x
+                    </span>
+                  </div>
+
+                  <div className="relative py-2 flex items-center justify-center">
+                    <div className="absolute w-24 h-24 rounded-full border border-amber-400/30 ag-acoustic-ring" />
+                    <div className="absolute w-32 h-32 rounded-full border border-amber-400/15 ag-acoustic-ring [animation-delay:0.8s]" />
+                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#fdd835] via-amber-400 to-amber-600 shadow-[0_10px_30px_rgba(245,158,11,0.4)] flex items-center justify-center border border-amber-200/50 group-hover:scale-105 transition-transform duration-300">
+                      <svg className="w-10 h-10 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-white flex items-center justify-between">
+                      <span>High-Intent Ad Reach</span>
+                      <span className="text-amber-400 font-extrabold">4.8M+</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                      <span>Google Search &amp; Meta PPC</span>
+                      <span className="text-amber-300 font-medium">Verified CPL ↓</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. Google Maps 3-Pack Authority Card (Duplicate) */}
+                <div className="ag-card-3 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#0a183d]/90 backdrop-blur-xl border border-blue-400/30 hover:border-blue-300/60 shadow-[0_20px_50px_-10px_rgba(32,125,233,0.3)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Local Authority</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-blue-500/20 text-cyan-300 border border-blue-400/35 shadow-[0_0_12px_rgba(32,125,233,0.25)]">
+                      Rank #1 Leader
+                    </span>
+                  </div>
+
+                  <div className="relative flex flex-col items-center justify-center py-2">
+                    <div className="w-24 h-24 rounded-full bg-gradient-to-b from-blue-600/30 to-blue-950/80 border border-blue-400/40 flex flex-col items-center justify-center shadow-lg relative group-hover:scale-105 transition-transform duration-300">
+                      <span className="text-3xl filter drop-shadow-[0_4px_10px_rgba(234,179,8,0.6)]">🏆</span>
+                      <div className="flex gap-1 mt-1">
+                        <span className="w-4 h-3 bg-blue-600 rounded-t-xs text-[8px] text-white font-bold flex items-center justify-center">2</span>
+                        <span className="w-4 h-4.5 bg-blue-400 rounded-t-xs text-[8px] text-slate-950 font-black flex items-center justify-center shadow-xs">1</span>
+                        <span className="w-4 h-2.5 bg-blue-800 rounded-t-xs text-[8px] text-white font-bold flex items-center justify-center">3</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-white flex items-center justify-between">
+                      <span>Google Maps 3-Pack</span>
+                      <span className="text-amber-400 font-extrabold">★ 4.9 / 5.0</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                      <span>128+ Verified Reviews</span>
+                      <span className="text-emerald-400 font-semibold">Active #1 Pack</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. Strategic 3-Step Milestone Roadmap (Duplicate) */}
+                <div className="ag-card-4 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#0d163a]/90 backdrop-blur-xl border border-cyan-400/30 hover:border-cyan-300/60 shadow-[0_20px_50px_-10px_rgba(0,240,255,0.25)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 rounded-full bg-amber-400/25 border border-amber-400/50 flex items-center justify-center text-[10px]">🎯</div>
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Milestone Roadmap</span>
+                    </div>
+                    <svg className="w-6 h-6 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  </div>
+
+                  <div className="flex items-end gap-2 h-28 pt-2 my-1 px-1">
+                    <div className="w-1/3 bg-white/10 border border-white/20 rounded-t-xl h-[40%] flex flex-col items-center justify-center text-[9.5px] font-bold text-slate-300 p-1 hover:bg-white/15 transition">
+                      <span>Step 1</span>
+                      <span className="text-[8px] text-slate-400 font-normal">Audit</span>
+                    </div>
+                    <div className="w-1/3 bg-white/15 border border-white/25 rounded-t-xl h-[70%] flex flex-col items-center justify-center text-[9.5px] font-bold text-cyan-200 p-1 hover:bg-white/20 transition">
+                      <span>Step 2</span>
+                      <span className="text-[8px] text-cyan-300 font-normal">GEO Entity</span>
+                    </div>
+                    <div className="w-1/3 bg-gradient-to-t from-[#1570ef] to-[#00f0ff] rounded-t-xl h-[100%] flex flex-col items-center justify-center text-[10px] font-black text-slate-950 p-1 shadow-[0_0_20px_rgba(0,240,255,0.4)] relative">
+                      <span className="w-2 h-2 rounded-full bg-white animate-ping absolute top-2 right-2" />
+                      <span>Goal</span>
+                      <span className="text-[8px] font-bold text-slate-950">Dominate</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                    <span>30-60 Day Target Horizon</span>
+                    <span className="text-cyan-300 font-semibold">Attributable ROI</span>
+                  </div>
+                </div>
+
+                {/* 5. Global Search & Infrastructure Network Card (Duplicate) */}
+                <div className="ag-card-5 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#07122e]/90 backdrop-blur-xl border border-indigo-400/30 hover:border-indigo-300/60 shadow-[0_20px_50px_-10px_rgba(99,102,241,0.25)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-indigo-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Global Architecture</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/35">
+                      350+ Hubs
+                    </span>
+                  </div>
+
+                  <div className="relative py-2 flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-slate-900 via-indigo-950 to-[#080d24] border-2 border-indigo-400/40 shadow-[0_0_25px_rgba(99,102,241,0.35)] flex items-center justify-center text-4xl group-hover:scale-105 transition-transform duration-300">
+                      🌐
+                    </div>
+                    <div className="absolute w-28 h-28 rounded-full border border-indigo-400/25 ag-orbit-spin pointer-events-none" />
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-white flex items-center justify-between">
+                      <span>Pan-India &amp; Global Desks</span>
+                      <span className="text-indigo-400 font-extrabold">&lt; 0.8s</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                      <span>28 States, 8 UTs + Dubai &amp; US</span>
+                      <span className="text-cyan-300 font-semibold">Sub-Second CDN</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 6. Executive Trust & Verified Conversions (Duplicate) */}
+                <div className="ag-card-6 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#08182b]/90 backdrop-blur-xl border border-emerald-400/30 hover:border-emerald-300/60 shadow-[0_20px_50px_-10px_rgba(16,185,129,0.25)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">Client Confidence</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-red-600 text-white shadow-md">
+                      ★ ★ ★ ★ ★
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-center gap-4 py-3 my-auto">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-700 flex items-center justify-center text-3xl border-2 border-cyan-400/50 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                      👨‍💼
+                    </div>
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-3xl border-2 border-emerald-300 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                      👍
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-white flex items-center justify-between">
+                      <span>Attributable ROI</span>
+                      <span className="text-emerald-400 font-extrabold">100% Attributable</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                      <span>Transparent Retainers</span>
+                      <span className="text-emerald-300 font-semibold">Zero Lock-In</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 7. Generative Engine Optimization (Duplicate) */}
+                <div className="ag-card-7 w-[320px] sm:w-[360px] h-[310px] rounded-[28px] p-6 bg-[#110e30]/90 backdrop-blur-xl border border-purple-400/30 hover:border-purple-300/60 shadow-[0_20px_50px_-10px_rgba(168,85,247,0.25)] flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-purple-400 to-transparent opacity-75" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300">AI Search Engine</span>
+                    </div>
+                    <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/35">
+                      GEO Tier-1
+                    </span>
+                  </div>
+
+                  <div className="relative py-2 flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-900 to-indigo-950 border border-purple-400/50 shadow-[0_0_25px_rgba(168,85,247,0.35)] flex items-center justify-center text-3xl group-hover:scale-105 transition-transform duration-300">
+                      🧠
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="text-sm font-bold text-white flex items-center justify-between">
+                      <span>AI Entity Authority</span>
+                      <span className="text-purple-300 font-extrabold">96/100</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/10">
+                      <span>ChatGPT &amp; Perplexity Ready</span>
+                      <span className="text-cyan-300 font-semibold">Rank #1 Entity</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
 
-            {/* Careers Spotlight Banner */}
-            <div className="mt-10 rounded-2xl sm:rounded-3xl bg-[#080d24] p-6 sm:p-8 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl border border-slate-800">
-              <div className="space-y-1.5 max-w-2xl">
-                <div className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#207de9] bg-blue-950/80 px-2.5 py-1 rounded-full border border-blue-500/30">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            {/* Bottom Floating Telemetry Bar */}
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4 text-xs text-slate-400">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-white/10 text-slate-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                Hover any card to pause zero-gravity orbit
+              </span>
+              <span className="hidden sm:inline text-slate-600">•</span>
+              <span className="inline-flex items-center gap-1.5 text-slate-400">
+                <span>⚡ GPU 60 FPS Accelerated</span>
+              </span>
+              <span className="hidden sm:inline text-slate-600">•</span>
+              <span className="inline-flex items-center gap-1.5 text-slate-400">
+                <span>🛡️ Verified Client Telemetry</span>
+              </span>
+            </div>
+
+            {/* Careers Spotlight Banner (Sleek Dark Navy Redesign) */}
+            <div className="mt-12 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#0c1638] via-[#09112e] to-[#0d1c44] p-6 sm:p-8 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-2xl border border-white/15 backdrop-blur-xl">
+              <div className="space-y-2 max-w-2xl">
+                <div className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-cyan-400 bg-cyan-950/70 px-3 py-1 rounded-full border border-cyan-500/30">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   Careers &amp; Talent Acquisition
                 </div>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-                  Want to join our award-winning team?
+                  Want to join our award-winning search engineering team?
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
-                  We’re always looking for top talent to help our clients achieve their goals.
+                  We’re always looking for top growth hackers, Next.js engineers, and performance marketers to help our clients achieve market domination.
                 </p>
               </div>
 
               <div className="shrink-0">
                 <a
                   href="mailto:careers@digitalfx.in?subject=Career%20Application%20at%20Digital%20FX"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#1570ef] to-[#00f0ff] hover:from-[#1362d2] hover:to-[#00d6e6] text-slate-950 text-xs sm:text-sm font-extrabold shadow-lg shadow-cyan-500/25 transition-all hover:-translate-y-0.5 cursor-pointer"
                 >
                   Join Our Team →
                 </a>
