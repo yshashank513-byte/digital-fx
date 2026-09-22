@@ -351,11 +351,11 @@ export default function GeoCheckerPage() {
             className="flex items-center gap-3"
           >
 
-            <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white">
+            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white border border-white/10 shadow-xs">
               <img
                 src="/logo.png"
                 alt="Digital FX"
-                className="h-10 w-10 object-contain"
+                className="h-8 w-8 object-contain"
               />
             </div>
 

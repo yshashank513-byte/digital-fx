@@ -1907,21 +1907,21 @@ export default function Home() {
         <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
           <div className="mx-auto flex h-[74px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
 
-            {/* Brand Logo - Clean & Perfectly Proportioned (40px/48px) */}
-            <a href="#home" className="flex items-center gap-3 sm:gap-3.5 shrink-0 group min-w-0">
+            {/* Brand Logo - Perfectly Balanced Proportions */}
+            <a href="#home" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group min-w-0">
               <img
                 src="/logo.png"
                 alt="Digital FX - Digital Marketing & SEO Agency in Ghaziabad"
-                width="1024"
-                height="1024"
+                width={36}
+                height={36}
                 decoding="async"
-                className="h-10 sm:h-12 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
+                className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0 transition-transform group-hover:scale-105"
               />
               <div className="shrink-0">
-                <div className="text-[20px] sm:text-[23px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+                <div className="text-[19px] sm:text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
                   DIGITAL <span className="text-[#207de9]">FX</span>
                 </div>
-                <div className="mt-1 sm:mt-1.5 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.2px] sm:tracking-[1.8px] text-slate-500 whitespace-nowrap">
+                <div className="mt-1 sm:mt-1.5 text-[7.5px] sm:text-[8px] font-bold uppercase tracking-[1.2px] sm:tracking-[1.6px] text-slate-500 whitespace-nowrap">
                   Digital Marketing That Drives Revenue®
                 </div>
               </div>
@@ -2027,7 +2027,7 @@ export default function Home() {
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-5">
                   <div className="flex items-center gap-3">
-                    <img src="/logo.png" alt="Digital FX" width="1024" height="1024" decoding="async" className="h-10 w-auto object-contain shrink-0" />
+                    <img src="/logo.png" alt="Digital FX" width={32} height={32} decoding="async" className="h-8 w-8 object-contain shrink-0" />
                     <div>
                       <p className="text-lg font-black text-[#080d24] leading-tight">
                         DIGITAL <span className="text-[#207de9]">FX</span>
@@ -2164,7 +2164,7 @@ export default function Home() {
                     className="w-full group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-blue-50/60 transition text-left cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
-                      <img src="/logo.png" alt="Digital FX" width="1024" height="1024" decoding="async" className="h-8 w-auto object-contain shrink-0" />
+                      <img src="/logo.png" alt="Digital FX" width={28} height={28} decoding="async" className="h-7 w-7 object-contain shrink-0" />
                       <div>
                         <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition flex items-center gap-2">
                           <span>AI Business Suite</span>
@@ -6186,9 +6186,9 @@ export default function Home() {
               
               {/* Column 1: Brand Logo, Description & Certified Trust Badges */}
               <div className="space-y-5">
-                {/* Brand Logo & Name - Proportional & Clean (40px/48px) */}
-                <div className="flex items-center gap-3 sm:gap-3.5">
-                  <img src="/logo.png" alt="Digital FX - Best Digital Marketing Agency in Ghaziabad" width="1024" height="1024" loading="lazy" decoding="async" className="h-10 sm:h-12 w-auto object-contain shrink-0" />
+                {/* Brand Logo & Name - Proportional & Clean */}
+                <div className="flex items-center gap-2.5 sm:gap-3">
+                  <img src="/logo.png" alt="Digital FX - Best Digital Marketing Agency in Ghaziabad" width={36} height={36} loading="lazy" decoding="async" className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0" />
                   <span className="text-xl sm:text-2xl font-extrabold text-[#080d24] tracking-tight">
                     DIGITAL <span className="text-[#207de9]">FX</span>
                   </span>
@@ -6330,8 +6330,8 @@ export default function Home() {
               
               {/* Top Institutional Header Bar - Big Bold Typography */}
               <div className="bg-[#080d24] text-white px-6 sm:px-8 py-5 border-b border-slate-800 flex items-center justify-between">
-                <div className="flex items-center gap-3.5">
-                  <img src="/logo.png" alt="Digital FX" width="1024" height="1024" decoding="async" className="h-10 w-auto object-contain shrink-0" />
+                <div className="flex items-center gap-3">
+                  <img src="/logo.png" alt="Digital FX" width={36} height={36} decoding="async" className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0" />
                   <div>
                     <div className="flex flex-wrap items-center gap-2.5">
                       <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-white">

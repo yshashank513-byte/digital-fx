@@ -129,11 +129,11 @@ export default function AdminLogin() {
       <div className="relative z-10 w-full max-w-md mx-auto">
         {/* Brand Header */}
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white p-1 shadow-sm mb-4 border border-slate-200">
+          <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-white p-1 shadow-xs mb-3.5 border border-slate-200">
             <img
               src="/logo.png"
               alt="Digital FX"
-              className="h-14 w-14 object-contain"
+              className="h-9 w-9 object-contain"
             />
           </div>
 

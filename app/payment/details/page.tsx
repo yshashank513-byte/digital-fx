@@ -212,7 +212,7 @@ function PaymentDetailsContent() {
 
         <div className="mb-6 text-center">
 
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white border border-slate-200/80 shadow-sm p-1.5">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-white border border-slate-200/80 shadow-xs p-1">
             <img
               src="/logo.png"
               alt="Digital FX"

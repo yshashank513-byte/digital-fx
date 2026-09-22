@@ -644,20 +644,20 @@ export default function ServicesPage() {
       {/* 2. STICKY MAIN HEADER */}
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
         <div className="mx-auto flex h-[74px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-3 sm:gap-3.5 shrink-0 group min-w-0">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group min-w-0">
             <img
               src="/logo.png"
               alt="Digital FX Services Division"
-              width="1024"
-              height="1024"
+              width={36}
+              height={36}
               decoding="async"
-              className="h-10 sm:h-12 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
+              className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0 transition-transform group-hover:scale-105"
             />
             <div className="shrink-0">
-              <div className="text-[20px] sm:text-[23px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+              <div className="text-[19px] sm:text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
                 DIGITAL <span className="text-[#207de9]">FX</span>
               </div>
-              <div className="mt-1 sm:mt-1.5 text-[7.5px] sm:text-[8.5px] font-bold uppercase tracking-[1.2px] sm:tracking-[1.8px] text-slate-500 whitespace-nowrap">
+              <div className="mt-1 sm:mt-1.5 text-[7.5px] sm:text-[8px] font-bold uppercase tracking-[1.2px] sm:tracking-[1.6px] text-slate-500 whitespace-nowrap">
                 360° Services Hub
               </div>
             </div>
@@ -1092,8 +1092,8 @@ export default function ServicesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
             {/* Col 1: Brand */}
             <div>
-              <div className="flex items-center gap-3 sm:gap-3.5">
-                <img src="/logo.png" alt="Digital FX" width="1024" height="1024" loading="lazy" decoding="async" className="h-10 sm:h-12 w-auto object-contain shrink-0" />
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <img src="/logo.png" alt="Digital FX" width={36} height={36} loading="lazy" decoding="async" className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0" />
                 <div className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
                   DIGITAL <span className="text-[#207de9]">FX</span>
                 </div>

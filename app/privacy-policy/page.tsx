@@ -67,13 +67,13 @@ export default function PrivacyPolicyPage() {
       {/* 2. MAIN HEADER */}
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
         <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-3 sm:gap-3.5 group shrink-0">
-            <img src="/logo.png" alt="Digital FX" className="h-10 sm:h-12 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+            <img src="/logo.png" alt="Digital FX" width={36} height={36} className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0 group-hover:scale-105 transition-transform" />
             <div>
-              <div className="text-[20px] sm:text-[23px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
+              <div className="text-[19px] sm:text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
                 DIGITAL <span className="text-[#207de9]">FX</span>
               </div>
-              <div className="mt-1 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.6px] text-slate-500">
+              <div className="mt-1 text-[7.5px] sm:text-[8px] font-bold uppercase tracking-[1.6px] text-slate-500">
                 Corporate Governance &amp; Legal
               </div>
             </div>

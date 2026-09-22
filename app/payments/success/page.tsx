@@ -24,12 +24,12 @@ function PaymentSuccessContent() {
         <div className="w-full rounded-[28px] border border-slate-200 bg-white p-8 text-center shadow-[0_25px_80px_rgba(15,23,42,.10)] md:p-12">
 
           {/* Logo */}
-          <div className="mb-8 flex justify-center">
-            <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-lg">
+          <div className="mb-6 flex justify-center">
+            <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl border border-slate-100 bg-white shadow-xs p-1">
               <img
                 src="/logo.png"
                 alt="Digital FX"
-                className="h-full w-full object-contain p-2"
+                className="h-full w-full object-contain"
               />
             </div>
           </div>

@@ -27,8 +27,8 @@ export default function BlogPoster({
       {/* Top Bar: Digital FX Branding & Category Tag */}
       <div className="relative z-10 flex items-center justify-between gap-4">
         {/* Clean Logo without border/box */}
-        <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="Digital FX" className="h-10 sm:h-12 w-auto object-contain" />
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <img src="/logo.png" alt="Digital FX" width={36} height={36} className="h-8 w-8 sm:h-9 sm:w-9 object-contain" />
           <div>
             <div className="text-lg sm:text-xl font-extrabold tracking-tight text-white leading-none">
               DIGITAL <span className="text-[#207de9]">FX</span>
