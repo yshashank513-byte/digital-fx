@@ -643,7 +643,7 @@ export default function ServicesPage() {
 
       {/* 2. STICKY MAIN HEADER */}
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
-        <div className="mx-auto flex h-[74px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-[74px] max-w-[1480px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group min-w-0">
             <img
               src="/logo.png"
@@ -660,49 +660,65 @@ export default function ServicesPage() {
             </div>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 mr-2">
+          <nav className="hidden lg:flex items-center justify-center gap-6 xl:gap-8 mx-auto px-4 xl:px-8 shrink-0">
             <Link
               href="/services"
-              className="text-[14px] font-bold text-[#207de9] transition-colors cursor-pointer border-b-2 border-[#207de9] pb-0.5"
+              className="text-[14px] font-bold text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer border-b-2 border-[#207de9] pb-0.5"
             >
               Services
             </Link>
             <Link
-              href="/#geo-checker"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+              href="/case-studies"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
-              <span>AI Search (GEO)</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9.5px] font-bold uppercase tracking-wider leading-none">
+              Portfolio
+            </Link>
+            <Link
+              href="/pricing"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              Packages
+            </Link>
+            <Link
+              href="/tools"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              <span className="whitespace-nowrap">AI Tools</span>
+              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold uppercase tracking-wider leading-none shrink-0">
                 FREE
               </span>
             </Link>
             <Link
               href="/locations"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5"
+              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0"
             >
-              <span>350+ Cities</span>
-              <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9.5px] font-extrabold uppercase">
+              <span className="whitespace-nowrap">350+ Cities</span>
+              <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9px] font-extrabold uppercase leading-none shrink-0">
                 IN
               </span>
             </Link>
             <Link
-              href="/blog"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors"
+              href="/careers"
+              className="hidden xl:inline-flex items-center gap-1.5 text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
             >
-              Insights &amp; Blog
+              <span className="whitespace-nowrap">Careers</span>
+              <span className="px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200 text-[9px] font-extrabold uppercase leading-none shrink-0">
+                HIRING
+              </span>
+            </Link>
+            <Link
+              href="/blog"
+              className="hidden 2xl:inline-flex text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
+            >
+              Insights
             </Link>
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-            <a href="tel:+918447583685" className="hidden xl:flex flex-col text-right justify-center shrink-0 group">
-              <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 leading-none">Direct Consultation</span>
-              <span className="mt-1 text-[13.5px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition whitespace-nowrap leading-none">+91 84475 83685</span>
-            </a>
-
             <button
               type="button"
               onClick={() => openProposal("Full Growth Consultation")}
-              className="inline-flex h-[38px] sm:h-[42px] items-center gap-1.5 sm:gap-2 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] px-3 sm:px-5 text-xs sm:text-[13px] font-bold text-white shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer shrink-0 whitespace-nowrap tracking-wide"
+              className="inline-flex h-[38px] sm:h-[42px] items-center gap-1.5 sm:gap-2 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] px-3.5 sm:px-5 text-xs sm:text-[13px] font-bold text-white shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer shrink-0 whitespace-nowrap tracking-wide"
             >
               <span className="hidden xs:inline">Get Custom Proposal</span>
               <span className="xs:hidden">Proposal</span>

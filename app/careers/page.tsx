@@ -80,7 +80,7 @@ export default function CareersPage() {
 
       {/* 2. MAIN HEADER */}
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
-        <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1480px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
             <img src="/logo.png" alt="Digital FX" width={42} height={42} className="h-9 w-9 sm:h-[42px] sm:w-[42px] object-contain shrink-0 group-hover:scale-105 transition-transform" />
             <div>
@@ -93,23 +93,29 @@ export default function CareersPage() {
             </div>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-            <Link href="/services" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition">
+          <nav className="hidden lg:flex items-center justify-center gap-6 xl:gap-8 mx-auto px-4 xl:px-8 shrink-0">
+            <Link href="/services" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
               Services
             </Link>
-            <Link href="/case-studies" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition">
+            <Link href="/case-studies" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
               Portfolio
             </Link>
-            <Link href="/pricing" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition">
+            <Link href="/pricing" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
               Packages
             </Link>
-            <Link href="/tools" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition inline-flex items-center gap-1.5">
-              <span>Free Tools</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9.5px] font-bold uppercase">
-                AI
+            <Link href="/tools" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0">
+              <span className="whitespace-nowrap">AI Tools</span>
+              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold uppercase tracking-wider leading-none shrink-0">
+                FREE
               </span>
             </Link>
-            <Link href="/contact" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition">
+            <Link href="/locations" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0">
+              <span className="whitespace-nowrap">350+ Cities</span>
+              <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9px] font-extrabold uppercase leading-none shrink-0">
+                IN
+              </span>
+            </Link>
+            <Link href="/contact" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
               Contact
             </Link>
           </nav>

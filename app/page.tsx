@@ -1957,7 +1957,17 @@ export default function Home() {
             </div>
 
             {/* Right: Client Checkout Portal & Direct Strategist Communications */}
-            <div className="flex items-center justify-between sm:justify-end gap-2.5 sm:gap-5 text-[11px] sm:text-[12px] font-medium text-slate-300 w-full sm:w-auto">
+            <div className="flex items-center justify-between sm:justify-end gap-2.5 sm:gap-4 text-[11px] sm:text-[12px] font-medium text-slate-300 w-full sm:w-auto">
+              <Link
+                href="/careers"
+                className="hidden lg:inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-300 hover:text-white transition shrink-0"
+              >
+                <span>Careers</span>
+                <span className="px-1.5 py-0.2 rounded bg-purple-500/25 text-purple-300 border border-purple-400/30 text-[8.5px] font-extrabold uppercase leading-none">
+                  HIRING
+                </span>
+              </Link>
+
               <button
                 type="button"
                 onClick={() => openPricingModal()}
@@ -1992,7 +2002,7 @@ export default function Home() {
             2. WEBFX MAIN HEADER WITH DESKTOP NAVIGATION (#fxheader)
             ========================================================================== */}
         <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
-          <div className="mx-auto flex h-[74px] max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto flex h-[74px] max-w-[1480px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
 
             {/* Brand Logo - Perfectly Balanced Proportions */}
             <a href="#home" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group min-w-0">
@@ -2014,68 +2024,63 @@ export default function Home() {
               </div>
             </a>
 
-            {/* Center Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-5 xl:gap-7 mr-2">
+            {/* Center Desktop Navigation Links - Perfectly Spaced, Centered, No Text-Wrapping */}
+            <nav className="hidden lg:flex items-center justify-center gap-5 xl:gap-8 mx-auto px-4 xl:px-8 shrink-0">
               <Link
                 href="/services"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors cursor-pointer"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
                 Services
               </Link>
               <Link
                 href="/case-studies"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors cursor-pointer"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
                 Portfolio
               </Link>
               <Link
                 href="/pricing"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors cursor-pointer"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
                 Packages
               </Link>
               <Link
                 href="/tools"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
               >
-                <span>AI Tools</span>
-                <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9.5px] font-bold uppercase tracking-wider leading-none">
+                <span className="whitespace-nowrap">AI Tools</span>
+                <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold uppercase tracking-wider leading-none shrink-0">
                   FREE
                 </span>
               </Link>
               <Link
-                href="/careers"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5"
-              >
-                <span>Careers</span>
-                <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9px] font-extrabold uppercase">
-                  HIRING
-                </span>
-              </Link>
-              <Link
                 href="/locations"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0"
               >
-                <span>350+ Cities</span>
-                <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9.5px] font-extrabold uppercase">
+                <span className="whitespace-nowrap">350+ Cities</span>
+                <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9px] font-extrabold uppercase leading-none shrink-0">
                   IN
                 </span>
               </Link>
               <Link
+                href="/careers"
+                className="hidden xl:inline-flex items-center gap-1.5 text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
+              >
+                <span className="whitespace-nowrap">Careers</span>
+                <span className="px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200 text-[9px] font-extrabold uppercase leading-none shrink-0">
+                  HIRING
+                </span>
+              </Link>
+              <Link
                 href="/blog"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors"
+                className="hidden 2xl:inline-flex text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
               >
                 Insights
               </Link>
             </nav>
 
             {/* Right Action & Menu Trigger */}
-            <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-              <a href="tel:+918447583685" className="hidden xl:flex flex-col text-right justify-center shrink-0 group">
-                <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 leading-none">Direct Consultation</span>
-                <span className="mt-1 text-[13.5px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition whitespace-nowrap leading-none">+91 84475 83685</span>
-              </a>
-
+            <div className="flex items-center gap-2.5 sm:gap-3.5 shrink-0">
               <button
                 type="button"
                 onClick={scrollToContact}
