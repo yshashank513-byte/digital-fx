@@ -702,9 +702,10 @@ export default function ServicesPage() {
             <button
               type="button"
               onClick={() => openProposal("Full Growth Consultation")}
-              className="inline-flex h-[42px] items-center gap-2 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] px-5 text-[13px] font-bold text-white shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer shrink-0 whitespace-nowrap tracking-wide"
+              className="inline-flex h-[38px] sm:h-[42px] items-center gap-1.5 sm:gap-2 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] px-3 sm:px-5 text-xs sm:text-[13px] font-bold text-white shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer shrink-0 whitespace-nowrap tracking-wide"
             >
-              <span>Get Custom Proposal</span>
+              <span className="hidden xs:inline">Get Custom Proposal</span>
+              <span className="xs:hidden">Proposal</span>
               <span className="text-sm font-bold">→</span>
             </button>
           </div>

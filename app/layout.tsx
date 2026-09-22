@@ -1,10 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import {
   CORE_CUSTOMER_SEARCH_KEYWORDS,
   ALL_INDIA_AREA_SERVED_SCHEMA,
 } from "@/lib/indiaLocations";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#080d24",
+};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -99,7 +106,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased w-full max-w-full overflow-x-hidden`}
     >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -108,7 +115,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col w-full max-w-full overflow-x-hidden">
         {/* Comprehensive Local Business, Rating & FAQ Schema */}
         <script
           type="application/ld+json"

@@ -92,12 +92,13 @@ export default function ContactPage() {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <a
               href="tel:+918447583685"
-              className="px-5 py-2.5 rounded-xl bg-[#1570ef] hover:bg-[#1362d2] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-blue-500/25 transition-all"
+              className="px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#1570ef] hover:bg-[#1362d2] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-blue-500/25 transition-all whitespace-nowrap"
             >
-              Call Strategist →
+              <span className="hidden xs:inline">Call Strategist →</span>
+              <span className="xs:hidden">Call Now →</span>
             </a>
           </div>
         </div>

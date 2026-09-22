@@ -2779,9 +2779,10 @@ export default function Home() {
             <div className="relative mx-auto w-full max-w-[1040px] px-0 sm:px-4 mt-10 sm:mt-16 select-none overflow-hidden">
 
               {/* Vector SVG Graphic Container with Centered Elements & Widened Callout Margins */}
-              <div className="relative z-10 w-full max-w-[1040px] mx-auto aspect-[1040/560]">
+              <div className="relative z-10 w-full max-w-[1040px] mx-auto">
                 
-                <svg viewBox="0 0 1040 560" className="w-full h-full drop-shadow-sm overflow-hidden sm:overflow-visible">
+                <div className="w-full aspect-[1040/560] relative">
+                  <svg viewBox="0 0 1040 560" className="w-full h-full drop-shadow-sm overflow-hidden sm:overflow-visible">
                   <defs>
                     {/* Center Disc Soft Drop Shadow */}
                     <filter id="hub-shadow" x="-20%" y="-20%" width="140%" height="140%">
@@ -3115,6 +3116,7 @@ export default function Home() {
                     <text x="20" y="409" fill="#475467" fontSize="12px" fontWeight="600">high-intent AI search algorithms.</text>
                   </g>
                 </svg>
+                </div>
 
                 {/* Mobile Responsive Active Stage Summary Card */}
                 <div className="md:hidden mt-3 p-3 rounded-xl bg-white border border-slate-200 text-center shadow-xs">
@@ -5061,7 +5063,7 @@ export default function Home() {
             </button>
 
             {/* Scrollable Container with Marquee Animation */}
-            <div ref={reviewsScrollRef} className="reviews-scroll-container w-full overflow-x-auto py-2">
+            <div ref={reviewsScrollRef} className="reviews-scroll-container w-full overflow-x-auto py-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <div className="reviews-marquee-track">
                 {/* First Set of Google Business Reviews */}
                 {clientReviews.map((item, idx) => (
