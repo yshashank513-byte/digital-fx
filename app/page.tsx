@@ -4206,6 +4206,74 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Pre-Audit Feature Showcase: Explains evaluated signals with custom vector illustration */}
+            {!geoResult && !geoLoading && (
+              <div className="mx-auto mt-10 max-w-[1080px] rounded-3xl bg-white border border-slate-200/90 shadow-sm p-6 sm:p-9 transition-all">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  
+                  <div className="lg:col-span-7 space-y-3.5">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-bold text-[#1570ef]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1570ef]" />
+                      Comprehensive Search &amp; Entity Diagnosis
+                    </div>
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#080d24] tracking-tight">
+                      What our proprietary audit engine evaluates in real-time
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                      Search is evolving beyond simple blue links. We audit your website across next-generation generative AI engines and traditional ranking factors to uncover missed revenue opportunities.
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                      <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                          <span className="text-[#1570ef]">●</span> AI Overviews Readiness
+                        </div>
+                        <p className="text-[11px] text-slate-500 mt-1">
+                          Evaluates conversational summary citations on Google Gemini &amp; ChatGPT Search.
+                        </p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                          <span className="text-[#00b894]">●</span> Google Maps 3-Pack Rank
+                        </div>
+                        <p className="text-[11px] text-slate-500 mt-1">
+                          Checks GMB profile signals, local NAP citations, and geo-relevance.
+                        </p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                          <span className="text-[#6c5ce7]">●</span> Schema.org JSON-LD
+                        </div>
+                        <p className="text-[11px] text-slate-500 mt-1">
+                          Validates structured entity markup, Knowledge Graph links, and FAQ blocks.
+                        </p>
+                      </div>
+                      <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                          <span className="text-[#e17055]">●</span> Speed &amp; Traffic Estimate
+                        </div>
+                        <p className="text-[11px] text-slate-500 mt-1">
+                          Calculates Core Web Vitals, organic traffic potential, and missed revenue gaps.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-5 flex items-center justify-center">
+                    <div className="relative rounded-2xl overflow-hidden border border-slate-100 shadow-md bg-white p-2 w-full">
+                      <img
+                        src="/ai-seo-audit-vector.jpg"
+                        alt="Digital FX Search & GEO Audit Engine"
+                        className="w-full h-auto rounded-xl object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            )}
+
             {/* Clean Scanning Progress State */}
             {geoLoading && (
               <div className="mx-auto mt-6 max-w-[680px] rounded-2xl border border-blue-200 bg-white p-6 shadow-sm animate-fadeIn">
@@ -5855,28 +5923,50 @@ export default function Home() {
               </span>
             </div>
 
-            {/* Careers Spotlight Banner (Enterprise Modern Agency Redesign) */}
-            <div className="mt-12 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#0c1638] via-[#09112e] to-[#0d1c44] p-6 sm:p-8 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-2xl border border-white/15 backdrop-blur-xl">
-              <div className="space-y-2 max-w-2xl">
-                <div className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-cyan-400 bg-cyan-950/70 px-3 py-1 rounded-full border border-cyan-500/30">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Careers &amp; Talent Acquisition
-                </div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-                  Want to join our search engineering and performance team?
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
-                  We’re actively hiring senior SEO specialists, full-stack Next.js engineers, and paid media strategists who build measurable, high-ROI client campaigns.
-                </p>
-              </div>
+            {/* Careers Spotlight Banner (With Collaborative Team Illustration) */}
+            <div className="mt-14 rounded-3xl bg-gradient-to-br from-[#0c1638] via-[#09112e] to-[#0d1c44] p-6 sm:p-10 text-white shadow-2xl border border-white/15 backdrop-blur-xl overflow-hidden relative">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                
+                <div className="lg:col-span-7 space-y-3.5">
+                  <div className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-cyan-400 bg-cyan-950/70 px-3 py-1 rounded-full border border-cyan-500/30">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Careers &amp; Talent Acquisition
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug">
+                    Want to join our search engineering &amp; performance team?
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed max-w-xl">
+                    We’re actively hiring senior SEO architects, full-stack Next.js engineers, and performance media buyers who love solving complex search challenges and building high-ROI digital systems.
+                  </p>
+                  
+                  <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-300">
+                    <span className="px-2.5 py-1 rounded-lg bg-white/10 border border-white/10 text-[11px] font-medium">Senior Technical SEO</span>
+                    <span className="px-2.5 py-1 rounded-lg bg-white/10 border border-white/10 text-[11px] font-medium">Full-Stack Next.js Developer</span>
+                    <span className="px-2.5 py-1 rounded-lg bg-white/10 border border-white/10 text-[11px] font-medium">Paid Media &amp; Meta Buyer</span>
+                  </div>
 
-              <div className="shrink-0">
-                <a
-                  href="mailto:careers@digitalfx.in?subject=Career%20Application%20at%20Digital%20FX"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#1570ef] to-[#00f0ff] hover:from-[#1362d2] hover:to-[#00d6e6] text-slate-950 text-xs sm:text-sm font-extrabold shadow-lg shadow-cyan-500/25 transition-all hover:-translate-y-0.5 cursor-pointer"
-                >
-                  Join Our Team →
-                </a>
+                  <div className="pt-2">
+                    <a
+                      href="mailto:careers@digitalfx.in?subject=Career%20Application%20at%20Digital%20FX"
+                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#1570ef] to-[#00f0ff] hover:from-[#1362d2] hover:to-[#00d6e6] text-slate-950 text-xs sm:text-sm font-extrabold shadow-lg shadow-cyan-500/25 transition-all hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      <span>Explore Open Roles &amp; Apply</span>
+                      <span>→</span>
+                    </a>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-5 flex items-center justify-center">
+                  <div className="w-full rounded-2xl overflow-hidden bg-white/95 p-3 shadow-xl border border-white/20 group hover:scale-[1.02] transition-transform duration-300">
+                    <img
+                      src="/agency-team-illustration.png"
+                      alt="Digital FX Collaborative Agency Team"
+                      className="w-full h-auto object-contain rounded-xl"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -6216,9 +6306,18 @@ export default function Home() {
                   <h3 className="text-xl sm:text-2xl font-extrabold text-[#080d24] tracking-tight">
                     Request Strategic Proposal
                   </h3>
-                  <p className="text-xs sm:text-[13px] text-slate-500 font-normal mt-1 mb-6 leading-relaxed">
+                  <p className="text-xs sm:text-[13px] text-slate-500 font-normal mt-1 mb-4 leading-relaxed">
                     Tell us about your business goals. We’ll perform a competitor gap analysis and map out an attributable growth strategy.
                   </p>
+
+                  <div className="rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 mb-5 shadow-xs group">
+                    <img
+                      src="/strategy-consultation-vector.jpg"
+                      alt="Digital FX 1-on-1 Growth Consultation & Strategic Advisory"
+                      className="w-full aspect-[16/9] object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
 
                   <form onSubmit={handleEnquiry} className="space-y-3.5 text-xs">
                     <div>
