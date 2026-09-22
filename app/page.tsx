@@ -2015,23 +2015,43 @@ export default function Home() {
             </a>
 
             {/* Center Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-6 xl:gap-8 mr-2">
+            <nav className="hidden lg:flex items-center gap-5 xl:gap-7 mr-2">
               <Link
                 href="/services"
                 className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors cursor-pointer"
               >
                 Services
               </Link>
-              <a
-                href="#geo-checker"
-                onClick={scrollToGeoAudit}
+              <Link
+                href="/case-studies"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors cursor-pointer"
+              >
+                Portfolio
+              </Link>
+              <Link
+                href="/pricing"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors cursor-pointer"
+              >
+                Packages
+              </Link>
+              <Link
+                href="/tools"
                 className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
               >
-                <span>AI Search (GEO)</span>
+                <span>AI Tools</span>
                 <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9.5px] font-bold uppercase tracking-wider leading-none">
                   FREE
                 </span>
-              </a>
+              </Link>
+              <Link
+                href="/careers"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5"
+              >
+                <span>Careers</span>
+                <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9px] font-extrabold uppercase">
+                  HIRING
+                </span>
+              </Link>
               <Link
                 href="/locations"
                 className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5"
@@ -2045,7 +2065,7 @@ export default function Home() {
                 href="/blog"
                 className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors"
               >
-                Insights &amp; Blog
+                Insights
               </Link>
             </nav>
 
@@ -2167,8 +2187,8 @@ export default function Home() {
                   </a>
 
                   {/* Services */}
-                  <a
-                    href="#services"
+                  <Link
+                    href="/services"
                     onClick={closeMobileMenu}
                     className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-slate-50 transition"
                   >
@@ -2180,97 +2200,19 @@ export default function Home() {
                       </div>
                       <div>
                         <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition">
-                          Core Services
+                          SEO &amp; Growth Services
                         </div>
                         <div className="text-[11px] text-slate-500 font-medium">
-                          SEO, Paid Media, Web Dev &amp; Funnels
+                          SEO, CTV, Paid Media &amp; Full-Funnel Growth
                         </div>
                       </div>
                     </div>
                     <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
-                  </a>
+                  </Link>
 
-                  {/* Revenue Engine 360° */}
-                  <a
-                    href="#growth-dashboard"
-                    onClick={closeMobileMenu}
-                    className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-blue-50/60 transition"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-[#207de9] transition">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition">
-                          Revenue Engine 360°
-                        </div>
-                        <div className="text-[11px] text-slate-500 font-medium">
-                          Closed-loop attribution &amp; AI loop
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
-                  </a>
-
-                  {/* GEO AI Audit */}
-                  <a
-                    href="#geo-checker"
-                    onClick={(e) => {
-                      closeMobileMenu();
-                      scrollToGeoAudit(e);
-                    }}
-                    className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-emerald-50/60 transition"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 transition">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="text-sm font-bold text-[#080d24] group-hover:text-emerald-700 transition">
-                          GEO AI Audit Suite
-                        </div>
-                        <div className="text-[11px] text-slate-500 font-medium">
-                          ChatGPT &amp; Gemini citation diagnostic
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
-                  </a>
-
-                  {/* AI Business Suite (Coming Soon Trigger in Drawer) */}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      closeMobileMenu();
-                      setIsAiSuiteOpen(true);
-                    }}
-                    className="w-full group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-blue-50/60 transition text-left cursor-pointer"
-                  >
-                    <div className="flex items-center gap-3">
-                      <img src="/logo.png" alt="Digital FX" width={28} height={28} decoding="async" className="h-7 w-7 object-contain shrink-0" />
-                      <div>
-                        <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition flex items-center gap-2">
-                          <span>AI Business Suite</span>
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#080d24] text-white border border-[#00f0ff] text-[8.5px] font-extrabold">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                            <span>COMING SOON</span>
-                          </span>
-                        </div>
-                        <div className="text-[11px] text-slate-500 font-medium">
-                          Google Maps Auto-reply &amp; Lead intelligence
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
-                  </button>
-
-                  {/* Results & Proof */}
-                  <a
-                    href="#case-studies"
+                  {/* Portfolio & Case Studies */}
+                  <Link
+                    href="/case-studies"
                     onClick={closeMobileMenu}
                     className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-slate-50 transition"
                   >
@@ -2282,15 +2224,112 @@ export default function Home() {
                       </div>
                       <div>
                         <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition">
-                          Verified Client Proof
+                          The Digital FX Portfolio
                         </div>
                         <div className="text-[11px] text-slate-500 font-medium">
-                          50+ reviews &amp; verified case studies
+                          ₹18.4 Cr+ documented client revenue &amp; case studies
                         </div>
                       </div>
                     </div>
                     <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
-                  </a>
+                  </Link>
+
+                  {/* Packages & Pricing */}
+                  <Link
+                    href="/pricing"
+                    onClick={closeMobileMenu}
+                    className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-blue-50/60 transition"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-[#207de9] transition">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition">
+                          Packages &amp; Retainers
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-medium">
+                          Transparent pricing from ₹24,999/month
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                  </Link>
+
+                  {/* GEO AI Audit Tool */}
+                  <Link
+                    href="/tools"
+                    onClick={closeMobileMenu}
+                    className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-emerald-50/60 transition"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 transition">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-[#080d24] group-hover:text-emerald-700 transition">
+                          Free AI Search &amp; GEO Tool
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-medium">
+                          Instant 60s ChatGPT &amp; Gemini scan
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                  </Link>
+
+                  {/* Careers (We Are Hiring!) */}
+                  <Link
+                    href="/careers"
+                    onClick={closeMobileMenu}
+                    className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-purple-50/60 transition"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-50 text-purple-600 transition">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-[#080d24] group-hover:text-purple-700 transition flex items-center gap-1.5">
+                          <span>Careers (We Are Hiring!)</span>
+                          <span className="px-1.5 py-0.2 rounded bg-purple-100 text-purple-800 text-[8.5px] font-extrabold uppercase">4 ROLES</span>
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-medium">
+                          SEO Architects, Next.js Devs &amp; Media Buyers
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-slate-300 group-hover:text-purple-600 group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                  </Link>
+
+                  {/* Contact & Consultation Desk */}
+                  <Link
+                    href="/contact"
+                    onClick={closeMobileMenu}
+                    className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-cyan-50/60 transition"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 transition">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-[#080d24] group-hover:text-cyan-700 transition">
+                          Contact &amp; Strategy Desk
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-medium">
+                          Orbit Plaza Office &amp; Free Growth Proposal
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-slate-300 group-hover:text-cyan-600 group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                  </Link>
 
                   {/* Frequently Asked Questions (FAQ) */}
                   <a
@@ -6501,17 +6540,19 @@ export default function Home() {
                   Quick Links
                 </h4>
                 <ul className="space-y-2 text-xs text-slate-700 font-normal">
-                  <li><a href="#home" onClick={scrollToTop} className="hover:text-[#207de9] transition">Home</a></li>
-                  <li><a href="#case-studies" onClick={(e) => scrollToSection("case-studies", e)} className="hover:text-[#207de9] transition">Portfolio</a></li>
-                  <li><Link href="/blog" className="hover:text-[#207de9] transition">Blog Posts</Link></li>
-                  <li><a href="#case-studies" onClick={(e) => scrollToSection("case-studies", e)} className="hover:text-[#207de9] transition">Case Studies</a></li>
-                  <li><a href="#insights" onClick={(e) => scrollToSection("insights", e)} className="hover:text-[#207de9] transition">Press Release</a></li>
-                  <li><a href="#insights" onClick={(e) => scrollToSection("insights", e)} className="hover:text-[#207de9] transition">What&apos;s New</a></li>
-                  <li><a href="mailto:careers@digitalfx.in" className="hover:text-[#207de9] transition">Careers</a></li>
-                  <li><a href="#contact" onClick={scrollToContact} className="hover:text-[#207de9] transition">Contact Us</a></li>
+                  <li><Link href="/" className="hover:text-[#207de9] transition">Home</Link></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition font-semibold text-slate-900">SEO &amp; Growth Services</Link></li>
+                  <li><Link href="/case-studies" className="hover:text-[#207de9] transition font-semibold text-slate-900">The Digital FX Portfolio</Link></li>
+                  <li><Link href="/pricing" className="hover:text-[#207de9] transition font-semibold text-slate-900">Digital Marketing Packages</Link></li>
+                  <li><Link href="/tools" className="hover:text-[#207de9] transition font-semibold text-slate-900">Free AI Search &amp; GEO Tool</Link></li>
+                  <li><Link href="/careers" className="hover:text-[#207de9] transition font-semibold text-[#207de9]">Careers (We Are Hiring!)</Link></li>
+                  <li><Link href="/contact" className="hover:text-[#207de9] transition font-semibold text-slate-900">Contact &amp; Strategy Desk</Link></li>
+                  <li><Link href="/locations" className="hover:text-[#207de9] transition">350+ Cities Directory</Link></li>
+                  <li><Link href="/blog" className="hover:text-[#207de9] transition">Blog &amp; SEO Insights</Link></li>
                   <li><Link href="/privacy-policy" className="hover:text-[#207de9] transition">Privacy Policy</Link></li>
                   <li><Link href="/terms-and-conditions" className="hover:text-[#207de9] transition">Terms &amp; Conditions</Link></li>
-                  <li><Link href="/sitemap.xml" className="hover:text-[#207de9] transition">Sitemap</Link></li>
+                  <li><Link href="/refund-policy" className="hover:text-[#207de9] transition">Refund Policy</Link></li>
+                  <li><Link href="/sitemap.xml" className="hover:text-[#207de9] transition">XML Sitemap</Link></li>
                 </ul>
 
                 {/* Follow Us Sub-section */}
@@ -6535,19 +6576,19 @@ export default function Home() {
                   Solutions &amp; Services
                 </h4>
                 <ul className="space-y-2 text-xs text-slate-700 font-normal">
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">CTV Advertising</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Rich Media Innovation</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Media Planning &amp; Buying</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Programmatic Advertising</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Pay Per Click (PPC / Google Ads)</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Content Marketing</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Search Engine Optimization (SEO)</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Website &amp; App Development</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Social Media Marketing</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Reputation Management</a></li>
-                  <li><a href="#services" onClick={scrollToServices} className="hover:text-[#207de9] transition">Influencer Marketing</a></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition">CTV Advertising</Link></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition">Rich Media Innovation</Link></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition">Media Planning &amp; Buying</Link></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition">Programmatic Advertising</Link></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition">Pay Per Click (PPC / Google Ads)</Link></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition">Content Marketing</Link></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition font-semibold text-slate-900">Search Engine Optimization (SEO)</Link></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition font-semibold text-slate-900">Website &amp; App Development</Link></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition">Social Media Marketing</Link></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition">Reputation Management</Link></li>
+                  <li><Link href="/services" className="hover:text-[#207de9] transition">Influencer Marketing</Link></li>
                   <li><button type="button" onClick={() => openPricingModal("email_marketing")} className="hover:text-[#207de9] transition text-left cursor-pointer">Email Marketing (₹4,999)</button></li>
-                  <li><a href="#contact" onClick={scrollToContact} className="hover:text-[#207de9] transition">WhatsApp Lead Automation</a></li>
+                  <li><Link href="/contact" className="hover:text-[#207de9] transition">WhatsApp Lead Automation</Link></li>
                 </ul>
               </div>
 

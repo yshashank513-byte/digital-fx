@@ -245,15 +245,89 @@ export default function RootLayout({
                   },
                   "query-input": "required name=search_term_string",
                 },
+                hasPart: [
+                  {
+                    "@type": "WebPage",
+                    "@id": "https://www.digitalfx.in/services",
+                    url: "https://www.digitalfx.in/services",
+                    name: "SEO & Digital Marketing Services",
+                  },
+                  {
+                    "@type": "WebPage",
+                    "@id": "https://www.digitalfx.in/careers",
+                    url: "https://www.digitalfx.in/careers",
+                    name: "Careers (We Are Hiring!)",
+                  },
+                  {
+                    "@type": "WebPage",
+                    "@id": "https://www.digitalfx.in/case-studies",
+                    url: "https://www.digitalfx.in/case-studies",
+                    name: "The Digital FX Portfolio",
+                  },
+                  {
+                    "@type": "WebPage",
+                    "@id": "https://www.digitalfx.in/pricing",
+                    url: "https://www.digitalfx.in/pricing",
+                    name: "Digital Marketing Packages & Pricing",
+                  },
+                  {
+                    "@type": "WebPage",
+                    "@id": "https://www.digitalfx.in/tools",
+                    url: "https://www.digitalfx.in/tools",
+                    name: "Free AI Search & GEO Audit Tool",
+                  },
+                  {
+                    "@type": "WebPage",
+                    "@id": "https://www.digitalfx.in/contact",
+                    url: "https://www.digitalfx.in/contact",
+                    name: "Contact & Strategy Advisory Desk",
+                  },
+                ],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SiteNavigationElement",
+                "@id": "https://www.digitalfx.in/#sitelink-careers",
+                name: "Careers (We Are Hiring!)",
+                url: "https://www.digitalfx.in/careers",
+                description:
+                  "Explore open roles for SEO architects, performance media buyers, and full-stack engineers at Digital FX.",
               },
               {
                 "@context": "https://schema.org",
                 "@type": "SiteNavigationElement",
                 "@id": "https://www.digitalfx.in/#sitelink-services",
-                name: "Digital Marketing Services",
-                url: "https://www.digitalfx.in/#services",
+                name: "SEO & Digital Marketing Services",
+                url: "https://www.digitalfx.in/services",
                 description:
-                  "Full-funnel local SEO, Google Maps 3-Pack domination, sub-second web design, and high-ROI ad campaigns across India and USA.",
+                  "Enterprise search engine optimization, Google Maps 3-Pack domination, Connected TV, and performance paid media across India and USA.",
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SiteNavigationElement",
+                "@id": "https://www.digitalfx.in/#sitelink-case-studies",
+                name: "The Digital FX Portfolio",
+                url: "https://www.digitalfx.in/case-studies",
+                description:
+                  "Verified client case studies, ₹18.4 Cr+ documented client revenue, and real performance ROAS breakdowns across industries.",
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SiteNavigationElement",
+                "@id": "https://www.digitalfx.in/#sitelink-pricing",
+                name: "Digital Marketing Packages & Pricing",
+                url: "https://www.digitalfx.in/pricing",
+                description:
+                  "Transparent monthly retainers and performance growth packages for local clinics, scaling brands, and multi-city enterprises.",
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SiteNavigationElement",
+                "@id": "https://www.digitalfx.in/#sitelink-tools",
+                name: "Free AI Search & GEO Audit Tool",
+                url: "https://www.digitalfx.in/tools",
+                description:
+                  "Run an instant 60-second Generative Engine Optimization (GEO) and AI search visibility audit for your business website.",
               },
               {
                 "@context": "https://schema.org",
@@ -285,20 +359,11 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "SiteNavigationElement",
-                "@id": "https://www.digitalfx.in/#sitelink-audit",
-                name: "Free Growth Audit & Strategy Proposal",
-                url: "https://www.digitalfx.in/#geo-checker",
-                description:
-                  "Run an instant 60-second AI & SEO audit of your business website and Google Maps entity.",
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "SiteNavigationElement",
                 "@id": "https://www.digitalfx.in/#sitelink-contact",
-                name: "Contact & Strategy Desk",
-                url: "https://www.digitalfx.in/#contact",
+                name: "Contact & Strategy Advisory Desk",
+                url: "https://www.digitalfx.in/contact",
                 description:
-                  "Book a direct consultation with Shashank Yadav and Digital FX senior growth strategists.",
+                  "Book a direct consultation with Shashank Yadav and Digital FX senior growth strategists at Orbit Plaza, Crossings Republik.",
               },
             ]),
           }}
