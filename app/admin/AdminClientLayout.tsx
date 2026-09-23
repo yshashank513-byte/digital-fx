@@ -217,6 +217,7 @@ export default function AdminClientLayout({
             <img
               src="/logo.svg"
               alt="Digital FX"
+              style={{ height: "28px", width: "auto" }}
               className="h-7 w-auto object-contain"
             />
           </Link>
@@ -292,7 +293,7 @@ export default function AdminClientLayout({
           ========================================================================= */}
       <div className="sticky top-0 z-30 flex h-[70px] items-center justify-between border-b border-slate-200 bg-white/95 px-5 backdrop-blur-md lg:hidden">
         <Link href="/admin" className="flex items-center">
-          <img src="/logo.svg" alt="Digital FX" className="h-6.5 w-auto object-contain" />
+          <img src="/logo.svg" alt="Digital FX" style={{ height: "26px", width: "auto" }} className="h-6.5 w-auto object-contain" />
         </Link>
 
         <div className="flex items-center gap-2">
@@ -316,7 +317,7 @@ export default function AdminClientLayout({
           <div className="relative z-10 flex h-full w-[280px] flex-col bg-white border-r border-slate-200 p-5 shadow-2xl overflow-y-auto">
             <div className="flex items-center justify-between pb-5 border-b border-slate-100">
               <div className="flex items-center">
-                <img src="/logo.svg" alt="Digital FX" className="h-6.5 w-auto object-contain" />
+                <img src="/logo.svg" alt="Digital FX" style={{ height: "26px", width: "auto" }} className="h-6.5 w-auto object-contain" />
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}

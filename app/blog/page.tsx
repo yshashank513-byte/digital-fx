@@ -74,7 +74,7 @@ export default function BlogIndexPage() {
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
         <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
-            <img src="/logo.svg" alt="Digital FX - Business Solution" width={116} height={32} className="h-7 sm:h-8 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
+            <img src="/logo.svg" alt="Digital FX - Business Solution" width={116} height={32} style={{ height: "32px", width: "auto" }} className="h-7 sm:h-8 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
@@ -290,7 +290,7 @@ export default function BlogIndexPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
             <div>
               <div className="flex items-center">
-                <img src="/logo-white.svg" alt="Digital FX" width={116} height={32} className="h-7 sm:h-8 w-auto object-contain shrink-0" />
+                <img src="/logo-white.svg" alt="Digital FX" width={116} height={32} style={{ height: "32px", width: "auto" }} className="h-7 sm:h-8 w-auto object-contain shrink-0" />
               </div>
               <p className="mt-4 text-xs text-slate-400 leading-relaxed">
                 Digital FX is a premier search engineering &amp; digital marketing agency headquartered at Orbit Plaza, Crossings Republik, Ghaziabad (Delhi NCR). Serving 350+ cities across India and international markets.

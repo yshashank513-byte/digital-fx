@@ -2012,6 +2012,7 @@ export default function Home() {
                 width={116}
                 height={32}
                 decoding="async"
+                style={{ height: "32px", width: "auto" }}
                 className="h-7 sm:h-8 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
               />
             </a>
@@ -2131,7 +2132,7 @@ export default function Home() {
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-5">
                   <div className="flex items-center">
-                    <img src="/logo.svg" alt="Digital FX" width={105} height={29} decoding="async" className="h-7 w-auto object-contain shrink-0" />
+                    <img src="/logo.svg" alt="Digital FX" width={105} height={29} decoding="async" style={{ height: "28px", width: "auto" }} className="h-7 w-auto object-contain shrink-0" />
                   </div>
                   <button
                     type="button"
@@ -6129,6 +6130,7 @@ export default function Home() {
                         <img
                           src="/logo.svg"
                           alt="Digital FX"
+                          style={{ height: "26px", width: "auto" }}
                           className="h-6.5 sm:h-7 w-auto object-contain"
                         />
                         <span className="text-sm font-bold text-slate-300">|</span>
@@ -6480,6 +6482,7 @@ export default function Home() {
                     height={32}
                     loading="lazy"
                     decoding="async"
+                    style={{ height: "32px", width: "auto" }}
                     className="h-7 sm:h-8 w-auto object-contain shrink-0"
                   />
                 </div>
@@ -6623,7 +6626,7 @@ export default function Home() {
               {/* Top Institutional Header Bar - Big Bold Typography */}
               <div className="bg-[#080d24] text-white px-6 sm:px-8 py-5 border-b border-slate-800 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <img src="/logo-white.svg" alt="Digital FX" width={116} height={32} decoding="async" className="h-7 sm:h-8 w-auto object-contain shrink-0" />
+                  <img src="/logo-white.svg" alt="Digital FX" width={116} height={32} decoding="async" style={{ height: "32px", width: "auto" }} className="h-7 sm:h-8 w-auto object-contain shrink-0" />
                   <div>
                     <div className="flex flex-wrap items-center gap-2.5">
                       <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-300 bg-white/10 px-2.5 py-0.5 rounded-md border border-white/10">

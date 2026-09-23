@@ -29,6 +29,7 @@ function PaymentSuccessContent() {
               <img
                 src="/logo.svg"
                 alt="Digital FX"
+                style={{ height: "28px", width: "auto" }}
                 className="h-7 w-auto object-contain"
               />
             </div>

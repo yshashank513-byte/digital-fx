@@ -11,8 +11,8 @@ rawSvg = rawSvg.replace(/\s*xmlns:c2pa="[^"]*"/g, '');
 
 // Set optimized tight viewBox (tight bounds around content: x:198, y:118, w:1776, h:490)
 rawSvg = rawSvg.replace(/viewBox="[^"]*"/, 'viewBox="198 118 1776 490"');
-rawSvg = rawSvg.replace(/width="[^"]*"/, 'width="1776"');
-rawSvg = rawSvg.replace(/height="[^"]*"/, 'height="490"');
+rawSvg = rawSvg.replace(/width="[^"]*"/, 'width="116"');
+rawSvg = rawSvg.replace(/height="[^"]*"/, 'height="32"');
 
 // Clean master SVG
 const masterSvg = rawSvg.trim();
