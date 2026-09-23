@@ -102,7 +102,7 @@ export default function PricingPage() {
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
         <div className="max-w-[1480px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
           <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
-            <img src="/logo.svg" alt="Digital FX - Business Solution" width={116} height={32} style={{ height: "32px", width: "auto" }} className="h-7 sm:h-8 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
+            <img src="/logo.svg" alt="Digital FX - Business Solution" width={154} height={41} style={{ height: "40px", width: "auto" }} className="h-8.5 sm:h-10 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
           </Link>
 
           <nav className="hidden lg:flex items-center justify-center gap-6 xl:gap-8 mx-auto px-4 xl:px-8 shrink-0">
