@@ -28,7 +28,7 @@ export default function BlogPoster({
       <div className="relative z-10 flex items-center justify-between gap-4">
         {/* Clean Logo without border/box */}
         <div className="flex items-center gap-3">
-          <img src="/logo-white.svg" alt="Digital FX" width={120} height={40} className="h-8 sm:h-9 w-auto object-contain" />
+          <img src="/logo-white.svg" alt="Digital FX" width={105} height={29} className="h-6 sm:h-7 w-auto object-contain" />
           <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[1.4px] text-slate-400 hidden sm:inline-block border-l border-white/20 pl-3">
             Strategy &amp; Insights Desk
           </span>

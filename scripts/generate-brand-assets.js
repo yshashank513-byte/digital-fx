@@ -5,29 +5,26 @@ const sharp = require('sharp');
 // 1. Load the original SVG from public/logo.svg and clean it
 let rawSvg = fs.readFileSync('public/logo.svg', 'utf8');
 
-// Strip metadata
+// Strip metadata and c2pa namespace
 rawSvg = rawSvg.replace(/<metadata>[\s\S]*?<\/metadata>/gi, '');
 rawSvg = rawSvg.replace(/\s*xmlns:c2pa="[^"]*"/g, '');
+
+// Set optimized tight viewBox (tight bounds around content: x:198, y:118, w:1776, h:490)
+rawSvg = rawSvg.replace(/viewBox="[^"]*"/, 'viewBox="198 118 1776 490"');
+rawSvg = rawSvg.replace(/width="[^"]*"/, 'width="1776"');
+rawSvg = rawSvg.replace(/height="[^"]*"/, 'height="490"');
 
 // Clean master SVG
 const masterSvg = rawSvg.trim();
 fs.writeFileSync('public/logo.svg', masterSvg);
-console.log('Saved clean public/logo.svg');
+console.log('Saved tight public/logo.svg');
 
 // 2. Create public/logo-white.svg for dark backgrounds
-// In masterSvg, text fill is #2b333d. Replace with #ffffff
 let whiteSvg = masterSvg.replace(/fill="#2b333d"/g, 'fill="#ffffff"');
 fs.writeFileSync('public/logo-white.svg', whiteSvg);
-console.log('Saved public/logo-white.svg');
+console.log('Saved tight public/logo-white.svg');
 
 // 3. Create icon.svg - The iconic blue FX squircle badge
-// The FX in the master SVG is from x=1563.9 to 1874.5 (width=310.6), y=196 to 401 (height=205)
-// Let's create a 512x512 icon with the FX perfectly centered
-// Center of FX: x = (1563.9 + 1874.5)/2 = 1719.2, y = (196 + 401)/2 = 298.5
-// Desired FX width in 512x512 canvas: ~330px -> scale = 330 / 310.6 ≈ 1.062
-// Translation: targetX - sourceX * scale = 256 - 1719.2 * 1.06246 = 256 - 1826.58 = -1570.58
-// targetY - sourceY * scale = 256 - 298.5 * 1.06246 = 256 - 317.14 = -61.14
-
 const s = 1.06246;
 const tx = (256 - 1719.2 * s).toFixed(2);
 const ty = (256 - 298.5 * s).toFixed(2);
@@ -60,17 +57,17 @@ console.log('Saved public/icon.svg');
 async function renderAssets() {
   // 4. Render logo.png (high resolution transparent full logo)
   await sharp(Buffer.from(masterSvg), { density: 300 })
-    .resize(2172, 724)
+    .resize(1776, 490)
     .png()
     .toFile('public/logo.png');
-  console.log('Generated public/logo.png (2172x724)');
+  console.log('Generated public/logo.png (1776x490)');
 
   // 5. Render logo-white.png
   await sharp(Buffer.from(whiteSvg), { density: 300 })
-    .resize(2172, 724)
+    .resize(1776, 490)
     .png()
     .toFile('public/logo-white.png');
-  console.log('Generated public/logo-white.png (2172x724)');
+  console.log('Generated public/logo-white.png (1776x490)');
 
   // 6. Render icon.png
   await sharp(Buffer.from(iconSvg))
@@ -112,7 +109,6 @@ async function renderAssets() {
   console.log('Generated favicon png sizes');
 
   // 9. Generate favicon.ico (32x32 PNG inside ico container or 32x32 png format recognized by browsers)
-  // Modern browsers support PNG inside .ico or 32x32 favicon
   const icoBuf = await sharp(Buffer.from(iconSvg)).resize(32, 32).png().toBuffer();
   fs.writeFileSync('public/favicon.ico', icoBuf);
   fs.writeFileSync('app/favicon.ico', icoBuf);

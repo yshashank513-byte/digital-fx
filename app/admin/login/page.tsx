@@ -133,7 +133,7 @@ export default function AdminLogin() {
             <img
               src="/logo.svg"
               alt="Digital FX"
-              className="h-12 w-auto object-contain"
+              className="h-8 sm:h-9 w-auto object-contain"
             />
           </div>
 

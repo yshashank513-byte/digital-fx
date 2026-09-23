@@ -157,7 +157,7 @@ export default function ServicesPage() {
             <img
               src="/logo-white.svg"
               alt="Digital FX"
-              className="h-9 w-auto object-contain"
+              className="h-7 w-auto object-contain"
             />
           </Link>
 

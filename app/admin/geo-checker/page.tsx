@@ -353,7 +353,7 @@ export default function GeoCheckerPage() {
             <img
               src="/logo-white.svg"
               alt="Digital FX"
-              className="h-9 w-auto object-contain"
+              className="h-7 w-auto object-contain"
             />
 
           </button>

@@ -140,8 +140,8 @@ export default function DigitalFXIntro() {
 
         .dfx-intro-logo-wrap {
           position: relative;
-          width: clamp(240px, 32vw, 380px);
-          height: clamp(85px, 11vw, 130px);
+          width: clamp(180px, 24vw, 260px);
+          height: clamp(52px, 7vw, 75px);
           display: flex;
           align-items: center;
           justify-content: center;

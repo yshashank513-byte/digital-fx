@@ -2009,10 +2009,10 @@ export default function Home() {
               <img
                 src="/logo.svg"
                 alt="Digital FX - Business Solution"
-                width={138}
-                height={46}
+                width={116}
+                height={32}
                 decoding="async"
-                className="h-10 sm:h-[46px] w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
+                className="h-7 sm:h-8 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
               />
             </a>
 
@@ -2131,7 +2131,7 @@ export default function Home() {
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-5">
                   <div className="flex items-center">
-                    <img src="/logo.svg" alt="Digital FX" width={120} height={40} decoding="async" className="h-9 w-auto object-contain shrink-0" />
+                    <img src="/logo.svg" alt="Digital FX" width={105} height={29} decoding="async" className="h-7 w-auto object-contain shrink-0" />
                   </div>
                   <button
                     type="button"
@@ -2999,10 +2999,10 @@ export default function Home() {
                     <g transform="translate(0, -28)">
                       <image
                         href="/logo.svg"
-                        x="-75"
-                        y="-20"
-                        width="150"
-                        height="40"
+                        x="-50"
+                        y="-14"
+                        width="100"
+                        height="28"
                         preserveAspectRatio="xMidYMid meet"
                       />
                     </g>
@@ -6129,7 +6129,7 @@ export default function Home() {
                         <img
                           src="/logo.svg"
                           alt="Digital FX"
-                          className="h-8 sm:h-9 w-auto object-contain"
+                          className="h-6.5 sm:h-7 w-auto object-contain"
                         />
                         <span className="text-sm font-bold text-slate-300">|</span>
                         <h3 className="text-sm sm:text-base font-extrabold text-[#080d24] tracking-tight">
@@ -6476,11 +6476,11 @@ export default function Home() {
                   <img
                     src="/logo.svg"
                     alt="Digital FX - Best Digital Marketing Agency in Ghaziabad"
-                    width={150}
-                    height={50}
+                    width={116}
+                    height={32}
                     loading="lazy"
                     decoding="async"
-                    className="h-10 sm:h-11 w-auto object-contain shrink-0"
+                    className="h-7 sm:h-8 w-auto object-contain shrink-0"
                   />
                 </div>
 
@@ -6623,7 +6623,7 @@ export default function Home() {
               {/* Top Institutional Header Bar - Big Bold Typography */}
               <div className="bg-[#080d24] text-white px-6 sm:px-8 py-5 border-b border-slate-800 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <img src="/logo-white.svg" alt="Digital FX" width={138} height={46} decoding="async" className="h-9 sm:h-10 w-auto object-contain shrink-0" />
+                  <img src="/logo-white.svg" alt="Digital FX" width={116} height={32} decoding="async" className="h-7 sm:h-8 w-auto object-contain shrink-0" />
                   <div>
                     <div className="flex flex-wrap items-center gap-2.5">
                       <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-300 bg-white/10 px-2.5 py-0.5 rounded-md border border-white/10">

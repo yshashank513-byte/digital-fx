@@ -648,7 +648,7 @@ export default function ServicesPage() {
             <img
               src="/logo.svg"
               alt="Digital FX - Business Solution"
-              width={138} height={46} decoding="async" className="h-10 sm:h-[46px] w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
+              width={116} height={32} decoding="async" className="h-7 sm:h-8 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
             />
           </Link>
 
@@ -1099,7 +1099,7 @@ export default function ServicesPage() {
             {/* Col 1: Brand */}
             <div>
               <div className="flex items-center">
-                <img src="/logo-white.svg" alt="Digital FX" width={144} height={48} loading="lazy" decoding="async" className="h-10 sm:h-11 w-auto object-contain shrink-0" />
+                <img src="/logo-white.svg" alt="Digital FX" width={116} height={32} loading="lazy" decoding="async" className="h-7 sm:h-8 w-auto object-contain shrink-0" />
               </div>
               <p className="mt-4 text-xs text-slate-400 leading-relaxed font-normal">
                 Digital FX is a premier search engineering &amp; digital marketing agency headquartered at Orbit Plaza, Crossings Republik, Ghaziabad (Delhi NCR). Serving 350+ cities across India and international markets.

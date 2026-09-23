@@ -255,7 +255,7 @@ export default async function CityLocationPage({ params }: PageProps) {
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
         <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
-            <img src="/logo.svg" alt="Digital FX - Business Solution" width={138} height={46} className="h-10 sm:h-[46px] w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
+            <img src="/logo.svg" alt="Digital FX - Business Solution" width={116} height={32} className="h-7 sm:h-8 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
           </Link>
 
           {/* Center Navigation Links */}
