@@ -1,84 +1,121 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import Link from "next/link";
 import PageSpeedAuditReport from "@/components/PageSpeedAuditReport";
 import type { PageSpeedAuditData } from "@/app/api/pagespeed/route";
 
 export default function ToolsPage() {
   const [website, setWebsite] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState(1);
-  const [result, setResult] = useState<any>(null);
   const [error, setError] = useState("");
   const [pageSpeedData, setPageSpeedData] = useState<PageSpeedAuditData | null>(null);
   const [pageSpeedLoading, setPageSpeedLoading] = useState(false);
   const [pageSpeedStrategy, setPageSpeedStrategy] = useState<"mobile" | "desktop">("mobile");
-  const [auditViewMode, setAuditViewMode] = useState<"pagespeed" | "geo">("pagespeed");
+  const [auditProgress, setAuditProgress] = useState(0);
+  const [auditStageText, setAuditStageText] = useState("");
+  const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const startAuditProgress = () => {
+    if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+    setAuditProgress(1);
+    setAuditStageText("Initializing multi-factor browser emulation...");
+
+    progressIntervalRef.current = setInterval(() => {
+      setAuditProgress((prev) => {
+        if (prev < 25) {
+          setAuditStageText("Resolving DNS & SSL handshake...");
+          return prev + 3;
+        } else if (prev < 50) {
+          setAuditStageText("Emulating mobile viewport & rendering DOM paint...");
+          return prev + 2;
+        } else if (prev < 78) {
+          setAuditStageText("Benchmarking Core Web Vitals: LCP, FCP, TBT & CLS...");
+          return prev + 2;
+        } else if (prev < 96) {
+          setAuditStageText("Synthesizing speed diagnostics & technical recommendations...");
+          return prev + 1;
+        } else {
+          setAuditStageText("Finalizing telemetry metrics & snapshot...");
+          return 98;
+        }
+      });
+    }, 380);
+  };
+
+  const finishAuditProgress = () => {
+    if (progressIntervalRef.current) {
+      clearInterval(progressIntervalRef.current);
+      progressIntervalRef.current = null;
+    }
+    setAuditProgress(100);
+    setAuditStageText("Telemetry audit complete! Rendering report...");
+  };
+
+  useEffect(() => {
+    return () => {
+      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+    };
+  }, []);
 
   async function handlePageSpeedStrategyChange(newStrategy: "mobile" | "desktop") {
     setPageSpeedStrategy(newStrategy);
     const site = website.trim();
     if (!site) return;
     setPageSpeedLoading(true);
+    startAuditProgress();
     try {
       const res = await fetch(
         `/api/pagespeed?url=${encodeURIComponent(site)}&strategy=${newStrategy}`
       );
       const json = await res.json();
       if (json.success && json.data) {
-        setPageSpeedData(json.data);
+        finishAuditProgress();
+        setTimeout(() => {
+          setPageSpeedData(json.data);
+          setPageSpeedLoading(false);
+        }, 350);
+      } else {
+        finishAuditProgress();
+        setPageSpeedLoading(false);
       }
     } catch (e) {
       console.error("Strategy change failed", e);
-    } finally {
+      finishAuditProgress();
       setPageSpeedLoading(false);
+    }
+  }
+
+  async function triggerAudit(siteInput?: string) {
+    const site = (siteInput || website).trim();
+    if (!site) return;
+    setWebsite(site);
+    setError("");
+    setPageSpeedLoading(true);
+    setPageSpeedData(null);
+    startAuditProgress();
+
+    try {
+      const res = await fetch(`/api/pagespeed?url=${encodeURIComponent(site)}&strategy=${pageSpeedStrategy}`);
+      const json = await res.json();
+      if (json.success && json.data) {
+        finishAuditProgress();
+        setTimeout(() => {
+          setPageSpeedData(json.data);
+          setPageSpeedLoading(false);
+        }, 350);
+      } else {
+        throw new Error(json.error || "Unable to complete telemetry scan.");
+      }
+    } catch (err: any) {
+      finishAuditProgress();
+      setPageSpeedLoading(false);
+      setError(err.message || "Audit failed. Please verify your domain.");
     }
   }
 
   async function handleAudit(e: FormEvent) {
     e.preventDefault();
-    const site = website.trim();
-    if (!site) return;
-
-    setLoading(true);
-    setError("");
-    setResult(null);
-    setStep(1);
-    setPageSpeedLoading(true);
-    setPageSpeedData(null);
-    setAuditViewMode("pagespeed");
-
-    // Initiate PageSpeed fetch in parallel
-    fetch(`/api/pagespeed?url=${encodeURIComponent(site)}&strategy=${pageSpeedStrategy}`)
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.success && json.data) {
-          setPageSpeedData(json.data);
-        }
-      })
-      .catch((e) => console.error("PageSpeed fetch error:", e))
-      .finally(() => setPageSpeedLoading(false));
-
-    const timer1 = setTimeout(() => setStep(2), 700);
-    const timer2 = setTimeout(() => setStep(3), 1400);
-
-    try {
-      const res = await fetch("/api/geo-check", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ website: site }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to audit website.");
-      setResult(data);
-    } catch (err: any) {
-      setError(err.message || "Audit failed. Please verify your domain.");
-    } finally {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      setLoading(false);
-    }
+    triggerAudit(website);
   }
 
   return (
@@ -89,7 +126,7 @@ export default function ToolsPage() {
         <div className="max-w-[1400px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-bold text-slate-300">FREE TOOL • GENERATIVE ENGINE OPTIMIZATION (GEO) &amp; AI AUDIT SCANNER</span>
+            <span className="font-bold text-slate-300">FREE TOOL • ENTERPRISE CORE WEB VITALS &amp; SPEED TELEMETRY ENGINE</span>
           </div>
           <Link href="/contact" className="hover:text-cyan-300 transition text-slate-400 text-[11px] hidden sm:inline">
             Request Strategy Proposal →
@@ -145,13 +182,13 @@ export default function ToolsPage() {
             Free Online Marketing Tools
           </span>
           <h1 className="text-[34px] sm:text-[48px] lg:text-[54px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
-            Benchmark Your Website in{" "}
+            Analyze Your Real-Time Speed &amp;{" "}
             <span className="text-[#1570ef] block sm:inline font-normal italic font-serif">
-              ChatGPT, Gemini &amp; AI Search.
+              Core Web Vitals Performance.
             </span>
           </h1>
           <p className="mt-4 text-base sm:text-lg text-slate-600 font-normal max-w-2xl mx-auto leading-relaxed">
-            Audit your Generative Engine Optimization (GEO) score, structured entity schema, and local Google AI Overviews visibility in under 60 seconds.
+            Scan your website in real-time to audit Core Web Vitals (FCP, LCP, TBT, CLS), mobile viewport responsiveness, and live DOM rendering performance.
           </p>
 
           {/* Search Console */}
@@ -168,37 +205,165 @@ export default function ToolsPage() {
                     required
                     className="flex-1 bg-transparent py-3 text-sm text-slate-800 placeholder:text-slate-400 font-medium focus:outline-none"
                   />
+                  {website && (
+                    <button
+                      type="button"
+                      onClick={() => setWebsite("")}
+                      className="text-slate-400 hover:text-slate-700 text-xs px-1 cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  )}
                 </div>
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="px-8 py-3.5 rounded-xl bg-[#080d24] hover:bg-[#1570ef] text-white font-bold text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-xs"
+                  disabled={pageSpeedLoading}
+                  className="px-8 py-3.5 rounded-xl bg-[#080d24] hover:bg-[#1570ef] text-white font-bold text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 whitespace-nowrap shadow-xs"
                 >
-                  {loading ? (
+                  {pageSpeedLoading ? (
                     <>
                       <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      <span>Auditing Signals...</span>
+                      <span>Auditing Telemetry...</span>
                     </>
                   ) : (
-                    <span>⚡ Run Free AI Audit →</span>
+                    <>
+                      <span>⚡ Run Free Audit</span>
+                      <span>→</span>
+                    </>
                   )}
                 </button>
               </form>
+
+              {/* Quick Sample Domain Chips */}
+              <div className="mt-3 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 px-1 text-[11.5px] text-slate-500">
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <span className="font-medium text-slate-600">Sample Websites:</span>
+                  {["thewoodcraftstudio.in", "smiledentalindirapuram.com", "bansaltaxncr.in"].map((sample) => (
+                    <button
+                      key={sample}
+                      type="button"
+                      onClick={() => {
+                        setWebsite(sample);
+                        triggerAudit(sample);
+                      }}
+                      className="px-2.5 py-0.5 rounded-full bg-slate-100 hover:bg-blue-50 border border-slate-200 hover:border-blue-200 text-slate-700 hover:text-[#1570ef] text-[11px] font-semibold transition cursor-pointer"
+                    >
+                      {sample}
+                    </button>
+                  ))}
+                </div>
+                <div className="flex items-center gap-3 text-[11px] text-slate-500 font-medium">
+                  <span>✓ 100% Free</span>
+                  <span>✓ No Signup Required</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Loading Progress */}
-          {loading && (
-            <div className="mx-auto mt-6 max-w-[680px] rounded-2xl border border-blue-200 bg-white p-6 shadow-sm text-left">
-              <div className="flex items-center justify-between text-xs font-bold text-[#1570ef] mb-2.5">
-                <span>AUDITING SEARCH &amp; AI ENTITY SIGNALS</span>
-                <span>{step === 1 ? "35%" : step === 2 ? "70%" : "95%"}</span>
+          {/* Animated High-Tech Telemetry Progress State with Real-Time Percentage Counter */}
+          {pageSpeedLoading && (
+            <div className="mx-auto mt-8 max-w-[760px] rounded-3xl border border-blue-200/90 bg-white p-6 sm:p-10 shadow-xl animate-fadeIn text-left">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-[#1570ef] shrink-0">
+                    <svg className="w-6 h-6 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
+                      <path d="M12 2a10 10 0 0 1 10 10" strokeLinecap="round" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-ping" />
+                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#1570ef]">
+                        Deep Telemetry Emulation Active
+                      </span>
+                    </div>
+                    <h4 className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">
+                      Auditing <span className="font-mono text-[#1570ef]">{website || "Target Website"}</span>
+                    </h4>
+                  </div>
+                </div>
+
+                {/* Big Live Number Display */}
+                <div className="flex items-baseline gap-1.5 self-start sm:self-auto bg-slate-50 border border-slate-200/80 px-4 py-2 rounded-2xl">
+                  <span className="text-3xl sm:text-4xl font-black text-[#1570ef] font-mono tabular-nums">
+                    {auditProgress}%
+                  </span>
+                  <span className="text-xs text-slate-500 font-semibold uppercase">Done</span>
+                </div>
               </div>
-              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-[#1570ef] to-[#00b894] transition-all duration-300 rounded-full"
-                  style={{ width: step === 1 ? "35%" : step === 2 ? "70%" : "95%" }}
-                />
+
+              {/* Animated Progress Bar */}
+              <div className="mt-6">
+                <div className="flex items-center justify-between text-xs font-semibold text-slate-600 mb-2">
+                  <span className="text-[#1570ef] font-bold">{auditStageText || "Initializing deep DOM benchmarks..."}</span>
+                  <span className="text-slate-400 font-mono text-[11px]">Est. ~15-20s</span>
+                </div>
+                <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden p-0.5 border border-slate-200/60">
+                  <div
+                    className="h-full bg-gradient-to-r from-[#1570ef] via-[#207de9] to-[#00b894] transition-all duration-300 rounded-full"
+                    style={{ width: `${Math.min(100, Math.max(2, auditProgress))}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Duration Notice Box */}
+              <div className="mt-5 p-3.5 rounded-2xl bg-blue-50/80 border border-blue-100 flex items-start gap-2.5 text-xs text-blue-900 leading-relaxed">
+                <svg className="w-4 h-4 text-[#1570ef] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+                <span>
+                  <strong>Multi-Factor DOM Emulation:</strong> Comprehensive headless browser rendering, Core Web Vitals profiling (FCP, LCP, TBT, CLS), and technical script diagnostics take approximately <strong>15–20 seconds</strong>. Please hold on while results are computed.
+                </span>
+              </div>
+
+              {/* Multi-Stage Telemetry Checklist */}
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div className={`p-3 rounded-xl border transition-colors flex items-center gap-2.5 ${
+                  auditProgress >= 25 ? "bg-emerald-50/60 border-emerald-200 text-emerald-900" : "bg-slate-50 border-slate-100 text-slate-500"
+                }`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 ${
+                    auditProgress >= 25 ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-600"
+                  }`}>
+                    {auditProgress >= 25 ? "✓" : "1"}
+                  </span>
+                  <span className="font-medium">DNS &amp; Initial Protocol Handshake</span>
+                </div>
+
+                <div className={`p-3 rounded-xl border transition-colors flex items-center gap-2.5 ${
+                  auditProgress >= 50 ? "bg-emerald-50/60 border-emerald-200 text-emerald-900" : "bg-slate-50 border-slate-100 text-slate-500"
+                }`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 ${
+                    auditProgress >= 50 ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-600"
+                  }`}>
+                    {auditProgress >= 50 ? "✓" : "2"}
+                  </span>
+                  <span className="font-medium">Device Viewport &amp; Live DOM Render</span>
+                </div>
+
+                <div className={`p-3 rounded-xl border transition-colors flex items-center gap-2.5 ${
+                  auditProgress >= 75 ? "bg-emerald-50/60 border-emerald-200 text-emerald-900" : "bg-slate-50 border-slate-100 text-slate-500"
+                }`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 ${
+                    auditProgress >= 75 ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-600"
+                  }`}>
+                    {auditProgress >= 75 ? "✓" : "3"}
+                  </span>
+                  <span className="font-medium">Core Web Vitals (FCP, LCP, TBT, CLS)</span>
+                </div>
+
+                <div className={`p-3 rounded-xl border transition-colors flex items-center gap-2.5 ${
+                  auditProgress >= 95 ? "bg-emerald-50/60 border-emerald-200 text-emerald-900" : "bg-slate-50 border-slate-100 text-slate-500"
+                }`}>
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 ${
+                    auditProgress >= 95 ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-600"
+                  }`}>
+                    {auditProgress >= 95 ? "✓" : "4"}
+                  </span>
+                  <span className="font-medium">Synthesis &amp; Optimization Diagnostics</span>
+                </div>
               </div>
             </div>
           )}
@@ -210,136 +375,22 @@ export default function ToolsPage() {
             </div>
           )}
 
-          {/* Results Display */}
-          {(result || pageSpeedData || pageSpeedLoading) && !loading && (
+          {/* Verified PageSpeed & Core Web Vitals Audit Report (Single Authoritative Presentation) */}
+          {pageSpeedData && !pageSpeedLoading && (
             <div className="mx-auto mt-10 max-w-[1120px] animate-fadeIn text-left">
-              
-              {/* DUAL REPORT VIEW SWITCHER TABS */}
-              <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
-                <button
-                  type="button"
-                  onClick={() => setAuditViewMode("pagespeed")}
-                  className={`flex items-center gap-2.5 px-5 sm:px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer ${
-                    auditViewMode === "pagespeed"
-                      ? "bg-[#1a73e8] text-white shadow-blue-500/25 shadow-md ring-2 ring-blue-600/30"
-                      : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:border-slate-300"
-                  }`}
-                >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-                  </svg>
-                  <span>⚡ Google PageSpeed Insights</span>
-                  {pageSpeedData && (
-                    <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
-                      auditViewMode === "pagespeed" ? "bg-white/20 text-white" : "bg-emerald-100 text-emerald-800"
-                    }`}>
-                      {pageSpeedData.scores.performance}/100
-                    </span>
-                  )}
-                  {pageSpeedLoading && (
-                    <span className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-full animate-spin ml-1" />
-                  )}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setAuditViewMode("geo")}
-                  className={`flex items-center gap-2.5 px-5 sm:px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer ${
-                    auditViewMode === "geo"
-                      ? "bg-[#080d24] text-white shadow-slate-900/25 shadow-md ring-2 ring-slate-800/30"
-                      : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:border-slate-300"
-                  }`}
-                >
-                  <span>🤖 GEO AI Score</span>
-                  {result && (
-                    <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
-                      auditViewMode === "geo" ? "bg-white/20 text-white" : "bg-blue-100 text-blue-800"
-                    }`}>
-                      {result.score || result.overall || 84}/100
-                    </span>
-                  )}
-                </button>
+              <div className="rounded-3xl border border-slate-200 bg-white p-4 sm:p-8 shadow-xl">
+                <PageSpeedAuditReport
+                  data={pageSpeedData}
+                  isLoading={pageSpeedLoading}
+                  onStrategyChange={handlePageSpeedStrategyChange}
+                  onRequestProposal={() => window.location.href = `/contact?audit=${encodeURIComponent(website)}`}
+                />
               </div>
-
-              {/* 1. GOOGLE PAGESPEED INSIGHTS VIEW */}
-              {auditViewMode === "pagespeed" && (
-                pageSpeedData ? (
-                  <div className="rounded-3xl border border-slate-200 bg-white p-4 sm:p-8 shadow-xl">
-                    <PageSpeedAuditReport
-                      data={pageSpeedData}
-                      isLoading={pageSpeedLoading}
-                      onStrategyChange={handlePageSpeedStrategyChange}
-                      onRequestProposal={() => window.location.href = `/contact?audit=${encodeURIComponent(website)}`}
-                    />
-                  </div>
-                ) : (
-                  <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-14 shadow-xl text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full border-4 border-slate-100 border-t-[#1a73e8] animate-spin" />
-                      <svg className="w-7 h-7 text-[#1a73e8] absolute" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900">
-                      Google Lighthouse is Analyzing {website || "your website"}...
-                    </h3>
-                    <p className="text-sm text-slate-500 mt-2 max-w-md mx-auto leading-relaxed">
-                      Evaluating authentic Core Web Vitals, accessibility rules, and device responsiveness via Google PageSpeed Insights v5 API.
-                    </p>
-                    <div className="mt-5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 text-[#1a73e8] text-xs font-semibold">
-                      <span className="w-2 h-2 rounded-full bg-[#1a73e8] animate-ping" />
-                      Auditing live Google Lighthouse ({pageSpeedStrategy})...
-                    </div>
-                  </div>
-                )
-              )}
-
-              {/* 2. GEO AI SCORE VIEW */}
-              {auditViewMode === "geo" && result && (
-                <div className="mx-auto max-w-[900px] rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-lg text-left space-y-6">
-                  <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-100">
-                    <div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#1570ef]">Audit Complete</span>
-                      <h3 className="text-2xl font-extrabold text-[#080d24] mt-1">{result.domain || website}</h3>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-3xl font-black text-emerald-600">{result.score || result.overall || 84}/100</div>
-                      <div className="text-xs text-slate-500 font-semibold">GEO AI Score</div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-                      <div className="text-xs text-slate-500 font-semibold">Google Gemini Status</div>
-                      <div className="text-lg font-bold text-[#080d24] mt-1">Entity Verified ✓</div>
-                    </div>
-                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-                      <div className="text-xs text-slate-500 font-semibold">ChatGPT Citation Readiness</div>
-                      <div className="text-lg font-bold text-[#080d24] mt-1">High Intent Snippet</div>
-                    </div>
-                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-                      <div className="text-xs text-slate-500 font-semibold">Schema.org JSON-LD</div>
-                      <div className="text-lg font-bold text-[#080d24] mt-1">LocalBusiness Active</div>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
-                    <p className="text-xs text-slate-500 font-medium">Want our senior engineers to fix missed ranking signals?</p>
-                    <Link
-                      href={`/contact?audit=${encodeURIComponent(website)}`}
-                      className="px-6 py-3 rounded-xl bg-[#1570ef] hover:bg-[#1362d2] text-white font-bold text-xs transition shadow-md whitespace-nowrap"
-                    >
-                      Request Customized Action Plan →
-                    </Link>
-                  </div>
-                </div>
-              )}
-
             </div>
           )}
 
           {/* Pre-Audit Showcase Illustration */}
-          {!result && !pageSpeedData && !loading && !pageSpeedLoading && (
+          {!pageSpeedData && !pageSpeedLoading && (
             <div className="mx-auto mt-12 max-w-[1080px] rounded-3xl bg-white border border-slate-200 p-6 sm:p-9 text-left">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-3">

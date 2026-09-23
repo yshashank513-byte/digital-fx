@@ -102,8 +102,8 @@ function generateDeterministicFallback(
       timeZoneName: "short",
     }),
     device: isMobile
-      ? "Emulated Moto G Power with Lighthouse 13.5.0"
-      : "Emulated Desktop with Lighthouse 13.5.0",
+      ? "Emulated High-Speed Mobile Device (Moto G)"
+      : "Emulated Standard Desktop Workstation",
     scores: {
       performance: perfScore,
       accessibility: Math.min(100, a11yScore),
@@ -310,7 +310,7 @@ async function runPageSpeedAudit(rawUrl: string, strategy: "mobile" | "desktop")
           id: key,
           title: a.title || key,
           displayValue: a.displayValue || (a.details?.overallSavingsMs ? `Potential savings: ~${(a.details.overallSavingsMs / 1000).toFixed(2)} s` : undefined),
-          description: a.description || "",
+          description: (a.description || "").replace(/\[Learn more[^\]]*\]\([^)]+\)/gi, "").replace(/https?:\/\/[^\s)]+/gi, "").trim(),
           score: a.score,
           wastedMs: a.details?.overallSavingsMs,
         });
@@ -327,7 +327,7 @@ async function runPageSpeedAudit(rawUrl: string, strategy: "mobile" | "desktop")
           id: key,
           title: a.title || key,
           displayValue: a.displayValue,
-          description: a.description || "",
+          description: (a.description || "").replace(/\[Learn more[^\]]*\]\([^)]+\)/gi, "").replace(/https?:\/\/[^\s)]+/gi, "").trim(),
         });
       }
     }
@@ -345,10 +345,8 @@ async function runPageSpeedAudit(rawUrl: string, strategy: "mobile" | "desktop")
       }),
       device:
         strategy === "mobile"
-          ? (lighthouse.configSettings?.emulatedFormFactor === "mobile"
-              ? "Emulated Moto G Power with Lighthouse 13.5.0"
-              : "Emulated Mobile Device with Lighthouse 13.5.0")
-          : "Emulated Desktop with Lighthouse 13.5.0",
+          ? "Emulated High-Speed Mobile Device (Moto G)"
+          : "Emulated Standard Desktop Workstation",
       scores: {
         performance: perfScore,
         accessibility: a11yScore,

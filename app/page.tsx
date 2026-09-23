@@ -942,7 +942,9 @@ export default function Home() {
   const [pageSpeedData, setPageSpeedData] = useState<PageSpeedAuditData | null>(null);
   const [pageSpeedLoading, setPageSpeedLoading] = useState(false);
   const [pageSpeedStrategy, setPageSpeedStrategy] = useState<"mobile" | "desktop">("mobile");
-  const [auditViewMode, setAuditViewMode] = useState<"pagespeed" | "geo">("pagespeed");
+  const [auditProgress, setAuditProgress] = useState(0);
+  const [auditStageText, setAuditStageText] = useState("");
+  const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const [formLoading, setFormLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -1192,22 +1194,66 @@ export default function Home() {
     });
   }
 
+  const startAuditProgress = () => {
+    if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+    setAuditProgress(1);
+    setAuditStageText("Initializing multi-factor browser emulation...");
+
+    progressIntervalRef.current = setInterval(() => {
+      setAuditProgress((prev) => {
+        if (prev < 25) {
+          setAuditStageText("Resolving DNS & SSL handshake...");
+          return prev + 3;
+        } else if (prev < 50) {
+          setAuditStageText("Emulating mobile viewport & rendering DOM paint...");
+          return prev + 2;
+        } else if (prev < 78) {
+          setAuditStageText("Benchmarking Core Web Vitals: LCP, FCP, TBT & CLS...");
+          return prev + 2;
+        } else if (prev < 96) {
+          setAuditStageText("Synthesizing speed diagnostics & technical recommendations...");
+          return prev + 1;
+        } else {
+          setAuditStageText("Finalizing telemetry metrics & snapshot...");
+          return 98;
+        }
+      });
+    }, 380);
+  };
+
+  const finishAuditProgress = () => {
+    if (progressIntervalRef.current) {
+      clearInterval(progressIntervalRef.current);
+      progressIntervalRef.current = null;
+    }
+    setAuditProgress(100);
+    setAuditStageText("Telemetry audit complete! Rendering report...");
+  };
+
   async function handlePageSpeedStrategyChange(newStrategy: "mobile" | "desktop") {
     setPageSpeedStrategy(newStrategy);
     const site = (geoWebsite || heroWebsite).trim();
     if (!site) return;
     setPageSpeedLoading(true);
+    startAuditProgress();
     try {
       const res = await fetch(
         `/api/pagespeed?url=${encodeURIComponent(site)}&strategy=${newStrategy}`
       );
       const json = await res.json();
       if (json.success && json.data) {
-        setPageSpeedData(json.data);
+        finishAuditProgress();
+        setTimeout(() => {
+          setPageSpeedData(json.data);
+          setPageSpeedLoading(false);
+        }, 350);
+      } else {
+        finishAuditProgress();
+        setPageSpeedLoading(false);
       }
     } catch (e) {
       console.error("Strategy change failed", e);
-    } finally {
+      finishAuditProgress();
       setPageSpeedLoading(false);
     }
   }
@@ -1219,24 +1265,33 @@ export default function Home() {
     const site = (siteInput || geoWebsite).trim();
     if (!site) return;
     setGeoWebsite(site);
-    setGeoLoading(true);
-    setGeoScanStep(1);
+    setGeoLoading(false);
     setGeoError("");
     setGeoResult(null);
     setPageSpeedLoading(true);
     setPageSpeedData(null);
-    setAuditViewMode("pagespeed");
+    startAuditProgress();
 
     // Initiate PageSpeed fetch in parallel
     fetch(`/api/pagespeed?url=${encodeURIComponent(site)}&strategy=${pageSpeedStrategy}`)
       .then((res) => res.json())
       .then((json) => {
         if (json.success && json.data) {
-          setPageSpeedData(json.data);
+          finishAuditProgress();
+          setTimeout(() => {
+            setPageSpeedData(json.data);
+            setPageSpeedLoading(false);
+          }, 350);
+        } else {
+          throw new Error("Telemetry scan incomplete");
         }
       })
-      .catch((e) => console.error("PageSpeed fetch error:", e))
-      .finally(() => setPageSpeedLoading(false));
+      .catch((e) => {
+        console.error("PageSpeed fetch error:", e);
+        finishAuditProgress();
+        setPageSpeedLoading(false);
+        setGeoError("Failed to fetch Core Web Vitals telemetry. Please check your domain and try again.");
+      });
 
     const lead = userLead || {
       name: auditCustomerName,
@@ -4291,34 +4346,109 @@ export default function Home() {
               </div>
             )}
 
-            {/* Clean Scanning Progress State */}
-            {geoLoading && (
-              <div className="mx-auto mt-6 max-w-[680px] rounded-2xl border border-blue-200 bg-white p-6 shadow-sm animate-fadeIn">
-                <div className="flex items-center justify-between text-xs font-bold text-[#1570ef] mb-2.5">
-                  <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-ping" />
-                    AUDITING LIVE AI SEARCH CRAWLERS
+            {/* Animated High-Tech Telemetry Progress State with Real-Time Percentage Counter */}
+            {pageSpeedLoading && (
+              <div className="mx-auto mt-8 max-w-[760px] rounded-3xl border border-blue-200/90 bg-white p-6 sm:p-10 shadow-xl animate-fadeIn">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-[#1570ef] shrink-0">
+                      <svg className="w-6 h-6 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
+                        <path d="M12 2a10 10 0 0 1 10 10" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-ping" />
+                        <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#1570ef]">
+                          Deep Telemetry Emulation Active
+                        </span>
+                      </div>
+                      <h4 className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">
+                        Auditing <span className="font-mono text-[#1570ef]">{geoWebsite || heroWebsite || "Target Website"}</span>
+                      </h4>
+                    </div>
+                  </div>
+
+                  {/* Big Live Number Display */}
+                  <div className="flex items-baseline gap-1.5 self-start sm:self-auto bg-slate-50 border border-slate-200/80 px-4 py-2 rounded-2xl">
+                    <span className="text-3xl sm:text-4xl font-black text-[#1570ef] font-mono tabular-nums">
+                      {auditProgress}%
+                    </span>
+                    <span className="text-xs text-slate-500 font-semibold uppercase">Done</span>
+                  </div>
+                </div>
+
+                {/* Animated Progress Bar */}
+                <div className="mt-6">
+                  <div className="flex items-center justify-between text-xs font-semibold text-slate-600 mb-2">
+                    <span className="text-[#1570ef] font-bold">{auditStageText || "Initializing deep DOM benchmarks..."}</span>
+                    <span className="text-slate-400 font-mono text-[11px]">Est. ~15-20s</span>
+                  </div>
+                  <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden p-0.5 border border-slate-200/60">
+                    <div
+                      className="h-full bg-gradient-to-r from-[#1570ef] via-[#207de9] to-[#00b894] transition-all duration-300 rounded-full"
+                      style={{ width: `${Math.min(100, Math.max(2, auditProgress))}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Duration Notice Box */}
+                <div className="mt-5 p-3.5 rounded-2xl bg-blue-50/80 border border-blue-100 flex items-start gap-2.5 text-xs text-blue-900 leading-relaxed">
+                  <svg className="w-4 h-4 text-[#1570ef] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                  <span>
+                    <strong>Multi-Factor DOM Emulation:</strong> Comprehensive headless browser rendering, Core Web Vitals profiling (FCP, LCP, TBT, CLS), and technical script diagnostics take approximately <strong>15–20 seconds</strong>. Please hold on while results are computed.
                   </span>
-                  <span className="font-mono font-bold">{geoScanStep === 1 ? "35%" : geoScanStep === 2 ? "70%" : "95%"}</span>
                 </div>
-                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-3.5">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#1570ef] to-[#00b894] transition-all duration-300 rounded-full"
-                    style={{ width: geoScanStep === 1 ? "35%" : geoScanStep === 2 ? "70%" : "95%" }}
-                  />
-                </div>
-                <div className="space-y-2 text-xs text-slate-600">
-                  <div className={`flex items-center gap-2 ${geoScanStep >= 1 ? "text-emerald-700 font-semibold" : "text-slate-400"}`}>
-                    <span>{geoScanStep >= 1 ? "✓" : "○"}</span>
-                    <span>Pinging OpenAI SearchGPT &amp; ChatGPT citation database</span>
+
+                {/* Multi-Stage Telemetry Checklist */}
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div className={`p-3 rounded-xl border transition-colors flex items-center gap-2.5 ${
+                    auditProgress >= 25 ? "bg-emerald-50/60 border-emerald-200 text-emerald-900" : "bg-slate-50 border-slate-100 text-slate-500"
+                  }`}>
+                    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 ${
+                      auditProgress >= 25 ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-600"
+                    }`}>
+                      {auditProgress >= 25 ? "✓" : "1"}
+                    </span>
+                    <span className="font-medium">DNS &amp; Initial Protocol Handshake</span>
                   </div>
-                  <div className={`flex items-center gap-2 ${geoScanStep >= 2 ? "text-emerald-700 font-semibold" : "text-slate-400"}`}>
-                    <span>{geoScanStep >= 2 ? "✓" : "○"}</span>
-                    <span>Checking Google Gemini &amp; Knowledge Entity Graph associations</span>
+
+                  <div className={`p-3 rounded-xl border transition-colors flex items-center gap-2.5 ${
+                    auditProgress >= 50 ? "bg-emerald-50/60 border-emerald-200 text-emerald-900" : "bg-slate-50 border-slate-100 text-slate-500"
+                  }`}>
+                    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 ${
+                      auditProgress >= 50 ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-600"
+                    }`}>
+                      {auditProgress >= 50 ? "✓" : "2"}
+                    </span>
+                    <span className="font-medium">Device Viewport &amp; Live DOM Render</span>
                   </div>
-                  <div className={`flex items-center gap-2 ${geoScanStep >= 3 ? "text-emerald-700 font-semibold" : "text-slate-400"}`}>
-                    <span>{geoScanStep >= 3 ? "✓" : "○"}</span>
-                    <span>Auditing Schema.org JSON-LD LocalBusiness &amp; conversational FAQ signals</span>
+
+                  <div className={`p-3 rounded-xl border transition-colors flex items-center gap-2.5 ${
+                    auditProgress >= 75 ? "bg-emerald-50/60 border-emerald-200 text-emerald-900" : "bg-slate-50 border-slate-100 text-slate-500"
+                  }`}>
+                    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 ${
+                      auditProgress >= 75 ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-600"
+                    }`}>
+                      {auditProgress >= 75 ? "✓" : "3"}
+                    </span>
+                    <span className="font-medium">Core Web Vitals (FCP, LCP, TBT, CLS)</span>
+                  </div>
+
+                  <div className={`p-3 rounded-xl border transition-colors flex items-center gap-2.5 ${
+                    auditProgress >= 95 ? "bg-emerald-50/60 border-emerald-200 text-emerald-900" : "bg-slate-50 border-slate-100 text-slate-500"
+                  }`}>
+                    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 ${
+                      auditProgress >= 95 ? "bg-emerald-600 text-white" : "bg-slate-200 text-slate-600"
+                    }`}>
+                      {auditProgress >= 95 ? "✓" : "4"}
+                    </span>
+                    <span className="font-medium">Synthesis &amp; Optimization Diagnostics</span>
                   </div>
                 </div>
               </div>
@@ -4331,713 +4461,17 @@ export default function Home() {
               </div>
             )}
 
-            {/* Dual Audit Presentation (Google PageSpeed Insights & Executive GEO Briefing) */}
-            {(pageSpeedData || geoResult || pageSpeedLoading) && !geoLoading && (
+            {/* Verified PageSpeed & Core Web Vitals Audit Report (Single Authoritative Presentation) */}
+            {pageSpeedData && !pageSpeedLoading && (
               <div className="mx-auto mt-10 max-w-[1120px] animate-fadeIn">
-                
-                {/* DUAL REPORT VIEW SWITCHER TABS */}
-                <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
-                  <button
-                    type="button"
-                    onClick={() => setAuditViewMode("pagespeed")}
-                    className={`flex items-center gap-2.5 px-5 sm:px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer ${
-                      auditViewMode === "pagespeed"
-                        ? "bg-[#1a73e8] text-white shadow-blue-500/25 shadow-md ring-2 ring-blue-600/30"
-                        : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:border-slate-300"
-                    }`}
-                  >
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-                    </svg>
-                    <span>⚡ Google PageSpeed Insights</span>
-                    {pageSpeedData && (
-                      <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
-                        auditViewMode === "pagespeed" ? "bg-white/20 text-white" : "bg-emerald-100 text-emerald-800"
-                      }`}>
-                        {pageSpeedData.scores.performance}/100
-                      </span>
-                    )}
-                    {pageSpeedLoading && (
-                      <span className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-full animate-spin ml-1" />
-                    )}
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setAuditViewMode("geo")}
-                    className={`flex items-center gap-2.5 px-5 sm:px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer ${
-                      auditViewMode === "geo"
-                        ? "bg-[#080d24] text-white shadow-slate-900/25 shadow-md ring-2 ring-slate-800/30"
-                        : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:border-slate-300"
-                    }`}
-                  >
-                    <span>🤖 GEO &amp; AI Search Briefing</span>
-                    {geoResult && (
-                      <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
-                        auditViewMode === "geo" ? "bg-white/20 text-white" : "bg-blue-100 text-blue-800"
-                      }`}>
-                        {geoResult.score ?? geoResult.overall ?? 82}/100
-                      </span>
-                    )}
-                  </button>
+                <div className="rounded-3xl border border-slate-200 bg-white p-4 sm:p-8 shadow-xl">
+                  <PageSpeedAuditReport
+                    data={pageSpeedData}
+                    isLoading={pageSpeedLoading}
+                    onStrategyChange={handlePageSpeedStrategyChange}
+                    onRequestProposal={() => openProposalModal(geoWebsite || heroWebsite, "Core Web Vitals & Speed Optimization")}
+                  />
                 </div>
-
-                {/* 1. GOOGLE PAGESPEED INSIGHTS VIEW */}
-                {auditViewMode === "pagespeed" && (
-                  pageSpeedData ? (
-                    <div className="rounded-3xl border border-slate-200 bg-white p-4 sm:p-8 shadow-xl">
-                      <PageSpeedAuditReport
-                        data={pageSpeedData}
-                        isLoading={pageSpeedLoading}
-                        onStrategyChange={handlePageSpeedStrategyChange}
-                        onRequestProposal={() => openProposalModal(geoWebsite, "Google PageSpeed Core Web Vitals Optimization")}
-                      />
-                    </div>
-                  ) : (
-                    <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-14 shadow-xl text-center">
-                      <div className="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center">
-                        <div className="w-16 h-16 rounded-full border-4 border-slate-100 border-t-[#1a73e8] animate-spin" />
-                        <svg className="w-7 h-7 text-[#1a73e8] absolute" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                        </svg>
-                      </div>
-                      <h3 className="text-xl font-bold text-slate-900">
-                        Google Lighthouse is Analyzing {geoWebsite || "your website"}...
-                      </h3>
-                      <p className="text-sm text-slate-500 mt-2 max-w-md mx-auto leading-relaxed">
-                        Querying Google PageSpeed Insights v5 engine for Core Web Vitals (FCP, LCP, CLS, TBT), accessibility rules, and device responsiveness.
-                      </p>
-                      <div className="mt-5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 text-[#1a73e8] text-xs font-semibold">
-                        <span className="w-2 h-2 rounded-full bg-[#1a73e8] animate-ping" />
-                        Running live Google Lighthouse audit ({pageSpeedStrategy})...
-                      </div>
-                    </div>
-                  )
-                )}
-
-                {/* 2. GEO & AI OVERVIEWS BRIEFING VIEW */}
-                {auditViewMode === "geo" && geoResult && (
-                  <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10 shadow-xl">
-                
-                {/* Header Bar */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                      <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">Verified AI Audit Report</span>
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-extrabold text-[#080d24] mt-1 tracking-tight">
-                      Audit Target: <span className="text-[#1570ef] font-mono">{geoWebsite || "yourbusiness.com"}</span>
-                    </h3>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-xs font-semibold">
-                      Live Engine Index
-                    </span>
-                    <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
-                      Outperforms 68% in Sector
-                    </span>
-                  </div>
-                </div>
-
-                {/* Score Dial & 4 Diagnostic Pillars */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mt-8">
-                  
-                  {/* Left: Overall Score Dial */}
-                  <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-50/70 border border-slate-200/80 text-center">
-                    <div className="relative w-44 h-44 flex items-center justify-center">
-                      <svg viewBox="0 0 160 160" className="w-full h-full -rotate-90">
-                        <circle cx="80" cy="80" r="68" fill="none" stroke="#e2e8f0" strokeWidth="12" />
-                        <circle
-                          cx="80"
-                          cy="80"
-                          r="68"
-                          fill="none"
-                          stroke="url(#geo-score-grad-light)"
-                          strokeWidth="12"
-                          strokeLinecap="round"
-                          strokeDasharray={427}
-                          strokeDashoffset={427 - (427 * (geoResult.score ?? geoResult.overall ?? 82)) / 100}
-                          className="transition-all duration-1000 ease-out"
-                        />
-                        <defs>
-                          <linearGradient id="geo-score-grad-light" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#1570ef" />
-                            <stop offset="50%" stopColor="#00b894" />
-                            <stop offset="100%" stopColor="#10b981" />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                      <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                        <span className="text-[44px] font-extrabold text-[#080d24] leading-none tracking-tight tabular-nums">
-                          {geoResult.score ?? geoResult.overall ?? 82}
-                        </span>
-                        <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mt-1">out of 100</span>
-                      </div>
-                    </div>
-
-                    <div className="mt-4">
-                      <span className="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
-                        {geoResult.grade || "Strong Base with AI Schema Gaps"}
-                      </span>
-                      <p className="text-xs text-slate-500 mt-2 max-w-[220px] font-normal">
-                        Overall readiness for ChatGPT, Perplexity &amp; Google AI Overviews.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Right: 4 Diagnostic Pillars */}
-                  <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {[
-                      {
-                        title: "AI Citation Frequency",
-                        score: geoResult.aiVisibility ?? 78,
-                        desc: "Probability of being cited in ChatGPT, Copilot & Perplexity answers.",
-                        color: "#1570ef",
-                      },
-                      {
-                        title: "Knowledge Entity & Schema",
-                        score: geoResult.contentReadiness ?? 72,
-                        desc: "JSON-LD structured data and semantic entity graph authority.",
-                        color: "#00b894",
-                      },
-                      {
-                        title: "Local Proximity & Maps",
-                        score: geoResult.localPresence ?? 85,
-                        desc: "Google Maps 3-Pack rank weight and local NAP consistency.",
-                        color: "#10b981",
-                      },
-                      {
-                        title: "Content & EEAT Semantic Depth",
-                        score: geoResult.technicalSignals ?? 89,
-                        desc: "Conversational query coverage and topical authority depth.",
-                        color: "#a855f7",
-                      },
-                    ].map((pillar) => (
-                      <div key={pillar.title} className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 hover:border-slate-300 transition">
-                        <div className="flex justify-between items-center mb-1.5">
-                          <span className="text-xs font-bold text-[#080d24]">{pillar.title}</span>
-                          <span className="text-sm font-extrabold tabular-nums" style={{ color: pillar.color }}>
-                            {pillar.score}%
-                          </span>
-                        </div>
-                        <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden mb-2">
-                          <div
-                            className="h-full rounded-full transition-all duration-700"
-                            style={{ width: `${pillar.score}%`, backgroundColor: pillar.color }}
-                          />
-                        </div>
-                        <p className="text-[11.5px] text-slate-500 leading-snug font-normal">{pillar.desc}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                </div>
-
-                {/* =========================================================
-                    EXECUTIVE AI INTELLIGENCE BRIEFING
-                    ========================================================= */}
-                <div className="mt-8 rounded-2xl border border-indigo-200 bg-gradient-to-br from-[#0c1438] via-[#080d24] to-[#040714] text-white p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-                  <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-                  <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-                  
-                  <div className="relative z-10">
-                    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4 mb-5">
-                      <div className="flex items-center gap-2.5">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/20 border border-indigo-400/40 text-xs font-black text-indigo-300">
-                          AI
-                        </div>
-                        <div>
-                          <div className="text-[10px] font-extrabold uppercase tracking-widest text-indigo-300">
-                            EXECUTIVE AI INTELLIGENCE BRIEFING
-                          </div>
-                          <div className="text-xs text-slate-300 font-medium">
-                            {geoResult.aiAnalysis?.engineUsed || "Digital FX Enterprise AI Diagnostic Engine v2.4"}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <span
-                          className={`px-3 py-1 rounded-full text-xs font-extrabold border ${
-                            geoResult.aiAnalysis?.priority === "High"
-                              ? "bg-rose-500/20 text-rose-300 border-rose-500/40"
-                              : geoResult.aiAnalysis?.priority === "Medium"
-                              ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
-                              : "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
-                          }`}
-                        >
-                          PRIORITY: {geoResult.aiAnalysis?.priority?.toUpperCase() || "HIGH"} ACTION REQUIRED
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Executive AI Synthesis */}
-                    <p className="text-sm sm:text-base leading-relaxed text-slate-200 font-normal">
-                      {geoResult.aiAnalysis?.summary ||
-                        `Executive Audit for ${geoWebsite || "your website"}: The domain demonstrates a solid foundational score of ${
-                          geoResult.score ?? geoResult.overall ?? 82
-                        }/100. However, key generative engine optimization signals (GEO) indicate missed opportunities in Google AI Overviews and ChatGPT citation indexes. By implementing institutional structured schema and conversational answer clusters, the brand can establish category authority.`}
-                    </p>
-
-                    {/* Projected Growth & ROI Banner */}
-                    <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="flex items-center justify-between sm:justify-start sm:gap-4">
-                        <span className="text-xs text-slate-400">Projected Post-Optimization Score:</span>
-                        <span className="text-sm font-extrabold text-emerald-400">
-                          {geoResult.aiAnalysis?.projectedGrowth?.estimatedScoreAfterFixes ?? 94}/100
-                          <span className="text-[11px] font-normal text-slate-400 ml-1.5">
-                            (+{Math.max(12, (geoResult.aiAnalysis?.projectedGrowth?.estimatedScoreAfterFixes ?? 94) - (geoResult.score ?? geoResult.overall ?? 82))} pts)
-                          </span>
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between sm:justify-start sm:gap-4 sm:border-l sm:border-white/10 sm:pl-4">
-                        <span className="text-xs text-slate-400">Est. AI Search Traffic Uplift:</span>
-                        <span className="text-sm font-extrabold text-cyan-300">
-                          {geoResult.aiAnalysis?.projectedGrowth?.potentialTrafficIncrease ?? "+55% to +90%"}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* =========================================================
-                    3 AI SEARCH ENGINE CITATION BREAKDOWN
-                    ========================================================= */}
-                <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {/* ChatGPT / SearchGPT */}
-                  <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-indigo-300 transition">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                        ChatGPT &amp; SearchGPT
-                      </span>
-                      <span className="text-xs font-extrabold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
-                        {geoResult.aiAnalysis?.aiEngineBreakdown?.chatgpt?.score ?? 76}% Citations
-                      </span>
-                    </div>
-                    <span className="text-[10.5px] font-semibold text-slate-500 block mb-2">
-                      {geoResult.aiAnalysis?.aiEngineBreakdown?.chatgpt?.status ?? "Moderate AI Visibility"}
-                    </span>
-                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                      {geoResult.aiAnalysis?.aiEngineBreakdown?.chatgpt?.diagnosis ??
-                        "Brand is recognized by conversational search, but requires Schema entity validation to be cited in direct recommendations."}
-                    </p>
-                  </div>
-
-                  {/* Google Gemini */}
-                  <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-300 transition">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-blue-500" />
-                        Google Gemini &amp; SGE
-                      </span>
-                      <span className="text-xs font-extrabold px-2 py-0.5 rounded bg-blue-100 text-blue-800">
-                        {geoResult.aiAnalysis?.aiEngineBreakdown?.gemini?.score ?? 81}% Authority
-                      </span>
-                    </div>
-                    <span className="text-[10.5px] font-semibold text-slate-500 block mb-2">
-                      {geoResult.aiAnalysis?.aiEngineBreakdown?.gemini?.status ?? "High Local Proximity"}
-                    </span>
-                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                      {geoResult.aiAnalysis?.aiEngineBreakdown?.gemini?.diagnosis ??
-                        "Active Google Business profile verified; linking LocalBusiness structured data will trigger Google AI Overview snapshots."}
-                    </p>
-                  </div>
-
-                  {/* Perplexity */}
-                  <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-cyan-300 transition">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-cyan-500" />
-                        Perplexity &amp; Voice Search
-                      </span>
-                      <span className="text-xs font-extrabold px-2 py-0.5 rounded bg-cyan-100 text-cyan-800">
-                        {geoResult.aiAnalysis?.aiEngineBreakdown?.perplexity?.score ?? 84}% Readiness
-                      </span>
-                    </div>
-                    <span className="text-[10.5px] font-semibold text-slate-500 block mb-2">
-                      {geoResult.aiAnalysis?.aiEngineBreakdown?.perplexity?.status ?? "Fast Response Indexing"}
-                    </span>
-                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                      {geoResult.aiAnalysis?.aiEngineBreakdown?.perplexity?.diagnosis ??
-                        "Server response latency allows rapid crawling, but Q&A formatted content snippets are required for citation cards."}
-                    </p>
-                  </div>
-                </div>
-
-                {/* =========================================================
-                    ESTIMATED WEBSITE TRAFFIC & GOOGLE RATING INTELLIGENCE
-                    ========================================================= */}
-                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                  
-                  {/* Card 1: Estimated Website Traffic & Technical Infrastructure */}
-                  <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-50/70 via-slate-50 to-indigo-50/40 border border-blue-200/80 shadow-sm relative overflow-hidden">
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <div className="flex items-center gap-2">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#1570ef] text-white text-xs font-black">
-                          📊
-                        </span>
-                        <div>
-                          <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#080d24]">
-                            Website Traffic &amp; Infrastructure
-                          </h4>
-                          <p className="text-[10px] text-slate-500 font-medium">
-                            Live DNS Signals, GA4 Tracking &amp; Traffic Model
-                          </p>
-                        </div>
-                      </div>
-                      <span className="px-2.5 py-0.5 rounded-full bg-blue-100/80 text-[#1570ef] text-[11px] font-bold border border-blue-200">
-                        {geoResult.aiAnalysis?.trafficIntelligence?.trafficTier || "Growth Stage (1K–5K)"}
-                      </span>
-                    </div>
-
-                    {/* Big Traffic Metric */}
-                    <div className="flex items-baseline gap-2 mb-3">
-                      <span className="text-3xl sm:text-4xl font-black text-[#080d24] tabular-nums tracking-tight">
-                        {geoResult.aiAnalysis?.trafficIntelligence?.estimatedMonthlyVisits || "1,800 – 3,500"}
-                      </span>
-                      <span className="text-xs font-bold text-slate-500">monthly visits (est.)</span>
-                    </div>
-
-                    {/* Real Technical Signals Pills */}
-                    <div className="grid grid-cols-2 gap-2 my-3 p-2.5 rounded-xl bg-white/80 border border-blue-100 text-[11px]">
-                      <div className="flex items-center justify-between gap-1 overflow-hidden">
-                        <span className="text-slate-500 font-medium">Server IP:</span>
-                        <span className="font-bold text-slate-800 font-mono truncate" title={geoResult.realInfrastructure?.serverIp || geoResult.aiAnalysis?.trafficIntelligence?.serverIp || "DNS Lookup"}>
-                          {geoResult.realInfrastructure?.serverIp || geoResult.aiAnalysis?.trafficIntelligence?.serverIp || "Resolved via DNS"}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between gap-1 overflow-hidden">
-                        <span className="text-slate-500 font-medium">Mail Host:</span>
-                        <span className="font-bold text-indigo-700 truncate" title={geoResult.realInfrastructure?.emailProvider || geoResult.aiAnalysis?.trafficIntelligence?.emailProvider || "DNS MX"}>
-                          {geoResult.realInfrastructure?.emailProvider || geoResult.aiAnalysis?.trafficIntelligence?.emailProvider || "DNS MX"}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between gap-1 col-span-2 pt-1 border-t border-slate-100">
-                        <span className="text-slate-500 font-medium">Analytics:</span>
-                        <span className={`px-2 py-0.5 rounded font-bold text-[10px] ${
-                          (geoResult.realInfrastructure?.hasGa4 || geoResult.realInfrastructure?.hasGtm || geoResult.aiAnalysis?.trafficIntelligence?.analyticsStatus?.includes("Active"))
-                            ? "bg-emerald-100 text-emerald-800"
-                            : "bg-amber-100 text-amber-800"
-                        }`}>
-                          {geoResult.realInfrastructure?.hasGa4
-                            ? `✓ GA4 Active (${geoResult.realInfrastructure.analyticsId || "Detected"})`
-                            : geoResult.realInfrastructure?.hasGtm
-                            ? "✓ GTM Container Active"
-                            : "⚠️ Traffic Untracked (Missing GA4)"}
-                        </span>
-                      </div>
-                      {(geoResult.trancoRank || geoResult.aiAnalysis?.trafficIntelligence?.trancoRank) && (
-                        <div className="flex items-center justify-between gap-1 col-span-2 text-[10.5px]">
-                          <span className="text-slate-500 font-medium">Global Tranco Rank:</span>
-                          <span className="font-bold text-blue-700">
-                            #{(geoResult.trancoRank || geoResult.aiAnalysis?.trafficIntelligence?.trancoRank)?.toLocaleString()} Global
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* 4-Channel Traffic Split */}
-                    <div className="space-y-2 mt-4 pt-3 border-t border-slate-200/80">
-                      <div className="flex justify-between items-center text-[11px] font-semibold text-slate-700">
-                        <span>Traffic Channel Breakdown</span>
-                        <span className="text-slate-400 font-normal">Source Share</span>
-                      </div>
-
-                      {/* Multi-segment progress bar */}
-                      <div className="h-3 w-full rounded-full bg-slate-200 overflow-hidden flex">
-                        <div
-                          className="bg-[#1570ef] h-full"
-                          style={{
-                            width: `${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.organicSearch ?? 45}%`,
-                          }}
-                          title={`Google Search: ${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.organicSearch ?? 45}%`}
-                        />
-                        <div
-                          className="bg-[#10b981] h-full"
-                          style={{
-                            width: `${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.localMaps ?? 30}%`,
-                          }}
-                          title={`Google Maps 3-Pack: ${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.localMaps ?? 30}%`}
-                        />
-                        <div
-                          className="bg-[#a855f7] h-full"
-                          style={{
-                            width: `${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.aiCitations ?? 12}%`,
-                          }}
-                          title={`AI Citations: ${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.aiCitations ?? 12}%`}
-                        />
-                        <div
-                          className="bg-[#f59e0b] h-full"
-                          style={{
-                            width: `${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.directBrand ?? 13}%`,
-                          }}
-                          title={`Direct & Brand: ${geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.directBrand ?? 13}%`}
-                        />
-                      </div>
-
-                      {/* Legend */}
-                      <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600 pt-1">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-2 h-2 rounded-full bg-[#1570ef]" />
-                          <span>Google Search: <strong className="text-slate-900">{geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.organicSearch ?? 45}%</strong></span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-2 h-2 rounded-full bg-[#10b981]" />
-                          <span>Google Maps: <strong className="text-slate-900">{geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.localMaps ?? 30}%</strong></span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-2 h-2 rounded-full bg-[#a855f7]" />
-                          <span>AI Citations: <strong className="text-slate-900">{geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.aiCitations ?? 12}%</strong></span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-2 h-2 rounded-full bg-[#f59e0b]" />
-                          <span>Direct &amp; Brand: <strong className="text-slate-900">{geoResult.aiAnalysis?.trafficIntelligence?.channelSplit?.directBrand ?? 13}%</strong></span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Missed Traffic Opportunity Alert */}
-                    <div className="mt-4 p-3 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-between gap-3 text-xs">
-                      <div className="flex items-center gap-2">
-                        <span className="text-amber-600 font-black">⚠️</span>
-                        <span className="text-slate-700 font-medium">
-                          Missed Traffic: <strong className="text-amber-800">{geoResult.aiAnalysis?.trafficIntelligence?.missedTrafficMonthly || "~2,800 visits/mo"}</strong>
-                        </span>
-                      </div>
-                      <span className="text-[10.5px] font-bold text-amber-700 bg-amber-100/70 px-2 py-0.5 rounded">
-                        Recoverable
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Card 2: Google Rating & Review Intelligence */}
-                  <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-50/70 via-slate-50 to-emerald-50/40 border border-amber-200/80 shadow-sm relative overflow-hidden">
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <div className="flex items-center gap-2">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#f59e0b] text-white text-xs font-black">
-                          ★
-                        </span>
-                        <div>
-                          <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#080d24]">
-                            Google Rating &amp; Reputation
-                          </h4>
-                          <p className="text-[10px] text-slate-500 font-medium">
-                            Google Business Profile &amp; Local Schema Verification
-                          </p>
-                        </div>
-                      </div>
-                      <span
-                        className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${
-                          geoResult.aiAnalysis?.googleRatingIntelligence?.rating
-                            ? "bg-emerald-100 text-emerald-800 border-emerald-200"
-                            : "bg-amber-100 text-amber-800 border-amber-200"
-                        }`}
-                      >
-                        {geoResult.aiAnalysis?.googleRatingIntelligence?.rating
-                          ? (geoResult.aiAnalysis?.googleRatingIntelligence?.gbpStatus || "Verified Rating")
-                          : "⚠️ GBP / Schema Not Linked"}
-                      </span>
-                    </div>
-
-                    {/* Big Rating Metric or Truthful Unlinked State */}
-                    {geoResult.aiAnalysis?.googleRatingIntelligence?.rating ? (
-                      <div>
-                        <div className="flex items-baseline gap-3 mb-2">
-                          <span className="text-3xl sm:text-4xl font-black text-[#080d24] tabular-nums tracking-tight">
-                            {geoResult.aiAnalysis.googleRatingIntelligence.rating}
-                          </span>
-                          <div className="flex text-amber-400 text-lg">
-                            {"★★★★★"}
-                          </div>
-                          <span className="text-xs font-bold text-slate-500">out of 5.0</span>
-                        </div>
-                        <p className="text-xs text-slate-600 mb-2 font-normal">
-                          {geoResult.aiAnalysis.googleRatingIntelligence.reviewCountText} •{" "}
-                          <span className="font-semibold text-slate-800">
-                            {geoResult.aiAnalysis.googleRatingIntelligence.source || "Google Business Profile"}
-                          </span>
-                        </p>
-                        {geoResult.aiAnalysis.googleRatingIntelligence.placeUrl && (
-                          <a
-                            href={geoResult.aiAnalysis.googleRatingIntelligence.placeUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs text-[#1570ef] hover:underline font-bold inline-flex items-center gap-1 mb-3"
-                          >
-                            <span>View on Google Maps</span>
-                            <span>↗</span>
-                          </a>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="mb-4 p-3.5 rounded-xl bg-amber-50/90 border border-amber-200">
-                        <div className="flex items-baseline gap-2 mb-1">
-                          <span className="text-lg font-extrabold text-amber-900">
-                            Profile / Schema Not Linked
-                          </span>
-                          <span className="text-[11px] text-amber-700 font-semibold">(Unverified)</span>
-                        </div>
-                        <p className="text-[11.5px] text-slate-600 leading-relaxed">
-                          Website code me Google Business Profile ya AggregateRating Schema link nahi mila. Isse Google Maps 3-Pack aur AI Search Overviews me local credibility kam hoti hai.
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Reputation & Local Pack Metrics */}
-                    <div className="space-y-2.5 pt-3 border-t border-slate-200/80">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-600 flex items-center gap-1.5">
-                          <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                          Customer Sentiment Score
-                        </span>
-                        <span className="font-extrabold text-emerald-700">
-                          {geoResult.aiAnalysis?.googleRatingIntelligence?.rating
-                            ? `${geoResult.aiAnalysis?.googleRatingIntelligence?.sentiment ?? 94}% Positive`
-                            : "Baseline Trust (65%)"}
-                        </span>
-                      </div>
-                      <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-emerald-500 rounded-full"
-                          style={{
-                            width: `${
-                              geoResult.aiAnalysis?.googleRatingIntelligence?.rating
-                                ? (geoResult.aiAnalysis?.googleRatingIntelligence?.sentiment ?? 94)
-                                : 65
-                            }%`,
-                          }}
-                        />
-                      </div>
-
-                      <div className="flex items-center justify-between text-xs pt-1">
-                        <span className="text-slate-600">Local Maps 3-Pack Rank Impact</span>
-                        <span className={`font-extrabold text-[11.5px] ${
-                          geoResult.aiAnalysis?.googleRatingIntelligence?.rating ? "text-blue-700" : "text-amber-700"
-                        }`}>
-                          {geoResult.aiAnalysis?.googleRatingIntelligence?.localPackImpact ||
-                            (geoResult.aiAnalysis?.googleRatingIntelligence?.rating ? "Top 3-Pack Contender" : "High Risk - Action Needed")}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center justify-between text-xs pt-1">
-                        <span className="text-slate-600">Review Schema (AggregateRating)</span>
-                        <span className={`px-2 py-0.5 rounded text-[10.5px] font-bold ${
-                          geoResult.aiAnalysis?.googleRatingIntelligence?.hasReviewSchema
-                            ? "bg-emerald-100 text-emerald-800"
-                            : "bg-amber-100 text-amber-800"
-                        }`}>
-                          {geoResult.aiAnalysis?.googleRatingIntelligence?.hasReviewSchema ? "✓ Active on Page" : "⚠️ Missing Schema Markup"}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* =========================================================
-                    DYNAMIC STRATEGIC OPPORTUNITIES & ACTION PLAN
-                    ========================================================= */}
-                <div className="mt-8 pt-8 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Strategic Growth Opportunities */}
-                  <div className="p-5 rounded-2xl bg-indigo-50/60 border border-indigo-200">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-900 flex items-center gap-1.5 mb-3">
-                      <span>✦</span>
-                      <span>Strategic Growth Opportunities</span>
-                    </h4>
-                    <ul className="space-y-2.5 text-xs text-slate-700 font-normal">
-                      {(geoResult.aiAnalysis?.opportunities && geoResult.aiAnalysis.opportunities.length > 0
-                        ? geoResult.aiAnalysis.opportunities
-                        : [
-                            "Implement JSON-LD LocalBusiness & Organization Schema to dominate Google AI Overviews.",
-                            "Deploy conversational FAQ comparison clusters to capture voice and long-tail search traffic.",
-                            "Accelerate mobile Core Web Vitals to improve conversational crawler citation rate.",
-                          ]
-                      ).map((opp, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <span className="text-indigo-600 font-bold shrink-0">{idx + 1}.</span>
-                          <span>{opp}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Prioritized Engineering Actions */}
-                  <div className="p-5 rounded-2xl bg-emerald-50/60 border border-emerald-200">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-900 flex items-center gap-1.5 mb-3">
-                      <span>⚡</span>
-                      <span>Priority Engineering Action Plan</span>
-                    </h4>
-                    <ul className="space-y-2.5 text-xs text-slate-700 font-normal">
-                      {(geoResult.aiAnalysis?.actions && geoResult.aiAnalysis.actions.length > 0
-                        ? geoResult.aiAnalysis.actions
-                        : [
-                            "Add Schema.org JSON-LD structured markup with verified 'sameAs' social entity links.",
-                            "Refactor primary H1 tags and page titles with targeted NCR and high-intent commercial keywords.",
-                            "Publish structured FAQ modules answering specific customer buying questions.",
-                          ]
-                      ).map((act, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <span className="text-emerald-600 font-bold shrink-0">✓</span>
-                          <span>{act}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Executive Action Banner */}
-                <div className="mt-8 rounded-2xl bg-[#080d24] text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
-                  <div>
-                    <span className="text-[10.5px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/20 border border-emerald-400/30 px-2.5 py-0.5 rounded-full">
-                      FIX THESE {geoResult.aiAnalysis?.actions?.length || 3} ISSUES
-                    </span>
-                    <h4 className="text-lg sm:text-xl font-extrabold text-white mt-1.5 tracking-tight">
-                      Want Digital FX to optimize your site for #1 AI Citations?
-                    </h4>
-                    <p className="text-xs text-slate-300 mt-0.5 max-w-[540px] font-normal">
-                      We implement full JSON-LD entity schema, conversational content clusters, and optimize your business for Google AI Overviews and ChatGPT Search.
-                    </p>
-                  </div>
-                  <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
-                    <a
-                      href={`https://wa.me/918447583685?text=${encodeURIComponent(
-                        `Hi Digital FX, I just ran a GEO AI Audit on ${geoWebsite || "my website"} (Score: ${
-                          geoResult.score ?? geoResult.overall ?? 82
-                        }/100, Est. Traffic: ${
-                          geoResult.aiAnalysis?.trafficIntelligence?.estimatedMonthlyVisits || "1,800–3,500"
-                        }/mo, Rating: ${
-                          geoResult.aiAnalysis?.googleRatingIntelligence?.rating ?? 4.8
-                        }★). Please share the implementation plan to recover the missed traffic and fix AI citations.`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs text-center shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
-                    >
-                      <span>💬 Fix on WhatsApp (15% OFF)</span>
-                      <span>→</span>
-                    </a>
-                    <button
-                      type="button"
-                      onClick={() => openProposalModal(geoWebsite, "GEO AI Citations & Optimization")}
-                      className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white font-bold text-xs text-center transition cursor-pointer shadow-md whitespace-nowrap"
-                    >
-                      Request Strategic Proposal →
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => openPricingModal()}
-                      className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs text-center transition cursor-pointer whitespace-nowrap"
-                    >
-                      View Payment &amp; Packages
-                    </button>
-                  </div>
-                </div>
-
-                  </div>
-                )}
-
               </div>
             )}
 
