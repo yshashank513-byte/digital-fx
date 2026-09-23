@@ -213,22 +213,12 @@ export default function AdminClientLayout({
         
         {/* Brand Header */}
         <div className="flex h-[76px] shrink-0 items-center border-b border-slate-100 px-6">
-          <Link href="/admin" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-slate-200/90 bg-white p-0.5 shadow-xs">
-              <img
-                src="/logo.png"
-                alt="Digital FX"
-                className="h-9 w-9 object-contain"
-              />
-            </div>
-            <div className="text-left">
-              <div className="text-[17px] font-black tracking-tight text-[#080d24]">
-                DIGITAL <span className="text-[#207de9]">FX</span>
-              </div>
-              <div className="text-[8px] font-extrabold uppercase tracking-[2.5px] text-slate-400">
-                MANAGEMENT PORTAL
-              </div>
-            </div>
+          <Link href="/admin" className="flex items-center">
+            <img
+              src="/logo.svg"
+              alt="Digital FX"
+              className="h-9 w-auto object-contain"
+            />
           </Link>
         </div>
 
@@ -301,18 +291,8 @@ export default function AdminClientLayout({
           MOBILE TOPBAR + SLIDE-OUT DRAWER
           ========================================================================= */}
       <div className="sticky top-0 z-30 flex h-[70px] items-center justify-between border-b border-slate-200 bg-white/95 px-5 backdrop-blur-md lg:hidden">
-        <Link href="/admin" className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-white p-0.5 shadow-xs">
-            <img src="/logo.png" alt="Digital FX" className="h-8 w-8 object-contain" />
-          </div>
-          <div>
-            <span className="text-base font-black text-[#080d24]">
-              DIGITAL <span className="text-[#207de9]">FX</span>
-            </span>
-            <span className="block text-[7px] font-bold tracking-[2px] text-slate-400">
-              MANAGEMENT
-            </span>
-          </div>
+        <Link href="/admin" className="flex items-center">
+          <img src="/logo.svg" alt="Digital FX" className="h-8 w-auto object-contain" />
         </Link>
 
         <div className="flex items-center gap-2">
@@ -335,13 +315,8 @@ export default function AdminClientLayout({
           />
           <div className="relative z-10 flex h-full w-[280px] flex-col bg-white border-r border-slate-200 p-5 shadow-2xl overflow-y-auto">
             <div className="flex items-center justify-between pb-5 border-b border-slate-100">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-white p-0.5 shadow-xs">
-                  <img src="/logo.png" alt="Digital FX" className="h-8 w-8 object-contain" />
-                </div>
-                <span className="text-base font-black text-[#080d24]">
-                  DIGITAL <span className="text-[#207de9]">FX</span>
-                </span>
+              <div className="flex items-center">
+                <img src="/logo.svg" alt="Digital FX" className="h-8 w-auto object-contain" />
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}

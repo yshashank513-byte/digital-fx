@@ -129,19 +129,16 @@ export default function AdminLogin() {
       <div className="relative z-10 w-full max-w-md mx-auto">
         {/* Brand Header */}
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-white p-1 shadow-xs mb-3.5 border border-slate-200">
+          <div className="flex items-center justify-center mb-3">
             <img
-              src="/logo.png"
+              src="/logo.svg"
               alt="Digital FX"
-              className="h-9 w-9 object-contain"
+              className="h-12 w-auto object-contain"
             />
           </div>
 
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-black tracking-tight text-[#080d24]">
-              DIGITAL <span className="text-[#207de9]">FX</span>
-            </h1>
-            <span className="px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-wider rounded-md bg-blue-50 text-[#207de9] border border-blue-200">
+            <span className="px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider rounded-md bg-blue-50 text-[#207de9] border border-blue-200">
               Admin Portal
             </span>
           </div>

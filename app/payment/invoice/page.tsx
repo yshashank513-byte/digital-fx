@@ -283,35 +283,31 @@ function PaymentInvoiceContent() {
               └──────────────────────────────────────────────────────────┘ */}
           <div className="p-5 sm:p-6 border-b-2 border-slate-900">
             <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
-              {/* LEFT: LOGO + COMPANY NAME + ADDRESS/PHONE/GSTIN */}
+              {/* LEFT: LOGO + COMPANY DETAILS */}
               <div className="flex items-start gap-3.5">
-                <div className="flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white p-1.5 shadow-2xs">
+                <div className="flex h-14 sm:h-16 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-1.5 shadow-2xs">
                   <img
-                    src="/logo.png"
+                    src="/logo.svg"
                     alt="Digital FX"
-                    width={54}
-                    height={54}
+                    width={140}
+                    height={46}
                     style={{
-                      width: "54px",
-                      height: "54px",
-                      maxWidth: "54px",
-                      maxHeight: "54px",
+                      height: "46px",
+                      width: "auto",
+                      maxWidth: "160px",
                       objectFit: "contain",
                       display: "block",
                     }}
-                    className="h-full w-full object-contain"
+                    className="h-10 sm:h-11 w-auto object-contain"
                   />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h1 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 leading-tight">
-                      DIGITAL <span className="text-[#207de9]">FX</span>
-                    </h1>
-                    <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-blue-50 text-[#207de9] border border-blue-200">
+                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-blue-50 text-[#207de9] border border-blue-200">
                       Govt. Registered
                     </span>
                   </div>
-                  <p className="text-[11px] font-bold text-slate-700 mt-0.5">
+                  <p className="text-[11px] font-bold text-slate-700 mt-1">
                     Digital Marketing &amp; AI Search (GEO) Agency
                   </p>
                   <p className="text-[11px] text-slate-600 mt-0.5">

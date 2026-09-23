@@ -73,16 +73,8 @@ export default function BlogIndexPage() {
       {/* 2. MAIN STICKY HEADER */}
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
         <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-            <img src="/logo.png" alt="Digital FX" width={42} height={42} className="h-9 w-9 sm:h-[42px] sm:w-[42px] object-contain shrink-0 group-hover:scale-105 transition-transform" />
-            <div>
-              <div className="text-[20px] sm:text-[23.5px] font-extrabold leading-none tracking-[-0.03em] text-[#080d24]">
-                DIGITAL <span className="text-[#207de9]">FX</span>
-              </div>
-              <div className="mt-1 sm:mt-1.5 text-[8px] sm:text-[8.5px] font-bold uppercase tracking-[1.6px] text-slate-500">
-                Insights &amp; Blueprints
-              </div>
-            </div>
+          <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
+            <img src="/logo.svg" alt="Digital FX - Business Solution" width={138} height={46} className="h-10 sm:h-[46px] w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
@@ -297,11 +289,8 @@ export default function BlogIndexPage() {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
             <div>
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <img src="/logo.png" alt="Digital FX" width={42} height={42} className="h-9 w-9 sm:h-10 sm:w-10 object-contain shrink-0" />
-                <div className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-                  DIGITAL <span className="text-[#207de9]">FX</span>
-                </div>
+              <div className="flex items-center">
+                <img src="/logo-white.svg" alt="Digital FX" width={144} height={48} className="h-10 sm:h-11 w-auto object-contain shrink-0" />
               </div>
               <p className="mt-4 text-xs text-slate-400 leading-relaxed">
                 Digital FX is a premier search engineering &amp; digital marketing agency headquartered at Orbit Plaza, Crossings Republik, Ghaziabad (Delhi NCR). Serving 350+ cities across India and international markets.

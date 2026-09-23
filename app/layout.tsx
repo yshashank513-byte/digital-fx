@@ -42,6 +42,7 @@ export const metadata: Metadata = {
     canonical: "https://www.digitalfx.in",
   },
 
+
   openGraph: {
     type: "website",
     url: "https://www.digitalfx.in",
@@ -52,15 +53,15 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/logo.png",
-        width: 1024,
-        height: 1024,
+        width: 2172,
+        height: 724,
         alt: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR",
       },
     ],
   },
 
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR",
     description:
       "4.9★ Rated Best Digital Marketing & SEO Agency in Ghaziabad - Delhi NCR serving clients across India and USA.",

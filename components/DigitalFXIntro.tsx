@@ -44,13 +44,11 @@ export default function DigitalFXIntro() {
         <div className="dfx-intro-logo-wrap">
           <div className="dfx-logo-glow" />
           <img
-            src="/logo.png"
+            src="/logo.svg"
             alt="Digital FX"
             className="dfx-intro-logo"
           />
         </div>
-
-        <div className="dfx-intro-brand">DIGITAL FX</div>
 
         <div className="dfx-intro-line">
           <span />
@@ -142,12 +140,12 @@ export default function DigitalFXIntro() {
 
         .dfx-intro-logo-wrap {
           position: relative;
-          width: clamp(150px, 19vw, 225px);
-          height: clamp(90px, 12vw, 130px);
+          width: clamp(240px, 32vw, 380px);
+          height: clamp(85px, 11vw, 130px);
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 6px;
+          margin-bottom: 12px;
         }
 
         .dfx-logo-glow {

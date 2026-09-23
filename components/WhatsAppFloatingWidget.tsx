@@ -3,20 +3,16 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-const DEFAULT_OM_WHATSAPP_MSG = `Dear Sir/Madam,
+const DEFAULT_DFX_WHATSAPP_MSG = `Hello Digital FX Team,
 
-Greetings from OM Packers & Movers.
+I am interested in scaling my business growth through your digital marketing services.
 
-Please share the following details to prepare your quotation:
+Website / Business Name:
+Services Needed (SEO / Google Ads / Social / Web Dev):
+Target Market (City / India / Global):
+Monthly Budget Range:
 
-Pickup Address:
-Drop Address:
-Shifting Date:
-Household Item List:
-
-You can also share item photos/videos for an accurate estimate.
-
-Thank you for choosing OM Packers & Movers.`;
+Looking forward to connecting with a senior strategist.`;
 
 export default function WhatsAppFloatingWidget() {
   const pathname = usePathname();
@@ -29,19 +25,19 @@ export default function WhatsAppFloatingWidget() {
     return null;
   }
 
-  // Quick action templates for OM Packers & Movers
+  // Quick action templates for Digital FX
   const quickPrompts = [
-    "🚛 Request Instant Quotation for Shifting",
-    "📍 Household Goods Shifting Estimate",
-    "🚗 Car / Bike Relocation Inquiry",
-    "📦 Packing & Unpacking Services Rate",
+    "📈 Free Website & SEO Audit",
+    "🚀 Google Ads / PPC Strategy Proposal",
+    "📍 Local SEO & Google Maps Ranking",
+    "💼 Enterprise Marketing Consultation",
   ];
 
   // Auto-prompt subtly after 7 seconds if user hasn't dismissed
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!hasDismissed && !hasInteracted) {
-        // Leave widget visible, show pulsing notification dot
+        // Leave widget visible
       }
     }, 7000);
     return () => clearTimeout(timer);
@@ -49,7 +45,7 @@ export default function WhatsAppFloatingWidget() {
 
   const handleSend = (textToSend?: string) => {
     const message = (textToSend || customMsg).trim();
-    const finalMsg = message || DEFAULT_OM_WHATSAPP_MSG;
+    const finalMsg = message || DEFAULT_DFX_WHATSAPP_MSG;
     const url = `https://wa.me/918447583685?text=${encodeURIComponent(finalMsg)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     setIsOpen(false);
@@ -65,7 +61,7 @@ export default function WhatsAppFloatingWidget() {
           {!hasDismissed && (
             <div className="hidden md:flex items-center gap-2 absolute left-16 top-1/2 -translate-y-1/2 bg-white text-slate-800 text-xs font-semibold px-3.5 py-1.5 rounded-xl shadow-lg border border-slate-200 whitespace-nowrap animate-fadeIn pointer-events-none">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block" />
-              <span>Chat with OM Packers (Online)</span>
+              <span>Chat with Digital FX (Online)</span>
             </div>
           )}
 
@@ -75,7 +71,7 @@ export default function WhatsAppFloatingWidget() {
               setIsOpen(true);
               setHasInteracted(true);
             }}
-            aria-label="Open WhatsApp Chat with OM Packers & Movers"
+            aria-label="Open WhatsApp Chat with Digital FX"
             className="relative flex items-center justify-center w-[56px] h-[56px] sm:w-[60px] sm:h-[60px] rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] hover:shadow-[0_12px_32px_rgba(37,211,102,0.5)] transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
           >
             {/* Pulsing Ripple Effect */}
@@ -101,15 +97,15 @@ export default function WhatsAppFloatingWidget() {
           <div className="bg-[#075E54] text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center p-0.5 overflow-hidden">
-                  <img src="/logo.png" alt="OM Packers & Movers" className="w-full h-full object-contain" />
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center p-1 overflow-hidden shadow-xs">
+                  <img src="/icon.png" alt="Digital FX Support" className="w-full h-full object-contain rounded-full" />
                 </div>
                 <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#25D366] border-2 border-[#075E54]" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white leading-tight">OM Packers &amp; Movers</h4>
+                <h4 className="text-sm font-bold text-white leading-tight">Digital FX • Growth Desk</h4>
                 <p className="text-[11px] text-emerald-200 font-medium mt-0.5">
-                  Replies typically in &lt; 5 mins
+                  Senior Strategists Online
                 </p>
               </div>
             </div>
@@ -132,12 +128,12 @@ export default function WhatsAppFloatingWidget() {
             {/* Incoming Message Bubble */}
             <div className="flex flex-col items-start max-w-[90%]">
               <div className="bg-white text-slate-800 p-3 rounded-2xl rounded-tl-none shadow-xs text-xs leading-relaxed">
-                <p className="font-semibold text-[#075E54] mb-1">OM Packers &amp; Movers • Support Desk</p>
+                <p className="font-semibold text-[#075E54] mb-1">Digital FX • Growth Advisory</p>
                 <p>
-                  Namaste! 👋 Welcome to <strong>OM Packers &amp; Movers</strong>.
+                  Namaste! 👋 Welcome to <strong>Digital FX</strong>.
                 </p>
                 <p className="mt-1">
-                  Please share your shifting details to get an instant quotation estimate:
+                  How can we help accelerate your revenue growth today? Select an option or message us directly:
                 </p>
                 <span className="block text-[9px] text-slate-400 text-right mt-1.5">
                   Just now ✓✓
@@ -154,7 +150,7 @@ export default function WhatsAppFloatingWidget() {
                 <button
                   key={idx}
                   type="button"
-                  onClick={() => handleSend(`${DEFAULT_OM_WHATSAPP_MSG}\n\n*Note:* Inquiry regarding ${prompt}`)}
+                  onClick={() => handleSend(`${DEFAULT_DFX_WHATSAPP_MSG}\n\n*Primary Goal:* ${prompt}`)}
                   className="w-full text-left p-2.5 rounded-xl bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-slate-700 hover:text-emerald-900 text-xs font-medium transition flex items-center justify-between group cursor-pointer shadow-2xs"
                 >
                   <span className="line-clamp-1">{prompt}</span>
@@ -192,4 +188,3 @@ export default function WhatsAppFloatingWidget() {
     </div>
   );
 }
-

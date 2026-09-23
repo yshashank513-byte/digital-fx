@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { supabase } from "../../lib/supabase";
 
 type Service = {
@@ -152,30 +153,13 @@ export default function ServicesPage() {
 
         <div className="flex h-[82px] items-center border-b border-white/10 px-5">
 
-          <div className="flex items-center gap-3">
-
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white border border-white/10 shadow-xs">
-              <img
-                src="/logo.png"
-                alt="Digital FX"
-                className="h-8 w-8 object-contain"
-              />
-            </div>
-
-            <div>
-              <div className="text-xl font-extrabold">
-                DIGITAL{" "}
-                <span className="text-blue-400">
-                  FX
-                </span>
-              </div>
-
-              <div className="text-[8px] tracking-[2px] text-blue-200/50">
-                ADMIN PANEL
-              </div>
-            </div>
-
-          </div>
+          <Link href="/admin" className="flex items-center">
+            <img
+              src="/logo-white.svg"
+              alt="Digital FX"
+              className="h-9 w-auto object-contain"
+            />
+          </Link>
 
         </div>
 

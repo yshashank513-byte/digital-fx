@@ -348,31 +348,13 @@ export default function GeoCheckerPage() {
             onClick={() =>
               router.push("/admin")
             }
-            className="flex items-center gap-3"
+            className="flex items-center"
           >
-
-            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white border border-white/10 shadow-xs">
-              <img
-                src="/logo.png"
-                alt="Digital FX"
-                className="h-8 w-8 object-contain"
-              />
-            </div>
-
-            <div className="text-left">
-
-              <div className="text-[18px] font-extrabold">
-                DIGITAL{" "}
-                <span className="text-[#6f8cff]">
-                  FX
-                </span>
-              </div>
-
-              <div className="mt-0.5 text-[7px] font-bold tracking-[2px] text-blue-100/40">
-                ADMIN PANEL
-              </div>
-
-            </div>
+            <img
+              src="/logo-white.svg"
+              alt="Digital FX"
+              className="h-9 w-auto object-contain"
+            />
 
           </button>
 

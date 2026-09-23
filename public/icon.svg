@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<defs>
+  <linearGradient id="box-icon" x1="0" y1="0" x2="1" y2="0.6">
+    <stop offset="0" stop-color="#248cf6"/>
+    <stop offset="1" stop-color="#0a4ec9"/>
+  </linearGradient>
+  <linearGradient id="xo-icon" gradientUnits="userSpaceOnUse" x1="1795.3" y1="276.0" x2="1875.3" y2="406.0">
+    <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+    <stop offset="1" stop-color="#80b8ff" stop-opacity="0.75"/>
+  </linearGradient>
+  <clipPath id="xc-icon">
+    <path d="M1705.3 196.0L1758.6 196.0L1874.5 401.0L1821.2 401.0ZM1821.2 196.0L1874.5 196.0L1758.6 401.0L1705.3 401.0Z"/>
+  </clipPath>
+</defs>
+<rect width="512" height="512" rx="108" fill="url(#box-icon)"/>
+<g transform="translate(-1570.58, -61.14) scale(1.06246)">
+  <path d="M1563.9 196.0L1695.1 196.0L1695.1 239.1L1611.0 239.1L1611.0 278.0L1678.7 278.0L1678.7 319.0L1611.0 319.0L1611.0 401.0L1563.9 401.0Z" fill="#ffffff"/>
+  <path d="M1705.3 196.0L1758.6 196.0L1874.5 401.0L1821.2 401.0ZM1821.2 196.0L1874.5 196.0L1758.6 401.0L1705.3 401.0Z" fill="#ffffff"/>
+  <rect x="1705.3" y="196.0" width="174.25" height="205" fill="url(#xo-icon)" clip-path="url(#xc-icon)"/>
+</g>
+</svg>
