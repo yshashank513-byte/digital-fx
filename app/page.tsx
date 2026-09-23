@@ -2339,10 +2339,10 @@ export default function Home() {
                       </div>
                       <div>
                         <div className="text-sm font-bold text-[#080d24] group-hover:text-emerald-700 transition">
-                          Free AI Search &amp; GEO Tool
+                          Free Website &amp; SEO Speed Audit
                         </div>
                         <div className="text-[11px] text-slate-500 font-medium">
-                          Instant 60s ChatGPT &amp; Gemini scan
+                          Instant 60s Core Web Vitals &amp; speed scan
                         </div>
                       </div>
                     </div>
@@ -2494,174 +2494,8 @@ export default function Home() {
                   </a>
                 </nav>
 
-                {/* Global & Dubai Hubs Featured Expansion Card (In 3-Line Menu Drawer) */}
-                <div className="mt-4 rounded-2xl bg-gradient-to-br from-[#080d24] via-[#0d163d] to-[#080d24] text-white border border-slate-700/80 p-4 shadow-md">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-amber-300">
-                      <span>🇦🇪</span>
-                      <span>Global Search &amp; Offshore Desk</span>
-                    </div>
-                    <span className="text-[9px] font-black bg-amber-400/20 text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-full uppercase">
-                      Dubai Hub
-                    </span>
-                  </div>
-
-                  <div className="mt-2">
-                    <h4 className="text-[13.5px] font-extrabold text-white leading-tight">
-                      Dubai &amp; International Search Hubs
-                    </h4>
-                    <p className="text-[11px] text-slate-300 mt-1 font-light leading-snug">
-                      High-ticket acquisition in Dubai, USA, UK, KSA &amp; Singapore. Dual-index Maps 3-Pack &amp; sub-second Next.js speed.
-                    </p>
-                  </div>
-
-                  {/* Dubai Flagship CTA Button */}
-                  <Link
-                    href="/locations/dubai"
-                    onClick={closeMobileMenu}
-                    className="mt-3 w-full py-2.5 px-3 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white font-extrabold text-xs transition flex items-center justify-between shadow-xs group"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm">🇦🇪</span>
-                      <div className="text-left">
-                        <div className="leading-tight">Dubai Authority Hub</div>
-                        <div className="text-[9.5px] font-normal text-blue-100">AED 2,500/mo • Retainers &amp; Maps</div>
-                      </div>
-                    </div>
-                    <span className="text-sm group-hover:translate-x-1 transition-transform">→</span>
-                  </Link>
-
-                  {/* International Hubs Quick Selector */}
-                  <div className="mt-2.5 pt-2.5 border-t border-slate-800 grid grid-cols-2 gap-1.5 text-[11px]">
-                    <Link
-                      href="/locations/abu-dhabi"
-                      onClick={closeMobileMenu}
-                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white transition flex items-center gap-1.5 border border-white/5"
-                    >
-                      <span>🇦🇪</span>
-                      <span className="font-semibold truncate">Abu Dhabi</span>
-                    </Link>
-                    <Link
-                      href="/locations/riyadh"
-                      onClick={closeMobileMenu}
-                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white transition flex items-center gap-1.5 border border-white/5"
-                    >
-                      <span>🇸🇦</span>
-                      <span className="font-semibold truncate">Riyadh GCC</span>
-                    </Link>
-                    <Link
-                      href="/locations/new-york"
-                      onClick={closeMobileMenu}
-                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white transition flex items-center gap-1.5 border border-white/5"
-                    >
-                      <span>🇺🇸</span>
-                      <span className="font-semibold truncate">New York</span>
-                    </Link>
-                    <Link
-                      href="/locations/london"
-                      onClick={closeMobileMenu}
-                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white transition flex items-center gap-1.5 border border-white/5"
-                    >
-                      <span>🇬🇧</span>
-                      <span className="font-semibold truncate">London UK</span>
-                    </Link>
-                  </div>
-
-                  {/* 1,098+ Keywords Explorer Button */}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      closeMobileMenu();
-                      setIsGlobalModalOpen(true);
-                    }}
-                    className="mt-2.5 w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-amber-300 border border-amber-400/30 font-bold text-xs transition flex items-center justify-between cursor-pointer"
-                  >
-                    <span className="flex items-center gap-1.5">
-                      <span>🔍</span>
-                      <span>1,098+ Global Keywords</span>
-                    </span>
-                    <span className="text-[9px] font-black bg-amber-400 text-slate-900 px-1.5 py-0.5 rounded uppercase">
-                      Open Explorer
-                    </span>
-                  </button>
-
-                  <div className="mt-2 text-center">
-                    <Link
-                      href="/global-markets"
-                      onClick={closeMobileMenu}
-                      className="text-[10px] text-slate-400 hover:text-slate-200 underline transition"
-                    >
-                      Standalone Global Search Page ↗
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Executive Client Portal & Payment Card */}
-                <div className="mt-5 p-4 rounded-2xl bg-gradient-to-br from-[#080d24] via-[#0d163d] to-[#080d24] text-white border border-slate-800 shadow-md">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                      <span className="text-[10px] font-black uppercase tracking-wider text-emerald-400">
-                        Client Checkout Desk
-                      </span>
-                    </div>
-                    <span className="text-[10px] font-bold text-slate-400">
-                      RBI Authorized
-                    </span>
-                  </div>
-                  <div className="mt-2 text-base font-black text-white">
-                    Payment &amp; Packages
-                  </div>
-                  <div className="text-xs text-slate-300 mt-0.5">
-                    Fixed pricing from ₹2,999 • Instant GST invoice
-                  </div>
-                  <div className="mt-2.5 flex flex-wrap gap-1.5">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        closeMobileMenu();
-                        openPricingModal("google_listing");
-                      }}
-                      className="px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 text-[10px] font-semibold transition cursor-pointer"
-                    >
-                      Maps ₹2,999
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        closeMobileMenu();
-                        openPricingModal("email_marketing");
-                      }}
-                      className="px-2 py-0.5 rounded-md bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 border border-amber-400/30 text-[10px] font-bold transition cursor-pointer"
-                    >
-                      Email ₹4,999
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        closeMobileMenu();
-                        openPricingModal("website");
-                      }}
-                      className="px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 text-[10px] font-semibold transition cursor-pointer"
-                    >
-                      Web ₹5,999
-                    </button>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      closeMobileMenu();
-                      openPricingModal();
-                    }}
-                    className="mt-3.5 w-full py-2.5 px-4 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white font-bold text-xs transition flex items-center justify-center gap-2 cursor-pointer shadow-sm"
-                  >
-                    <span>Authorize Payment Online</span>
-                    <span>→</span>
-                  </button>
-                </div>
-
                 {/* Agency Office & Regional Desk */}
-                <div className="mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2.5">
+                <div className="mt-5 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2.5">
                   <div className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                     Regional Strategy Desk
                   </div>

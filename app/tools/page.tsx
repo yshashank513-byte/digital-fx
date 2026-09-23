@@ -395,14 +395,14 @@ export default function ToolsPage() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-3">
                   <span className="text-xs font-bold uppercase tracking-widest text-[#1570ef]">How It Works</span>
-                  <h3 className="text-2xl font-extrabold text-[#080d24]">Proprietary Search &amp; GEO Signal Audit</h3>
+                  <h3 className="text-2xl font-extrabold text-[#080d24]">Proprietary Speed &amp; Search Signal Audit</h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                    Enter any business website to analyze how modern AI search bots (Perplexity, ChatGPT, and Google AI Overviews) index your brand, and identify missed Google Maps 3-Pack citations.
+                    Enter any business website to analyze your technical Core Web Vitals, mobile viewport responsiveness, DOM performance, and discover missed local search ranking opportunities.
                   </p>
                   <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
                     <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                      <strong>AI Overviews Readiness</strong>
-                      <p className="text-slate-500 text-[11px] mt-0.5">Summary citations on Gemini &amp; SearchGPT.</p>
+                      <strong>Core Web Vitals Telemetry</strong>
+                      <p className="text-slate-500 text-[11px] mt-0.5">LCP, FID/INP, and CLS performance analysis.</p>
                     </div>
                     <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
                       <strong>Google 3-Pack Signals</strong>
