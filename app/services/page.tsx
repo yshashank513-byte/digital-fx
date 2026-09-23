@@ -690,15 +690,6 @@ export default function ServicesPage() {
               </span>
             </Link>
             <Link
-              href="/careers"
-              className="hidden xl:inline-flex items-center gap-1.5 text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
-            >
-              <span className="whitespace-nowrap">Careers</span>
-              <span className="px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200 text-[9px] font-extrabold uppercase leading-none shrink-0">
-                HIRING
-              </span>
-            </Link>
-            <Link
               href="/blog"
               className="hidden 2xl:inline-flex text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
             >

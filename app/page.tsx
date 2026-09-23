@@ -1998,15 +1998,6 @@ export default function Home() {
 
             {/* Right: Client Checkout Portal & Direct Strategist Communications */}
             <div className="flex items-center justify-between sm:justify-end gap-2.5 sm:gap-4 text-[11px] sm:text-[12px] font-medium text-slate-300 w-full sm:w-auto">
-              <Link
-                href="/careers"
-                className="hidden lg:inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-300 hover:text-white transition shrink-0"
-              >
-                <span>Careers</span>
-                <span className="px-1.5 py-0.2 rounded bg-purple-500/25 text-purple-300 border border-purple-400/30 text-[8.5px] font-extrabold uppercase leading-none">
-                  HIRING
-                </span>
-              </Link>
 
               <button
                 type="button"
@@ -2093,15 +2084,6 @@ export default function Home() {
                 <span className="whitespace-nowrap">350+ Cities</span>
                 <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9px] font-extrabold uppercase leading-none shrink-0">
                   IN
-                </span>
-              </Link>
-              <Link
-                href="/careers"
-                className="hidden xl:inline-flex items-center gap-1.5 text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
-              >
-                <span className="whitespace-nowrap">Careers</span>
-                <span className="px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200 text-[9px] font-extrabold uppercase leading-none shrink-0">
-                  HIRING
                 </span>
               </Link>
               <Link
@@ -2312,30 +2294,7 @@ export default function Home() {
                     <span className="text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
                   </Link>
 
-                  {/* Careers (We Are Hiring!) */}
-                  <Link
-                    href="/careers"
-                    onClick={closeMobileMenu}
-                    className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-purple-50/60 transition"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-50 text-purple-600 transition">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="text-sm font-bold text-[#080d24] group-hover:text-purple-700 transition flex items-center gap-1.5">
-                          <span>Careers (We Are Hiring!)</span>
-                          <span className="px-1.5 py-0.2 rounded bg-purple-100 text-purple-800 text-[8.5px] font-extrabold uppercase">4 ROLES</span>
-                        </div>
-                        <div className="text-[11px] text-slate-500 font-medium">
-                          SEO Architects, Next.js Devs &amp; Media Buyers
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-slate-300 group-hover:text-purple-600 group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
-                  </Link>
+
 
                   {/* Contact & Consultation Desk */}
                   <Link
@@ -6064,53 +6023,6 @@ export default function Home() {
               <span className="inline-flex items-center gap-1.5 text-slate-700 font-semibold">
                 <span className="text-[#1570ef]">⚡</span> Real-Time Campaign Dashboard
               </span>
-            </div>
-
-            {/* Careers Spotlight Banner (Sleek Clean Light Redesign) */}
-            <div className="mt-14 rounded-3xl bg-gradient-to-br from-white via-blue-50/40 to-slate-50 p-6 sm:p-10 text-[#080d24] shadow-lg border border-blue-200/80 overflow-hidden relative">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-                
-                <div className="lg:col-span-7 space-y-3.5">
-                  <div className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#1570ef] bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Careers &amp; Talent Acquisition
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] tracking-tight leading-snug">
-                    Want to join our search engineering &amp; performance team?
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed max-w-xl">
-                    We’re actively hiring senior SEO architects, full-stack Next.js engineers, and performance media buyers who love solving complex search challenges and building high-ROI digital systems.
-                  </p>
-                  
-                  <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                    <span className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 text-[11px] font-medium shadow-2xs">Senior Technical SEO</span>
-                    <span className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 text-[11px] font-medium shadow-2xs">Full-Stack Next.js Developer</span>
-                    <span className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 text-[11px] font-medium shadow-2xs">Paid Media &amp; Meta Buyer</span>
-                  </div>
-
-                  <div className="pt-2">
-                    <a
-                      href="mailto:careers@digitalfx.in?subject=Career%20Application%20at%20Digital%20FX"
-                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#1570ef] hover:bg-[#1362d2] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-blue-500/25 transition-all hover:-translate-y-0.5 cursor-pointer"
-                    >
-                      <span>Explore Open Roles &amp; Apply</span>
-                      <span>→</span>
-                    </a>
-                  </div>
-                </div>
-
-                <div className="lg:col-span-5 flex items-center justify-center">
-                  <div className="w-full rounded-2xl overflow-hidden bg-white p-3 shadow-md border border-slate-200/80 group hover:scale-[1.02] transition-transform duration-300">
-                    <img
-                      src="/agency-team-illustration.png"
-                      alt="Digital FX Collaborative Agency Team"
-                      className="w-full h-auto object-contain rounded-xl"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-
-              </div>
             </div>
 
           </div>
