@@ -2,6 +2,8 @@
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
+import PageSpeedAuditReport from "@/components/PageSpeedAuditReport";
+import type { PageSpeedAuditData } from "@/app/api/pagespeed/route";
 
 export default function ToolsPage() {
   const [website, setWebsite] = useState("");
@@ -9,15 +11,54 @@ export default function ToolsPage() {
   const [step, setStep] = useState(1);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState("");
+  const [pageSpeedData, setPageSpeedData] = useState<PageSpeedAuditData | null>(null);
+  const [pageSpeedLoading, setPageSpeedLoading] = useState(false);
+  const [pageSpeedStrategy, setPageSpeedStrategy] = useState<"mobile" | "desktop">("mobile");
+  const [auditViewMode, setAuditViewMode] = useState<"pagespeed" | "geo">("pagespeed");
+
+  async function handlePageSpeedStrategyChange(newStrategy: "mobile" | "desktop") {
+    setPageSpeedStrategy(newStrategy);
+    const site = website.trim();
+    if (!site) return;
+    setPageSpeedLoading(true);
+    try {
+      const res = await fetch(
+        `/api/pagespeed?url=${encodeURIComponent(site)}&strategy=${newStrategy}`
+      );
+      const json = await res.json();
+      if (json.success && json.data) {
+        setPageSpeedData(json.data);
+      }
+    } catch (e) {
+      console.error("Strategy change failed", e);
+    } finally {
+      setPageSpeedLoading(false);
+    }
+  }
 
   async function handleAudit(e: FormEvent) {
     e.preventDefault();
-    if (!website.trim()) return;
+    const site = website.trim();
+    if (!site) return;
 
     setLoading(true);
     setError("");
     setResult(null);
     setStep(1);
+    setPageSpeedLoading(true);
+    setPageSpeedData(null);
+    setAuditViewMode("pagespeed");
+
+    // Initiate PageSpeed fetch in parallel
+    fetch(`/api/pagespeed?url=${encodeURIComponent(site)}&strategy=${pageSpeedStrategy}`)
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && json.data) {
+          setPageSpeedData(json.data);
+        }
+      })
+      .catch((e) => console.error("PageSpeed fetch error:", e))
+      .finally(() => setPageSpeedLoading(false));
 
     const timer1 = setTimeout(() => setStep(2), 700);
     const timer2 = setTimeout(() => setStep(3), 1400);
@@ -26,7 +67,7 @@ export default function ToolsPage() {
       const res = await fetch("/api/geo-check", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ website: website.trim() }),
+        body: JSON.stringify({ website: site }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to audit website.");
@@ -176,48 +217,135 @@ export default function ToolsPage() {
           )}
 
           {/* Results Display */}
-          {result && !loading && (
-            <div className="mx-auto mt-10 max-w-[900px] rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-lg text-left space-y-6">
-              <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-100">
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#1570ef]">Audit Complete</span>
-                  <h3 className="text-2xl font-extrabold text-[#080d24] mt-1">{result.domain || website}</h3>
-                </div>
-                <div className="text-right">
-                  <div className="text-3xl font-black text-emerald-600">{result.score || result.overall || 84}/100</div>
-                  <div className="text-xs text-slate-500 font-semibold">GEO AI Score</div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-                  <div className="text-xs text-slate-500 font-semibold">Google Gemini Status</div>
-                  <div className="text-lg font-bold text-[#080d24] mt-1">Entity Verified ✓</div>
-                </div>
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-                  <div className="text-xs text-slate-500 font-semibold">ChatGPT Citation Readiness</div>
-                  <div className="text-lg font-bold text-[#080d24] mt-1">High Intent Snippet</div>
-                </div>
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-                  <div className="text-xs text-slate-500 font-semibold">Schema.org JSON-LD</div>
-                  <div className="text-lg font-bold text-[#080d24] mt-1">LocalBusiness Active</div>
-                </div>
-              </div>
-
-              <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
-                <p className="text-xs text-slate-500 font-medium">Want our senior engineers to fix missed ranking signals?</p>
-                <Link
-                  href={`/contact?audit=${encodeURIComponent(website)}`}
-                  className="px-6 py-3 rounded-xl bg-[#1570ef] hover:bg-[#1362d2] text-white font-bold text-xs transition shadow-md whitespace-nowrap"
+          {(result || pageSpeedData || pageSpeedLoading) && !loading && (
+            <div className="mx-auto mt-10 max-w-[1120px] animate-fadeIn text-left">
+              
+              {/* DUAL REPORT VIEW SWITCHER TABS */}
+              <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+                <button
+                  type="button"
+                  onClick={() => setAuditViewMode("pagespeed")}
+                  className={`flex items-center gap-2.5 px-5 sm:px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer ${
+                    auditViewMode === "pagespeed"
+                      ? "bg-[#1a73e8] text-white shadow-blue-500/25 shadow-md ring-2 ring-blue-600/30"
+                      : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:border-slate-300"
+                  }`}
                 >
-                  Request Customized Action Plan →
-                </Link>
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                  </svg>
+                  <span>⚡ Google PageSpeed Insights</span>
+                  {pageSpeedData && (
+                    <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
+                      auditViewMode === "pagespeed" ? "bg-white/20 text-white" : "bg-emerald-100 text-emerald-800"
+                    }`}>
+                      {pageSpeedData.scores.performance}/100
+                    </span>
+                  )}
+                  {pageSpeedLoading && (
+                    <span className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-full animate-spin ml-1" />
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setAuditViewMode("geo")}
+                  className={`flex items-center gap-2.5 px-5 sm:px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer ${
+                    auditViewMode === "geo"
+                      ? "bg-[#080d24] text-white shadow-slate-900/25 shadow-md ring-2 ring-slate-800/30"
+                      : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:border-slate-300"
+                  }`}
+                >
+                  <span>🤖 GEO AI Score</span>
+                  {result && (
+                    <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
+                      auditViewMode === "geo" ? "bg-white/20 text-white" : "bg-blue-100 text-blue-800"
+                    }`}>
+                      {result.score || result.overall || 84}/100
+                    </span>
+                  )}
+                </button>
               </div>
+
+              {/* 1. GOOGLE PAGESPEED INSIGHTS VIEW */}
+              {auditViewMode === "pagespeed" && (
+                pageSpeedData ? (
+                  <div className="rounded-3xl border border-slate-200 bg-white p-4 sm:p-8 shadow-xl">
+                    <PageSpeedAuditReport
+                      data={pageSpeedData}
+                      isLoading={pageSpeedLoading}
+                      onStrategyChange={handlePageSpeedStrategyChange}
+                      onRequestProposal={() => window.location.href = `/contact?audit=${encodeURIComponent(website)}`}
+                    />
+                  </div>
+                ) : (
+                  <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-14 shadow-xl text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full border-4 border-slate-100 border-t-[#1a73e8] animate-spin" />
+                      <svg className="w-7 h-7 text-[#1a73e8] absolute" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900">
+                      Google Lighthouse is Analyzing {website || "your website"}...
+                    </h3>
+                    <p className="text-sm text-slate-500 mt-2 max-w-md mx-auto leading-relaxed">
+                      Evaluating authentic Core Web Vitals, accessibility rules, and device responsiveness via Google PageSpeed Insights v5 API.
+                    </p>
+                    <div className="mt-5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 text-[#1a73e8] text-xs font-semibold">
+                      <span className="w-2 h-2 rounded-full bg-[#1a73e8] animate-ping" />
+                      Auditing live Google Lighthouse ({pageSpeedStrategy})...
+                    </div>
+                  </div>
+                )
+              )}
+
+              {/* 2. GEO AI SCORE VIEW */}
+              {auditViewMode === "geo" && result && (
+                <div className="mx-auto max-w-[900px] rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-lg text-left space-y-6">
+                  <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-100">
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#1570ef]">Audit Complete</span>
+                      <h3 className="text-2xl font-extrabold text-[#080d24] mt-1">{result.domain || website}</h3>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-3xl font-black text-emerald-600">{result.score || result.overall || 84}/100</div>
+                      <div className="text-xs text-slate-500 font-semibold">GEO AI Score</div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                      <div className="text-xs text-slate-500 font-semibold">Google Gemini Status</div>
+                      <div className="text-lg font-bold text-[#080d24] mt-1">Entity Verified ✓</div>
+                    </div>
+                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                      <div className="text-xs text-slate-500 font-semibold">ChatGPT Citation Readiness</div>
+                      <div className="text-lg font-bold text-[#080d24] mt-1">High Intent Snippet</div>
+                    </div>
+                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                      <div className="text-xs text-slate-500 font-semibold">Schema.org JSON-LD</div>
+                      <div className="text-lg font-bold text-[#080d24] mt-1">LocalBusiness Active</div>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
+                    <p className="text-xs text-slate-500 font-medium">Want our senior engineers to fix missed ranking signals?</p>
+                    <Link
+                      href={`/contact?audit=${encodeURIComponent(website)}`}
+                      className="px-6 py-3 rounded-xl bg-[#1570ef] hover:bg-[#1362d2] text-white font-bold text-xs transition shadow-md whitespace-nowrap"
+                    >
+                      Request Customized Action Plan →
+                    </Link>
+                  </div>
+                </div>
+              )}
+
             </div>
           )}
 
           {/* Pre-Audit Showcase Illustration */}
-          {!result && !loading && (
+          {!result && !pageSpeedData && !loading && !pageSpeedLoading && (
             <div className="mx-auto mt-12 max-w-[1080px] rounded-3xl bg-white border border-slate-200 p-6 sm:p-9 text-left">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-3">

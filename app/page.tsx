@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import { supabase } from "./lib/supabase";
 import GlobalKeywordsSection from "@/components/GlobalKeywordsSection";
+import PageSpeedAuditReport from "@/components/PageSpeedAuditReport";
+import type { PageSpeedAuditData } from "@/app/api/pagespeed/route";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -937,6 +939,10 @@ export default function Home() {
   const [geoLoading, setGeoLoading] = useState(false);
   const [geoScanStep, setGeoScanStep] = useState(0);
   const [geoError, setGeoError] = useState("");
+  const [pageSpeedData, setPageSpeedData] = useState<PageSpeedAuditData | null>(null);
+  const [pageSpeedLoading, setPageSpeedLoading] = useState(false);
+  const [pageSpeedStrategy, setPageSpeedStrategy] = useState<"mobile" | "desktop">("mobile");
+  const [auditViewMode, setAuditViewMode] = useState<"pagespeed" | "geo">("pagespeed");
 
   const [formLoading, setFormLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -1186,6 +1192,26 @@ export default function Home() {
     });
   }
 
+  async function handlePageSpeedStrategyChange(newStrategy: "mobile" | "desktop") {
+    setPageSpeedStrategy(newStrategy);
+    const site = (geoWebsite || heroWebsite).trim();
+    if (!site) return;
+    setPageSpeedLoading(true);
+    try {
+      const res = await fetch(
+        `/api/pagespeed?url=${encodeURIComponent(site)}&strategy=${newStrategy}`
+      );
+      const json = await res.json();
+      if (json.success && json.data) {
+        setPageSpeedData(json.data);
+      }
+    } catch (e) {
+      console.error("Strategy change failed", e);
+    } finally {
+      setPageSpeedLoading(false);
+    }
+  }
+
   async function runGeoAudit(
     siteInput?: string,
     userLead?: { name: string; phone: string; email: string; service: string }
@@ -1197,6 +1223,20 @@ export default function Home() {
     setGeoScanStep(1);
     setGeoError("");
     setGeoResult(null);
+    setPageSpeedLoading(true);
+    setPageSpeedData(null);
+    setAuditViewMode("pagespeed");
+
+    // Initiate PageSpeed fetch in parallel
+    fetch(`/api/pagespeed?url=${encodeURIComponent(site)}&strategy=${pageSpeedStrategy}`)
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && json.data) {
+          setPageSpeedData(json.data);
+        }
+      })
+      .catch((e) => console.error("PageSpeed fetch error:", e))
+      .finally(() => setPageSpeedLoading(false));
 
     const lead = userLead || {
       name: auditCustomerName,
@@ -4225,7 +4265,7 @@ export default function Home() {
             </div>
 
             {/* Pre-Audit Feature Showcase: Explains evaluated signals with custom vector illustration */}
-            {!geoResult && !geoLoading && (
+            {!geoResult && !pageSpeedData && !geoLoading && !pageSpeedLoading && (
               <div className="mx-auto mt-10 max-w-[1080px] rounded-3xl bg-white border border-slate-200/90 shadow-sm p-6 sm:p-9 transition-all">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   
@@ -4332,9 +4372,93 @@ export default function Home() {
               </div>
             )}
 
-            {/* Complete Executive Audit Report Card */}
-            {geoResult && !geoLoading && (
-              <div className="mx-auto mt-10 max-w-[1080px] rounded-3xl border border-slate-200 bg-white p-6 sm:p-10 shadow-xl animate-fadeIn">
+            {/* Dual Audit Presentation (Google PageSpeed Insights & Executive GEO Briefing) */}
+            {(pageSpeedData || geoResult || pageSpeedLoading) && !geoLoading && (
+              <div className="mx-auto mt-10 max-w-[1120px] animate-fadeIn">
+                
+                {/* DUAL REPORT VIEW SWITCHER TABS */}
+                <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+                  <button
+                    type="button"
+                    onClick={() => setAuditViewMode("pagespeed")}
+                    className={`flex items-center gap-2.5 px-5 sm:px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer ${
+                      auditViewMode === "pagespeed"
+                        ? "bg-[#1a73e8] text-white shadow-blue-500/25 shadow-md ring-2 ring-blue-600/30"
+                        : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:border-slate-300"
+                    }`}
+                  >
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                    </svg>
+                    <span>⚡ Google PageSpeed Insights</span>
+                    {pageSpeedData && (
+                      <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
+                        auditViewMode === "pagespeed" ? "bg-white/20 text-white" : "bg-emerald-100 text-emerald-800"
+                      }`}>
+                        {pageSpeedData.scores.performance}/100
+                      </span>
+                    )}
+                    {pageSpeedLoading && (
+                      <span className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-full animate-spin ml-1" />
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setAuditViewMode("geo")}
+                    className={`flex items-center gap-2.5 px-5 sm:px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer ${
+                      auditViewMode === "geo"
+                        ? "bg-[#080d24] text-white shadow-slate-900/25 shadow-md ring-2 ring-slate-800/30"
+                        : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200 hover:border-slate-300"
+                    }`}
+                  >
+                    <span>🤖 GEO &amp; AI Search Briefing</span>
+                    {geoResult && (
+                      <span className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
+                        auditViewMode === "geo" ? "bg-white/20 text-white" : "bg-blue-100 text-blue-800"
+                      }`}>
+                        {geoResult.score ?? geoResult.overall ?? 82}/100
+                      </span>
+                    )}
+                  </button>
+                </div>
+
+                {/* 1. GOOGLE PAGESPEED INSIGHTS VIEW */}
+                {auditViewMode === "pagespeed" && (
+                  pageSpeedData ? (
+                    <div className="rounded-3xl border border-slate-200 bg-white p-4 sm:p-8 shadow-xl">
+                      <PageSpeedAuditReport
+                        data={pageSpeedData}
+                        isLoading={pageSpeedLoading}
+                        onStrategyChange={handlePageSpeedStrategyChange}
+                        onRequestProposal={() => openProposalModal(geoWebsite, "Google PageSpeed Core Web Vitals Optimization")}
+                      />
+                    </div>
+                  ) : (
+                    <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-14 shadow-xl text-center">
+                      <div className="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-full border-4 border-slate-100 border-t-[#1a73e8] animate-spin" />
+                        <svg className="w-7 h-7 text-[#1a73e8] absolute" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-900">
+                        Google Lighthouse is Analyzing {geoWebsite || "your website"}...
+                      </h3>
+                      <p className="text-sm text-slate-500 mt-2 max-w-md mx-auto leading-relaxed">
+                        Querying Google PageSpeed Insights v5 engine for Core Web Vitals (FCP, LCP, CLS, TBT), accessibility rules, and device responsiveness.
+                      </p>
+                      <div className="mt-5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 text-[#1a73e8] text-xs font-semibold">
+                        <span className="w-2 h-2 rounded-full bg-[#1a73e8] animate-ping" />
+                        Running live Google Lighthouse audit ({pageSpeedStrategy})...
+                      </div>
+                    </div>
+                  )
+                )}
+
+                {/* 2. GEO & AI OVERVIEWS BRIEFING VIEW */}
+                {auditViewMode === "geo" && geoResult && (
+                  <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10 shadow-xl">
                 
                 {/* Header Bar */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
@@ -4951,6 +5075,9 @@ export default function Home() {
                     </button>
                   </div>
                 </div>
+
+                  </div>
+                )}
 
               </div>
             )}
