@@ -199,7 +199,7 @@ export default function Navbar({
             {/* Explicit Home Button */}
             <Link
               href="/"
-              className={`text-[14px] transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+              className={`text-[15.5px] xl:text-[16px] transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 currentPath === "/"
                   ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
                   : "font-semibold text-slate-700 hover:text-[#207de9]"
@@ -218,7 +218,7 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
-                className={`text-[14px] transition-colors whitespace-nowrap shrink-0 cursor-pointer inline-flex items-center gap-1 ${
+                className={`text-[15.5px] xl:text-[16px] transition-colors whitespace-nowrap shrink-0 cursor-pointer inline-flex items-center gap-1.5 ${
                   currentPath.startsWith("/services")
                     ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
                     : "font-semibold text-slate-700 hover:text-[#207de9]"
@@ -227,7 +227,7 @@ export default function Navbar({
               >
                 <span>Services</span>
                 <svg
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                  className={`w-4 h-4 transition-transform duration-200 ${
                     servicesDropdownOpen ? "rotate-180 text-[#207de9]" : "text-slate-400"
                   }`}
                   viewBox="0 0 20 20"
@@ -307,7 +307,7 @@ export default function Navbar({
             {/* Portfolio */}
             <Link
               href="/case-studies"
-              className={`text-[14px] transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+              className={`text-[15.5px] xl:text-[16px] transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 currentPath.startsWith("/case-studies")
                   ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
                   : "font-semibold text-slate-700 hover:text-[#207de9]"
@@ -319,14 +319,14 @@ export default function Navbar({
             {/* AI Tools */}
             <Link
               href="/tools"
-              className={`text-[14px] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
+              className={`text-[15.5px] xl:text-[16px] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                 currentPath.startsWith("/tools")
                   ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
                   : "font-semibold text-slate-700 hover:text-[#207de9]"
               }`}
             >
               <span className="whitespace-nowrap">AI Tools</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold uppercase tracking-wider leading-none shrink-0">
+              <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold uppercase tracking-wider leading-none shrink-0">
                 FREE
               </span>
             </Link>
@@ -334,14 +334,14 @@ export default function Navbar({
             {/* ReviewFlow AI */}
             <Link
               href="/reviewflow"
-              className={`text-[14px] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
+              className={`text-[15.5px] xl:text-[16px] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                 currentPath.startsWith("/reviewflow") || currentPath.startsWith("/r/")
                   ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
                   : "font-semibold text-slate-700 hover:text-[#207de9]"
               }`}
             >
               <span className="whitespace-nowrap">ReviewFlow AI</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-blue-50 text-[#207de9] border border-blue-200 text-[9px] font-extrabold uppercase tracking-wider leading-none shrink-0">
+              <span className="px-2 py-0.5 rounded-full bg-blue-50 text-[#207de9] border border-blue-200 text-[10px] font-extrabold uppercase tracking-wider leading-none shrink-0">
                 NEW
               </span>
             </Link>
@@ -349,7 +349,7 @@ export default function Navbar({
             {/* Insights */}
             <Link
               href="/blog"
-              className={`hidden 2xl:inline-flex text-[14px] transition-colors whitespace-nowrap shrink-0 ${
+              className={`hidden 2xl:inline-flex text-[15.5px] xl:text-[16px] transition-colors whitespace-nowrap shrink-0 ${
                 currentPath.startsWith("/blog")
                   ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
                   : "font-semibold text-slate-700 hover:text-[#207de9]"
@@ -361,7 +361,7 @@ export default function Navbar({
             {/* Contact */}
             <Link
               href="/contact"
-              className={`text-[14px] transition-colors whitespace-nowrap shrink-0 ${
+              className={`text-[15.5px] xl:text-[16px] transition-colors whitespace-nowrap shrink-0 ${
                 currentPath.startsWith("/contact")
                   ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
                   : "font-semibold text-slate-700 hover:text-[#207de9]"

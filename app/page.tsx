@@ -2110,7 +2110,7 @@ export default function Home() {
               {/* Explicit Home Button */}
               <Link
                 href="/"
-                className="text-[14px] font-bold text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer border-b-2 border-[#207de9] pb-0.5"
+                className="text-[15.5px] xl:text-[16px] font-bold text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer border-b-2 border-[#207de9] pb-0.5"
               >
                 Home
               </Link>
@@ -2124,12 +2124,12 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
-                  className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer inline-flex items-center gap-1"
+                  className="text-[15.5px] xl:text-[16px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer inline-flex items-center gap-1.5"
                   aria-expanded={servicesDropdownOpen}
                 >
                   <span>Services</span>
                   <svg
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    className={`w-4 h-4 transition-transform duration-200 ${
                       servicesDropdownOpen ? "rotate-180 text-[#207de9]" : "text-slate-400"
                     }`}
                     viewBox="0 0 20 20"
@@ -2216,37 +2216,37 @@ export default function Home() {
 
               <Link
                 href="/case-studies"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                className="text-[15.5px] xl:text-[16px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
                 Portfolio
               </Link>
               <Link
                 href="/tools"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
+                className="text-[15.5px] xl:text-[16px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
               >
                 <span className="whitespace-nowrap">AI Tools</span>
-                <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold uppercase tracking-wider leading-none shrink-0">
+                <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold uppercase tracking-wider leading-none shrink-0">
                   FREE
                 </span>
               </Link>
               <Link
                 href="/reviewflow"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
+                className="text-[15.5px] xl:text-[16px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
               >
                 <span className="whitespace-nowrap">ReviewFlow AI</span>
-                <span className="px-1.5 py-0.5 rounded-full bg-blue-50 text-[#207de9] border border-blue-200 text-[9px] font-extrabold uppercase tracking-wider leading-none shrink-0">
+                <span className="px-2 py-0.5 rounded-full bg-blue-50 text-[#207de9] border border-blue-200 text-[10px] font-extrabold uppercase tracking-wider leading-none shrink-0">
                   NEW
                 </span>
               </Link>
               <Link
                 href="/blog"
-                className="hidden 2xl:inline-flex text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
+                className="hidden 2xl:inline-flex text-[15.5px] xl:text-[16px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
               >
                 Insights
               </Link>
               <Link
                 href="/contact"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
+                className="text-[15.5px] xl:text-[16px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
               >
                 Contact
               </Link>
