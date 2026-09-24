@@ -128,8 +128,20 @@ export default function CustomerReviewClient({ business }: Props) {
     } catch (_) {}
 
     // 3. Open official Google review URL in new tab
-    const url = business.googleReviewUrl || `https://search.google.com/local/writereview?placeid=${business.placeId || "digitalfx"}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    let targetUrl = business.googleReviewUrl?.trim();
+    const isPlaceholder =
+      !targetUrl ||
+      targetUrl.includes("ChIJr8q_Orbit_Plaza_DigitalFX") ||
+      targetUrl.includes("ChIJspeedy_packers_ncr") ||
+      targetUrl.includes("ChIJshree_jewellers_rdc");
+
+    if (isPlaceholder) {
+      // Guaranteed Google Maps search query that always resolves to the business without 404
+      const query = encodeURIComponent(`${business.name} ${business.address || business.city || ""}`.trim());
+      targetUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+    }
+
+    window.open(targetUrl, "_blank", "noopener,noreferrer");
   };
 
   const ratingDescriptions: Record<number, string> = {
