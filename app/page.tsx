@@ -2245,15 +2245,6 @@ export default function Home() {
                 </span>
               </Link>
               <Link
-                href="/locations"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0"
-              >
-                <span className="whitespace-nowrap">350+ Cities</span>
-                <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9px] font-extrabold uppercase leading-none shrink-0">
-                  IN
-                </span>
-              </Link>
-              <Link
                 href="/blog"
                 className="hidden 2xl:inline-flex text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
               >
