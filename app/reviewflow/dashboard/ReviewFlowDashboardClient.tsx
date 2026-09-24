@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BusinessProfile, BusinessCategory, ReviewFlowAnalyticsSummary } from "@/lib/reviewFlowTypes";
 import { CATEGORIES_LIST, CATEGORY_QUESTIONS } from "@/lib/reviewFlowCategories";
+import BrandedQRCard from "@/components/BrandedQRCard";
 
 export default function ReviewFlowDashboardClient() {
   const [businesses, setBusinesses] = useState<BusinessProfile[]>([]);
@@ -400,15 +401,17 @@ export default function ReviewFlowDashboardClient() {
                         <div className="grid grid-cols-2 gap-2 text-xs font-bold mb-3">
                           <a
                             href={qrEndpointPng}
-                            download={`${biz.id}-review-qr.png`}
-                            className="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-center transition flex items-center justify-center gap-1"
+                            download={`${biz.id}-branded-qr.png`}
+                            className="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-center transition flex items-center justify-center gap-1 cursor-pointer"
+                            title="Download print-ready PNG with company branding"
                           >
                             <span>📥 PNG</span>
                           </a>
                           <a
                             href={qrEndpointSvg}
-                            download={`${biz.id}-review-qr.svg`}
-                            className="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-center transition flex items-center justify-center gap-1"
+                            download={`${biz.id}-branded-qr.svg`}
+                            className="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-center transition flex items-center justify-center gap-1 cursor-pointer"
+                            title="Download vector SVG with company branding"
                           >
                             <span>📐 SVG</span>
                           </a>
@@ -766,61 +769,36 @@ export default function ReviewFlowDashboardClient() {
             </div>
 
             {/* STANDEE MOCKUP PREVIEW */}
-            <div
-              id="standee-print-area"
-              className="bg-white border-4 border-slate-900 rounded-3xl p-8 shadow-xl max-w-sm mx-auto text-slate-900"
-            >
-              {/* Top Business Name */}
-              <div className="text-base font-black tracking-tight text-[#080d24]">
-                {standeeBiz.name}
-              </div>
-              <div className="text-[11px] font-semibold text-slate-500 mb-4">
-                {standeeBiz.address}
-              </div>
-
-              {/* Call to action */}
-              <div className="bg-slate-900 text-white py-2 px-4 rounded-xl text-xs font-extrabold tracking-wide uppercase mb-4">
-                Rate Your Experience ★★★★★
-              </div>
-
-              {/* High Res QR */}
-              <div className="bg-white p-3 rounded-2xl border-2 border-slate-200 shadow-sm inline-block mb-3">
-                <img
-                  src={`/api/reviewflow/qr?businessId=${standeeBiz.id}&format=png`}
-                  alt="Review QR"
-                  className="w-48 h-48 object-contain"
-                />
-              </div>
-
-              <div className="text-xs font-bold text-slate-800">
-                Scan with your Phone Camera
-              </div>
-              <p className="text-[10px] text-slate-500 mt-1 max-w-xs mx-auto leading-relaxed">
-                Take 30 seconds to draft and post your genuine feedback directly on our official Google Business page.
-              </p>
-
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center gap-1.5 text-[10px] font-bold text-[#4285F4]">
-                <span>Google Verified Reviews</span>
-                <span>•</span>
-                <span>ReviewFlow AI</span>
-              </div>
+            <div id="standee-print-area" className="max-w-sm mx-auto">
+              <BrandedQRCard
+                businessName={standeeBiz.name}
+                businessId={standeeBiz.id}
+                showActions={false}
+              />
             </div>
 
             {/* Print Action Buttons */}
-            <div className="mt-6 flex items-center justify-center gap-3">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="py-3 px-6 rounded-xl font-extrabold text-white text-xs bg-slate-900 hover:bg-[#207de9] transition shadow-md flex items-center gap-2 cursor-pointer"
+                className="py-3 px-5 rounded-xl font-extrabold text-white text-xs bg-slate-900 hover:bg-[#207de9] transition shadow-md flex items-center gap-2 cursor-pointer"
               >
                 <span>🖨️ Print Standee / Save PDF</span>
               </button>
               <a
                 href={`/api/reviewflow/qr?businessId=${standeeBiz.id}&format=png`}
-                download={`${standeeBiz.id}-standee-qr.png`}
-                className="py-3 px-4 rounded-xl font-bold text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 transition"
+                download={`${standeeBiz.id}-branded-qr.png`}
+                className="py-3 px-4 rounded-xl font-bold text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 transition flex items-center gap-1.5 cursor-pointer"
               >
-                Download QR PNG
+                <span>📥 PNG</span>
+              </a>
+              <a
+                href={`/api/reviewflow/qr?businessId=${standeeBiz.id}&format=svg`}
+                download={`${standeeBiz.id}-branded-qr.svg`}
+                className="py-3 px-4 rounded-xl font-bold text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 transition flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>📐 SVG</span>
               </a>
             </div>
 
