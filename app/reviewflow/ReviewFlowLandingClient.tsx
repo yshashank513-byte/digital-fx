@@ -1027,7 +1027,7 @@ export default function ReviewFlowLandingClient() {
       <footer className="bg-slate-950 text-slate-400 py-10 border-t border-slate-900 text-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <img src="/logo-white.svg" alt="Digital FX" className="h-8 w-auto object-contain" />
+            <img src="/logo-white.svg" alt="Digital FX" className="h-10 sm:h-11 w-auto object-contain" />
             <span className="text-slate-700">|</span>
             <span className="font-bold text-slate-300">ReviewFlow AI Enterprise Suite</span>
           </div>

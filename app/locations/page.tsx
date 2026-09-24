@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { INDIA_STATES_AND_UTS } from "@/lib/indiaLocations";
 import { toCitySlug, GLOBAL_HUBS_LIST, isCanonicalLocation } from "@/lib/citySeoData";
 
@@ -220,6 +221,7 @@ export default function LocationsDirectoryPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

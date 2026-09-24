@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Digital Marketing Packages & Pricing | Transparent Growth Plans | Digital FX",
@@ -202,19 +203,8 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-10 bg-white border-t border-slate-200 text-xs text-slate-500 text-center">
-        <div className="max-w-[1400px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Digital FX. All rights reserved. Orbit Plaza, Crossings Republik, Ghaziabad.</p>
-          <div className="flex items-center gap-4">
-            <Link href="/" className="hover:text-[#1570ef]">Home</Link>
-            <Link href="/services" className="hover:text-[#1570ef]">Services</Link>
-            <Link href="/case-studies" className="hover:text-[#1570ef]">Case Studies</Link>
-            <Link href="/careers" className="hover:text-[#1570ef]">Careers</Link>
-            <Link href="/contact" className="hover:text-[#1570ef]">Contact</Link>
-          </div>
-        </div>
-      </footer>
+      {/* UNIVERSAL BRANDED FOOTER */}
+      <Footer />
 
     </div>
   );

@@ -133,8 +133,8 @@ export default function AdminLogin() {
             <img
               src="/logo.svg"
               alt="Digital FX"
-              style={{ height: "36px", width: "auto" }}
-              className="h-8 sm:h-9 w-auto object-contain"
+              style={{ height: "46px", width: "auto" }}
+              className="h-10 sm:h-[46px] w-auto object-contain"
             />
           </div>
 

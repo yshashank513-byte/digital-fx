@@ -25,12 +25,12 @@ function PaymentSuccessContent() {
 
           {/* Logo */}
           <div className="mb-6 flex justify-center">
-            <div className="flex h-12 items-center justify-center overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-xs px-4 py-1.5">
+            <div className="flex h-13 sm:h-14 items-center justify-center overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-xs px-5 py-2">
               <img
                 src="/logo.svg"
                 alt="Digital FX"
-                style={{ height: "28px", width: "auto" }}
-                className="h-7 w-auto object-contain"
+                style={{ height: "38px", width: "auto" }}
+                className="h-9 sm:h-9.5 w-auto object-contain"
               />
             </div>
           </div>

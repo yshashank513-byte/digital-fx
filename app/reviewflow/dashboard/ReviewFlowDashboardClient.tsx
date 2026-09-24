@@ -153,7 +153,7 @@ export default function ReviewFlowDashboardClient() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2">
-              <img src="/logo.svg" alt="Digital FX" className="h-8.5 w-auto object-contain" />
+              <img src="/logo.svg" alt="Digital FX" className="h-10 sm:h-11 w-auto object-contain" />
             </Link>
             <span className="text-slate-300">/</span>
             <div className="flex items-center gap-2">

@@ -212,12 +212,12 @@ function PaymentDetailsContent() {
 
         <div className="mb-6 text-center">
 
-          <div className="mx-auto flex h-12 items-center justify-center rounded-2xl bg-white border border-slate-200/80 shadow-xs px-4 py-1.5 w-fit">
+          <div className="mx-auto flex h-13 sm:h-14 items-center justify-center rounded-2xl bg-white border border-slate-200/80 shadow-xs px-5 py-2 w-fit">
             <img
               src="/logo.svg"
               alt="Digital FX"
-              style={{ height: "28px", width: "auto" }}
-              className="h-7 w-auto object-contain"
+              style={{ height: "38px", width: "auto" }}
+              className="h-9 sm:h-9.5 w-auto object-contain"
             />
           </div>
 

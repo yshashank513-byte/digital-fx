@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, FormEvent } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import PageSpeedAuditReport from "@/components/PageSpeedAuditReport";
 import type { PageSpeedAuditData } from "@/app/api/pagespeed/route";
 
@@ -378,19 +379,8 @@ export default function ToolsPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-10 bg-white border-t border-slate-200 text-xs text-slate-500 text-center">
-        <div className="max-w-[1400px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Digital FX. All rights reserved. Orbit Plaza, Crossings Republik, Ghaziabad.</p>
-          <div className="flex items-center gap-4">
-            <Link href="/" className="hover:text-[#1570ef]">Home</Link>
-            <Link href="/services" className="hover:text-[#1570ef]">Services</Link>
-            <Link href="/case-studies" className="hover:text-[#1570ef]">Case Studies</Link>
-            <Link href="/pricing" className="hover:text-[#1570ef]">Pricing</Link>
-            <Link href="/contact" className="hover:text-[#1570ef]">Contact</Link>
-          </div>
-        </div>
-      </footer>
+      {/* UNIVERSAL BRANDED FOOTER */}
+      <Footer />
 
     </div>
   );

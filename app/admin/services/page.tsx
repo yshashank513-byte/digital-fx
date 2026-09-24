@@ -157,8 +157,8 @@ export default function ServicesPage() {
             <img
               src="/logo-white.svg"
               alt="Digital FX"
-              style={{ height: "28px", width: "auto" }}
-              className="h-7 w-auto object-contain"
+              style={{ height: "40px", width: "auto" }}
+              className="h-10 w-auto object-contain"
             />
           </Link>
 

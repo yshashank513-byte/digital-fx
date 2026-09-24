@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Cancellation & Refund Policy",
@@ -140,21 +141,8 @@ export default function RefundPolicyPage() {
         </div>
       </section>
 
-      {/* 6. BOTTOM FOOTER BAR */}
-      <footer className="py-12 border-t border-slate-200 bg-slate-50">
-        <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex flex-wrap justify-center gap-6 text-xs text-slate-500 font-medium mb-4">
-            <Link href="/privacy-policy" className="hover:text-[#207de9] transition">Privacy Policy</Link>
-            <Link href="/terms-and-conditions" className="hover:text-[#207de9] transition">Terms &amp; Conditions</Link>
-            <Link href="/refund-policy" className="text-[#207de9] font-bold">Refund Policy</Link>
-            <Link href="/locations" className="hover:text-[#207de9] transition">350+ Cities Directory</Link>
-            <Link href="/blog" className="hover:text-[#207de9] transition">Insights &amp; Blog</Link>
-          </div>
-          <p className="text-[11px] text-slate-400">
-            © {new Date().getFullYear()} Digital FX®. Registered Headquarters: Shop No. 210, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016 India. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      {/* UNIVERSAL BRANDED FOOTER */}
+      <Footer />
     </main>
   );
 }

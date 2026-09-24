@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import GlobalKeywordsSection from "@/components/GlobalKeywordsSection";
 
 export const metadata: Metadata = {
@@ -147,20 +148,8 @@ export default function GlobalMarketsPage() {
         </div>
       </section>
 
-      {/* Bottom Sub-footer */}
-      <footer className="py-8 bg-[#080d24] text-slate-400 text-xs border-t border-white/10">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            © {new Date().getFullYear()} Digital FX®. Registered Headquarters: Shop No. 210, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016 India.
-          </div>
-          <div className="flex items-center gap-4">
-            <Link href="/" className="hover:text-white transition">Home</Link>
-            <Link href="/locations" className="hover:text-white transition">Pan-India Cities</Link>
-            <Link href="/locations/dubai" className="hover:text-white transition text-amber-300">Dubai Hub</Link>
-            <Link href="/blog" className="hover:text-white transition">Blog</Link>
-          </div>
-        </div>
-      </footer>
+      {/* UNIVERSAL BRANDED FOOTER */}
+      <Footer />
     </main>
   );
 }

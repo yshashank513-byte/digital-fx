@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { BLOG_POSTS } from "@/lib/blogData";
 import BlogPoster from "@/components/BlogPoster";
 
@@ -219,49 +220,8 @@ export default function BlogIndexPage() {
         </div>
       </section>
 
-      {/* 6. INSTITUTIONAL FOOTER */}
-      <footer className="bg-[#080d24] text-slate-300 pt-16 pb-12 border-t border-slate-800 mt-20">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
-            <div>
-              <div className="flex items-center">
-                <img src="/logo-white.svg" alt="Digital FX" width={154} height={41} style={{ height: "36px", width: "auto" }} className="h-8 sm:h-9 w-auto object-contain shrink-0" />
-              </div>
-              <p className="mt-4 text-xs text-slate-400 leading-relaxed">
-                Digital FX is a premier search engineering &amp; digital marketing agency headquartered at Orbit Plaza, Crossings Republik, Ghaziabad (Delhi NCR). Serving 350+ cities across India and international markets.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xs font-black uppercase tracking-wider text-white mb-4">Core Divisions</h3>
-              <ul className="space-y-2 text-xs font-medium text-slate-400">
-                <li><Link href="/services" className="hover:text-white transition">CTV &amp; Programmatic Ads</Link></li>
-                <li><Link href="/services" className="hover:text-white transition">Google Maps 3-Pack SEO</Link></li>
-                <li><Link href="/services" className="hover:text-white transition">Generative AI Search (GEO)</Link></li>
-                <li><Link href="/services" className="hover:text-white transition">Next.js Web Development</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xs font-black uppercase tracking-wider text-white mb-4">Navigation</h3>
-              <ul className="space-y-2 text-xs font-medium text-slate-400">
-                <li><Link href="/" className="hover:text-white transition">Home</Link></li>
-                <li><Link href="/services" className="hover:text-white transition">Services Hub</Link></li>
-                <li><Link href="/locations" className="hover:text-white transition">350+ Cities</Link></li>
-                <li><Link href="/blog" className="hover:text-white transition">Insights &amp; Blog</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xs font-black uppercase tracking-wider text-white mb-4">Headquarters</h3>
-              <div className="text-xs text-slate-400 space-y-2 font-medium">
-                <div>Shop No. 210, 2nd Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016</div>
-                <div>Phone: <a href="tel:+919319807273" className="text-blue-400 hover:underline">+91 93198 07273</a></div>
-              </div>
-            </div>
-          </div>
-          <div className="pt-8 text-center text-xs text-slate-500 font-medium">
-            © {new Date().getFullYear()} Digital FX. All rights reserved. Registered Digital Marketing Agency.
-          </div>
-        </div>
-      </footer>
+      {/* UNIVERSAL BRANDED FOOTER */}
+      <Footer />
     </main>
   );
 }

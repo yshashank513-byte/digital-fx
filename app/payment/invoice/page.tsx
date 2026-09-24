@@ -285,20 +285,20 @@ function PaymentInvoiceContent() {
             <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
               {/* LEFT: LOGO + COMPANY DETAILS */}
               <div className="flex items-start gap-3.5">
-                <div className="flex h-11 sm:h-12 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-1 shadow-2xs">
+                <div className="flex h-12 sm:h-13 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 shadow-2xs">
                   <img
                     src="/logo.svg"
                     alt="Digital FX"
-                    width={116}
-                    height={32}
+                    width={140}
+                    height={38}
                     style={{
-                      height: "30px",
+                      height: "38px",
                       width: "auto",
-                      maxWidth: "120px",
+                      maxWidth: "140px",
                       objectFit: "contain",
                       display: "block",
                     }}
-                    className="h-7.5 sm:h-8 w-auto object-contain"
+                    className="h-8.5 sm:h-9.5 w-auto object-contain"
                   />
                 </div>
                 <div>
