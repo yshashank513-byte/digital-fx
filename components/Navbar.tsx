@@ -316,18 +316,6 @@ export default function Navbar({
               Portfolio
             </Link>
 
-            {/* Packages */}
-            <Link
-              href="/pricing"
-              className={`text-[14px] transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
-                currentPath.startsWith("/pricing")
-                  ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
-                  : "font-semibold text-slate-700 hover:text-[#207de9]"
-              }`}
-            >
-              Packages
-            </Link>
-
             {/* AI Tools */}
             <Link
               href="/tools"

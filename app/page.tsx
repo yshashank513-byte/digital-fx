@@ -2221,12 +2221,6 @@ export default function Home() {
                 Portfolio
               </Link>
               <Link
-                href="/pricing"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-              >
-                Packages
-              </Link>
-              <Link
                 href="/tools"
                 className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
               >
