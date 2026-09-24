@@ -2236,6 +2236,15 @@ export default function Home() {
                 </span>
               </Link>
               <Link
+                href="/reviewflow"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
+              >
+                <span className="whitespace-nowrap">ReviewFlow AI</span>
+                <span className="px-1.5 py-0.5 rounded-full bg-blue-50 text-[#207de9] border border-blue-200 text-[9px] font-extrabold uppercase tracking-wider leading-none shrink-0">
+                  NEW
+                </span>
+              </Link>
+              <Link
                 href="/locations"
                 className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0"
               >
@@ -2428,6 +2437,29 @@ export default function Home() {
                         </div>
                         <div className="text-[11px] text-slate-500 font-medium">
                           Transparent pricing from ₹24,999/month
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                  </Link>
+
+                  {/* ReviewFlow AI - Smart Google Review QR */}
+                  <Link
+                    href="/reviewflow"
+                    onClick={closeMobileMenu}
+                    className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-blue-50/60 transition"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-[#207de9] transition">
+                        <span className="text-sm">⭐</span>
+                      </div>
+                      <div>
+                        <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition flex items-center gap-1.5">
+                          <span>ReviewFlow AI</span>
+                          <span className="text-[9px] font-black uppercase tracking-wider bg-blue-100 text-[#207de9] px-1.5 py-0.5 rounded">NEW</span>
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-medium">
+                          Smart QR Codes for Authentic Google Reviews
                         </div>
                       </div>
                     </div>

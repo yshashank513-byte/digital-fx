@@ -1,0 +1,82 @@
+{
+  "businesses": [
+    {
+      "id": "digital-fx",
+      "name": "Digital FX",
+      "category": "Digital Marketing Agency",
+      "logoUrl": "/logo.png",
+      "address": "Shop No. 210, 2nd Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016",
+      "city": "Ghaziabad",
+      "phone": "+91 84475 83685",
+      "website": "https://www.digitalfx.in",
+      "googleReviewUrl": "https://search.google.com/local/writereview?placeid=ChIJr8q_Orbit_Plaza_DigitalFX",
+      "placeId": "ChIJr8q_Orbit_Plaza_DigitalFX",
+      "brandColor": "#207de9",
+      "active": true,
+      "totalScans": 248,
+      "totalVisits": 215,
+      "totalDrafts": 182,
+      "totalGoogleClicks": 146,
+      "createdAt": "2026-09-01T10:00:00.000Z",
+      "updatedAt": "2026-09-24T12:00:00.000Z"
+    },
+    {
+      "id": "speedy-packers",
+      "name": "Speedy Safe Packers & Movers",
+      "category": "Packers & Movers",
+      "logoUrl": "",
+      "address": "Sector 62, Noida & Indirapuram, Ghaziabad",
+      "city": "Noida",
+      "phone": "+91 98712 34567",
+      "website": "https://speedypackers.in",
+      "googleReviewUrl": "https://search.google.com/local/writereview?placeid=ChIJspeedy_packers_ncr",
+      "placeId": "ChIJspeedy_packers_ncr",
+      "brandColor": "#0284c7",
+      "active": true,
+      "totalScans": 165,
+      "totalVisits": 142,
+      "totalDrafts": 119,
+      "totalGoogleClicks": 98,
+      "createdAt": "2026-09-05T11:30:00.000Z",
+      "updatedAt": "2026-09-23T16:00:00.000Z"
+    },
+    {
+      "id": "shree-jewellers",
+      "name": "Shree Laxmi Jewellers",
+      "category": "Jewellery Store",
+      "logoUrl": "",
+      "address": "Main Market, RDC Raj Nagar, Ghaziabad",
+      "city": "Ghaziabad",
+      "phone": "+91 98110 54321",
+      "website": "https://shreejewellers.in",
+      "googleReviewUrl": "https://search.google.com/local/writereview?placeid=ChIJshree_jewellers_rdc",
+      "placeId": "ChIJshree_jewellers_rdc",
+      "brandColor": "#d97706",
+      "active": true,
+      "totalScans": 312,
+      "totalVisits": 289,
+      "totalDrafts": 245,
+      "totalGoogleClicks": 210,
+      "createdAt": "2026-09-10T09:15:00.000Z",
+      "updatedAt": "2026-09-24T14:20:00.000Z"
+    }
+  ],
+  "sessions": [
+    {
+      "sessionId": "sess-seed-1",
+      "businessId": "digital-fx",
+      "category": "Digital Marketing Agency",
+      "customerRating": 5,
+      "answers": {
+        "growth": "Significant boost in leads & calls",
+        "technical": "Deep SEO & Ads expertise",
+        "reporting": "Transparent dashboard & reports"
+      },
+      "generatedDraft": "Outstanding digital growth partner! The Digital FX team delivered a significant boost in leads and transparent reporting throughout. Highly recommended!",
+      "finalReviewText": "Outstanding digital growth partner! The Digital FX team delivered a significant boost in leads and transparent reporting throughout. Highly recommended!",
+      "completed": true,
+      "clickedGoogleReview": true,
+      "createdAt": "2026-09-24T11:57:49.181Z"
+    }
+  ]
+}
