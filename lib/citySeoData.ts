@@ -744,7 +744,7 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
     sampleCaseStudy: {
       clientType: "Ceramic Tile & Porcelain Slab Exporter",
       neighborhood: "Morbi Industrial Zone & Ahmedabad HQ",
-      metrics: "₹1.4 Cr+ Domestic & Middle East Trade Inquiries",
+      metrics: "₹6 Lakh+ Domestic & Regional Trade Inquiries",
       result: "Architected multi-language export catalog SEO with sub-second Next.js pages, capturing wholesale ceramic buyers across Gujarat, Maharashtra, and Gulf markets.",
     },
     coordinates: { lat: 22.2587, lng: 71.1924 },
@@ -972,7 +972,7 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
     sampleCaseStudy: {
       clientType: "SEBI-Registered Boutique Wealth Advisory",
       neighborhood: "BKC & Lower Parel",
-      metrics: "₹12 Cr+ New AUM Pipeline",
+      metrics: "₹6 Lakh+ New Advisory Pipeline",
       result: "Engineered high-converting institutional landing pages with 0.7s load time and precision Google Ads capturing affluent investors searching for portfolio managers.",
     },
     coordinates: { lat: 19.0760, lng: 72.8777 },

@@ -317,7 +317,7 @@ export default function RootLayout({
                 name: "The Digital FX Portfolio",
                 url: "https://www.digitalfx.in/case-studies",
                 description:
-                  "Verified client case studies, ₹18.4 Cr+ documented client revenue, and real performance ROAS breakdowns across industries.",
+                  "Verified client case studies, ₹6 Lakh+ documented client revenue, and real performance ROAS breakdowns across industries.",
               },
               {
                 "@context": "https://schema.org",

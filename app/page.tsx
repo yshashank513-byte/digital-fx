@@ -880,7 +880,8 @@ const featuredStartups = [
 
 export default function Home() {
   const [services, setServices] = useState<Service[]>(fallbackServices);
-  const [liveRevenue, setLiveRevenue] = useState<number>(104993);
+  const [liveRevenue, setLiveRevenue] = useState<number>(600000);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
 
   const scrollReviews = (direction: "left" | "right") => {
@@ -2090,8 +2091,8 @@ export default function Home() {
         <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
           <div className="mx-auto flex h-[74px] max-w-[1480px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
 
-            {/* Brand Logo - Official Digital FX Logo */}
-            <a href="#home" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
+            {/* Brand Logo - Official Digital FX Logo Always Linking Cleanly to "/" */}
+            <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
               <img
                 src="/logo.svg"
                 alt="Digital FX - Business Solution"
@@ -2101,16 +2102,118 @@ export default function Home() {
                 style={{ height: "40px", width: "auto" }}
                 className="h-8.5 sm:h-10 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
               />
-            </a>
+            </Link>
 
             {/* Center Desktop Navigation Links - Perfectly Spaced, Centered, No Text-Wrapping */}
-            <nav className="hidden lg:flex items-center justify-center gap-5 xl:gap-8 mx-auto px-4 xl:px-8 shrink-0">
+            <nav className="hidden lg:flex items-center justify-center gap-5 xl:gap-7 mx-auto px-4 xl:px-6 shrink-0">
+              
+              {/* Explicit Home Button */}
               <Link
-                href="/services"
-                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                href="/"
+                className="text-[14px] font-bold text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer border-b-2 border-[#207de9] pb-0.5"
               >
-                Services
+                Home
               </Link>
+
+              {/* Services with Interactive Top Dropdown Menu */}
+              <div
+                className="relative"
+                onMouseEnter={() => setServicesDropdownOpen(true)}
+                onMouseLeave={() => setServicesDropdownOpen(false)}
+              >
+                <button
+                  type="button"
+                  onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+                  className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer inline-flex items-center gap-1"
+                  aria-expanded={servicesDropdownOpen}
+                >
+                  <span>Services</span>
+                  <svg
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      servicesDropdownOpen ? "rotate-180 text-[#207de9]" : "text-slate-400"
+                    }`}
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+
+                {/* SERVICES DROPDOWN PANEL (Opens Smoothly at Top) */}
+                {servicesDropdownOpen && (
+                  <div
+                    style={{ width: "680px", maxWidth: "90vw" }}
+                    className="absolute left-1/2 -translate-x-1/2 top-full mt-3 bg-white rounded-3xl shadow-2xl border border-slate-200/90 p-5 z-[70] animate-fadeIn transition-all text-left"
+                  >
+                    <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-slate-100 px-1">
+                      <div>
+                        <div className="text-xs font-black uppercase tracking-wider text-[#207de9]">
+                          Core Growth Capabilities
+                        </div>
+                        <div className="text-[13px] font-bold text-slate-900 mt-0.5">
+                          Performance Marketing &amp; Search Engineering
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-[#1570ef] px-2.5 py-1 rounded-full border border-blue-200">
+                        13 Divisions
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2.5">
+                      {[
+                        { title: "Google Maps 3-Pack & Local SEO", desc: "Rank #1 across Ghaziabad & Delhi NCR with verified citations.", href: "/services", icon: "📍" },
+                        { title: "Performance Google & Meta Ads", desc: "High-ROAS search, shopping, and Instagram campaigns.", href: "/services", icon: "🚀" },
+                        { title: "High-Speed Next.js Web Development", desc: "Sub-second load times, mobile CRO, and Core Web Vitals.", href: "/services", icon: "⚡" },
+                        { title: "Generative AI Search & GEO", desc: "Structured entity citations in ChatGPT & Gemini.", href: "/services", icon: "🧠" },
+                        { title: "WhatsApp Funnels & CRM Automation", desc: "Automated 1-click WhatsApp customer routing & bookings.", href: "/services", icon: "💬" },
+                        { title: "Attributable Revenue Analytics", desc: "Closed-loop pipeline reporting connecting spend to revenue.", href: "/services", icon: "📊" },
+                      ].map((s, idx) => (
+                        <Link
+                          key={idx}
+                          href={s.href}
+                          onClick={() => setServicesDropdownOpen(false)}
+                          className="group flex items-start gap-3 p-3 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-200/80 transition-all"
+                        >
+                          <div className="w-9 h-9 rounded-xl bg-blue-50 group-hover:bg-[#207de9] group-hover:text-white flex items-center justify-center text-lg shrink-0 transition-colors">
+                            {s.icon}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="text-xs font-bold text-slate-900 group-hover:text-[#207de9] transition-colors leading-tight block">
+                              {s.title}
+                            </span>
+                            <p className="text-[11px] text-slate-500 line-clamp-2 mt-1 leading-snug font-normal">
+                              {s.desc}
+                            </p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+
+                    <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between px-2">
+                      <a
+                        href="#services"
+                        onClick={() => {
+                          setServicesDropdownOpen(false);
+                          const el = document.getElementById("services");
+                          if (el) el.scrollIntoView({ behavior: "smooth" });
+                        }}
+                        className="text-xs font-bold text-slate-500 hover:text-slate-800 transition cursor-pointer"
+                      >
+                        ↓ Jump to 4-Stage Matrix on this page
+                      </a>
+                      <Link
+                        href="/services"
+                        onClick={() => setServicesDropdownOpen(false)}
+                        className="inline-flex items-center gap-1 text-xs font-bold text-[#207de9] hover:text-[#1570ef] hover:underline"
+                      >
+                        <span>Explore All 13 Services</span>
+                        <span>→</span>
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <Link
                 href="/case-studies"
                 className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
@@ -2146,6 +2249,12 @@ export default function Home() {
                 className="hidden 2xl:inline-flex text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
               >
                 Insights
+              </Link>
+              <Link
+                href="/contact"
+                className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
+              >
+                Contact
               </Link>
             </nav>
 
@@ -2230,8 +2339,8 @@ export default function Home() {
                 {/* Primary Navigation Links - Sleek Linear Vector Icons & Editorial Subtitles */}
                 <nav className="space-y-1">
                   {/* Home */}
-                  <a
-                    href="#home"
+                  <Link
+                    href="/"
                     onClick={closeMobileMenu}
                     className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-slate-50 transition"
                   >
@@ -2251,7 +2360,7 @@ export default function Home() {
                       </div>
                     </div>
                     <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
-                  </a>
+                  </Link>
 
                   {/* Services */}
                   <Link
@@ -2294,7 +2403,7 @@ export default function Home() {
                           The Digital FX Portfolio
                         </div>
                         <div className="text-[11px] text-slate-500 font-medium">
-                          ₹18.4 Cr+ documented client revenue &amp; case studies
+                          ₹6 Lakh+ documented client revenue &amp; case studies
                         </div>
                       </div>
                     </div>
@@ -2468,9 +2577,11 @@ export default function Home() {
                     <span className="text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
                   </Link>
 
-                  {/* Contact Strategy Team & Office Location */}
+                  {/* Official Google Maps Location Profile */}
                   <a
-                    href="#contact"
+                    href="https://share.google/EIVnaRy9WhkPCi8U8"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={closeMobileMenu}
                     className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-blue-50/60 transition"
                   >
@@ -2483,14 +2594,14 @@ export default function Home() {
                       </div>
                       <div>
                         <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition">
-                          Contact &amp; Office Location
+                          Official Google Maps Profile
                         </div>
                         <div className="text-[11px] text-slate-500 font-medium">
-                          Orbit Plaza, Ghaziabad • Live Google Map
+                          Orbit Plaza, Ghaziabad • Live GPS Directions
                         </div>
                       </div>
                     </div>
-                    <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                    <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">↗</span>
                   </a>
                 </nav>
 
@@ -4017,6 +4128,17 @@ export default function Home() {
 
             </div>
 
+            {/* Action Bar: Link to All 13 Specialized Services */}
+            <div className="mt-12 text-center">
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#080d24] hover:bg-[#207de9] text-white font-bold text-sm shadow-md hover:shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer"
+              >
+                <span>View All 13 Specialized Service Divisions &amp; Blueprints</span>
+                <span>→</span>
+              </Link>
+            </div>
+
           </div>
         </section>
 
@@ -4859,7 +4981,7 @@ export default function Home() {
                       </div>
                       <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
                         <div className="text-[9px] text-slate-500 uppercase font-semibold">Client Revenue</div>
-                        <div className="text-base font-black text-slate-900 mt-0.5">₹18.4 Cr+</div>
+                        <div className="text-base font-black text-slate-900 mt-0.5">₹6 Lakh+</div>
                         <div className="text-[8.5px] text-emerald-600 font-semibold mt-0.5">Attributable ROI</div>
                       </div>
                     </div>
@@ -5208,7 +5330,7 @@ export default function Home() {
                       </div>
                       <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
                         <div className="text-[9px] text-slate-500 uppercase font-semibold">Client Revenue</div>
-                        <div className="text-base font-black text-slate-900 mt-0.5">₹18.4 Cr+</div>
+                        <div className="text-base font-black text-slate-900 mt-0.5">₹6 Lakh+</div>
                         <div className="text-[8.5px] text-emerald-600 font-semibold mt-0.5">Attributable ROI</div>
                       </div>
                     </div>

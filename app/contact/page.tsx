@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 export default function ContactPage() {
   const [name, setName] = useState("");
@@ -43,58 +44,8 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 antialiased selection:bg-[#207de9] selection:text-white">
       
-      {/* 1. TOP ANNOUNCEMENT BAR */}
-      <div className="bg-[#080d24] text-white border-b border-slate-800 text-[11px] sm:text-xs py-2 px-4">
-        <div className="max-w-[1400px] mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-bold text-slate-300">OFFICIAL HEADQUARTERS • ORBIT PLAZA, CROSSINGS REPUBLIK, GHAZIABAD</span>
-          </div>
-          <a href="tel:+918447583685" className="hover:text-cyan-300 transition text-slate-400 text-[11px] hidden sm:inline">
-            Direct Phone: +91 84475 83685
-          </a>
-        </div>
-      </div>
-
-      {/* 2. MAIN HEADER */}
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
-        <div className="max-w-[1480px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
-          <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
-            <img src="/logo.svg" alt="Digital FX - Business Solution" width={154} height={41} style={{ height: "40px", width: "auto" }} className="h-8.5 sm:h-10 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
-          </Link>
-
-          <nav className="hidden lg:flex items-center justify-center gap-6 xl:gap-8 mx-auto px-4 xl:px-8 shrink-0">
-            <Link href="/services" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
-              Services
-            </Link>
-            <Link href="/case-studies" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
-              Portfolio
-            </Link>
-            <Link href="/pricing" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
-              Packages
-            </Link>
-            <Link href="/tools" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0">
-              <span className="whitespace-nowrap">AI Tools</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold uppercase tracking-wider leading-none shrink-0">
-                FREE
-              </span>
-            </Link>
-            <Link href="/contact" className="text-[14px] font-bold text-[#207de9] transition-colors whitespace-nowrap shrink-0 border-b-2 border-[#207de9] pb-0.5">
-              Contact
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-2 sm:gap-3">
-            <a
-              href="tel:+918447583685"
-              className="px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#1570ef] hover:bg-[#1362d2] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-blue-500/25 transition-all whitespace-nowrap"
-            >
-              <span className="hidden xs:inline">Call Strategist →</span>
-              <span className="xs:hidden">Call Now →</span>
-            </a>
-          </div>
-        </div>
-      </header>
+      {/* Universal Navbar */}
+      <Navbar currentPath="/contact" />
 
       {/* 3. MAIN SECTION */}
       <section className="py-16 sm:py-20 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200">
@@ -155,17 +106,43 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Google Map Embed */}
-                <div className="rounded-2xl overflow-hidden border border-slate-200 h-64 w-full shadow-inner">
-                  <iframe
-                    title="Digital FX Office Map"
-                    src="https://maps.google.com/maps?q=Orbit+Plaza,+Crossings+Republik,+Ghaziabad,+Uttar+Pradesh+201016&t=&z=16&ie=UTF8&iwloc=&output=embed"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                  />
+                {/* Google Map Embed & Verified Listing Button */}
+                <div className="space-y-3">
+                  <div className="rounded-2xl overflow-hidden border border-slate-200 h-64 w-full shadow-inner">
+                    <iframe
+                      title="Digital FX Office Map"
+                      src="https://maps.google.com/maps?q=Orbit+Plaza,+Crossings+Republik,+Ghaziabad,+Uttar+Pradesh+201016&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <a
+                    href="https://share.google/EIVnaRy9WhkPCi8U8"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-3.5 rounded-2xl bg-blue-50/80 hover:bg-blue-100/80 border border-blue-200 text-blue-900 transition-all group"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-blue-600 shadow-xs font-bold text-sm">
+                        📍
+                      </span>
+                      <div className="text-left">
+                        <div className="text-xs font-bold text-slate-900 group-hover:text-blue-700">
+                          Digital FX Verified Google Maps Listing
+                        </div>
+                        <div className="text-[11px] text-slate-600 font-medium">
+                          Orbit Plaza, Crossings Republik • View Directions &amp; Reviews
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform">
+                      Open Profile ↗
+                    </span>
+                  </a>
                 </div>
               </div>
             </div>

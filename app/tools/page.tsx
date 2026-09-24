@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, FormEvent } from "react";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 import PageSpeedAuditReport from "@/components/PageSpeedAuditReport";
 import type { PageSpeedAuditData } from "@/app/api/pagespeed/route";
 
@@ -121,58 +122,8 @@ export default function ToolsPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 antialiased selection:bg-[#207de9] selection:text-white">
       
-      {/* 1. TOP ANNOUNCEMENT BAR */}
-      <div className="bg-[#080d24] text-white border-b border-slate-800 text-[11px] sm:text-xs py-2 px-4">
-        <div className="max-w-[1400px] mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-bold text-slate-300">FREE TOOL • ENTERPRISE CORE WEB VITALS &amp; SPEED TELEMETRY ENGINE</span>
-          </div>
-          <Link href="/contact" className="hover:text-cyan-300 transition text-slate-400 text-[11px] hidden sm:inline">
-            Request Strategy Proposal →
-          </Link>
-        </div>
-      </div>
-
-      {/* 2. MAIN HEADER */}
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
-        <div className="max-w-[1480px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
-          <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
-            <img src="/logo.svg" alt="Digital FX - Business Solution" width={154} height={41} style={{ height: "40px", width: "auto" }} className="h-8.5 sm:h-10 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
-          </Link>
-
-          <nav className="hidden lg:flex items-center justify-center gap-6 xl:gap-8 mx-auto px-4 xl:px-8 shrink-0">
-            <Link href="/services" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
-              Services
-            </Link>
-            <Link href="/case-studies" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
-              Portfolio
-            </Link>
-            <Link href="/pricing" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
-              Packages
-            </Link>
-            <Link href="/tools" className="text-[14px] font-bold text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 border-b-2 border-[#207de9] pb-0.5">
-              <span className="whitespace-nowrap">AI Tools</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold uppercase tracking-wider leading-none shrink-0">
-                FREE
-              </span>
-            </Link>
-            <Link href="/contact" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
-              Contact
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/contact"
-              className="px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#1570ef] hover:bg-[#1362d2] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-blue-500/25 transition-all whitespace-nowrap"
-            >
-              <span className="hidden xs:inline">Get Free Proposal →</span>
-              <span className="xs:hidden">Proposal →</span>
-            </Link>
-          </div>
-        </div>
-      </header>
+      {/* Universal Navbar */}
+      <Navbar currentPath="/tools" />
 
       {/* 3. HERO & SCANNER CONSOLE */}
       <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200">

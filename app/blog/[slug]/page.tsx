@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 import { notFound } from "next/navigation";
 import { BLOG_POSTS, getBlogPost } from "@/lib/blogData";
 
@@ -134,62 +135,8 @@ export default async function BlogPostPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* 1. TOP BAR */}
-      <div className="bg-[#080d24] text-white py-2 border-b border-white/10 text-xs">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-3 text-slate-300 text-[11.5px] font-medium">
-            <span className="inline-flex items-center gap-1.5 font-semibold text-slate-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-              Google Premier Partner Certified
-            </span>
-            <span className="hidden sm:inline text-slate-600">•</span>
-            <span className="hidden sm:inline text-slate-300">
-              Digital FX Search Engineering Insights
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4 text-[12px] font-medium ml-auto sm:ml-0">
-            <a href="tel:+918447583685" className="hover:text-white font-bold transition flex items-center gap-1.5">
-              <span className="text-[#207de9]">☎</span> +91 84475 83685
-            </a>
-            <a
-              href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20consult."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-emerald-400 hover:text-emerald-300 font-bold transition flex items-center gap-1.5"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>WhatsApp Strategy Desk</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. MAIN HEADER */}
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
-        <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
-            <img src="/logo.svg" alt="Digital FX - Business Solution" width={154} height={41} style={{ height: "40px", width: "auto" }} className="h-8.5 sm:h-10 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
-          </Link>
-
-          <div className="flex items-center gap-4">
-            <Link
-              href="/blog"
-              className="text-xs font-bold text-slate-600 hover:text-[#207de9] transition"
-            >
-              ← All Insights
-            </Link>
-            <a
-              href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20discuss%20an%20SEO%20strategy."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-[40px] px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs transition"
-            >
-              <span>WhatsApp Strategist</span>
-            </a>
-          </div>
-        </div>
-      </header>
+      {/* Universal Navbar */}
+      <Navbar currentPath="/blog" />
 
       {/* 3. BREADCRUMBS */}
       <div className="bg-slate-50 border-b border-slate-200/80 py-3">

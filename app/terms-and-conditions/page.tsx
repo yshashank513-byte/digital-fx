@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Terms of Service & Commercial Agreement",
@@ -36,94 +37,8 @@ export default function TermsAndConditionsPage() {
           }),
         }}
       />
-      {/* 1. TOP INSTITUTIONAL BAR */}
-      <div className="bg-[#080d24] text-white py-2 border-b border-white/10 text-xs">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-3 text-slate-300 text-[11.5px] font-medium">
-            <span className="inline-flex items-center gap-1.5 font-semibold text-slate-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-              Official Institutional Documentation
-            </span>
-            <span className="hidden sm:inline text-slate-600">•</span>
-            <span className="hidden sm:inline text-slate-300">
-              Commercial Client Agreement
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4 text-[12px] font-medium ml-auto sm:ml-0">
-            <a href="tel:+918447583685" className="hover:text-white font-bold transition flex items-center gap-1.5">
-              <span className="text-[#207de9]">☎</span> +91 84475 83685
-            </a>
-            <a
-              href="mailto:hello@digitalfx.in"
-              className="text-slate-300 hover:text-white font-medium transition"
-            >
-              hello@digitalfx.in
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. MAIN HEADER */}
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
-        <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
-            <img src="/logo.svg" alt="Digital FX - Business Solution" width={154} height={41} style={{ height: "40px", width: "auto" }} className="h-8.5 sm:h-10 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
-          </Link>
-
-          {/* Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-            <Link
-              href="/#services"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition"
-            >
-              Services
-            </Link>
-            <Link
-              href="/#geo-checker"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition inline-flex items-center gap-1.5"
-            >
-              <span>AI Search (GEO)</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9.5px] font-bold uppercase">
-                FREE
-              </span>
-            </Link>
-            <Link
-              href="/locations"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition inline-flex items-center gap-1.5"
-            >
-              <span>350+ Cities</span>
-              <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9.5px] font-extrabold uppercase">
-                IN
-              </span>
-            </Link>
-            <Link
-              href="/blog"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition"
-            >
-              Insights &amp; Blog
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="text-xs font-bold text-slate-600 hover:text-[#207de9] transition hidden sm:inline"
-            >
-              ← Back to Main Website
-            </Link>
-            <a
-              href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20have%20a%20commercial%20terms%20inquiry."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-[42px] px-5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-xs transition cursor-pointer"
-            >
-              <span>Contact Legal Desk</span>
-              <span>→</span>
-            </a>
-          </div>
-        </div>
-      </header>
+      {/* Universal Navbar */}
+      <Navbar currentPath="/terms-and-conditions" />
 
       {/* 3. BREADCRUMBS */}
       <div className="bg-slate-50 border-b border-slate-200/80 py-3">

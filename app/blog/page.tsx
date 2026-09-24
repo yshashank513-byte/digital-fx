@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 import { BLOG_POSTS } from "@/lib/blogData";
 import BlogPoster from "@/components/BlogPoster";
 
@@ -39,74 +40,8 @@ export default function BlogIndexPage() {
         }}
       />
 
-      {/* 1. TOP INSTITUTIONAL BAR */}
-      <div className="bg-[#080d24] text-white py-2 border-b border-white/10 text-xs">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-3 text-slate-300 text-[11.5px] font-medium">
-            <span className="inline-flex items-center gap-1.5 font-semibold text-slate-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-              Google Premier Partner Certified
-            </span>
-            <span className="hidden sm:inline text-slate-600">•</span>
-            <span className="hidden sm:inline text-slate-300">
-              Digital FX Search Engineering &amp; Daily Growth Blueprints
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4 text-[12px] font-medium ml-auto sm:ml-0">
-            <a href="tel:+918447583685" className="hover:text-white font-bold transition flex items-center gap-1.5">
-              <span className="text-[#207de9]">☎</span> +91 84475 83685
-            </a>
-            <a
-              href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20read%20your%20blog%20and%20want%20to%20consult."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-emerald-400 hover:text-emerald-300 font-bold transition flex items-center gap-1.5"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>WhatsApp Strategy Desk</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. MAIN STICKY HEADER */}
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
-        <div className="max-w-[1400px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
-            <img src="/logo.svg" alt="Digital FX - Business Solution" width={154} height={41} style={{ height: "40px", width: "auto" }} className="h-8.5 sm:h-10 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
-          </Link>
-
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-            <Link href="/" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition">
-              Home
-            </Link>
-            <Link href="/services" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition">
-              Services
-            </Link>
-            <Link href="/#geo-checker" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition flex items-center gap-1">
-              <span>AI Search (GEO)</span>
-              <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[9px] font-bold">FREE</span>
-            </Link>
-            <Link href="/locations" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition">
-              350+ Cities
-            </Link>
-            <Link href="/blog" className="text-[14px] font-bold text-[#207de9] transition border-b-2 border-[#207de9] pb-0.5">
-              Insights &amp; Blog
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <a
-              href="tel:+918447583685"
-              className="hidden sm:inline-flex h-[42px] items-center gap-2 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] px-5 text-[13px] font-bold text-white shadow-sm transition"
-            >
-              <span>Call Strategy Lab</span>
-              <span>→</span>
-            </a>
-          </div>
-        </div>
-      </header>
+      {/* Universal Navbar */}
+      <Navbar currentPath="/blog" />
 
       {/* 3. HERO & DAILY FEED BANNER */}
       <section className="bg-gradient-to-b from-[#080d24] via-[#0b1333] to-[#080d24] text-white py-14 sm:py-20 relative overflow-hidden border-b border-slate-800">

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "The Digital FX Portfolio | Client Case Studies & Verified Revenue ROI",
   description:
-    "Explore verified digital marketing case studies and client ROI stories. Over ₹18.4 Cr+ client revenue delivered across real estate, healthcare, local services, and B2B.",
+    "Explore verified digital marketing case studies and client ROI stories. Over ₹6 Lakh+ client revenue delivered across real estate, healthcare, local services, and B2B.",
   alternates: {
     canonical: "https://www.digitalfx.in/case-studies",
   },
@@ -26,7 +27,7 @@ const CASE_STUDIES = [
     metrics: [
       { label: "Google 3-Pack Rank", value: "#1 Top 3" },
       { label: "Monthly Direct Calls", value: "+420 Calls" },
-      { label: "New Patient Revenue", value: "₹28.5L+" },
+      { label: "Tracked Revenue", value: "₹2.8L+" },
     ],
     summary:
       "Re-engineered Google Business Profile entity signals, published local geo-tagged before/after implant showcases, and eliminated wasted ad spend by shifting budget into high-intent 'dental implant cost in indirapuram' search queries.",
@@ -41,7 +42,7 @@ const CASE_STUDIES = [
     metrics: [
       { label: "CPL Reduction", value: "73% Lower" },
       { label: "Qualified Site Visits", value: "1,140+" },
-      { label: "Closed Inventory Value", value: "₹9.2 Cr" },
+      { label: "Attributable Revenue", value: "₹3.5L+" },
     ],
     summary:
       "Replaced leaky 12-field lead capture forms with 1-click WhatsApp property brochure funnels, implemented Google Ads Customer Match audiences, and built dedicated sub-second Next.js landing pages for Expressway luxury launches.",
@@ -56,7 +57,7 @@ const CASE_STUDIES = [
     metrics: [
       { label: "Organic Monthly Leads", value: "2,400+" },
       { label: "Top 3 Keywords", value: "650+" },
-      { label: "Annual Bookings", value: "₹3.8 Cr+" },
+      { label: "Tracked Revenue", value: "₹2.4L+" },
     ],
     summary:
       "Structured hyperlocal city landing pages with JSON-LD LocalBusiness schema, automated Google review collection via WhatsApp API, and achieved #1 organic rankings for high-intent intercity vehicle and household relocation searches.",
@@ -83,58 +84,8 @@ export default function CaseStudiesPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 antialiased selection:bg-[#207de9] selection:text-white">
       
-      {/* 1. TOP ANNOUNCEMENT BAR */}
-      <div className="bg-[#080d24] text-white border-b border-slate-800 text-[11px] sm:text-xs py-2 px-4">
-        <div className="max-w-[1400px] mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-bold text-slate-300">VERIFIED CLIENT RESULTS • OVER ₹18.4 CR+ ATTRIBUTABLE REVENUE</span>
-          </div>
-          <Link href="/contact" className="hover:text-cyan-300 transition text-slate-400 text-[11px] hidden sm:inline">
-            Request Strategy Proposal →
-          </Link>
-        </div>
-      </div>
-
-      {/* 2. MAIN HEADER */}
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs">
-        <div className="max-w-[1480px] mx-auto flex h-[74px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
-          <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
-            <img src="/logo.svg" alt="Digital FX - Business Solution" width={154} height={41} style={{ height: "40px", width: "auto" }} className="h-8.5 sm:h-10 w-auto object-contain shrink-0 group-hover:scale-105 transition-transform" />
-          </Link>
-
-          <nav className="hidden lg:flex items-center justify-center gap-6 xl:gap-8 mx-auto px-4 xl:px-8 shrink-0">
-            <Link href="/services" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
-              Services
-            </Link>
-            <Link href="/case-studies" className="text-[14px] font-bold text-[#207de9] transition-colors whitespace-nowrap shrink-0 border-b-2 border-[#207de9] pb-0.5">
-              Portfolio
-            </Link>
-            <Link href="/pricing" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
-              Packages
-            </Link>
-            <Link href="/tools" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0">
-              <span className="whitespace-nowrap">AI Tools</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold uppercase tracking-wider leading-none shrink-0">
-                FREE
-              </span>
-            </Link>
-            <Link href="/contact" className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0">
-              Contact
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/contact"
-              className="px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#1570ef] hover:bg-[#1362d2] text-white text-xs sm:text-sm font-extrabold shadow-md shadow-blue-500/25 transition-all whitespace-nowrap"
-            >
-              <span className="hidden xs:inline">Get Free Proposal →</span>
-              <span className="xs:hidden">Proposal →</span>
-            </Link>
-          </div>
-        </div>
-      </header>
+      {/* Universal Navbar */}
+      <Navbar currentPath="/case-studies" />
 
       {/* 3. HERO SECTION */}
       <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200">
@@ -155,7 +106,7 @@ export default function CaseStudiesPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10 pt-8 border-t border-slate-200/80">
             <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
-              <div className="text-2xl sm:text-3xl font-black text-[#080d24]">₹18.4 Cr+</div>
+              <div className="text-2xl sm:text-3xl font-black text-[#080d24]">₹6 Lakh+</div>
               <div className="text-xs text-slate-500 font-medium mt-1">Client Revenue Generated</div>
             </div>
             <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">

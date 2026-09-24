@@ -11,8 +11,8 @@ export async function GET() {
     if (!supabaseUrl || !serviceRoleKey) {
       return NextResponse.json({
         success: true,
-        totalRevenue: 104993,
-        formatted: "₹1,04,993+",
+        totalRevenue: 600000,
+        formatted: "₹6 Lakh+",
         source: "cached_fallback",
       });
     }
@@ -30,8 +30,8 @@ export async function GET() {
       console.error("PUBLIC REVENUE FETCH ERROR:", error);
       return NextResponse.json({
         success: true,
-        totalRevenue: 104993,
-        formatted: "₹1,04,993+",
+        totalRevenue: 600000,
+        formatted: "₹6 Lakh+",
         source: "fallback",
       });
     }
@@ -47,13 +47,13 @@ export async function GET() {
       0
     );
 
-    const finalRevenue = Math.max(totalRevenue, 104993);
+    const finalRevenue = Math.max(totalRevenue, 600000);
 
     return NextResponse.json(
       {
         success: true,
         totalRevenue: finalRevenue,
-        formatted: `₹${finalRevenue.toLocaleString("en-IN")}+`,
+        formatted: "₹6 Lakh+",
         successfulCount: successfulPayments.length,
         timestamp: new Date().toISOString(),
       },
@@ -67,8 +67,8 @@ export async function GET() {
     console.error("PUBLIC REVENUE API ERROR:", error);
     return NextResponse.json({
       success: true,
-      totalRevenue: 104993,
-      formatted: "₹1,04,993+",
+      totalRevenue: 600000,
+      formatted: "₹6 Lakh+",
       source: "error_fallback",
     });
   }

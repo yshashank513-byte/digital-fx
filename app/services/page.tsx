@@ -3,6 +3,7 @@
 import { useState, FormEvent } from "react";
 import Link from "next/link";
 import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
+import Navbar from "@/components/Navbar";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -598,118 +599,8 @@ export default function ServicesPage() {
         }}
       />
 
-      {/* 1. TOP INSTITUTIONAL BAR */}
-      <div id="fxtopbar" className="bg-[#080d24] text-white py-2 border-b border-white/10 block w-full overflow-hidden">
-        <div className="mx-auto flex h-auto min-h-[34px] max-w-[1400px] flex-wrap items-center justify-between gap-y-2 px-4 sm:px-6 lg:px-8 text-xs">
-          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-slate-300 text-[11px] sm:text-[11.5px] font-medium">
-            <span className="inline-flex items-center gap-1.5 text-slate-300 font-semibold shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-              Google Premier Partner Certified
-            </span>
-            <span className="hidden md:inline text-slate-600">•</span>
-            <span className="hidden md:inline-flex items-center gap-1.5 text-slate-300">
-              Meta Certified Agency
-            </span>
-            <span className="hidden lg:inline text-slate-600">•</span>
-            <span className="hidden lg:inline-flex items-center gap-1.5 text-slate-400">
-              Crossings Republik, Ghaziabad &amp; Delhi NCR
-            </span>
-          </div>
-
-          <div className="flex items-center justify-between sm:justify-end gap-2.5 sm:gap-5 text-[11px] sm:text-[12px] font-medium text-slate-300 w-full sm:w-auto">
-            <Link
-              href="/#pricing"
-              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 text-slate-200 hover:text-white text-[10.5px] sm:text-[11.5px] font-bold transition-all shrink-0"
-            >
-              <span>Client Checkout Portal</span>
-            </Link>
-
-            <a href="tel:+918447583685" className="hidden sm:inline-flex items-center gap-1.5 text-[12px] hover:text-white font-bold transition">
-              <span className="text-[#207de9]">☎</span> +91 84475 83685
-            </a>
-
-            <a
-              href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20am%20exploring%20your%20services%20and%20want%20to%20consult."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[11px] sm:text-[12px] font-bold text-emerald-400 hover:text-emerald-300 transition shrink-0"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block shrink-0" />
-              <span>WhatsApp Strategy Desk</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. STICKY MAIN HEADER */}
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
-        <div className="mx-auto flex h-[74px] max-w-[1480px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
-          <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
-            <img
-              src="/logo.svg"
-              alt="Digital FX - Business Solution"
-              width={154} height={41} decoding="async" style={{ height: "40px", width: "auto" }} className="h-8.5 sm:h-10 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
-            />
-          </Link>
-
-          <nav className="hidden lg:flex items-center justify-center gap-6 xl:gap-8 mx-auto px-4 xl:px-8 shrink-0">
-            <Link
-              href="/services"
-              className="text-[14px] font-bold text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer border-b-2 border-[#207de9] pb-0.5"
-            >
-              Services
-            </Link>
-            <Link
-              href="/case-studies"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              Portfolio
-            </Link>
-            <Link
-              href="/pricing"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              Packages
-            </Link>
-            <Link
-              href="/tools"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              <span className="whitespace-nowrap">AI Tools</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold uppercase tracking-wider leading-none shrink-0">
-                FREE
-              </span>
-            </Link>
-            <Link
-              href="/locations"
-              className="text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0"
-            >
-              <span className="whitespace-nowrap">350+ Cities</span>
-              <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[9px] font-extrabold uppercase leading-none shrink-0">
-                IN
-              </span>
-            </Link>
-            <Link
-              href="/blog"
-              className="hidden 2xl:inline-flex text-[14px] font-semibold text-slate-700 hover:text-[#207de9] transition-colors whitespace-nowrap shrink-0"
-            >
-              Insights
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-            <button
-              type="button"
-              onClick={() => openProposal("Full Growth Consultation")}
-              className="inline-flex h-[38px] sm:h-[42px] items-center gap-1.5 sm:gap-2 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] px-3.5 sm:px-5 text-xs sm:text-[13px] font-bold text-white shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 cursor-pointer shrink-0 whitespace-nowrap tracking-wide"
-            >
-              <span className="hidden xs:inline">Get Custom Proposal</span>
-              <span className="xs:hidden">Proposal</span>
-              <span className="text-sm font-bold">→</span>
-            </button>
-          </div>
-        </div>
-      </header>
+      {/* 1. UNIVERSAL TOPBAR & MAIN HEADER WITH SERVICES DROPDOWN & MOBILE DRAWER */}
+      <Navbar currentPath="/services" onOpenProposal={() => openProposal("Full Growth Consultation")} />
 
       {/* 3. HERO SECTION */}
       <section className="bg-gradient-to-b from-[#080d24] via-[#0b1333] to-[#080d24] text-white pt-14 pb-20 relative overflow-hidden border-b border-slate-800">
