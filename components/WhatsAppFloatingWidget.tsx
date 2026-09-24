@@ -46,7 +46,7 @@ export default function WhatsAppFloatingWidget() {
   const handleSend = (textToSend?: string) => {
     const message = (textToSend || customMsg).trim();
     const finalMsg = message || DEFAULT_DFX_WHATSAPP_MSG;
-    const url = `https://wa.me/918447583685?text=${encodeURIComponent(finalMsg)}`;
+    const url = `https://wa.me/919319807273?text=${encodeURIComponent(finalMsg)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     setIsOpen(false);
     setHasInteracted(true);

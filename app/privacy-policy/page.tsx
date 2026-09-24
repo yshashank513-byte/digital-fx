@@ -162,7 +162,7 @@ export default function PrivacyPolicyPage() {
               <div><strong>Entity:</strong> Digital FX (Digital Marketing Agency)</div>
               <div><strong>Office Address:</strong> Shop No. 210, Second Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016, India</div>
               <div><strong>Email:</strong> <a href="mailto:hello@digitalfx.in" className="text-[#207de9] underline">hello@digitalfx.in</a> / <a href="mailto:billing@digitalfx.in" className="text-[#207de9] underline">billing@digitalfx.in</a></div>
-              <div><strong>Helpline:</strong> +91 84475 83685 (Monday to Saturday, 9:30 AM – 7:00 PM IST)</div>
+              <div><strong>Helpline:</strong> +91 93198 07273 (Monday to Saturday, 9:30 AM – 7:00 PM IST)</div>
             </div>
           </div>
 

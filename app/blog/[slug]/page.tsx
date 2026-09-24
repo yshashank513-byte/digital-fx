@@ -322,12 +322,12 @@ export default async function BlogPostPage({ params }: PageProps) {
                 ⚡ Free AI Geo-Audit
               </Link>
               <a
-                href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20read%20your%20blog%20post%20and%20want%20to%20consult."
+                href="https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20read%20your%20blog%20post%20and%20want%20to%20consult."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-xs"
               >
-                <span>WhatsApp Strategist (+91 84475 83685)</span>
+                <span>WhatsApp Strategist (+91 93198 07273)</span>
                 <span>→</span>
               </a>
             </div>

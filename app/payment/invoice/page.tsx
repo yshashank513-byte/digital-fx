@@ -244,7 +244,7 @@ function PaymentInvoiceContent() {
 
           <div className="flex items-center gap-2">
             <a
-              href={`https://wa.me/918447583685?text=${whatsappShareText}`}
+              href={`https://wa.me/919319807273?text=${whatsappShareText}`}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-lg bg-emerald-600 hover:bg-emerald-700 px-3.5 py-2 text-xs font-bold text-white shadow-sm transition flex items-center gap-1.5"
@@ -314,7 +314,7 @@ function PaymentInvoiceContent() {
                     Address: Ghaziabad, Delhi NCR - 201001, India
                   </p>
                   <p className="text-[11px] text-slate-600">
-                    Phone: <strong className="text-slate-800">+91 8447583685</strong> | Email: <strong className="text-slate-800">hello@digitalfx.in</strong>
+                    Phone: <strong className="text-slate-800">+91 9319807273</strong> | Email: <strong className="text-slate-800">hello@digitalfx.in</strong>
                   </p>
                   <p className="text-[11px] text-slate-600">
                     Website: <a href="https://www.digitalfx.in" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-semibold">https://www.digitalfx.in</a> | GSTIN: <span className="font-mono font-bold text-slate-900">07AABCD1234E1Z5</span>
@@ -364,7 +364,7 @@ function PaymentInvoiceContent() {
               </div>
               <div>
                 <span className="text-slate-500 block text-[10px] uppercase font-bold">Phone Number</span>
-                <strong className="text-slate-900">{payment.customer_phone || "+91 8447583685"}</strong>
+                <strong className="text-slate-900">{payment.customer_phone || "+91 9319807273"}</strong>
               </div>
               <div>
                 <span className="text-slate-500 block text-[10px] uppercase font-bold">Email Address</span>
@@ -513,7 +513,7 @@ function PaymentInvoiceContent() {
               <ol className="list-decimal list-inside space-y-0.5 text-[10.5px] text-slate-600 leading-relaxed">
                 <li>This is a computer-generated tax invoice and requires no physical signature.</li>
                 <li>Digital campaign kickoff and onboarding commence within 24–48 business hours.</li>
-                <li>For any billing questions or support, email <strong className="text-slate-800">hello@digitalfx.in</strong> or call <strong className="text-slate-800">+91 8447583685</strong>.</li>
+                <li>For any billing questions or support, email <strong className="text-slate-800">hello@digitalfx.in</strong> or call <strong className="text-slate-800">+91 9319807273</strong>.</li>
               </ol>
             </div>
 

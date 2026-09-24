@@ -451,7 +451,7 @@ export default function PageSpeedAuditReport({
         </div>
         <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
           <a
-            href={`https://wa.me/918447583685?text=${encodeURIComponent(
+            href={`https://wa.me/919319807273?text=${encodeURIComponent(
               `Hi Digital FX, I just ran a Speed & Core Web Vitals audit on ${url} (Performance: ${scores.performance}/100, FCP: ${metrics.fcp.displayValue}, LCP: ${metrics.lcp.displayValue}). Please share your Core Web Vitals optimization plan.`
             )}`}
             target="_blank"

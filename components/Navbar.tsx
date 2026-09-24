@@ -158,12 +158,12 @@ export default function Navbar({
               </Link>
             )}
 
-            <a href="tel:+918447583685" className="hidden sm:inline-flex items-center gap-1.5 text-[12px] hover:text-white font-bold transition">
-              <span className="text-[#207de9]">☎</span> +91 84475 83685
+            <a href="tel:+919319807273" className="hidden sm:inline-flex items-center gap-1.5 text-[12px] hover:text-white font-bold transition">
+              <span className="text-[#207de9]">☎</span> +91 93198 07273
             </a>
 
             <a
-              href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
+              href="https://wa.me/919319807273?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-[11px] sm:text-[12px] font-bold text-emerald-400 hover:text-emerald-300 transition shrink-0"
@@ -407,10 +407,10 @@ export default function Navbar({
 
             {/* Mobile Quick-Call Tap Button */}
             <a
-              href="tel:+918447583685"
-              aria-label="Call +91 84475 83685"
+              href="tel:+919319807273"
+              aria-label="Call +91 93198 07273"
               className="sm:hidden flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-xs transition-all active:scale-95 cursor-pointer shrink-0"
-              title="Call +91 84475 83685"
+              title="Call +91 93198 07273"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -779,10 +779,10 @@ export default function Navbar({
                     <div className="text-[11px] text-slate-500">Mon – Sat • 9:30 AM to 7:30 PM</div>
                   </div>
                   <a
-                    href="tel:+918447583685"
+                    href="tel:+919319807273"
                     className="text-xs font-bold text-[#207de9] hover:underline whitespace-nowrap"
                   >
-                    +91 84475 83685
+                    +91 93198 07273
                   </a>
                 </div>
               </div>
@@ -791,7 +791,7 @@ export default function Navbar({
             {/* Drawer Bottom Action */}
             <div className="pt-5 border-t border-slate-100">
               <a
-                href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
+                href="https://wa.me/919319807273?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#080d24] hover:bg-[#1570ef] py-3 text-center text-xs font-black text-white shadow-xs transition cursor-pointer"

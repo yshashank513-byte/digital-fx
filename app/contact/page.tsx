@@ -35,7 +35,7 @@ export default function ContactPage() {
       if (!res.ok) throw new Error(data.error || "Failed to submit request.");
       setSubmitted(true);
     } catch (err: any) {
-      setError(err.message || "Something went wrong. Please call +91 84475 83685 directly.");
+      setError(err.message || "Something went wrong. Please call +91 93198 07273 directly.");
     } finally {
       setLoading(false);
     }
@@ -87,8 +87,8 @@ export default function ContactPage() {
                     <span className="text-xl">☎️</span>
                     <div>
                       <strong className="text-slate-900 block font-bold">Direct Phone Desk</strong>
-                      <a href="tel:+918447583685" className="text-[#1570ef] font-bold text-base hover:underline block">
-                        +91 84475 83685
+                      <a href="tel:+919319807273" className="text-[#1570ef] font-bold text-base hover:underline block">
+                        +91 93198 07273
                       </a>
                       <span className="text-[11px] text-slate-500">Available Mon–Sat: 9:30 AM – 7:30 PM IST</span>
                     </div>

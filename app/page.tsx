@@ -1138,7 +1138,7 @@ export default function Home() {
         proposalWebsite || "my business"
       }. Name: ${proposalName}, Service: ${proposalService}, Phone: ${proposalPhone}.`;
       window.open(
-        `https://wa.me/918447583685?text=${encodeURIComponent(waMsg)}`,
+        `https://wa.me/919319807273?text=${encodeURIComponent(waMsg)}`,
         "_blank"
       );
 
@@ -1488,7 +1488,7 @@ export default function Home() {
       form.reset();
       setSuccessMessage("Thank you! Your enquiry has been submitted successfully.");
 
-      const whatsappNumber = "918447583685";
+      const whatsappNumber = "919319807273";
       const whatsappText =
         `New enquiry from ${payload.name}. ` +
         `Service: ${payload.service}. ` +
@@ -2067,12 +2067,12 @@ export default function Home() {
                 <span>Client Checkout Portal</span>
               </button>
 
-              <a href="tel:+918447583685" className="hidden sm:inline-flex items-center gap-1.5 text-[12px] hover:text-white font-bold transition">
-                <span className="text-[#207de9]">☎</span> +91 84475 83685
+              <a href="tel:+919319807273" className="hidden sm:inline-flex items-center gap-1.5 text-[12px] hover:text-white font-bold transition">
+                <span className="text-[#207de9]">☎</span> +91 93198 07273
               </a>
 
               <a
-                href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
+                href="https://wa.me/919319807273?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-[11px] sm:text-[12px] font-bold text-emerald-400 hover:text-emerald-300 transition shrink-0"
@@ -2271,10 +2271,10 @@ export default function Home() {
 
               {/* Mobile Quick-Call Tap Button */}
               <a
-                href="tel:+918447583685"
-                aria-label="Call +91 84475 83685"
+                href="tel:+919319807273"
+                aria-label="Call +91 93198 07273"
                 className="sm:hidden flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white shadow-xs transition-all active:scale-95 cursor-pointer shrink-0"
-                title="Call +91 84475 83685"
+                title="Call +91 93198 07273"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -2639,10 +2639,10 @@ export default function Home() {
                       <div className="text-[11px] text-slate-500">Mon – Sat • 9:30 AM to 7:30 PM</div>
                     </div>
                     <a
-                      href="tel:+918447583685"
+                      href="tel:+919319807273"
                       className="text-xs font-bold text-[#207de9] hover:underline whitespace-nowrap"
                     >
-                      +91 84475 83685
+                      +91 93198 07273
                     </a>
                   </div>
                 </div>
@@ -2651,7 +2651,7 @@ export default function Home() {
               {/* Drawer Bottom Action */}
               <div className="pt-5 border-t border-slate-100">
                 <a
-                  href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
+                  href="https://wa.me/919319807273?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#080d24] hover:bg-[#1570ef] py-3 text-center text-xs font-black text-white shadow-xs transition cursor-pointer"
@@ -5652,10 +5652,10 @@ export default function Home() {
                         <span>Direct Telephone Desk</span>
                       </div>
                       <a
-                        href="tel:+918447583685"
+                        href="tel:+919319807273"
                         className="text-base sm:text-lg font-extrabold text-[#080d24] hover:text-[#1570ef] transition block font-mono"
                       >
-                        +91 84475 83685
+                        +91 93198 07273
                       </a>
                       <p className="text-[11px] text-slate-500 mt-0.5 font-normal">
                         Direct routing for Delhi NCR, national &amp; international inquiries.
@@ -5669,7 +5669,7 @@ export default function Home() {
                         <span>WhatsApp &amp; Inquiries</span>
                       </div>
                       <a
-                        href="https://wa.me/918447583685?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
+                        href="https://wa.me/919319807273?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-base sm:text-lg font-extrabold text-emerald-800 hover:text-emerald-900 transition flex items-center gap-2 font-mono"
@@ -5809,7 +5809,7 @@ export default function Home() {
                           type="tel"
                           name="phone"
                           required
-                          placeholder="+91 84475..."
+                          placeholder="+91 93198..."
                           className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#207de9] focus:bg-white text-slate-800 font-medium transition"
                         />
                       </div>
@@ -6496,7 +6496,7 @@ export default function Home() {
                       </div>
                     </div>
                     <a
-                      href="https://wa.me/918447583685?text=Hello%20Digital%20FX%20Team%2C%20we%20require%20a%20custom%20growth%20proposal%20or%20enterprise%20agreement."
+                      href="https://wa.me/919319807273?text=Hello%20Digital%20FX%20Team%2C%20we%20require%20a%20custom%20growth%20proposal%20or%20enterprise%20agreement."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-4 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 font-bold text-xs transition shrink-0 whitespace-nowrap"
@@ -7013,7 +7013,7 @@ export default function Home() {
                   <div className="mt-4 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
                     <span>Have urgent enterprise automation requirements?</span>
                     <a
-                      href="https://wa.me/918447583685?text=Hello%20Digital%20FX%20Team%2C%20I%20want%20to%20learn%20more%20about%20the%20upcoming%20AI%20Business%20Suite%20and%20early%20beta%20access."
+                      href="https://wa.me/919319807273?text=Hello%20Digital%20FX%20Team%2C%20I%20want%20to%20learn%20more%20about%20the%20upcoming%20AI%20Business%20Suite%20and%20early%20beta%20access."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#1570ef] hover:underline font-bold inline-flex items-center gap-1.5"
@@ -7127,7 +7127,7 @@ export default function Home() {
                           required
                           value={proposalPhone}
                           onChange={(e) => setProposalPhone(e.target.value)}
-                          placeholder="+91 84475 83685"
+                          placeholder="+91 93198 07273"
                           className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition tabular-nums"
                         />
                       </div>

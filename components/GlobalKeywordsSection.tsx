@@ -114,7 +114,7 @@ export default function GlobalKeywordsSection() {
                   <span>→</span>
                 </Link>
                 <a
-                  href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20consult%20regarding%20Dubai%20UAE%20digital%20marketing."
+                  href="https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20want%20to%20consult%20regarding%20Dubai%20UAE%20digital%20marketing."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/30 font-bold text-xs transition-all"

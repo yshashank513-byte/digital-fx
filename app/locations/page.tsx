@@ -209,7 +209,7 @@ export default function LocationsDirectoryPage() {
               ← Back to Main Website
             </Link>
             <a
-              href="https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20rank%20my%20business."
+              href="https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20want%20to%20rank%20my%20business."
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs transition flex items-center gap-2 shadow-xs"

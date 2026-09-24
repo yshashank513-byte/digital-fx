@@ -127,7 +127,7 @@ export default function SettingsPage() {
 
           <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
             <span className="text-[10px] font-bold text-slate-400 uppercase">Primary Telephone</span>
-            <p className="font-bold text-[#080d24] mt-1 font-mono">+91 84475 83685</p>
+            <p className="font-bold text-[#080d24] mt-1 font-mono">+91 93198 07273</p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">

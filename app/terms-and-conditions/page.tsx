@@ -151,7 +151,7 @@ export default function TermsAndConditionsPage() {
               <div><strong>Entity:</strong> Digital FX (Digital Marketing Agency)</div>
               <div><strong>Registered Office:</strong> Shop No. 210, Second Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016, India</div>
               <div><strong>Email:</strong> <a href="mailto:hello@digitalfx.in" className="text-[#207de9] underline">hello@digitalfx.in</a> / <a href="mailto:billing@digitalfx.in" className="text-[#207de9] underline">billing@digitalfx.in</a></div>
-              <div><strong>Helpline:</strong> +91 84475 83685</div>
+              <div><strong>Helpline:</strong> +91 93198 07273</div>
             </div>
           </div>
 

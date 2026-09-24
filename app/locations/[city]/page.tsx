@@ -149,7 +149,7 @@ export default async function CityLocationPage({ params }: PageProps) {
       logo: "https://www.digitalfx.in/logo.png",
       image: "https://www.digitalfx.in/logo.png",
       description: profile.metaDescription,
-      telephone: "+91 84475 83685",
+      telephone: "+91 93198 07273",
       priceRange: "₹₹ - ₹₹₹₹",
       address: {
         "@type": "PostalAddress",
@@ -281,7 +281,7 @@ export default async function CityLocationPage({ params }: PageProps) {
           {/* Action Buttons with Full Details Open */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-2xl mx-auto mb-10">
             <a
-              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20am%20from%20${encodeURIComponent(profile.name)}%20and%20want%20a%20free%20growth%20audit.`}
+              href={`https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20am%20from%20${encodeURIComponent(profile.name)}%20and%20want%20a%20free%20growth%20audit.`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm transition shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2"
@@ -534,7 +534,7 @@ export default async function CityLocationPage({ params }: PageProps) {
 
             {/* Button with Details */}
             <a
-              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20activate%20the%20₹2,000/mo%20Google%20Maps%20Growth%20plan%20for%20${encodeURIComponent(profile.name)}.`}
+              href={`https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20want%20to%20activate%20the%20₹2,000/mo%20Google%20Maps%20Growth%20plan%20for%20${encodeURIComponent(profile.name)}.`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-[#207de9] text-white font-bold text-xs text-center transition shadow-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer"
@@ -587,7 +587,7 @@ export default async function CityLocationPage({ params }: PageProps) {
 
             {/* Button with Details */}
             <a
-              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20build%20a%20Next.js%20Website%20for%20my%20business%20in%20${encodeURIComponent(profile.name)}.`}
+              href={`https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20want%20to%20build%20a%20Next.js%20Website%20for%20my%20business%20in%20${encodeURIComponent(profile.name)}.`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3 px-4 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs text-center transition shadow-md shadow-blue-500/25 flex flex-col items-center justify-center gap-0.5 cursor-pointer"
@@ -637,7 +637,7 @@ export default async function CityLocationPage({ params }: PageProps) {
 
             {/* Button with Details */}
             <a
-              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20discuss%20the%20360°%20Growth%20Retainer%20for%20${encodeURIComponent(profile.name)}.`}
+              href={`https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20want%20to%20discuss%20the%20360°%20Growth%20Retainer%20for%20${encodeURIComponent(profile.name)}.`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-purple-700 text-white font-bold text-xs text-center transition shadow-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer"
@@ -734,12 +734,12 @@ export default async function CityLocationPage({ params }: PageProps) {
               ⚡ Run Free AI Geo-Audit on Homepage
             </Link>
             <a
-              href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20am%20from%20${encodeURIComponent(profile.name)}%20and%20want%20to%20consult.`}
+              href={`https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20am%20from%20${encodeURIComponent(profile.name)}%20and%20want%20to%20consult.`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm transition shadow-sm"
             >
-              Chat on WhatsApp (+91 84475 83685)
+              Chat on WhatsApp (+91 93198 07273)
             </a>
           </div>
 

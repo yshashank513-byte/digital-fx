@@ -735,7 +735,7 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: "4. The Indian Citation Ecosystem: Justdial to Google",
         body: [
           "In India, citation building is different from the US where Yelp and YellowPages rule. Here, Google scrapes data from Justdial, Sulekha, IndiaMART, TradeIndia, and local trade association directories.",
-          "If your phone number is listed as '0120-415XXXX' on Justdial but '+91 84475XXXXX' on your website, Google's entity confidence score drops. We frequently see businesses jump from Rank #7 to Rank #2 simply by unifying their address abbreviations ('Shop No. 210, 2nd Flr' vs '210 Second Floor') across 40 Indian directories.",
+          "If your phone number is listed as '0120-415XXXX' on Justdial but '+91 93198XXXXX' on your website, Google's entity confidence score drops. We frequently see businesses jump from Rank #7 to Rank #2 simply by unifying their address abbreviations ('Shop No. 210, 2nd Flr' vs '210 Second Floor') across 40 Indian directories.",
         ],
       },
       {

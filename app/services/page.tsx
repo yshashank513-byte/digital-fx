@@ -838,7 +838,7 @@ export default function ServicesPage() {
             {/* Modal Actions Footer */}
             <div className="p-4 sm:p-6 bg-white border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
               <a
-                href={`https://wa.me/918447583685?text=Hi%20Digital%20FX,%20I%20want%20to%20know%20more%20about%20your%20${encodeURIComponent(selectedService.title)}%20service.`}
+                href={`https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20want%20to%20know%20more%20about%20your%20${encodeURIComponent(selectedService.title)}%20service.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
@@ -1035,11 +1035,11 @@ export default function ServicesPage() {
                 </div>
                 <div>
                   <div className="text-white font-bold">Direct Phone:</div>
-                  <a href="tel:+918447583685" className="text-blue-400 hover:underline">+91 84475 83685</a>
+                  <a href="tel:+919319807273" className="text-blue-400 hover:underline">+91 93198 07273</a>
                 </div>
                 <div>
                   <div className="text-white font-bold">WhatsApp Desk:</div>
-                  <a href="https://wa.me/918447583685" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">Chat on WhatsApp (24/7 Response)</a>
+                  <a href="https://wa.me/919319807273" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">Chat on WhatsApp (24/7 Response)</a>
                 </div>
               </div>
             </div>

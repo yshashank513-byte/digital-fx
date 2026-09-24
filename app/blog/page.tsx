@@ -253,7 +253,7 @@ export default function BlogIndexPage() {
               <h3 className="text-xs font-black uppercase tracking-wider text-white mb-4">Headquarters</h3>
               <div className="text-xs text-slate-400 space-y-2 font-medium">
                 <div>Shop No. 210, 2nd Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016</div>
-                <div>Phone: <a href="tel:+918447583685" className="text-blue-400 hover:underline">+91 84475 83685</a></div>
+                <div>Phone: <a href="tel:+919319807273" className="text-blue-400 hover:underline">+91 93198 07273</a></div>
               </div>
             </div>
           </div>

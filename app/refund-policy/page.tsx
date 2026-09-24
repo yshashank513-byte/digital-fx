@@ -131,7 +131,7 @@ export default function RefundPolicyPage() {
             </p>
             <div className="mt-3 space-y-1 text-xs text-slate-800 font-medium">
               <div><strong>Billing Desk:</strong> Digital FX Finance &amp; Accounts</div>
-              <div><strong>Direct Support Line:</strong> +91 84475 83685 (9:30 AM – 7:00 PM IST)</div>
+              <div><strong>Direct Support Line:</strong> +91 93198 07273 (9:30 AM – 7:00 PM IST)</div>
               <div><strong>Email:</strong> <a href="mailto:billing@digitalfx.in" className="text-[#207de9] underline">billing@digitalfx.in</a> / <a href="mailto:hello@digitalfx.in" className="text-[#207de9] underline">hello@digitalfx.in</a></div>
               <div><strong>Office Address:</strong> Shop No. 210, Second Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016, India</div>
             </div>

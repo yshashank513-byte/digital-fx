@@ -139,7 +139,7 @@ export default function RootLayout({
                 image: "https://www.digitalfx.in/logo.png",
                 description:
                   "Digital FX is the best digital marketing agency in Ghaziabad - Delhi NCR offering local SEO, Google Maps Top 3 ranking, Google Ads PPC, website development, and AI search optimization for clients across India and the USA.",
-                telephone: "+91 84475 83685",
+                telephone: "+91 93198 07273",
                 email: "hello@digitalfx.in",
                 priceRange: "₹₹ - ₹₹₹₹",
                 address: {
@@ -159,7 +159,7 @@ export default function RootLayout({
                 hasMap: "https://share.google/EIVnaRy9WhkPCi8U8",
                 sameAs: [
                   "https://share.google/EIVnaRy9WhkPCi8U8",
-                  "https://wa.me/918447583685",
+                  "https://wa.me/919319807273",
                 ],
                 openingHoursSpecification: [
                   {
