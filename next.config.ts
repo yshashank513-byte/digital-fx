@@ -57,8 +57,8 @@ const nextConfig: NextConfig = {
         source: "/favicon.ico",
         headers: [
           {
-            key: "X-Robots-Tag",
-            value: "noindex",
+            key: "Cache-Control",
+            value: "public, max-age=86400, must-revalidate",
           },
         ],
       },

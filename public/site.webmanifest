@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "Digital FX",
   "short_name": "Digital FX",
   "icons": [
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#207de9",
+  "background_color": "#207de9",
   "display": "standalone"
 }
