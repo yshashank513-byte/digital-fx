@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { synthesizeReviewDraftLocally } from "@/lib/reviewFlowCategories";
+import { generateNaturalHumanReview, SupportedLanguage } from "@/lib/humanReviewEngine";
 import { recordDraft, saveReviewSession } from "@/lib/reviewFlowStore";
 
 export const dynamic = "force-dynamic";
@@ -12,12 +13,14 @@ export async function POST(request: Request) {
       businessName = "Digital FX",
       category = "Digital Marketing Agency",
       customerRating = 5,
+      language = "en",
       answers = {},
       optionalNotes = "",
       sessionId,
     } = body;
 
     const ratingNum = Math.min(5, Math.max(1, Number(customerRating) || 5));
+    const lang = (["en", "hi", "hinglish", "mr"].includes(language) ? language : "en") as SupportedLanguage;
     const entries = Object.entries(answers || {}).filter(([_, v]) => Boolean(v && String(v).trim()));
 
     let generatedDraft = "";
@@ -26,22 +29,22 @@ export async function POST(request: Request) {
     const openAiKey = process.env.OPENAI_API_KEY;
     if (openAiKey && openAiKey.startsWith("sk-")) {
       try {
-        const answersSummary = entries
-          .map(([k, v]) => `- ${k}: ${v}`)
-          .join("\n");
+        const langDescriptions: Record<SupportedLanguage, string> = {
+          en: "Simple, casual Indian English. Natural everyday phrasing. No robotic AI vocabulary.",
+          hi: "Natural Hindi in Devanagari script (हिंदी). Common spoken words. Polite and genuine.",
+          hinglish: "Romanized Hindi / Hinglish (e.g. 'bohot achha kaam kiya team ne, response fast hai'). Everyday colloquial phrasing.",
+          mr: "Natural Marathi script (मराठी). Genuine and respectful regional phrasing.",
+        };
 
-        const prompt = `You are a real customer writing an authentic, natural Google review for "${businessName}" (${category}).
-Customer Star Rating: ${ratingNum}/5
-Actual Experience Details provided by the customer:
-${answersSummary || "- Good overall service"}
-${optionalNotes ? `Additional customer note: "${optionalNotes}"` : ""}
+        const prompt = `Write a realistic, 100% natural, human Google review for "${businessName}" (${category}).
+Language requirement: ${langDescriptions[lang]}
+Customer Rating: ${ratingNum}/5 stars
 
-STRICT COMPLIANCE RULES:
-1. Base the review ONLY on the answers above. NEVER invent or fabricate facts not mentioned.
-2. Tone must strictly match the customer's actual sentiment (${ratingNum >= 4 ? "positive and pleased" : ratingNum === 3 ? "fair and balanced" : "honest and constructive"}).
-3. Write 2 to 3 natural sentences in first person ("I had...", "The team was...", "We found...").
-4. Keep it conversational, helpful for local searchers, and sound like a genuine customer, NOT marketing copy or AI.
-5. Return ONLY the review text. Do not wrap in quotes or add headers.`;
+STRICT RULES TO PREVENT GOOGLE SPAM / DUPLICATE DETECTION:
+1. MUST sound like an ordinary customer typing on a phone. NEVER use robotic, poetic, or marketing words (NO "testament", "delighted", "exemplary", "unparalleled", "beacon").
+2. Write 2-3 short, clear sentences.
+3. Vary sentence structures to guarantee high uniqueness so Google's algorithm does not flag duplicate patterns.
+4. Return ONLY the review text. No quotes.`;
 
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
@@ -78,14 +81,13 @@ STRICT COMPLIANCE RULES:
       }
     }
 
-    // 2. Fallback to local intelligent natural language synthesizer if AI was not returned
+    // 2. Fallback to local human review generator with zero duplicate patterns
     if (!generatedDraft) {
-      generatedDraft = synthesizeReviewDraftLocally(
+      generatedDraft = generateNaturalHumanReview(
         businessName,
         category,
-        ratingNum,
-        answers,
-        optionalNotes
+        lang,
+        Date.now() + Math.random() * 1000
       );
     }
 
