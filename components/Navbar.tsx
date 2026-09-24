@@ -185,11 +185,11 @@ export default function Navbar({
             <img
               src="/logo.svg"
               alt="Digital FX - Business Solution"
-              width={154}
-              height={41}
+              width={176}
+              height={46}
               decoding="async"
-              style={{ height: "40px", width: "auto" }}
-              className="h-8.5 sm:h-10 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
+              style={{ height: "46px", width: "auto" }}
+              className="h-10 sm:h-[46px] w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
             />
           </Link>
 
@@ -440,7 +440,7 @@ export default function Navbar({
               {/* Drawer Header */}
               <div className="flex items-center justify-between border-b border-slate-100 pb-5">
                 <div className="flex items-center">
-                  <img src="/logo.svg" alt="Digital FX" width={135} height={36} decoding="async" style={{ height: "34px", width: "auto" }} className="h-8.5 w-auto object-contain shrink-0" />
+                  <img src="/logo.svg" alt="Digital FX" width={145} height={38} decoding="async" style={{ height: "38px", width: "auto" }} className="h-9.5 w-auto object-contain shrink-0" />
                 </div>
                 <button
                   type="button"
