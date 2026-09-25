@@ -706,10 +706,10 @@ export default function Footer() {
 
                 {/* 4. Instagram */}
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/digitalfx.in?stkn=Y2owZTN4ZTd2cm5p"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Instagram"
+                  aria-label="Follow Digital FX on Instagram"
                   className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white flex items-center justify-center shadow-xs hover:opacity-90 hover:scale-105 transition-all active:scale-95 cursor-pointer"
                 >
                   <InstagramLogo />

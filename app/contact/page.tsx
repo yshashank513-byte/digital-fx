@@ -105,6 +105,22 @@ export default function ContactPage() {
                       <span className="text-[11px] text-slate-500">Guaranteed response within 24 hours</span>
                     </div>
                   </div>
+
+                  <a
+                    href="https://www.instagram.com/digitalfx.in?stkn=Y2owZTN4ZTd2cm5p"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-pink-300 hover:bg-pink-50/30 transition-all group"
+                  >
+                    <span className="text-xl">📸</span>
+                    <div>
+                      <strong className="text-slate-900 block font-bold group-hover:text-[#DD2A7B] transition-colors">Official Instagram</strong>
+                      <span className="text-[#1570ef] font-bold text-sm group-hover:text-[#DD2A7B] block">
+                        @digitalfx.in ↗
+                      </span>
+                      <span className="text-[11px] text-slate-500">Follow us for real-time marketing breakdowns &amp; client results</span>
+                    </div>
+                  </a>
                 </div>
 
                 {/* Google Map Embed & Verified Listing Button */}
