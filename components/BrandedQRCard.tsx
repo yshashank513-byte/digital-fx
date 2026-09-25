@@ -12,6 +12,7 @@ import {
 export interface BrandedQRCardProps {
   businessName: string;
   businessId: string;
+  category?: string;
   reviewUrl?: string;
   className?: string;
   compact?: boolean;
@@ -27,6 +28,7 @@ export interface BrandedQRCardProps {
 export default function BrandedQRCard({
   businessName,
   businessId,
+  category,
   reviewUrl = `/r/${businessId}`,
   className = "",
   compact = false,

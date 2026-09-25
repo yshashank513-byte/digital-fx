@@ -51,6 +51,25 @@ export async function generateQRCodeSVG(
   });
 }
 
+function escapeXml(unsafe: string): string {
+  return String(unsafe || "").replace(/[<>&"']/g, (c) => {
+    switch (c) {
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      case "&":
+        return "&amp;";
+      case '"':
+        return "&quot;";
+      case "'":
+        return "&apos;";
+      default:
+        return c;
+    }
+  });
+}
+
 /**
  * Generates a professional, branded marketing QR card SVG.
  * Includes official Digital FX company logo at top, high-contrast QR with safe quiet zone in center,
@@ -68,7 +87,10 @@ export async function generateBrandedQRCodeSVG(
     color: "#080d24",
   });
 
-  const subtitle = businessName ? `Rate ${businessName}` : "SCAN TO RATE YOUR EXPERIENCE";
+  const safeName = businessName ? escapeXml(businessName.trim().slice(0, 80)) : "";
+  const subtitle = safeName ? `Rate ${safeName}` : "SCAN TO RATE YOUR EXPERIENCE";
+  const safeCompanyName = escapeXml(COMPANY_NAME);
+  const safePhone = escapeXml(COMPANY_PHONE);
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 740" width="560" height="740">
   <defs>
@@ -98,12 +120,12 @@ export async function generateBrandedQRCodeSVG(
 
   <!-- Footer Branding Section -->
   <text x="280" y="594" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#64748b">Managed by</text>
-  <text x="280" y="622" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#080d24" letter-spacing="-0.3">${COMPANY_NAME}</text>
+  <text x="280" y="622" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#080d24" letter-spacing="-0.3">${safeCompanyName}</text>
 
   <!-- Centralized Company Phone Contact Pill -->
   <g transform="translate(165, 640)">
     <rect width="230" height="40" rx="20" fill="#080d24"/>
-    <text x="115" y="25" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="700" fill="#ffffff">📞  ${COMPANY_PHONE}</text>
+    <text x="115" y="25" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="700" fill="#ffffff">📞  ${safePhone}</text>
   </g>
 
   <!-- Verified Trust Microcopy -->

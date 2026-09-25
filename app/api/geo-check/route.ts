@@ -1,9 +1,20 @@
 import { NextResponse } from "next/server";
 import { supabase } from "../../lib/supabase";
 import dns from "dns/promises";
+import { safeFetchHtml } from "@/lib/ssrfProtection";
+import { checkRateLimit, getClientIp, rateLimitExceededResponse } from "@/lib/rateLimit";
 
 export async function POST(request: Request) {
   try {
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(`geocheck:${clientIp}`, {
+      windowMs: 60 * 1000,
+      max: 15,
+    });
+    if (!rateLimit.success) {
+      return rateLimitExceededResponse(rateLimit);
+    }
+
     const body = await request.json();
     const inputUrl = String(body?.url || body?.website || "").trim();
 
@@ -39,36 +50,44 @@ export async function POST(request: Request) {
     }
 
     // =====================================================
-    // FETCH WEBSITE
+    // FETCH WEBSITE (SSRF PROTECTED)
     // =====================================================
 
     const startTime = Date.now();
 
-    const response = await fetch(websiteUrl, {
-      method: "GET",
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (compatible; DigitalFXChecker/1.0)",
-        Accept:
-          "text/html,application/xhtml+xml,text/html",
-      },
-      redirect: "follow",
-      cache: "no-store",
-    });
-
-    const responseTime = Date.now() - startTime;
-
-    if (!response.ok) {
+    let fetchResult;
+    try {
+      fetchResult = await safeFetchHtml(websiteUrl, {
+        timeoutMs: 10000,
+        maxBytes: 3 * 1024 * 1024,
+        headers: {
+          "User-Agent": "Mozilla/5.0 (compatible; DigitalFXChecker/1.0)",
+          Accept: "text/html,application/xhtml+xml,text/html",
+        },
+      });
+    } catch (ssrfErr: any) {
       return NextResponse.json(
         {
           success: false,
-          error: `Website returned HTTP ${response.status}.`,
+          error: ssrfErr.message || "Unable to securely analyze the specified URL.",
         },
         { status: 400 }
       );
     }
 
-    const html = await response.text();
+    const responseTime = Date.now() - startTime;
+
+    if (!fetchResult.ok) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Website returned HTTP ${fetchResult.status}.`,
+        },
+        { status: 400 }
+      );
+    }
+
+    const html = fetchResult.text;
 
     // =====================================================
     // BASIC HTML ANALYSIS

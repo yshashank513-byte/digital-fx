@@ -1,10 +1,20 @@
 import { NextResponse } from "next/server";
 import { recordScan, recordVisit, recordGoogleClick, saveReviewSession } from "@/lib/reviewFlowStore";
+import { checkRateLimit, getClientIp, rateLimitExceededResponse } from "@/lib/rateLimit";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   try {
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(`reviewflow-track:${clientIp}`, {
+      windowMs: 60 * 1000,
+      max: 60,
+    });
+
+    if (!rateLimit.success) {
+      return rateLimitExceededResponse(rateLimit);
+    }
     const body = await request.json();
     const { businessId, eventType, sessionData } = body;
 

@@ -39,77 +39,44 @@ export async function POST(request: Request) {
     // PAYU VARIABLES
     // ========================================
 
-    const salt = (
-      process.env.PAYU_MERCHANT_SALT ||
-      "y1RKvf6QsKOZqekS1YPgL8Iwqfi87kXh"
-    ).trim();
+    const salt = (process.env.PAYU_MERCHANT_SALT || "").trim();
+    if (!salt) {
+      console.error("PAYU SECURITY CONFIG ERROR: PAYU_MERCHANT_SALT environment variable is missing.");
+      return NextResponse.redirect(
+        new URL("/payment/failure?reason=config_error", request.url),
+        303
+      );
+    }
 
-    const status =
-      data.status || "";
-
-    const key =
-      data.key || "";
-
-    const txnid =
-      data.txnid || "";
-
-    const amount =
-      data.amount || "";
-
-    const productinfo =
-      data.productinfo || "";
-
-    const firstname =
-      data.firstname || "";
-
-    const email =
-      data.email || "";
-
-    const phone =
-      data.phone || "";
-
-    const udf1 =
-      data.udf1 || "";
-
-    const udf2 =
-      data.udf2 || "";
-
-    const udf3 =
-      data.udf3 || "";
-
-    const udf4 =
-      data.udf4 || "";
-
-    const udf5 =
-      data.udf5 || "";
-
-    const hash =
-      data.hash || "";
+    const status = data.status || "";
+    const key = data.key || "";
+    const txnid = data.txnid || "";
+    const amount = data.amount || "";
+    const productinfo = data.productinfo || "";
+    const firstname = data.firstname || "";
+    const email = data.email || "";
+    const phone = data.phone || "";
+    const udf1 = data.udf1 || "";
+    const udf2 = data.udf2 || "";
+    const udf3 = data.udf3 || "";
+    const udf4 = data.udf4 || "";
+    const udf5 = data.udf5 || "";
+    const hash = data.hash || "";
 
     // ========================================
     // VALIDATION
     // ========================================
 
-    if (
-      !status ||
-      !txnid ||
-      !amount ||
-      !hash
-    ) {
-      console.error(
-        "INVALID PAYU RESPONSE",
-        {
-          status,
-          txnid,
-          amount,
-        }
-      );
+    if (!status || !txnid || !amount || !hash) {
+      console.error("INVALID PAYU RESPONSE: Missing required transaction parameters", {
+        hasStatus: Boolean(status),
+        hasTxnid: Boolean(txnid),
+        hasAmount: Boolean(amount),
+        hasHash: Boolean(hash),
+      });
 
       return NextResponse.redirect(
-        new URL(
-          "/payment/failure?reason=invalid_response",
-          request.url
-        ),
+        new URL("/payment/failure?reason=invalid_response", request.url),
         303
       );
     }
@@ -146,26 +113,56 @@ export async function POST(request: Request) {
     const calculatedHash1 = crypto
       .createHash("sha512")
       .update(reverseHashWithCharges)
-      .digest("hex");
+      .digest("hex")
+      .toLowerCase();
 
     const calculatedHash2 = crypto
       .createHash("sha512")
       .update(baseHash)
-      .digest("hex");
+      .digest("hex")
+      .toLowerCase();
+
+    const receivedHashLower = hash.toLowerCase();
+
+    // Timing-safe comparison to prevent side-channel timing leaks
+    const matchesHash = (calc: string, rec: string): boolean => {
+      try {
+        const bCalc = Buffer.from(calc);
+        const bRec = Buffer.from(rec);
+        return bCalc.length === bRec.length && crypto.timingSafeEqual(bCalc, bRec);
+      } catch {
+        return false;
+      }
+    };
 
     const validHash =
-      calculatedHash1.toLowerCase() === hash.toLowerCase() ||
-      calculatedHash2.toLowerCase() === hash.toLowerCase();
+      matchesHash(calculatedHash1, receivedHashLower) ||
+      matchesHash(calculatedHash2, receivedHashLower);
 
     if (!validHash) {
-      console.warn(
-        "PAYU HASH VERIFICATION WARNING - Proceeding with verified status check",
-        {
-          txnid,
-          amount,
-          receivedHash: hash,
-          calculatedHash1,
-        }
+      console.error(
+        "PAYU SIGNATURE VERIFICATION FAILED: Potential tampering or invalid hash.",
+        { txnid }
+      );
+
+      // Record failed transaction attempt safely
+      try {
+        const supabase = getAdminSupabase();
+        await supabase
+          .from("payments")
+          .update({
+            status: "failed",
+            updated_at: new Date().toISOString(),
+          })
+          .eq("txnid", txnid);
+      } catch (_) {}
+
+      return NextResponse.redirect(
+        new URL(
+          "/payment/failure?reason=tampered_signature&txnid=" + encodeURIComponent(txnid),
+          request.url
+        ),
+        303
       );
     }
 

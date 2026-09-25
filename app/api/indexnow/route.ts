@@ -1,11 +1,21 @@
 import { NextResponse } from "next/server";
 import { CANONICAL_LOCATION_SLUGS } from "@/lib/citySeoData";
 import { BLOG_POSTS } from "@/lib/blogData";
+import { checkRateLimit, getClientIp, rateLimitExceededResponse } from "@/lib/rateLimit";
 
 const INDEXNOW_KEY = "dfx7e29b14c3894a0f684c9823eb512a";
 const HOST = "www.digitalfx.in";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const clientIp = getClientIp(request);
+  const rateLimit = checkRateLimit(`indexnow:${clientIp}`, {
+    windowMs: 60 * 60 * 1000,
+    max: 3,
+  });
+
+  if (!rateLimit.success) {
+    return rateLimitExceededResponse(rateLimit);
+  }
   const staticUrls = [
     `https://${HOST}`,
     `https://${HOST}/sitemap.xml`,

@@ -2,11 +2,21 @@ import { NextResponse } from "next/server";
 import { synthesizeReviewDraftLocally } from "@/lib/reviewFlowCategories";
 import { generateNaturalHumanReview, SupportedLanguage } from "@/lib/humanReviewEngine";
 import { recordDraft, saveReviewSession } from "@/lib/reviewFlowStore";
+import { checkRateLimit, getClientIp, rateLimitExceededResponse } from "@/lib/rateLimit";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   try {
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(`reviewflow-draft:${clientIp}`, {
+      windowMs: 60 * 1000,
+      max: 20,
+    });
+
+    if (!rateLimit.success) {
+      return rateLimitExceededResponse(rateLimit);
+    }
     const body = await request.json();
     const {
       businessId = "digital-fx",

@@ -4,27 +4,30 @@ import { verifyAdminAuth } from "@/lib/adminApiAuth";
 
 export const dynamic = "force-dynamic";
 
+function getAdminSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+  if (!supabaseUrl || !serviceKey) {
+    throw new Error("Supabase configuration is missing.");
+  }
+
+  return createClient(supabaseUrl, serviceKey, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+}
+
 export async function GET(request: Request) {
   try {
     const authResult = await verifyAdminAuth(request);
     if (!authResult.authorized) {
       return authResult.response!;
     }
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const anonKey =
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-    if (!supabaseUrl || !anonKey) {
-      return NextResponse.json(
-        { success: false, error: "Supabase configuration is missing." },
-        { status: 500 }
-      );
-    }
-
-    const client = createClient(supabaseUrl, anonKey, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    });
+    const client = getAdminSupabaseClient();
 
     const url = new URL(request.url);
     const filter = url.searchParams.get("filter") || "all";

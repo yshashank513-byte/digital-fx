@@ -12,11 +12,20 @@ import {
   COMPANY_PHONE,
   COMPANY_LOGO_DATA_URI,
 } from "@/lib/companyBranding";
+import { checkRateLimit, getClientIp, rateLimitExceededResponse } from "@/lib/rateLimit";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   try {
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(`qr-gen:${clientIp}`, {
+      windowMs: 60 * 1000,
+      max: 60,
+    });
+    if (!rateLimit.success) {
+      return rateLimitExceededResponse(rateLimit);
+    }
     const url = new URL(request.url);
     const businessId = url.searchParams.get("businessId") || "digital-fx";
     const format = url.searchParams.get("format") || "json"; // 'json', 'svg', 'png'

@@ -158,48 +158,108 @@ export default function AdminClientLayout({
     );
   }
 
+  const [pendingApprovalsCount, setPendingApprovalsCount] = useState<number>(0);
+
+  useEffect(() => {
+    async function fetchPendingCount() {
+      try {
+        const res = await fetch("/api/reviewflow/businesses?analytics=true");
+        const json = await res.json();
+        if (json.success && json.analytics) {
+          setPendingApprovalsCount(json.analytics.pendingApprovals || 0);
+        }
+      } catch {}
+    }
+    fetchPendingCount();
+  }, [pathname]);
+
   const navItems = [
     {
-      label: "Dashboard",
-      href: "/admin",
-      icon: "▦",
-      active: pathname === "/admin",
+      group: "Overview & CRM",
+      items: [
+        {
+          label: "Dashboard",
+          href: "/admin",
+          icon: "▦",
+          active: pathname === "/admin",
+        },
+        {
+          label: "Enquiries",
+          href: "/admin/enquiries",
+          icon: "◉",
+          active: pathname === "/admin/enquiries",
+        },
+      ],
     },
     {
-      label: "Enquiries",
-      href: "/admin/enquiries",
-      icon: "◉",
-      active: pathname === "/admin/enquiries",
+      group: "ReviewFlow AI & Dynamic QR",
+      items: [
+        {
+          label: "Businesses",
+          href: "/admin/businesses",
+          icon: "🏢",
+          active: pathname.startsWith("/admin/businesses"),
+        },
+        {
+          label: "Review QR Codes",
+          href: "/admin/review-qr",
+          icon: "📲",
+          active: pathname.startsWith("/admin/review-qr"),
+        },
+        {
+          label: "Pending Approvals",
+          href: "/admin/approvals",
+          icon: "⏳",
+          badge: pendingApprovalsCount > 0 ? pendingApprovalsCount : undefined,
+          active: pathname === "/admin/approvals",
+        },
+        {
+          label: "Analytics & Funnel",
+          href: "/admin/analytics",
+          icon: "📈",
+          active: pathname === "/admin/analytics",
+        },
+      ],
     },
     {
-      label: "Packers Enquiry",
-      href: "/admin/packers-enquiry",
-      icon: "🚚",
-      active: pathname === "/admin/packers-enquiry",
+      group: "Sales & Proposals",
+      items: [
+        {
+          label: "Website Analyses",
+          href: "/admin/analyses",
+          icon: "⚡",
+          active: pathname === "/admin/analyses",
+        },
+        {
+          label: "Strategic Proposals",
+          href: "/admin/proposals",
+          icon: "📑",
+          active: pathname === "/admin/proposals",
+        },
+        {
+          label: "Packers Enquiry",
+          href: "/admin/packers-enquiry",
+          icon: "🚚",
+          active: pathname === "/admin/packers-enquiry",
+        },
+        {
+          label: "Payments",
+          href: "/admin/payments",
+          icon: "₹",
+          active: pathname === "/admin/payments",
+        },
+      ],
     },
     {
-      label: "Website Analyses",
-      href: "/admin/analyses",
-      icon: "⚡",
-      active: pathname === "/admin/analyses",
-    },
-    {
-      label: "Strategic Proposals",
-      href: "/admin/proposals",
-      icon: "📑",
-      active: pathname === "/admin/proposals",
-    },
-    {
-      label: "Payments",
-      href: "/admin/payments",
-      icon: "₹",
-      active: pathname === "/admin/payments",
-    },
-    {
-      label: "Settings",
-      href: "/admin/settings",
-      icon: "⚙",
-      active: pathname === "/admin/settings",
+      group: "Administration",
+      items: [
+        {
+          label: "Settings",
+          href: "/admin/settings",
+          icon: "⚙",
+          active: pathname === "/admin/settings",
+        },
+      ],
     },
   ];
 
@@ -224,24 +284,42 @@ export default function AdminClientLayout({
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex-1 space-y-1 overflow-y-auto p-4">
-          <div className="px-3 pb-2 text-[9px] font-extrabold uppercase tracking-[2px] text-slate-400">
-            Workspace Navigation
-          </div>
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={
-                "flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold transition duration-150 " +
-                (item.active
-                  ? "bg-[#207de9] text-white shadow-xs"
-                  : "text-slate-600 hover:bg-slate-100/80 hover:text-[#080d24]")
-              }
-            >
-              <span className="w-5 text-center text-sm">{item.icon}</span>
-              <span>{item.label}</span>
-            </Link>
+        <nav className="flex-1 space-y-4 overflow-y-auto px-4 py-3">
+          {navItems.map((section) => (
+            <div key={section.group} className="space-y-1">
+              <div className="px-3 pb-1 text-[9px] font-extrabold uppercase tracking-[1.5px] text-slate-400">
+                {section.group}
+              </div>
+              {section.items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={
+                    "flex items-center justify-between rounded-xl px-3.5 py-2.5 text-xs font-bold transition duration-150 " +
+                    (item.active
+                      ? "bg-[#207de9] text-white shadow-xs"
+                      : "text-slate-600 hover:bg-slate-100/80 hover:text-[#080d24]")
+                  }
+                >
+                  <div className="flex items-center gap-2.5 truncate">
+                    <span className="w-4 text-center text-sm">{item.icon}</span>
+                    <span className="truncate">{item.label}</span>
+                  </div>
+                  {item.badge !== undefined && (
+                    <span
+                      className={
+                        "rounded-full px-2 py-0.5 text-[10px] font-black leading-none " +
+                        (item.active
+                          ? "bg-white text-[#207de9]"
+                          : "bg-amber-100 text-amber-800 border border-amber-300 animate-pulse")
+                      }
+                    >
+                      {item.badge}
+                    </span>
+                  )}
+                </Link>
+              ))}
+            </div>
           ))}
         </nav>
 
@@ -327,22 +405,43 @@ export default function AdminClientLayout({
               </button>
             </div>
 
-            <nav className="mt-6 flex-1 space-y-1.5">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={
-                    "flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-bold transition " +
-                    (item.active
-                      ? "bg-[#207de9] text-white"
-                      : "text-slate-700 hover:bg-slate-100")
-                  }
-                >
-                  <span className="w-5 text-center text-sm">{item.icon}</span>
-                  <span>{item.label}</span>
-                </Link>
+            <nav className="mt-6 flex-1 space-y-4 overflow-y-auto">
+              {navItems.map((section) => (
+                <div key={section.group} className="space-y-1">
+                  <div className="px-3 pb-1 text-[9px] font-extrabold uppercase tracking-[1.5px] text-slate-400">
+                    {section.group}
+                  </div>
+                  {section.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={
+                        "flex items-center justify-between rounded-xl px-3.5 py-2.5 text-xs font-bold transition " +
+                        (item.active
+                          ? "bg-[#207de9] text-white shadow-xs"
+                          : "text-slate-700 hover:bg-slate-100")
+                      }
+                    >
+                      <div className="flex items-center gap-2.5 truncate">
+                        <span className="w-4 text-center text-sm">{item.icon}</span>
+                        <span className="truncate">{item.label}</span>
+                      </div>
+                      {item.badge !== undefined && (
+                        <span
+                          className={
+                            "rounded-full px-2 py-0.5 text-[10px] font-black leading-none " +
+                            (item.active
+                              ? "bg-white text-[#207de9]"
+                              : "bg-amber-100 text-amber-800 border border-amber-300")
+                          }
+                        >
+                          {item.badge}
+                        </span>
+                      )}
+                    </Link>
+                  ))}
+                </div>
               ))}
             </nav>
 
@@ -380,7 +479,7 @@ export default function AdminClientLayout({
             </span>
             <span className="text-slate-300">/</span>
             <span className="font-bold text-[#080d24]">
-              {navItems.find((n) => n.active)?.label || "Dashboard"}
+              {navItems.flatMap((g) => g.items).find((n) => n.active)?.label || "Dashboard"}
             </span>
           </div>
 

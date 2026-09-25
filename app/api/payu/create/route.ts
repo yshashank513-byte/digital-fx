@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-
 import { supabase } from "../../../lib/supabase";
+import { checkRateLimit, getClientIp, rateLimitExceededResponse } from "@/lib/rateLimit";
 
 const PLANS = {
   google_listing: {
@@ -29,6 +29,15 @@ type PlanId = (keyof typeof PLANS) | "custom";
 
 export async function POST(request: Request) {
   try {
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(`payu:create:${clientIp}`, {
+      windowMs: 10 * 60 * 1000,
+      max: 15,
+    });
+
+    if (!rateLimit.success) {
+      return rateLimitExceededResponse(rateLimit);
+    }
     const body = await request.json();
 
     const planId = String(
@@ -93,24 +102,23 @@ export async function POST(request: Request) {
     }
 
     // ========================================
-    // PAYU CREDENTIALS (WITH TEST FALLBACK)
+    // ========================================
+    // PAYU CREDENTIALS
     // ========================================
 
-    const merchantKey = (
-      process.env.PAYU_MERCHANT_KEY || "Keiaiw"
-    ).trim();
+    const merchantKey = (process.env.PAYU_MERCHANT_KEY || "").trim();
+    const merchantSalt = (process.env.PAYU_MERCHANT_SALT || "").trim();
 
-    const merchantSalt = (
-      process.env.PAYU_MERCHANT_SALT || "y1RKvf6QsKOZqekS1YPgL8Iwqfi87kXh"
-    ).trim();
+    if (!merchantKey || !merchantSalt) {
+      console.error("PAYU CONFIGURATION ERROR: PAYU_MERCHANT_KEY or PAYU_MERCHANT_SALT is not configured.");
+      return NextResponse.json(
+        { success: false, error: "Payment processing is currently unavailable. Please contact support." },
+        { status: 503 }
+      );
+    }
 
     const requestUrl = new URL(request.url);
-    const hostHeader = request.headers.get("x-forwarded-host") || request.headers.get("host") || requestUrl.host;
-    const protoHeader = request.headers.get("x-forwarded-proto") || requestUrl.protocol.replace(":", "");
-    const originHeader = request.headers.get("origin");
     const siteUrl = (
-      originHeader ||
-      (hostHeader ? `${protoHeader}://${hostHeader}` : "") ||
       process.env.NEXT_PUBLIC_SITE_URL ||
       `${requestUrl.protocol}//${requestUrl.host}`
     ).replace(/\/$/, "");
@@ -188,24 +196,6 @@ export async function POST(request: Request) {
       udf5 +
       "||||||" +
       merchantSalt;
-
-    console.log(
-      "PAYU HASH DEBUG:",
-      {
-        keyLength: merchantKey.length,
-        txnid,
-        amount,
-        productinfo,
-        firstname,
-        email,
-        udf1,
-        hashStringWithoutSalt:
-          hashString.replace(
-            merchantSalt,
-            "[SALT]"
-          ),
-      }
-    );
 
     const hash = crypto
       .createHash("sha512")

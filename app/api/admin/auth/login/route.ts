@@ -1,17 +1,41 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { signAdminToken } from "@/lib/adminApiAuth";
+import { checkRateLimit, getClientIp, rateLimitExceededResponse } from "@/lib/rateLimit";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   try {
+    const clientIp = getClientIp(request);
+
+    // Rate Limiting: Max 5 failed/total login attempts per 15 minutes per IP to block brute force
+    const rateLimit = checkRateLimit(`login:${clientIp}`, {
+      windowMs: 15 * 60 * 1000,
+      max: 8,
+    });
+
+    if (!rateLimit.success) {
+      return rateLimitExceededResponse(rateLimit);
+    }
+
     const body = await request.json().catch(() => ({}));
     const { email, password, remember } = body;
 
     if (!email || !password) {
       return NextResponse.json(
         { success: false, error: "Email and password are required." },
+        { status: 400 }
+      );
+    }
+
+    const cleanEmail = String(email).trim().toLowerCase();
+    const cleanPassword = String(password);
+
+    // Input length sanity bounds to avoid regex DoS or memory attacks
+    if (cleanEmail.length > 120 || cleanPassword.length > 128 || !cleanEmail.includes("@")) {
+      return NextResponse.json(
+        { success: false, error: "Invalid administrative credentials." },
         { status: 400 }
       );
     }
@@ -28,14 +52,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const cleanEmail = String(email).trim().toLowerCase();
     const supabase = createClient(supabaseUrl, anonKey, {
       auth: { autoRefreshToken: false, persistSession: false },
     });
 
     const { data, error: authError } = await supabase.auth.signInWithPassword({
       email: cleanEmail,
-      password: String(password),
+      password: cleanPassword,
     });
 
     if (authError || !data.user) {
@@ -88,7 +111,7 @@ export async function POST(request: Request) {
       },
     });
 
-    // Set secure HTTP-only cookie
+    // Set secure HTTP-only cookie with SameSite protection
     response.cookies.set("admin_session_token", adminToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

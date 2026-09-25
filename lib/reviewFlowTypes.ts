@@ -14,6 +14,14 @@ export type BusinessCategory =
   | "Local Services"
   | "Other";
 
+export type QRStatus =
+  | "draft"
+  | "pending_approval"
+  | "approved"
+  | "active"
+  | "deactivated"
+  | "rejected";
+
 export interface QuestionTemplate {
   id: string;
   question: string;
@@ -25,22 +33,39 @@ export interface QuestionTemplate {
 }
 
 export interface BusinessProfile {
-  id: string; // slug, e.g. "digital-fx"
+  id: string; // unique slug or identifier, e.g. "digital-fx" or "biz_abc123"
+  qrId: string; // unique dynamic QR identifier, e.g. "rf_digital_fx" or "rf_9a2f1c"
   name: string;
   category: BusinessCategory;
-  logoUrl?: string;
+  ownerName?: string;
+  phone: string;
+  email?: string;
+  website?: string;
   address: string;
   city?: string;
-  phone?: string;
-  website?: string;
+  state?: string;
+  pincode?: string;
   googleReviewUrl: string;
   placeId?: string;
+  logoUrl?: string;
   brandColor?: string; // hex
-  active: boolean;
+  additionalNotes?: string;
+
+  // Status & Approval workflow
+  status: QRStatus;
+  active: boolean; // true when status === 'active'
+  submittedBy?: string;
+  approvalDate?: string;
+  rejectionReason?: string;
+  deactivatedReason?: string;
+  deleted?: boolean; // soft-delete flag
+
+  // Analytics
   totalScans: number;
   totalVisits: number;
   totalDrafts: number;
   totalGoogleClicks: number;
+
   createdAt: string;
   updatedAt: string;
 }
@@ -67,6 +92,11 @@ export interface ReviewSession {
 export interface ReviewFlowAnalyticsSummary {
   totalBusinesses: number;
   totalQRCodes: number;
+  pendingApprovals: number;
+  activeQRCodes: number;
+  deactivatedQRCodes: number;
+  rejectedBusinesses: number;
+  draftBusinesses: number;
   totalScans: number;
   totalVisits: number;
   totalDrafts: number;

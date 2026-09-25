@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { checkRateLimit, getClientIp, rateLimitExceededResponse } from "@/lib/rateLimit";
 
 export interface MetricDetail {
   title: string;
@@ -194,6 +195,15 @@ function generateDeterministicFallback(
 }
 
 export async function GET(request: Request) {
+  const clientIp = getClientIp(request);
+  const rateLimit = checkRateLimit(`pagespeed:${clientIp}`, {
+    windowMs: 60 * 1000,
+    max: 20,
+  });
+  if (!rateLimit.success) {
+    return rateLimitExceededResponse(rateLimit);
+  }
+
   const { searchParams } = new URL(request.url);
   const rawUrl = searchParams.get("url");
   const strategyParam = searchParams.get("strategy") || "mobile";
@@ -208,6 +218,15 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(`pagespeed:${clientIp}`, {
+      windowMs: 60 * 1000,
+      max: 20,
+    });
+    if (!rateLimit.success) {
+      return rateLimitExceededResponse(rateLimit);
+    }
+
     const body = await request.json();
     const rawUrl = body.url || body.website;
     const strategyParam = body.strategy || "mobile";
@@ -219,7 +238,7 @@ export async function POST(request: Request) {
 
     return runPageSpeedAudit(rawUrl, strategy);
   } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message || "Invalid request." }, { status: 400 });
+    return NextResponse.json({ success: false, error: "Invalid request format." }, { status: 400 });
   }
 }
 
@@ -236,7 +255,13 @@ async function runPageSpeedAudit(rawUrl: string, strategy: "mobile" | "desktop")
   const apiKey =
     process.env.GOOGLE_PAGESPEED_API_KEY ||
     process.env.GOOGLE_PLACES_API_KEY ||
-    "AIzaSyC8vT_q7hBsYHBrSjGV1GFZF8smdEZM6Uc";
+    "";
+
+  if (!apiKey) {
+    // Graceful fallback to deterministic analysis if no external Google API key is configured
+    const fallback = generateDeterministicFallback(targetUrl, strategy);
+    return NextResponse.json({ success: true, data: fallback, cached: false });
+  }
 
   try {
     const apiUrl = `https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(

@@ -1039,7 +1039,7 @@ export default function ReviewFlowLandingClient() {
             <Link href="/privacy-policy" className="hover:text-white transition">Privacy Policy</Link>
             {/* Discrete Admin Portal for Management */}
             <Link
-              href="/reviewflow/dashboard"
+              href="/admin"
               className="text-[#207de9] hover:text-blue-400 font-bold transition flex items-center gap-1"
             >
               <span>🔒 Admin Dashboard</span>

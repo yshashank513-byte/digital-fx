@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { verifyAdminAuth } from "@/lib/adminApiAuth";
+import { getAnalyticsSummary } from "@/lib/reviewFlowStore";
 
 export const dynamic = "force-dynamic";
 
@@ -35,8 +36,8 @@ export async function GET(request: Request) {
         })
       : clientPublic;
 
-    // Parallel fetch from all real database tables
-    const [enquiriesRes, geoRes, paymentsRes] = await Promise.all([
+    // Parallel fetch from all real database tables and ReviewFlow store
+    const [enquiriesRes, geoRes, paymentsRes, reviewFlowSummary] = await Promise.all([
       clientPublic
         .from("enquiries")
         .select("*")
@@ -49,6 +50,22 @@ export async function GET(request: Request) {
         .from("payments")
         .select("*")
         .order("created_at", { ascending: false }),
+      getAnalyticsSummary().catch(() => ({
+        totalBusinesses: 0,
+        totalQRCodes: 0,
+        pendingApprovals: 0,
+        activeQRCodes: 0,
+        deactivatedQRCodes: 0,
+        rejectedBusinesses: 0,
+        draftBusinesses: 0,
+        totalScans: 0,
+        totalVisits: 0,
+        totalDrafts: 0,
+        totalGoogleClicks: 0,
+        conversionRate: 0,
+        recentSessions: [],
+        categoryBreakdown: {},
+      })),
     ]);
 
     const PURGE_TIMESTAMP = "2026-09-19T00:00:00.000Z";
@@ -82,7 +99,9 @@ export async function GET(request: Request) {
 
     // Revenue from verified successful payments ONLY
     const successfulPayments = payments.filter(
-      (p) => String(p.status || "").toLowerCase() === "success" || String(p.status || "").toLowerCase() === "paid"
+      (p) =>
+        String(p.status || "").toLowerCase() === "success" ||
+        String(p.status || "").toLowerCase() === "paid"
     );
     const totalRevenue = successfulPayments.reduce(
       (sum, p) => sum + Number(p.amount || 0),
@@ -96,7 +115,7 @@ export async function GET(request: Request) {
     // Recent Activity Builder (Combines real events across all modules)
     type ActivityItem = {
       id: string;
-      type: "analysis" | "enquiry" | "proposal" | "payment";
+      type: "analysis" | "enquiry" | "proposal" | "payment" | "review";
       customer: string;
       website: string;
       service: string;
@@ -109,12 +128,15 @@ export async function GET(request: Request) {
     const activities: ActivityItem[] = [];
 
     // Add recent enquiries
-    regularEnquiries.slice(0, 8).forEach((e) => {
+    regularEnquiries.slice(0, 6).forEach((e) => {
       activities.push({
         id: `enquiry-${e.id}`,
         type: "enquiry",
         customer: e.name || "Customer",
-        website: e.message?.match(/Target Website:\s*([^\s\n]+)/i)?.[1] || e.message?.match(/Website:\s*([^\s\n|]+)/i)?.[1] || "—",
+        website:
+          e.message?.match(/Target Website:\s*([^\s\n]+)/i)?.[1] ||
+          e.message?.match(/Website:\s*([^\s\n|]+)/i)?.[1] ||
+          "—",
         service: e.service || "General Enquiry",
         timestamp: e.created_at,
         status: e.status || "New",
@@ -122,12 +144,15 @@ export async function GET(request: Request) {
     });
 
     // Add recent proposals
-    strategicProposals.slice(0, 8).forEach((p) => {
+    strategicProposals.slice(0, 5).forEach((p) => {
       activities.push({
         id: `proposal-${p.id}`,
         type: "proposal",
         customer: p.name || "Customer",
-        website: p.message?.match(/Target Website:\s*([^\s\n]+)/i)?.[1] || p.message?.match(/Website:\s*([^\s\n|]+)/i)?.[1] || "—",
+        website:
+          p.message?.match(/Target Website:\s*([^\s\n]+)/i)?.[1] ||
+          p.message?.match(/Website:\s*([^\s\n|]+)/i)?.[1] ||
+          "—",
         service: p.service || "Strategic Proposal",
         timestamp: p.created_at,
         status: p.status || "New",
@@ -135,7 +160,7 @@ export async function GET(request: Request) {
     });
 
     // Add recent analyses
-    geoAnalyses.slice(0, 8).forEach((g) => {
+    geoAnalyses.slice(0, 5).forEach((g) => {
       activities.push({
         id: `analysis-${g.id}`,
         type: "analysis",
@@ -149,7 +174,7 @@ export async function GET(request: Request) {
     });
 
     // Add recent payments
-    payments.slice(0, 8).forEach((p) => {
+    payments.slice(0, 5).forEach((p) => {
       activities.push({
         id: `payment-${p.id || p.txnid}`,
         type: "payment",
@@ -157,8 +182,27 @@ export async function GET(request: Request) {
         website: "Digital FX Checkout",
         service: p.product_name || p.plan_id || "Package Payment",
         timestamp: p.created_at,
-        status: p.status === "success" ? "Paid" : p.status === "pending" ? "Payment Pending" : "Failed",
+        status:
+          p.status === "success"
+            ? "Paid"
+            : p.status === "pending"
+            ? "Payment Pending"
+            : "Failed",
         amount: Number(p.amount || 0),
+      });
+    });
+
+    // Add recent ReviewFlow sessions
+    (reviewFlowSummary.recentSessions || []).slice(0, 5).forEach((s) => {
+      activities.push({
+        id: `review-${s.sessionId}`,
+        type: "review",
+        customer: s.category || "Customer Review",
+        website: `Review Flow: ${s.businessId}`,
+        service: `${s.customerRating}★ Google Review Draft`,
+        timestamp: s.createdAt,
+        status: s.clickedGoogleReview ? "Posted to Google" : s.completed ? "Draft Completed" : "Drafting",
+        score: s.customerRating * 20,
       });
     });
 
@@ -171,13 +215,26 @@ export async function GET(request: Request) {
       success: true,
       stats: {
         totalEnquiries: regularEnquiries.length,
+        newEnquiries: regularEnquiries.filter((e) => (e.status || "").toLowerCase() === "new").length,
         freeAnalyses: freeAnalyses.length,
         paidAnalyses: paidAnalyses.length,
         strategicProposals: strategicProposals.length,
         totalRevenue: Math.round(totalRevenue),
         pendingPayments: pendingPayments.length,
+
+        // ReviewFlow AI Unified Metrics
+        totalBusinesses: reviewFlowSummary.totalBusinesses,
+        pendingApprovals: reviewFlowSummary.pendingApprovals,
+        activeQRCodes: reviewFlowSummary.activeQRCodes,
+        deactivatedQRCodes: reviewFlowSummary.deactivatedQRCodes,
+        rejectedBusinesses: reviewFlowSummary.rejectedBusinesses,
+        draftBusinesses: reviewFlowSummary.draftBusinesses,
+        totalScans: reviewFlowSummary.totalScans,
+        reviewsGenerated: reviewFlowSummary.totalDrafts,
+        conversionRate: reviewFlowSummary.conversionRate,
       },
-      recentActivity: activities.slice(0, 10),
+      reviewFlowSummary,
+      recentActivity: activities.slice(0, 12),
       recentEnquiries: regularEnquiries.slice(0, 5),
       recentProposals: strategicProposals.slice(0, 5),
     });

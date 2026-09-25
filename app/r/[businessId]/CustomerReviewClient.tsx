@@ -139,6 +139,166 @@ export default function CustomerReviewClient({ business }: Props) {
     1: "Disappointing ★☆☆☆☆",
   };
 
+  // Status Check: Deactivated Review Desk
+  if (business.status === "deactivated") {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 text-slate-900 font-sans flex flex-col justify-between p-4 sm:p-6">
+        <header className="max-w-xl mx-auto w-full pt-4">
+          <div className="flex items-center justify-between bg-white rounded-2xl p-4 border border-slate-200 shadow-xs">
+            <div className="flex items-center gap-3">
+              {business.logoUrl ? (
+                <img
+                  src={business.logoUrl}
+                  alt={business.name}
+                  className="h-10 w-auto max-w-[120px] object-contain rounded"
+                />
+              ) : (
+                <div
+                  className="h-10 w-10 rounded-xl flex items-center justify-center font-black text-white text-sm shadow-xs"
+                  style={{ backgroundColor: business.brandColor || "#64748b" }}
+                >
+                  {business.name.substring(0, 2).toUpperCase()}
+                </div>
+              )}
+              <div>
+                <h1 className="text-base font-extrabold text-[#080d24] leading-tight line-clamp-1">
+                  {business.name}
+                </h1>
+                <span className="text-xs text-slate-500">{business.category}</span>
+              </div>
+            </div>
+            <span className="px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-bold">
+              Paused
+            </span>
+          </div>
+        </header>
+
+        <main className="max-w-xl mx-auto w-full py-8 text-center space-y-6">
+          <div className="w-20 h-20 mx-auto rounded-3xl bg-amber-50 border-2 border-amber-200 flex items-center justify-center text-4xl shadow-sm">
+            ⏸️
+          </div>
+
+          <div className="space-y-2">
+            <h2 className="text-2xl font-black text-[#080d24] tracking-tight">
+              Review Desk Temporarily Inactive
+            </h2>
+            <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+              This review desk for <strong>{business.name}</strong> is temporarily paused or undergoing scheduled maintenance. Thank you for your patience.
+            </p>
+          </div>
+
+          {(business.phone || business.email || business.address) && (
+            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs text-left space-y-3">
+              <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                Direct Contact Information
+              </h3>
+              <div className="space-y-2 text-sm text-slate-700">
+                {business.address && (
+                  <p className="flex items-start gap-2">
+                    <span>📍</span>
+                    <span>{business.address}{business.city ? `, ${business.city}` : ""}</span>
+                  </p>
+                )}
+                {business.phone && (
+                  <p className="flex items-center gap-2">
+                    <span>📞</span>
+                    <a href={`tel:${business.phone}`} className="text-[#207de9] font-bold hover:underline">
+                      {business.phone}
+                    </a>
+                  </p>
+                )}
+                {business.email && (
+                  <p className="flex items-center gap-2">
+                    <span>✉️</span>
+                    <a href={`mailto:${business.email}`} className="text-[#207de9] font-medium hover:underline">
+                      {business.email}
+                    </a>
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+        </main>
+
+        <footer className="max-w-xl mx-auto w-full text-center py-4 border-t border-slate-200 text-xs text-slate-400">
+          <Link href="/" className="hover:text-[#207de9] transition font-semibold">
+            Powered by ReviewFlow AI
+          </Link>
+          <span className="mx-2">•</span>
+          <Link href="/privacy-policy" className="hover:text-slate-600 transition">
+            Privacy Policy
+          </Link>
+        </footer>
+      </div>
+    );
+  }
+
+  // Status Check: Pending Approval, Draft, or Rejected
+  if (business.status === "pending_approval" || business.status === "draft" || business.status === "rejected") {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 text-slate-900 font-sans flex flex-col justify-between p-4 sm:p-6">
+        <header className="max-w-xl mx-auto w-full pt-4">
+          <div className="flex items-center justify-between bg-white rounded-2xl p-4 border border-slate-200 shadow-xs">
+            <div className="flex items-center gap-3">
+              {business.logoUrl ? (
+                <img
+                  src={business.logoUrl}
+                  alt={business.name}
+                  className="h-10 w-auto max-w-[120px] object-contain rounded"
+                />
+              ) : (
+                <div
+                  className="h-10 w-10 rounded-xl flex items-center justify-center font-black text-white text-sm shadow-xs"
+                  style={{ backgroundColor: business.brandColor || "#207de9" }}
+                >
+                  {business.name.substring(0, 2).toUpperCase()}
+                </div>
+              )}
+              <div>
+                <h1 className="text-base font-extrabold text-[#080d24] leading-tight line-clamp-1">
+                  {business.name}
+                </h1>
+                <span className="text-xs text-slate-500">{business.category}</span>
+              </div>
+            </div>
+            <span className="px-2.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#207de9] text-xs font-bold">
+              Under Setup
+            </span>
+          </div>
+        </header>
+
+        <main className="max-w-xl mx-auto w-full py-8 text-center space-y-6">
+          <div className="w-20 h-20 mx-auto rounded-3xl bg-blue-50 border-2 border-blue-200 flex items-center justify-center text-4xl shadow-sm">
+            ✨
+          </div>
+
+          <div className="space-y-2">
+            <h2 className="text-2xl font-black text-[#080d24] tracking-tight">
+              Review Desk Under Verification
+            </h2>
+            <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+              This review desk for <strong>{business.name}</strong> is currently being verified and configured. It will be available shortly for customer reviews.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs text-xs text-slate-500 max-w-md mx-auto">
+            <p>If you are the business administrator, please sign into the unified admin dashboard to approve and activate this business.</p>
+          </div>
+        </main>
+
+        <footer className="max-w-xl mx-auto w-full text-center py-4 border-t border-slate-200 text-xs text-slate-400">
+          <Link href="/" className="hover:text-[#207de9] transition font-semibold">
+            Powered by ReviewFlow AI
+          </Link>
+          <span className="mx-2">•</span>
+          <Link href="/privacy-policy" className="hover:text-slate-600 transition">
+            Privacy Policy
+          </Link>
+        </footer>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 text-slate-900 font-sans pb-16">
       {/* 1. TOP BRAND BANNER */}

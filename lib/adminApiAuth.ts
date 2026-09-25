@@ -9,6 +9,20 @@ export interface AdminPayload {
   exp: number;
 }
 
+// In-memory persistent runtime secret if SUPABASE_SERVICE_ROLE_KEY is absent
+// Ensures that arbitrary static public strings cannot be used by an attacker to forge admin tokens
+const RUNTIME_EPHEMERAL_SECRET = crypto.randomBytes(32).toString("hex");
+
+function getSigningSecret(): string {
+  const envSecret =
+    process.env.ADMIN_JWT_SECRET ||
+    process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (envSecret && envSecret.trim().length >= 16) {
+    return envSecret.trim();
+  }
+  return RUNTIME_EPHEMERAL_SECRET;
+}
+
 /**
  * Signs a tamper-proof admin session token valid for `maxAgeSeconds` (default 30 days).
  */
@@ -16,11 +30,10 @@ export function signAdminToken(
   payload: { email: string; role?: string; name?: string },
   maxAgeSeconds = 30 * 24 * 60 * 60
 ): string {
-  const secret =
-    process.env.SUPABASE_SERVICE_ROLE_KEY || "digitalfx_admin_secret_key_2026";
+  const secret = getSigningSecret();
   const exp = Math.floor(Date.now() / 1000) + maxAgeSeconds;
   const tokenData: AdminPayload = {
-    email: payload.email.toLowerCase(),
+    email: payload.email.toLowerCase().trim(),
     role: payload.role || "admin",
     name: payload.name || "Administrator",
     exp,
@@ -34,7 +47,7 @@ export function signAdminToken(
 }
 
 /**
- * Validates a signed admin session token.
+ * Validates a signed admin session token using constant-time HMAC comparison.
  */
 export function verifySignedAdminToken(token: string): {
   valid: boolean;
@@ -44,14 +57,18 @@ export function verifySignedAdminToken(token: string): {
     const parts = token.split(".");
     if (parts.length !== 2) return { valid: false };
     const [dataB64, signature] = parts;
-    const secret =
-      process.env.SUPABASE_SERVICE_ROLE_KEY || "digitalfx_admin_secret_key_2026";
+    const secret = getSigningSecret();
     const expectedSignature = crypto
       .createHmac("sha256", secret)
       .update(dataB64)
       .digest("base64url");
 
-    if (signature !== expectedSignature) return { valid: false };
+    // Timing-safe constant-time equality check to prevent timing side-channel attacks
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
+      return { valid: false };
+    }
 
     const payload: AdminPayload = JSON.parse(
       Buffer.from(dataB64, "base64url").toString("utf8")
@@ -120,16 +137,20 @@ export async function verifyAdminAuth(
     };
   }
 
-  // Check 1: Direct match against Supabase Service Role Key (for internal service calls)
+  // Check 1: Direct match against Supabase Service Role Key (constant-time)
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (serviceKey && token === serviceKey) {
-    return {
-      authorized: true,
-      user: { email: "yshashank513@gmail.com", role: "admin", name: "System Admin" },
-    };
+  if (serviceKey && serviceKey.trim().length > 0) {
+    const sKeyBuf = Buffer.from(serviceKey.trim());
+    const tokenBuf = Buffer.from(token);
+    if (sKeyBuf.length === tokenBuf.length && crypto.timingSafeEqual(sKeyBuf, tokenBuf)) {
+      return {
+        authorized: true,
+        user: { email: "yshashank513@gmail.com", role: "admin", name: "System Admin" },
+      };
+    }
   }
 
-  // Check 2: Valid signed Admin Token (30-day persistent session)
+  // Check 2: Valid signed Admin Token (HMAC signed session)
   const signedResult = verifySignedAdminToken(token);
   if (signedResult.valid && signedResult.payload) {
     const p = signedResult.payload;
@@ -190,7 +211,7 @@ export async function verifyAdminAuth(
         name: user.user_metadata?.name || "Shashank Yadav",
       },
     };
-  } catch (err) {
+  } catch {
     return {
       authorized: false,
       response: NextResponse.json(
