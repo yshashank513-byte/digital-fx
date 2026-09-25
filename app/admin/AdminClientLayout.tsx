@@ -192,8 +192,14 @@ export default function AdminClientLayout({
       ],
     },
     {
-      group: "ReviewFlow AI & Dynamic QR",
+      group: "ReviewFlow AI Module",
       items: [
+        {
+          label: "ReviewFlow Hub",
+          href: "/admin/reviewflow",
+          icon: "★",
+          active: pathname === "/admin/reviewflow",
+        },
         {
           label: "Businesses",
           href: "/admin/businesses",
@@ -214,10 +220,22 @@ export default function AdminClientLayout({
           active: pathname === "/admin/approvals",
         },
         {
+          label: "Outreach Campaigns",
+          href: "/admin/reviewflow/campaigns",
+          icon: "✉",
+          active: pathname.startsWith("/admin/reviewflow/campaigns"),
+        },
+        {
           label: "Analytics & Funnel",
           href: "/admin/analytics",
           icon: "📈",
           active: pathname === "/admin/analytics",
+        },
+        {
+          label: "ReviewFlow Settings",
+          href: "/admin/reviewflow/settings",
+          icon: "⚙",
+          active: pathname.startsWith("/admin/reviewflow/settings"),
         },
       ],
     },

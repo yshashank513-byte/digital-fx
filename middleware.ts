@@ -52,6 +52,38 @@ async function verifyTokenSignature(token: string, secret: string): Promise<bool
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // 0. Intercept legacy standalone ReviewFlow dashboard and cleanly route into unified admin
+  if (pathname === "/reviewflow/dashboard" || pathname.startsWith("/reviewflow/dashboard/")) {
+    const authHeader = request.headers.get("authorization") || "";
+    let token = authHeader.replace(/^Bearer\s+/i, "").trim();
+    if (!token) {
+      const cookie = request.cookies.get("admin_session_token");
+      token = cookie?.value?.trim() || "";
+    }
+    let isAuthorized = false;
+    if (token) {
+      const signingSecret =
+        process.env.ADMIN_JWT_SECRET ||
+        process.env.SUPABASE_SERVICE_ROLE_KEY ||
+        "";
+      if (
+        process.env.SUPABASE_SERVICE_ROLE_KEY &&
+        token === process.env.SUPABASE_SERVICE_ROLE_KEY
+      ) {
+        isAuthorized = true;
+      } else if (signingSecret) {
+        isAuthorized = await verifyTokenSignature(token, signingSecret);
+      }
+    }
+
+    if (isAuthorized) {
+      return NextResponse.redirect(new URL("/admin/reviewflow", request.url));
+    }
+    const loginUrl = new URL("/admin/login", request.url);
+    loginUrl.searchParams.set("from", "/admin/reviewflow");
+    return NextResponse.redirect(loginUrl);
+  }
+
   // 1. Determine if this is an admin route that needs authentication
   const isAdminPage =
     pathname.startsWith("/admin") && pathname !== "/admin/login";
@@ -131,5 +163,7 @@ export const config = {
   matcher: [
     "/admin/:path*",
     "/api/admin/:path*",
+    "/reviewflow/dashboard",
+    "/reviewflow/dashboard/:path*",
   ],
 };
