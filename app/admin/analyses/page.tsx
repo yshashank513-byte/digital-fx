@@ -122,6 +122,46 @@ export default function WebsiteAnalysesPage() {
     document.body.removeChild(link);
   }
 
+  async function handleDeleteAnalysis(id: number | string, url?: string) {
+    if (!window.confirm(`Permanently delete analysis for "${url || id}"?\n\nThis record will be permanently removed and cannot be restored.`)) return;
+    try {
+      const res = await adminFetch("/api/admin/analyses", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (res.ok) {
+        setAnalyses((prev) => prev.filter((a) => String(a.id) !== String(id)));
+        loadAnalyses();
+      } else {
+        const err = await res.json();
+        alert(err.error || "Failed to delete analysis.");
+      }
+    } catch {
+      alert("Error deleting analysis.");
+    }
+  }
+
+  async function handleClearAll() {
+    if (!window.confirm("Are you sure you want to permanently delete all website analyses?\n\nThis will completely empty the audit list and cannot be undone.")) return;
+    try {
+      const res = await adminFetch("/api/admin/analyses", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clearAll: true }),
+      });
+      if (res.ok) {
+        setAnalyses([]);
+        loadAnalyses();
+      } else {
+        const err = await res.json();
+        alert(err.error || "Failed to clear analyses.");
+      }
+    } catch {
+      alert("Error clearing analyses.");
+    }
+  }
+
   function formatDate(iso?: string) {
     if (!iso) return "—";
     return new Date(iso).toLocaleDateString("en-IN", {
@@ -151,6 +191,14 @@ export default function WebsiteAnalysesPage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
+          {analyses.length > 0 && (
+            <button
+              onClick={handleClearAll}
+              className="flex items-center gap-1.5 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-2.5 text-xs font-bold text-rose-700 hover:bg-rose-100 transition shadow-xs cursor-pointer"
+            >
+              <span>🗑 Clear All</span>
+            </button>
+          )}
           <button
             onClick={exportCSV}
             disabled={filtered.length === 0}
@@ -309,9 +357,21 @@ export default function WebsiteAnalysesPage() {
                       {formatDate(a.created_at)}
                     </td>
                     <td className="py-3.5 px-5 text-right">
-                      <button className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-[#080d24] transition shadow-2xs">
-                        Audit Report →
-                      </button>
+                      <div className="flex items-center justify-end gap-2">
+                        <button className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-[#080d24] transition shadow-2xs">
+                          Audit Report →
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteAnalysis(a.id, a.url);
+                          }}
+                          title="Delete Analysis Permanently"
+                          className="h-7 w-7 rounded-lg border border-slate-200 text-slate-400 hover:border-rose-300 hover:bg-rose-50 hover:text-rose-600 transition flex items-center justify-center cursor-pointer"
+                        >
+                          🗑
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

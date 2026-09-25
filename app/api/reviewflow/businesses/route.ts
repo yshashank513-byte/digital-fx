@@ -8,6 +8,8 @@ import {
   activateBusiness,
   deactivateBusiness,
   softDeleteBusiness,
+  deleteBusiness,
+  clearAllReviewFlowData,
   regenerateBusinessQR,
   checkDuplicateBusiness,
   getAnalyticsSummary,
@@ -324,8 +326,16 @@ export async function DELETE(request: Request) {
     }
 
     const body = await request.json().catch(() => ({}));
-    const id = String(body.id || "").trim();
 
+    if (body.clearAll) {
+      await clearAllReviewFlowData();
+      return NextResponse.json({
+        success: true,
+        message: "All businesses and QR codes permanently deleted.",
+      });
+    }
+
+    const id = String(body.id || "").trim();
     if (!id) {
       return NextResponse.json(
         { success: false, error: "Business ID is required." },
@@ -333,7 +343,7 @@ export async function DELETE(request: Request) {
       );
     }
 
-    const success = await softDeleteBusiness(id);
+    const success = await deleteBusiness(id);
     if (!success) {
       return NextResponse.json(
         { success: false, error: "Business not found or already deleted." },
@@ -343,7 +353,7 @@ export async function DELETE(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: "Business and QR code removed safely.",
+      message: "Business, QR code, and associated reviews permanently deleted.",
     });
   } catch (error: any) {
     console.error("DELETE BUSINESS ERROR:", error);

@@ -36,7 +36,6 @@ const STORAGE_KEY = "digitalfx_packers_enquiries_v2";
 
 export default function PackersEnquiryPage() {
   const [enquiries, setEnquiries] = useState<PackersEnquiry[]>([]);
-  const [lastDeleted, setLastDeleted] = useState<PackersEnquiry | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   // Search & Filters
@@ -248,27 +247,15 @@ export default function PackersEnquiryPage() {
     saveToStorage(updated);
   };
 
-  // Delete Enquiry (with Undo support)
+  // Delete Enquiry (Permanent)
   const handleDeleteEnquiry = (id: string, name: string) => {
-    const itemToDelete = enquiries.find((item) => item.id === id);
     const confirmDelete = window.confirm(
-      `Delete enquiry #${id} (${name})? You can restore it anytime using the Undo button.`
+      `Permanently delete enquiry #${id} (${name})?\n\nThis action will permanently delete this record and it cannot be restored.`
     );
     if (!confirmDelete) return;
 
-    if (itemToDelete) {
-      setLastDeleted(itemToDelete);
-    }
     const updated = enquiries.filter((item) => item.id !== id);
     saveToStorage(updated);
-  };
-
-  // Undo Last Deleted Enquiry
-  const handleUndoLastDeleted = () => {
-    if (!lastDeleted) return;
-    const updated = [lastDeleted, ...enquiries];
-    saveToStorage(updated);
-    setLastDeleted(null);
   };
 
   // Clear All Enquiries
@@ -628,22 +615,6 @@ export default function PackersEnquiryPage() {
       </div>
 
       {/* Undo Last Delete Banner */}
-      {lastDeleted && (
-        <div className="flex items-center justify-between rounded-xl bg-amber-50 border border-amber-200 px-4 py-3 text-xs text-amber-900 shadow-2xs">
-          <div className="flex items-center gap-2">
-            <span className="text-base">⚠️</span>
-            <span>
-              Deleted enquiry <strong>#{lastDeleted.id}</strong> ({lastDeleted.name} - {lastDeleted.from_location} to {lastDeleted.to_location}).
-            </span>
-          </div>
-          <button
-            onClick={handleUndoLastDeleted}
-            className="font-bold underline text-amber-900 hover:text-amber-700 cursor-pointer ml-3 shrink-0"
-          >
-            Click here to Undo / Restore
-          </button>
-        </div>
-      )}
 
       {/* =========================================================================
           EXECUTIVE KPI METRICS CARDS

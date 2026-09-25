@@ -6,16 +6,15 @@ export const dynamic = "force-dynamic";
 
 function getAdminSupabaseClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  const anonKey =
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-  if (!supabaseUrl || !serviceKey) {
+  if (!supabaseUrl || !anonKey) {
     throw new Error("Supabase configuration is missing.");
   }
 
-  return createClient(supabaseUrl, serviceKey, {
+  return createClient(supabaseUrl, anonKey, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 }

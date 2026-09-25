@@ -97,7 +97,7 @@ export default function StrategicProposalsPage() {
   }
 
   async function handleDeleteProposal(id: number, name: string) {
-    if (!window.confirm(`Delete proposal #${id} (${name})?`)) return;
+    if (!window.confirm(`Permanently delete proposal #${id} (${name})?\n\nThis action will permanently delete this record and it cannot be restored.`)) return;
     const res = await adminFetch("/api/admin/proposals", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -105,11 +105,14 @@ export default function StrategicProposalsPage() {
     });
     if (res.ok) {
       setProposals((prev) => prev.filter((p) => p.id !== id));
+      loadProposals();
+    } else {
+      alert("Failed to delete proposal.");
     }
   }
 
   async function handleClearAll() {
-    if (!window.confirm(`Are you sure you want to delete all strategic proposals?`)) return;
+    if (!window.confirm("Are you sure you want to permanently delete all strategic proposals?\n\nThis will completely empty the proposals register and cannot be undone.")) return;
     const res = await adminFetch("/api/admin/proposals", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -117,6 +120,9 @@ export default function StrategicProposalsPage() {
     });
     if (res.ok) {
       setProposals([]);
+      loadProposals();
+    } else {
+      alert("Failed to clear proposals.");
     }
   }
 

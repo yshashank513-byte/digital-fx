@@ -97,7 +97,7 @@ export default function EnquiriesPage() {
   }
 
   async function handleDeleteEnquiry(id: number, name: string) {
-    if (!window.confirm(`Delete enquiry #${id} (${name})?`)) return;
+    if (!window.confirm(`Permanently delete enquiry #${id} (${name})?\n\nThis action will permanently delete this record and it cannot be restored.`)) return;
     const res = await adminFetch("/api/admin/enquiries", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -105,11 +105,14 @@ export default function EnquiriesPage() {
     });
     if (res.ok) {
       setEnquiries((prev) => prev.filter((item) => item.id !== id));
+      loadEnquiries();
+    } else {
+      alert("Failed to delete enquiry.");
     }
   }
 
   async function handleClearAll() {
-    if (!window.confirm(`Are you sure you want to delete all customer enquiries?`)) return;
+    if (!window.confirm("Are you sure you want to permanently delete all customer enquiries?\n\nThis will completely empty the enquiry register and cannot be undone.")) return;
     const res = await adminFetch("/api/admin/enquiries", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -117,6 +120,9 @@ export default function EnquiriesPage() {
     });
     if (res.ok) {
       setEnquiries([]);
+      loadEnquiries();
+    } else {
+      alert("Failed to clear enquiries.");
     }
   }
 

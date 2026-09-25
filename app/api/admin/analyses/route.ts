@@ -1,21 +1,21 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { verifyAdminAuth } from "@/lib/adminApiAuth";
+import { isAnalysisVisible, deleteAnalysisById, clearAllAnalyses } from "@/lib/analysesStore";
 
 export const dynamic = "force-dynamic";
 
 function getAdminSupabaseClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  const anonKey =
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-  if (!supabaseUrl || !serviceKey) {
+  if (!supabaseUrl || !anonKey) {
     throw new Error("Supabase configuration is missing.");
   }
 
-  return createClient(supabaseUrl, serviceKey, {
+  return createClient(supabaseUrl, anonKey, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 }
@@ -45,10 +45,7 @@ export async function GET(request: Request) {
       );
     }
 
-    const PURGE_TIMESTAMP = "2026-09-19T00:00:00.000Z";
-    let analyses = (data || []).filter(
-      (a) => new Date(a.created_at) > new Date(PURGE_TIMESTAMP)
-    );
+    let analyses = (data || []).filter(isAnalysisVisible);
 
     // Filter by type
     if (filter === "free") {
@@ -92,6 +89,45 @@ export async function GET(request: Request) {
         success: false,
         error: error instanceof Error ? error.message : "Unable to load analyses.",
       },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+
+    const body = await request.json().catch(() => ({}));
+
+    if (body.clearAll) {
+      clearAllAnalyses();
+      return NextResponse.json({
+        success: true,
+        message: "All website analyses cleared permanently.",
+      });
+    }
+
+    const id = body.id;
+    if (id === undefined || id === null) {
+      return NextResponse.json(
+        { success: false, error: "Analysis ID is required." },
+        { status: 400 }
+      );
+    }
+
+    deleteAnalysisById(id);
+    return NextResponse.json({
+      success: true,
+      message: "Analysis permanently deleted.",
+    });
+  } catch (error) {
+    console.error("DELETE ANALYSIS ERROR:", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to delete analysis." },
       { status: 500 }
     );
   }

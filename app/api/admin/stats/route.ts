@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { verifyAdminAuth } from "@/lib/adminApiAuth";
 import { getAnalyticsSummary } from "@/lib/reviewFlowStore";
+import { isAnalysisVisible } from "@/lib/analysesStore";
 
 export const dynamic = "force-dynamic";
 
@@ -68,13 +69,10 @@ export async function GET(request: Request) {
       })),
     ]);
 
-    const PURGE_TIMESTAMP = "2026-09-19T00:00:00.000Z";
     const enquiries = (enquiriesRes.data || []).filter(
       (e) => String(e.status || "").toLowerCase() !== "deleted"
     );
-    const geoAnalyses = (geoRes.data || []).filter(
-      (g) => new Date(g.created_at) > new Date(PURGE_TIMESTAMP)
-    );
+    const geoAnalyses = (geoRes.data || []).filter(isAnalysisVisible);
     const payments = (paymentsRes.data || []).filter(
       (p) => String(p.status || "").toLowerCase() !== "deleted"
     );

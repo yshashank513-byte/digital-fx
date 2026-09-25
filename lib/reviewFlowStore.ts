@@ -12,92 +12,7 @@ import {
 const DATA_DIR = path.join(process.cwd(), "data");
 const STORE_FILE = path.join(DATA_DIR, "reviewflow_store.json");
 
-const SEED_BUSINESSES: BusinessProfile[] = [
-  {
-    id: "digital-fx",
-    qrId: "digital-fx",
-    name: "Digital FX",
-    category: "Digital Marketing Agency",
-    ownerName: "Shashank Yadav",
-    phone: "+91 93198 07273",
-    email: "contact@digitalfx.in",
-    website: "https://www.digitalfx.in",
-    address: "Shop No. 210, 2nd Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016",
-    city: "Ghaziabad",
-    state: "Uttar Pradesh",
-    pincode: "201016",
-    googleReviewUrl: "https://www.google.com/maps/search/?api=1&query=Digital+FX+Shop+No+210+Orbit+Plaza+Crossings+Republik+Ghaziabad",
-    placeId: "",
-    logoUrl: "/logo.png",
-    brandColor: "#207de9",
-    status: "active",
-    active: true,
-    totalScans: 248,
-    totalVisits: 215,
-    totalDrafts: 182,
-    totalGoogleClicks: 146,
-    approvalDate: "2026-09-01T10:00:00.000Z",
-    deleted: false,
-    createdAt: "2026-09-01T10:00:00.000Z",
-    updatedAt: "2026-09-24T12:00:00.000Z",
-  },
-  {
-    id: "speedy-packers",
-    qrId: "speedy-packers",
-    name: "Speedy Safe Packers & Movers",
-    category: "Packers & Movers",
-    ownerName: "Rajesh Kumar",
-    phone: "+91 98712 34567",
-    email: "support@speedypackers.in",
-    website: "https://speedypackers.in",
-    address: "Sector 62, Noida & Indirapuram, Ghaziabad",
-    city: "Noida",
-    state: "Uttar Pradesh",
-    pincode: "201301",
-    googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJspeedy_packers_ncr",
-    placeId: "ChIJspeedy_packers_ncr",
-    logoUrl: "",
-    brandColor: "#0284c7",
-    status: "active",
-    active: true,
-    totalScans: 165,
-    totalVisits: 142,
-    totalDrafts: 119,
-    totalGoogleClicks: 98,
-    approvalDate: "2026-09-05T11:30:00.000Z",
-    deleted: false,
-    createdAt: "2026-09-05T11:30:00.000Z",
-    updatedAt: "2026-09-23T16:00:00.000Z",
-  },
-  {
-    id: "shree-jewellers",
-    qrId: "shree-jewellers",
-    name: "Shree Laxmi Jewellers",
-    category: "Jewellery Store",
-    ownerName: "Amit Verma",
-    phone: "+91 98110 54321",
-    email: "info@shreejewellers.in",
-    website: "https://shreejewellers.in",
-    address: "Main Market, RDC Raj Nagar, Ghaziabad",
-    city: "Ghaziabad",
-    state: "Uttar Pradesh",
-    pincode: "201002",
-    googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJshree_jewellers_rdc",
-    placeId: "ChIJshree_jewellers_rdc",
-    logoUrl: "",
-    brandColor: "#d97706",
-    status: "active",
-    active: true,
-    totalScans: 312,
-    totalVisits: 289,
-    totalDrafts: 245,
-    totalGoogleClicks: 210,
-    approvalDate: "2026-09-10T09:15:00.000Z",
-    deleted: false,
-    createdAt: "2026-09-10T09:15:00.000Z",
-    updatedAt: "2026-09-24T14:20:00.000Z",
-  },
-];
+const SEED_BUSINESSES: BusinessProfile[] = [];
 
 interface StoreData {
   businesses: BusinessProfile[];
@@ -153,25 +68,8 @@ function ensureStore(): StoreData {
     }
     if (!fs.existsSync(STORE_FILE)) {
       const initial: StoreData = {
-        businesses: SEED_BUSINESSES,
-        sessions: [
-          {
-            sessionId: "sess-seed-1",
-            businessId: "digital-fx",
-            category: "Digital Marketing Agency",
-            customerRating: 5,
-            answers: {
-              growth: "Significant boost in leads & calls",
-              technical: "Deep SEO & Ads expertise",
-              reporting: "Transparent dashboard & reports",
-            },
-            generatedDraft: "Outstanding digital growth partner! The Digital FX team delivered a significant boost in leads and transparent reporting throughout. Highly recommended!",
-            finalReviewText: "Outstanding digital growth partner! The Digital FX team delivered a significant boost in leads and transparent reporting throughout. Highly recommended!",
-            completed: true,
-            clickedGoogleReview: true,
-            createdAt: new Date(Date.now() - 3600000 * 4).toISOString(),
-          },
-        ],
+        businesses: [],
+        sessions: [],
       };
       fs.writeFileSync(STORE_FILE, JSON.stringify(initial, null, 2), "utf8");
       return initial;
@@ -431,18 +329,33 @@ export async function deactivateBusiness(id: string, reason?: string): Promise<B
   return biz;
 }
 
-export async function softDeleteBusiness(id: string): Promise<boolean> {
+export async function deleteBusiness(id: string): Promise<boolean> {
   const store = ensureStore();
-  const biz = store.businesses.find((b) => b.id === id);
-  if (!biz) return false;
+  const clean = id.trim().toLowerCase();
+  const initialLen = store.businesses.length;
+  store.businesses = store.businesses.filter(
+    (b) => b.id.toLowerCase() !== clean && b.qrId.toLowerCase() !== clean
+  );
+  store.sessions = store.sessions.filter(
+    (s) => s.businessId.toLowerCase() !== clean
+  );
+  const changed = store.businesses.length < initialLen;
+  if (changed) {
+    saveStore(store);
+  }
+  return changed;
+}
 
-  const now = new Date().toISOString();
-  biz.deleted = true;
-  biz.active = false;
-  biz.updatedAt = now;
-
+export async function clearAllReviewFlowData(): Promise<void> {
+  const store: StoreData = {
+    businesses: [],
+    sessions: [],
+  };
   saveStore(store);
-  return true;
+}
+
+export async function softDeleteBusiness(id: string): Promise<boolean> {
+  return deleteBusiness(id);
 }
 
 export async function regenerateBusinessQR(id: string): Promise<BusinessProfile | null> {

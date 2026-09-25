@@ -100,7 +100,7 @@ export default function PaymentsPage() {
   }, [payments, filter, search]);
 
   async function handleDeletePayment(id: string) {
-    if (!window.confirm(`Delete payment record #${id}?`)) return;
+    if (!window.confirm(`Permanently delete payment record #${id}?\n\nThis action will permanently delete this record and it cannot be restored.`)) return;
     const res = await adminFetch("/api/admin/payments", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -108,11 +108,14 @@ export default function PaymentsPage() {
     });
     if (res.ok) {
       setPayments((prev) => prev.filter((p) => p.id !== id));
+      loadPayments();
+    } else {
+      alert("Failed to delete payment record.");
     }
   }
 
   async function handleClearAll() {
-    if (!window.confirm(`Are you sure you want to delete all payment records?`)) return;
+    if (!window.confirm("Are you sure you want to permanently delete all payment records?\n\nThis will completely empty the transaction history and cannot be undone.")) return;
     const res = await adminFetch("/api/admin/payments", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -120,6 +123,9 @@ export default function PaymentsPage() {
     });
     if (res.ok) {
       setPayments([]);
+      loadPayments();
+    } else {
+      alert("Failed to clear payments.");
     }
   }
 
