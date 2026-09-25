@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import AdminClientLayout from "./AdminClientLayout";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Digital FX Admin Console",
   robots: {

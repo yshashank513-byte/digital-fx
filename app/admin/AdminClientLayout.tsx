@@ -19,8 +19,23 @@ export default function AdminClientLayout({
     email: "yshashank513@gmail.com",
     name: "Shashank Yadav",
   });
+  const [pendingApprovalsCount, setPendingApprovalsCount] = useState<number>(0);
 
   const isLoginPage = pathname === "/admin/login";
+
+  useEffect(() => {
+    if (isLoginPage) return;
+    async function fetchPendingCount() {
+      try {
+        const res = await fetch("/api/reviewflow/businesses?analytics=true");
+        const json = await res.json();
+        if (json.success && json.analytics) {
+          setPendingApprovalsCount(json.analytics.pendingApprovals || 0);
+        }
+      } catch {}
+    }
+    fetchPendingCount();
+  }, [pathname, isLoginPage]);
 
   useEffect(() => {
     if (isLoginPage) {
@@ -107,7 +122,7 @@ export default function AdminClientLayout({
           localStorage.removeItem("digitalfx_admin");
           localStorage.removeItem("digitalfx_admin_token");
         }
-        router.replace("/admin/login?expired=true");
+        router.replace("/admin/login");
         return;
       }
 
@@ -157,21 +172,6 @@ export default function AdminClientLayout({
       </div>
     );
   }
-
-  const [pendingApprovalsCount, setPendingApprovalsCount] = useState<number>(0);
-
-  useEffect(() => {
-    async function fetchPendingCount() {
-      try {
-        const res = await fetch("/api/reviewflow/businesses?analytics=true");
-        const json = await res.json();
-        if (json.success && json.analytics) {
-          setPendingApprovalsCount(json.analytics.pendingApprovals || 0);
-        }
-      } catch {}
-    }
-    fetchPendingCount();
-  }, [pathname]);
 
   const navItems = [
     {
