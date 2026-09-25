@@ -36,6 +36,117 @@ type ActivityItem = {
   score?: number;
 };
 
+// Clean SVG Icons for KPI Cards & Sections
+function UsersIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
+
+function BuildingIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="2" />
+      <path d="M9 22v-4h6v4" />
+      <path d="M8 6h.01M16 6h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01" />
+    </svg>
+  );
+}
+
+function HourglassIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2" />
+    </svg>
+  );
+}
+
+function QrCodeIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 20h3M20 14v3" />
+    </svg>
+  );
+}
+
+function LinkIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
+  );
+}
+
+function StarIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  );
+}
+
+function RupeeIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 3h12M6 8h12M6 13l8.5 8M6 13h3a4.5 4.5 0 0 0 0-9" />
+    </svg>
+  );
+}
+
+function BarChartIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="20" x2="18" y2="10" />
+      <line x1="12" y1="20" x2="12" y2="4" />
+      <line x1="6" y1="20" x2="6" y2="14" />
+    </svg>
+  );
+}
+
+function ChevronRightIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+  );
+}
+
+function LightningIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    </svg>
+  );
+}
+
+function MessageBubbleIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+  );
+}
+
+function DocumentIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+    </svg>
+  );
+}
+
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState<Stats>({
     totalEnquiries: 0,
@@ -150,16 +261,17 @@ export default function AdminDashboardPage() {
     };
   }, [loadData]);
 
-  // Format Date for UI
+  // Format Date for UI matching design: "24 Sept, 07:59 PM"
   function formatDate(isoString?: string) {
     if (!isoString) return "—";
     const date = new Date(isoString);
     if (isNaN(date.getTime())) return "—";
     return date.toLocaleDateString("en-IN", {
-      day: "2-digit",
+      day: "numeric",
       month: "short",
       hour: "2-digit",
       minute: "2-digit",
+      hour12: true,
     });
   }
 
@@ -206,58 +318,65 @@ export default function AdminDashboardPage() {
 
   function getStatusBadge(status?: string) {
     switch (status?.toLowerCase()) {
-      case "new":
-        return "bg-blue-50 text-[#207de9] border-blue-200";
-      case "contacted":
-        return "bg-amber-50 text-amber-700 border-amber-200";
-      case "in discussion":
-      case "in review":
-        return "bg-purple-50 text-purple-700 border-purple-200";
+      case "completed":
+      case "posted to google":
       case "won":
       case "success":
       case "paid":
-      case "posted to google":
-        return "bg-emerald-50 text-emerald-700 border-emerald-200";
+        return "bg-emerald-50 text-emerald-700 border-emerald-200/80";
+      case "new":
+        return "bg-blue-50 text-blue-700 border-blue-200/80";
+      case "contacted":
+        return "bg-amber-50 text-amber-700 border-amber-200/80";
+      case "in discussion":
+      case "in review":
+        return "bg-purple-50 text-purple-700 border-purple-200/80";
       case "lost":
       case "failed":
-        return "bg-rose-50 text-rose-700 border-rose-200";
+        return "bg-rose-50 text-rose-700 border-rose-200/80";
       default:
         return "bg-slate-100 text-slate-700 border-slate-200";
     }
   }
 
   return (
-    <div className="space-y-8">
-      {/* Top Banner & Quick Actions */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="space-y-8 max-w-[1600px] mx-auto">
+      
+      {/* =========================================================================
+          MAIN DASHBOARD HEADER
+          ========================================================================= */}
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[#207de9] animate-pulse" />
-            <span className="text-[10.5px] font-extrabold uppercase tracking-widest text-[#207de9]">
-              Unified Enterprise Dashboard
+            <span className="h-2 w-2 rounded-full bg-[#207de9]" />
+            <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#207de9]">
+              UNIFIED ENTERPRISE DASHBOARD
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-[#080d24] mt-1">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#080d24] mt-1">
             Executive Command Center
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Centralized operations hub for Customer Enquiries, ReviewFlow AI SaaS, Dynamic QR Lifecycle, and Revenue.
+          <p className="text-sm text-slate-500 mt-1 max-w-2xl font-normal leading-relaxed">
+            Centralized operations hub for customer enquiries, ReviewFlow AI SaaS, Dynamic QR lifecycle, and revenue.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2.5">
+        {/* Header Action Buttons */}
+        <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={() => setIsAddBusinessModalOpen(true)}
-            className="flex items-center gap-1.5 rounded-xl bg-[#207de9] px-4 py-2.5 text-xs font-extrabold text-white shadow-xs hover:bg-blue-600 transition cursor-pointer"
+            className="flex items-center gap-2 rounded-xl bg-[#207de9] px-4.5 py-2.5 text-sm font-bold text-white shadow-xs hover:bg-blue-600 transition cursor-pointer"
           >
-            <span>+ Add Business</span>
+            <span className="text-base leading-none">+</span>
+            <span>Add Business</span>
           </button>
 
           <Link
             href="/admin/enquiries"
-            className="rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-xs"
+            className="flex items-center gap-2 rounded-xl border border-slate-200/90 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition shadow-2xs"
           >
-            View Enquiries
+            <span className="text-slate-400">≡</span>
+            <span>View Enquiries</span>
           </Link>
 
           <button
@@ -266,9 +385,9 @@ export default function AdminDashboardPage() {
               loadData();
             }}
             disabled={loading}
-            className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 shadow-xs transition cursor-pointer disabled:opacity-50"
+            className="flex items-center gap-2 rounded-xl border border-slate-200/90 bg-white px-3.5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 shadow-2xs transition cursor-pointer disabled:opacity-50"
           >
-            <span className={loading ? "animate-spin" : ""}>↻</span>
+            <span className={`text-slate-400 ${loading ? "animate-spin" : ""}`}>↻</span>
             <span>Refresh</span>
           </button>
         </div>
@@ -278,15 +397,15 @@ export default function AdminDashboardPage() {
       {stats.pendingApprovals > 0 && (
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl border border-amber-300 bg-gradient-to-r from-amber-50 via-white to-amber-50/50 p-5 shadow-xs animate-in fade-in">
           <div className="flex items-center gap-3.5">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500 text-white font-black text-lg shadow-xs">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-500 text-white font-black text-xl shadow-xs">
               ⏳
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-black text-amber-950">
+                <h3 className="text-base font-black text-amber-950">
                   {stats.pendingApprovals} Business Profile{stats.pendingApprovals > 1 ? "s" : ""} Pending Approval
                 </h3>
-                <span className="rounded-full bg-amber-200/80 px-2 py-0.5 text-[10px] font-black text-amber-900 uppercase">
+                <span className="rounded-full bg-amber-200/80 px-2 py-0.5 text-[10.5px] font-black text-amber-900 uppercase">
                   Action Required
                 </span>
               </div>
@@ -298,7 +417,7 @@ export default function AdminDashboardPage() {
 
           <Link
             href="/admin/approvals"
-            className="rounded-xl bg-amber-600 hover:bg-amber-700 px-4.5 py-2 text-xs font-extrabold text-white transition shadow-xs shrink-0 text-center"
+            className="rounded-xl bg-amber-600 hover:bg-amber-700 px-5 py-2.5 text-xs font-extrabold text-white transition shadow-xs shrink-0 text-center"
           >
             Open Approval Queue →
           </Link>
@@ -333,240 +452,288 @@ export default function AdminDashboardPage() {
       )}
 
       {/* =========================================================================
-          UNIFIED 8 SAAS KPI SUMMARY CARDS
+          8 KPI CARDS (2 ROWS OF 4 COLUMNS)
           ========================================================================= */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Card 1: Total Enquiries */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        {/* Card 1: TOTAL ENQUIRIES */}
         <Link
           href="/admin/enquiries"
-          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-[#207de9]/50 hover:shadow-md"
+          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-[#207de9]/50 hover:shadow-md flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              Total Enquiries
-            </span>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 text-xs text-[#207de9] font-bold">
-              ◉
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 shrink-0">
+                <UsersIcon className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  TOTAL ENQUIRIES
+                </span>
+                <p className="text-3xl font-black text-[#080d24] tabular-nums tracking-tight mt-0.5">
+                  {loading ? "..." : stats.totalEnquiries}
+                </p>
+              </div>
+            </div>
+            <span className="text-slate-300 group-hover:text-[#207de9] transition">
+              <ChevronRightIcon className="w-4 h-4" />
             </span>
           </div>
-          <p className="mt-3 text-2xl font-black text-[#080d24] tabular-nums">
-            {loading ? "..." : stats.totalEnquiries}
-          </p>
-          <div className="mt-1 flex items-center justify-between text-[10.5px] text-slate-500">
-            <span>{stats.newEnquiries} New Leads</span>
-            <span className="text-[#207de9] font-bold opacity-0 group-hover:opacity-100 transition">
-              Manage →
-            </span>
+          <div className="mt-3 pt-2 border-t border-slate-100/80 text-[12px] text-slate-500 font-medium">
+            <span>{stats.newEnquiries} New Lead{stats.newEnquiries === 1 ? "" : "s"}</span>
           </div>
         </Link>
 
-        {/* Card 2: Businesses Registered */}
+        {/* Card 2: TOTAL BUSINESSES */}
         <Link
           href="/admin/businesses"
-          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-[#207de9]/50 hover:shadow-md"
+          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-purple-400/50 hover:shadow-md flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              Total Businesses
-            </span>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-50 text-xs text-indigo-600 font-bold">
-              🏢
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-50 text-purple-600 shrink-0">
+                <BuildingIcon className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  TOTAL BUSINESSES
+                </span>
+                <p className="text-3xl font-black text-[#080d24] tabular-nums tracking-tight mt-0.5">
+                  {loading ? "..." : stats.totalBusinesses}
+                </p>
+              </div>
+            </div>
+            <span className="text-slate-300 group-hover:text-purple-600 transition">
+              <ChevronRightIcon className="w-4 h-4" />
             </span>
           </div>
-          <p className="mt-3 text-2xl font-black text-[#080d24] tabular-nums">
-            {loading ? "..." : stats.totalBusinesses}
-          </p>
-          <div className="mt-1 flex items-center justify-between text-[10.5px] text-slate-500">
+          <div className="mt-3 pt-2 border-t border-slate-100/80 text-[12px] text-slate-500 font-medium">
             <span>ReviewFlow Registered</span>
-            <span className="text-indigo-600 font-bold opacity-0 group-hover:opacity-100 transition">
-              Directory →
-            </span>
           </div>
         </Link>
 
-        {/* Card 3: Pending Approvals */}
+        {/* Card 3: PENDING APPROVALS */}
         <Link
           href="/admin/approvals"
-          className={`group relative rounded-2xl border p-5 shadow-xs transition hover:shadow-md ${
+          className={`group relative rounded-2xl border p-5 shadow-xs transition hover:shadow-md flex flex-col justify-between ${
             stats.pendingApprovals > 0
               ? "border-amber-300 bg-amber-50/60"
-              : "border-slate-200/90 bg-white"
+              : "border-slate-200/90 bg-white hover:border-amber-400/50"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className={`text-[10px] font-bold uppercase tracking-wider ${
-              stats.pendingApprovals > 0 ? "text-amber-800" : "text-slate-400"
-            }`}>
-              Pending Approvals
-            </span>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-100 text-xs text-amber-700 font-bold">
-              ⏳
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600 shrink-0">
+                <HourglassIcon className="w-6 h-6" />
+              </div>
+              <div>
+                <span className={`text-[11px] font-bold uppercase tracking-wider ${
+                  stats.pendingApprovals > 0 ? "text-amber-800" : "text-slate-400"
+                }`}>
+                  PENDING APPROVALS
+                </span>
+                <p className={`text-3xl font-black tabular-nums tracking-tight mt-0.5 ${
+                  stats.pendingApprovals > 0 ? "text-amber-900" : "text-[#080d24]"
+                }`}>
+                  {loading ? "..." : stats.pendingApprovals}
+                </p>
+              </div>
+            </div>
+            <span className="text-slate-300 group-hover:text-amber-600 transition">
+              <ChevronRightIcon className="w-4 h-4" />
             </span>
           </div>
-          <p className={`mt-3 text-2xl font-black tabular-nums ${
-            stats.pendingApprovals > 0 ? "text-amber-900" : "text-[#080d24]"
-          }`}>
-            {loading ? "..." : stats.pendingApprovals}
-          </p>
-          <div className="mt-1 flex items-center justify-between text-[10.5px] text-slate-500">
+          <div className="mt-3 pt-2 border-t border-slate-100/80 text-[12px] text-slate-500 font-medium">
             <span className={stats.pendingApprovals > 0 ? "text-amber-800 font-semibold" : ""}>
-              {stats.pendingApprovals > 0 ? "Requires Verification" : "Queue Empty"}
-            </span>
-            <span className="text-amber-700 font-bold opacity-0 group-hover:opacity-100 transition">
-              Review →
+              {stats.pendingApprovals > 0 ? "Requires Action" : "Queue Empty"}
             </span>
           </div>
         </Link>
 
-        {/* Card 4: Active QR Codes */}
+        {/* Card 4: ACTIVE QR CODES */}
         <Link
           href="/admin/review-qr?status=active"
-          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-emerald-500/50 hover:shadow-md"
+          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-emerald-400/50 hover:shadow-md flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              Active QR Codes
-            </span>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50 text-xs text-emerald-600 font-bold">
-              📲
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 shrink-0">
+                <QrCodeIcon className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  ACTIVE QR CODES
+                </span>
+                <p className="text-3xl font-black text-[#080d24] tabular-nums tracking-tight mt-0.5">
+                  {loading ? "..." : stats.activeQRCodes}
+                </p>
+              </div>
+            </div>
+            <span className="text-slate-300 group-hover:text-emerald-600 transition">
+              <ChevronRightIcon className="w-4 h-4" />
             </span>
           </div>
-          <p className="mt-3 text-2xl font-black text-emerald-600 tabular-nums">
-            {loading ? "..." : stats.activeQRCodes}
-          </p>
-          <div className="mt-1 flex items-center justify-between text-[10.5px] text-slate-500">
+          <div className="mt-3 pt-2 border-t border-slate-100/80 text-[12px] text-slate-500 font-medium">
             <span>{stats.deactivatedQRCodes} Paused</span>
-            <span className="text-emerald-600 font-bold opacity-0 group-hover:opacity-100 transition">
-              QR Hub →
-            </span>
           </div>
         </Link>
 
-        {/* Card 5: Review Link Visits / Scans */}
+        {/* Card 5: TOTAL LINK SCANS */}
         <Link
           href="/admin/analytics"
-          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-blue-500/50 hover:shadow-md"
+          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-indigo-400/50 hover:shadow-md flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              Total Link Scans
-            </span>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 text-xs text-[#207de9] font-bold">
-              🔍
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-50 text-violet-600 shrink-0">
+                <LinkIcon className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  TOTAL LINK SCANS
+                </span>
+                <p className="text-3xl font-black text-[#080d24] tabular-nums tracking-tight mt-0.5">
+                  {loading ? "..." : stats.totalScans}
+                </p>
+              </div>
+            </div>
+            <span className="text-slate-300 group-hover:text-violet-600 transition">
+              <ChevronRightIcon className="w-4 h-4" />
             </span>
           </div>
-          <p className="mt-3 text-2xl font-black text-[#080d24] tabular-nums">
-            {loading ? "..." : stats.totalScans}
-          </p>
-          <div className="mt-1 flex items-center justify-between text-[10.5px] text-slate-500">
-            <span>Customer QR scans</span>
-            <span className="text-[#207de9] font-bold opacity-0 group-hover:opacity-100 transition">
-              Funnel →
-            </span>
+          <div className="mt-3 pt-2 border-t border-slate-100/80 text-[12px] text-slate-500 font-medium">
+            <span>Customer QR Scans</span>
           </div>
         </Link>
 
-        {/* Card 6: Customer Reviews Formulated */}
+        {/* Card 6: REVIEWS GENERATED */}
         <Link
           href="/admin/analytics"
-          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-indigo-500/50 hover:shadow-md"
+          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-pink-400/50 hover:shadow-md flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              Reviews Generated
-            </span>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-50 text-xs text-indigo-600 font-bold">
-              ★
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-pink-50 text-pink-600 shrink-0">
+                <StarIcon className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  REVIEWS GENERATED
+                </span>
+                <p className="text-3xl font-black text-[#080d24] tabular-nums tracking-tight mt-0.5">
+                  {loading ? "..." : stats.reviewsGenerated}
+                </p>
+              </div>
+            </div>
+            <span className="text-slate-300 group-hover:text-pink-600 transition">
+              <ChevronRightIcon className="w-4 h-4" />
             </span>
           </div>
-          <p className="mt-3 text-2xl font-black text-indigo-600 tabular-nums">
-            {loading ? "..." : stats.reviewsGenerated}
-          </p>
-          <div className="mt-1 flex items-center justify-between text-[10.5px] text-slate-500">
-            <span>{stats.conversionRate}% Conversion</span>
-            <span className="text-indigo-600 font-bold opacity-0 group-hover:opacity-100 transition">
-              Stats →
-            </span>
+          <div className="mt-3 pt-2 border-t border-slate-100/80 text-[12px] text-slate-500 font-medium">
+            <span>{stats.conversionRate}% Conversion Rate</span>
           </div>
         </Link>
 
-        {/* Card 7: Verified Revenue */}
+        {/* Card 7: VERIFIED REVENUE */}
         <Link
           href="/admin/payments"
-          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-emerald-500 hover:shadow-md"
+          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-emerald-400 hover:shadow-md flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              Verified Revenue
-            </span>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50 text-xs text-emerald-700 font-black">
-              ₹
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 shrink-0">
+                <RupeeIcon className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  VERIFIED REVENUE
+                </span>
+                <p className="text-3xl font-black text-emerald-700 tabular-nums tracking-tight mt-0.5">
+                  {loading ? "..." : "₹" + stats.totalRevenue.toLocaleString("en-IN")}
+                </p>
+              </div>
+            </div>
+            <span className="text-slate-300 group-hover:text-emerald-700 transition">
+              <ChevronRightIcon className="w-4 h-4" />
             </span>
           </div>
-          <p className="mt-3 text-2xl font-black text-emerald-700 tabular-nums">
-            {loading ? "..." : "₹" + stats.totalRevenue.toLocaleString("en-IN")}
-          </p>
-          <div className="mt-1 flex items-center justify-between text-[10.5px] text-slate-500">
+          <div className="mt-3 pt-2 border-t border-slate-100/80 text-[12px] text-slate-500 font-medium">
             <span>Successful Payments</span>
-            <span className="text-emerald-700 font-bold opacity-0 group-hover:opacity-100 transition">
-              Payments →
-            </span>
           </div>
         </Link>
 
-        {/* Card 8: Strategic Proposals */}
+        {/* Card 8: STRATEGIC PROPOSALS */}
         <Link
           href="/admin/proposals"
-          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-cyan-500/50 hover:shadow-md"
+          className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-blue-400/50 hover:shadow-md flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              Strategic Proposals
-            </span>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-50 text-xs text-cyan-600 font-bold">
-              📑
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 shrink-0">
+                <BarChartIcon className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  STRATEGIC PROPOSALS
+                </span>
+                <p className="text-3xl font-black text-[#080d24] tabular-nums tracking-tight mt-0.5">
+                  {loading ? "..." : stats.strategicProposals}
+                </p>
+              </div>
+            </div>
+            <span className="text-slate-300 group-hover:text-blue-600 transition">
+              <ChevronRightIcon className="w-4 h-4" />
             </span>
           </div>
-          <p className="mt-3 text-2xl font-black text-[#080d24] tabular-nums">
-            {loading ? "..." : stats.strategicProposals}
-          </p>
-          <div className="mt-1 flex items-center justify-between text-[10.5px] text-slate-500">
+          <div className="mt-3 pt-2 border-t border-slate-100/80 text-[12px] text-slate-500 font-medium">
             <span>High-Intent Leads</span>
-            <span className="text-cyan-600 font-bold opacity-0 group-hover:opacity-100 transition">
-              Proposals →
-            </span>
           </div>
         </Link>
+
       </div>
 
       {/* =========================================================================
-          RECENT ACTIVITY & QUICK OVERVIEW
+          OPERATIONS LIVE STREAM & RIGHT WIDGETS
           ========================================================================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left: Recent Activity Feed (8 cols) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        {/* Left Column (8 cols): Unified Operations Live Stream */}
         <div className="lg:col-span-8 rounded-2xl border border-slate-200/90 bg-white p-6 shadow-xs space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+          
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4 gap-3">
             <div>
-              <h2 className="text-base font-black text-[#080d24] flex items-center gap-2">
-                <span>Unified Operations Live Stream</span>
+              <div className="flex items-center gap-2">
+                <h2 className="text-lg font-extrabold text-[#080d24]">
+                  Unified Operations Live Stream
+                </h2>
                 <span className="text-[10px] font-extrabold bg-blue-50 text-[#207de9] border border-blue-200 px-2 py-0.5 rounded-full uppercase tracking-wider">
                   REALTIME
                 </span>
-              </h2>
-              <p className="text-xs text-slate-500 mt-0.5">
+              </div>
+              <p className="text-xs text-slate-500 mt-1">
                 Real-time chronological events from customer enquiries, proposals, ReviewFlow QR drafts, and payments.
               </p>
             </div>
+
+            <Link
+              href="/admin/enquiries"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-[#207de9] border border-slate-200 rounded-xl px-3 py-1.5 transition shadow-2xs self-start sm:self-auto"
+            >
+              <span>View All</span>
+              <span>→</span>
+            </Link>
           </div>
 
+          {/* Activity Rows */}
           {loading ? (
             <div className="space-y-3 py-4">
-              {[1, 2, 3, 4].map((n) => (
-                <div key={n} className="h-14 rounded-xl bg-slate-100 animate-pulse" />
+              {[1, 2, 3, 4, 5].map((n) => (
+                <div key={n} className="h-16 rounded-xl bg-slate-100 animate-pulse" />
               ))}
             </div>
           ) : recentActivity.length === 0 ? (
-            <div className="py-12 text-center text-slate-400 text-xs">
+            <div className="py-14 text-center text-slate-400 text-xs">
               No recent activity recorded yet.
             </div>
           ) : (
@@ -575,44 +742,60 @@ export default function AdminDashboardPage() {
                 <div
                   key={act.id}
                   onClick={() => openActivityDrawer(act)}
-                  className="flex items-center justify-between py-3.5 px-3 -mx-3 rounded-xl hover:bg-slate-50 transition cursor-pointer group"
+                  className="flex items-center justify-between py-3.5 px-3 -mx-3 rounded-xl hover:bg-slate-50/80 transition cursor-pointer group"
                 >
+                  {/* Left: Icon & Description */}
                   <div className="flex items-center gap-3.5 min-w-0">
                     <div
                       className={
-                        "flex h-10 w-10 items-center justify-center rounded-xl text-sm font-black shrink-0 border " +
+                        "flex h-10 w-10 items-center justify-center rounded-xl text-sm font-bold shrink-0 border " +
                         (act.type === "payment"
-                          ? "bg-emerald-50 text-emerald-600 border-emerald-200"
+                          ? "bg-emerald-50 text-emerald-600 border-emerald-200/80"
                           : act.type === "proposal"
-                          ? "bg-cyan-50 text-cyan-600 border-cyan-200"
+                          ? "bg-cyan-50 text-cyan-600 border-cyan-200/80"
                           : act.type === "review"
-                          ? "bg-indigo-50 text-indigo-600 border-indigo-200"
+                          ? "bg-purple-50 text-purple-600 border-purple-200/80"
                           : act.type === "analysis"
-                          ? "bg-violet-50 text-violet-600 border-violet-200"
-                          : "bg-blue-50 text-[#207de9] border-blue-200")
+                          ? "bg-amber-50 text-amber-500 border-amber-200/80"
+                          : "bg-blue-50 text-blue-600 border-blue-200/80")
                       }
                     >
-                      {act.type === "payment"
-                        ? "₹"
-                        : act.type === "proposal"
-                        ? "📑"
-                        : act.type === "review"
-                        ? "★"
-                        : act.type === "analysis"
-                        ? "⚡"
-                        : "◉"}
+                      {act.type === "payment" ? (
+                        <RupeeIcon className="w-4 h-4" />
+                      ) : act.type === "proposal" ? (
+                        <DocumentIcon className="w-4 h-4" />
+                      ) : act.type === "review" ? (
+                        <StarIcon className="w-4 h-4" />
+                      ) : act.type === "analysis" ? (
+                        <LightningIcon className="w-4 h-4" />
+                      ) : (
+                        <MessageBubbleIcon className="w-4 h-4" />
+                      )}
                     </div>
 
                     <div className="min-w-0">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-bold text-sm text-[#080d24] group-hover:text-[#207de9] transition truncate">
                           {act.customer}
                         </span>
-                        <span className="text-[10px] font-semibold text-slate-400 uppercase">
-                          • {act.type === "review" ? "Google Review" : act.type}
+                        <span
+                          className={
+                            "text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border tracking-wide " +
+                            (act.type === "review"
+                              ? "bg-purple-50 text-purple-700 border-purple-200/60"
+                              : act.type === "analysis"
+                              ? "bg-blue-50 text-blue-700 border-blue-200/60"
+                              : act.type === "enquiry"
+                              ? "bg-amber-50 text-amber-800 border-amber-200/60"
+                              : act.type === "payment"
+                              ? "bg-emerald-50 text-emerald-800 border-emerald-200/60"
+                              : "bg-cyan-50 text-cyan-800 border-cyan-200/60")
+                          }
+                        >
+                          {act.type === "review" ? "GOOGLE REVIEW" : act.type.toUpperCase()}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-500 truncate">
+                      <p className="text-xs text-slate-500 truncate mt-0.5">
                         {act.website && act.website !== "—" ? (
                           <span className="font-mono text-slate-700">{act.website} • </span>
                         ) : null}
@@ -621,6 +804,7 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
 
+                  {/* Right: Status Pill & Timestamp */}
                   <div className="text-right shrink-0 ml-4">
                     <span
                       className={
@@ -630,7 +814,7 @@ export default function AdminDashboardPage() {
                     >
                       {act.amount ? "₹" + act.amount + " • " + act.status : act.status}
                     </span>
-                    <p className="text-[10.5px] text-slate-400 mt-1">
+                    <p className="text-[11px] text-slate-400 mt-1">
                       {formatDate(act.timestamp)}
                     </p>
                   </div>
@@ -640,68 +824,88 @@ export default function AdminDashboardPage() {
           )}
         </div>
 
-        {/* Right: Quick Action Hub & Strategic Proposals (4 cols) */}
+        {/* Right Column (4 cols): Quick Action QR Hub & Latest Proposals */}
         <div className="lg:col-span-4 space-y-6">
-          {/* Quick ReviewFlow QR Hub Card */}
-          <div className="rounded-2xl border border-blue-200/80 bg-gradient-to-br from-blue-50/70 via-white to-slate-50 p-5 shadow-xs space-y-3.5">
-            <div className="flex items-center gap-2.5">
-              <span className="text-xl">📲</span>
+          
+          {/* Card 1: ReviewFlow QR Hub */}
+          <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                <QrCodeIcon className="w-5 h-5" />
+              </div>
               <div>
-                <h3 className="text-sm font-black text-[#080d24]">ReviewFlow QR Hub</h3>
-                <p className="text-[11px] text-slate-500">Fast management shortcuts</p>
+                <h3 className="text-base font-bold text-[#080d24]">ReviewFlow QR Hub</h3>
+                <p className="text-xs text-slate-500">Fast management shortcuts</p>
               </div>
             </div>
 
-            <div className="space-y-2 pt-1">
+            <div className="space-y-2.5 pt-1">
               <button
                 onClick={() => setIsAddBusinessModalOpen(true)}
-                className="w-full flex items-center justify-between rounded-xl bg-white border border-slate-200 p-2.5 text-xs font-bold text-slate-700 hover:border-[#207de9] hover:text-[#207de9] transition cursor-pointer shadow-2xs"
+                className="w-full flex items-center justify-between rounded-xl bg-white border border-slate-200/90 p-3 text-xs font-bold text-slate-700 hover:border-[#207de9] hover:text-[#207de9] hover:bg-blue-50/20 transition cursor-pointer shadow-2xs group"
               >
-                <div className="flex items-center gap-2">
-                  <span>➕</span>
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-blue-50 text-blue-600 font-black text-sm">
+                    +
+                  </span>
                   <span>Register New Business</span>
                 </div>
-                <span>→</span>
+                <span className="text-slate-400 group-hover:text-[#207de9] transition">
+                  <ChevronRightIcon className="w-3.5 h-3.5" />
+                </span>
               </button>
 
               <Link
                 href="/admin/review-qr"
-                className="w-full flex items-center justify-between rounded-xl bg-white border border-slate-200 p-2.5 text-xs font-bold text-slate-700 hover:border-[#207de9] hover:text-[#207de9] transition shadow-2xs"
+                className="w-full flex items-center justify-between rounded-xl bg-white border border-slate-200/90 p-3 text-xs font-bold text-slate-700 hover:border-[#207de9] hover:text-[#207de9] hover:bg-blue-50/20 transition shadow-2xs group"
               >
-                <div className="flex items-center gap-2">
-                  <span>📥</span>
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+                    📥
+                  </span>
                   <span>Download Branded Cards</span>
                 </div>
-                <span>→</span>
+                <span className="text-slate-400 group-hover:text-[#207de9] transition">
+                  <ChevronRightIcon className="w-3.5 h-3.5" />
+                </span>
               </Link>
 
               <Link
                 href="/admin/analytics"
-                className="w-full flex items-center justify-between rounded-xl bg-white border border-slate-200 p-2.5 text-xs font-bold text-slate-700 hover:border-[#207de9] hover:text-[#207de9] transition shadow-2xs"
+                className="w-full flex items-center justify-between rounded-xl bg-white border border-slate-200/90 p-3 text-xs font-bold text-slate-700 hover:border-[#207de9] hover:text-[#207de9] hover:bg-blue-50/20 transition shadow-2xs group"
               >
-                <div className="flex items-center gap-2">
-                  <span>📈</span>
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-purple-50 text-purple-600">
+                    📈
+                  </span>
                   <span>Conversion Analytics</span>
                 </div>
-                <span>→</span>
+                <span className="text-slate-400 group-hover:text-[#207de9] transition">
+                  <ChevronRightIcon className="w-3.5 h-3.5" />
+                </span>
               </Link>
             </div>
           </div>
 
-          {/* Strategic Proposals Box */}
-          <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs space-y-3.5">
+          {/* Card 2: Latest Proposals */}
+          <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div>
-                <h3 className="text-xs font-extrabold text-[#080d24] uppercase tracking-wider">
-                  Latest Proposals
-                </h3>
-                <p className="text-[11px] text-slate-500">
-                  High-intent client quotes
-                </p>
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <DocumentIcon className="w-4.5 h-4.5" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-[#080d24]">
+                    Latest Proposals
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    High-intent client quotes
+                  </p>
+                </div>
               </div>
               <Link
                 href="/admin/proposals"
-                className="text-[11px] font-bold text-[#207de9] hover:underline"
+                className="text-xs font-bold text-[#207de9] hover:underline"
               >
                 View all →
               </Link>
@@ -714,8 +918,17 @@ export default function AdminDashboardPage() {
                 ))}
               </div>
             ) : recentProposals.length === 0 ? (
-              <div className="py-6 text-center text-slate-400 text-xs">
-                No proposal requests yet.
+              /* High-fidelity Empty State matching Screenshot */
+              <div className="py-10 text-center flex flex-col items-center justify-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-50 text-slate-400 border border-slate-200/80 mb-3 shadow-2xs">
+                  <DocumentIcon className="w-6 h-6" />
+                </div>
+                <p className="text-sm font-bold text-slate-800">
+                  No proposal requests yet.
+                </p>
+                <p className="text-xs text-slate-400 mt-1 max-w-xs leading-relaxed">
+                  When customers request quotes, they will appear here.
+                </p>
               </div>
             ) : (
               <div className="divide-y divide-slate-100">
@@ -737,7 +950,7 @@ export default function AdminDashboardPage() {
                         message: p.message,
                       })
                     }
-                    className="py-2.5 px-2 -mx-2 rounded-xl hover:bg-slate-50 transition cursor-pointer group"
+                    className="py-3 px-2 -mx-2 rounded-xl hover:bg-slate-50 transition cursor-pointer group"
                   >
                     <div className="flex items-center justify-between">
                       <p className="text-xs font-bold text-[#080d24] group-hover:text-[#207de9] transition truncate">
@@ -752,7 +965,7 @@ export default function AdminDashboardPage() {
                         {p.status || "New"}
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-500 truncate mt-0.5">
+                    <p className="text-xs text-slate-500 truncate mt-0.5">
                       {p.phone || p.email}
                     </p>
                   </div>
@@ -760,7 +973,9 @@ export default function AdminDashboardPage() {
               </div>
             )}
           </div>
+
         </div>
+
       </div>
 
       {/* Customer Drawer for enquiry / proposal details */}
