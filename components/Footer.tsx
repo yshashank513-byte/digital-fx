@@ -58,7 +58,6 @@ function PhoneIconPink({ className = "w-4 h-4 text-[#F43F5E] shrink-0" }: { clas
   );
 }
 
-
 // -----------------------------------------------------------------------------
 // Official Social Platform Vector Logos
 // -----------------------------------------------------------------------------
@@ -109,7 +108,7 @@ function YouTubeLogo({ className = "w-5 h-5 fill-white shrink-0" }: { className?
 function CtaBackgroundIllustration() {
   return (
     <svg
-      className="absolute right-0 top-0 h-full w-[460px] md:w-[540px] lg:w-[620px] pointer-events-none select-none overflow-hidden opacity-95 transition-opacity"
+      className="absolute right-0 top-0 h-full w-[280px] sm:w-[440px] md:w-[540px] lg:w-[620px] pointer-events-none select-none overflow-hidden opacity-35 sm:opacity-75 lg:opacity-95 transition-opacity"
       viewBox="0 0 620 260"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -150,70 +149,121 @@ function CtaBackgroundIllustration() {
         </pattern>
       </defs>
 
-      {/* Dotted Grid Background */}
+      {/* 1. Dot-matrix Map Grid */}
       <rect x="0" y="0" width="620" height="260" fill="url(#dotPattern)" mask="url(#dotMask)" />
 
-      {/* Ambient Radial Glow behind the Google Pin */}
-      <circle cx="215" cy="85" r="95" fill="url(#glowPin)" />
+      {/* 2. Soft Blue Map Contour Curves */}
+      <path
+        d="M 60 190 Q 180 130 310 160 T 560 110"
+        stroke="#BAE6FD"
+        strokeWidth="1.5"
+        strokeDasharray="4 4"
+        fill="none"
+        opacity="0.75"
+      />
+      <path
+        d="M 120 220 Q 260 180 390 200 T 620 150"
+        stroke="#93C5FD"
+        strokeWidth="1.2"
+        strokeDasharray="3 3"
+        fill="none"
+        opacity="0.6"
+      />
 
-      {/* Google Maps Pin Marker */}
-      <g transform="translate(190, 25) scale(1.18)">
-        {/* Pin shadow */}
-        <ellipse cx="20" cy="46" rx="12" ry="3.5" fill="#0284C7" fillOpacity="0.25" />
-        
-        {/* Outer Pin Body */}
+      {/* 3. Five 3D Ascending Growth Bars */}
+      {/* Bar 1 */}
+      <g opacity="0.9">
+        <path d="M 370 230 L 392 220 L 392 170 L 370 180 Z" fill="#93C5FD" />
+        <path d="M 370 180 L 392 170 L 406 177 L 384 187 Z" fill="#BAE6FD" />
+        <path d="M 384 187 L 406 177 L 406 227 L 384 237 Z" fill="#60A5FA" />
+      </g>
+
+      {/* Bar 2 */}
+      <g opacity="0.92">
+        <path d="M 412 232 L 434 222 L 434 148 L 412 158 Z" fill="#60A5FA" />
+        <path d="M 412 158 L 434 148 L 448 155 L 426 165 Z" fill="#93C5FD" />
+        <path d="M 426 165 L 448 155 L 448 229 L 426 239 Z" fill="#3B82F6" />
+      </g>
+
+      {/* Bar 3 */}
+      <g opacity="0.95">
+        <path d="M 454 234 L 476 224 L 476 122 L 454 132 Z" fill="#3B82F6" />
+        <path d="M 454 132 L 476 122 L 490 129 L 468 139 Z" fill="#60A5FA" />
+        <path d="M 468 139 L 490 129 L 490 231 L 468 241 Z" fill="#2563EB" />
+      </g>
+
+      {/* Bar 4 */}
+      <g opacity="0.97">
+        <path d="M 496 236 L 518 226 L 518 92 L 496 102 Z" fill="#2563EB" />
+        <path d="M 496 102 L 518 92 L 532 99 L 510 109 Z" fill="#3B82F6" />
+        <path d="M 510 109 L 532 99 L 532 233 L 510 243 Z" fill="#1D4ED8" />
+      </g>
+
+      {/* Bar 5 (Highest Peak) */}
+      <g opacity="1">
+        <path d="M 538 238 L 560 228 L 560 60 L 538 70 Z" fill="#1D4ED8" />
+        <path d="M 538 70 L 560 60 L 574 67 L 552 77 Z" fill="#2563EB" />
+        <path d="M 552 77 L 574 67 L 574 235 L 552 245 Z" fill="#1E40AF" />
+      </g>
+
+      {/* 4. Bold 3D Curved Ascending Growth Arrow */}
+      <path
+        d="M 330 205 C 380 195, 430 170, 480 125 C 520 88, 550 55, 575 32"
+        stroke="url(#arrowGrad)"
+        strokeWidth="11"
+        strokeLinecap="round"
+        fill="none"
+        filter="drop-shadow(0 4px 10px rgba(37,99,235,0.35))"
+      />
+      {/* 3D Arrowhead */}
+      <polygon
+        points="596,15 572,44 558,22"
+        fill="#1D4ED8"
+        filter="drop-shadow(0 4px 10px rgba(29,78,216,0.45))"
+      />
+
+      {/* 5. Google Maps Location Pin with Glowing Shadow */}
+      <ellipse cx="260" cy="120" rx="36" ry="14" fill="url(#glowPin)" />
+      
+      {/* Pin Body */}
+      <g filter="drop-shadow(0 6px 14px rgba(21,101,192,0.35))">
         <path
-          d="M20 0C8.954 0 0 8.954 0 20C0 32 17 48 20 50C23 48 40 32 40 20C40 8.954 31.046 0 20 0Z"
-          fill="#1A73E8"
-          filter="drop-shadow(0 4px 10px rgba(26,115,232,0.35))"
+          d="M 260 52 C 242 52 228 66 228 84 C 228 108 260 144 260 144 C 260 144 292 108 292 84 C 292 66 278 52 260 52 Z"
+          fill="#1E40AF"
         />
-        {/* Inner White Core */}
-        <circle cx="20" cy="20" r="13" fill="#FFFFFF" />
+        <path
+          d="M 260 55 C 244 55 231 68 231 84 C 231 106 260 139 260 139 C 260 139 289 106 289 84 C 289 68 276 55 260 55 Z"
+          fill="#2563EB"
+        />
+        {/* Inner White Circle with Multicolor Google "G" */}
+        <circle cx="260" cy="84" r="15" fill="#FFFFFF" />
         
-        {/* Google G Logo inside Pin */}
-        <g transform="translate(11.5, 11.5) scale(0.72)">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+        {/* Crisp Multicolor Google 'G' Mark inside Pin */}
+        <g transform="translate(252, 76) scale(0.68)">
+          <path
+            fill="#4285F4"
+            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+          />
+          <path
+            fill="#34A853"
+            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+          />
+          <path
+            fill="#FBBC05"
+            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+          />
+          <path
+            fill="#EA4335"
+            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+          />
         </g>
       </g>
-
-      {/* 5 Rising 3D Chart Bars */}
-      <g transform="translate(385, 65)">
-        {/* Bar 1 */}
-        <rect x="0" y="115" width="22" height="80" rx="6" fill="url(#barGrad1)" opacity="0.88" />
-        <rect x="2" y="117" width="18" height="76" rx="4" fill="#60A5FA" opacity="0.25" />
-
-        {/* Bar 2 */}
-        <rect x="34" y="85" width="24" height="110" rx="6" fill="url(#barGrad1)" opacity="0.92" />
-        <rect x="36" y="87" width="20" height="106" rx="4" fill="#60A5FA" opacity="0.25" />
-
-        {/* Bar 3 */}
-        <rect x="70" y="52" width="26" height="143" rx="7" fill="url(#barGrad2)" opacity="0.96" />
-        <rect x="72" y="54" width="22" height="139" rx="5" fill="#93C5FD" opacity="0.3" />
-
-        {/* Bar 4 */}
-        <rect x="108" y="22" width="28" height="173" rx="8" fill="url(#barGrad2)" />
-        <rect x="110" y="24" width="24" height="169" rx="6" fill="#93C5FD" opacity="0.35" />
-
-        {/* Bar 5 */}
-        <rect x="148" y="0" width="30" height="195" rx="8" fill="#1D4ED8" />
-        <rect x="150" y="2" width="26" height="191" rx="6" fill="#60A5FA" opacity="0.3" />
-      </g>
-
-      {/* Dynamic 3D Growth Arrow Curving Upward */}
-      <path
-        d="M315 225 C370 215, 440 155, 520 55 L495 50 L560 30 L552 90 L532 65 C475 155, 400 210, 315 225 Z"
-        fill="url(#arrowGrad)"
-        filter="drop-shadow(0 8px 16px rgba(29,78,216,0.35))"
-      />
     </svg>
   );
 }
 
 // -----------------------------------------------------------------------------
-// MAIN UNIVERSAL FOOTER COMPONENT
+// MAIN COMPONENT: Institutional Branded Footer
 // -----------------------------------------------------------------------------
 export default function Footer() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -221,23 +271,18 @@ export default function Footer() {
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newsletterEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newsletterEmail.trim())) {
-      alert("Please enter a valid email address.");
-      return;
-    }
+    if (!newsletterEmail.trim()) return;
     setNewsletterSuccess(true);
-    setTimeout(() => {
-      setNewsletterEmail("");
-      setNewsletterSuccess(false);
-    }, 4000);
+    setNewsletterEmail("");
+    setTimeout(() => setNewsletterSuccess(false), 5000);
   };
 
   return (
     <>
       {/* =========================================================================
-          1. TOP CTA SECTION (Light Blue to White SaaS Strip Matching Reference Image)
+          1. TOP CTA CONVERSION STRIP
           ========================================================================= */}
-      <section className="relative bg-gradient-to-r from-[#F7FBFF] via-[#F0F7FF] to-[#EAF4FF] border-t border-b border-blue-100 overflow-hidden font-sans">
+      <section className="relative bg-gradient-to-r from-[#F7FBFF] via-[#F0F7FF] to-[#EAF4FF] border-t border-b border-blue-100 overflow-hidden font-sans w-full max-w-full box-border">
         
         {/* Subtle Ambient Glow On Left */}
         <div className="absolute -left-16 -top-16 w-80 h-80 rounded-full bg-blue-200/35 blur-3xl pointer-events-none" />
@@ -247,34 +292,34 @@ export default function Footer() {
         <CtaBackgroundIllustration />
 
         {/* Centered Max-Width Container (1500px) */}
-        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-12 min-h-[230px] lg:min-h-[250px] flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 relative z-10">
+        <div className="max-w-[1500px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-12 min-h-[230px] lg:min-h-[250px] flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 relative z-10 box-border">
           
           {/* Left Text & Credibility */}
-          <div className="max-w-3xl text-center lg:text-left">
+          <div className="max-w-3xl w-full text-center lg:text-left min-w-0">
             {/* Blue Rounded Credibility Badge with Green Status Dot */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#155EEF] text-white text-xs sm:text-[13px] font-black tracking-wider uppercase mb-3 shadow-xs">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#08C568] animate-pulse shrink-0" />
-              <span>DELHI NCR&apos;S #1 SEARCH ENGINEERING FIRM</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#155EEF] text-white text-[11px] sm:text-xs lg:text-[13px] font-black tracking-wider uppercase mb-3 shadow-xs max-w-full">
+              <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#08C568] animate-pulse shrink-0" />
+              <span className="truncate">DELHI NCR&apos;S #1 SEARCH ENGINEERING FIRM</span>
             </div>
 
             {/* Bold Hero Heading Matching Exact Reference Layout */}
-            <h2 className="text-2xl sm:text-3xl lg:text-[38px] xl:text-[40px] font-black text-[#101D3A] tracking-tight leading-[1.18]">
+            <h2 className="text-2xl sm:text-3xl lg:text-[38px] xl:text-[40px] font-black text-[#101D3A] tracking-tight leading-[1.18] break-words">
               <span className="block">Ready to dominate</span>
               <span className="text-[#155EEF]">Google Maps 3-Pack &amp; 10x</span> your inquiries?
             </h2>
 
             {/* Supporting Description */}
-            <p className="mt-2.5 text-xs sm:text-sm lg:text-[15px] text-[#475467] font-medium leading-relaxed max-w-2xl">
+            <p className="mt-2.5 text-xs sm:text-sm lg:text-[15px] text-[#475467] font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 break-words">
               Meet your dedicated strategists face-to-face in Orbit Plaza, Crossings Republik, or request a customized competitor audit today.
             </p>
           </div>
 
           {/* Right Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3 sm:gap-3.5 shrink-0 z-20">
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center lg:justify-end gap-3 sm:gap-3.5 w-full sm:w-auto shrink-0 z-20">
             {/* 1. Call Button */}
             <a
               href="tel:+919319807273"
-              className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#101D3A] text-xs sm:text-[13.5px] font-bold border border-slate-200/90 shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
+              className="inline-flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#101D3A] text-xs sm:text-[13.5px] font-bold border border-slate-200/90 shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer w-full sm:w-auto"
             >
               <PhoneIconBlue className="w-4 h-4 text-[#155EEF] shrink-0" />
               <span>Call +91 93198 07273</span>
@@ -285,7 +330,7 @@ export default function Footer() {
               href="https://wa.me/919319807273?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#08C568] hover:bg-[#07B05D] text-white text-xs sm:text-[13.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#08C568] hover:bg-[#07B05D] text-white text-xs sm:text-[13.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer w-full sm:w-auto"
             >
               <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" />
               <span>WhatsApp Strategy Desk</span>
@@ -294,7 +339,7 @@ export default function Footer() {
             {/* 3. Get Free Proposal Button */}
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#155EEF] hover:bg-[#1250cf] text-white text-xs sm:text-[13.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#155EEF] hover:bg-[#1250cf] text-white text-xs sm:text-[13.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer w-full sm:w-auto"
             >
               <span>Get Free Proposal →</span>
             </Link>
@@ -304,20 +349,20 @@ export default function Footer() {
       </section>
 
       {/* =========================================================================
-          2. DEEP NAVY INSTITUTIONAL FOOTER (5-Column Layout Matching Reference Image)
+          2. DEEP NAVY INSTITUTIONAL FOOTER (Fully Responsive on All Screen Sizes)
           ========================================================================= */}
-      <footer className="bg-gradient-to-b from-[#07172D] to-[#0A1932] text-[#F8FAFC] pt-16 pb-10 border-t border-slate-800/80 font-sans">
-        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10">
+      <footer className="w-full max-w-full overflow-x-hidden bg-gradient-to-b from-[#07172D] to-[#0A1932] text-[#F8FAFC] pt-12 sm:pt-16 pb-10 border-t border-slate-800/80 font-sans box-border">
+        <div className="max-w-[1500px] w-full mx-auto px-4 sm:px-6 lg:px-10 box-border">
           
-          {/* 5-Column Responsive Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 pb-14 border-b border-white/10">
+          {/* Responsive Grid: Single column on phone (<768px), 2 columns on tablet, 12-col grid on desktop */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 pb-12 sm:pb-14 border-b border-white/10 w-full min-w-0">
             
-            {/* COLUMN 1: Original Brand Logo (Enlarged), Description, Trust Badges, Address (3 Cols) */}
-            <div className="lg:col-span-3 xl:col-span-3 space-y-5">
+            {/* COLUMN 1: Original Brand Logo (Enlarged), Description, Trust Badges, Address */}
+            <div className="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-3 space-y-5 w-full min-w-0">
               
-              {/* Original Digital FX Logo - Significantly Bigger & Crisp as requested */}
+              {/* Original Digital FX Logo */}
               <div className="flex items-center">
-                <Link href="/" className="inline-block group" aria-label="Digital FX Home">
+                <Link href="/" className="inline-block group max-w-full" aria-label="Digital FX Home">
                   <img
                     src="/logo-white.svg"
                     alt="Digital FX - Business Solution"
@@ -325,300 +370,307 @@ export default function Footer() {
                     height={68}
                     loading="lazy"
                     decoding="async"
-                    style={{ height: "62px", width: "auto" }}
-                    className="h-13 sm:h-15 lg:h-[62px] w-auto max-w-[280px] object-contain shrink-0 transition-transform group-hover:scale-[1.02]"
+                    className="h-12 sm:h-14 lg:h-[62px] w-auto max-w-full object-contain shrink-0 transition-transform group-hover:scale-[1.02]"
                   />
                 </Link>
               </div>
 
               {/* Company Description */}
-              <p className="text-[14px] text-[#B8C5D9] leading-[1.6] font-normal">
+              <p className="text-[13.5px] sm:text-[14px] text-[#B8C5D9] leading-[1.6] font-normal break-words w-full">
                 We are the leading digital advertising &amp; search engineering company that turns bold ideas into measurable revenue. Dominating Google Maps 3-Pack, Generative AI Search (GEO), and performance marketing across India and global markets.
               </p>
 
               {/* Compact Rounded Horizontal Rating / Credibility Badges */}
-              <div className="space-y-2.5 pt-1">
+              <div className="space-y-2.5 pt-1 w-full min-w-0">
                 {/* 1. Google 4.9/5.0 Badge */}
-                <div className="flex items-center gap-2.5 bg-[#0D223F]/90 border border-[#1E3A5F] px-4 py-2 rounded-xl shadow-2xs max-w-full">
+                <div className="flex items-center gap-2.5 bg-[#0D223F]/90 border border-[#1E3A5F] px-3.5 py-2 rounded-xl shadow-2xs w-full max-w-full min-w-0 box-border">
                   <GoogleGIcon className="w-5 h-5 shrink-0" />
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-amber-400 text-xs tracking-wider">★★★★★</span>
-                    <span className="text-[12px] font-bold text-[#F8FAFC]">4.9/5.0 (128+ Reviews)</span>
+                  <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+                    <span className="text-amber-400 text-xs tracking-wider shrink-0">★★★★★</span>
+                    <span className="text-[11.5px] sm:text-[12px] font-bold text-[#F8FAFC] truncate">4.9/5.0 (128+ Reviews)</span>
                   </div>
                 </div>
 
                 {/* 2. Amazing Workplaces Certified India */}
-                <div className="flex items-center gap-2.5 bg-[#171c26]/90 border border-amber-500/40 px-4 py-2 rounded-xl text-amber-400 text-xs font-black tracking-wider uppercase shadow-2xs max-w-full">
-                  <span className="text-sm">🏆</span>
-                  <span>AMAZING WORKPLACES CERTIFIED INDIA</span>
+                <div className="flex items-center gap-2 bg-[#171c26]/90 border border-amber-500/40 px-3.5 py-2 rounded-xl text-amber-400 text-[10.5px] sm:text-xs font-black tracking-wider uppercase shadow-2xs w-full max-w-full min-w-0 box-border">
+                  <span className="text-sm shrink-0">🏆</span>
+                  <span className="break-words min-w-0">AMAZING WORKPLACES CERTIFIED INDIA</span>
                 </div>
 
                 {/* 3. Glassdoor 4.5 Badge */}
-                <div className="flex items-center gap-2 bg-[#092b33]/80 border border-teal-500/30 px-4 py-2 rounded-xl text-xs shadow-2xs max-w-full">
-                  <span className="font-extrabold text-[#08C568] tracking-wider uppercase">GLASSDOOR</span>
+                <div className="flex items-center gap-2 bg-[#092b33]/80 border border-teal-500/30 px-3.5 py-2 rounded-xl text-[11px] sm:text-xs shadow-2xs w-full max-w-full min-w-0 box-border">
+                  <span className="font-extrabold text-[#08C568] tracking-wider uppercase shrink-0">GLASSDOOR</span>
                   <span className="font-bold text-[#F8FAFC]">4.5</span>
-                  <span className="text-amber-400 text-xs tracking-wider">★★★★★</span>
+                  <span className="text-amber-400 text-xs tracking-wider shrink-0">★★★★★</span>
                 </div>
               </div>
 
-              {/* Office Address & Phone with Pink/Magenta Icons matching Reference */}
-              <div className="pt-2 space-y-2.5 text-xs text-[#B8C5D9]">
-                <div className="flex items-start gap-2.5">
+              {/* Office Address & Phone with Pink/Magenta Icons */}
+              <div className="pt-2 space-y-2.5 text-xs text-[#B8C5D9] w-full min-w-0">
+                <div className="flex items-start gap-2.5 w-full min-w-0">
                   <LocationPinPink className="w-4 h-4 text-[#F43F5E] shrink-0 mt-0.5" />
-                  <span className="leading-relaxed">Shop No. 210, 2nd Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016</span>
+                  <span className="leading-relaxed break-words w-full min-w-0">
+                    Shop No. 210, 2nd Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016
+                  </span>
                 </div>
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2.5 w-full min-w-0">
                   <PhoneIconPink className="w-4 h-4 text-[#F43F5E] shrink-0" />
-                  <a href="tel:+919319807273" className="text-[#F8FAFC] hover:text-[#238BFF] transition-colors font-bold">+91 93198 07273</a>
+                  <a href="tel:+919319807273" className="text-[#F8FAFC] hover:text-[#238BFF] transition-colors font-bold break-all">
+                    +91 93198 07273
+                  </a>
                 </div>
               </div>
 
             </div>
 
-            {/* COLUMN 2: Quick Links & Tools (2 Cols) */}
-            <div className="lg:col-span-2 xl:col-span-2">
+            {/* COLUMN 2: Quick Links & Tools */}
+            <div className="col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-2 w-full min-w-0">
               <h3 className="text-[17px] font-bold text-[#F8FAFC]">
                 Quick Links &amp; Tools
               </h3>
               <div className="w-8 h-[2.5px] bg-[#155EEF] rounded-full mt-2 mb-4" />
               
-              <ul className="space-y-2.5 text-[14px] text-[#B8C5D9] font-medium">
-                <li>
-                  <Link href="/" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Home</span>
+              <ul className="space-y-2 text-[13.5px] sm:text-[14px] text-[#B8C5D9] font-medium w-full min-w-0">
+                <li className="w-full min-w-0">
+                  <Link href="/" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Home</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>SEO &amp; Growth Services</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">SEO &amp; Growth Services</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/case-studies" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>The Digital FX Portfolio</span>
+                <li className="w-full min-w-0">
+                  <Link href="/case-studies" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">The Digital FX Portfolio</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/pricing" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Digital Marketing Packages</span>
+                <li className="w-full min-w-0">
+                  <Link href="/pricing" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Digital Marketing Packages</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/reviewflow" className="group flex items-center gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0" />
-                    <span>ReviewFlow AI (Smart QR)</span>
-                    <span className="bg-[#155EEF] text-white text-[10px] font-black px-1.5 py-0.5 rounded-md uppercase leading-none shrink-0">
-                      NEW
+                <li className="w-full min-w-0">
+                  <Link href="/reviewflow" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">
+                      ReviewFlow AI (Smart QR){" "}
+                      <span className="bg-[#155EEF] text-white text-[10px] font-black px-1.5 py-0.5 rounded-md uppercase leading-none inline-block ml-1">
+                        NEW
+                      </span>
                     </span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/tools" className="group flex items-center gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0" />
-                    <span className="text-[#08C568]">Free AI Search &amp; GEO Tool</span>
-                    <span className="bg-[#08C568] text-white text-[10px] font-black px-1.5 py-0.5 rounded-md uppercase leading-none shrink-0">
-                      FREE
+                <li className="w-full min-w-0">
+                  <Link href="/tools" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">
+                      <span className="text-[#08C568]">Free AI Search &amp; GEO Tool</span>{" "}
+                      <span className="bg-[#08C568] text-white text-[10px] font-black px-1.5 py-0.5 rounded-md uppercase leading-none inline-block ml-1">
+                        FREE
+                      </span>
                     </span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/careers" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Careers (We Are Hiring!)</span>
+                <li className="w-full min-w-0">
+                  <Link href="/careers" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Careers (We Are Hiring!)</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/contact" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Contact &amp; Strategy Desk</span>
+                <li className="w-full min-w-0">
+                  <Link href="/contact" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Contact &amp; Strategy Desk</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/blog" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Blog &amp; SEO Insights</span>
+                <li className="w-full min-w-0">
+                  <Link href="/blog" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Blog &amp; SEO Insights</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/privacy-policy" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Privacy Policy</span>
+                <li className="w-full min-w-0">
+                  <Link href="/privacy-policy" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Privacy Policy</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/terms-and-conditions" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Terms &amp; Conditions</span>
+                <li className="w-full min-w-0">
+                  <Link href="/terms-and-conditions" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Terms &amp; Conditions</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/refund-policy" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Refund Policy</span>
+                <li className="w-full min-w-0">
+                  <Link href="/refund-policy" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Refund Policy</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/sitemap.xml" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>XML Sitemap</span>
+                <li className="w-full min-w-0">
+                  <Link href="/sitemap.xml" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">XML Sitemap</span>
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* COLUMN 3: Solutions & Services (2 Cols) */}
-            <div className="lg:col-span-2 xl:col-span-2">
+            {/* COLUMN 3: Solutions & Services */}
+            <div className="col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-2 w-full min-w-0">
               <h3 className="text-[17px] font-bold text-[#F8FAFC]">
                 Solutions &amp; Services
               </h3>
               <div className="w-8 h-[2.5px] bg-[#155EEF] rounded-full mt-2 mb-4" />
 
-              <ul className="space-y-2.5 text-[14px] text-[#B8C5D9] font-medium">
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Google Maps 3–Pack &amp; Local SEO</span>
+              <ul className="space-y-2 text-[13.5px] sm:text-[14px] text-[#B8C5D9] font-medium w-full min-w-0">
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Google Maps 3–Pack &amp; Local SEO</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Generative AI Search &amp; GEO</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Generative AI Search &amp; GEO</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Website &amp; App Development</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Website &amp; App Development</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Pay Per Click (PPC / Google Ads)</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Pay Per Click (PPC / Google Ads)</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>CTV &amp; Programmatic Advertising</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">CTV &amp; Programmatic Advertising</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Rich Media Innovation</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Rich Media Innovation</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Media Planning &amp; Buying</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Media Planning &amp; Buying</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Content Marketing</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Content Marketing</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Social Media Marketing</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Social Media Marketing</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Reputation Management (ORM)</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Reputation Management (ORM)</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Influencer Marketing</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Influencer Marketing</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>Email Marketing (₹4,999)</span>
+                <li className="w-full min-w-0">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Email Marketing (₹4,999)</span>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/contact" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors">
-                    <ChevronBlue />
-                    <span>WhatsApp Lead Automation</span>
+                <li className="w-full min-w-0">
+                  <Link href="/contact" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">WhatsApp Lead Automation</span>
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* COLUMN 4: Industries We Scale (2 Cols) */}
-            <div className="lg:col-span-2 xl:col-span-2">
+            {/* COLUMN 4: Industries We Scale */}
+            <div className="col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-2 w-full min-w-0">
               <h3 className="text-[17px] font-bold text-[#F8FAFC]">
                 Industries We Scale
               </h3>
               <div className="w-8 h-[2.5px] bg-[#155EEF] rounded-full mt-2 mb-4" />
 
-              <ul className="space-y-2.5 text-[14px] text-[#B8C5D9] font-medium">
-                <li className="group flex items-start gap-2">
-                  <ChevronBlue />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default">Hospitals &amp; Healthcare</span>
+              <ul className="space-y-2 text-[13.5px] sm:text-[14px] text-[#B8C5D9] font-medium w-full min-w-0">
+                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
+                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Hospitals &amp; Healthcare</span>
                 </li>
-                <li className="group flex items-start gap-2">
-                  <ChevronBlue />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default">Automobile &amp; Detailing</span>
+                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
+                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Automobile &amp; Detailing</span>
                 </li>
-                <li className="group flex items-start gap-2">
-                  <ChevronBlue />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default">Real Estate &amp; Builders</span>
+                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
+                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Real Estate &amp; Builders</span>
                 </li>
-                <li className="group flex items-start gap-2">
-                  <ChevronBlue />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default">Travel &amp; Hospitality</span>
+                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
+                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Travel &amp; Hospitality</span>
                 </li>
-                <li className="group flex items-start gap-2">
-                  <ChevronBlue />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default">FMCG &amp; FMCD Brands</span>
+                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
+                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">FMCG &amp; FMCD Brands</span>
                 </li>
-                <li className="group flex items-start gap-2">
-                  <ChevronBlue />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default">Education &amp; Institutes</span>
+                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
+                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Education &amp; Institutes</span>
                 </li>
-                <li className="group flex items-start gap-2">
-                  <ChevronBlue />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default">E-Commerce &amp; D2C</span>
+                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
+                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">E-Commerce &amp; D2C</span>
                 </li>
-                <li className="group flex items-start gap-2">
-                  <ChevronBlue />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default">Security &amp; Legal Services</span>
+                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
+                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Security &amp; Legal Services</span>
                 </li>
-                <li className="group flex items-start gap-2">
-                  <ChevronBlue />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default">Information Technology</span>
+                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
+                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Information Technology</span>
                 </li>
-                <li className="group flex items-start gap-2">
-                  <ChevronBlue />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default">Banking &amp; Financial Services</span>
+                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
+                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Banking &amp; Financial Services</span>
                 </li>
               </ul>
             </div>
 
-            {/* COLUMN 5: Follow Digital FX & Newsletter Card (3 Cols) */}
-            <div className="lg:col-span-3 xl:col-span-3">
+            {/* COLUMN 5: Follow Digital FX & Newsletter Card */}
+            <div className="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-3 w-full min-w-0">
               <h3 className="text-[17px] font-bold text-[#F8FAFC]">
                 Follow Digital FX
               </h3>
               <div className="w-8 h-[2.5px] bg-[#155EEF] rounded-full mt-2 mb-4" />
 
-              {/* Official Social Brand Icons Row - Facebook, X, LinkedIn, Instagram, YouTube */}
-              <div className="flex items-center gap-3">
+              {/* Official Social Brand Icons Row */}
+              <div className="flex flex-wrap items-center gap-3">
                 {/* 1. Facebook */}
                 <a
                   href="https://facebook.com"
@@ -676,7 +728,7 @@ export default function Footer() {
               </div>
 
               {/* Get Marketing Insights Newsletter Card */}
-              <div className="mt-6 p-5 rounded-2xl bg-[#0B1E38]/90 border border-[#1E3A5F] shadow-sm">
+              <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-[#0B1E38]/90 border border-[#1E3A5F] shadow-sm w-full max-w-full box-border">
                 <h4 className="text-[15px] font-bold text-[#F8FAFC]">
                   Get Marketing Insights
                 </h4>
@@ -689,15 +741,15 @@ export default function Footer() {
                     <span>✓</span> Subscribed! Thank you for joining.
                   </div>
                 ) : (
-                  <form onSubmit={handleNewsletterSubmit} className="flex items-center gap-2">
-                    <div className="relative flex-1">
+                  <form onSubmit={handleNewsletterSubmit} className="flex items-center gap-2 w-full min-w-0">
+                    <div className="relative flex-1 min-w-0">
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs">✉</span>
                       <input
                         type="email"
                         value={newsletterEmail}
                         onChange={(e) => setNewsletterEmail(e.target.value)}
                         placeholder="Enter your email"
-                        className="w-full h-10 rounded-xl bg-[#07172D]/90 border border-[#1E3A5F] pl-8 pr-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#155EEF] transition"
+                        className="w-full h-10 rounded-xl bg-[#07172D]/90 border border-[#1E3A5F] pl-8 pr-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#155EEF] transition min-w-0"
                         required
                       />
                     </div>
@@ -719,28 +771,28 @@ export default function Footer() {
           {/* =======================================================================
               3. BOTTOM COPYRIGHT & LEGAL BAR
               ======================================================================= */}
-          <div className="pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-[#8F9EAF] gap-4 font-normal">
-            <div className="text-center md:text-left">
+          <div className="pt-6 flex flex-col md:flex-row items-center md:items-start justify-between text-xs text-[#8F9EAF] gap-4 font-normal w-full min-w-0">
+            <div className="text-center md:text-left leading-relaxed w-full md:w-auto break-words min-w-0">
               © {new Date().getFullYear()} Digital FX®. All rights reserved. Registered Office: Shop No. 210, Orbit Plaza, Crossings Republik, Ghaziabad.
             </div>
             
-            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-              <Link href="/blog" className="hover:text-white transition-colors">
+            <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-2 sm:gap-x-6 w-full md:w-auto text-center min-w-0">
+              <Link href="/blog" className="hover:text-white transition-colors whitespace-nowrap">
                 Blog
               </Link>
-              <Link href="/reviewflow" className="hover:text-white transition-colors">
+              <Link href="/reviewflow" className="hover:text-white transition-colors whitespace-nowrap">
                 ReviewFlow AI
               </Link>
-              <Link href="/privacy-policy" className="hover:text-white transition-colors">
+              <Link href="/privacy-policy" className="hover:text-white transition-colors whitespace-nowrap">
                 Privacy Policy
               </Link>
-              <Link href="/terms-and-conditions" className="hover:text-white transition-colors">
+              <Link href="/terms-and-conditions" className="hover:text-white transition-colors whitespace-nowrap">
                 Terms of Service
               </Link>
-              <Link href="/refund-policy" className="hover:text-white transition-colors">
+              <Link href="/refund-policy" className="hover:text-white transition-colors whitespace-nowrap">
                 Refund Policy
               </Link>
-              <Link href="/admin" className="hover:text-slate-200 transition-colors text-slate-400">
+              <Link href="/admin" className="hover:text-slate-200 transition-colors text-slate-400 whitespace-nowrap">
                 Admin Panel
               </Link>
             </div>
