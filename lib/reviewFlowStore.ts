@@ -125,6 +125,7 @@ function normalizeBusiness(raw: any): BusinessProfile {
     placeId: raw.placeId ? String(raw.placeId).trim() : undefined,
     logoUrl: raw.logoUrl ? String(raw.logoUrl).trim() : undefined,
     brandColor: raw.brandColor ? String(raw.brandColor).trim() : "#207de9",
+    qrStyle: raw.qrStyle === "rounded" || raw.qrStyle === "circle" ? raw.qrStyle : "square",
     additionalNotes: raw.additionalNotes ? String(raw.additionalNotes).trim() : undefined,
 
     status: activeStatus,

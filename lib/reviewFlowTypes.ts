@@ -49,6 +49,7 @@ export interface BusinessProfile {
   placeId?: string;
   logoUrl?: string;
   brandColor?: string; // hex
+  qrStyle?: "square" | "rounded" | "circle";
   additionalNotes?: string;
 
   // Status & Approval workflow

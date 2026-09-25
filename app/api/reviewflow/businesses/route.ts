@@ -93,6 +93,8 @@ export async function POST(request: Request) {
       brandColor,
       additionalNotes,
       status: requestedStatus,
+      logoUrl,
+      qrStyle,
     } = body;
 
     // Required Field Validations
@@ -180,6 +182,8 @@ export async function POST(request: Request) {
       pincode: pincode ? String(pincode).trim() : undefined,
       googleReviewUrl: googleReviewUrl.trim(),
       brandColor: brandColor || "#207de9",
+      logoUrl: logoUrl ? String(logoUrl).trim() : undefined,
+      qrStyle: qrStyle === "rounded" || qrStyle === "circle" ? qrStyle : "square",
       additionalNotes: additionalNotes ? String(additionalNotes).trim() : undefined,
       status: initialStatus,
     });
