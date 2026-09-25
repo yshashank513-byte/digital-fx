@@ -36,6 +36,16 @@ const nextConfig: NextConfig = {
         destination: "/#geo-checker",
         permanent: true,
       },
+      {
+        source: "/reviewflow/dashboard",
+        destination: "/admin/reviewflow",
+        permanent: false,
+      },
+      {
+        source: "/reviewflow/dashboard/:path*",
+        destination: "/admin/reviewflow",
+        permanent: false,
+      },
     ];
   },
   async headers() {
