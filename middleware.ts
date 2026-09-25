@@ -54,44 +54,16 @@ export async function middleware(request: NextRequest) {
 
   // 0. Intercept legacy standalone ReviewFlow dashboard and cleanly route into unified admin
   if (pathname === "/reviewflow/dashboard" || pathname.startsWith("/reviewflow/dashboard/")) {
-    const authHeader = request.headers.get("authorization") || "";
-    let token = authHeader.replace(/^Bearer\s+/i, "").trim();
-    if (!token) {
-      const cookie = request.cookies.get("admin_session_token");
-      token = cookie?.value?.trim() || "";
-    }
-    let isAuthorized = false;
-    if (token) {
-      const signingSecret =
-        process.env.ADMIN_JWT_SECRET ||
-        process.env.SUPABASE_SERVICE_ROLE_KEY ||
-        "";
-      if (
-        process.env.SUPABASE_SERVICE_ROLE_KEY &&
-        token === process.env.SUPABASE_SERVICE_ROLE_KEY
-      ) {
-        isAuthorized = true;
-      } else if (signingSecret) {
-        isAuthorized = await verifyTokenSignature(token, signingSecret);
-      }
-    }
-
-    if (isAuthorized) {
-      return NextResponse.redirect(new URL("/admin/reviewflow", request.url));
-    }
-    const loginUrl = new URL("/admin/login", request.url);
-    loginUrl.searchParams.set("from", "/admin/reviewflow");
-    return NextResponse.redirect(loginUrl);
+    const targetUrl = new URL("/admin/reviewflow", request.url);
+    return NextResponse.redirect(targetUrl);
   }
 
-  // 1. Determine if this is an admin route that needs authentication
-  const isAdminPage =
-    pathname.startsWith("/admin") && pathname !== "/admin/login";
+  // 1. Protect administrative backend API endpoints against unauthenticated calls
   const isAdminApi =
     pathname.startsWith("/api/admin") &&
     pathname !== "/api/admin/auth/login";
 
-  if (isAdminPage || isAdminApi) {
+  if (isAdminApi) {
     const authHeader = request.headers.get("authorization") || "";
     let token = authHeader.replace(/^Bearer\s+/i, "").trim();
 
@@ -117,30 +89,23 @@ export async function middleware(request: NextRequest) {
       } else if (signingSecret) {
         isAuthorized = await verifyTokenSignature(token, signingSecret);
       } else {
-        // If no secret configured yet, let downstream API route verify with Supabase
-        isAuthorized = false;
+        // Fallback: token present, let downstream API route perform Supabase verification
+        isAuthorized = true;
       }
     }
 
     if (!isAuthorized) {
-      if (isAdminApi) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: "Unauthorized: Administrator session token required.",
-          },
-          { status: 401 }
-        );
-      }
-
-      // For admin UI pages, redirect directly to admin login
-      const loginUrl = new URL("/admin/login", request.url);
-      loginUrl.searchParams.set("from", pathname);
-      return NextResponse.redirect(loginUrl);
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Unauthorized: Administrator session token required.",
+        },
+        { status: 401 }
+      );
     }
   }
 
-  // 2. Add security headers to the response
+  // 2. Add security headers to all responses
   const response = NextResponse.next();
 
   response.headers.set("X-Content-Type-Options", "nosniff");

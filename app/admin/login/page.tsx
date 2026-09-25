@@ -23,6 +23,7 @@ export default function AdminLogin() {
         setSessionExpiredNotice(true);
         localStorage.removeItem("digitalfx_admin");
         localStorage.removeItem("digitalfx_admin_token");
+        supabase.auth.signOut().catch(() => {});
         return;
       }
     }
