@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 
 // -----------------------------------------------------------------------------
-// High-Fidelity SVG Icons & Assets
+// High-Fidelity SVG Brand Icons & Assets (Official Logos)
 // -----------------------------------------------------------------------------
 
 function ChevronBlue({ className = "w-3 h-3 text-[#155EEF] shrink-0 mt-1" }: { className?: string }) {
@@ -15,7 +15,7 @@ function ChevronBlue({ className = "w-3 h-3 text-[#155EEF] shrink-0 mt-1" }: { c
   );
 }
 
-function GoogleGIcon({ className = "w-5 h-5 shrink-0" }: { className?: string }) {
+function GoogleGIcon({ className = "w-4.5 h-4.5 shrink-0" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24">
       <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -26,9 +26,9 @@ function GoogleGIcon({ className = "w-5 h-5 shrink-0" }: { className?: string })
   );
 }
 
-function PhoneIcon({ className = "w-4 h-4 text-[#155EEF] shrink-0" }: { className?: string }) {
+function PhoneIconBlue({ className = "w-4 h-4 text-[#155EEF] shrink-0" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   );
@@ -42,10 +42,70 @@ function WhatsAppIcon({ className = "w-4 h-4 fill-current shrink-0" }: { classNa
   );
 }
 
-function PaperPlaneIcon({ className = "w-5 h-5 text-[#238BFF] shrink-0" }: { className?: string }) {
+function LocationPinPink({ className = "w-4 h-4 text-[#F43F5E] shrink-0 mt-0.5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+    </svg>
+  );
+}
+
+function PhoneIconPink({ className = "w-4 h-4 text-[#F43F5E] shrink-0" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+    </svg>
+  );
+}
+
+function PaperPlaneIcon({ className = "w-4.5 h-4.5 text-[#238BFF] shrink-0" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
       <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+    </svg>
+  );
+}
+
+// -----------------------------------------------------------------------------
+// Official Social Platform Vector Logos
+// -----------------------------------------------------------------------------
+
+function FacebookLogo({ className = "w-5 h-5 fill-white shrink-0" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24">
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+    </svg>
+  );
+}
+
+function XTwitterLogo({ className = "w-4 h-4 fill-white shrink-0" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+function LinkedInLogo({ className = "w-4.5 h-4.5 fill-white shrink-0" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24">
+      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+    </svg>
+  );
+}
+
+function InstagramLogo({ className = "w-4.5 h-4.5 fill-white shrink-0" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+    </svg>
+  );
+}
+
+function YouTubeLogo({ className = "w-5 h-5 fill-white shrink-0" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
     </svg>
   );
 }
@@ -56,15 +116,15 @@ function PaperPlaneIcon({ className = "w-5 h-5 text-[#238BFF] shrink-0" }: { cla
 function CtaBackgroundIllustration() {
   return (
     <svg
-      className="absolute right-0 top-0 h-full w-[440px] md:w-[520px] lg:w-[600px] pointer-events-none select-none overflow-hidden opacity-90 transition-opacity"
-      viewBox="0 0 600 260"
+      className="absolute right-0 top-0 h-full w-[460px] md:w-[540px] lg:w-[620px] pointer-events-none select-none overflow-hidden opacity-95 transition-opacity"
+      viewBox="0 0 620 260"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid meet"
       aria-hidden="true"
     >
       <defs>
-        {/* Bar & Arrow Gradients */}
+        {/* Gradients */}
         <linearGradient id="barGrad1" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#38BDF8" />
           <stop offset="100%" stopColor="#1D4ED8" />
@@ -79,32 +139,32 @@ function CtaBackgroundIllustration() {
           <stop offset="100%" stopColor="#1D4ED8" />
         </linearGradient>
         <radialGradient id="glowPin" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.35" />
+          <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.4" />
           <stop offset="100%" stopColor="#60A5FA" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="maskGrad" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-          <stop offset="30%" stopColor="#ffffff" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.9" />
+          <stop offset="25%" stopColor="#ffffff" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.95" />
         </linearGradient>
         <mask id="dotMask">
-          <rect x="0" y="0" width="600" height="260" fill="url(#maskGrad)" />
+          <rect x="0" y="0" width="620" height="260" fill="url(#maskGrad)" />
         </mask>
         
         {/* Dot Matrix Pattern */}
         <pattern id="dotPattern" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1.4" fill="#7DD3FC" fillOpacity="0.5" />
+          <circle cx="2" cy="2" r="1.45" fill="#7DD3FC" fillOpacity="0.55" />
         </pattern>
       </defs>
 
       {/* Dotted Grid Background */}
-      <rect x="0" y="0" width="600" height="260" fill="url(#dotPattern)" mask="url(#dotMask)" />
+      <rect x="0" y="0" width="620" height="260" fill="url(#dotPattern)" mask="url(#dotMask)" />
 
       {/* Ambient Radial Glow behind the Google Pin */}
-      <circle cx="310" cy="85" r="95" fill="url(#glowPin)" />
+      <circle cx="215" cy="85" r="95" fill="url(#glowPin)" />
 
       {/* Google Maps Pin Marker */}
-      <g transform="translate(285, 25) scale(1.15)">
+      <g transform="translate(190, 25) scale(1.18)">
         {/* Pin shadow */}
         <ellipse cx="20" cy="46" rx="12" ry="3.5" fill="#0284C7" fillOpacity="0.25" />
         
@@ -127,7 +187,7 @@ function CtaBackgroundIllustration() {
       </g>
 
       {/* 5 Rising 3D Chart Bars */}
-      <g transform="translate(410, 65)">
+      <g transform="translate(385, 65)">
         {/* Bar 1 */}
         <rect x="0" y="115" width="22" height="80" rx="6" fill="url(#barGrad1)" opacity="0.88" />
         <rect x="2" y="117" width="18" height="76" rx="4" fill="#60A5FA" opacity="0.25" />
@@ -151,7 +211,7 @@ function CtaBackgroundIllustration() {
 
       {/* Dynamic 3D Growth Arrow Curving Upward */}
       <path
-        d="M340 225 C390 215, 460 155, 530 55 L505 50 L565 30 L558 90 L538 65 C480 155, 410 210, 340 225 Z"
+        d="M315 225 C370 215, 440 155, 520 55 L495 50 L560 30 L552 90 L532 65 C475 155, 400 210, 315 225 Z"
         fill="url(#arrowGrad)"
         filter="drop-shadow(0 8px 16px rgba(29,78,216,0.35))"
       />
@@ -199,16 +259,15 @@ export default function Footer() {
           {/* Left Text & Credibility */}
           <div className="max-w-3xl text-center lg:text-left">
             {/* Blue Rounded Credibility Badge with Green Status Dot */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#155EEF] text-white text-xs sm:text-[13px] font-black tracking-wider uppercase mb-3.5 shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#155EEF] text-white text-xs sm:text-[13px] font-black tracking-wider uppercase mb-3 shadow-xs">
               <span className="w-2.5 h-2.5 rounded-full bg-[#08C568] animate-pulse shrink-0" />
               <span>DELHI NCR&apos;S #1 SEARCH ENGINEERING FIRM</span>
             </div>
 
-            {/* Bold Hero Heading */}
+            {/* Bold Hero Heading Matching Exact Reference Layout */}
             <h2 className="text-2xl sm:text-3xl lg:text-[38px] xl:text-[40px] font-black text-[#101D3A] tracking-tight leading-[1.18]">
-              Ready to dominate{" "}
-              <span className="text-[#155EEF]">Google Maps 3-Pack &amp; 10x</span>{" "}
-              your inquiries?
+              <span className="block">Ready to dominate</span>
+              <span className="text-[#155EEF]">Google Maps 3-Pack &amp; 10x</span> your inquiries?
             </h2>
 
             {/* Supporting Description */}
@@ -222,9 +281,9 @@ export default function Footer() {
             {/* 1. Call Button */}
             <a
               href="tel:+919319807273"
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#101D3A] text-xs sm:text-[13px] font-bold border border-slate-200/90 shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#101D3A] text-xs sm:text-[13.5px] font-bold border border-slate-200/90 shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
             >
-              <PhoneIcon className="w-4 h-4 text-[#155EEF] shrink-0" />
+              <PhoneIconBlue className="w-4 h-4 text-[#155EEF] shrink-0" />
               <span>Call +91 93198 07273</span>
             </a>
 
@@ -233,7 +292,7 @@ export default function Footer() {
               href="https://wa.me/919319807273?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-3 rounded-xl bg-[#08C568] hover:bg-[#07B05D] text-white text-xs sm:text-[13px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#08C568] hover:bg-[#07B05D] text-white text-xs sm:text-[13.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
             >
               <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" />
               <span>WhatsApp Strategy Desk</span>
@@ -242,7 +301,7 @@ export default function Footer() {
             {/* 3. Get Free Proposal Button */}
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#155EEF] hover:bg-[#1250cf] text-white text-xs sm:text-[13px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#155EEF] hover:bg-[#1250cf] text-white text-xs sm:text-[13.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
             >
               <span>Get Free Proposal →</span>
             </Link>
@@ -260,21 +319,21 @@ export default function Footer() {
           {/* 5-Column Responsive Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 pb-14 border-b border-white/10">
             
-            {/* COLUMN 1: Original Brand Logo, Description, Trust Badges, Address (3 Cols) */}
+            {/* COLUMN 1: Original Brand Logo (Enlarged), Description, Trust Badges, Address (3 Cols) */}
             <div className="lg:col-span-3 xl:col-span-3 space-y-5">
               
-              {/* Original Digital FX Logo - Preserving Original Brand Asset */}
+              {/* Original Digital FX Logo - Significantly Bigger & Crisp as requested */}
               <div className="flex items-center">
                 <Link href="/" className="inline-block group" aria-label="Digital FX Home">
                   <img
                     src="/logo-white.svg"
                     alt="Digital FX - Business Solution"
-                    width={220}
-                    height={58}
+                    width={260}
+                    height={68}
                     loading="lazy"
                     decoding="async"
-                    style={{ height: "48px", width: "auto" }}
-                    className="h-10 sm:h-12 w-auto object-contain shrink-0 transition-transform group-hover:scale-[1.02]"
+                    style={{ height: "62px", width: "auto" }}
+                    className="h-13 sm:h-15 lg:h-[62px] w-auto max-w-[280px] object-contain shrink-0 transition-transform group-hover:scale-[1.02]"
                   />
                 </Link>
               </div>
@@ -287,7 +346,7 @@ export default function Footer() {
               {/* Compact Rounded Horizontal Rating / Credibility Badges */}
               <div className="space-y-2.5 pt-1">
                 {/* 1. Google 4.9/5.0 Badge */}
-                <div className="flex items-center gap-2.5 bg-[#0D223F]/90 border border-[#1E3A5F] px-3.5 py-2 rounded-xl shadow-2xs">
+                <div className="flex items-center gap-2.5 bg-[#0D223F]/90 border border-[#1E3A5F] px-4 py-2 rounded-xl shadow-2xs max-w-full">
                   <GoogleGIcon className="w-5 h-5 shrink-0" />
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <span className="text-amber-400 text-xs tracking-wider">★★★★★</span>
@@ -296,27 +355,27 @@ export default function Footer() {
                 </div>
 
                 {/* 2. Amazing Workplaces Certified India */}
-                <div className="flex items-center gap-2.5 bg-[#171c26]/90 border border-amber-500/40 px-3.5 py-2 rounded-xl text-amber-400 text-xs font-black tracking-wider uppercase shadow-2xs">
+                <div className="flex items-center gap-2.5 bg-[#171c26]/90 border border-amber-500/40 px-4 py-2 rounded-xl text-amber-400 text-xs font-black tracking-wider uppercase shadow-2xs max-w-full">
                   <span className="text-sm">🏆</span>
                   <span>AMAZING WORKPLACES CERTIFIED INDIA</span>
                 </div>
 
                 {/* 3. Glassdoor 4.5 Badge */}
-                <div className="flex items-center gap-2 bg-[#092b33]/80 border border-teal-500/30 px-3.5 py-2 rounded-xl text-xs shadow-2xs">
+                <div className="flex items-center gap-2 bg-[#092b33]/80 border border-teal-500/30 px-4 py-2 rounded-xl text-xs shadow-2xs max-w-full">
                   <span className="font-extrabold text-[#08C568] tracking-wider uppercase">GLASSDOOR</span>
                   <span className="font-bold text-[#F8FAFC]">4.5</span>
                   <span className="text-amber-400 text-xs tracking-wider">★★★★★</span>
                 </div>
               </div>
 
-              {/* Office Address & Phone */}
+              {/* Office Address & Phone with Pink/Magenta Icons matching Reference */}
               <div className="pt-2 space-y-2.5 text-xs text-[#B8C5D9]">
                 <div className="flex items-start gap-2.5">
-                  <span className="text-[#F43F5E] text-base shrink-0 mt-0.5">📍</span>
+                  <LocationPinPink className="w-4 h-4 text-[#F43F5E] shrink-0 mt-0.5" />
                   <span className="leading-relaxed">Shop No. 210, 2nd Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016</span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <span className="text-[#F43F5E] text-base shrink-0">📞</span>
+                  <PhoneIconPink className="w-4 h-4 text-[#F43F5E] shrink-0" />
                   <a href="tel:+919319807273" className="text-[#F8FAFC] hover:text-[#238BFF] transition-colors font-bold">+91 93198 07273</a>
                 </div>
               </div>
@@ -328,7 +387,7 @@ export default function Footer() {
               <h3 className="text-[17px] font-bold text-[#F8FAFC]">
                 Quick Links &amp; Tools
               </h3>
-              <div className="w-7 h-0.5 bg-[#155EEF] rounded-full mt-2 mb-4" />
+              <div className="w-8 h-[2.5px] bg-[#155EEF] rounded-full mt-2 mb-4" />
               
               <ul className="space-y-2.5 text-[14px] text-[#B8C5D9] font-medium">
                 <li>
@@ -418,12 +477,12 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* COLUMN 3: Solutions & Services (2.5 Cols) */}
+            {/* COLUMN 3: Solutions & Services (2 Cols) */}
             <div className="lg:col-span-2 xl:col-span-2">
               <h3 className="text-[17px] font-bold text-[#F8FAFC]">
                 Solutions &amp; Services
               </h3>
-              <div className="w-7 h-0.5 bg-[#155EEF] rounded-full mt-2 mb-4" />
+              <div className="w-8 h-[2.5px] bg-[#155EEF] rounded-full mt-2 mb-4" />
 
               <ul className="space-y-2.5 text-[14px] text-[#B8C5D9] font-medium">
                 <li>
@@ -512,7 +571,7 @@ export default function Footer() {
               <h3 className="text-[17px] font-bold text-[#F8FAFC]">
                 Industries We Scale
               </h3>
-              <div className="w-7 h-0.5 bg-[#155EEF] rounded-full mt-2 mb-4" />
+              <div className="w-8 h-[2.5px] bg-[#155EEF] rounded-full mt-2 mb-4" />
 
               <ul className="space-y-2.5 text-[14px] text-[#B8C5D9] font-medium">
                 <li className="group flex items-start gap-2">
@@ -563,71 +622,75 @@ export default function Footer() {
               <h3 className="text-[17px] font-bold text-[#F8FAFC]">
                 Follow Digital FX
               </h3>
-              <div className="w-7 h-0.5 bg-[#155EEF] rounded-full mt-2 mb-4" />
+              <div className="w-8 h-[2.5px] bg-[#155EEF] rounded-full mt-2 mb-4" />
 
-              {/* Social Brand Icons Row */}
-              <div className="flex items-center gap-2.5">
-                {/* Facebook */}
+              {/* Official Social Brand Icons Row - Facebook, X, LinkedIn, Instagram, YouTube */}
+              <div className="flex items-center gap-3">
+                {/* 1. Facebook */}
                 <a
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook"
-                  className="w-9 h-9 rounded-xl bg-[#1877F2] text-white flex items-center justify-center font-bold text-sm shadow-xs hover:opacity-90 transition active:scale-95"
+                  className="w-10 h-10 rounded-xl bg-[#1877F2] text-white flex items-center justify-center shadow-xs hover:opacity-90 hover:scale-105 transition-all active:scale-95 cursor-pointer"
                 >
-                  f
+                  <FacebookLogo />
                 </a>
-                {/* X / Twitter */}
+
+                {/* 2. X (Twitter) */}
                 <a
                   href="https://x.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="X (Twitter)"
-                  className="w-9 h-9 rounded-xl bg-black border border-white/20 text-white flex items-center justify-center font-bold text-sm shadow-xs hover:opacity-90 transition active:scale-95"
+                  className="w-10 h-10 rounded-xl bg-black border border-white/20 text-white flex items-center justify-center shadow-xs hover:opacity-90 hover:scale-105 transition-all active:scale-95 cursor-pointer"
                 >
-                  𝕏
+                  <XTwitterLogo />
                 </a>
-                {/* LinkedIn */}
+
+                {/* 3. LinkedIn */}
                 <a
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="w-9 h-9 rounded-xl bg-[#0A66C2] text-white flex items-center justify-center font-bold text-sm shadow-xs hover:opacity-90 transition active:scale-95"
+                  className="w-10 h-10 rounded-xl bg-[#0A66C2] text-white flex items-center justify-center shadow-xs hover:opacity-90 hover:scale-105 transition-all active:scale-95 cursor-pointer"
                 >
-                  in
+                  <LinkedInLogo />
                 </a>
-                {/* Instagram */}
+
+                {/* 4. Instagram */}
                 <a
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
-                  className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#FD1D1D] via-[#E1306C] to-[#833AB4] text-white flex items-center justify-center font-bold text-sm shadow-xs hover:opacity-90 transition active:scale-95"
+                  className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white flex items-center justify-center shadow-xs hover:opacity-90 hover:scale-105 transition-all active:scale-95 cursor-pointer"
                 >
-                  📷
+                  <InstagramLogo />
                 </a>
-                {/* YouTube */}
+
+                {/* 5. YouTube */}
                 <a
                   href="https://youtube.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="YouTube"
-                  className="w-9 h-9 rounded-xl bg-[#FF0000] text-white flex items-center justify-center font-bold text-sm shadow-xs hover:opacity-90 transition active:scale-95"
+                  className="w-10 h-10 rounded-xl bg-[#FF0000] text-white flex items-center justify-center shadow-xs hover:opacity-90 hover:scale-105 transition-all active:scale-95 cursor-pointer"
                 >
-                  ►
+                  <YouTubeLogo />
                 </a>
               </div>
 
               {/* Get Marketing Insights Newsletter Card */}
-              <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-[#0D223F]/80 border border-[#1E3A5F] shadow-sm">
+              <div className="mt-6 p-5 rounded-2xl bg-[#0B1E38]/90 border border-[#1E3A5F] shadow-sm">
                 <div className="flex items-center justify-between">
                   <h4 className="text-[15px] font-bold text-[#F8FAFC]">
                     Get Marketing Insights
                   </h4>
                   <PaperPlaneIcon />
                 </div>
-                <p className="text-xs text-[#B8C5D9] mt-1 mb-3.5 leading-relaxed font-normal">
+                <p className="text-xs text-[#B8C5D9] mt-1 mb-4 leading-relaxed font-normal">
                   Tips, updates and growth strategies directly in your inbox.
                 </p>
 
