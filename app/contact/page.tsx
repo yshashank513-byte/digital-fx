@@ -50,7 +50,7 @@ export default function ContactPage() {
 
       {/* 3. MAIN SECTION */}
       <section className="py-16 sm:py-20 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef] mb-3">
@@ -65,7 +65,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start max-w-7xl mx-auto">
             
             {/* Left: Office & Contact Info */}
             <div className="lg:col-span-6 space-y-6">

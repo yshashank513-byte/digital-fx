@@ -225,7 +225,7 @@ export default async function CityLocationPage({ params }: PageProps) {
 
       {/* 3. BREADCRUMBS */}
       <div className="bg-slate-50 border-b border-slate-200/80 py-3">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 text-xs text-slate-500 flex items-center gap-2 flex-wrap">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-xs text-slate-500 flex items-center gap-2 flex-wrap">
           <Link href="/" className="hover:text-[#207de9] transition font-medium">Home</Link>
           <span className="text-slate-400">/</span>
           <Link href="/locations" className="hover:text-[#207de9] transition font-medium">Locations</Link>
@@ -249,7 +249,7 @@ export default async function CityLocationPage({ params }: PageProps) {
 
       {/* 4. HERO SECTION (WHITE CORPORATE AGENCY STYLE) */}
       <section className="py-16 sm:py-20 bg-gradient-to-b from-slate-50/80 via-white to-white border-b border-slate-200">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-center">
           
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-[#1570ef] text-xs font-bold tracking-wider uppercase mb-5">
             <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
@@ -324,7 +324,7 @@ export default async function CityLocationPage({ params }: PageProps) {
       {/* 4B. STATE CITIES & DISTRICTS DIRECTORY (EXCLUSIVE FOR STATE PAGES) */}
       {profile.isState && profile.citiesInState && profile.citiesInState.length > 0 && (
         <section className="py-14 sm:py-16 bg-slate-50 border-b border-slate-200">
-          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
             <div className="text-center max-w-2xl mx-auto mb-10">
               <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
                 District &amp; City Coverage
@@ -360,7 +360,7 @@ export default async function CityLocationPage({ params }: PageProps) {
       )}
 
       {/* 5. LOCAL MARKET REALITY & CORRIDORS */}
-      <section className="py-16 sm:py-20 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+      <section className="py-16 sm:py-20 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 border-b border-slate-200">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <div className="lg:col-span-5 space-y-4">
             <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
@@ -409,7 +409,7 @@ export default async function CityLocationPage({ params }: PageProps) {
       </section>
 
       {/* 6. PROVEN 4-STAGE EXECUTION SYSTEM (DETAILS FULLY OPEN) */}
-      <section className="py-16 sm:py-20 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+      <section className="py-16 sm:py-20 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 border-b border-slate-200">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
             Engineered Playbook
@@ -455,7 +455,7 @@ export default async function CityLocationPage({ params }: PageProps) {
       </section>
 
       {/* 7. VERIFIED LOCAL CASE STUDY */}
-      <section className="py-16 sm:py-20 max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+      <section className="py-16 sm:py-20 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 border-b border-slate-200">
         <div className="rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/40 via-white to-blue-50/30 p-7 sm:p-10 shadow-xs">
           <div className="flex items-center gap-2 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
             <span>✓ Verified Case Study Benchmark • {profile.name} Region</span>
@@ -481,7 +481,7 @@ export default async function CityLocationPage({ params }: PageProps) {
       </section>
 
       {/* 8. TRANSPARENT PRICING TIERS (ALL DETAILS ADDED & BUTTONS OPEN) */}
-      <section className="py-16 sm:py-20 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+      <section className="py-16 sm:py-20 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 border-b border-slate-200">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
             Clear Investment
@@ -653,7 +653,7 @@ export default async function CityLocationPage({ params }: PageProps) {
       {/* 8B. SIBLING HUBS IN THIS STATE (FOR CITY PAGES) */}
       {!profile.isState && siblingCities.length > 0 && (
         <section className="py-14 sm:py-16 bg-slate-50 border-b border-slate-200">
-          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
               <div>
                 <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
@@ -689,7 +689,7 @@ export default async function CityLocationPage({ params }: PageProps) {
       )}
 
       {/* 9. LOCAL FAQS - ALL QUESTIONS & ANSWERS FULLY OPEN */}
-      <section className="py-16 sm:py-20 max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+      <section className="py-16 sm:py-20 max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 border-b border-slate-200">
         <div className="text-center mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
             Frequently Answered Questions
@@ -719,7 +719,7 @@ export default async function CityLocationPage({ params }: PageProps) {
 
       {/* 10. BOTTOM CONSULTATION BANNER */}
       <section className="py-16 sm:py-20 bg-slate-50">
-        <div className="max-w-[1000px] mx-auto px-4 text-center">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-center">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-[#080d24] mb-3 tracking-tight">
             Ready to Dominate Local Search in {profile.name}?
           </h2>

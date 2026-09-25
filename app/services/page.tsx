@@ -609,7 +609,7 @@ export default function ServicesPage() {
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/20 blur-[120px] rounded-full pointer-events-none" />
 
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 relative z-10 text-center">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10 text-center">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-300 text-xs font-extrabold uppercase tracking-widest mb-6">
             <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
             360° Digital Growth &amp; Technology Divisions
@@ -649,7 +649,7 @@ export default function ServicesPage() {
       </section>
 
       {/* 4. FILTER TABS & SERVICE CARDS GRID */}
-      <section className="py-16 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
+      <section className="py-16 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         {/* Category Navigation Bar */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
           {(["All", "Performance", "Search", "Tech", "Direct"] as const).map((tab) => (

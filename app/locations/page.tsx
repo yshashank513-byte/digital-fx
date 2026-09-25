@@ -85,7 +85,7 @@ export default function LocationsDirectoryPage() {
 
       {/* 3B. INTERNATIONAL & GLOBAL OFFSHORE HUBS (DUBAI FLAGSHIP) */}
       <section className="py-12 bg-gradient-to-b from-slate-50 via-white to-slate-50 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div>
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold uppercase tracking-wider mb-2">
@@ -126,7 +126,7 @@ export default function LocationsDirectoryPage() {
       </section>
 
       {/* 4. DIRECTORY CONTENT: GROUPED BY STATES AND UTS (WHITE CARDS) */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {INDIA_STATES_AND_UTS.map((region) => (
             <div

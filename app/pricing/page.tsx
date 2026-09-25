@@ -92,7 +92,7 @@ export default function PricingPage() {
 
       {/* 3. HERO */}
       <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200 text-center">
-        <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef] mb-4">
             <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
             Predictable Revenue Retainers
@@ -111,7 +111,7 @@ export default function PricingPage() {
 
       {/* 4. PRICING TIERS */}
       <section className="py-20 bg-slate-50/60 border-b border-slate-200">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
             {TIERS.map((tier) => (
               <div

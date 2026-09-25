@@ -151,7 +151,7 @@ function ToolsContent() {
 
       {/* Persistent AI Tools Suite Navigation Bar */}
       <div className="border-b border-slate-200 bg-[#F8FAFC]">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 py-3">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
             
             {/* Left: Suite Identity */}
@@ -225,7 +225,7 @@ function ToolsContent() {
          ======================================================== */}
       {activeTool === "overview" && (
         <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 text-center">
+          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-center">
             
             <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef] mb-4">
               <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
@@ -371,7 +371,7 @@ function ToolsContent() {
          ======================================================== */}
       {activeTool === "pagespeed" && (
         <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 text-center">
+          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-center">
             
             <div className="mb-4 flex items-center justify-center gap-2">
               <button

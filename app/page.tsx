@@ -2035,7 +2035,7 @@ export default function Home() {
             1. INSTITUTIONAL TOP BAR (#fxtopbar) - ACCREDITATION & DIRECT CLIENT DESK
             ========================================================================== */}
         <div id="fxtopbar" className="bg-[#080d24] text-white py-2 border-b border-white/10 block w-full overflow-hidden">
-          <div className="mx-auto flex h-auto min-h-[34px] max-w-[1280px] flex-wrap items-center justify-between gap-y-2 px-4 sm:px-6 lg:px-6 text-xs">
+          <div className="mx-auto flex h-auto min-h-[34px] max-w-[1680px] w-full flex-wrap items-center justify-between gap-y-2 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-xs">
             
             {/* Left: Certifications & Regional Presence */}
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-slate-300 text-[11px] sm:text-[11.5px] font-medium">
@@ -2090,7 +2090,7 @@ export default function Home() {
             2. WEBFX MAIN HEADER WITH DESKTOP NAVIGATION (#fxheader)
             ========================================================================== */}
         <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
-          <div className="mx-auto flex h-[74px] max-w-[1280px] items-center justify-between px-4 sm:px-6 lg:px-6">
+          <div className="mx-auto flex h-[74px] max-w-[1680px] w-full items-center justify-between px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
 
             {/* Brand Logo - Official Digital FX Logo Always Linking Cleanly to "/" */}
             <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
@@ -2684,10 +2684,10 @@ export default function Home() {
             }}
           />
 
-          <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-6">
+          <div className="relative z-10 mx-auto max-w-[1680px] w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
             
-            {/* Desktop 2-Column Balanced Grid: Left Text + Right Circular Flywheel */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
+            {/* Desktop 2-Column Balanced Grid: Left Text + Right Circular Flywheel (Fills entire screen, zero empty sides) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 2xl:gap-16 items-center">
               
               {/* Left Column: Headline, Proposal Bar, Trust Signals */}
               <div className="lg:col-span-6 flex flex-col justify-center text-left w-full min-w-0">
@@ -2709,24 +2709,24 @@ export default function Home() {
                   </span>
                 </div>
 
-                {/* WebFX Signature Headline - Responsive Typography */}
-                <h1 className="text-[32px] xs:text-[36px] sm:text-[44px] lg:text-[38px] xl:text-[46px] font-extrabold leading-[1.08] tracking-[-0.03em] text-[#080d24] text-left">
+                {/* WebFX Signature Headline - Responsive Typography that fills widescreen monitors */}
+                <h1 className="text-[34px] sm:text-[46px] lg:text-[40px] xl:text-[50px] 2xl:text-[58px] font-extrabold leading-[1.06] tracking-[-0.035em] text-[#080d24] text-left">
                   <span className="block">Digital Marketing &amp; SEO</span>
                   <span className="block">Agency in Ghaziabad —</span>{" "}
-                  <span className="webfx-serif text-[#207de9] font-normal text-[26px] xs:text-[28px] sm:text-[36px] lg:text-[32px] xl:text-[38px] leading-[1.15] block mt-1.5 sm:mt-2 text-left">
+                  <span className="webfx-serif text-[#207de9] font-normal text-[28px] sm:text-[38px] lg:text-[34px] xl:text-[42px] 2xl:text-[48px] leading-[1.12] block mt-1.5 sm:mt-2 text-left">
                     Your Revenue Partner in the AI Era.
                   </span>
                 </h1>
 
                 {/* Subtitle Description */}
-                <p className="mt-4 sm:mt-5 text-[14.5px] sm:text-[16px] xl:text-[16.5px] leading-[1.65] text-slate-600 font-normal max-w-[580px] text-left">
+                <p className="mt-4 sm:mt-5 text-[15px] sm:text-[16.5px] xl:text-[17.5px] leading-[1.65] text-slate-600 font-normal max-w-[620px] xl:max-w-[660px] text-left">
                   Most agencies report vanity metrics like impressions and clicks. Digital FX engineers connected customer acquisition systems that turn search visibility into qualified pipeline and measurable revenue for businesses across India.
                 </p>
 
                 {/* WebFX Exact Website Proposal Bar */}
                 <form
                   onSubmit={handleHeroProposal}
-                  className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch w-full max-w-[580px] bg-white border border-slate-300 rounded-2xl overflow-hidden shadow-xs hover:border-slate-400 focus-within:border-[#1570ef] focus-within:ring-2 focus-within:ring-blue-100 transition-all min-w-0"
+                  className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch w-full max-w-[620px] xl:max-w-[660px] bg-white border border-slate-300 rounded-2xl overflow-hidden shadow-xs hover:border-slate-400 focus-within:border-[#1570ef] focus-within:ring-2 focus-within:ring-blue-100 transition-all min-w-0"
                 >
                   <div className="flex-1 flex items-center px-4 h-13 sm:h-14 bg-transparent min-w-0">
                     <svg className="w-5 h-5 text-slate-400 mr-2.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -2785,9 +2785,9 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Right Column: WebFX Circular 4-Quadrant Revenue Engine */}
+              {/* Right Column: WebFX Circular 4-Quadrant Revenue Engine (Fills the entire right half of the screen) */}
               <div className="lg:col-span-6 flex flex-col justify-center items-center relative select-none mt-8 lg:mt-0 w-full min-w-0">
-                <div className="relative z-10 w-full max-w-[600px] xl:max-w-[620px] mx-auto">
+                <div className="relative z-10 w-full max-w-[680px] xl:max-w-[760px] 2xl:max-w-[820px] mx-auto">
                   <div className="w-full aspect-[1040/560] relative">
                   <svg viewBox="0 0 1040 560" className="w-full h-full drop-shadow-sm overflow-hidden sm:overflow-visible">
                   <defs>
@@ -3207,7 +3207,7 @@ export default function Home() {
             4. CLIENT TRUST & AUTHORITY STRIP — GLOBAL & INDIAN STARTUP ECOSYSTEM
             ========================================================================== */}
         <section className="bg-white py-12 sm:py-14 border-b border-slate-200 overflow-hidden">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 mb-7 text-center">
+          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 mb-7 text-center">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100/90 border border-slate-200 text-slate-700 text-[10.5px] font-extrabold uppercase tracking-[0.2em] mb-2.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               Global &amp; Indian Startup Ecosystem
@@ -3284,7 +3284,7 @@ export default function Home() {
             4B. INSIDE DIGITAL FX HEADQUARTERS — REAL STRATEGISTS, REAL IMPACT
             ========================================================================== */}
         <section className="py-16 sm:py-20 bg-gradient-to-b from-white via-[#f8faff] to-white border-b border-slate-200">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
+          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-xs font-bold tracking-wider uppercase mb-3">
@@ -3451,7 +3451,7 @@ export default function Home() {
           id="growth-dashboard"
           className="py-20 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-slate-50 border-b border-slate-200"
         >
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
+          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
             
             {/* Header: Move From Marketing that Reports Clicks to Marketing that Reports Revenue */}
             <div className="text-center max-w-[920px] mx-auto">
@@ -3927,7 +3927,7 @@ export default function Home() {
             6. WEBFX 4-STAGE SERVICES FUNNEL MATRIX
             ========================================================================== */}
         <section id="services" className="py-24 bg-white border-b border-slate-200">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
+          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
             
             <div className="text-center max-w-[820px] mx-auto mb-16">
               <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#207de9] bg-blue-50 border border-blue-200 px-3.5 py-1.5 rounded-full">
@@ -4171,7 +4171,7 @@ export default function Home() {
             7. PROPRIETARY GEO & AI SEARCH AUDIT SUITE (WEBFX EXECUTIVE DESIGN)
             ========================================================================== */}
         <section id="geo-checker" className="scroll-mt-20 py-24 bg-[#f8fafc] border-b border-slate-200 relative overflow-hidden">
-          <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-6">
+          <div className="relative mx-auto max-w-[1680px] w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
             
             {/* Header Area */}
             <div className="mx-auto max-w-[840px] text-center">
@@ -4465,7 +4465,7 @@ export default function Home() {
             9. VERIFIED CLIENT REVIEWS - HORIZONTAL CONTINUOUS MARQUEE (30 Verified Indian Reviews)
             ========================================================================== */}
         <section id="case-studies" className="py-24 bg-white border-b border-slate-200 overflow-hidden">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 mb-12">
+          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 mb-12">
             
             <div className="text-center max-w-[860px] mx-auto">
               {/* Google Verified Review & Rating Card */}
@@ -4517,7 +4517,7 @@ export default function Home() {
           </div>
 
           {/* Google Reviews Carousel & Interactive Marquee Track with Navigation Arrows */}
-          <div className="relative w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 py-4 group">
+          <div className="relative w-full max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-4 group">
             {/* Left Carousel Navigation Button */}
             <button
               onClick={() => scrollReviews("left")}
@@ -4700,7 +4700,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(32,125,233,0.06),transparent_70%)] pointer-events-none" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-blue-500/5 rounded-full blur-[140px] pointer-events-none" />
 
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 relative z-10">
+          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10">
             
             {/* Header: We Don’t Just Follow Search Trends — We Benchmark Them */}
             <div className="text-center max-w-[900px] mx-auto mb-14 sm:mb-16">
@@ -5551,7 +5551,7 @@ export default function Home() {
             10. WEBFX SIGNATURE BOTTOM GRADIENT CLOSER CTA
             ========================================================================== */}
         <section id="contact" className="py-20 sm:py-24 bg-gradient-to-b from-white via-slate-50/60 to-white border-b border-slate-200">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
+          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
             
             {/* Section Header */}
             <div className="text-center max-w-[820px] mx-auto mb-14">

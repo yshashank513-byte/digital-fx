@@ -251,7 +251,7 @@ export default function ReviewFlowLandingClient() {
       
       {/* 1. TOP HEADER & NAVBAR */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 h-18 sm:h-20 flex items-center justify-between gap-4">
           
           {/* Brand & Product Badge */}
           <div className="flex items-center gap-3 shrink-0">
@@ -336,7 +336,7 @@ export default function ReviewFlowLandingClient() {
 
       {/* 2. HERO SECTION */}
       <section className="relative pt-12 sm:pt-16 pb-20 bg-gradient-to-b from-blue-50/60 via-white to-slate-50 border-b border-slate-200 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           
           <div className="text-center max-w-4xl mx-auto">
             {/* Trust Pill */}
@@ -417,7 +417,7 @@ export default function ReviewFlowLandingClient() {
 
       {/* 3. STEP-BY-STEP VISUAL ARCHITECTURE */}
       <section id="how-it-works" className="py-20 bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-black uppercase tracking-widest text-[#207de9] bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">
@@ -521,7 +521,7 @@ export default function ReviewFlowLandingClient() {
 
       {/* 4. INTERACTIVE CATEGORY SHOWCASE SIMULATOR */}
       <section id="simulator" className="py-20 bg-slate-50 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           
           <div className="text-center max-w-3xl mx-auto mb-12">
             <span className="text-xs font-black uppercase tracking-widest text-[#207de9] bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">
@@ -728,7 +728,7 @@ export default function ReviewFlowLandingClient() {
 
       {/* 6. VERIFIED LOCAL BUSINESS OWNER REVIEWS */}
       <section id="reviews" className="py-20 bg-slate-50 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-black uppercase tracking-widest text-[#207de9] bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">
@@ -786,7 +786,7 @@ export default function ReviewFlowLandingClient() {
 
       {/* 7. TRANSPARENT CHARGES & PRICING PACKAGES */}
       <section id="pricing" className="py-20 bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-black uppercase tracking-widest text-emerald-700 bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200">
@@ -1065,7 +1065,7 @@ export default function ReviewFlowLandingClient() {
 
       {/* 10. SAAS FOOTER */}
       <footer className="bg-slate-950 text-slate-400 py-10 border-t border-slate-900 text-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <img src="/logo-white.svg" alt="Digital FX" className="h-10 sm:h-11 w-auto object-contain" />
             <span className="text-slate-700">|</span>
