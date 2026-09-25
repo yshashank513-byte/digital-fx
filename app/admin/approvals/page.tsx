@@ -240,7 +240,6 @@ export default function AdminApprovalsPage() {
         onReject={handleReject}
         onActivate={() => {}}
         onDeactivate={() => {}}
-        onDelete={() => {}}
         onRegenerateQR={() => {}}
       />
 

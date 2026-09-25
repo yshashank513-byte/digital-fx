@@ -6,7 +6,6 @@ import { CATEGORIES_LIST } from "@/lib/reviewFlowCategories";
 import AddBusinessModal from "@/components/admin/AddBusinessModal";
 import BusinessDetailDrawer from "@/components/admin/BusinessDetailDrawer";
 import DeactivateModal from "@/components/admin/DeactivateModal";
-import DeleteModal from "@/components/admin/DeleteModal";
 
 export default function AdminBusinessesPage() {
   const [businesses, setBusinesses] = useState<BusinessProfile[]>([]);
@@ -23,7 +22,6 @@ export default function AdminBusinessesPage() {
   const [editingBiz, setEditingBiz] = useState<BusinessProfile | null>(null);
   const [drawerBiz, setDrawerBiz] = useState<BusinessProfile | null>(null);
   const [deactivatingBiz, setDeactivatingBiz] = useState<BusinessProfile | null>(null);
-  const [deletingBiz, setDeletingBiz] = useState<BusinessProfile | null>(null);
 
   // Toast
   const [toastMsg, setToastMsg] = useState("");
@@ -184,25 +182,6 @@ export default function AdminBusinessesPage() {
       }
     } catch {
       alert("Error deactivating QR.");
-    }
-  };
-
-  const handleConfirmDelete = async () => {
-    if (!deletingBiz) return;
-    try {
-      const res = await fetch("/api/reviewflow/businesses", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: deletingBiz.id }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        showToast(`Business "${deletingBiz.name}" deleted.`);
-        loadData();
-        if (drawerBiz?.id === deletingBiz.id) setDrawerBiz(null);
-      }
-    } catch {
-      alert("Error deleting business.");
     }
   };
 
@@ -616,14 +595,6 @@ export default function AdminBusinessesPage() {
                           >
                             ✏️
                           </button>
-
-                          <button
-                            onClick={() => setDeletingBiz(biz)}
-                            className="rounded-lg border border-slate-200 bg-white p-1 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition cursor-pointer"
-                            title="Delete Business"
-                          >
-                            🗑
-                          </button>
                         </div>
                       </td>
                     </tr>
@@ -666,7 +637,6 @@ export default function AdminBusinessesPage() {
         onReject={handleReject}
         onActivate={handleActivate}
         onDeactivate={(biz) => setDeactivatingBiz(biz)}
-        onDelete={(biz) => setDeletingBiz(biz)}
         onRegenerateQR={handleRegenerateQR}
       />
 
@@ -676,13 +646,6 @@ export default function AdminBusinessesPage() {
         business={deactivatingBiz}
         onClose={() => setDeactivatingBiz(null)}
         onConfirm={handleConfirmDeactivate}
-      />
-
-      <DeleteModal
-        isOpen={Boolean(deletingBiz)}
-        business={deletingBiz}
-        onClose={() => setDeletingBiz(null)}
-        onConfirm={handleConfirmDelete}
       />
     </div>
   );

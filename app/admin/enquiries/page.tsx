@@ -96,36 +96,6 @@ export default function EnquiriesPage() {
     }
   }
 
-  async function handleDeleteEnquiry(id: number, name: string) {
-    if (!window.confirm(`Permanently delete enquiry #${id} (${name})?\n\nThis action will permanently delete this record and it cannot be restored.`)) return;
-    const res = await adminFetch("/api/admin/enquiries", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
-    });
-    if (res.ok) {
-      setEnquiries((prev) => prev.filter((item) => item.id !== id));
-      loadEnquiries();
-    } else {
-      alert("Failed to delete enquiry.");
-    }
-  }
-
-  async function handleClearAll() {
-    if (!window.confirm("Are you sure you want to permanently delete all customer enquiries?\n\nThis will completely empty the enquiry register and cannot be undone.")) return;
-    const res = await adminFetch("/api/admin/enquiries", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ clearAll: true }),
-    });
-    if (res.ok) {
-      setEnquiries([]);
-      loadEnquiries();
-    } else {
-      alert("Failed to clear enquiries.");
-    }
-  }
-
   function exportCSV() {
     const headers = ["ID", "Name", "Email", "Phone", "Service", "Status", "Date", "Message"];
     const rows = filtered.map((e) => [
@@ -208,14 +178,6 @@ export default function EnquiriesPage() {
           >
             <span>↻ Refresh</span>
           </button>
-          {enquiries.length > 0 && (
-            <button
-              onClick={handleClearAll}
-              className="flex items-center gap-1.5 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-2.5 text-xs font-bold text-rose-700 hover:bg-rose-100 shadow-xs transition cursor-pointer"
-            >
-              <span>🗑️ Clear All</span>
-            </button>
-          )}
         </div>
       </div>
 
@@ -359,13 +321,6 @@ export default function EnquiriesPage() {
                           className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-[#080d24] transition shadow-2xs"
                         >
                           Details →
-                        </button>
-                        <button
-                          onClick={() => handleDeleteEnquiry(e.id, e.name)}
-                          className="flex h-7 w-7 items-center justify-center rounded-lg border border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100 transition shadow-2xs cursor-pointer"
-                          title="Delete enquiry"
-                        >
-                          🗑️
                         </button>
                       </div>
                     </td>

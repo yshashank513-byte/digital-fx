@@ -247,28 +247,6 @@ export default function PackersEnquiryPage() {
     saveToStorage(updated);
   };
 
-  // Delete Enquiry (Permanent)
-  const handleDeleteEnquiry = (id: string, name: string) => {
-    const confirmDelete = window.confirm(
-      `Permanently delete enquiry #${id} (${name})?\n\nThis action will permanently delete this record and it cannot be restored.`
-    );
-    if (!confirmDelete) return;
-
-    const updated = enquiries.filter((item) => item.id !== id);
-    saveToStorage(updated);
-  };
-
-  // Clear All Enquiries
-  const handleClearAll = () => {
-    if (enquiries.length === 0) return;
-    const confirmClear = window.confirm(
-      `Are you sure you want to delete ALL ${enquiries.length} enquiry records? This will completely empty your enquiry register.`
-    );
-    if (!confirmClear) return;
-
-    saveToStorage([]);
-  };
-
   // Format Display Date
   const formatDisplayDate = (dateStr: string) => {
     if (!dateStr) return "—";
@@ -613,8 +591,6 @@ export default function PackersEnquiryPage() {
           </button>
         </div>
       </div>
-
-      {/* Undo Last Delete Banner */}
 
       {/* =========================================================================
           EXECUTIVE KPI METRICS CARDS
@@ -1074,18 +1050,6 @@ export default function PackersEnquiryPage() {
                             <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                            </svg>
-                          </button>
-
-                          {/* Delete button */}
-                          <button
-                            onClick={() => handleDeleteEnquiry(item.id, item.name)}
-                            className="flex h-7 w-7 items-center justify-center rounded border border-rose-200 bg-white hover:bg-rose-50 text-rose-600 shadow-2xs transition cursor-pointer"
-                            title="Delete enquiry"
-                          >
-                            <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="3 6 5 6 21 6" />
-                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                             </svg>
                           </button>
                         </div>

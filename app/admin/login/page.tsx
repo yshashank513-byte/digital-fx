@@ -128,15 +128,16 @@ export default function AdminLogin() {
   return (
     <main className="min-h-screen bg-[#f8fafc] text-[#080d24] flex flex-col justify-center relative font-sans antialiased py-12 px-4 sm:px-6">
       <div className="relative z-10 w-full max-w-md mx-auto">
-        {/* Brand Header */}
+        {/* Brand Header with Fitted Rectangular Logo Container */}
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="flex items-center justify-center mb-3">
-            <img
-              src="/logo.svg"
-              alt="Digital FX"
-              style={{ height: "46px", width: "auto" }}
-              className="h-10 sm:h-[46px] w-auto object-contain"
-            />
+          <div className="flex items-center justify-center mb-4">
+            <div className="flex items-center justify-center rounded-2xl border border-slate-200/90 bg-white px-8 py-4.5 shadow-xs">
+              <img
+                src="/logo.png"
+                alt="Digital FX - Business Solution"
+                className="h-12 sm:h-14 w-auto max-w-full object-contain"
+              />
+            </div>
           </div>
 
           <div className="flex items-center gap-2">

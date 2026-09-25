@@ -373,12 +373,6 @@ export default function AdminClientLayout({
           icon: <BarChartIcon className="w-4.5 h-4.5" />,
           active: pathname === "/admin/analytics",
         },
-        {
-          label: "ReviewFlow Settings",
-          href: "/admin/reviewflow/settings",
-          icon: <SettingsIcon className="w-4.5 h-4.5" />,
-          active: pathname.startsWith("/admin/reviewflow/settings"),
-        },
       ],
     },
     {
@@ -431,14 +425,17 @@ export default function AdminClientLayout({
           ========================================================================= */}
       <aside className="fixed left-0 top-0 z-40 hidden h-screen w-[260px] flex-col border-r border-slate-200/90 bg-white text-[#080d24] shadow-xs lg:flex">
         
-        {/* Brand Header */}
-        <div className="flex h-[76px] shrink-0 items-center border-b border-slate-100 px-6">
-          <Link href="/admin" className="flex items-center">
+        {/* Brand Header & Clean Horizontal Rectangular Logo Container */}
+        <div className="flex h-[88px] shrink-0 items-center justify-center border-b border-slate-100 px-4 bg-white">
+          <Link
+            href="/admin"
+            className="group flex w-full items-center justify-center rounded-xl border border-slate-200/90 bg-white px-3.5 py-2.5 shadow-2xs transition-all duration-200 hover:border-[#207de9]/50 hover:shadow-xs"
+            title="Digital FX - Business Solutions Admin Console"
+          >
             <img
-              src="/logo.svg"
-              alt="Digital FX"
-              style={{ height: "38px", width: "auto" }}
-              className="h-9.5 w-auto object-contain"
+              src="/logo.png"
+              alt="Digital FX - Business Solution"
+              className="h-10 w-auto max-w-full object-contain transition-transform duration-200 group-hover:scale-[1.02]"
             />
           </Link>
         </div>
@@ -535,9 +532,13 @@ export default function AdminClientLayout({
       {/* =========================================================================
           MOBILE TOPBAR + SLIDE-OUT DRAWER
           ========================================================================= */}
-      <div className="sticky top-0 z-30 flex h-[70px] items-center justify-between border-b border-slate-200 bg-white/95 px-5 backdrop-blur-md lg:hidden">
-        <Link href="/admin" className="flex items-center">
-          <img src="/logo.svg" alt="Digital FX" style={{ height: "36px", width: "auto" }} className="h-9 w-auto object-contain" />
+      <div className="sticky top-0 z-30 flex h-[76px] items-center justify-between border-b border-slate-200 bg-white/95 px-4 backdrop-blur-md lg:hidden">
+        <Link
+          href="/admin"
+          className="flex items-center justify-center rounded-xl border border-slate-200/90 bg-white px-3 py-2 shadow-2xs"
+          title="Digital FX Admin Console"
+        >
+          <img src="/logo.png" alt="Digital FX" className="h-8.5 w-auto max-w-full object-contain" />
         </Link>
 
         <div className="flex items-center gap-2">
@@ -559,13 +560,18 @@ export default function AdminClientLayout({
             onClick={() => setMobileMenuOpen(false)}
           />
           <div className="relative z-10 flex h-full w-[280px] flex-col bg-white border-r border-slate-200 p-5 shadow-2xl overflow-y-auto">
-            <div className="flex items-center justify-between pb-5 border-b border-slate-100">
-              <div className="flex items-center">
-                <img src="/logo.svg" alt="Digital FX" style={{ height: "36px", width: "auto" }} className="h-9 w-auto object-contain" />
-              </div>
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+              <Link
+                href="/admin"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center rounded-xl border border-slate-200/90 bg-white px-3 py-2 shadow-2xs"
+                title="Digital FX Admin Console"
+              >
+                <img src="/logo.png" alt="Digital FX" className="h-8.5 w-auto max-w-full object-contain" />
+              </Link>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="h-8 w-8 rounded-lg bg-slate-100 text-slate-600 hover:text-[#080d24]"
+                className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-600 hover:text-[#080d24]"
               >
                 ✕
               </button>
@@ -641,14 +647,7 @@ export default function AdminClientLayout({
         
         {/* Desktop Top Header Strip (Minimal, Professional) */}
         <header className="hidden h-[76px] items-center justify-between border-b border-slate-200/90 bg-white/95 px-8 backdrop-blur-md lg:flex shadow-2xs sticky top-0 z-30">
-          <div className="flex items-center gap-3 text-sm">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition"
-              aria-label="Toggle navigation menu"
-            >
-              ☰
-            </button>
+          <div className="flex items-center gap-2.5 text-sm">
             <span className="font-bold text-[#207de9]">
               Admin Console
             </span>
@@ -658,35 +657,26 @@ export default function AdminClientLayout({
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {/* Direct link to public site */}
             <a
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-xl border border-slate-200/90 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#080d24] transition shadow-2xs"
+              className="flex items-center gap-1.5 rounded-xl border border-slate-200/90 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#080d24] transition shadow-2xs"
+              title="Open public website in new tab"
             >
               <span className="text-slate-400">🌐</span>
-              <span>Public Site</span>
-              <span className="text-[10px] text-slate-400">▾</span>
+              <span>Live Website</span>
+              <span className="text-[11px] text-slate-400">↗</span>
             </a>
 
             {/* Live System active status */}
-            <div className="flex items-center gap-2 rounded-xl border border-emerald-200/80 bg-emerald-50 px-3.5 py-2">
+            <div className="flex items-center gap-2 rounded-xl border border-emerald-200/80 bg-emerald-50 px-3 py-2">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-[11px] font-bold text-emerald-800">
                 System Active
               </span>
-            </div>
-
-            {/* Notifications Button */}
-            <div className="relative">
-              <button
-                className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/90 bg-white text-slate-600 hover:bg-slate-50 hover:text-[#080d24] transition shadow-2xs"
-                title="Notifications"
-              >
-                <BellIcon className="w-4.5 h-4.5" />
-              </button>
             </div>
 
             {/* User Profile Pill & Dropdown */}

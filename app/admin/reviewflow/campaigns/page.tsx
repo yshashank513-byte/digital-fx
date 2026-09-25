@@ -167,12 +167,6 @@ export default function ReviewFlowCampaignsPage() {
         >
           Funnel Analytics
         </Link>
-        <Link
-          href="/admin/reviewflow/settings"
-          className="rounded-lg px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
-        >
-          Settings
-        </Link>
       </div>
 
       {/* Main Campaign Builder Workspace */}

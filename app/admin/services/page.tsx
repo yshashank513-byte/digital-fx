@@ -114,29 +114,6 @@ export default function ServicesPage() {
     );
   }
 
-  async function deleteService(id: number) {
-    const confirmDelete = confirm(
-      "Are you sure you want to delete this service?"
-    );
-
-    if (!confirmDelete) return;
-
-    const { error } = await supabase
-      .from("services")
-      .delete()
-      .eq("id", id);
-
-    if (error) {
-      console.error(error);
-      alert("Unable to delete service.");
-      return;
-    }
-
-    setServices((items) =>
-      items.filter((item) => item.id !== id)
-    );
-  }
-
   function logout() {
     localStorage.removeItem("digitalfx_admin");
     localStorage.removeItem("digitalfx_remember");
@@ -480,17 +457,6 @@ export default function ServicesPage() {
                         ? "ACTIVE"
                         : "INACTIVE"}
                     </span>
-
-
-                    <button
-                      onClick={() =>
-                        deleteService(service.id)
-                      }
-                      className="rounded-lg px-3 py-2 text-xs font-bold text-red-500 hover:bg-red-50"
-                    >
-                      Delete
-                    </button>
-
                   </div>
 
                 </div>
