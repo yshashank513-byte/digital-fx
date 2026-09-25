@@ -220,7 +220,6 @@ export default function Footer() {
               <Link href="/privacy-policy" className="hover:text-white transition">Privacy Policy</Link>
               <Link href="/terms-and-conditions" className="hover:text-white transition">Terms of Service</Link>
               <Link href="/refund-policy" className="hover:text-white transition">Refund Policy</Link>
-              <a href="/admin/login" className="hover:text-slate-300 transition text-slate-500">Admin Login</a>
             </div>
           </div>
 

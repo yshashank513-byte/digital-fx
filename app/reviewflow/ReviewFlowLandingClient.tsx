@@ -1037,13 +1037,6 @@ export default function ReviewFlowLandingClient() {
             <Link href="/services" className="hover:text-white transition">Local SEO &amp; Maps</Link>
             <Link href="/r/digital-fx" className="hover:text-white transition">Customer Review Flow</Link>
             <Link href="/privacy-policy" className="hover:text-white transition">Privacy Policy</Link>
-            {/* Discrete Admin Portal for Management */}
-            <Link
-              href="/admin"
-              className="text-[#207de9] hover:text-blue-400 font-bold transition flex items-center gap-1"
-            >
-              <span>🔒 Admin Dashboard</span>
-            </Link>
           </div>
 
           <div className="text-slate-500">
