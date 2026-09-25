@@ -58,13 +58,6 @@ function PhoneIconPink({ className = "w-4 h-4 text-[#F43F5E] shrink-0" }: { clas
   );
 }
 
-function PaperPlaneIcon({ className = "w-4.5 h-4.5 text-[#238BFF] shrink-0" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-    </svg>
-  );
-}
 
 // -----------------------------------------------------------------------------
 // Official Social Platform Vector Logos
@@ -684,12 +677,9 @@ export default function Footer() {
 
               {/* Get Marketing Insights Newsletter Card */}
               <div className="mt-6 p-5 rounded-2xl bg-[#0B1E38]/90 border border-[#1E3A5F] shadow-sm">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-[15px] font-bold text-[#F8FAFC]">
-                    Get Marketing Insights
-                  </h4>
-                  <PaperPlaneIcon />
-                </div>
+                <h4 className="text-[15px] font-bold text-[#F8FAFC]">
+                  Get Marketing Insights
+                </h4>
                 <p className="text-xs text-[#B8C5D9] mt-1 mb-4 leading-relaxed font-normal">
                   Tips, updates and growth strategies directly in your inbox.
                 </p>
