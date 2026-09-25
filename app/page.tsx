@@ -2035,7 +2035,7 @@ export default function Home() {
             1. INSTITUTIONAL TOP BAR (#fxtopbar) - ACCREDITATION & DIRECT CLIENT DESK
             ========================================================================== */}
         <div id="fxtopbar" className="bg-[#080d24] text-white py-2 border-b border-white/10 block w-full overflow-hidden">
-          <div className="mx-auto flex h-auto min-h-[34px] max-w-[1400px] flex-wrap items-center justify-between gap-y-2 px-4 sm:px-6 lg:px-8 text-xs">
+          <div className="mx-auto flex h-auto min-h-[34px] max-w-[1280px] flex-wrap items-center justify-between gap-y-2 px-4 sm:px-6 lg:px-6 text-xs">
             
             {/* Left: Certifications & Regional Presence */}
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-slate-300 text-[11px] sm:text-[11.5px] font-medium">
@@ -2090,7 +2090,7 @@ export default function Home() {
             2. WEBFX MAIN HEADER WITH DESKTOP NAVIGATION (#fxheader)
             ========================================================================== */}
         <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
-          <div className="mx-auto flex h-[74px] max-w-[1480px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
+          <div className="mx-auto flex h-[74px] max-w-[1280px] items-center justify-between px-4 sm:px-6 lg:px-6">
 
             {/* Brand Logo - Official Digital FX Logo Always Linking Cleanly to "/" */}
             <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
@@ -2684,15 +2684,15 @@ export default function Home() {
             }}
           />
 
-          <div className="relative z-10 mx-auto max-w-[1480px] 2xl:max-w-[1640px] px-4 sm:px-6 lg:px-8 xl:px-12">
+          <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-6">
             
-            {/* Desktop 2-Column Balanced Grid: Left Text + Right Circular Flywheel (Fills entire screen, zero empty sides) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-10 2xl:gap-12 items-center">
+            {/* Desktop 2-Column Balanced Grid: Left Text + Right Circular Flywheel */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
               
               {/* Left Column: Headline, Proposal Bar, Trust Signals */}
-              <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center">
+              <div className="lg:col-span-6 flex flex-col justify-center text-left w-full min-w-0">
                 {/* Overline Subhead & Google Rating */}
-                <div className="mb-4 inline-flex flex-wrap items-center gap-x-2 gap-y-1.5 rounded-2xl sm:rounded-full border border-blue-200/90 bg-blue-50/90 px-3.5 py-2 sm:px-4 sm:py-1.5 text-[10px] sm:text-[11px] font-bold text-[#1570ef] shadow-xs max-w-full w-fit">
+                <div className="mb-4 inline-flex flex-wrap items-center gap-x-2 gap-y-1.5 rounded-full border border-blue-200/90 bg-blue-50/90 px-3.5 py-1.5 text-[10px] sm:text-[11px] font-bold text-[#1570ef] shadow-xs max-w-full w-fit">
                   <div className="flex items-center gap-1 shrink-0">
                     <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
                       <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -2709,27 +2709,27 @@ export default function Home() {
                   </span>
                 </div>
 
-                {/* WebFX Signature Headline - Responsive Typography that fills the screen */}
-                <h1 className="text-[34px] sm:text-[46px] lg:text-[42px] xl:text-[52px] 2xl:text-[60px] font-extrabold leading-[1.05] tracking-[-0.035em] text-[#080d24]">
+                {/* WebFX Signature Headline - Responsive Typography */}
+                <h1 className="text-[32px] xs:text-[36px] sm:text-[44px] lg:text-[38px] xl:text-[46px] font-extrabold leading-[1.08] tracking-[-0.03em] text-[#080d24] text-left">
                   <span className="block">Digital Marketing &amp; SEO</span>
                   <span className="block">Agency in Ghaziabad —</span>{" "}
-                  <span className="webfx-serif text-[#207de9] font-normal text-[28px] sm:text-[38px] lg:text-[36px] xl:text-[44px] 2xl:text-[50px] leading-[1.12] block mt-1 sm:mt-2">
+                  <span className="webfx-serif text-[#207de9] font-normal text-[26px] xs:text-[28px] sm:text-[36px] lg:text-[32px] xl:text-[38px] leading-[1.15] block mt-1.5 sm:mt-2 text-left">
                     Your Revenue Partner in the AI Era.
                   </span>
                 </h1>
 
                 {/* Subtitle Description */}
-                <p className="mt-4 sm:mt-5 text-[15px] sm:text-[17px] xl:text-[18px] leading-[1.6] text-slate-600 font-normal max-w-[620px]">
+                <p className="mt-4 sm:mt-5 text-[14.5px] sm:text-[16px] xl:text-[16.5px] leading-[1.65] text-slate-600 font-normal max-w-[580px] text-left">
                   Most agencies report vanity metrics like impressions and clicks. Digital FX engineers connected customer acquisition systems that turn search visibility into qualified pipeline and measurable revenue for businesses across India.
                 </p>
 
                 {/* WebFX Exact Website Proposal Bar */}
                 <form
                   onSubmit={handleHeroProposal}
-                  className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch w-full max-w-[620px] bg-white border border-slate-300 rounded-2xl overflow-hidden shadow-sm hover:border-slate-400 focus-within:border-[#1570ef] focus-within:ring-2 focus-within:ring-blue-100 transition-all"
+                  className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch w-full max-w-[580px] bg-white border border-slate-300 rounded-2xl overflow-hidden shadow-xs hover:border-slate-400 focus-within:border-[#1570ef] focus-within:ring-2 focus-within:ring-blue-100 transition-all min-w-0"
                 >
-                  <div className="flex-1 flex items-center px-4 min-h-[58px] sm:min-h-[60px] bg-transparent">
-                    <svg className="w-5 h-5 text-slate-400 mr-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="flex-1 flex items-center px-4 h-13 sm:h-14 bg-transparent min-w-0">
+                    <svg className="w-5 h-5 text-slate-400 mr-2.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a8.997 8.997 0 01-7.843-4.582M12 3a8.997 8.997 0 017.843 4.582M12 3v18" />
                     </svg>
                     <input
@@ -2737,12 +2737,12 @@ export default function Home() {
                       value={heroWebsite}
                       onChange={(e) => setHeroWebsite(e.target.value)}
                       placeholder="Enter your website (e.g. yourcompany.com)"
-                      className="w-full py-3.5 text-[13px] sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none bg-transparent font-medium"
+                      className="w-full h-full text-[13px] sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none bg-transparent font-medium min-w-0"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full sm:w-auto min-h-[54px] sm:min-h-[60px] px-6 sm:px-7 bg-[#080d24] hover:bg-[#207de9] text-white font-bold text-[14px] sm:text-sm tracking-wide transition-colors whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center text-center shrink-0 border-t sm:border-t-0 sm:border-l border-slate-200"
+                    className="w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-7 bg-[#080d24] hover:bg-[#207de9] text-white font-bold text-[13.5px] sm:text-sm tracking-wide transition-colors whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center text-center shrink-0 border-t sm:border-t-0 sm:border-l border-slate-200"
                   >
                     <span>Analyze Growth Potential</span>
                     <span className="ml-1.5 text-base">→</span>
@@ -2785,9 +2785,9 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Right Column: WebFX Circular 4-Quadrant Revenue Engine (Fills the entire right half of the screen) */}
-              <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center items-center relative select-none mt-6 lg:mt-0">
-                <div className="relative z-10 w-full max-w-[680px] xl:max-w-[760px] 2xl:max-w-[820px] mx-auto">
+              {/* Right Column: WebFX Circular 4-Quadrant Revenue Engine */}
+              <div className="lg:col-span-6 flex flex-col justify-center items-center relative select-none mt-8 lg:mt-0 w-full min-w-0">
+                <div className="relative z-10 w-full max-w-[600px] xl:max-w-[620px] mx-auto">
                   <div className="w-full aspect-[1040/560] relative">
                   <svg viewBox="0 0 1040 560" className="w-full h-full drop-shadow-sm overflow-hidden sm:overflow-visible">
                   <defs>
@@ -3125,67 +3125,75 @@ export default function Home() {
             </div>
           </div>
 
-            {/* WebFX Proven Revenue Impact Grid - Full width across max-w-[1480px] 2xl:max-w-[1640px] */}
+            {/* WebFX Proven Revenue Impact Grid — 1280px Master Grid Alignment */}
             <div className="mt-10 sm:mt-14 relative z-10 w-full">
-              <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_12px_40px_rgba(8,13,36,0.06)] p-4 sm:p-6 lg:p-8">
-                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 text-center lg:text-left lg:divide-x lg:divide-slate-100">
+              <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_8px_30px_rgba(8,13,36,0.05)] p-5 sm:p-6 lg:p-7">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 text-left lg:divide-x lg:divide-slate-100">
                   
                   {/* Metric 1: Qualified Lead Growth */}
-                  <div className="p-3 sm:p-0 lg:px-4 first:lg:pl-0 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100">
-                    <span className="text-xl sm:text-3xl lg:text-[32px] font-extrabold text-[#1570ef] tracking-tight tabular-nums block">
-                      15% Higher
-                    </span>
-                    <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1 sm:mt-1.5 leading-snug">
-                      Qualified Lead Growth
-                    </h3>
-                    <p className="text-[10px] sm:text-[11.5px] text-slate-500 font-normal mt-0.5 sm:mt-1 leading-relaxed">
-                      For clients who connect CRM attribution.
-                    </p>
+                  <div className="p-3.5 sm:p-0 lg:px-5 first:lg:pl-0 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100 flex flex-col justify-between min-w-0">
+                    <div>
+                      <span className="text-2xl sm:text-3xl lg:text-[30px] font-extrabold text-[#1570ef] tracking-tight tabular-nums block">
+                        15% Higher
+                      </span>
+                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug break-words">
+                        Qualified Lead Growth
+                      </h3>
+                      <p className="text-[11px] sm:text-[12px] text-slate-500 font-normal mt-1 leading-relaxed break-words">
+                        For clients who connect CRM attribution.
+                      </p>
+                    </div>
                   </div>
 
                   {/* Metric 2: AI Citations & Visibility */}
-                  <div className="p-3 sm:p-0 lg:px-4 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100">
-                    <span className="text-xl sm:text-3xl lg:text-[32px] font-extrabold text-purple-600 tracking-tight tabular-nums block">
-                      2,500+
-                    </span>
-                    <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1 sm:mt-1.5 leading-snug">
-                      AI Citations Tracked
-                    </h3>
-                    <p className="text-[10px] sm:text-[11.5px] text-slate-500 font-normal mt-0.5 sm:mt-1 leading-relaxed">
-                      Across ChatGPT, Gemini &amp; Copilot.
-                    </p>
+                  <div className="p-3.5 sm:p-0 lg:px-5 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100 flex flex-col justify-between min-w-0">
+                    <div>
+                      <span className="text-2xl sm:text-3xl lg:text-[30px] font-extrabold text-purple-600 tracking-tight tabular-nums block">
+                        2,500+
+                      </span>
+                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug break-words">
+                        AI Citations Tracked
+                      </h3>
+                      <p className="text-[11px] sm:text-[12px] text-slate-500 font-normal mt-1 leading-relaxed break-words">
+                        Across ChatGPT, Gemini &amp; Copilot.
+                      </p>
+                    </div>
                   </div>
 
                   {/* Metric 3: Rated Agency & Reviews */}
-                  <div className="p-3 sm:p-0 lg:px-4 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100">
-                    <span className="text-xl sm:text-3xl lg:text-[32px] font-extrabold text-amber-500 tracking-tight tabular-nums block">
-                      4.9 ★ Rating
-                    </span>
-                    <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1 sm:mt-1.5 leading-snug">
-                      Google Verified
-                    </h3>
-                    <p className="text-[10px] sm:text-[11.5px] text-slate-500 font-normal mt-0.5 sm:mt-1 leading-relaxed">
-                      128+ verified reviews in Delhi NCR.
-                    </p>
+                  <div className="p-3.5 sm:p-0 lg:px-5 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100 flex flex-col justify-between min-w-0">
+                    <div>
+                      <span className="text-2xl sm:text-3xl lg:text-[30px] font-extrabold text-amber-500 tracking-tight tabular-nums block">
+                        4.9 ★ Rating
+                      </span>
+                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug break-words">
+                        Google Verified
+                      </h3>
+                      <p className="text-[11px] sm:text-[12px] text-slate-500 font-normal mt-1 leading-relaxed break-words">
+                        128+ verified reviews in Delhi NCR.
+                      </p>
+                    </div>
                   </div>
 
                   {/* Metric 4: Closed Revenue & Measurable ROI (Live from Admin Payments) */}
-                  <div className="p-3 sm:p-0 lg:px-4 last:lg:pr-0 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100">
-                    <div className="flex items-center justify-center lg:justify-start gap-2">
-                      <span className="text-xl sm:text-3xl lg:text-[32px] font-extrabold text-emerald-600 tracking-tight tabular-nums block">
-                        ₹{liveRevenue.toLocaleString("en-IN")}+
-                      </span>
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-100/90 border border-emerald-200 text-emerald-800 text-[8.5px] font-black uppercase tracking-wider">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        Live
-                      </span>
+                  <div className="p-3.5 sm:p-0 lg:px-5 last:lg:pr-0 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100 flex flex-col justify-between min-w-0">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-2xl sm:text-3xl lg:text-[30px] font-extrabold text-emerald-600 tracking-tight tabular-nums block">
+                          ₹{liveRevenue.toLocaleString("en-IN")}+
+                        </span>
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-100/90 border border-emerald-200 text-emerald-800 text-[8.5px] font-black uppercase tracking-wider shrink-0">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          Live
+                        </span>
+                      </div>
+                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug break-words">
+                        Verified Client Revenue
+                      </h3>
+                      <p className="text-[11px] sm:text-[12px] text-slate-500 font-normal mt-1 leading-relaxed break-words">
+                        Live gateway collections &amp; tracked ROI.
+                      </p>
                     </div>
-                    <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1 sm:mt-1.5 leading-snug">
-                      Verified Client Revenue
-                    </h3>
-                    <p className="text-[10px] sm:text-[11.5px] text-slate-500 font-normal mt-0.5 sm:mt-1 leading-relaxed">
-                      Live gateway collections &amp; tracked ROI.
-                    </p>
                   </div>
 
                 </div>
@@ -3199,7 +3207,7 @@ export default function Home() {
             4. CLIENT TRUST & AUTHORITY STRIP — GLOBAL & INDIAN STARTUP ECOSYSTEM
             ========================================================================== */}
         <section className="bg-white py-12 sm:py-14 border-b border-slate-200 overflow-hidden">
-          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 mb-7 text-center">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 mb-7 text-center">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100/90 border border-slate-200 text-slate-700 text-[10.5px] font-extrabold uppercase tracking-[0.2em] mb-2.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               Global &amp; Indian Startup Ecosystem
@@ -3276,7 +3284,7 @@ export default function Home() {
             4B. INSIDE DIGITAL FX HEADQUARTERS — REAL STRATEGISTS, REAL IMPACT
             ========================================================================== */}
         <section className="py-16 sm:py-20 bg-gradient-to-b from-white via-[#f8faff] to-white border-b border-slate-200">
-          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-xs font-bold tracking-wider uppercase mb-3">
@@ -3443,7 +3451,7 @@ export default function Home() {
           id="growth-dashboard"
           className="py-20 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-slate-50 border-b border-slate-200"
         >
-          <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
             
             {/* Header: Move From Marketing that Reports Clicks to Marketing that Reports Revenue */}
             <div className="text-center max-w-[920px] mx-auto">
@@ -3919,7 +3927,7 @@ export default function Home() {
             6. WEBFX 4-STAGE SERVICES FUNNEL MATRIX
             ========================================================================== */}
         <section id="services" className="py-24 bg-white border-b border-slate-200">
-          <div className="max-w-[1360px] mx-auto px-6">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
             
             <div className="text-center max-w-[820px] mx-auto mb-16">
               <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#207de9] bg-blue-50 border border-blue-200 px-3.5 py-1.5 rounded-full">
@@ -4163,7 +4171,7 @@ export default function Home() {
             7. PROPRIETARY GEO & AI SEARCH AUDIT SUITE (WEBFX EXECUTIVE DESIGN)
             ========================================================================== */}
         <section id="geo-checker" className="scroll-mt-20 py-24 bg-[#f8fafc] border-b border-slate-200 relative overflow-hidden">
-          <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-6">
             
             {/* Header Area */}
             <div className="mx-auto max-w-[840px] text-center">
@@ -4457,7 +4465,7 @@ export default function Home() {
             9. VERIFIED CLIENT REVIEWS - HORIZONTAL CONTINUOUS MARQUEE (30 Verified Indian Reviews)
             ========================================================================== */}
         <section id="case-studies" className="py-24 bg-white border-b border-slate-200 overflow-hidden">
-          <div className="max-w-[1360px] mx-auto px-6 mb-12">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 mb-12">
             
             <div className="text-center max-w-[860px] mx-auto">
               {/* Google Verified Review & Rating Card */}
@@ -4509,7 +4517,7 @@ export default function Home() {
           </div>
 
           {/* Google Reviews Carousel & Interactive Marquee Track with Navigation Arrows */}
-          <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-8 py-4 group">
+          <div className="relative w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 py-4 group">
             {/* Left Carousel Navigation Button */}
             <button
               onClick={() => scrollReviews("left")}
@@ -4692,7 +4700,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(32,125,233,0.06),transparent_70%)] pointer-events-none" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-blue-500/5 rounded-full blur-[140px] pointer-events-none" />
 
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 relative z-10">
             
             {/* Header: We Don’t Just Follow Search Trends — We Benchmark Them */}
             <div className="text-center max-w-[900px] mx-auto mb-14 sm:mb-16">
@@ -5543,7 +5551,7 @@ export default function Home() {
             10. WEBFX SIGNATURE BOTTOM GRADIENT CLOSER CTA
             ========================================================================== */}
         <section id="contact" className="py-20 sm:py-24 bg-gradient-to-b from-white via-slate-50/60 to-white border-b border-slate-200">
-          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
             
             {/* Section Header */}
             <div className="text-center max-w-[820px] mx-auto mb-14">

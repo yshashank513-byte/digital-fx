@@ -47,7 +47,7 @@ export default function BlogIndexPage() {
       {/* 3. HERO & DAILY FEED BANNER */}
       <section className="bg-gradient-to-b from-[#080d24] via-[#0b1333] to-[#080d24] text-white py-14 sm:py-20 relative overflow-hidden border-b border-slate-800">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 relative z-10">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-black uppercase tracking-widest mb-4">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -85,7 +85,7 @@ export default function BlogIndexPage() {
       </section>
 
       {/* 4. CATEGORY TABS & FEATURED POST WITH POSTER */}
-      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 py-12">
         {/* Category Pill Filters */}
         <div className="flex flex-wrap items-center gap-2 mb-10 pb-4 border-b border-slate-200">
           {(["All", "Local SEO", "AI & GEO", "Paid Growth", "Programmatic & CTV", "E-Commerce & Q-Commerce", "Web Architecture", "Agency Strategy"] as const).map(

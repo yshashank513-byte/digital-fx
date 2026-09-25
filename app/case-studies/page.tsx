@@ -90,22 +90,24 @@ export default function CaseStudiesPage() {
 
       {/* 3. HERO SECTION */}
       <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef] mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
-            Verified Case Studies &amp; Performance ROI
-          </span>
-          <h1 className="text-[34px] sm:text-[48px] lg:text-[54px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
-            We Don’t Just Deliver Clicks.{" "}
-            <span className="text-[#1570ef] block sm:inline font-normal italic font-serif">
-              We Engineer Revenue.
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6 text-center">
+          <div className="max-w-3xl mx-auto">
+            <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef] mb-4">
+              <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
+              Verified Case Studies &amp; Performance ROI
             </span>
-          </h1>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
-            Explore verified growth breakthroughs across Indian healthcare, real estate, B2B services, and local multi-city businesses.
-          </p>
+            <h1 className="text-[34px] sm:text-[48px] lg:text-[54px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
+              We Don’t Just Deliver Clicks.{" "}
+              <span className="text-[#1570ef] block sm:inline font-normal italic font-serif">
+                We Engineer Revenue.
+              </span>
+            </h1>
+            <p className="mt-4 text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
+              Explore verified growth breakthroughs across Indian healthcare, real estate, B2B services, and local multi-city businesses.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10 pt-8 border-t border-slate-200/80">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10 pt-8 border-t border-slate-200/80 max-w-4xl mx-auto">
             <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
               <div className="text-2xl sm:text-3xl font-black text-[#080d24]">₹6 Lakh+</div>
               <div className="text-xs text-slate-500 font-medium mt-1">Client Revenue Generated</div>
@@ -128,7 +130,7 @@ export default function CaseStudiesPage() {
 
       {/* 4. CASE STUDIES GRID */}
       <section className="py-20 bg-slate-50/60 border-b border-slate-200">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
           <div className="space-y-8 max-w-5xl mx-auto">
             {CASE_STUDIES.map((study, idx) => (
               <div

@@ -114,7 +114,7 @@ export default function Navbar({
     <>
       {/* 1. TOP ACCREDITATION & DESK BAR */}
       <div id="fxtopbar" className="bg-[#080d24] text-white py-2 border-b border-white/10 block w-full overflow-hidden">
-        <div className="mx-auto flex h-auto min-h-[34px] max-w-[1440px] flex-wrap items-center justify-between gap-y-2 px-4 sm:px-6 lg:px-8 text-xs">
+        <div className="mx-auto flex h-auto min-h-[34px] max-w-[1280px] flex-wrap items-center justify-between gap-y-2 px-4 sm:px-6 lg:px-6 text-xs">
           
           {/* Left: Certifications & Regional Presence */}
           <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-slate-300 text-[11px] sm:text-[11.5px] font-medium">
@@ -178,7 +178,7 @@ export default function Navbar({
 
       {/* 2. STICKY MAIN HEADER WITH SERVICES DROPDOWN */}
       <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
-        <div className="mx-auto flex h-[74px] max-w-[1480px] items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10">
+        <div className="mx-auto flex h-[74px] max-w-[1280px] items-center justify-between px-4 sm:px-6 lg:px-6">
           
           {/* Brand Logo - Official Digital FX Logo Always Linking Cleanly to "/" */}
           <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">

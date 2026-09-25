@@ -39,7 +39,7 @@ export default function GlobalKeywordsSection() {
 
   return (
     <section id="global-markets" className="scroll-mt-20 py-20 sm:py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50/70 border-b border-slate-200">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
         
         {/* Header Badge & Title */}
         <div className="text-center max-w-[920px] mx-auto mb-14">

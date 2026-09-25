@@ -291,8 +291,8 @@ export default function Footer() {
         {/* Right-Side Visual Background: Google Pin, Dot-matrix, 3D Bars & Arrow */}
         <CtaBackgroundIllustration />
 
-        {/* Centered Max-Width Container (1500px) */}
-        <div className="max-w-[1500px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-12 min-h-[230px] lg:min-h-[250px] flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 relative z-10 box-border">
+        {/* Centered Max-Width Container (1280px Master Grid) */}
+        <div className="max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-6 py-10 sm:py-12 min-h-[230px] lg:min-h-[250px] flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 relative z-10 box-border">
           
           {/* Left Text & Credibility */}
           <div className="max-w-3xl w-full text-center lg:text-left min-w-0">
@@ -352,7 +352,7 @@ export default function Footer() {
           2. DEEP NAVY INSTITUTIONAL FOOTER (Fully Responsive on All Screen Sizes)
           ========================================================================= */}
       <footer className="w-full max-w-full overflow-x-hidden bg-gradient-to-b from-[#07172D] to-[#0A1932] text-[#F8FAFC] pt-12 sm:pt-16 pb-10 border-t border-slate-800/80 font-sans box-border">
-        <div className="max-w-[1500px] w-full mx-auto px-4 sm:px-6 lg:px-10 box-border">
+        <div className="max-w-[1280px] w-full mx-auto px-4 sm:px-6 lg:px-6 box-border">
           
           {/* Responsive Grid: Single column on phone (<768px), 2 columns on tablet, 12-col grid on desktop */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 pb-12 sm:pb-14 border-b border-white/10 w-full min-w-0">

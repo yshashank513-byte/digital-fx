@@ -72,7 +72,7 @@ export default function CareersPage() {
 
       {/* 3. HERO BANNER */}
       <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             <div className="lg:col-span-7 space-y-5">
@@ -137,7 +137,7 @@ export default function CareersPage() {
 
       {/* 4. CULTURE & BENEFITS */}
       <section className="py-16 bg-slate-50/60 border-b border-slate-200">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-bold uppercase tracking-widest text-[#1570ef]">Why Join Digital FX</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mt-2">
@@ -179,7 +179,7 @@ export default function CareersPage() {
 
       {/* 5. OPEN ROLES LISTING */}
       <section id="openings" className="py-20 bg-white border-b border-slate-200 scroll-mt-20">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-12">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-[#1570ef]">Current Opportunities</span>

@@ -111,7 +111,7 @@ export default function PricingPage() {
 
       {/* 4. PRICING TIERS */}
       <section className="py-20 bg-slate-50/60 border-b border-slate-200">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
             {TIERS.map((tier) => (
               <div
