@@ -52,130 +52,93 @@ export default function ReviewFlowOverviewPage() {
     fetchOverview();
   }, [fetchOverview]);
 
-  // Derived calculations
-  const totalScans = analytics?.totalScans || businesses.reduce((acc, b) => acc + (b.totalScans || 0), 0);
-  const totalVisits = analytics?.totalVisits || businesses.reduce((acc, b) => acc + (b.totalVisits || 0), 0);
-  const totalDrafts = analytics?.totalDrafts || businesses.reduce((acc, b) => acc + (b.totalDrafts || 0), 0);
-  const totalGoogleClicks = analytics?.totalGoogleClicks || businesses.reduce((acc, b) => acc + (b.totalGoogleClicks || 0), 0);
-  const overallConversionRate = totalScans > 0 ? Math.round((totalGoogleClicks / totalScans) * 100) : 0;
-  const pendingCount = analytics?.pendingApprovals ?? businesses.filter((b) => b.status === "pending_approval").length;
+  // Derived counts
   const activeCount = analytics?.activeQRCodes ?? businesses.filter((b) => b.status === "active").length;
+  const totalQRsCount = analytics?.totalQRCodes ?? businesses.length;
+  const pendingCount = analytics?.pendingApprovals ?? businesses.filter((b) => b.status === "pending_approval").length;
+  const totalReviewsCount = analytics?.totalGoogleClicks ?? businesses.reduce((acc, b) => acc + (b.totalGoogleClicks || 0), 0);
+  const campaignsCount = 0; // Active outreach campaigns
 
-  // The 5 Core Rectangle Modules requested by user
+  // The 5 Core Gradient Rectangle Modules (Exact 1:1 match to reference screenshot)
   const modules = [
     {
       title: "Businesses",
-      subtitle: "Verified Directory & Place IDs",
+      subtitle: "Manage registered businesses and place details",
       href: "/admin/businesses",
+      gradient: "from-[#3B82F6] via-[#2563EB] to-[#1D4ED8]",
+      arrowColor: "text-[#2563EB]",
       icon: (
-        <svg className="w-6 h-6 text-[#207de9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="4" y="2" width="16" height="20" rx="2" />
-          <path d="M9 22v-4h6v4" />
-          <path d="M8 6h.01M16 6h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01" />
+        <svg className="w-8 h-8 text-[#2563EB]" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 2H9c-1.1 0-2 .9-2 2v2H5c-1.1 0-2 .9-2 2v14h18V4c0-1.1-.9-2-2-2zm-8 2h8v16h-4v-4H9v4H5V8h2V4h4zm-4 6h2v2H7v-2zm0 4h2v2H7v-2zm6-8h2v2h-2V6zm0 4h2v2h-2v-2zm4-4h2v2h-2V6zm0 4h2v2h-2v-2z" />
         </svg>
       ),
-      iconBg: "bg-blue-50 border-blue-200",
-      accentBorder: "hover:border-[#207de9]",
-      badge: `${businesses.length} Registered`,
-      badgeColor: "bg-blue-50 text-[#207de9] border-blue-200",
-      description: "Manage registered business profiles, Google Maps Place IDs, brand colors, contact details, and custom review landing pages.",
-      highlights: [
-        { label: "Active Profiles", value: activeCount },
-        { label: "Pending", value: pendingCount },
-      ],
-      ctaText: "Open Businesses Page →",
-      btnColor: "bg-[#207de9] text-white hover:bg-[#1866c2]",
+      count: activeCount,
+      countLabel: "Active Businesses",
     },
     {
       title: "Review QR Codes",
-      subtitle: "Branded QR Studio & Printables",
+      subtitle: "Create and manage branded QR codes",
       href: "/admin/review-qr",
+      gradient: "from-[#A855F7] via-[#9333EA] to-[#7E22CE]",
+      arrowColor: "text-[#9333EA]",
       icon: (
-        <svg className="w-6 h-6 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="3" y="3" width="7" height="7" />
-          <rect x="14" y="3" width="7" height="7" />
-          <rect x="14" y="14" width="7" height="7" />
-          <rect x="3" y="14" width="7" height="7" />
+        <svg className="w-8 h-8 text-[#9333EA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1.5" />
+          <rect x="14" y="3" width="7" height="7" rx="1.5" />
+          <rect x="14" y="14" width="7" height="7" rx="1.5" />
+          <rect x="3" y="14" width="7" height="7" rx="1.5" />
+          <path d="M7 7h.01M17 7h.01M7 17h.01M17 17h.01" strokeWidth="3" />
         </svg>
       ),
-      iconBg: "bg-indigo-50 border-indigo-200",
-      accentBorder: "hover:border-indigo-500",
-      badge: `${activeCount} Live QRs`,
-      badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-200",
-      description: "Generate high-resolution SVG & PNG marketing QR codes with custom Digital FX frames, download print cards, and test live customer flows.",
-      highlights: [
-        { label: "Total Scans", value: totalScans },
-        { label: "Print Ready", value: "SVG / PNG" },
-      ],
-      ctaText: "Open Review QR Codes →",
-      btnColor: "bg-indigo-600 text-white hover:bg-indigo-700",
+      count: totalQRsCount,
+      countLabel: "Total QR Codes",
     },
     {
       title: "Pending Approvals",
-      subtitle: "Safety & Link Verification",
+      subtitle: "Review and approve newly added businesses",
       href: "/admin/approvals",
+      gradient: "from-[#F59E0B] via-[#EA580C] to-[#D97706]",
+      arrowColor: "text-[#EA580C]",
       icon: (
-        <svg className="w-6 h-6 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="12" cy="12" r="10" />
-          <polyline points="12 6 12 12 16 14" />
+        <svg className="w-8 h-8 text-[#EA580C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          <path d="m9 12 2 2 4-4" />
         </svg>
       ),
-      iconBg: "bg-amber-50 border-amber-200",
-      accentBorder: "hover:border-amber-500",
-      badge: pendingCount > 0 ? `${pendingCount} Pending` : "Queue Clear",
-      badgeColor: pendingCount > 0 ? "bg-amber-100 text-amber-900 border-amber-300 animate-pulse font-bold" : "bg-emerald-50 text-emerald-700 border-emerald-200",
-      description: "Administrative safety gate for newly added businesses. Verify Google Place IDs and customer routing before QR codes are made public.",
-      highlights: [
-        { label: "Queue Count", value: pendingCount },
-        { label: "Approval Status", value: pendingCount > 0 ? "Action Needed" : "All Clear" },
-      ],
-      ctaText: "Open Pending Approvals →",
-      btnColor: "bg-amber-600 text-white hover:bg-amber-700",
+      count: pendingCount,
+      countLabel: "In Queue",
     },
     {
       title: "Outreach Campaigns",
-      subtitle: "Automated WhatsApp & SMS Invites",
+      subtitle: "Send WhatsApp, SMS and email review requests",
       href: "/admin/reviewflow/campaigns",
+      gradient: "from-[#22C55E] via-[#16A34A] to-[#15803D]",
+      arrowColor: "text-[#16A34A]",
       icon: (
-        <svg className="w-6 h-6 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-          <polyline points="22,6 12,13 2,6" />
+        <svg className="w-8 h-8 text-[#16A34A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13" />
+          <polygon points="22 2 15 22 11 13 2 9 22 2" />
         </svg>
       ),
-      iconBg: "bg-emerald-50 border-emerald-200",
-      accentBorder: "hover:border-emerald-500",
-      badge: "Multi-Channel",
-      badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
-      description: "Dispatch automated WhatsApp, SMS, and email review invitation campaigns to past customers with personalized AI-assisted shortlinks.",
-      highlights: [
-        { label: "Channels", value: "WhatsApp / SMS" },
-        { label: "Smart Gating", value: "Active" },
-      ],
-      ctaText: "Open Outreach Campaigns →",
-      btnColor: "bg-emerald-600 text-white hover:bg-emerald-700",
+      count: campaignsCount,
+      countLabel: "Campaigns",
     },
     {
       title: "Analytics & Funnel",
-      subtitle: "Full-Funnel Conversion Intelligence",
+      subtitle: "Track reviews, conversions and overall performance",
       href: "/admin/analytics",
+      gradient: "from-[#F43F5E] via-[#E11D48] to-[#BE123C]",
+      arrowColor: "text-[#E11D48]",
       icon: (
-        <svg className="w-6 h-6 text-[#207de9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <line x1="18" y1="20" x2="18" y2="10" />
-          <line x1="12" y1="20" x2="12" y2="4" />
-          <line x1="6" y1="20" x2="6" y2="14" />
+        <svg className="w-8 h-8 text-[#E11D48]" viewBox="0 0 24 24" fill="currentColor">
+          <rect x="3" y="12" width="3.5" height="9" rx="1" />
+          <rect x="8.5" y="8" width="3.5" height="13" rx="1" />
+          <rect x="14" y="4" width="3.5" height="17" rx="1" />
+          <rect x="19.5" y="10" width="3.5" height="11" rx="1" />
         </svg>
       ),
-      iconBg: "bg-cyan-50 border-cyan-200",
-      accentBorder: "hover:border-cyan-500",
-      badge: `${overallConversionRate}% Conv. Rate`,
-      badgeColor: "bg-cyan-50 text-cyan-800 border-cyan-200",
-      description: "End-to-end 4-stage funnel tracking: QR Scans → Customer Sentiment Experience → AI Draft Generated → Google Review Published.",
-      highlights: [
-        { label: "AI Drafts", value: totalDrafts },
-        { label: "Google Clicks", value: totalGoogleClicks },
-      ],
-      ctaText: "Open Analytics & Funnel →",
-      btnColor: "bg-slate-900 text-white hover:bg-slate-800",
+      count: totalReviewsCount,
+      countLabel: "Total Reviews",
     },
   ];
 
@@ -183,7 +146,7 @@ export default function ReviewFlowOverviewPage() {
     <div className="space-y-8 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
       
       {/* =========================================================================
-          MODULE HEADER & ACTIONS
+          MODULE HEADER & QUICK ACTIONS
           ========================================================================= */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200/80 pb-5">
         <div>
@@ -224,355 +187,51 @@ export default function ReviewFlowOverviewPage() {
       </div>
 
       {/* =========================================================================
-          MODULE SUB-NAVIGATION TABS BAR
+          THE 5 GRADIENT RECTANGLE MODULES (Exact match to reference screenshot)
           ========================================================================= */}
-      <div className="flex overflow-x-auto scrollbar-none gap-2 border-b border-slate-200 pb-2 text-xs font-bold">
-        <Link
-          href="/admin/reviewflow"
-          className="rounded-lg bg-[#207de9] px-3.5 py-1.5 text-white shadow-xs"
-        >
-          ReviewFlow Hub
-        </Link>
-        <Link
-          href="/admin/businesses"
-          className="rounded-lg px-3.5 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition flex items-center gap-1.5"
-        >
-          <span>Businesses</span>
-          <span className="bg-slate-100 text-slate-600 px-1.5 py-0.2 rounded text-[10px]">
-            {businesses.length}
-          </span>
-        </Link>
-        <Link
-          href="/admin/review-qr"
-          className="rounded-lg px-3.5 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
-        >
-          Review QR Codes
-        </Link>
-        <Link
-          href="/admin/approvals"
-          className="rounded-lg px-3.5 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition flex items-center gap-1.5"
-        >
-          <span>Pending Approvals</span>
-          {pendingCount > 0 && (
-            <span className="rounded-full bg-amber-500 px-1.5 py-0.2 text-[10px] font-black text-white">
-              {pendingCount}
-            </span>
-          )}
-        </Link>
-        <Link
-          href="/admin/reviewflow/campaigns"
-          className="rounded-lg px-3.5 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
-        >
-          Outreach Campaigns
-        </Link>
-        <Link
-          href="/admin/analytics"
-          className="rounded-lg px-3.5 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
-        >
-          Analytics &amp; Funnel
-        </Link>
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {modules.map((mod, idx) => (
+          <Link
+            key={idx}
+            href={mod.href}
+            className={`group relative rounded-2xl bg-gradient-to-r ${mod.gradient} text-white shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between cursor-pointer hover:-translate-y-1`}
+          >
+            {/* Top Section */}
+            <div className="p-6 flex items-center justify-between gap-4">
+              
+              {/* White Rounded Square Icon Box */}
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white shadow-md flex items-center justify-center shrink-0">
+                {mod.icon}
+              </div>
 
-      {/* =========================================================================
-          THE 5 CORE RECTANGLE MODULES (Requested by user)
-          ========================================================================= */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-base font-extrabold text-[#080d24]">
-              ReviewFlow AI Modules
-            </h2>
-            <p className="text-xs text-slate-500">
-              Click any rectangle module below to open its respective full management page.
-            </p>
-          </div>
-          <span className="text-xs font-semibold text-slate-400">
-            5 Dedicated Modules
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {modules.map((mod, idx) => (
-            <Link
-              key={idx}
-              href={mod.href}
-              className={`group relative rounded-3xl border border-slate-200/90 bg-white p-6 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between ${mod.accentBorder}`}
-            >
-              <div>
-                {/* Card Top: Icon & Badge */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform ${mod.iconBg}`}>
-                    {mod.icon}
-                  </div>
-                  <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold border ${mod.badgeColor}`}>
-                    {mod.badge}
-                  </span>
-                </div>
-
-                {/* Title & Subtitle */}
-                <h3 className="text-lg font-black text-[#080d24] group-hover:text-[#207de9] transition tracking-tight">
+              {/* Title & Subtitle */}
+              <div className="flex-1 min-w-0">
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white truncate">
                   {mod.title}
                 </h3>
-                <p className="text-[11px] font-semibold text-slate-400 mt-0.5">
+                <p className="text-xs text-white/90 font-medium mt-1 leading-snug line-clamp-2">
                   {mod.subtitle}
                 </p>
-
-                {/* Description */}
-                <p className="mt-2.5 text-xs text-slate-600 leading-relaxed font-normal">
-                  {mod.description}
-                </p>
-
-                {/* Metric Highlights */}
-                <div className="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-xs">
-                  {mod.highlights.map((h, i) => (
-                    <div key={i} className="p-2 rounded-xl bg-slate-50 border border-slate-100">
-                      <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                        {h.label}
-                      </span>
-                      <span className="block text-sm font-extrabold text-[#080d24] mt-0.5">
-                        {h.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
               </div>
 
-              {/* Action Link Footer */}
-              <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs font-bold text-[#207de9] group-hover:underline flex items-center gap-1">
-                  <span>{mod.ctaText}</span>
-                </span>
-                <span className="text-slate-400 group-hover:text-[#207de9] group-hover:translate-x-1 transition-transform text-sm">
-                  →
-                </span>
+              {/* Circular White Arrow Button */}
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white shadow-md flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                <svg className={`w-5 h-5 ${mod.arrowColor}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
               </div>
-            </Link>
-          ))}
-        </div>
-      </div>
 
-      {/* =========================================================================
-          KEY PERFORMANCE INDICATORS (KPIs)
-          ========================================================================= */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Total Businesses</p>
-          <p className="mt-1 text-2xl font-black text-[#080d24]">{businesses.length}</p>
-          <p className="mt-1 text-[10px] text-slate-500">Registered profiles</p>
-        </div>
+            </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Active QRs</p>
-          <p className="mt-1 text-2xl font-black text-emerald-600">{activeCount}</p>
-          <p className="mt-1 text-[10px] text-slate-500">Live dynamic links</p>
-        </div>
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Total Scans</p>
-          <p className="mt-1 text-2xl font-black text-[#207de9]">{totalScans}</p>
-          <p className="mt-1 text-[10px] text-slate-500">Physical QR scans</p>
-        </div>
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Page Visits</p>
-          <p className="mt-1 text-2xl font-black text-indigo-600">{totalVisits}</p>
-          <p className="mt-1 text-[10px] text-slate-500">Landing views</p>
-        </div>
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">AI Reviews</p>
-          <p className="mt-1 text-2xl font-black text-amber-600">{totalDrafts}</p>
-          <p className="mt-1 text-[10px] text-slate-500">Drafted copies</p>
-        </div>
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Google Clicks</p>
-          <p className="mt-1 text-2xl font-black text-emerald-700">{totalGoogleClicks}</p>
-          <div className="mt-1 flex items-center gap-1">
-            <span className="rounded-full bg-emerald-100 px-1.5 py-0.2 text-[9px] font-bold text-emerald-800">
-              {overallConversionRate}% Conv.
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* =========================================================================
-          4-STAGE CONVERSION FUNNEL PIPELINE
-          ========================================================================= */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-3 mb-4">
-          <div>
-            <h2 className="text-sm font-black text-[#080d24]">ReviewFlow 4-Stage Conversion Funnel</h2>
-            <p className="text-xs text-slate-500">End-to-end journey from customer QR scan to published Google review</p>
-          </div>
-          <Link
-            href="/admin/analytics"
-            className="text-xs font-bold text-[#207de9] hover:underline mt-2 sm:mt-0"
-          >
-            Detailed Funnel Analytics →
+            {/* Bottom Darker Metric Strip */}
+            <div className="bg-black/15 px-6 py-3 text-xs sm:text-sm font-semibold text-white/95 flex items-center gap-2 border-t border-white/10">
+              <span className="font-bold text-white text-sm sm:text-base font-mono">
+                {mod.count}
+              </span>
+              <span>{mod.countLabel}</span>
+            </div>
           </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-          {/* Step 1 */}
-          <div className="relative rounded-xl border border-blue-200 bg-blue-50/50 p-4">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-extrabold uppercase text-blue-700">Step 1: Scan</span>
-              <span className="text-[10px] font-bold bg-blue-200 text-blue-900 px-2 py-0.5 rounded-full">100%</span>
-            </div>
-            <p className="mt-2 text-2xl font-black text-[#080d24]">{totalScans}</p>
-            <p className="text-[11px] text-slate-500">Customer scans branded QR code</p>
-          </div>
-
-          {/* Step 2 */}
-          <div className="relative rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-extrabold uppercase text-indigo-700">Step 2: Experience</span>
-              <span className="text-[10px] font-bold bg-indigo-200 text-indigo-900 px-2 py-0.5 rounded-full">
-                {totalScans > 0 ? Math.round((totalVisits / totalScans) * 100) : 0}%
-              </span>
-            </div>
-            <p className="mt-2 text-2xl font-black text-[#080d24]">{totalVisits}</p>
-            <p className="text-[11px] text-slate-500">Customer rates service & answers</p>
-          </div>
-
-          {/* Step 3 */}
-          <div className="relative rounded-xl border border-amber-200 bg-amber-50/50 p-4">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-extrabold uppercase text-amber-700">Step 3: AI Draft</span>
-              <span className="text-[10px] font-bold bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full">
-                {totalVisits > 0 ? Math.round((totalDrafts / totalVisits) * 100) : 0}%
-              </span>
-            </div>
-            <p className="mt-2 text-2xl font-black text-[#080d24]">{totalDrafts}</p>
-            <p className="text-[11px] text-slate-500">AI crafts authentic review copy</p>
-          </div>
-
-          {/* Step 4 */}
-          <div className="relative rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-extrabold uppercase text-emerald-700">Step 4: Google Click</span>
-              <span className="text-[10px] font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-full">
-                {overallConversionRate}%
-              </span>
-            </div>
-            <p className="mt-2 text-2xl font-black text-emerald-800">{totalGoogleClicks}</p>
-            <p className="text-[11px] text-slate-500">Customer pastes review on Google</p>
-          </div>
-        </div>
-      </div>
-
-      {/* =========================================================================
-          REGISTERED BUSINESSES QUICK TABLE & ACTIONS
-          ========================================================================= */}
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-xs overflow-hidden">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 p-5 gap-3">
-          <div>
-            <h2 className="text-sm font-black text-[#080d24]">Active Business Registrations</h2>
-            <p className="text-xs text-slate-500">Dynamic QR configurations and real-time performance</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <Link
-              href="/admin/businesses"
-              className="text-xs font-bold text-[#207de9] hover:underline"
-            >
-              Full Directory &amp; Controls ({businesses.length}) →
-            </Link>
-          </div>
-        </div>
-
-        {loading ? (
-          <div className="p-8 text-center text-xs text-slate-500">Loading ReviewFlow data...</div>
-        ) : businesses.length === 0 ? (
-          <div className="p-12 text-center">
-            <p className="text-sm font-bold text-slate-700">No businesses registered yet</p>
-            <p className="mt-1 text-xs text-slate-500">Click &quot;Add Business&quot; to generate your first dynamic QR code.</p>
-            <button
-              onClick={() => setIsAddModalOpen(true)}
-              className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-[#207de9] px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-[#1866c2]"
-            >
-              + Register Business Now
-            </button>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider text-[10px]">
-                <tr>
-                  <th className="py-3 px-4 font-bold">Business</th>
-                  <th className="py-3 px-4 font-bold">Category</th>
-                  <th className="py-3 px-4 font-bold">Status</th>
-                  <th className="py-3 px-4 font-bold text-center">Scans</th>
-                  <th className="py-3 px-4 font-bold text-center">AI Drafts</th>
-                  <th className="py-3 px-4 font-bold text-center">Google Clicks</th>
-                  <th className="py-3 px-4 font-bold text-center">Conv. Rate</th>
-                  <th className="py-3 px-4 font-bold text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {businesses.slice(0, 10).map((biz) => {
-                  const scans = biz.totalScans || 0;
-                  const clicks = biz.totalGoogleClicks || 0;
-                  const rate = scans > 0 ? Math.round((clicks / scans) * 100) : 0;
-
-                  return (
-                    <tr key={biz.id} className="hover:bg-slate-50/70 transition">
-                      <td className="py-3 px-4 font-bold text-[#080d24]">
-                        <div className="flex items-center gap-2">
-                          <span
-                            className="h-3 w-3 rounded-full shrink-0"
-                            style={{ backgroundColor: biz.brandColor || "#207de9" }}
-                          />
-                          <span className="truncate max-w-[200px]">{biz.name}</span>
-                        </div>
-                      </td>
-                      <td className="py-3 px-4 text-slate-600">{biz.category}</td>
-                      <td className="py-3 px-4">
-                        <span
-                          className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                            biz.status === "active"
-                              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                              : biz.status === "pending_approval"
-                              ? "bg-amber-50 text-amber-700 border border-amber-200"
-                              : "bg-slate-100 text-slate-600"
-                          }`}
-                        >
-                          {biz.status === "active" ? "Active" : biz.status === "pending_approval" ? "Pending" : "Inactive"}
-                        </span>
-                      </td>
-                      <td className="py-3 px-4 text-center font-semibold text-slate-700">{scans}</td>
-                      <td className="py-3 px-4 text-center font-semibold text-amber-600">{biz.totalDrafts || 0}</td>
-                      <td className="py-3 px-4 text-center font-black text-emerald-700">{clicks}</td>
-                      <td className="py-3 px-4 text-center">
-                        <span className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-bold text-slate-800">
-                          {rate}%
-                        </span>
-                      </td>
-                      <td className="py-3 px-4 text-right space-x-2">
-                        <Link
-                          href={`/admin/review-qr?id=${biz.id}`}
-                          className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-bold text-slate-700 hover:bg-slate-100 transition shadow-xs"
-                          title="Generate & Download QR Code"
-                        >
-                          📲 QR
-                        </Link>
-                        <a
-                          href={`/r/${biz.id}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-bold text-blue-600 hover:bg-blue-50 transition shadow-xs"
-                          title="Open Customer Landing View"
-                        >
-                          ↗ Test Link
-                        </a>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
+        ))}
       </div>
 
       {/* Add Business Modal */}
