@@ -2090,18 +2090,18 @@ export default function Home() {
             2. WEBFX MAIN HEADER WITH DESKTOP NAVIGATION (#fxheader)
             ========================================================================== */}
         <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
-          <div className="mx-auto flex h-[74px] max-w-[1680px] w-full items-center justify-between px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <div className="mx-auto flex h-[78px] sm:h-[82px] max-w-[1680px] w-full items-center justify-between px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
 
             {/* Brand Logo - Official Digital FX Logo Always Linking Cleanly to "/" */}
             <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
               <img
                 src="/logo.svg"
                 alt="Digital FX - Business Solution"
-                width={180}
-                height={48}
+                width={210}
+                height={56}
                 decoding="async"
-                style={{ height: "48px", width: "auto" }}
-                className="h-10 sm:h-12 w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
+                style={{ height: "56px", width: "auto" }}
+                className="h-11 sm:h-13 lg:h-[56px] w-auto object-contain shrink-0 transition-transform group-hover:scale-105"
               />
             </Link>
 
@@ -2313,7 +2313,7 @@ export default function Home() {
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-5">
                   <div className="flex items-center">
-                    <img src="/logo.svg" alt="Digital FX" width={168} height={44} decoding="async" style={{ height: "44px", width: "auto" }} className="h-11 w-auto object-contain shrink-0" />
+                    <img src="/logo.svg" alt="Digital FX" width={190} height={50} decoding="async" style={{ height: "50px", width: "auto" }} className="h-12 w-auto object-contain shrink-0" />
                   </div>
                   <button
                     type="button"

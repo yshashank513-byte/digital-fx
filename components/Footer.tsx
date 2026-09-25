@@ -366,11 +366,12 @@ export default function Footer() {
                   <img
                     src="/logo-white.svg"
                     alt="Digital FX - Business Solution"
-                    width={260}
-                    height={68}
+                    width={290}
+                    height={76}
                     loading="lazy"
                     decoding="async"
-                    className="h-12 sm:h-14 lg:h-[62px] w-auto max-w-full object-contain shrink-0 transition-transform group-hover:scale-[1.02]"
+                    style={{ height: "70px", width: "auto" }}
+                    className="h-13 sm:h-16 lg:h-[70px] w-auto max-w-full object-contain shrink-0 transition-transform group-hover:scale-[1.02]"
                   />
                 </Link>
               </div>
