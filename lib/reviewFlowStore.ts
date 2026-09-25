@@ -11,6 +11,12 @@ import {
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const STORE_FILE = path.join(DATA_DIR, "reviewflow_store.json");
+const TMP_FILE = path.join(process.platform === "win32" ? DATA_DIR : "/tmp", "reviewflow_store.json");
+
+declare global {
+  // eslint-disable-next-line no-var
+  var _reviewFlowStore: StoreData | undefined;
+}
 
 const SEED_BUSINESSES: BusinessProfile[] = [];
 
@@ -62,43 +68,65 @@ function normalizeBusiness(raw: any): BusinessProfile {
 }
 
 function ensureStore(): StoreData {
+  if (globalThis._reviewFlowStore && Array.isArray(globalThis._reviewFlowStore.businesses)) {
+    return globalThis._reviewFlowStore;
+  }
+
   try {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
+    // 1. Try reading from TMP_FILE if in serverless and it exists
+    let filePath = STORE_FILE;
+    if (process.platform !== "win32" && fs.existsSync(TMP_FILE)) {
+      filePath = TMP_FILE;
+    } else if (!fs.existsSync(STORE_FILE)) {
+      if (fs.existsSync(TMP_FILE)) {
+        filePath = TMP_FILE;
+      } else {
+        if (!fs.existsSync(DATA_DIR)) {
+          try { fs.mkdirSync(DATA_DIR, { recursive: true }); } catch {}
+        }
+        const initial: StoreData = { businesses: [], sessions: [] };
+        try { fs.writeFileSync(STORE_FILE, JSON.stringify(initial, null, 2), "utf8"); } catch {}
+        globalThis._reviewFlowStore = initial;
+        return initial;
+      }
     }
-    if (!fs.existsSync(STORE_FILE)) {
-      const initial: StoreData = {
-        businesses: [],
-        sessions: [],
-      };
-      fs.writeFileSync(STORE_FILE, JSON.stringify(initial, null, 2), "utf8");
-      return initial;
-    }
-    const raw = fs.readFileSync(STORE_FILE, "utf8");
+
+    const raw = fs.readFileSync(filePath, "utf8");
     const parsed = JSON.parse(raw);
     const normalizedBusinesses = (parsed.businesses || []).map(normalizeBusiness);
-    return {
+    const store: StoreData = {
       businesses: normalizedBusinesses,
       sessions: parsed.sessions || [],
     };
+    globalThis._reviewFlowStore = store;
+    return store;
   } catch (err) {
     console.error("Error reading reviewflow store:", err);
-    return { businesses: SEED_BUSINESSES, sessions: [] };
+    const fallback: StoreData = { businesses: SEED_BUSINESSES, sessions: [] };
+    globalThis._reviewFlowStore = fallback;
+    return fallback;
   }
 }
 
 function saveStore(data: StoreData) {
+  // Always update in-memory global cache first
+  globalThis._reviewFlowStore = data;
+
   try {
     if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
+      try { fs.mkdirSync(DATA_DIR, { recursive: true }); } catch {}
     }
-    // Cap stored sessions to 500 to avoid unbounded disk growth
     if (data.sessions.length > 500) {
       data.sessions = data.sessions.slice(0, 500);
     }
     fs.writeFileSync(STORE_FILE, JSON.stringify(data, null, 2), "utf8");
   } catch (err) {
-    console.error("Error saving reviewflow store:", err);
+    // Fallback to serverless /tmp if project directory is read-only
+    try {
+      fs.writeFileSync(TMP_FILE, JSON.stringify(data, null, 2), "utf8");
+    } catch (tmpErr) {
+      console.error("Error saving reviewflow store to disk & tmp:", err, tmpErr);
+    }
   }
 }
 

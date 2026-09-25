@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import QRCode from "qrcode";
 import { BusinessProfile, BusinessCategory, QRStatus } from "@/lib/reviewFlowTypes";
 import { CATEGORIES_LIST } from "@/lib/reviewFlowCategories";
+import { adminFetch } from "@/lib/adminFetch";
 
 interface AddBusinessModalProps {
   isOpen: boolean;
@@ -30,14 +31,14 @@ export default function AddBusinessModal({
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
   const [address, setAddress] = useState("");
-  const [city, setCity] = useState("Ghaziabad");
-  const [state, setState] = useState("Uttar Pradesh");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
   const [pincode, setPincode] = useState("");
   const [googleReviewUrl, setGoogleReviewUrl] = useState("");
   const [brandColor, setBrandColor] = useState("#207de9");
   const [qrStyle, setQrStyle] = useState<"square" | "rounded" | "circle">("square");
   const [additionalNotes, setAdditionalNotes] = useState("");
-  const [initialStatus, setInitialStatus] = useState<QRStatus>("pending_approval");
+  const [initialStatus, setInitialStatus] = useState<QRStatus>("active");
 
   // Logo upload state
   const [logoUrl, setLogoUrl] = useState<string>("");
@@ -78,23 +79,23 @@ export default function AddBusinessModal({
       setAdditionalNotes(editingBusiness.additionalNotes || "");
       setInitialStatus(editingBusiness.status || "active");
     } else {
-      setName("OM Packers and Movers");
+      setName("");
       setCategory("Packers & Movers");
-      setOwnerName("Shashank Yadav");
-      setPhone("+91 98765 43210");
-      setEmail("contact@ompackers.in");
+      setOwnerName("");
+      setPhone("");
+      setEmail("");
       setWebsite("");
-      setAddress("Shop No. 12, ABC Market, Kaushambi, Ghaziabad");
-      setCity("Ghaziabad");
-      setState("Uttar Pradesh");
-      setPincode("201016");
-      setGoogleReviewUrl("https://g.page/r/CS3Zr8xyQyKREBM/review");
+      setAddress("");
+      setCity("");
+      setState("");
+      setPincode("");
+      setGoogleReviewUrl("");
       setBrandColor("#207de9");
       setQrStyle("square");
       setLogoUrl("");
       setLogoFileName("");
-      setAdditionalNotes("e.g. Printed tent card requested, 2 counter standees needed.");
-      setInitialStatus("pending_approval");
+      setAdditionalNotes("");
+      setInitialStatus("active");
     }
     setError("");
     setFieldErrors({});
@@ -263,7 +264,7 @@ export default function AddBusinessModal({
         status: targetStatus,
       };
 
-      const res = await fetch("/api/reviewflow/businesses", {
+      const res = await adminFetch("/api/reviewflow/businesses", {
         method: isEditing ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -588,7 +589,7 @@ export default function AddBusinessModal({
                         type="text"
                         value={ownerName}
                         onChange={(e) => setOwnerName(e.target.value)}
-                        placeholder="Shashank Yadav"
+                        placeholder="e.g. Rajesh Kumar"
                         className="w-full h-11 rounded-xl border border-slate-200 bg-slate-50/40 pl-8 pr-3 text-xs text-[#080d24] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
                       />
                     </div>
@@ -607,7 +608,7 @@ export default function AddBusinessModal({
                           setPhone(e.target.value);
                           if (fieldErrors.phone) setFieldErrors({ ...fieldErrors, phone: "" });
                         }}
-                        placeholder="+91 98765 43210"
+                        placeholder="e.g. 9876543210"
                         className={`w-full h-11 rounded-xl border pl-8 pr-3 text-xs text-[#080d24] transition focus:outline-none focus:ring-2 ${
                           fieldErrors.phone
                             ? "border-rose-300 focus:ring-rose-200 bg-rose-50/30"
@@ -630,7 +631,7 @@ export default function AddBusinessModal({
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="contact@ompackers.in"
+                        placeholder="e.g. contact@business.com"
                         className="w-full h-11 rounded-xl border border-slate-200 bg-slate-50/40 pl-8 pr-3 text-xs text-[#080d24] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
                       />
                     </div>
@@ -748,7 +749,7 @@ export default function AddBusinessModal({
                         setAddress(e.target.value);
                         if (fieldErrors.address) setFieldErrors({ ...fieldErrors, address: "" });
                       }}
-                      placeholder="Shop No. 12, ABC Market, Kaushambi, Ghaziabad"
+                      placeholder="e.g. Shop No. 12, Market Complex, Sector 4"
                       className={`w-full h-11 rounded-xl border pl-8 pr-3 text-xs text-[#080d24] transition focus:outline-none focus:ring-2 ${
                         fieldErrors.address
                           ? "border-rose-300 focus:ring-rose-200 bg-rose-50/30"
@@ -770,7 +771,7 @@ export default function AddBusinessModal({
                         type="text"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        placeholder="Ghaziabad"
+                        placeholder="e.g. Ghaziabad"
                         className="w-full h-11 rounded-xl border border-slate-200 bg-slate-50/40 pl-8 pr-3 text-xs text-[#080d24] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
                       />
                     </div>
@@ -784,7 +785,7 @@ export default function AddBusinessModal({
                         type="text"
                         value={state}
                         onChange={(e) => setState(e.target.value)}
-                        placeholder="Uttar Pradesh"
+                        placeholder="e.g. Uttar Pradesh"
                         className="w-full h-11 rounded-xl border border-slate-200 bg-slate-50/40 pl-8 pr-3 text-xs text-[#080d24] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
                       />
                     </div>
@@ -798,7 +799,7 @@ export default function AddBusinessModal({
                         type="text"
                         value={pincode}
                         onChange={(e) => setPincode(e.target.value)}
-                        placeholder="201016"
+                        placeholder="e.g. 201016"
                         className="w-full h-11 rounded-xl border border-slate-200 bg-slate-50/40 pl-8 pr-3 text-xs text-[#080d24] focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
                       />
                     </div>
@@ -836,7 +837,7 @@ export default function AddBusinessModal({
                           setGoogleReviewUrl(e.target.value);
                           if (fieldErrors.googleReviewUrl) setFieldErrors({ ...fieldErrors, googleReviewUrl: "" });
                         }}
-                        placeholder="https://g.page/r/CS3Zr8xyQyKREBM/review"
+                        placeholder="e.g. https://g.page/r/.../review"
                         className={`w-full h-11 rounded-xl border pl-8 pr-3 text-xs text-[#080d24] transition focus:outline-none focus:ring-2 ${
                           fieldErrors.googleReviewUrl
                             ? "border-rose-300 focus:ring-rose-200 bg-rose-50/30"

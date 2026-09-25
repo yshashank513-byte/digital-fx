@@ -15,7 +15,7 @@ import {
   getAnalyticsSummary,
 } from "@/lib/reviewFlowStore";
 import { verifyAdminAuth } from "@/lib/adminApiAuth";
-import { BusinessCategory } from "@/lib/reviewFlowTypes";
+import { BusinessCategory, QRStatus } from "@/lib/reviewFlowTypes";
 
 export const dynamic = "force-dynamic";
 
@@ -168,8 +168,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Default status: Pending Approval (or Draft if explicitly requested)
-    const initialStatus = requestedStatus === "draft" ? "draft" : "pending_approval";
+    // Default status: Active for admin generation, unless draft or pending_approval explicitly requested
+    const initialStatus: QRStatus =
+      requestedStatus === "draft"
+        ? "draft"
+        : requestedStatus === "pending_approval"
+        ? "pending_approval"
+        : "active";
 
     const saved = await saveBusiness({
       name: name.trim(),
@@ -193,7 +198,9 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       message:
-        initialStatus === "pending_approval"
+        initialStatus === "active"
+          ? "Business registered successfully and dynamic QR is active!"
+          : initialStatus === "pending_approval"
           ? "Business registered successfully and queued for approval."
           : "Business draft saved successfully.",
       business: saved,
