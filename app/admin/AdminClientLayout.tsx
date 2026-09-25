@@ -315,7 +315,20 @@ export default function AdminClientLayout({
     );
   }
 
-  const navItems = [
+  interface NavItem {
+    label: string;
+    href: string;
+    icon: React.ReactNode;
+    active: boolean;
+    badge?: number;
+  }
+
+  interface NavGroup {
+    group: string;
+    items: NavItem[];
+  }
+
+  const navItems: NavGroup[] = [
     {
       group: "MAIN MENU",
       items: [
@@ -340,38 +353,14 @@ export default function AdminClientLayout({
           label: "ReviewFlow Hub",
           href: "/admin/reviewflow",
           icon: <StarIcon className="w-4.5 h-4.5" />,
-          active: pathname === "/admin/reviewflow",
-        },
-        {
-          label: "Businesses",
-          href: "/admin/businesses",
-          icon: <BuildingIcon className="w-4.5 h-4.5" />,
-          active: pathname.startsWith("/admin/businesses"),
-        },
-        {
-          label: "Review QR Codes",
-          href: "/admin/review-qr",
-          icon: <QrCodeIcon className="w-4.5 h-4.5" />,
-          active: pathname.startsWith("/admin/review-qr"),
-        },
-        {
-          label: "Pending Approvals",
-          href: "/admin/approvals",
-          icon: <HourglassIcon className="w-4.5 h-4.5" />,
           badge: pendingApprovalsCount > 0 ? pendingApprovalsCount : undefined,
-          active: pathname === "/admin/approvals",
-        },
-        {
-          label: "Outreach Campaigns",
-          href: "/admin/reviewflow/campaigns",
-          icon: <MegaphoneIcon className="w-4.5 h-4.5" />,
-          active: pathname.startsWith("/admin/reviewflow/campaigns"),
-        },
-        {
-          label: "Analytics & Funnel",
-          href: "/admin/analytics",
-          icon: <BarChartIcon className="w-4.5 h-4.5" />,
-          active: pathname === "/admin/analytics",
+          active:
+            pathname === "/admin/reviewflow" ||
+            pathname.startsWith("/admin/businesses") ||
+            pathname.startsWith("/admin/review-qr") ||
+            pathname.startsWith("/admin/approvals") ||
+            pathname.startsWith("/admin/reviewflow/campaigns") ||
+            pathname.startsWith("/admin/analytics"),
         },
       ],
     },

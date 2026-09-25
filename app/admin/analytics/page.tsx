@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { ReviewFlowAnalyticsSummary } from "@/lib/reviewFlowTypes";
 
 export default function AdminAnalyticsPage() {
@@ -48,18 +49,26 @@ export default function AdminAnalyticsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">📈</span>
-            <h1 className="text-xl md:text-2xl font-black text-[#080d24] tracking-tight">
-              ReviewFlow AI Conversion &amp; Scan Funnel
-            </h1>
+      <div>
+        <Link
+          href="/admin/reviewflow"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-[#207de9] mb-3 transition"
+        >
+          <span>←</span>
+          <span>Back to ReviewFlow Hub</span>
+        </Link>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">📈</span>
+              <h1 className="text-xl md:text-2xl font-black text-[#080d24] tracking-tight">
+                ReviewFlow AI Conversion &amp; Scan Funnel
+              </h1>
+            </div>
+            <p className="mt-1 text-xs text-slate-500">
+              Realtime customer scan conversion rates, AI draft formulations, and Google Review redirection metrics.
+            </p>
           </div>
-          <p className="mt-1 text-xs text-slate-500">
-            Realtime customer scan conversion rates, AI draft formulations, and Google Review redirection metrics.
-          </p>
-        </div>
 
         <div className="flex items-center gap-2">
           <button
@@ -69,6 +78,7 @@ export default function AdminAnalyticsPage() {
             <span>🔄 Refresh</span>
           </button>
         </div>
+      </div>
       </div>
 
       {/* 4-Stage Conversion Funnel */}

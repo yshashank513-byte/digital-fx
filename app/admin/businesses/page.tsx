@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
+import Link from "next/link";
 import { BusinessProfile, QRStatus, BusinessCategory } from "@/lib/reviewFlowTypes";
 import { CATEGORIES_LIST } from "@/lib/reviewFlowCategories";
 import AddBusinessModal from "@/components/admin/AddBusinessModal";
@@ -226,18 +227,26 @@ export default function AdminBusinessesPage() {
       )}
 
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">🏢</span>
-            <h1 className="text-xl md:text-2xl font-black text-[#080d24] tracking-tight">
-              Businesses &amp; Dynamic QR Management
-            </h1>
+      <div>
+        <Link
+          href="/admin/reviewflow"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-[#207de9] mb-3 transition"
+        >
+          <span>←</span>
+          <span>Back to ReviewFlow Hub</span>
+        </Link>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🏢</span>
+              <h1 className="text-xl md:text-2xl font-black text-[#080d24] tracking-tight">
+                Businesses &amp; Dynamic QR Management
+              </h1>
+            </div>
+            <p className="mt-1 text-xs text-slate-500">
+              Create and manage verified business profiles, generate branded QR codes, monitor reviews, and control lifecycle approvals.
+            </p>
           </div>
-          <p className="mt-1 text-xs text-slate-500">
-            Create and manage verified business profiles, generate branded QR codes, monitor reviews, and control lifecycle approvals.
-          </p>
-        </div>
 
         <div className="flex items-center gap-3">
           <button
@@ -250,6 +259,7 @@ export default function AdminBusinessesPage() {
             <span>+ Add Business</span>
           </button>
         </div>
+      </div>
       </div>
 
       {/* KPI Overview Metrics */}

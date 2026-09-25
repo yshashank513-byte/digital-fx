@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
+import Link from "next/link";
 import { BusinessProfile } from "@/lib/reviewFlowTypes";
 import BrandedQRCard from "@/components/BrandedQRCard";
 import DeactivateModal from "@/components/admin/DeactivateModal";
@@ -136,18 +137,26 @@ export default function AdminReviewQRPage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">📲</span>
-            <h1 className="text-xl md:text-2xl font-black text-[#080d24] tracking-tight">
-              ReviewFlow Dynamic QR Codes
-            </h1>
+      <div>
+        <Link
+          href="/admin/reviewflow"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-[#207de9] mb-3 transition"
+        >
+          <span>←</span>
+          <span>Back to ReviewFlow Hub</span>
+        </Link>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">📲</span>
+              <h1 className="text-xl md:text-2xl font-black text-[#080d24] tracking-tight">
+                ReviewFlow Dynamic QR Codes
+              </h1>
+            </div>
+            <p className="mt-1 text-xs text-slate-500">
+              Preview, download high-resolution marketing cards, copy customer links, and control live QR availability.
+            </p>
           </div>
-          <p className="mt-1 text-xs text-slate-500">
-            Preview, download high-resolution marketing cards, copy customer links, and control live QR availability.
-          </p>
-        </div>
 
         <div className="flex items-center gap-2">
           <a
@@ -157,6 +166,7 @@ export default function AdminReviewQRPage() {
             Manage Businesses
           </a>
         </div>
+      </div>
       </div>
 
       {/* Filter Tabs */}

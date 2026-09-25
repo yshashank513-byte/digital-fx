@@ -17,16 +17,6 @@ interface ReviewFlowAnalytics {
   totalDrafts: number;
   totalGoogleClicks: number;
   conversionRate: number;
-  recentSessions?: Array<{
-    sessionId: string;
-    businessId: string;
-    category: string;
-    customerRating: number;
-    finalReviewText?: string;
-    completed: boolean;
-    clickedGoogleReview: boolean;
-    createdAt: string;
-  }>;
 }
 
 export default function ReviewFlowOverviewPage() {
@@ -68,43 +58,161 @@ export default function ReviewFlowOverviewPage() {
   const totalDrafts = analytics?.totalDrafts || businesses.reduce((acc, b) => acc + (b.totalDrafts || 0), 0);
   const totalGoogleClicks = analytics?.totalGoogleClicks || businesses.reduce((acc, b) => acc + (b.totalGoogleClicks || 0), 0);
   const overallConversionRate = totalScans > 0 ? Math.round((totalGoogleClicks / totalScans) * 100) : 0;
-  const pendingCount = analytics?.pendingApprovals || businesses.filter((b) => b.status === "pending_approval").length;
+  const pendingCount = analytics?.pendingApprovals ?? businesses.filter((b) => b.status === "pending_approval").length;
+  const activeCount = analytics?.activeQRCodes ?? businesses.filter((b) => b.status === "active").length;
+
+  // The 5 Core Rectangle Modules requested by user
+  const modules = [
+    {
+      title: "Businesses",
+      subtitle: "Verified Directory & Place IDs",
+      href: "/admin/businesses",
+      icon: (
+        <svg className="w-6 h-6 text-[#207de9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <path d="M9 22v-4h6v4" />
+          <path d="M8 6h.01M16 6h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01" />
+        </svg>
+      ),
+      iconBg: "bg-blue-50 border-blue-200",
+      accentBorder: "hover:border-[#207de9]",
+      badge: `${businesses.length} Registered`,
+      badgeColor: "bg-blue-50 text-[#207de9] border-blue-200",
+      description: "Manage registered business profiles, Google Maps Place IDs, brand colors, contact details, and custom review landing pages.",
+      highlights: [
+        { label: "Active Profiles", value: activeCount },
+        { label: "Pending", value: pendingCount },
+      ],
+      ctaText: "Open Businesses Page →",
+      btnColor: "bg-[#207de9] text-white hover:bg-[#1866c2]",
+    },
+    {
+      title: "Review QR Codes",
+      subtitle: "Branded QR Studio & Printables",
+      href: "/admin/review-qr",
+      icon: (
+        <svg className="w-6 h-6 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+      ),
+      iconBg: "bg-indigo-50 border-indigo-200",
+      accentBorder: "hover:border-indigo-500",
+      badge: `${activeCount} Live QRs`,
+      badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-200",
+      description: "Generate high-resolution SVG & PNG marketing QR codes with custom Digital FX frames, download print cards, and test live customer flows.",
+      highlights: [
+        { label: "Total Scans", value: totalScans },
+        { label: "Print Ready", value: "SVG / PNG" },
+      ],
+      ctaText: "Open Review QR Codes →",
+      btnColor: "bg-indigo-600 text-white hover:bg-indigo-700",
+    },
+    {
+      title: "Pending Approvals",
+      subtitle: "Safety & Link Verification",
+      href: "/admin/approvals",
+      icon: (
+        <svg className="w-6 h-6 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+      ),
+      iconBg: "bg-amber-50 border-amber-200",
+      accentBorder: "hover:border-amber-500",
+      badge: pendingCount > 0 ? `${pendingCount} Pending` : "Queue Clear",
+      badgeColor: pendingCount > 0 ? "bg-amber-100 text-amber-900 border-amber-300 animate-pulse font-bold" : "bg-emerald-50 text-emerald-700 border-emerald-200",
+      description: "Administrative safety gate for newly added businesses. Verify Google Place IDs and customer routing before QR codes are made public.",
+      highlights: [
+        { label: "Queue Count", value: pendingCount },
+        { label: "Approval Status", value: pendingCount > 0 ? "Action Needed" : "All Clear" },
+      ],
+      ctaText: "Open Pending Approvals →",
+      btnColor: "bg-amber-600 text-white hover:bg-amber-700",
+    },
+    {
+      title: "Outreach Campaigns",
+      subtitle: "Automated WhatsApp & SMS Invites",
+      href: "/admin/reviewflow/campaigns",
+      icon: (
+        <svg className="w-6 h-6 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+          <polyline points="22,6 12,13 2,6" />
+        </svg>
+      ),
+      iconBg: "bg-emerald-50 border-emerald-200",
+      accentBorder: "hover:border-emerald-500",
+      badge: "Multi-Channel",
+      badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      description: "Dispatch automated WhatsApp, SMS, and email review invitation campaigns to past customers with personalized AI-assisted shortlinks.",
+      highlights: [
+        { label: "Channels", value: "WhatsApp / SMS" },
+        { label: "Smart Gating", value: "Active" },
+      ],
+      ctaText: "Open Outreach Campaigns →",
+      btnColor: "bg-emerald-600 text-white hover:bg-emerald-700",
+    },
+    {
+      title: "Analytics & Funnel",
+      subtitle: "Full-Funnel Conversion Intelligence",
+      href: "/admin/analytics",
+      icon: (
+        <svg className="w-6 h-6 text-[#207de9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+      ),
+      iconBg: "bg-cyan-50 border-cyan-200",
+      accentBorder: "hover:border-cyan-500",
+      badge: `${overallConversionRate}% Conv. Rate`,
+      badgeColor: "bg-cyan-50 text-cyan-800 border-cyan-200",
+      description: "End-to-end 4-stage funnel tracking: QR Scans → Customer Sentiment Experience → AI Draft Generated → Google Review Published.",
+      highlights: [
+        { label: "AI Drafts", value: totalDrafts },
+        { label: "Google Clicks", value: totalGoogleClicks },
+      ],
+      ctaText: "Open Analytics & Funnel →",
+      btnColor: "bg-slate-900 text-white hover:bg-slate-800",
+    },
+  ];
 
   return (
-    <div className="space-y-6 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+    <div className="space-y-8 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+      
       {/* =========================================================================
-          MODULE HEADER & QUICK ACTIONS
+          MODULE HEADER & ACTIONS
           ========================================================================= */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200/80 pb-5">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-100 text-[#207de9] text-base font-black">
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-50 border border-blue-200 text-[#207de9] text-base font-black shadow-xs">
               ★
             </span>
-            <h1 className="text-2xl font-black tracking-tight text-[#080d24]">
-              ReviewFlow AI Command Center
-            </h1>
-            <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-emerald-700 border border-emerald-200">
-              Live Module
-            </span>
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-[#080d24]">
+                  ReviewFlow Hub
+                </h1>
+                <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-emerald-700 border border-emerald-200">
+                  Operations Center
+                </span>
+              </div>
+              <p className="mt-0.5 text-xs sm:text-sm text-slate-500">
+                Centralized dashboard for business review management, branded QR codes, approvals, outreach campaigns, and funnel analytics.
+              </p>
+            </div>
           </div>
-          <p className="mt-1 text-xs text-slate-500">
-            Unified management for dynamic QR codes, AI-assisted Google reviews, and customer conversion funnels.
-          </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
           <Link
-            href="/admin/review-qr"
+            href="/admin/reviewflow/settings"
             className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 shadow-xs hover:bg-slate-50 hover:text-[#080d24] transition"
           >
-            <span>📲</span> QR Code Studio
-          </Link>
-          <Link
-            href="/admin/reviewflow/campaigns"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 shadow-xs hover:bg-slate-50 hover:text-[#080d24] transition"
-          >
-            <span>✉</span> Outreach Campaigns
+            <span>⚙</span> Global Settings
           </Link>
           <button
             onClick={() => setIsAddModalOpen(true)}
@@ -116,30 +224,33 @@ export default function ReviewFlowOverviewPage() {
       </div>
 
       {/* =========================================================================
-          MODULE SUB-NAVIGATION TABS
+          MODULE SUB-NAVIGATION TABS BAR
           ========================================================================= */}
-      <div className="flex overflow-x-auto scrollbar-none gap-2 border-b border-slate-200 pb-2">
+      <div className="flex overflow-x-auto scrollbar-none gap-2 border-b border-slate-200 pb-2 text-xs font-bold">
         <Link
           href="/admin/reviewflow"
-          className="rounded-lg bg-[#207de9] px-3.5 py-1.5 text-xs font-bold text-white shadow-xs"
+          className="rounded-lg bg-[#207de9] px-3.5 py-1.5 text-white shadow-xs"
         >
-          Overview
+          ReviewFlow Hub
         </Link>
         <Link
           href="/admin/businesses"
-          className="rounded-lg px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
+          className="rounded-lg px-3.5 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition flex items-center gap-1.5"
         >
-          Businesses ({businesses.length})
+          <span>Businesses</span>
+          <span className="bg-slate-100 text-slate-600 px-1.5 py-0.2 rounded text-[10px]">
+            {businesses.length}
+          </span>
         </Link>
         <Link
           href="/admin/review-qr"
-          className="rounded-lg px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
+          className="rounded-lg px-3.5 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
         >
-          Branded QR Codes
+          Review QR Codes
         </Link>
         <Link
           href="/admin/approvals"
-          className="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
+          className="rounded-lg px-3.5 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition flex items-center gap-1.5"
         >
           <span>Pending Approvals</span>
           {pendingCount > 0 && (
@@ -150,44 +261,95 @@ export default function ReviewFlowOverviewPage() {
         </Link>
         <Link
           href="/admin/reviewflow/campaigns"
-          className="rounded-lg px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
+          className="rounded-lg px-3.5 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
         >
-          Campaigns
+          Outreach Campaigns
         </Link>
         <Link
           href="/admin/analytics"
-          className="rounded-lg px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
+          className="rounded-lg px-3.5 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
         >
-          Funnel Analytics
+          Analytics &amp; Funnel
         </Link>
       </div>
 
       {/* =========================================================================
-          PENDING APPROVALS ALERT (IF ANY)
+          THE 5 CORE RECTANGLE MODULES (Requested by user)
           ========================================================================= */}
-      {pendingCount > 0 && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-amber-200 bg-amber-50/80 p-4 text-amber-900 shadow-xs">
-          <div className="flex items-center gap-3">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-500 text-white font-bold text-lg">
-              ⏳
-            </span>
-            <div>
-              <p className="text-xs font-bold">
-                {pendingCount} business profile{pendingCount > 1 ? "s are" : " is"} awaiting administrative approval
-              </p>
-              <p className="text-[11px] text-amber-800">
-                New QR registrations are paused until verified to safeguard customer destination links.
-              </p>
-            </div>
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="text-base font-extrabold text-[#080d24]">
+              ReviewFlow AI Modules
+            </h2>
+            <p className="text-xs text-slate-500">
+              Click any rectangle module below to open its respective full management page.
+            </p>
           </div>
-          <Link
-            href="/admin/approvals"
-            className="inline-flex items-center justify-center rounded-xl bg-amber-600 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-amber-700 transition shrink-0"
-          >
-            Review Approvals Queue →
-          </Link>
+          <span className="text-xs font-semibold text-slate-400">
+            5 Dedicated Modules
+          </span>
         </div>
-      )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {modules.map((mod, idx) => (
+            <Link
+              key={idx}
+              href={mod.href}
+              className={`group relative rounded-3xl border border-slate-200/90 bg-white p-6 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between ${mod.accentBorder}`}
+            >
+              <div>
+                {/* Card Top: Icon & Badge */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform ${mod.iconBg}`}>
+                    {mod.icon}
+                  </div>
+                  <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold border ${mod.badgeColor}`}>
+                    {mod.badge}
+                  </span>
+                </div>
+
+                {/* Title & Subtitle */}
+                <h3 className="text-lg font-black text-[#080d24] group-hover:text-[#207de9] transition tracking-tight">
+                  {mod.title}
+                </h3>
+                <p className="text-[11px] font-semibold text-slate-400 mt-0.5">
+                  {mod.subtitle}
+                </p>
+
+                {/* Description */}
+                <p className="mt-2.5 text-xs text-slate-600 leading-relaxed font-normal">
+                  {mod.description}
+                </p>
+
+                {/* Metric Highlights */}
+                <div className="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-xs">
+                  {mod.highlights.map((h, i) => (
+                    <div key={i} className="p-2 rounded-xl bg-slate-50 border border-slate-100">
+                      <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                        {h.label}
+                      </span>
+                      <span className="block text-sm font-extrabold text-[#080d24] mt-0.5">
+                        {h.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Link Footer */}
+              <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <span className="text-xs font-bold text-[#207de9] group-hover:underline flex items-center gap-1">
+                  <span>{mod.ctaText}</span>
+                </span>
+                <span className="text-slate-400 group-hover:text-[#207de9] group-hover:translate-x-1 transition-transform text-sm">
+                  →
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
 
       {/* =========================================================================
           KEY PERFORMANCE INDICATORS (KPIs)
@@ -196,15 +358,13 @@ export default function ReviewFlowOverviewPage() {
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
           <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Total Businesses</p>
           <p className="mt-1 text-2xl font-black text-[#080d24]">{businesses.length}</p>
-          <p className="mt-1 text-[10px] text-slate-500">Registered clients</p>
+          <p className="mt-1 text-[10px] text-slate-500">Registered profiles</p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
           <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Active QRs</p>
-          <p className="mt-1 text-2xl font-black text-emerald-600">
-            {businesses.filter((b) => b.status === "active").length}
-          </p>
-          <p className="mt-1 text-[10px] text-slate-500">Live dynamic destinations</p>
+          <p className="mt-1 text-2xl font-black text-emerald-600">{activeCount}</p>
+          <p className="mt-1 text-[10px] text-slate-500">Live dynamic links</p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
@@ -216,13 +376,13 @@ export default function ReviewFlowOverviewPage() {
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
           <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Page Visits</p>
           <p className="mt-1 text-2xl font-black text-indigo-600">{totalVisits}</p>
-          <p className="mt-1 text-[10px] text-slate-500">Engaged landing views</p>
+          <p className="mt-1 text-[10px] text-slate-500">Landing views</p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">AI Reviews Drafted</p>
+          <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">AI Reviews</p>
           <p className="mt-1 text-2xl font-black text-amber-600">{totalDrafts}</p>
-          <p className="mt-1 text-[10px] text-slate-500">Generated review texts</p>
+          <p className="mt-1 text-[10px] text-slate-500">Drafted copies</p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
@@ -237,7 +397,7 @@ export default function ReviewFlowOverviewPage() {
       </div>
 
       {/* =========================================================================
-          CONVERSION FUNNEL PIPELINE
+          4-STAGE CONVERSION FUNNEL PIPELINE
           ========================================================================= */}
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-3 mb-4">
@@ -316,7 +476,7 @@ export default function ReviewFlowOverviewPage() {
               href="/admin/businesses"
               className="text-xs font-bold text-[#207de9] hover:underline"
             >
-              Full Directory & Controls ({businesses.length}) →
+              Full Directory &amp; Controls ({businesses.length}) →
             </Link>
           </div>
         </div>
@@ -413,59 +573,6 @@ export default function ReviewFlowOverviewPage() {
             </table>
           </div>
         )}
-      </div>
-
-      {/* =========================================================================
-          MODULE SHORTCUTS & RESOURCES
-          ========================================================================= */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Link
-          href="/admin/review-qr"
-          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-[#207de9] hover:shadow-md transition group"
-        >
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-[#207de9] text-lg font-bold group-hover:bg-[#207de9] group-hover:text-white transition">
-            📲
-          </div>
-          <h3 className="mt-3 text-sm font-black text-[#080d24]">Branded QR Code Studio</h3>
-          <p className="mt-1 text-xs text-slate-500">
-            Generate high-resolution PNG & SVG marketing QR cards with official Digital FX branding and support number.
-          </p>
-          <span className="mt-3 inline-flex items-center text-xs font-bold text-[#207de9]">
-            Open QR Studio →
-          </span>
-        </Link>
-
-        <Link
-          href="/admin/reviewflow/campaigns"
-          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-[#207de9] hover:shadow-md transition group"
-        >
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 text-lg font-bold group-hover:bg-emerald-600 group-hover:text-white transition">
-            ✉
-          </div>
-          <h3 className="mt-3 text-sm font-black text-[#080d24]">Review Outreach Campaigns</h3>
-          <p className="mt-1 text-xs text-slate-500">
-            Send WhatsApp & SMS invitations to past clients with pre-filled templates and customized dynamic links.
-          </p>
-          <span className="mt-3 inline-flex items-center text-xs font-bold text-emerald-600">
-            Create Campaign →
-          </span>
-        </Link>
-
-        <Link
-          href="/admin/reviewflow/settings"
-          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-[#207de9] hover:shadow-md transition group"
-        >
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700 text-lg font-bold group-hover:bg-slate-800 group-hover:text-white transition">
-            ⚙
-          </div>
-          <h3 className="mt-3 text-sm font-black text-[#080d24]">ReviewFlow Global Settings</h3>
-          <p className="mt-1 text-xs text-slate-500">
-            Configure Google Review Place ID helpers, AI prompt templates, default brand accents, and fallback behavior.
-          </p>
-          <span className="mt-3 inline-flex items-center text-xs font-bold text-slate-700">
-            Configure Settings →
-          </span>
-        </Link>
       </div>
 
       {/* Add Business Modal */}

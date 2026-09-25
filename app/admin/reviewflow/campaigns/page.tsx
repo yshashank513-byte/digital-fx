@@ -125,7 +125,7 @@ export default function ReviewFlowCampaignsPage() {
           href="/admin/reviewflow"
           className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 shadow-xs hover:bg-slate-50 hover:text-[#080d24] transition w-fit"
         >
-          ← ReviewFlow Overview
+          ← Back to ReviewFlow Hub
         </Link>
       </div>
 
@@ -135,7 +135,7 @@ export default function ReviewFlowCampaignsPage() {
           href="/admin/reviewflow"
           className="rounded-lg px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
         >
-          Overview
+          ReviewFlow Hub
         </Link>
         <Link
           href="/admin/businesses"

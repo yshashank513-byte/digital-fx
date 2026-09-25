@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { BusinessProfile } from "@/lib/reviewFlowTypes";
 import BusinessDetailDrawer from "@/components/admin/BusinessDetailDrawer";
 import AddBusinessModal from "@/components/admin/AddBusinessModal";
@@ -90,18 +91,26 @@ export default function AdminApprovalsPage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">⏳</span>
-            <h1 className="text-xl md:text-2xl font-black text-[#080d24] tracking-tight">
-              Pending Approvals Queue
-            </h1>
+      <div>
+        <Link
+          href="/admin/reviewflow"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-[#207de9] mb-3 transition"
+        >
+          <span>←</span>
+          <span>Back to ReviewFlow Hub</span>
+        </Link>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">⏳</span>
+              <h1 className="text-xl md:text-2xl font-black text-[#080d24] tracking-tight">
+                Pending Approvals Queue
+              </h1>
+            </div>
+            <p className="mt-1 text-xs text-slate-500">
+              Review submitted businesses before dynamic QR codes and customer review flows become active.
+            </p>
           </div>
-          <p className="mt-1 text-xs text-slate-500">
-            Review submitted businesses before dynamic QR codes and customer review flows become active.
-          </p>
-        </div>
 
         <div className="flex items-center gap-3">
           <a
@@ -111,6 +120,7 @@ export default function AdminApprovalsPage() {
             All Businesses
           </a>
         </div>
+      </div>
       </div>
 
       {/* Main Content Area */}
