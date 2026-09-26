@@ -362,6 +362,8 @@ export default function BusinessDetailDrawer({
                     businessId={business.id}
                     businessName={business.name}
                     category={business.category}
+                    logoUrl={business.logoUrl}
+                    brandColor={business.brandColor}
                   />
                 </div>
               </div>

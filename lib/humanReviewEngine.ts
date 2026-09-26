@@ -400,8 +400,37 @@ export function generateNaturalHumanReview(
   businessName: string,
   category: string,
   language: SupportedLanguage = "en",
-  seedModifier: number = Date.now()
+  seedModifier: number = Date.now(),
+  rating: number = 5
 ): string {
+  // If customer clicked 1 or 2 stars, provide constructive feedback template
+  if (rating <= 2) {
+    if (language === "hi") {
+      return `${businessName} के साथ हमारा अनुभव ठीक नहीं रहा। सर्विस और रिस्पॉन्स में काफी सुधार की जरूरत है। आशा है कि मैनेजमेंट इस पर ध्यान देगा।`;
+    }
+    if (language === "hinglish") {
+      return `${businessName} ke sath experience thoda disappointing raha. Service aur response time me improvement ki zarurat hai.`;
+    }
+    if (language === "mr") {
+      return `${businessName} कडून सेवेत सुधारणा आवश्यक आहे. प्रतिसाद अपेक्षेप्रमाणे नव्हता.`;
+    }
+    return `Had an issue with the service at ${businessName}. The overall response and customer handling needs improvement. Hope the management addresses this.`;
+  }
+
+  // If customer clicked 3 stars
+  if (rating === 3) {
+    if (language === "hi") {
+      return `${businessName} के साथ अनुभव सामान्य रहा। काम ठीक हुआ लेकिन कुछ चीजों में और सुधार हो सकता है। ओवरऑल ठीक-ठाक सर्विस।`;
+    }
+    if (language === "hinglish") {
+      return `${businessName} ke sath average experience raha. Kaam theek tha but thoda aur better ho sakta tha. Decent service overall.`;
+    }
+    if (language === "mr") {
+      return `${businessName} कडील सेवा सरासरी होती. काम ठीक झाले पण आणखी सुधारणा होऊ शकते.`;
+    }
+    return `Decent experience with ${businessName}. The service was satisfactory, though there is some room for improvement. Overall okay.`;
+  }
+
   // Select vocabulary matching category or fallback to general
   const vocabMap = CATEGORY_VOCABULARY[category] || CATEGORY_VOCABULARY["Digital Marketing Agency"] || CATEGORY_VOCABULARY["General"];
   const langVocab = vocabMap[language] || vocabMap["en"] || CATEGORY_VOCABULARY["General"]["en"];
@@ -426,7 +455,34 @@ export function generateNaturalHumanReview(
     }
   }
 
-  const closer = pick(langVocab.closers).replace(/\{name\}/g, businessName);
+  let closer = pick(langVocab.closers).replace(/\{name\}/g, businessName);
+
+  // If 4 stars, adapt closer to natural 4-star sentiment
+  if (rating === 4) {
+    if (language === "en") {
+      const fourStarClosers = [
+        "Solid 4 stars. Very satisfied with the service!",
+        "Great experience overall, would definitely recommend.",
+        "Good service and helpful staff. Keep up the good work!",
+        "Happy with the outcome and smooth support.",
+      ];
+      closer = pick(fourStarClosers);
+    } else if (language === "hi") {
+      const fourStarClosersHi = [
+        "काफी अच्छा अनुभव रहा, सॉलिड 4 स्टार सर्विस!",
+        "काम बहुत बढ़िया हुआ और स्टाफ भी मददगार रहा। संतुष्ट हूँ।",
+        "{name} की सर्विस अच्छी है, जरूर रिकमेंड करूंगा।",
+      ];
+      closer = pick(fourStarClosersHi);
+    } else if (language === "hinglish") {
+      const fourStarClosersHing = [
+        "Kaafi achha experience raha {name} ke sath, solid 4 stars!",
+        "Service kaafi smooth thi aur staff cooperative tha. Satisfied!",
+        "Overall bohot achha laga, definitely recommend karunga.",
+      ];
+      closer = pick(fourStarClosersHing);
+    }
+  }
 
   const sentences = [opener, aspect1, aspect2, closer].filter(Boolean);
   return sentences.join(" ").trim();

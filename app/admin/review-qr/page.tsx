@@ -271,6 +271,8 @@ export default function AdminReviewQRPage() {
                       businessId={biz.id}
                       businessName={biz.name}
                       category={biz.category}
+                      logoUrl={biz.logoUrl}
+                      brandColor={biz.brandColor}
                     />
                   </div>
                 </div>
