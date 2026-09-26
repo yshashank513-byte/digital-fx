@@ -62,21 +62,9 @@ export default function PrintableReviewStandee({
     } catch (_) {}
   };
 
+  // User explicitly requested clicking "Download QR" downloads the FULL STANDEE in high-res JPG
   const handleDownloadQR = () => {
-    if (!qrDataUrl) return;
-    setDownloading("qr");
-    try {
-      const link = document.createElement("a");
-      link.href = qrDataUrl;
-      link.download = `${business.id}-review-qr.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (err) {
-      console.error("QR download failed:", err);
-    } finally {
-      setTimeout(() => setDownloading(null), 300);
-    }
+    handleDownloadStandeeJPG();
   };
 
   // High-Resolution Standee Export in JPG Format (1500 x 2120 px @ 300 DPI)
@@ -453,7 +441,7 @@ export default function PrintableReviewStandee({
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
-            {/* Download Standee as High-Res JPG */}
+            {/* Primary Action: Download QR Full Standee in High-Res JPG */}
             <button
               type="button"
               onClick={handleDownloadStandeeJPG}
@@ -463,12 +451,12 @@ export default function PrintableReviewStandee({
               {downloading === "jpg" ? (
                 <>
                   <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Generating High-Res JPG...</span>
+                  <span>Downloading Standee...</span>
                 </>
               ) : (
                 <>
-                  <span>🖼️</span>
-                  <span>Download Standee (JPG)</span>
+                  <span>📥</span>
+                  <span>Download QR (Full Standee JPG)</span>
                 </>
               )}
             </button>
@@ -481,17 +469,6 @@ export default function PrintableReviewStandee({
             >
               <span>🖨️</span>
               <span>Print {size}</span>
-            </button>
-
-            {/* Download QR Code */}
-            <button
-              type="button"
-              onClick={handleDownloadQR}
-              disabled={downloading === "qr" || !qrDataUrl}
-              className="py-1.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1.5 cursor-pointer border border-slate-200 disabled:opacity-50"
-            >
-              <span>📥</span>
-              <span>Download QR</span>
             </button>
 
             {/* Copy Review Portal Link */}
@@ -634,6 +611,28 @@ export default function PrintableReviewStandee({
           <span>Digital FX ReviewFlow</span>
         </div>
 
+      </div>
+
+      {/* Quick Download Standee Button directly below card */}
+      <div className="no-print mt-4 w-full flex justify-center">
+        <button
+          type="button"
+          onClick={handleDownloadStandeeJPG}
+          disabled={downloading === "jpg" || !qrDataUrl}
+          className="w-full max-w-[420px] py-3 px-5 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-500/20 transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+        >
+          {downloading === "jpg" ? (
+            <>
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <span>Downloading Full Standee (1500 x 2120 px)...</span>
+            </>
+          ) : (
+            <>
+              <span>📥</span>
+              <span>Download QR (Pura Standee JPG)</span>
+            </>
+          )}
+        </button>
       </div>
 
     </div>
