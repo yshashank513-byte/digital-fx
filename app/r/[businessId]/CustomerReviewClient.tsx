@@ -263,9 +263,22 @@ export default function CustomerReviewClient({ business }: Props) {
 
     // 3. Open selected business's configured review destination URL
     let targetUrl = business.googleReviewUrl?.trim();
+
+    // Guard: Never redirect another business (like Om Packers) to Digital FX's Google listing
+    const isDigitalFxDefault =
+      !business.name.toLowerCase().includes("digital fx") &&
+      !business.name.toLowerCase().includes("digitalfx") &&
+      Boolean(
+        targetUrl &&
+          (targetUrl.includes("CUe2G4Eq9NQSEAI") ||
+            targetUrl.includes("ChIJMT4JG8LvDDkRR7YbgSr01BI") ||
+            targetUrl.includes("DigitalFX") ||
+            targetUrl.includes("ChIJr8q_Orbit_Plaza_DigitalFX"))
+      );
+
     const isPlaceholder =
       !targetUrl ||
-      targetUrl.includes("ChIJr8q_Orbit_Plaza_DigitalFX") ||
+      isDigitalFxDefault ||
       targetUrl.includes("ChIJspeedy_packers_ncr") ||
       targetUrl.includes("ChIJshree_jewellers_rdc");
 

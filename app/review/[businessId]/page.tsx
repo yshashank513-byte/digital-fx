@@ -49,8 +49,15 @@ export default async function CustomerReviewPage({ params, searchParams }: Props
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-  } else if (!business.logoUrl && (sp.logoUrl || sp.logo)) {
-    business.logoUrl = sp.logoUrl || sp.logo;
+  } else {
+    // If a custom reviewUrl is passed via QR or URL parameters, honor it directly
+    const incomingReviewUrl = sp.reviewUrl || (sp as any).review_url || (sp as any).url;
+    if (incomingReviewUrl && typeof incomingReviewUrl === "string" && incomingReviewUrl.trim().startsWith("http")) {
+      business.googleReviewUrl = incomingReviewUrl.trim();
+    }
+    if (!business.logoUrl && (sp.logoUrl || sp.logo)) {
+      business.logoUrl = sp.logoUrl || sp.logo;
+    }
   }
 
   return <CustomerReviewClient business={business!} />;
