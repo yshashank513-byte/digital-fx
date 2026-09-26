@@ -41,3 +41,4 @@ yarn-error.log*
 next-env.d.ts
 .chrome*
 verify_*.png
+scratch/

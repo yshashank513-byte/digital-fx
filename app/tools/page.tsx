@@ -8,14 +8,19 @@ import Footer from "@/components/Footer";
 import SeoCheckerTool from "@/components/SeoCheckerTool";
 import PageSpeedAuditReport from "@/components/PageSpeedAuditReport";
 import type { PageSpeedAuditData } from "@/app/api/pagespeed/route";
+import AiReviewStandeeTool from "@/components/AiReviewStandeeTool";
 
 function ToolsContent() {
   const searchParams = useSearchParams();
   const initialToolParam = searchParams.get("tool");
   
   // Default to 'seo' so user immediately sees the requested SEO Checker experience
-  const [activeTool, setActiveTool] = useState<"seo" | "pagespeed" | "overview">(
-    initialToolParam === "pagespeed" ? "pagespeed" : "seo"
+  const [activeTool, setActiveTool] = useState<"seo" | "pagespeed" | "review-standee" | "overview">(
+    initialToolParam === "pagespeed"
+      ? "pagespeed"
+      : initialToolParam === "review-standee" || initialToolParam === "standee" || initialToolParam === "qr"
+      ? "review-standee"
+      : "seo"
   );
 
   // Sync with searchParams if query string changes
@@ -27,6 +32,8 @@ function ToolsContent() {
       setActiveTool("seo");
     } else if (t === "overview") {
       setActiveTool("overview");
+    } else if (t === "review-standee" || t === "standee" || t === "qr") {
+      setActiveTool("review-standee");
     }
   }, [searchParams]);
 
@@ -197,6 +204,24 @@ function ToolsContent() {
 
               <button
                 type="button"
+                onClick={() => setActiveTool("review-standee")}
+                className={`px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
+                  activeTool === "review-standee"
+                    ? "bg-emerald-600 text-white shadow-xs"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                }`}
+              >
+                <span>⭐</span>
+                <span>Review Standee</span>
+                <span className={`px-1.5 py-0.2 rounded text-[9px] font-black uppercase ${
+                  activeTool === "review-standee" ? "bg-white/20 text-white" : "bg-emerald-50 text-emerald-700"
+                }`}>
+                  AI QR
+                </span>
+              </button>
+
+              <button
+                type="button"
                 onClick={() => setActiveTool("overview")}
                 className={`px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
                   activeTool === "overview"
@@ -322,10 +347,10 @@ function ToolsContent() {
                 </div>
               </div>
 
-              {/* Card 3: ReviewFlow AI Engine */}
-              <Link
-                href="/reviewflow"
-                className="group relative rounded-3xl border border-slate-200 hover:border-[#10B981] bg-white p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              {/* Card 3: Google Review Standee & AI Review Engine */}
+              <div
+                onClick={() => setActiveTool("review-standee")}
+                className="group relative rounded-3xl border border-slate-200 hover:border-[#10B981] bg-white p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -333,32 +358,39 @@ function ToolsContent() {
                       ⭐
                     </div>
                     <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold uppercase tracking-wider border border-emerald-200">
-                      REPUTATION AI
+                      OFFICIAL STANDEE + AI
                     </span>
                   </div>
 
                   <h3 className="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition">
-                    ReviewFlow AI Engine
+                    Google Review Standee &amp; AI Generator
                   </h3>
                   <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                    Smart QR review gating and automated multi-platform Google review generation for local establishments.
+                    Design official Google Business tabletop acrylic standees with custom QR codes and real-time AI customer review drafting (Star-rating gating &amp; 1-click Google Maps copy).
                   </p>
 
                   <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-500 font-medium">
-                    <span>✓ QR Review Gating</span>
+                    <span>✓ Acrylic Standee</span>
                     <span>•</span>
-                    <span>✓ AI Prompts</span>
+                    <span>✓ Star-Rating AI</span>
                     <span>•</span>
-                    <span>✓ Google Maps Sync</span>
+                    <span>✓ High-Res Print (A5)</span>
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100">
-                  <span className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-800 group-hover:text-emerald-600 group-hover:translate-x-1 transition-transform">
-                    <span>Explore ReviewFlow →</span>
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 text-sm font-bold text-emerald-600 group-hover:translate-x-1 transition-transform">
+                    <span>Open Standee Studio →</span>
                   </span>
+                  <Link
+                    href="/reviewflow"
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-[11px] text-slate-400 hover:text-emerald-600 font-medium underline"
+                  >
+                    Full ReviewFlow →
+                  </Link>
                 </div>
-              </Link>
+              </div>
 
             </div>
 
@@ -572,6 +604,13 @@ function ToolsContent() {
 
           </div>
         </section>
+      )}
+
+      {/* ========================================================
+          VIEW 4: GOOGLE REVIEW STANDEE & AI REVIEW ENGINE
+         ======================================================== */}
+      {activeTool === "review-standee" && (
+        <AiReviewStandeeTool onBackToTools={() => setActiveTool("overview")} />
       )}
 
       {/* UNIVERSAL BRANDED FOOTER */}
