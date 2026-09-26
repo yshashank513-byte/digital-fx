@@ -1,6 +1,32 @@
 {
   "businesses": [
     {
+      "id": "om-packers-and-movers",
+      "qrId": "rf_om_packers",
+      "name": "OM PACKERS AND MOVERS",
+      "category": "Packers & Movers",
+      "phone": "+91 9717586641",
+      "website": "https://www.ompackersindia.com",
+      "address": "Plot 42, Transport Nagar",
+      "city": "Delhi NCR",
+      "state": "Uttar Pradesh",
+      "pincode": "201009",
+      "googleReviewUrl": "https://g.page/r/CUe2G4Eq9NQSEAI/review",
+      "brandColor": "#EA580C",
+      "qrStyle": "square",
+      "status": "active",
+      "active": true,
+      "submittedBy": "Admin Console",
+      "approvalDate": "2026-09-26T15:00:00.000Z",
+      "deleted": false,
+      "totalScans": 0,
+      "totalVisits": 0,
+      "totalDrafts": 0,
+      "totalGoogleClicks": 0,
+      "createdAt": "2026-09-26T15:00:00.000Z",
+      "updatedAt": "2026-09-26T15:00:00.000Z"
+    },
+    {
       "id": "royal-smile-dental-clinic",
       "qrId": "rf_5b3bfa59",
       "name": "Royal Smile Dental Clinic",
