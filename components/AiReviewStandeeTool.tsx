@@ -128,9 +128,30 @@ export default function AiReviewStandeeTool({ onBackToTools }: AiReviewStandeeTo
     window.print();
   };
 
-  // QR display url
-  const qrDisplayUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=2&data=${encodeURIComponent(
-    reviewUrl || "https://www.digitalfx.in/r/digital-fx"
+  // Dynamic slug for current business
+  const businessSlug =
+    businessName
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "review";
+
+  // Construct origin for smart review portal link
+  const [portalOrigin, setPortalOrigin] = useState("http://localhost:3000");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setPortalOrigin(window.location.origin);
+    }
+  }, []);
+
+  // Smart Review Portal URL: Opens the AI review flow (Stars -> AI Draft -> 1-click Google Maps redirect)
+  const portalPath = `/r/${businessSlug}?name=${encodeURIComponent(businessName)}&cat=${encodeURIComponent(category)}&city=${encodeURIComponent(city)}&reviewUrl=${encodeURIComponent(reviewUrl)}`;
+  const fullPortalUrl = `${portalOrigin}${portalPath}`;
+
+  // Standee QR Code encodes the AI Review Portal URL, NOT the raw Google Map link!
+  const qrDisplayUrl = `https://api.qrserver.com/v1/create-qr-code/?size=350x350&margin=2&data=${encodeURIComponent(
+    fullPortalUrl
   )}`;
 
   const isDark = theme === "luxury-black";
@@ -474,6 +495,33 @@ export default function AiReviewStandeeTool({ onBackToTools }: AiReviewStandeeTo
                 </div>
               </div>
 
+            </div>
+
+            {/* Live Scan & Test Bar */}
+            <div className="mt-4 w-full max-w-[420px] bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col gap-2.5">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-700">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>QR Scan Flow:</span>
+                </span>
+                <span className="font-mono text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 truncate max-w-[190px]">
+                  1. AI Review → 2. Google Maps
+                </span>
+              </div>
+
+              <p className="text-[11px] text-slate-500 leading-normal">
+                Customer camera scan karega toh pehle <strong>AI Review Portal</strong> khulega (Stars + AI draft), fir &quot;Copy &amp; Post&quot; par Google Maps review dialog open hoga.
+              </p>
+              
+              <a
+                href={fullPortalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-xs active:scale-98"
+              >
+                <span>📱 Test Live QR Flow (Open in New Tab)</span>
+                <span>↗</span>
+              </a>
             </div>
 
           </div>

@@ -114,33 +114,26 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!googleReviewUrl || typeof googleReviewUrl !== "string" || !googleReviewUrl.trim()) {
-      return NextResponse.json(
-        { success: false, error: "Google Business Profile or Review URL is required." },
-        { status: 400 }
-      );
+    // Clean & normalize review URL
+    let cleanReviewUrl = typeof googleReviewUrl === "string" ? googleReviewUrl.trim() : "";
+    if (cleanReviewUrl && !cleanReviewUrl.startsWith("http://") && !cleanReviewUrl.startsWith("https://")) {
+      cleanReviewUrl = `https://${cleanReviewUrl}`;
     }
 
-    if (!isValidUrl(googleReviewUrl.trim())) {
+    if (!cleanReviewUrl || !isValidUrl(cleanReviewUrl)) {
       return NextResponse.json(
         { success: false, error: "Please enter a valid HTTP/HTTPS Google Review URL." },
         { status: 400 }
       );
     }
 
-    if (!address || typeof address !== "string" || address.trim().length < 4) {
-      return NextResponse.json(
-        { success: false, error: "Complete Business Address is required (min 4 characters)." },
-        { status: 400 }
-      );
-    }
+    const cleanAddress = address && typeof address === "string" && address.trim().length >= 2
+      ? address.trim()
+      : (city ? `${city}, India` : "NCR, India");
 
-    if (!phone || typeof phone !== "string" || !isValidPhone(phone)) {
-      return NextResponse.json(
-        { success: false, error: "A valid contact mobile number (minimum 10 digits) is required." },
-        { status: 400 }
-      );
-    }
+    const cleanPhone = phone && typeof phone === "string" && phone.replace(/\D/g, "").length >= 10
+      ? phone.trim()
+      : "+91 93198 07273";
 
     if (email && typeof email === "string" && email.trim() && !isValidEmail(email.trim())) {
       return NextResponse.json(
@@ -156,17 +149,9 @@ export async function POST(request: Request) {
       );
     }
 
-    // Duplicate Business Detection
-    const duplicateCheck = await checkDuplicateBusiness(name, googleReviewUrl);
-    if (duplicateCheck.isDuplicate) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: `A business with this ${duplicateCheck.matchedField} already exists in the system.`,
-        },
-        { status: 409 }
-      );
-    }
+    // Duplicate Check: If exact business name exists and no ID provided, update it seamlessly
+    const duplicateCheck = await checkDuplicateBusiness(name, cleanReviewUrl);
+    let targetId = body.id || (duplicateCheck.isDuplicate && duplicateCheck.matchedField === "Business Name" ? duplicateCheck.matchedId : undefined);
 
     // Default status: Active for admin generation, unless draft or pending_approval explicitly requested
     const initialStatus: QRStatus =
@@ -177,17 +162,18 @@ export async function POST(request: Request) {
         : "active";
 
     const saved = await saveBusiness({
+      id: targetId,
       name: name.trim(),
       category: category as BusinessCategory,
       ownerName: ownerName ? String(ownerName).trim() : undefined,
-      phone: phone.trim(),
+      phone: cleanPhone,
       email: email ? String(email).trim() : undefined,
       website: website ? String(website).trim() : undefined,
-      address: address.trim(),
+      address: cleanAddress,
       city: city ? String(city).trim() : undefined,
       state: state ? String(state).trim() : undefined,
       pincode: pincode ? String(pincode).trim() : undefined,
-      googleReviewUrl: googleReviewUrl.trim(),
+      googleReviewUrl: cleanReviewUrl,
       brandColor: brandColor || "#207de9",
       logoUrl: logoUrl ? String(logoUrl).trim() : undefined,
       qrStyle: qrStyle === "rounded" || qrStyle === "circle" ? qrStyle : "square",

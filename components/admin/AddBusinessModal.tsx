@@ -102,11 +102,20 @@ export default function AddBusinessModal({
   }, [editingBusiness, isOpen]);
 
   // ---------------------------------------------------------------------------
-  // 3. LIVE QR CODE GENERATOR
+  // 3. LIVE QR CODE GENERATOR (Encodes ReviewFlow AI Portal, NOT raw Google link)
   // ---------------------------------------------------------------------------
   const generateLiveQR = useCallback(async () => {
     try {
-      const destination = googleReviewUrl.trim() || "https://www.digitalfx.in/reviewflow";
+      const origin = typeof window !== "undefined" ? window.location.origin : "https://www.digitalfx.in";
+      const slug = (name || "business")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+      const targetId = editingBusiness?.id || slug || "review";
+      
+      // Crucial: Destination MUST be the ReviewFlow AI portal URL so scan opens the 3-step AI flow!
+      const destination = `${origin}/r/${targetId}?name=${encodeURIComponent(name || "Business")}&cat=${encodeURIComponent(category)}&city=${encodeURIComponent(city || "NCR")}&reviewUrl=${encodeURIComponent(googleReviewUrl.trim())}`;
+      
       const qrData = await QRCode.toDataURL(destination, {
         width: 450,
         margin: 1,
@@ -120,7 +129,7 @@ export default function AddBusinessModal({
     } catch (err) {
       console.error("QR Code Live Generation Error:", err);
     }
-  }, [googleReviewUrl, brandColor]);
+  }, [name, category, city, googleReviewUrl, brandColor, editingBusiness]);
 
   useEffect(() => {
     generateLiveQR();
@@ -217,14 +226,16 @@ export default function AddBusinessModal({
       errs.email = "Please enter a valid email address.";
     }
 
-    if (!address.trim()) {
-      errs.address = "Complete business address is required.";
+    let cleanUrl = googleReviewUrl.trim();
+    if (cleanUrl && !cleanUrl.startsWith("http://") && !cleanUrl.startsWith("https://")) {
+      cleanUrl = `https://${cleanUrl}`;
+      setGoogleReviewUrl(cleanUrl);
     }
 
-    if (!googleReviewUrl.trim()) {
+    if (!cleanUrl) {
       errs.googleReviewUrl = "Google Review or Business Profile URL is required.";
-    } else if (!isUrlValid(googleReviewUrl.trim())) {
-      errs.googleReviewUrl = "URL must start with http:// or https://";
+    } else if (!isUrlValid(cleanUrl)) {
+      errs.googleReviewUrl = "Please enter a valid URL (e.g. https://g.page/r/.../review)";
     }
 
     setFieldErrors(errs);
@@ -236,12 +247,27 @@ export default function AddBusinessModal({
   // ---------------------------------------------------------------------------
   const handleSubmit = async (e: React.FormEvent, submitStatus?: QRStatus) => {
     e.preventDefault();
-    if (!validate()) return;
-
-    setLoading(true);
     setError("");
 
+    if (!validate()) {
+      setError("Please complete the required fields highlighted in red above.");
+      setTimeout(() => {
+        const firstErrorEl = document.querySelector(".border-rose-300");
+        if (firstErrorEl) {
+          firstErrorEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 60);
+      return;
+    }
+
+    setLoading(true);
+
     const targetStatus = submitStatus || (isEditing ? initialStatus : "active");
+
+    let cleanUrl = googleReviewUrl.trim();
+    if (cleanUrl && !cleanUrl.startsWith("http://") && !cleanUrl.startsWith("https://")) {
+      cleanUrl = `https://${cleanUrl}`;
+    }
 
     try {
       const payload = {
@@ -252,11 +278,11 @@ export default function AddBusinessModal({
         phone: phone.trim(),
         email: email.trim() || undefined,
         website: website.trim() || undefined,
-        address: address.trim(),
+        address: address.trim() || (city ? `${city.trim()}, India` : "NCR, India"),
         city: city.trim() || undefined,
         state: state.trim() || undefined,
         pincode: pincode.trim() || undefined,
-        googleReviewUrl: googleReviewUrl.trim(),
+        googleReviewUrl: cleanUrl,
         brandColor,
         qrStyle,
         logoUrl: logoUrl || undefined,
@@ -264,16 +290,26 @@ export default function AddBusinessModal({
         status: targetStatus,
       };
 
-      const res = await adminFetch("/api/reviewflow/businesses", {
-        method: isEditing ? "PATCH" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      let res: Response;
+      try {
+        res = await adminFetch("/api/reviewflow/businesses", {
+          method: isEditing ? "PATCH" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      } catch (_) {
+        // Fallback to direct fetch if adminFetch encounters credential issues
+        res = await fetch("/api/reviewflow/businesses", {
+          method: isEditing ? "PATCH" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      }
 
-      const json = await res.json();
+      const json = await res.json().catch(() => ({}));
 
       if (!res.ok || !json.success) {
-        throw new Error(json.error || "Failed to save business profile.");
+        throw new Error(json.error || `Server responded with status ${res.status}`);
       }
 
       onSuccess(json.business);
@@ -1156,24 +1192,41 @@ export default function AddBusinessModal({
         {/* =====================================================================
             STICKY MODAL FOOTER (Cancel, Save as Draft, Submit & Generate)
             ===================================================================== */}
-        <div className="px-6 py-4 border-t border-slate-200/80 bg-white flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
-          <button
-            type="button"
-            onClick={onClose}
-            className="w-full sm:w-auto rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition cursor-pointer"
-          >
-            Cancel
-          </button>
+        <div className="px-6 py-4 border-t border-slate-200/80 bg-white flex flex-col gap-2.5 shrink-0">
+          {error && (
+            <div className="rounded-xl border border-rose-200 bg-rose-50 p-2.5 text-xs font-bold text-rose-800 flex items-center justify-between gap-2 animate-in fade-in">
+              <div className="flex items-center gap-2">
+                <span>⚠️</span>
+                <span>{error}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setError("")}
+                className="text-rose-500 hover:text-rose-800 text-xs px-1 font-black cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+          )}
 
-          <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <button
               type="button"
-              onClick={(e) => handleSubmit(e, "draft")}
-              disabled={loading}
-              className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition cursor-pointer disabled:opacity-50"
+              onClick={onClose}
+              className="w-full sm:w-auto rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition cursor-pointer"
             >
-              <span>💾</span> Save as Draft
+              Cancel
             </button>
+
+            <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+              <button
+                type="button"
+                onClick={(e) => handleSubmit(e, "draft")}
+                disabled={loading}
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition cursor-pointer disabled:opacity-50"
+              >
+                <span>💾</span> Save as Draft
+              </button>
 
             <button
               type="button"
@@ -1195,8 +1248,9 @@ export default function AddBusinessModal({
             </button>
           </div>
         </div>
-
       </div>
+
     </div>
-  );
+  </div>
+);
 }

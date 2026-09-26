@@ -1,130 +1,262 @@
 import { NextResponse } from "next/server";
-import { synthesizeReviewDraftLocally } from "@/lib/reviewFlowCategories";
-import { generateNaturalHumanReview, SupportedLanguage } from "@/lib/humanReviewEngine";
+import { structureCustomerReview, SupportedLanguage } from "@/lib/humanReviewEngine";
 import { recordDraft, saveReviewSession } from "@/lib/reviewFlowStore";
 import { checkRateLimit, getClientIp, rateLimitExceededResponse } from "@/lib/rateLimit";
 
 export const dynamic = "force-dynamic";
+
+/**
+ * Call Google Gemini 1.5/2.0 Flash (Free Tier)
+ */
+async function callGeminiReviewAPI(apiKey: string, prompt: string): Promise<string | null> {
+  const models = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-flash-latest"];
+
+  for (const model of models) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ role: "user", parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.85,
+            maxOutputTokens: 120,
+          },
+        }),
+        signal: AbortSignal.timeout(5000),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+        if (text) {
+          return text.replace(/^["']|["']$/g, "").trim();
+        }
+      }
+    } catch (_) {
+      // Try next model if timeout or error
+      continue;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Call Groq Cloud Free Tier API
+ */
+async function callGroqReviewAPI(apiKey: string, prompt: string): Promise<string | null> {
+  const url = "https://api.groq.com/openai/v1/chat/completions";
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: "llama-3.3-70b-versatile",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You write genuine, natural, short human Google reviews as if typed on a mobile phone. Never sound like marketing AI.",
+        },
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.85,
+      max_tokens: 120,
+    }),
+    signal: AbortSignal.timeout(6000),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Groq returned ${response.status}`);
+  }
+
+  const data = await response.json();
+  const text = data?.choices?.[0]?.message?.content?.trim();
+  return text ? text.replace(/^["']|["']$/g, "").trim() : null;
+}
+
+/**
+ * Call OpenAI API
+ */
+async function callOpenAIReviewAPI(apiKey: string, prompt: string): Promise<string | null> {
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: "gpt-4o-mini",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You write genuine, natural, short human Google reviews as if typed on a mobile phone. Never sound like marketing AI.",
+        },
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.85,
+      max_tokens: 120,
+    }),
+    signal: AbortSignal.timeout(6000),
+  });
+
+  if (!response.ok) {
+    throw new Error(`OpenAI returned ${response.status}`);
+  }
+
+  const data = await response.json();
+  const text = data?.choices?.[0]?.message?.content?.trim();
+  return text ? text.replace(/^["']|["']$/g, "").trim() : null;
+}
 
 export async function POST(request: Request) {
   try {
     const clientIp = getClientIp(request);
     const rateLimit = checkRateLimit(`reviewflow-draft:${clientIp}`, {
       windowMs: 60 * 1000,
-      max: 20,
+      max: 60,
     });
 
     if (!rateLimit.success) {
       return rateLimitExceededResponse(rateLimit);
     }
-    const body = await request.json();
+
+    const body = await request.json().catch(() => ({}));
     const {
-      businessId = "digital-fx",
-      businessName = "Digital FX",
-      category = "Digital Marketing Agency",
+      businessId = "business",
+      businessName = "This Business",
+      category = "General",
       customerRating = 5,
       language = "en",
-      answers = {},
-      optionalNotes = "",
+      prompts = [],
+      keywords = [],
+      userNotes = "",
       sessionId,
+      seed = Date.now() + Math.random() * 10000,
     } = body;
 
     const ratingNum = Math.min(5, Math.max(1, Number(customerRating) || 5));
     const lang = (["en", "hi", "hinglish", "mr"].includes(language) ? language : "en") as SupportedLanguage;
-    const entries = Object.entries(answers || {}).filter(([_, v]) => Boolean(v && String(v).trim()));
+    const combinedKeywords = Array.isArray(prompts) && prompts.length > 0 ? prompts : keywords;
 
     let generatedDraft = "";
+    let providerUsed = "local-neural";
 
-    // 1. Attempt OpenAI API draft generation if key is present
-    const openAiKey = process.env.OPENAI_API_KEY;
-    if (openAiKey && openAiKey.startsWith("sk-")) {
-      try {
-        const langDescriptions: Record<SupportedLanguage, string> = {
-          en: "Simple, casual Indian English. Natural everyday phrasing. No robotic AI vocabulary.",
-          hi: "Natural Hindi in Devanagari script (हिंदी). Common spoken words. Polite and genuine.",
-          hinglish: "Romanized Hindi / Hinglish (e.g. 'bohot achha kaam kiya team ne, response fast hai'). Everyday colloquial phrasing.",
-          mr: "Natural Marathi script (मराठी). Genuine and respectful regional phrasing.",
-        };
+    // Build anti-duplicate prompt for external LLM if available
+    const langDescriptions: Record<SupportedLanguage, string> = {
+      en: "Natural, everyday Indian English. Relaxed phone-typing style. No robotic AI buzzwords.",
+      hi: "Authentic spoken Hindi in Devanagari script (हिंदी). Polite, warm, and genuine.",
+      hinglish: "Romanized Hindi / Hinglish (e.g. 'kaam bohot achha tha, team ne ache se support kiya'). Casual colloquial tone.",
+      mr: "Natural Marathi script (मराठी). Genuine and respectful regional phrasing.",
+    };
 
-        const prompt = `Write a realistic, 100% natural, human Google review for "${businessName}" (${category}).
-Language requirement: ${langDescriptions[lang]}
+    const aspectContext = combinedKeywords.length > 0 ? `Specific highlights: ${combinedKeywords.join(", ")}.` : "";
+    const notesContext = userNotes ? `Customer notes: "${userNotes}".` : "";
+
+    const aiPrompt = `Write a completely unique, 100% natural Google Maps review for "${businessName}" (${category}).
+Language: ${langDescriptions[lang]}
 Customer Rating: ${ratingNum}/5 stars
+${aspectContext}
+${notesContext}
 
-STRICT RULES TO PREVENT GOOGLE SPAM / DUPLICATE DETECTION:
-1. MUST sound like an ordinary customer typing on a phone. NEVER use robotic, poetic, or marketing words (NO "testament", "delighted", "exemplary", "unparalleled", "beacon").
-2. Write 2-3 short, clear sentences.
-3. Vary sentence structures to guarantee high uniqueness so Google's algorithm does not flag duplicate patterns.
-4. Return ONLY the review text. No quotes.`;
+CRITICAL ANTI-DUPLICATE & REAL HUMAN CONSTRAINTS:
+1. Make the review 100% UNIQUE. Never repeat typical template phrases.
+2. Sounds like a real customer typing on a smartphone (2-3 short sentences, under 45 words).
+3. Do NOT use fake marketing or robotic words (NEVER use: "testament", "delighted", "exemplary", "unparalleled", "beacon", "look no further").
+4. Return ONLY the review text. Do not wrap in quotes.`;
 
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${openAiKey}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-4o-mini",
-            messages: [
-              {
-                role: "system",
-                content:
-                  "You turn customer experience answers into concise, natural, authentic Google review drafts. Never fabricate details. Strictly respect customer sentiment.",
-              },
-              { role: "user", content: prompt },
-            ],
-            temperature: 0.6,
-            max_tokens: 180,
-          }),
-        });
-
-        if (response.ok) {
-          const json = await response.json();
-          const text = json.choices?.[0]?.message?.content?.trim();
-          if (text) {
-            generatedDraft = text.replace(/^["']|["']$/g, "").trim();
-          }
-        } else {
-          console.warn("OpenAI API returned non-OK status:", response.status);
+    // 1. Try Google Gemini API
+    const geminiKey = process.env.GEMINI_API_KEY?.trim();
+    if (!generatedDraft && geminiKey) {
+      try {
+        const text = await callGeminiReviewAPI(geminiKey, aiPrompt);
+        if (text) {
+          generatedDraft = text;
+          providerUsed = "Google Gemini AI";
         }
-      } catch (aiErr) {
-        console.warn("OpenAI API request failed, falling back to local synthesizer:", aiErr);
+      } catch (geminiErr) {
+        console.warn("Gemini review API skipped:", geminiErr);
       }
     }
 
-    // 2. Fallback to local human review generator with zero duplicate patterns
-    if (!generatedDraft) {
-      generatedDraft = generateNaturalHumanReview(
-        businessName,
-        category,
-        lang,
-        Date.now() + Math.random() * 1000
-      );
+    // 2. Try Groq Free Tier API
+    const groqKey = process.env.GROQ_API_KEY?.trim();
+    if (!generatedDraft && groqKey) {
+      try {
+        const text = await callGroqReviewAPI(groqKey, aiPrompt);
+        if (text) {
+          generatedDraft = text;
+          providerUsed = "Groq Llama-3.3-70b";
+        }
+      } catch (groqErr) {
+        console.warn("Groq review API skipped:", groqErr);
+      }
     }
 
-    // 3. Record draft in store/analytics
+    // 3. Try OpenAI API
+    const openAiKey = process.env.OPENAI_API_KEY?.trim();
+    if (!generatedDraft && openAiKey && openAiKey.startsWith("sk-")) {
+      try {
+        const text = await callOpenAIReviewAPI(openAiKey, aiPrompt);
+        if (text) {
+          generatedDraft = text;
+          providerUsed = "OpenAI GPT-4o-mini";
+        }
+      } catch (openAiErr) {
+        console.warn("OpenAI review API skipped:", openAiErr);
+      }
+    }
+
+    // 4. Guaranteed High-Entropy Neural Engine Fallback (0ms latency, zero duplicates)
+    if (!generatedDraft) {
+      generatedDraft = structureCustomerReview({
+        businessName,
+        category,
+        rating: ratingNum,
+        keywords: combinedKeywords,
+        userNotes,
+        language: lang,
+        seed: Number(seed) || Date.now() + Math.random() * 50000,
+      });
+      providerUsed = "Digital FX Neural Synthesizer";
+    }
+
+    // Record draft analytics
     if (businessId) {
-      await recordDraft(businessId);
+      try {
+        await recordDraft(businessId);
+      } catch (_) {}
     }
 
     if (sessionId) {
-      await saveReviewSession({
-        sessionId,
-        businessId,
-        category,
-        customerRating: ratingNum,
-        answers,
-        generatedDraft,
-        finalReviewText: generatedDraft,
-        completed: false,
-        clickedGoogleReview: false,
-        createdAt: new Date().toISOString(),
-      });
+      try {
+        await saveReviewSession({
+          sessionId,
+          businessId,
+          category,
+          customerRating: ratingNum,
+          answers: { prompts: combinedKeywords, userNotes },
+          generatedDraft,
+          finalReviewText: generatedDraft,
+          completed: false,
+          clickedGoogleReview: false,
+          createdAt: new Date().toISOString(),
+        });
+      } catch (_) {}
     }
 
     return NextResponse.json({
       success: true,
       draft: generatedDraft,
-      source: openAiKey ? "ai-assisted" : "synthesizer",
+      provider: providerUsed,
+      uniqueHash: Math.random().toString(36).substring(2, 9),
     });
   } catch (error: any) {
     console.error("ReviewFlow generate-draft error:", error);
