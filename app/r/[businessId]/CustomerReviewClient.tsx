@@ -75,6 +75,7 @@ export default function CustomerReviewClient({ business }: Props) {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [aiProvider, setAiProvider] = useState<string>("Digital FX Review Generator");
+  const [logoError, setLogoError] = useState<boolean>(false);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   // Avatar Initials (e.g. Apex Healthcare -> AP)
@@ -321,12 +322,15 @@ export default function CustomerReviewClient({ business }: Props) {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
         <div className="max-w-[440px] mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3 min-w-0">
-            {business.logoUrl ? (
-              <img
-                src={business.logoUrl}
-                alt={business.name}
-                className="h-10 w-10 object-contain rounded-xl shadow-xs shrink-0"
-              />
+            {business.logoUrl && !logoError ? (
+              <div className="h-10 w-10 rounded-xl bg-white border border-slate-200/90 p-1 flex items-center justify-center shrink-0 shadow-xs overflow-hidden">
+                <img
+                  src={business.logoUrl}
+                  alt={business.name}
+                  onError={() => setLogoError(true)}
+                  className="h-full w-full object-contain"
+                />
+              </div>
             ) : (
               <div
                 className="h-10 w-10 rounded-xl flex items-center justify-center font-bold text-white text-sm shrink-0 shadow-xs"
@@ -399,12 +403,15 @@ export default function CustomerReviewClient({ business }: Props) {
           
           {/* Business Logo & Name Container */}
           <div className="flex flex-col items-center">
-            {business.logoUrl ? (
-              <img
-                src={business.logoUrl}
-                alt={business.name}
-                className="w-16 h-16 object-contain rounded-2xl mb-3 shadow-xs"
-              />
+            {business.logoUrl && !logoError ? (
+              <div className="w-16 h-16 rounded-2xl bg-white border border-slate-200/90 shadow-sm mb-3 flex items-center justify-center p-2 overflow-hidden">
+                <img
+                  src={business.logoUrl}
+                  alt={business.name}
+                  onError={() => setLogoError(true)}
+                  className="w-full h-full object-contain"
+                />
+              </div>
             ) : (
               <div
                 className="w-16 h-16 rounded-2xl flex items-center justify-center font-black text-white text-2xl shadow-sm mb-3"

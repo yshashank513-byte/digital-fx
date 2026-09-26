@@ -5,7 +5,7 @@ import CustomerReviewClient from "@/app/r/[businessId]/CustomerReviewClient";
 
 interface Props {
   params: Promise<{ businessId: string }>;
-  searchParams?: Promise<{ name?: string; cat?: string; reviewUrl?: string; city?: string }>;
+  searchParams?: Promise<{ name?: string; cat?: string; reviewUrl?: string; city?: string; logoUrl?: string; logo?: string }>;
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
@@ -39,6 +39,7 @@ export default async function CustomerReviewPage({ params, searchParams }: Props
       googleReviewUrl: sp.reviewUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fallbackName)}`,
       city: sp.city || "NCR",
       brandColor: "#207de9",
+      logoUrl: sp.logoUrl || sp.logo,
       status: "active",
       active: true,
       totalScans: 1,
@@ -48,6 +49,8 @@ export default async function CustomerReviewPage({ params, searchParams }: Props
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
+  } else if (!business.logoUrl && (sp.logoUrl || sp.logo)) {
+    business.logoUrl = sp.logoUrl || sp.logo;
   }
 
   return <CustomerReviewClient business={business!} />;

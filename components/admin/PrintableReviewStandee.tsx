@@ -23,8 +23,8 @@ export default function PrintableReviewStandee({
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
 
   // Compute Review Portal URL (Directs customer to 3-step review flow)
-  const origin = typeof window !== "undefined" ? window.location.origin : "https://www.digitalfx.in";
-  const reviewPortalUrl = `${origin}/r/${business.id}?name=${encodeURIComponent(business.name)}&cat=${encodeURIComponent(business.category)}&city=${encodeURIComponent(business.city || "")}&reviewUrl=${encodeURIComponent(business.googleReviewUrl || "")}&src=standee`;
+  const logoParam = business.logoUrl ? `&logoUrl=${encodeURIComponent(business.logoUrl)}` : "";
+  const reviewPortalUrl = `${origin}/r/${business.id}?name=${encodeURIComponent(business.name)}&cat=${encodeURIComponent(business.category)}&city=${encodeURIComponent(business.city || "")}&reviewUrl=${encodeURIComponent(business.googleReviewUrl || "")}${logoParam}&src=standee`;
 
   // Generate crisp, high-resolution QR matrix locally in the browser (Zero CSP issues, 0ms latency)
   useEffect(() => {

@@ -13,6 +13,7 @@
       "pincode": "201009",
       "googleReviewUrl": "https://g.page/r/CUe2G4Eq9NQSEAI/review",
       "brandColor": "#EA580C",
+      "logoUrl": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160' width='160' height='160'><circle cx='80' cy='80' r='76' fill='%23ffffff' stroke='%23EA580C' stroke-width='6'/><circle cx='80' cy='80' r='70' fill='%23FFF7ED'/><g transform='translate(38, 44) scale(1.4)'><rect x='2' y='10' width='34' height='22' rx='3' fill='%23EA580C'/><path d='M36 18h12l8 8v6h-20v-14z' fill='%23C2410C'/><rect x='40' y='20' width='8' height='6' rx='1' fill='%23FFFFFF' opacity='0.9'/><circle cx='12' cy='34' r='5' fill='%231E293B'/><circle cx='12' cy='34' r='2.5' fill='%23E2E8F0'/><circle cx='46' cy='34' r='5' fill='%231E293B'/><circle cx='46' cy='34' r='2.5' fill='%23E2E8F0'/><line x1='8' y1='17' x2='30' y2='17' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round'/><line x1='8' y1='23' x2='24' y2='23' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round'/></g><text x='80' y='124' text-anchor='middle' font-family='sans-serif' font-size='11' font-weight='900' fill='%239A3412' letter-spacing='0.5'>OM PACKERS</text><text x='80' y='138' text-anchor='middle' font-family='sans-serif' font-size='8.5' font-weight='700' fill='%23C2410C' letter-spacing='1'>AND MOVERS</text></svg>",
       "qrStyle": "square",
       "status": "active",
       "active": true,
@@ -77,6 +78,21 @@
     }
   ],
   "sessions": [
+    {
+      "sessionId": "sess-wksrpgzt",
+      "businessId": "shashank-yadav",
+      "category": "Jewellery Store",
+      "customerRating": 4,
+      "answers": {
+        "prompts": [],
+        "userNotes": ""
+      },
+      "generatedDraft": "Good service and positive interaction with the team at Shashank Yadav. The service and coordination was smooth throughout. Nice support and dependable team.",
+      "finalReviewText": "Good service and positive interaction with the team at Shashank Yadav. The service and coordination was smooth throughout. Nice support and dependable team.",
+      "completed": false,
+      "clickedGoogleReview": false,
+      "createdAt": "2026-09-26T15:21:52.305Z"
+    },
     {
       "sessionId": "sess-ndr9xch6",
       "businessId": "shashank-yadav",

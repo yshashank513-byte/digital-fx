@@ -67,13 +67,10 @@ function normalizeBusiness(raw: any): BusinessProfile {
   };
 }
 
-function ensureStore(): StoreData {
-  if (globalThis._reviewFlowStore && Array.isArray(globalThis._reviewFlowStore.businesses)) {
-    return globalThis._reviewFlowStore;
-  }
+let lastStoreFileMtime = 0;
 
+function ensureStore(): StoreData {
   try {
-    // 1. Try reading from TMP_FILE if in serverless and it exists
     let filePath = STORE_FILE;
     if (process.platform !== "win32" && fs.existsSync(TMP_FILE)) {
       filePath = TMP_FILE;
@@ -91,17 +88,40 @@ function ensureStore(): StoreData {
       }
     }
 
-    const raw = fs.readFileSync(filePath, "utf8");
-    const parsed = JSON.parse(raw);
-    const normalizedBusinesses = (parsed.businesses || []).map(normalizeBusiness);
-    const store: StoreData = {
-      businesses: normalizedBusinesses,
-      sessions: parsed.sessions || [],
-    };
-    globalThis._reviewFlowStore = store;
-    return store;
+    if (fs.existsSync(filePath)) {
+      const stats = fs.statSync(filePath);
+      if (
+        globalThis._reviewFlowStore &&
+        Array.isArray(globalThis._reviewFlowStore.businesses) &&
+        stats.mtimeMs <= lastStoreFileMtime
+      ) {
+        return globalThis._reviewFlowStore;
+      }
+
+      const raw = fs.readFileSync(filePath, "utf8");
+      const parsed = JSON.parse(raw);
+      const normalizedBusinesses = (parsed.businesses || []).map(normalizeBusiness);
+      const store: StoreData = {
+        businesses: normalizedBusinesses,
+        sessions: parsed.sessions || [],
+      };
+      globalThis._reviewFlowStore = store;
+      lastStoreFileMtime = stats.mtimeMs;
+      return store;
+    }
+
+    if (globalThis._reviewFlowStore && Array.isArray(globalThis._reviewFlowStore.businesses)) {
+      return globalThis._reviewFlowStore;
+    }
+
+    const fallback: StoreData = { businesses: SEED_BUSINESSES, sessions: [] };
+    globalThis._reviewFlowStore = fallback;
+    return fallback;
   } catch (err) {
     console.error("Error reading reviewflow store:", err);
+    if (globalThis._reviewFlowStore && Array.isArray(globalThis._reviewFlowStore.businesses)) {
+      return globalThis._reviewFlowStore;
+    }
     const fallback: StoreData = { businesses: SEED_BUSINESSES, sessions: [] };
     globalThis._reviewFlowStore = fallback;
     return fallback;
