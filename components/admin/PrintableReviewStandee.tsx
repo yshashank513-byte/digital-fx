@@ -30,7 +30,7 @@ export default function PrintableReviewStandee({
   useEffect(() => {
     let isMounted = true;
     QRCode.toDataURL(reviewPortalUrl, {
-      width: 600,
+      width: 700,
       margin: 1,
       errorCorrectionLevel: "H",
       color: {
@@ -68,7 +68,7 @@ export default function PrintableReviewStandee({
     try {
       const link = document.createElement("a");
       link.href = qrDataUrl;
-      link.download = `${business.id}-review-standee-qr.png`;
+      link.download = `${business.id}-review-qr.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -77,6 +77,309 @@ export default function PrintableReviewStandee({
     } finally {
       setTimeout(() => setDownloading(null), 300);
     }
+  };
+
+  // High-Resolution Standee Export in JPG Format (1500 x 2120 px @ 300 DPI)
+  const handleDownloadStandeeJPG = async () => {
+    if (!qrDataUrl) return;
+    setDownloading("jpg");
+
+    try {
+      const canvas = document.createElement("canvas");
+      // Standard A5 / A4 ratio (1:1.414) at ultra-sharp 300 DPI resolution
+      const width = 1500;
+      const height = 2120;
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Could not get 2D canvas context");
+
+      // 1. Pure White Base Background
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, width, height);
+
+      // Helper for rounded rectangles
+      const drawRoundedRect = (x: number, y: number, w: number, h: number, r: number) => {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.arcTo(x + w, y, x + w, y + r, r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+        ctx.lineTo(x + r, y + h);
+        ctx.arcTo(x, y + h, x, y + h - r, r);
+        ctx.lineTo(x, y + r);
+        ctx.arcTo(x, y, x + r, y, r);
+        ctx.closePath();
+      };
+
+      // 2. Outer Card Border & Frame
+      const margin = 44;
+      const cardW = width - margin * 2;
+      const cardH = height - margin * 2;
+      const cardRadius = 52;
+
+      // Soft drop shadow effect for card border
+      ctx.save();
+      drawRoundedRect(margin, margin, cardW, cardH, cardRadius);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = "#E2E8F0";
+      ctx.stroke();
+
+      // Clip inside rounded card so top stripe curves gracefully
+      drawRoundedRect(margin, margin, cardW, cardH, cardRadius);
+      ctx.clip();
+
+      // 3. Top Google 4-Color Signature Stripe
+      const stripeH = 20;
+      const grad = ctx.createLinearGradient(margin, margin, margin + cardW, margin);
+      grad.addColorStop(0, "#4285F4");
+      grad.addColorStop(0.35, "#EA4335");
+      grad.addColorStop(0.65, "#FBBC05");
+      grad.addColorStop(1, "#34A853");
+      ctx.fillStyle = grad;
+      ctx.fillRect(margin, margin, cardW, stripeH);
+      ctx.restore();
+
+      // 4. Header: Google G Icon + "Google"
+      const googleY = 160;
+      const gSize = 56;
+      const gX = width / 2 - 115;
+      const gY = googleY - 42;
+
+      const gSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>`;
+      const gDataUri = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(gSvg);
+
+      const gImg = new Image();
+      await new Promise<void>((resolve) => {
+        gImg.onload = () => {
+          ctx.drawImage(gImg, gX, gY, gSize, gSize);
+          resolve();
+        };
+        gImg.onerror = () => resolve();
+        gImg.src = gDataUri;
+      });
+
+      // "Google" word next to icon
+      ctx.fillStyle = "#1E293B";
+      ctx.font = "bold 58px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText("Google", gX + gSize + 16, googleY + 4);
+
+      // "REVIEW US ON GOOGLE"
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#1A73E8";
+      ctx.font = "900 42px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillText("REVIEW US ON GOOGLE", width / 2, 238);
+
+      // "How was your experience?"
+      ctx.fillStyle = "#475569";
+      ctx.font = "600 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillText("How was your experience?", width / 2, 288);
+
+      // 5 Golden Stars
+      ctx.fillStyle = "#F59E0B";
+      ctx.font = "58px sans-serif";
+      ctx.fillText("★   ★   ★   ★   ★", width / 2, 365);
+
+      // 5. Business Info Card
+      const bizBoxY = 415;
+      const bizBoxH = 195;
+      const bizBoxW = cardW - 120;
+      const bizBoxX = (width - bizBoxW) / 2;
+      drawRoundedRect(bizBoxX, bizBoxY, bizBoxW, bizBoxH, 28);
+      ctx.fillStyle = "#F8FAFC";
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#E2E8F0";
+      ctx.stroke();
+
+      let textStartY = bizBoxY + 124;
+      if (business.logoUrl) {
+        const logoImg = new Image();
+        logoImg.crossOrigin = "anonymous";
+        await new Promise<void>((resolve) => {
+          logoImg.onload = () => {
+            const lSize = 72;
+            ctx.save();
+            drawRoundedRect(width / 2 - lSize / 2, bizBoxY + 16, lSize, lSize, 16);
+            ctx.clip();
+            ctx.drawImage(logoImg, width / 2 - lSize / 2, bizBoxY + 16, lSize, lSize);
+            ctx.restore();
+            resolve();
+          };
+          logoImg.onerror = () => {
+            drawFallbackBadge(ctx, width / 2 - 36, bizBoxY + 16, 72, business);
+            resolve();
+          };
+          logoImg.src = business.logoUrl!;
+        });
+      } else {
+        drawFallbackBadge(ctx, width / 2 - 36, bizBoxY + 16, 72, business);
+      }
+
+      // Business Name
+      ctx.fillStyle = "#0F172A";
+      ctx.font = "bold 38px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillText(business.name, width / 2, textStartY);
+
+      // Category + City
+      ctx.fillStyle = "#64748B";
+      ctx.font = "500 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      const catText = `${business.category}${business.city ? ` • ${business.city}` : ""}`;
+      ctx.fillText(catText, width / 2, textStartY + 38);
+
+      // 6. QR Code Container Box
+      const qrBoxY = 645;
+      const qrBoxSize = 780;
+      const qrBoxX = (width - qrBoxSize) / 2;
+      drawRoundedRect(qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 40);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = "#CBD5E1";
+      ctx.stroke();
+
+      // Draw QR Code
+      const qrImg = new Image();
+      await new Promise<void>((resolve) => {
+        qrImg.onload = () => {
+          const qrPad = 44;
+          ctx.drawImage(
+            qrImg,
+            qrBoxX + qrPad,
+            qrBoxY + qrPad,
+            qrBoxSize - qrPad * 2,
+            qrBoxSize - qrPad * 2
+          );
+          resolve();
+        };
+        qrImg.src = qrDataUrl;
+      });
+
+      // Center Google G Badge inside QR
+      const badgeSize = 114;
+      const badgeX = width / 2 - badgeSize / 2;
+      const badgeY = qrBoxY + qrBoxSize / 2 - badgeSize / 2;
+      drawRoundedRect(badgeX, badgeY, badgeSize, badgeSize, 28);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#E2E8F0";
+      ctx.stroke();
+
+      const gCenterImg = new Image();
+      await new Promise<void>((resolve) => {
+        gCenterImg.onload = () => {
+          const iconSize = 66;
+          ctx.drawImage(
+            gCenterImg,
+            width / 2 - iconSize / 2,
+            qrBoxY + qrBoxSize / 2 - iconSize / 2,
+            iconSize,
+            iconSize
+          );
+          resolve();
+        };
+        gCenterImg.src = gDataUri;
+      });
+
+      // 7. Below QR Instruction
+      const scanTextY = qrBoxY + qrBoxSize + 70;
+      ctx.fillStyle = "#0F172A";
+      ctx.font = "bold 34px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillText("📷  Scan to share your experience", width / 2, scanTextY);
+
+      // "Takes only 15 seconds • No app needed" Pill
+      const pillY = scanTextY + 28;
+      const pillW = 550;
+      const pillH = 50;
+      drawRoundedRect((width - pillW) / 2, pillY, pillW, pillH, 25);
+      ctx.fillStyle = "#F1F5F9";
+      ctx.fill();
+      ctx.fillStyle = "#475569";
+      ctx.font = "600 22px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillText("Takes only 15 seconds • No app needed", width / 2, pillY + 34);
+
+      // 8. Bottom Footer
+      const footerY = height - margin - 52;
+      ctx.strokeStyle = "#F1F5F9";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(margin + 40, footerY - 32);
+      ctx.lineTo(width - margin - 40, footerY - 32);
+      ctx.stroke();
+
+      ctx.font = "500 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillStyle = "#94A3B8";
+      ctx.textAlign = "left";
+      ctx.fillText("Verified Review Desk", margin + 50, footerY);
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#64748B";
+      ctx.font = "500 20px monospace";
+      ctx.fillText(`/r/${business.id}`, width / 2, footerY);
+
+      ctx.textAlign = "right";
+      ctx.fillStyle = "#94A3B8";
+      ctx.font = "500 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillText("Digital FX ReviewFlow", width - margin - 50, footerY);
+
+      // 9. Convert to High-Quality JPEG Blob & Trigger Download
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) throw new Error("Canvas blob conversion failed");
+          const objectUrl = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = objectUrl;
+          link.download = `${business.id}-standee.jpg`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(objectUrl);
+          setDownloading(null);
+        },
+        "image/jpeg",
+        0.98
+      );
+    } catch (err) {
+      console.error("Failed to generate Standee JPG:", err);
+      setDownloading(null);
+    }
+  };
+
+  // Helper for drawing initials badge on canvas
+  const drawFallbackBadge = (
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    size: number,
+    biz: BusinessProfile
+  ) => {
+    const r = 16;
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + size - r, y);
+    ctx.arcTo(x + size, y, x + size, y + r, r);
+    ctx.lineTo(x + size, y + size - r);
+    ctx.arcTo(x + size, y + size, x + size - r, y + size, r);
+    ctx.lineTo(x + r, y + size);
+    ctx.arcTo(x, y + size, x, y + size - r, r);
+    ctx.lineTo(x, y + r);
+    ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
+    ctx.fillStyle = biz.brandColor || "#2563EB";
+    ctx.fill();
+
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "bold 28px -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const initials = biz.name.substring(0, 3).toUpperCase();
+    ctx.fillText(initials, x + size / 2, y + size / 2);
+    ctx.textBaseline = "alphabetic";
   };
 
   return (
@@ -150,25 +453,48 @@ export default function PrintableReviewStandee({
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
+            {/* Download Standee as High-Res JPG */}
+            <button
+              type="button"
+              onClick={handleDownloadStandeeJPG}
+              disabled={downloading === "jpg" || !qrDataUrl}
+              className="py-1.5 px-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white transition flex items-center gap-1.5 cursor-pointer shadow-xs font-bold disabled:opacity-50"
+            >
+              {downloading === "jpg" ? (
+                <>
+                  <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Generating High-Res JPG...</span>
+                </>
+              ) : (
+                <>
+                  <span>🖼️</span>
+                  <span>Download Standee (JPG)</span>
+                </>
+              )}
+            </button>
+
+            {/* Print Standee */}
             <button
               type="button"
               onClick={handlePrint}
               className="py-1.5 px-3 rounded-xl bg-[#080d24] hover:bg-[#2563EB] text-white transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
             >
               <span>🖨️</span>
-              <span>Print {size} Standee</span>
+              <span>Print {size}</span>
             </button>
 
+            {/* Download QR Code */}
             <button
               type="button"
               onClick={handleDownloadQR}
-              disabled={downloading === "qr"}
-              className="py-1.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1.5 cursor-pointer border border-slate-200"
+              disabled={downloading === "qr" || !qrDataUrl}
+              className="py-1.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1.5 cursor-pointer border border-slate-200 disabled:opacity-50"
             >
               <span>📥</span>
               <span>Download QR</span>
             </button>
 
+            {/* Copy Review Portal Link */}
             <button
               type="button"
               onClick={handleCopyLink}

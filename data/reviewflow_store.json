@@ -52,6 +52,21 @@
   ],
   "sessions": [
     {
+      "sessionId": "sess-ndr9xch6",
+      "businessId": "shashank-yadav",
+      "category": "Jewellery Store",
+      "customerRating": 4,
+      "answers": {
+        "prompts": [],
+        "userNotes": ""
+      },
+      "generatedDraft": "Pleasant visit to Shashank Yadav, they handled everything well. The service and coordination was smooth throughout. Good work overall, keep it up!",
+      "finalReviewText": "Pleasant visit to Shashank Yadav, they handled everything well. The service and coordination was smooth throughout. Good work overall, keep it up!",
+      "completed": false,
+      "clickedGoogleReview": false,
+      "createdAt": "2026-09-26T14:31:09.337Z"
+    },
+    {
       "sessionId": "sess-85lotiyl",
       "businessId": "shashank-yadav",
       "category": "Jewellery Store",
