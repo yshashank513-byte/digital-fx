@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
  * Call Google Gemini 1.5/2.0 Flash (Free Tier)
  */
 async function callGeminiReviewAPI(apiKey: string, prompt: string): Promise<string | null> {
-  const models = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-flash-latest"];
+  const models = ["gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-3.5-flash", "gemini-flash-latest"];
 
   for (const model of models) {
     try {
@@ -116,6 +116,38 @@ async function callOpenAIReviewAPI(apiKey: string, prompt: string): Promise<stri
   return text ? text.replace(/^["']|["']$/g, "").trim() : null;
 }
 
+function getCategoryPromptContext(category: string): string {
+  const c = (category || "").toLowerCase();
+  if (c.includes("packer") || c.includes("mover") || c.includes("shift") || c.includes("logistics")) {
+    return "Category context: Packers & Movers service. Focus on household/office shifting, bubble wrapping, safe delivery of fragile items/appliances, polite loading crew, punctuality, and zero damages. Do NOT say 'visited'.";
+  }
+  if (c.includes("jewel") || c.includes("gold") || c.includes("diamond")) {
+    return "Category context: Jewellery Store. Focus on hallmark purity, bridal/festive designs, welcoming showroom staff, transparent billing, and trust.";
+  }
+  if (c.includes("restau") || c.includes("cafe") || c.includes("food") || c.includes("dining")) {
+    return "Category context: Restaurant/Cafe. Focus on delicious freshly prepared food, hygiene, warm hospitality, quick service, and great family vibe.";
+  }
+  if (c.includes("clinic") || c.includes("doctor") || c.includes("hospital") || c.includes("dental") || c.includes("health")) {
+    return "Category context: Clinic / Doctor. Focus on doctor consultation, gentle diagnosis, clinic hygiene, polite receptionist, and effective treatment.";
+  }
+  if (c.includes("salon") || c.includes("spa") || c.includes("beauty")) {
+    return "Category context: Salon & Spa. Focus on hair styling/grooming, clean equipment, skilled stylists, relaxing experience, and polite staff.";
+  }
+  if (c.includes("hotel") || c.includes("resort") || c.includes("stay")) {
+    return "Category context: Hotel & Stay. Focus on clean comfortable rooms, courteous front desk, quick room service, and pleasant hospitality.";
+  }
+  if (c.includes("real estate") || c.includes("property")) {
+    return "Category context: Real Estate. Focus on transparent documentation, genuine site visits, honest advisory, and reliable property deals.";
+  }
+  if (c.includes("market") || c.includes("digital") || c.includes("seo") || c.includes("agency")) {
+    return "Category context: Digital Marketing & SEO. Focus on Google ranking improvements, genuine leads, transparent updates, and responsive support.";
+  }
+  if (c.includes("auto") || c.includes("car") || c.includes("bike") || c.includes("garage")) {
+    return "Category context: Automobile / Workshop. Focus on smooth vehicle service/delivery, genuine spare parts, timely updates, and courteous staff.";
+  }
+  return `Category context: ${category}. Focus on prompt customer service, professional execution, reasonable rates, and trustworthy staff.`;
+}
+
 export async function POST(request: Request) {
   try {
     const clientIp = getClientIp(request);
@@ -160,17 +192,22 @@ export async function POST(request: Request) {
     const aspectContext = combinedKeywords.length > 0 ? `Specific highlights: ${combinedKeywords.join(", ")}.` : "";
     const notesContext = userNotes ? `Customer notes: "${userNotes}".` : "";
 
-    const aiPrompt = `Write a completely unique, 100% natural Google Maps review for "${businessName}" (${category}).
+    const categoryGuidance = getCategoryPromptContext(category);
+
+    const aiPrompt = `Write a completely genuine, 100% natural Google Maps review for "${businessName}" (${category}).
 Language: ${langDescriptions[lang]}
 Customer Rating: ${ratingNum}/5 stars
+${categoryGuidance}
 ${aspectContext}
 ${notesContext}
 
-CRITICAL ANTI-DUPLICATE & REAL HUMAN CONSTRAINTS:
-1. Make the review 100% UNIQUE. Never repeat typical template phrases.
-2. Sounds like a real customer typing on a smartphone (2-3 short sentences, under 45 words).
-3. Do NOT use fake marketing or robotic words (NEVER use: "testament", "delighted", "exemplary", "unparalleled", "beacon", "look no further").
-4. Return ONLY the review text. Do not wrap in quotes.`;
+STRICT HUMAN-LIKE REQUIREMENTS:
+1. Write exactly 2 short sentences (20-35 words total).
+2. Sound like a real Indian customer casually typing on their mobile phone on Google Maps after a great experience.
+3. NEVER sound like promotional marketing AI. Strictly avoid words like: "exemplary", "testament", "delighted", "unparalleled", "beacon", "look no further", "pinnacle", "seamless", "exceptional".
+4. Do NOT repeat the same word (e.g. do not repeat the word "service" twice).
+5. If the business is a service (like Packers & Movers or Agency), do NOT say you visited them. Say you shifted with them, booked them, or hired them.
+6. Return ONLY the review text. Do not wrap in quotes or add commentary.`;
 
     // 1. Try Google Gemini API
     const geminiKey = process.env.GEMINI_API_KEY?.trim();

@@ -62,7 +62,7 @@ const LANGUAGE_BUTTONS: {
 export default function CustomerReviewClient({ business }: Props) {
   // Step State: 1 = Rate, 2 = Write, 3 = Post
   const [step, setStep] = useState<1 | 2 | 3>(2);
-  const [rating, setRating] = useState<number>(4);
+  const [rating, setRating] = useState<number>(5);
   const [hoverRating, setHoverRating] = useState<number>(0);
   const [selectedPrompts, setSelectedPrompts] = useState<string[]>([]);
   const [language, setLanguage] = useState<SupportedLanguage>("en");
@@ -178,7 +178,7 @@ export default function CustomerReviewClient({ business }: Props) {
 
   // Initialize review draft on mount
   useEffect(() => {
-    refreshReview(4, [], "en", "");
+    refreshReview(5, [], "en", "");
   }, []);
 
   // Track page visit & QR scan on mount

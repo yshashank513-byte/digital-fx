@@ -302,7 +302,7 @@ const CATEGORY_VOCABULARY: Record<string, Record<SupportedLanguage, CategoryPhra
       ],
       aspects: [
         "Khana bilkul fresh aur properly prepared tha.",
-        "Ambiance bohot peacefull hai aur service bhi quick thi.",
+        "Ambiance bohot peaceful hai aur service bhi quick thi.",
       ],
       closers: [
         "Taste bohot badiya tha, dubara zaroor aayenge!",
@@ -319,6 +319,284 @@ const CATEGORY_VOCABULARY: Record<string, Record<SupportedLanguage, CategoryPhra
       ],
       closers: [
         "पुन्हा नक्कीच भेट देऊ! ५ स्टार चव.",
+      ],
+    },
+  },
+
+  "Clinic": {
+    en: {
+      openers: [
+        "Very good medical consultation experience at {name}.",
+        "Consulted the doctor at {name} recently, very satisfied.",
+        "One of the cleanest and most trustworthy clinics around.",
+        "Got treated at {name}, very compassionate team.",
+      ],
+      aspects: [
+        "The doctor listened patiently, diagnosed accurately, and explained everything clearly.",
+        "The clinic staff was helpful and maintained strict hygiene standards.",
+        "Minimal waiting time and smooth appointment process.",
+        "Very reassuring and genuine care provided throughout.",
+      ],
+      closers: [
+        "Highly recommended for genuine healthcare and consultation!",
+        "Thank you doctor and staff for the wonderful care.",
+        "Definite 5 stars for their compassionate treatment.",
+      ],
+    },
+    hi: {
+      openers: [
+        "{name} पर डॉक्टर से परामर्श का अनुभव बहुत अच्छा रहा।",
+        "इलाज और परामर्श के लिए बहुत ही भरोसेमंद क्लिनिक है।",
+        "{name} में डॉक्टर और स्टाफ का व्यवहार बहुत ही सराहनीय है।",
+      ],
+      aspects: [
+        "डॉक्टर साहब ने बहुत ध्यान से बात सुनी और सही इलाज बताया।",
+        "क्लिनिक में साफ-सफाई और स्वच्छता का पूरा ध्यान रखा गया है।",
+        "स्टाफ बहुत विनम्र है और ज्यादा इंतज़ार नहीं करना पड़ा।",
+      ],
+      closers: [
+        "सहानुभूतिपूर्ण देखभाल के लिए बहुत-बहुत धन्यवाद! 5 स्टार।",
+        "जरूर रिकमेंड करूंगा, बहुत ही भरोसेमंद डॉक्टर हैं।",
+      ],
+    },
+    hinglish: {
+      openers: [
+        "{name} par doctor consultation ka experience kaafi achha raha.",
+        "Bohot trustworthy clinic hai, doctor bohot caring aur experienced hain.",
+        "{name} par checkup karwaya aur kaafi relief mila.",
+      ],
+      aspects: [
+        "Doctor ne bohot dhyan se problem samjhi aur genuine advice di.",
+        "Clinic bilkul clean aur hygienic hai, staff bhi polite tha.",
+        "Zyada wait nahi karna pada, appointment smoothly ho gaya.",
+      ],
+      closers: [
+        "Thank you doctor genuine treatment ke liye, highly recommended!",
+        "5 stars meri taraf se compassionate care ke liye!",
+      ],
+    },
+    mr: {
+      openers: [
+        "{name} येथे डॉक्टरांचा सल्ला घेण्याचा अनुभव अतिशय चांगला होता.",
+        "उपचारासाठी अत्यंत विश्वासार्ह क्लिनिक.",
+      ],
+      aspects: [
+        "डॉक्टरांनी सर्व काही शांतपणे ऐकून घेतले आणि योग्य मार्गदर्शन केले.",
+        "क्लिनिकमध्ये उत्तम स्वच्छता आणि व्यवस्था आहे.",
+      ],
+      closers: [
+        "उत्कृष्ट उपचाराबद्दल धन्यवाद! ५ स्टार सेवा.",
+      ],
+    },
+  },
+
+  "Salon": {
+    en: {
+      openers: [
+        "Loved my hair styling and grooming session at {name}.",
+        "One of the best salons in town for styling and grooming.",
+        "Had a refreshing and relaxing experience at {name}.",
+      ],
+      aspects: [
+        "The stylist took time to understand my requirements and gave great styling advice.",
+        "Clean, sanitized tools and premium quality products used throughout.",
+        "Pleasant ambiance and warm hospitality from the staff.",
+      ],
+      closers: [
+        "Totally satisfied with the new look! Will visit again.",
+        "Solid 5 stars for the great styling work and polite service.",
+      ],
+    },
+    hi: {
+      openers: [
+        "{name} पर हेयरकट और ग्रूमिंग का अनुभव बहुत ही बढ़िया रहा।",
+        "स्टाइलिंग और ब्यूटी सर्विस के लिए सबसे बेस्ट सैलून है।",
+      ],
+      aspects: [
+        "स्टाइलिस्ट ने बहुत अच्छे से समझकर बिल्कुल परफेक्ट लुक दिया।",
+        "साफ-सफाई और इस्तेमाल किए गए प्रोडक्ट्स दोनों बहुत बढ़िया थे।",
+      ],
+      closers: [
+        "नए लुक से पूरी तरह खुश हूँ। बहुत-बहुत शुक्रिया!",
+        "शानदार सर्विस, 5 स्टार रेटिंग!",
+      ],
+    },
+    hinglish: {
+      openers: [
+        "{name} par grooming aur styling karwayi, maza aa gaya.",
+        "Best salon experience, hair styling bohot achhi ki inhone.",
+      ],
+      aspects: [
+        "Stylist ne exactly waisa hi look diya jaisa maine manga tha.",
+        "Sanitized tools aur clean environment tha, staff bhi polite tha.",
+      ],
+      closers: [
+        "Fully satisfied with the service, definitely recommend karunga!",
+      ],
+    },
+    mr: {
+      openers: [
+        "{name} मध्ये हेअरस्टाईल आणि ग्रुमिंगचा अनुभव उत्तम राहिला.",
+      ],
+      aspects: [
+        "स्टायलिस्ट खूप कुशल आहेत आणि त्यांनी उत्तम सल्ला दिला.",
+        "स्वच्छता आणि दर्जेदार उत्पादने वापरली.",
+      ],
+      closers: [
+        "खूप छान सेवा, नक्कीच पुन्हा भेट देईन!",
+      ],
+    },
+  },
+
+  "Hotel": {
+    en: {
+      openers: [
+        "Pleasant and comfortable stay at {name}.",
+        "Booked a stay at {name} and had a wonderful time.",
+      ],
+      aspects: [
+        "The room was spotless, bed was comfortable, and room service was prompt.",
+        "Front desk staff was welcoming and handled check-in very smoothly.",
+        "Peaceful atmosphere and well-maintained property.",
+      ],
+      closers: [
+        "Would love to stay here again. Highly recommended!",
+        "5-star hospitality from check-in to check-out.",
+      ],
+    },
+    hi: {
+      openers: [
+        "{name} में ठहरने का अनुभव बहुत ही सुखद और आरामदायक रहा।",
+      ],
+      aspects: [
+        "कमरे बहुत साफ-सुथरे थे और रूम सर्विस बहुत तेज थी।",
+        "स्टाफ का व्यवहार बहुत ही आदरपूर्ण और सहयोगी रहा।",
+      ],
+      closers: [
+        "शानदार आतिथ्य सत्कार के लिए धन्यवाद! 5 स्टार।",
+      ],
+    },
+    hinglish: {
+      openers: [
+        "{name} me stay kiya, bohot peaceful aur comfortable tha.",
+      ],
+      aspects: [
+        "Rooms bilkul clean the aur staff ka behavior bohot welcoming tha.",
+        "Check-in quick tha aur service bhi timely mili.",
+      ],
+      closers: [
+        "Great stay experience, aage bhi yahin rukenge!",
+      ],
+    },
+    mr: {
+      openers: [
+        "{name} येथे मुक्कामाचा अनुभव अतिशय सुखद आणि आरामदायी राहिला.",
+      ],
+      aspects: [
+        "खोल्या अतिशय स्वच्छ होत्या आणि सेवेचा दर्जा उत्तम होता.",
+      ],
+      closers: [
+        "उत्कृष्ट आदरातिथ्य, खूप खूप धन्यवाद!",
+      ],
+    },
+  },
+
+  "Real Estate": {
+    en: {
+      openers: [
+        "Very professional real estate consultation with {name}.",
+        "Had a transparent and trustworthy experience with {name}.",
+      ],
+      aspects: [
+        "Clear legal documentation and transparent property guidance with zero pressure.",
+        "The team answered every question patiently and gave genuine market advice.",
+      ],
+      closers: [
+        "Reliable advisory team you can count on. Highly recommended!",
+      ],
+    },
+    hi: {
+      openers: [
+        "{name} के साथ प्रॉपर्टी और रियल एस्टेट का अनुभव बहुत ही भरोसेमंद रहा।",
+      ],
+      aspects: [
+        "सारे पेपर्स और लीगल डॉक्यूमेंट्स बहुत ही पारदर्शिता से दिखाए और समझाए।",
+        "टीम ने बिना किसी दबाव के बिल्कुल सही मार्गदर्शन दिया।",
+      ],
+      closers: [
+        "ईमानदार और भरोसेमंद सर्विस के लिए बहुत-बहुत धन्यवाद!",
+      ],
+    },
+    hinglish: {
+      openers: [
+        "{name} se property consultation liya, bohot honest aur genuine team hai.",
+      ],
+      aspects: [
+        "Saari documentation transparent rakhi aur sahi property advice di.",
+      ],
+      closers: [
+        "Reliable real estate partner, definitely recommend karunga!",
+      ],
+    },
+    mr: {
+      openers: [
+        "{name} कडून रिअल इस्टेट सल्ला घेतला, अनुभव अतिशय विश्वासार्ह होता.",
+      ],
+      aspects: [
+        "सर्व कागदपत्रे आणि मार्गदर्शन पूर्णपणे पारदर्शक होते.",
+      ],
+      closers: [
+        "उत्कृष्ट मार्गदर्शन, नक्कीच शिफारस करतो.",
+      ],
+    },
+  },
+
+  "Automobile": {
+    en: {
+      openers: [
+        "Smooth and satisfying vehicle service experience with {name}.",
+        "One of the most dependable workshops in the city.",
+      ],
+      aspects: [
+        "Diagnosed the vehicle issue accurately and completed the work on schedule.",
+        "Used genuine parts and provided transparent billing without hidden costs.",
+      ],
+      closers: [
+        "My vehicle is running smoothly. 5 stars for the great workmanship!",
+      ],
+    },
+    hi: {
+      openers: [
+        "{name} पर गाड़ी की सर्विस कराने का अनुभव बहुत ही शानदार रहा।",
+      ],
+      aspects: [
+        "गाड़ी की समस्या को सही तरीके से समझा और समय पर काम करके दिया।",
+        "बिलिंग पूरी तरह पारदर्शी रही और कोई फालतू पार्ट्स नहीं बदले।",
+      ],
+      closers: [
+        "शानदार काम के लिए बहुत-बहुत धन्यवाद! गाड़ी बिल्कुल मक्खन चल रही है।",
+      ],
+    },
+    hinglish: {
+      openers: [
+        "{name} par vehicle service karwayi, bohot badiya kaam kiya team ne.",
+      ],
+      aspects: [
+        "Time par delivery di aur genuine parts use kiye. Transparent billing.",
+      ],
+      closers: [
+        "Gaadi bohot smooth chal rahi hai ab, 5 stars!",
+      ],
+    },
+    mr: {
+      openers: [
+        "{name} येथे गाडीच्या सेवेचा अनुभव उत्तम राहिला.",
+      ],
+      aspects: [
+        "काम वेळेत पूर्ण केले आणि मूळ सुटे भाग वापरले.",
+      ],
+      closers: [
+        "उत्कृष्ट काम, धन्यवाद!",
       ],
     },
   },
@@ -389,6 +667,38 @@ const CATEGORY_VOCABULARY: Record<string, Record<SupportedLanguage, CategoryPhra
   },
 };
 
+export function resolveCategoryKey(category: string = ""): string {
+  const c = (category || "").toLowerCase().trim();
+  if (c.includes("packer") || c.includes("mover") || c.includes("shift") || c.includes("logistics")) {
+    return "Packers & Movers";
+  }
+  if (c.includes("jewel") || c.includes("gold") || c.includes("diamond")) {
+    return "Jewellery Store";
+  }
+  if (c.includes("restau") || c.includes("cafe") || c.includes("food") || c.includes("dining") || c.includes("bakery") || c.includes("sweet")) {
+    return "Restaurant";
+  }
+  if (c.includes("clinic") || c.includes("doctor") || c.includes("hospital") || c.includes("health") || c.includes("dental") || c.includes("eye")) {
+    return "Clinic";
+  }
+  if (c.includes("salon") || c.includes("spa") || c.includes("beauty") || c.includes("parlour") || c.includes("parlor") || c.includes("hair")) {
+    return "Salon";
+  }
+  if (c.includes("hotel") || c.includes("resort") || c.includes("stay") || c.includes("lodge") || c.includes("banquet")) {
+    return "Hotel";
+  }
+  if (c.includes("real estate") || c.includes("property") || c.includes("builder") || c.includes("developer")) {
+    return "Real Estate";
+  }
+  if (c.includes("auto") || c.includes("car") || c.includes("bike") || c.includes("garage") || c.includes("workshop") || c.includes("motor") || c.includes("dealer")) {
+    return "Automobile";
+  }
+  if (c.includes("market") || c.includes("digital") || c.includes("seo") || c.includes("agency") || c.includes("software") || c.includes("web")) {
+    return "Digital Marketing Agency";
+  }
+  return "General";
+}
+
 /**
  * Returns a randomized, 100% natural, human-written review.
  * Google Anti-Duplicate Algorithm:
@@ -432,7 +742,8 @@ export function generateNaturalHumanReview(
   }
 
   // Select vocabulary matching category or fallback to general
-  const vocabMap = CATEGORY_VOCABULARY[category] || CATEGORY_VOCABULARY["Digital Marketing Agency"] || CATEGORY_VOCABULARY["General"];
+  const catKey = resolveCategoryKey(category);
+  const vocabMap = CATEGORY_VOCABULARY[catKey] || CATEGORY_VOCABULARY["General"];
   const langVocab = vocabMap[language] || vocabMap["en"] || CATEGORY_VOCABULARY["General"]["en"];
 
   // Random pick helpers using high-entropy random
@@ -531,15 +842,14 @@ export function structureCustomerReview({
   language = "en",
   seed = Date.now(),
 }: StructureCustomerReviewInput): string {
+  const cleanName = (businessName || "this business").trim();
   const rawClean = (userNotes || "").trim();
-  const kwList = [...keywords];
+  const lang = (["en", "hi", "hinglish", "mr"].includes(language) ? language : "en") as SupportedLanguage;
+  const catKey = resolveCategoryKey(category);
+  const catVocab = CATEGORY_VOCABULARY[catKey] || CATEGORY_VOCABULARY["General"];
+  const langVocab = catVocab[lang] || catVocab["en"] || CATEGORY_VOCABULARY["General"]["en"];
 
-  let combinedAspects = kwList.map((k) => k.trim()).filter(Boolean);
-  if (rawClean && !kwList.some((k) => k.toLowerCase() === rawClean.toLowerCase())) {
-    combinedAspects.push(rawClean);
-  }
-
-  // High entropy pseudo-random slot picker using sine-hash
+  // Slot picker using sine hash
   const rnd = (arr: string[], offset: number = 0) => {
     if (!arr || arr.length === 0) return "";
     const hash = Math.abs(Math.sin(seed * 997 + offset * 7919) * 100000);
@@ -547,386 +857,135 @@ export function structureCustomerReview({
     return arr[idx];
   };
 
-  const cleanName = businessName || "this place";
-  const aspectKeys = combinedAspects.map((a) => a.toLowerCase().trim());
-
-  // ---------------------------------------------------------------------------
-  // 1. ENGLISH (en)
-  // ---------------------------------------------------------------------------
-  if (language === "en") {
-    if (rating >= 5) {
-      const openers = [
-        `Had an exceptional experience with ${cleanName}.`,
-        `Visited ${cleanName} recently and was thoroughly impressed.`,
-        `Truly pleased with the quality and hospitality at ${cleanName}.`,
-        `Sharing my genuine feedback for ${cleanName} - absolutely delighted!`,
-        `One of the most reliable and customer-friendly places in the city.`,
-        `Really glad I chose ${cleanName}. Everything went smoothly.`,
-        `Outstanding work and wonderful attitude by the team at ${cleanName}.`,
-        `Very smooth, polite, and reassuring experience throughout.`,
-        `My experience with ${cleanName} has been 100% positive.`,
-        `Everything from first consultation to completion was handled with precision.`,
-        `Can confidently say that ${cleanName} stands out for their dedication.`,
-        `A really positive visit to ${cleanName}, totally satisfied with their work.`,
-        `Just had our work completed by ${cleanName} and couldn't be happier.`,
-        `Remarkable professionalism and care shown by ${cleanName}.`,
-        `I rarely leave reviews, but ${cleanName} truly earned this 5-star rating.`,
-      ];
-
-      const aspectDict: Record<string, string[]> = {
-        service: [
-          "The service was swift, efficient, and well-coordinated.",
-          "Service delivery was prompt and completely stress-free.",
-          "Their speed of execution and attention to detail is remarkable.",
-          "Really appreciate how systematic and orderly the service was.",
-          "The promptness and responsiveness of the service left a great impression.",
-          "Quick turnaround time without any compromises on standards.",
-        ],
-        staff: [
-          "The staff was polite, welcoming, and very attentive to all our queries.",
-          "Very courteous and supportive team that genuinely listens to customers.",
-          "The staff members were humble, well-trained, and extremely cooperative.",
-          "Every team member was patient, approachable, and thorough in their explanations.",
-          "Great hospitality and warm behavior from the entire staff.",
-          "Felt respected and prioritized thanks to the humble team.",
-        ],
-        quality: [
-          "The work quality and hygiene standards are genuinely top-notch.",
-          "Impressed by the premium standards and precision they maintain.",
-          "High-grade attention to detail without cutting any corners.",
-          "The finishing and quality of work exceeded all expectations.",
-          "Top-level standards and modern approach throughout the process.",
-          "Flawless execution with great attention to every small detail.",
-        ],
-        experience: [
-          "The whole experience was pleasant, seamless, and reassuring.",
-          "Felt totally comfortable and well taken care of from start to end.",
-          "A genuinely 5-star experience that sets a solid benchmark for others.",
-          "Smooth, orderly coordination that made the whole visit effortless.",
-          "Comfortable environment and seamless communication throughout.",
-          "Peace of mind from start to finish.",
-        ],
-        value: [
-          "Completely fair pricing and true value for money.",
-          "Honest, transparent charges with no hidden surprises whatsoever.",
-          "Total peace of mind and great value for the high quality provided.",
-          "Very reasonably priced considering the top-tier professionalism.",
-          "Clear billing and complete integrity in their pricing structure.",
-          "Worth every rupee spent.",
-        ],
-      };
-
-      const closers = [
-        "Highly recommended to everyone!",
-        "Will definitely return and recommend to friends and family.",
-        "Easily a solid 5 stars. Keep up the wonderful work!",
-        "Thank you team for the wonderful support and care.",
-        "A trustworthy and dependable place you can count on.",
-        "10/10 experience without hesitation.",
-        "Very satisfied customer. Best wishes to the entire team!",
-        "Kudos to the entire management and staff for such high standards.",
-        "Looking forward to visiting again. Truly recommended.",
-        "Five stars well deserved!",
-      ];
-
-      const op = rnd(openers, 1);
-      const aspectLines: string[] = [];
-
-      aspectKeys.forEach((key, i) => {
-        if (aspectDict[key]) {
-          aspectLines.push(rnd(aspectDict[key], i * 17 + 3));
-        } else {
-          aspectLines.push(`The ${key} aspect was handled with great care and attention.`);
-        }
-      });
-
-      if (aspectLines.length === 0) {
-        const fallbacks = [
-          "Everything was organized smoothly and completed on schedule.",
-          "Great coordination, clear communication, and impressive results.",
-          "Very smooth process from start to end with zero hassle.",
-        ];
-        aspectLines.push(rnd(fallbacks, 7));
-      }
-
-      const cl = rnd(closers, 9);
-      return [op, ...aspectLines, cl].join(" ").trim();
+  // 1. Rating <= 2: Polite Constructive Feedback
+  if (rating <= 2) {
+    if (lang === "hi") {
+      return `${cleanName} के साथ हमारा अनुभव ठीक नहीं रहा। काम और रिस्पॉन्स में काफी सुधार की जरूरत महसूस हुई। आशा है कि मैनेजमेंट इस पर ध्यान देगा।`;
     }
-
-    if (rating === 4) {
-      const openers = [
-        `Overall, I had a very good experience with ${cleanName}.`,
-        `Visited ${cleanName} and was quite happy with the service.`,
-        `Good service and positive interaction with the team at ${cleanName}.`,
-        `My experience with ${cleanName} was smooth and satisfactory.`,
-        `Pleasant visit to ${cleanName}, they handled everything well.`,
-      ];
-      const closers = [
-        "Solid 4-star experience. Would definitely recommend!",
-        "Satisfied with their work and looking forward to visiting again.",
-        "Good work overall, keep it up!",
-        "Nice support and dependable team.",
-        "Decent and reliable place, worth a visit.",
-      ];
-      const aspText = aspectKeys.length > 0
-        ? `The ${aspectKeys.join(" and ")} was handled very well.`
-        : "The service and coordination was smooth throughout.";
-      return `${rnd(openers, 1)} ${aspText} ${rnd(closers, 4)}`;
+    if (lang === "hinglish") {
+      return `${cleanName} ke sath experience thoda disappointing raha. Service aur response time me improvement ki zarurat hai.`;
     }
-
-    if (rating === 3) {
-      const openers = [
-        `Average experience with ${cleanName}.`,
-        `Visited ${cleanName} recently for service.`,
-        `Fair interaction with ${cleanName}.`,
-      ];
-      const aspText = aspectKeys.length > 0
-        ? `The ${aspectKeys.join(" and ")} was okay, though there is room for improvement.`
-        : "Things were acceptable, but service coordination could be improved.";
-      return `${rnd(openers, 1)} ${aspText} Hope the management takes this feedback positively.`;
+    if (lang === "mr") {
+      return `${cleanName} कडून सेवेत सुधारणा आवश्यक आहे. प्रतिसाद अपेक्षेप्रमाणे नव्हता.`;
     }
-
-    // 1-2 stars
-    const aspText = aspectKeys.length > 0
-      ? `especially regarding the ${aspectKeys.join(" and ")}.`
-      : "as the service did not match the expected standards.";
-    return `Had an unsatisfactory experience with ${cleanName}, ${aspText} Hope the management looks into these issues and improves.`;
+    return `Had an issue with ${cleanName}. The overall service response and customer handling needs improvement. Hope the management addresses this.`;
   }
 
-  // ---------------------------------------------------------------------------
-  // 2. HINDI (hi)
-  // ---------------------------------------------------------------------------
-  if (language === "hi") {
-    if (rating >= 5) {
-      const openers = [
-        `${cleanName} के साथ बहुत ही बेहतरीन और सुखद अनुभव रहा।`,
-        `${cleanName} की सर्विस वाकई में काफी शानदार, भरोसेमंद और असरदार है।`,
-        `हाल ही में ${cleanName} से काम कराया, मन पूरी तरह से संतुष्ट हो गया।`,
-        `अगर आप बेहतरीन क्वालिटी और सही गाइडेंस चाहते हैं तो ${cleanName} सबसे उत्तम विकल्प है।`,
-        `बहुत ही ईमानदार और समयबद्ध काम देखने को मिला ${cleanName} पर।`,
-        `${cleanName} की पूरी टीम का काम और अंदाज दोनों ही लाजवाब हैं।`,
-        `अपने अनुभव के आधार पर कह सकता हूँ कि ${cleanName} बेहद भरोसेमंद जगह है।`,
-        `${cleanName} पर काम कराकर मन को बहुत राहत मिली, सब कुछ बहुत सुव्यवस्थित था।`,
-      ];
-
-      const aspectDict: Record<string, string[]> = {
-        service: [
-          "इनकी सर्विस बहुत ही तेज, सुव्यवस्थित और बिना किसी देरी के रही।",
-          "काम तय समय पर और बिना किसी परेशानी के पूरा करके दिया गया।",
-          "सर्विस की स्पीड और काम करने का तरीका वाकई काबिले तारीफ है।",
-        ],
-        staff: [
-          "स्टाफ का व्यवहार बहुत ही विनम्र, सहयोगी और आदरपूर्ण रहा।",
-          "टीम के सभी लोग बहुत धैर्यवान हैं और हर बात को प्यार से समझाते हैं।",
-          "पूरे स्टाफ ने बहुत सम्मान और अपनेपन के साथ मदद की।",
-        ],
-        quality: [
-          "काम की क्वालिटी और सफाई के मानक बहुत ही उच्च दर्जे के हैं।",
-          "क्वालिटी में कोई समझौता नहीं किया गया, काम बहुत बारीकी से हुआ।",
-          "सटीक और बेहतरीन क्वालिटी का काम देखकर दिल खुश हो गया।",
-        ],
-        experience: [
-          "शुरुआत से लेकर काम पूरा होने तक का पूरा अनुभव बहुत शांतिपूर्ण और सुखद रहा।",
-          "किसी भी प्रकार की भागदौड़ या परेशानी नहीं हुई, सब कुछ बहुत सहज था।",
-          "एक बहुत ही सकारात्मक और यादगार अनुभव रहा।",
-        ],
-        value: [
-          "बिल्कुल वाजिब और पारदर्शी रेट्स हैं, कोई छिपे हुए चार्ज नहीं लिए गए।",
-          "दी गई सर्विस के सामने पैसे की पूरी कद्र मिलती है।",
-          "उचित मूल्य और पूरी ईमानदारी देखने को मिली।",
-        ],
-      };
-
-      const closers = [
-        "दिल से 5 स्टार रेटिंग और पूरी टीम को बहुत-बहुत शुभकामनाएं!",
-        "मैं अपने सभी परिचितों और दोस्तों को ${cleanName} जरूर रिकमेंड करूँगा।",
-        "शानदार काम और विनम्र व्यवहार के लिए बहुत-बहुत धन्यवाद।",
-        "भरोसेमंद जगह, जरूरत पड़ने पर निश्चित रूप से दोबारा आऊंगा।",
-        "५ में से ५ स्टार! ऐसे ही बढ़िया काम करते रहिए।",
-        "शानदार परिणाम के लिए पूरी टीम का आभार।",
-      ];
-
-      const op = rnd(openers, 2);
-      const aspectLines: string[] = [];
-
-      aspectKeys.forEach((key, i) => {
-        if (aspectDict[key]) {
-          aspectLines.push(rnd(aspectDict[key], i * 19 + 5));
-        } else {
-          aspectLines.push(`${key} का काम बहुत ही अच्छे से संभाला गया।`);
-        }
-      });
-
-      if (aspectLines.length === 0) {
-        aspectLines.push("काम बहुत ही साफ-सुथरा और समयबद्ध तरीके से पूरा हुआ।");
-      }
-
-      const cl = rnd(closers, 8).replace("${cleanName}", cleanName);
-      return [op, ...aspectLines, cl].join(" ").trim();
+  // 2. Rating === 3: Neutral Feedback
+  if (rating === 3) {
+    if (lang === "hi") {
+      return `${cleanName} के साथ अनुभव सामान्य रहा। काम ठीक-ठाक हुआ लेकिन कुछ चीजों में और सुधार हो सकता है।`;
     }
-
-    if (rating === 4) {
-      return `${cleanName} के साथ अनुभव काफी अच्छा और सकारात्मक रहा। काम समय पर हुआ और स्टाफ का सहयोग भी अच्छा था। ओवरऑल काफी संतुष्ट हूँ, 4 स्टार!`;
+    if (lang === "hinglish") {
+      return `${cleanName} ke sath average experience raha. Kaam theek tha but customer coordination thoda aur better ho sakta hai.`;
     }
-
-    if (rating === 3) {
-      return `${cleanName} के साथ अनुभव सामान्य रहा। सर्विस ठीक-ठाक थी, लेकिन कुछ सुधार की गुंजाइश अभी भी महसूस हुई। आशा है आगे और बेहतर करेंगे।`;
+    if (lang === "mr") {
+      return `${cleanName} कडील सेवा सरासरी होती. काम ठीक झाले पण आणखी सुधारणा अपेक्षित आहे.`;
     }
-
-    return `${cleanName} के साथ अनुभव निराशाजनक रहा। सर्विस क्वालिटी और समयबद्धता में सुधार की बहुत आवश्यकता है।`;
+    return `Decent experience with ${cleanName}. The work was satisfactory, though there is some room for improvement. Overall okay.`;
   }
 
-  // ---------------------------------------------------------------------------
-  // 3. HINGLISH (hinglish)
-  // ---------------------------------------------------------------------------
-  if (language === "hinglish") {
-    if (rating >= 5) {
-      const openers = [
-        `${cleanName} ke sath experience sach me bohot hi badhiya aur smooth raha!`,
-        `Recently ${cleanName} visit kiya aur unka kaam dekh kar kaafi impress hua.`,
-        `One of the best and most trustworthy places, ${cleanName} truly rocks!`,
-        `Mujhe ${cleanName} ki professionalism aur kaam karne ka dhang bohot pasand aaya.`,
-        `${cleanName} se service li aur honestly result expectations se bhi better tha.`,
-        `Bohot genuine aur supportive team hai ${cleanName} ki.`,
-        `${cleanName} par kaam kara ke fully satisfied hoon, koi dikkat nahi aayi.`,
-        `Agar achhi quality aur honest guidance chahiye toh ${cleanName} best option hai.`,
-      ];
-
-      const aspectDict: Record<string, string[]> = {
-        service: [
-          "Service bohot fast thi aur sab kuch perfectly schedule par hua.",
-          "Bina kisi delay ke bohot smooth tareeqe se saari service complete ki.",
-          "Service speed aur quick response bohot impressive tha.",
-        ],
-        staff: [
-          "Staff bohot polite, humble aur cooperative hai, har sawal ka pyar se jawab diya.",
-          "Team ka behavior bohot supportive tha aur sabne bohot ache se guide kiya.",
-          "Staff ne bohot patience ke sath pura process explain kiya.",
-        ],
-        quality: [
-          "Kaam ki quality aur finishing bilkul top-class hai, koi kami nahi mili.",
-          "Kaam me bohot safaai aur perfection dekhne ko mila.",
-          "Quality standards genuinely high hain, 100% genuine kaam.",
-        ],
-        experience: [
-          "Overall visit bohot comfortable aur hassle-free raha.",
-          "Pura experience bilkul tension-free tha, consultation se completion tak.",
-          "Sach me ek smooth aur 5-star experience raha.",
-        ],
-        value: [
-          "Rates bilkul genuine aur transparent hain, koi hidden charges nahi.",
-          "Paisa vasool service hai, quality ke hisaab se pricing bilkul fair hai.",
-          "Honest pricing aur complete satisfaction mila.",
-        ],
-      };
-
-      const closers = [
-        "Solid 5 stars bante hain, highly recommended to everyone!",
-        "Definitely family aur friends ko recommend karunga. Keep it up guys!",
-        "Team bohot supportive hai, great work done!",
-        "Fully satisfied customer, thank you so much to the team!",
-        "10/10 experience, aage bhi yahin aayenge!",
-        "Bina kisi hesitation ke inki service le sakte ho, full genuine!",
-      ];
-
-      const op = rnd(openers, 3);
-      const aspectLines: string[] = [];
-
-      aspectKeys.forEach((key, i) => {
-        if (aspectDict[key]) {
-          aspectLines.push(rnd(aspectDict[key], i * 23 + 7));
-        } else {
-          aspectLines.push(`${key} ka kaam bhi kaafi ache se handle kiya.`);
-        }
-      });
-
-      if (aspectLines.length === 0) {
-        aspectLines.push("Saara kaam time par aur bina kisi pareshani ke complete hua.");
+  // 3. Rating === 4: Solid 4-Star Satisfaction (without word repetition)
+  if (rating === 4) {
+    if (lang === "hi") {
+      if (catKey === "Packers & Movers") {
+        return `${cleanName} से सामान की शिफ्टिंग कराई और अनुभव काफी अच्छा रहा। टीम समय पर आई और सारा सामान सुरक्षित पहुंचाया। 4 स्टार!`;
       }
-
-      const cl = rnd(closers, 9);
-      return [op, ...aspectLines, cl].join(" ").trim();
+      return `${cleanName} के साथ अनुभव काफी अच्छा और सकारात्मक रहा। काम समय पर हुआ और स्टाफ का सहयोग भी बढ़िया था। 4 स्टार रेटिंग!`;
     }
-
-    if (rating === 4) {
-      return `${cleanName} ke sath overall good experience raha. Kaam time par hua aur staff bhi helpful tha. Satisfied with the service, 4 stars!`;
+    if (lang === "hinglish") {
+      if (catKey === "Packers & Movers") {
+        return `${cleanName} se shifting karwayi aur kaafi achha experience raha. Staff ne saara samaan time par aur safely deliver kiya. Solid 4 stars!`;
+      }
+      return `${cleanName} ke sath experience kaafi achha raha. Staff supportive tha aur kaam samay par hua. 4 stars meri taraf se!`;
     }
-
-    if (rating === 3) {
-      return `${cleanName} ke sath experience average raha. Kaam theek tha but customer service aur coordination thoda improve ho sakta hai.`;
+    if (lang === "mr") {
+      return `${cleanName} सोबतचा अनुभव चांगला राहिला. काम वेळेत पूर्ण झाले आणि कर्मचाऱ्यांचे उत्तम सहकार्य मिळाले. समाधानकारक काम, ४ स्टार!`;
     }
-
-    return `${cleanName} ke sath experience disappointing raha. Service quality aur commitment par dhyan dene ki zaroorat hai.`;
+    if (catKey === "Packers & Movers") {
+      return `Shifted our household items with ${cleanName} and had a very good experience overall. The team arrived on time and handled our goods with care. Solid 4-star service.`;
+    }
+    return `Very good experience with ${cleanName}. The staff was supportive and handled everything smoothly. Solid 4 stars!`;
   }
 
-  // ---------------------------------------------------------------------------
-  // 4. MARATHI (mr)
-  // ---------------------------------------------------------------------------
-  if (rating >= 5) {
-    const openers = [
-      `${cleanName} सोबत काम करण्याचा अनुभव अतिशय उत्तम आणि समाधानकारक राहिला.`,
-      `${cleanName} ची सेवा आणि कामाची पद्धत खरोखरच कौतुकास्पद आणि विश्वासू आहे.`,
-      `${cleanName} कडून नुकतीच सेवा घेतली, मनापासून पूर्ण समाधान झाले.`,
-      `उत्कृष्ट दर्जा आणि योग्य मार्गदर्शनासाठी ${cleanName} ही सर्वोत्तम निवड आहे.`,
-    ];
-
-    const aspectDict: Record<string, string[]> = {
-      service: [
-        "सेवा वेळेवर आणि अतिशय पद्धतशीरपणे पूर्ण करण्यात आली.",
-        "सेवेचा वेग आणि कामाचे नियोजन खरोखरच वाखाणण्याजोगे होते.",
-      ],
-      staff: [
-        "कर्मचाऱ्यांचे वागणे अत्यंत नम्र, आदरयुक्त आणि सहकार्य करणारे होते.",
-        "प्रत्येक प्रश्नाचे त्यांनी शांतपणे आणि समजावून उत्तर दिले.",
-      ],
-      quality: [
-        "कामाचा दर्जा आणि स्वच्छता सर्वोत्तम आहे, कुठेही तडजोड केली नाही.",
-        "कामातील बारकावे आणि अचूकता खूपच आवडली.",
-      ],
-      experience: [
-        "संपूर्ण अनुभव अतिशय सुखद आणि विश्वासार्ह राहिला.",
-        "कोणताही त्रास न होता सर्व काही सुरळीत पार पडले.",
-      ],
-      value: [
-        "दर अत्यंत रास्त आणि पारदर्शक आहेत, पैशाचे पूर्ण समाधान मिळाले.",
-        "प्रामाणिक दर आणि उत्तम दर्जा, नक्कीच योग्य मोबदला मिळाला.",
-      ],
+  // 4. Rating >= 5: Genuine, High-Quality 5-Star Review
+  const opener = rnd(langVocab.openers, 1).replace(/\{name\}/g, cleanName);
+  
+  // Specific aspects selection
+  const selectedAspects: string[] = [];
+  
+  // If customer provided specific keywords/aspects
+  const kwList = keywords.map((k) => k.toLowerCase().trim()).filter(Boolean);
+  if (kwList.length > 0) {
+    // Provide natural phrasing for standard chip keywords:
+    const aspectPhrases: Record<string, Record<SupportedLanguage, string>> = {
+      staff: {
+        en: catKey === "Packers & Movers" ? "The loading crew was polite, disciplined, and very careful with heavy items." : "The staff was extremely polite, attentive, and cooperative.",
+        hi: catKey === "Packers & Movers" ? "स्टाफ बहुत विनम्र था और भारी सामान को बहुत सावधानी से संभाला।" : "स्टाफ का व्यवहार बहुत विनम्र और सहयोगी रहा।",
+        hinglish: catKey === "Packers & Movers" ? "Staff bohot polite aur hardworking tha, sab sambhal kar load kiya." : "Staff bohot polite aur supportive tha, sab kuch ache se explain kiya.",
+        mr: "कर्मचाऱ्यांचे वर्तन खूप नम्र आणि सहकार्य करणारे होते.",
+      },
+      quality: {
+        en: catKey === "Packers & Movers" ? "Multi-layer bubble wrap packing ensured not a single item was scratched or broken." : "Quality standards are genuinely high with great attention to every detail.",
+        hi: catKey === "Packers & Movers" ? "पैकिंग बहुत मजबूत की थी, एक भी सामान को खरोंच तक नहीं आई।" : "काम की क्वालिटी बहुत ही उच्च दर्जे की है और कोई समझौता नहीं किया गया।",
+        hinglish: catKey === "Packers & Movers" ? "Packing quality bohot solid thi, ek bhi item damage nahi hua." : "Kaam ki quality top-notch hai, 100% genuine kaam.",
+        mr: "कामाचा दर्जा सर्वोत्तम आहे, कुठेही तडजोड केली नाही.",
+      },
+      service: {
+        en: catKey === "Packers & Movers" ? "Delivered right on time at destination without any hidden costs." : "Everything was organized smoothly and completed right on schedule.",
+        hi: catKey === "Packers & Movers" ? "बिना किसी देरी के तय समय पर सामान पहुंचाया और कोई छिपा हुआ चार्ज नहीं लिया।" : "काम बिल्कुल तय समय पर और बिना किसी परेशानी के पूरा हुआ।",
+        hinglish: catKey === "Packers & Movers" ? "Time par delivery de di aur koi hidden charges nahi maange." : "Saara kaam perfectly schedule par hua, quick response.",
+        mr: "सेवा वेळेवर आणि अतिशय पद्धतशीरपणे पूर्ण करण्यात आली.",
+      },
+      value: {
+        en: "Clear billing with completely honest rates and zero surprise charges.",
+        hi: "बिल्कुल वाजिब और पारदर्शी रेट्स हैं, कोई छिपे हुए चार्ज नहीं लिए गए।",
+        hinglish: "Rates bilkul genuine aur transparent hain, koi hidden charges nahi.",
+        mr: "दर अत्यंत रास्त आणि पारदर्शक आहेत, पैशाचे पूर्ण समाधान मिळाले.",
+      },
+      experience: {
+        en: "The entire process was pleasant, stress-free, and well-managed.",
+        hi: "शुरुआत से अंत तक का अनुभव बहुत शांतिपूर्ण और तनावमुक्त रहा।",
+        hinglish: "Pura process bilkul smooth aur tension-free raha.",
+        mr: "संपूर्ण अनुभव अतिशय सुखद आणि समाधानकारक राहिला.",
+      },
     };
 
-    const closers = [
-      "उत्कृष्ट सेवेबद्दल धन्यवाद! सर्वांना नक्कीच शिफारस करेन.",
-      "५ पैकी ५ स्टार! खूप छान काम, असेच पुढे चालू ठेवा.",
-      "खूप खूप आभार आणि पुढील वाटचालीस शुभेच्छा!",
-      "नक्कीच पुन्हा यांच्याशीच संपर्क करेन. उत्तम सेवा!",
-    ];
-
-    const op = rnd(openers, 4);
-    const aspectLines: string[] = [];
-
-    aspectKeys.forEach((key, i) => {
-      if (aspectDict[key]) {
-        aspectLines.push(rnd(aspectDict[key], i * 29 + 11));
-      } else {
-        aspectLines.push(`${key} बाबतचे काम सुद्धा उत्तम प्रकारे पार पडले.`);
+    kwList.forEach((kw) => {
+      if (aspectPhrases[kw] && aspectPhrases[kw][lang]) {
+        selectedAspects.push(aspectPhrases[kw][lang]);
       }
     });
+  }
 
-    if (aspectLines.length === 0) {
-      aspectLines.push("सर्व काम वेळेत आणि सुरळीतपणे पूर्ण झाले.");
+  // If no aspect matched or none selected, pick from category vocabulary
+  if (selectedAspects.length === 0) {
+    const asp1 = rnd(langVocab.aspects, 2).replace(/\{name\}/g, cleanName);
+    selectedAspects.push(asp1);
+    
+    // Add second aspect with 50% probability for natural length
+    if (langVocab.aspects.length > 1 && (seed % 2 === 0)) {
+      const remaining = langVocab.aspects.filter((a) => a !== asp1);
+      if (remaining.length > 0) {
+        selectedAspects.push(rnd(remaining, 3).replace(/\{name\}/g, cleanName));
+      }
     }
-
-    const cl = rnd(closers, 6);
-    return [op, ...aspectLines, cl].join(" ").trim();
   }
 
-  if (rating === 4) {
-    return `${cleanName} चा अनुभव चांगला राहिला. काम वेळेवर झाले आणि कर्मचाऱ्यांचे सहकार्य मिळाले. समाधानकारक काम, ४ स्टार!`;
+  // If user typed custom notes
+  if (rawClean && !kwList.includes(rawClean.toLowerCase())) {
+    const notePunct = /[.!?]$/.test(rawClean) ? rawClean : `${rawClean}.`;
+    selectedAspects.push(notePunct);
   }
 
-  if (rating === 3) {
-    return `${cleanName} सोबतचा अनुभव सामान्य राहिला. सेवा ठीक होती, पण काही सुधारणा अपेक्षित आहेत.`;
-  }
+  const closer = rnd(langVocab.closers, 4).replace(/\{name\}/g, cleanName);
 
-  return `${cleanName} कडून मिळालेली सेवा निराशाजनक होती. सेवेच्या दर्जात सुधारणा करणे गरजेचे आहे.`;
+  const finalReview = [opener, ...selectedAspects, closer]
+    .filter(Boolean)
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return finalReview;
 }
 
