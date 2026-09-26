@@ -41,10 +41,13 @@ export default function AdminReviewQRPage() {
       const res = await fetch("/api/reviewflow/businesses", { cache: "no-store" });
       const data = await res.json();
       if (data.success) {
-        const list = data.businesses || [];
+        const list: BusinessProfile[] = data.businesses || [];
         setBusinesses(list);
-        if (list.length > 0 && !selectedBiz) {
-          setSelectedBiz(list[0]);
+        if (list.length > 0) {
+          setSelectedBiz((prev) => {
+            if (!prev) return list[0];
+            return list.find((b) => b.id === prev.id) || list[0];
+          });
         }
       }
     } catch (err) {
@@ -52,19 +55,11 @@ export default function AdminReviewQRPage() {
     } finally {
       setLoading(false);
     }
-  }, [selectedBiz]);
+  }, []);
 
   useEffect(() => {
     loadData();
   }, [loadData]);
-
-  // Keep selectedBiz synced if list reloads
-  useEffect(() => {
-    if (selectedBiz && businesses.length > 0) {
-      const refreshed = businesses.find((b) => b.id === selectedBiz.id);
-      if (refreshed) setSelectedBiz(refreshed);
-    }
-  }, [businesses]);
 
   const filteredQRs = useMemo(() => {
     return businesses.filter((b) => {
