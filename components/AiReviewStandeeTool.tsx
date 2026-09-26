@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
+import QRCode from "qrcode";
 import { generateNaturalHumanReview, SUPPORTED_LANGUAGES, SupportedLanguage } from "@/lib/humanReviewEngine";
 
 interface AiReviewStandeeToolProps {
@@ -149,10 +150,30 @@ export default function AiReviewStandeeTool({ onBackToTools }: AiReviewStandeeTo
   const portalPath = `/r/${businessSlug}?name=${encodeURIComponent(businessName)}&cat=${encodeURIComponent(category)}&city=${encodeURIComponent(city)}&reviewUrl=${encodeURIComponent(reviewUrl)}`;
   const fullPortalUrl = `${portalOrigin}${portalPath}`;
 
-  // Standee QR Code encodes the AI Review Portal URL, NOT the raw Google Map link!
-  const qrDisplayUrl = `https://api.qrserver.com/v1/create-qr-code/?size=350x350&margin=2&data=${encodeURIComponent(
-    fullPortalUrl
-  )}`;
+  const [qrDisplayUrl, setQrDisplayUrl] = useState<string>("");
+
+  useEffect(() => {
+    let isMounted = true;
+    QRCode.toDataURL(fullPortalUrl, {
+      width: 450,
+      margin: 1,
+      errorCorrectionLevel: "H",
+      color: {
+        dark: theme === "luxury-black" ? "#0F172A" : "#0284c7",
+        light: "#FFFFFF",
+      },
+    })
+      .then((url) => {
+        if (isMounted) setQrDisplayUrl(url);
+      })
+      .catch((err) => {
+        console.error("Tool QR generation error:", err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [fullPortalUrl, theme]);
 
   const isDark = theme === "luxury-black";
 

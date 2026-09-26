@@ -105,7 +105,7 @@ const nextConfig: NextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googleapis.com https://*.google.com https://*.gstatic.com https://*.payu.in",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "img-src 'self' data: blob: https://*.google.com https://*.googleapis.com https://*.gstatic.com https://*.supabase.co https://*.payu.in",
+              "img-src 'self' data: blob: https://*.google.com https://*.googleapis.com https://*.gstatic.com https://*.supabase.co https://*.payu.in https://api.qrserver.com",
               "font-src 'self' data: https://fonts.gstatic.com",
               "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.googleapis.com https://*.payu.in https://api.indexnow.org https://api.openai.com https://api.groq.com",
               "frame-src 'self' https://*.google.com https://*.payu.in",

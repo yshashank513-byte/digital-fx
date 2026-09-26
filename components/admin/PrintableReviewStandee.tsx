@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import QRCode from "qrcode";
 import { BusinessProfile } from "@/lib/reviewFlowTypes";
 
 interface Props {
@@ -19,15 +20,35 @@ export default function PrintableReviewStandee({
   const [size, setSize] = useState<"A4" | "A5">(initialSize);
   const [downloading, setDownloading] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [qrDataUrl, setQrDataUrl] = useState<string>("");
 
   // Compute Review Portal URL (Directs customer to 3-step review flow)
   const origin = typeof window !== "undefined" ? window.location.origin : "https://www.digitalfx.in";
   const reviewPortalUrl = `${origin}/r/${business.id}?name=${encodeURIComponent(business.name)}&cat=${encodeURIComponent(business.category)}&city=${encodeURIComponent(business.city || "")}&reviewUrl=${encodeURIComponent(business.googleReviewUrl || "")}&src=standee`;
 
-  // Raw high-resolution QR matrix URL
-  const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=2&data=${encodeURIComponent(
-    reviewPortalUrl
-  )}`;
+  // Generate crisp, high-resolution QR matrix locally in the browser (Zero CSP issues, 0ms latency)
+  useEffect(() => {
+    let isMounted = true;
+    QRCode.toDataURL(reviewPortalUrl, {
+      width: 600,
+      margin: 1,
+      errorCorrectionLevel: "H",
+      color: {
+        dark: "#0F172A",
+        light: "#FFFFFF",
+      },
+    })
+      .then((url) => {
+        if (isMounted) setQrDataUrl(url);
+      })
+      .catch((err) => {
+        console.error("Standee QR generation error:", err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [reviewPortalUrl]);
 
   const handlePrint = () => {
     window.print();
@@ -41,23 +62,20 @@ export default function PrintableReviewStandee({
     } catch (_) {}
   };
 
-  const handleDownloadQR = async () => {
+  const handleDownloadQR = () => {
+    if (!qrDataUrl) return;
     setDownloading("qr");
     try {
-      const response = await fetch(qrImageUrl);
-      const blob = await response.blob();
-      const objectUrl = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = objectUrl;
-      link.download = `${business.id}-review-qr.png`;
+      link.href = qrDataUrl;
+      link.download = `${business.id}-review-standee-qr.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      window.URL.revokeObjectURL(objectUrl);
     } catch (err) {
       console.error("QR download failed:", err);
     } finally {
-      setDownloading(null);
+      setTimeout(() => setDownloading(null), 300);
     }
   };
 
@@ -244,12 +262,19 @@ export default function PrintableReviewStandee({
         </div>
 
         {/* 3. QR Code Prominently in Center */}
-        <div className="bg-white p-4 rounded-3xl border-2 border-slate-200 shadow-md my-2 relative group flex items-center justify-center">
-          <img
-            src={qrImageUrl}
-            alt={`${business.name} Review QR`}
-            className="w-48 h-48 sm:w-56 sm:h-56 object-contain"
-          />
+        <div className="bg-white p-4 rounded-3xl border-2 border-slate-200 shadow-md my-2 relative group flex items-center justify-center min-w-[200px] min-h-[200px]">
+          {qrDataUrl ? (
+            <img
+              src={qrDataUrl}
+              alt={`${business.name} Review QR`}
+              className="w-48 h-48 sm:w-56 sm:h-56 object-contain"
+            />
+          ) : (
+            <div className="w-48 h-48 sm:w-56 sm:h-56 flex flex-col items-center justify-center bg-slate-50 rounded-2xl gap-2">
+              <span className="h-7 w-7 animate-spin rounded-full border-2 border-slate-200 border-t-[#2563EB]" />
+              <span className="text-[10px] font-bold text-slate-400">Rendering QR...</span>
+            </div>
+          )}
 
           {/* Subtle Google G Watermark in Center of QR */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
