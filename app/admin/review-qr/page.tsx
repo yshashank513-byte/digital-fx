@@ -194,23 +194,6 @@ export default function AdminReviewQRPage() {
             <span>+</span>
             <span>Add Business</span>
           </button>
-          <Link
-            href="/admin/businesses"
-            className="rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition shadow-2xs"
-          >
-            Manage All
-          </Link>
-          <button
-            type="button"
-            onClick={() => {
-              if (selectedBiz) setStandeeModalBiz(selectedBiz);
-            }}
-            disabled={!selectedBiz}
-            className="rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 px-3.5 py-2 text-xs font-bold transition shadow-2xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
-          >
-            <span>🖨️</span>
-            <span>Print Standee</span>
-          </button>
         </div>
       </div>
 
@@ -257,6 +240,7 @@ export default function AdminReviewQRPage() {
               {[
                 { id: "all", label: "All QRs" },
                 { id: "active", label: "Active" },
+                { id: "draft", label: "Drafts" },
                 { id: "pending_approval", label: "Pending" },
                 { id: "deactivated", label: "Disabled" },
               ].map((tab) => (
@@ -425,14 +409,17 @@ export default function AdminReviewQRPage() {
                                 👁️ Preview
                               </button>
 
-                              {/* Standee Modal */}
+                              {/* Edit Business */}
                               <button
                                 type="button"
-                                onClick={() => setStandeeModalBiz(biz)}
+                                onClick={() => {
+                                  setEditingBiz(biz);
+                                  setIsAddModalOpen(true);
+                                }}
                                 className="px-2 py-1 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-100 transition"
-                                title="Print Standee"
+                                title="Edit Business"
                               >
-                                🖨️ Standee
+                                ✏️ Edit
                               </button>
 
                               {/* Copy Link */}
@@ -485,50 +472,19 @@ export default function AdminReviewQRPage() {
           {selectedBiz ? (
             <div className="rounded-3xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm space-y-4">
               
-              {/* Dual Tab Switcher: Phone vs Standee */}
+              {/* Business name header */}
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                <div className="inline-flex rounded-xl bg-slate-100 p-0.5 border border-slate-200 text-xs font-bold">
-                  <button
-                    type="button"
-                    onClick={() => setRightPanelTab("phone")}
-                    className={`px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1 ${
-                      rightPanelTab === "phone"
-                        ? "bg-white text-slate-900 shadow-2xs"
-                        : "text-slate-600 hover:text-slate-900"
-                    }`}
-                  >
-                    <span>📱</span>
-                    <span>Customer View</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setRightPanelTab("standee")}
-                    className={`px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1 ${
-                      rightPanelTab === "standee"
-                        ? "bg-white text-slate-900 shadow-2xs"
-                        : "text-slate-600 hover:text-slate-900"
-                    }`}
-                  >
-                    <span>🪧</span>
-                    <span>Print Standee</span>
-                  </button>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm">📱</span>
+                  <span className="text-[12px] font-bold text-slate-700">Customer View</span>
                 </div>
-
-                <span className="text-[11px] font-semibold text-slate-400 truncate max-w-[100px]">
+                <span className="text-[11px] font-semibold text-slate-400 truncate max-w-[120px]">
                   {selectedBiz.name}
                 </span>
               </div>
 
-              {/* View 1: Customer Phone Simulator */}
-              {rightPanelTab === "phone" && (
-                <LiveCustomerPhoneMockup business={selectedBiz} />
-              )}
-
-              {/* View 2: Printable Standee Preview */}
-              {rightPanelTab === "standee" && (
-                <PrintableReviewStandee business={selectedBiz} initialSize="A5" />
-              )}
+              {/* Customer Phone Simulator */}
+              <LiveCustomerPhoneMockup business={selectedBiz} />
 
             </div>
           ) : (
@@ -601,41 +557,6 @@ export default function AdminReviewQRPage() {
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================
-          4. MODAL: FULL STAND PRINT & PREVIEW
-         ======================================================== */}
-      {standeeModalBiz && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4 overflow-y-auto animate-in fade-in">
-          <div className="w-full max-w-2xl bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-4 my-8">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <div>
-                <h3 className="text-base font-bold text-slate-900">
-                  Official Google Review Standee
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Print-ready A4/A5 tabletop counter standee for {standeeModalBiz.name}
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setStandeeModalBiz(null)}
-                className="text-slate-400 hover:text-slate-700 text-base p-1 cursor-pointer"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="flex justify-center py-2">
-              <PrintableReviewStandee
-                business={standeeModalBiz}
-                initialSize="A5"
-                onClose={() => setStandeeModalBiz(null)}
-              />
-            </div>
           </div>
         </div>
       )}

@@ -114,10 +114,10 @@ export default function AdminApprovalsPage() {
 
         <div className="flex items-center gap-3">
           <a
-            href="/admin/businesses"
+            href="/admin/review-qr"
             className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-100 transition shadow-xs"
           >
-            All Businesses
+            Review QR Codes
           </a>
         </div>
       </div>
@@ -143,10 +143,10 @@ export default function AdminApprovalsPage() {
             </p>
             <div className="pt-2">
               <a
-                href="/admin/businesses"
+                href="/admin/review-qr"
                 className="rounded-xl bg-[#207de9] px-4 py-2 text-xs font-bold text-white hover:bg-blue-600 transition"
               >
-                Go to Business Directory
+                Go to Review QR Codes
               </a>
             </div>
           </div>

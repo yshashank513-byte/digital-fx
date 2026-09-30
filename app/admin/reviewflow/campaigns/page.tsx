@@ -138,12 +138,6 @@ export default function ReviewFlowCampaignsPage() {
           ReviewFlow Hub
         </Link>
         <Link
-          href="/admin/businesses"
-          className="rounded-lg px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
-        >
-          Businesses ({businesses.length})
-        </Link>
-        <Link
           href="/admin/review-qr"
           className="rounded-lg px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
         >

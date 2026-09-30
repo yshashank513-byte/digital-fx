@@ -350,23 +350,10 @@ export default function AdminClientLayout({
       group: "REVIEWFLOW AI",
       items: [
         {
-          label: "ReviewFlow Hub",
-          href: "/admin/reviewflow",
-          icon: <StarIcon className="w-4.5 h-4.5" />,
-          badge: pendingApprovalsCount > 0 ? pendingApprovalsCount : undefined,
-          active: pathname === "/admin/reviewflow",
-        },
-        {
           label: "Review QR Codes",
           href: "/admin/review-qr",
           icon: <QrCodeIcon className="w-4.5 h-4.5" />,
           active: pathname.startsWith("/admin/review-qr"),
-        },
-        {
-          label: "Businesses",
-          href: "/admin/businesses",
-          icon: <BuildingIcon className="w-4.5 h-4.5" />,
-          active: pathname.startsWith("/admin/businesses"),
         },
       ],
     },

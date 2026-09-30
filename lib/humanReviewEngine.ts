@@ -857,55 +857,156 @@ export function structureCustomerReview({
     return arr[idx];
   };
 
-  // 1. Rating <= 2: Polite Constructive Feedback
-  if (rating <= 2) {
-    if (lang === "hi") {
-      return `${cleanName} के साथ हमारा अनुभव ठीक नहीं रहा। काम और रिस्पॉन्स में काफी सुधार की जरूरत महसूस हुई। आशा है कि मैनेजमेंट इस पर ध्यान देगा।`;
-    }
-    if (lang === "hinglish") {
-      return `${cleanName} ke sath experience thoda disappointing raha. Service aur response time me improvement ki zarurat hai.`;
-    }
-    if (lang === "mr") {
-      return `${cleanName} कडून सेवेत सुधारणा आवश्यक आहे. प्रतिसाद अपेक्षेप्रमाणे नव्हता.`;
-    }
-    return `Had an issue with ${cleanName}. The overall service response and customer handling needs improvement. Hope the management addresses this.`;
+  // Slot picker using sine hash (same rnd function already defined above, reuse it)
+  // -- 1 star: genuinely negative, varied templates --
+  if (rating === 1) {
+    const neg1 = {
+      en: [
+        `Really disappointed with ${cleanName}. Delivery was late and some items got damaged in transit. Would not recommend at all.`,
+        `Terrible experience with ${cleanName}. The staff was rude and completely unhelpful. Save yourself the trouble and go elsewhere.`,
+        `Very bad service from ${cleanName}. Items were mishandled and billing had hidden charges we were not told about. Avoid.`,
+        `Had a horrible experience with ${cleanName}. They were unprofessional and did not keep their promises on timing. Not worth it.`,
+        `Extremely disappointed. ${cleanName} messed up our shifting completely — broken items and no apology. Worst experience.`,
+        `Do not recommend ${cleanName}. The team arrived 4 hours late and the packing was careless. Multiple items were damaged.`,
+        `${cleanName} was a nightmare. Poor handling, rude behavior, and they demanded extra money after the job. Very bad.`,
+      ],
+      hi: [
+        `${cleanName} से बहुत निराशाजनक अनुभव रहा। सामान डैमेज हुआ और समय पर डिलीवरी नहीं मिली। बिल्कुल भी रिकमेंड नहीं करूंगा।`,
+        `${cleanName} की सर्विस बहुत खराब रही। स्टाफ का व्यवहार असभ्य था और कोई जिम्मेदारी नहीं ली। कभी मत लगाइए इन्हें।`,
+        `${cleanName} से बहुत बुरा अनुभव। कई सामान टूट गए और छिपे हुए चार्ज भी लगाए। पैसे बर्बाद हुए।`,
+        `${cleanName} बिल्कुल भरोसेमंद नहीं हैं। तय समय से काफी देर से आए और पैकिंग भी लापरवाही से की। नुकसान हुआ।`,
+        `${cleanName} से बेहद निराशाजनक अनुभव। काम ठीक से नहीं हुआ और बाद में पैसे भी ज्यादा मांगे। बिल्कुल अवॉयड करें।`,
+      ],
+      hinglish: [
+        `${cleanName} ke sath bahut bura experience raha. Samaan damage ho gaya aur time par delivery nahi mili. Bilkul recommend nahi karunga.`,
+        `${cleanName} ne kaam theek se nahi kiya. Staff rude tha aur baad mein extra paise maange. Avoid karo inhe.`,
+        `Bahut disappointed hun ${cleanName} se. Packing bekar thi, kaafi cheezein toot gayi. Paise barbaad kiye.`,
+        `${cleanName} bohot unprofessional hai. Kaafi late aaye aur koi zimmedari nahi li. Kabhi mat lagao inhe.`,
+        `${cleanName} se ek baar aur galti nahi karunga. Late, careless aur extra charges — worst experience.`,
+      ],
+      mr: [
+        `${cleanName} कडून सेवा अत्यंत खराब होती. साहित्य खराब झाले आणि वेळ पाळला गेला नाही. अजिबात शिफारस नाही.`,
+        `${cleanName} चा अनुभव खूपच वाईट राहिला. कर्मचारी असभ्य होते आणि नंतर जास्त पैसे मागितले.`,
+        `${cleanName} वर पूर्णपणे नाराज आहे. पॅकिंग निष्काळजीपणे केली आणि वस्तू खराब झाल्या. टाळा.`,
+      ],
+    };
+    const arr = neg1[lang] || neg1["en"];
+    const idx = Math.floor(Math.abs(Math.sin(seed * 1337) * 10000)) % arr.length;
+    return arr[idx];
   }
 
-  // 2. Rating === 3: Neutral Feedback
+  // -- 2 stars: below average, somewhat negative --
+  if (rating === 2) {
+    const neg2 = {
+      en: [
+        `Below average experience with ${cleanName}. Some things went wrong and response was very slow. Needs improvement.`,
+        `Not satisfied with ${cleanName}. The work was done but quality was poor and communication was lacking throughout.`,
+        `Expected better from ${cleanName}. Delays happened and a couple of items were mishandled. Would not use again.`,
+        `${cleanName} was disappointing overall. The staff tried but the execution was sloppy. 2 stars — not recommended unless they improve.`,
+        `Mediocre experience with ${cleanName}. Got the job done but with too many issues. Would think twice before booking again.`,
+        `${cleanName} service was below expectations. Things were delayed and the pricing felt unfair for the quality offered.`,
+      ],
+      hi: [
+        `${cleanName} से संतोषजनक अनुभव नहीं रहा। काम तो हुआ लेकिन सर्विस क्वालिटी में काफी सुधार की जरूरत है।`,
+        `${cleanName} से उम्मीद से कम अनुभव रहा। देरी हुई और कुछ सामान भी ठीक से नहीं संभाला गया। 2 स्टार।`,
+        `${cleanName} की सर्विस में काफी सुधार होना चाहिए। संचार सही नहीं था और काम में भी लापरवाही दिखी।`,
+        `${cleanName} से निराश हूं। काम हो तो गया लेकिन तरीका सही नहीं था। दोबारा सोचूंगा।`,
+      ],
+      hinglish: [
+        `${cleanName} ke sath average se bhi kam experience raha. Kuch cheezein galat hui aur response bohot slow tha.`,
+        `${cleanName} se zyada expect kar raha tha. Kaam hua but quality bekar thi. 2 star se zyada nahi.`,
+        `${cleanName} thoda aur better ho sakta hai. Delays bhi thi aur communication bhi achi nahi thi.`,
+        `${cleanName} disappointing raha. Staff ne koshish ki but execution sahi nahi tha. Improve karna chahiye.`,
+      ],
+      mr: [
+        `${cleanName} कडील अनुभव अपेक्षेपेक्षा कमी राहिला. काम झाले पण गुणवत्ता सुधारणे आवश्यक आहे.`,
+        `${cleanName} बद्दल समाधान नाही. उशीर झाला आणि सेवेत त्रुटी राहिल्या. सुधारणा अपेक्षित.`,
+        `${cleanName} कडून निराशा झाली. कामाचा दर्जा खराब होता आणि संवाद अपुरा होता.`,
+      ],
+    };
+    const arr = neg2[lang] || neg2["en"];
+    const idx = Math.floor(Math.abs(Math.sin(seed * 2741) * 10000)) % arr.length;
+    return arr[idx];
+  }
+
+  // -- 3 stars: mixed/neutral --
   if (rating === 3) {
-    if (lang === "hi") {
-      return `${cleanName} के साथ अनुभव सामान्य रहा। काम ठीक-ठाक हुआ लेकिन कुछ चीजों में और सुधार हो सकता है।`;
-    }
-    if (lang === "hinglish") {
-      return `${cleanName} ke sath average experience raha. Kaam theek tha but customer coordination thoda aur better ho sakta hai.`;
-    }
-    if (lang === "mr") {
-      return `${cleanName} कडील सेवा सरासरी होती. काम ठीक झाले पण आणखी सुधारणा अपेक्षित आहे.`;
-    }
-    return `Decent experience with ${cleanName}. The work was satisfactory, though there is some room for improvement. Overall okay.`;
+    const neutral = {
+      en: [
+        `Decent experience with ${cleanName}. The work was satisfactory, though there is some room for improvement. Overall okay.`,
+        `Mixed feelings about ${cleanName}. Some things were good, others could have been better. Average service overall.`,
+        `${cleanName} did an okay job. Not great, not terrible. A few things could have been handled more carefully.`,
+        `Average experience with ${cleanName}. The basics were covered but nothing went above and beyond. 3 stars.`,
+        `Okay service from ${cleanName}. Punctuality was decent but communication could be better. Room to improve.`,
+        `${cleanName} was alright. Got the job done but felt a bit rushed and quality was average. Fair rating.`,
+      ],
+      hi: [
+        `${cleanName} के साथ अनुभव सामान्य रहा। काम ठीक-ठाक हुआ लेकिन कुछ चीजों में और सुधार हो सकता है।`,
+        `${cleanName} की सर्विस औसत दर्जे की रही। कुछ चीजें ठीक थीं, कुछ में सुधार की जरूरत है।`,
+        `${cleanName} ने काम तो किया लेकिन क्वालिटी में और कंसिस्टेंसी चाहिए। 3 स्टार।`,
+        `${cleanName} के साथ मिला-जुला अनुभव। अच्छा भी था और सुधार की गुंजाइश भी है। ठीक-ठाक।`,
+      ],
+      hinglish: [
+        `${cleanName} ke sath average experience raha. Kaam theek tha but coordination thoda aur better ho sakta tha.`,
+        `${cleanName} se zyada expect kiya tha. Basics cover hue but kuch cheezein aur sahi ho sakti thi. 3 stars.`,
+        `${cleanName} theek hai. Na bohot achha na bohot bura. Kuch aur dhyan de sakte the.`,
+        `Mixed experience raha ${cleanName} ke sath. Kuch aspects achhe the, kuch mein improvement chahiye.`,
+      ],
+      mr: [
+        `${cleanName} कडील सेवा सरासरी होती. काम ठीक झाले पण आणखी सुधारणा अपेक्षित आहे.`,
+        `${cleanName} बद्दल मिश्र अनुभव. काही गोष्टी चांगल्या होत्या, काहींमध्ये सुधारणा हवी.`,
+        `${cleanName} ठीक होते. मूलभूत सेवा मिळाली पण जास्त अपेक्षा ठेवल्या होत्या.`,
+      ],
+    };
+    const arr = neutral[lang] || neutral["en"];
+    const idx = Math.floor(Math.abs(Math.sin(seed * 3571) * 10000)) % arr.length;
+    return arr[idx];
   }
 
-  // 3. Rating === 4: Solid 4-Star Satisfaction (without word repetition)
+  // -- 4 stars: good, positive with minor note --
   if (rating === 4) {
-    if (lang === "hi") {
-      if (catKey === "Packers & Movers") {
-        return `${cleanName} से सामान की शिफ्टिंग कराई और अनुभव काफी अच्छा रहा। टीम समय पर आई और सारा सामान सुरक्षित पहुंचाया। 4 स्टार!`;
-      }
-      return `${cleanName} के साथ अनुभव काफी अच्छा और सकारात्मक रहा। काम समय पर हुआ और स्टाफ का सहयोग भी बढ़िया था। 4 स्टार रेटिंग!`;
-    }
-    if (lang === "hinglish") {
-      if (catKey === "Packers & Movers") {
-        return `${cleanName} se shifting karwayi aur kaafi achha experience raha. Staff ne saara samaan time par aur safely deliver kiya. Solid 4 stars!`;
-      }
-      return `${cleanName} ke sath experience kaafi achha raha. Staff supportive tha aur kaam samay par hua. 4 stars meri taraf se!`;
-    }
-    if (lang === "mr") {
-      return `${cleanName} सोबतचा अनुभव चांगला राहिला. काम वेळेत पूर्ण झाले आणि कर्मचाऱ्यांचे उत्तम सहकार्य मिळाले. समाधानकारक काम, ४ स्टार!`;
-    }
-    if (catKey === "Packers & Movers") {
-      return `Shifted our household items with ${cleanName} and had a very good experience overall. The team arrived on time and handled our goods with care. Solid 4-star service.`;
-    }
-    return `Very good experience with ${cleanName}. The staff was supportive and handled everything smoothly. Solid 4 stars!`;
+    const pos4 = {
+      en: [
+        catKey === "Packers & Movers"
+          ? `Shifted our household items with ${cleanName} and had a very good experience overall. The team arrived on time and handled our goods with care. Solid 4-star service.`
+          : `Very good experience with ${cleanName}. The staff was supportive and handled everything smoothly. Solid 4 stars!`,
+        catKey === "Packers & Movers"
+          ? `${cleanName} did a great job with our relocation. Packing was done neatly and delivery was on schedule. Minor delay but overall excellent. 4 stars.`
+          : `Happy with the service at ${cleanName}. Good quality and professional staff. Just a tiny bit of room to improve, hence 4 stars.`,
+        catKey === "Packers & Movers"
+          ? `Good experience shifting with ${cleanName}. Team was polite and careful with fragile items. Would hire again. 4 stars.`
+          : `${cleanName} provided really good service. Responsive team and quality work. One small hiccup but overall worth 4 stars.`,
+        catKey === "Packers & Movers"
+          ? `Used ${cleanName} for our move and they delivered. Timely, careful, and professional. One minor issue but overall great.`
+          : `${cleanName} was great to work with. Professional team, good communication. Would recommend, 4 stars from me.`,
+      ],
+      hi: [
+        catKey === "Packers & Movers"
+          ? `${cleanName} से सामान की शिफ्टिंग कराई और अनुभव काफी अच्छा रहा। टीम समय पर आई और सारा सामान सुरक्षित पहुंचाया। 4 स्टार!`
+          : `${cleanName} के साथ अनुभव काफी अच्छा और सकारात्मक रहा। स्टाफ का सहयोग भी बढ़िया था। 4 स्टार रेटिंग!`,
+        catKey === "Packers & Movers"
+          ? `${cleanName} ने शिफ्टिंग अच्छे से की। पैकिंग भी मजबूत थी और डिलीवरी समय पर हुई। एक छोटी सी कमी थी पर कुल मिलाकर बढ़िया।`
+          : `${cleanName} से काफी संतुष्ट हूं। काम अच्छा हुआ और टीम प्रोफेशनल थी। थोड़ा और बेहतर हो सकता था।`,
+        `${cleanName} से 4 स्टार का अनुभव रहा। अच्छी सर्विस और सहयोगी स्टाफ। थोड़ा और ध्यान दें तो 5 भी होंगे।`,
+      ],
+      hinglish: [
+        catKey === "Packers & Movers"
+          ? `${cleanName} se shifting karwayi aur kaafi achha experience raha. Staff ne saara samaan time par aur safely deliver kiya. Solid 4 stars!`
+          : `${cleanName} ke sath experience kaafi achha raha. Staff supportive tha aur kaam samay par hua. 4 stars!`,
+        catKey === "Packers & Movers"
+          ? `${cleanName} ne shifting acchi tarah se ki. Packing solid thi aur delivery on time. Ek choti si issue thi par overall 4 stars.`
+          : `${cleanName} se satisfied hun. Acha kaam kiya aur communication bhi theek thi. 4 stars meri taraf se.`,
+        `${cleanName} kaafi professional hai. Kaam achha hua, staff helpful tha. Thoda aur improve karein to 5 bhi deta.`,
+      ],
+      mr: [
+        `${cleanName} सोबतचा अनुभव चांगला राहिला. काम वेळेत पूर्ण झाले आणि कर्मचाऱ्यांचे उत्तम सहकार्य मिळाले. ४ स्टार!`,
+        `${cleanName} कडून समाधानकारक सेवा मिळाली. एक लहानशी उणीव सोडल्यास सर्व ठीक राहिले. ४ स्टार.`,
+        `${cleanName} चे काम चांगले होते. व्यावसायिकता चांगली होती, थोडी सुधारणा झाली तर ५ देईन.`,
+      ],
+    };
+    const arr = pos4[lang] || pos4["en"];
+    const idx = Math.floor(Math.abs(Math.sin(seed * 4903) * 10000)) % arr.length;
+    return arr[idx];
   }
 
   // 4. Rating >= 5: Genuine, High-Quality 5-Star Review

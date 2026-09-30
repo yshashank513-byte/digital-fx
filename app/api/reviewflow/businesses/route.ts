@@ -120,11 +120,19 @@ export async function POST(request: Request) {
       cleanReviewUrl = `https://${cleanReviewUrl}`;
     }
 
-    if (!cleanReviewUrl || !isValidUrl(cleanReviewUrl)) {
-      return NextResponse.json(
-        { success: false, error: "Please enter a valid HTTP/HTTPS Google Review URL." },
-        { status: 400 }
-      );
+    const isDraft = requestedStatus === "draft";
+
+    if (!isDraft) {
+      if (!cleanReviewUrl || !isValidUrl(cleanReviewUrl)) {
+        return NextResponse.json(
+          { success: false, error: "Please enter a valid HTTP/HTTPS Google Review URL." },
+          { status: 400 }
+        );
+      }
+    } else {
+      if (cleanReviewUrl && !isValidUrl(cleanReviewUrl)) {
+        cleanReviewUrl = "";
+      }
     }
 
     const cleanAddress = address && typeof address === "string" && address.trim().length >= 2
@@ -133,7 +141,7 @@ export async function POST(request: Request) {
 
     const cleanPhone = phone && typeof phone === "string" && phone.replace(/\D/g, "").length >= 10
       ? phone.trim()
-      : "+91 93198 07273";
+      : (isDraft ? (phone ? String(phone).trim() : "") : "+91 93198 07273");
 
     if (email && typeof email === "string" && email.trim() && !isValidEmail(email.trim())) {
       return NextResponse.json(
@@ -149,9 +157,21 @@ export async function POST(request: Request) {
       );
     }
 
-    // Duplicate Check: If exact business name exists and no ID provided, update it seamlessly
-    const duplicateCheck = await checkDuplicateBusiness(name, cleanReviewUrl);
-    let targetId = body.id || (duplicateCheck.isDuplicate && duplicateCheck.matchedField === "Business Name" ? duplicateCheck.matchedId : undefined);
+    // Duplicate Check: If registering a new business (no body.id) and exact name/URL exists, return 409
+    if (!body.id) {
+      const duplicateCheck = await checkDuplicateBusiness(name, cleanReviewUrl);
+      if (duplicateCheck.isDuplicate) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: `A business with this ${duplicateCheck.matchedField} already exists ("${duplicateCheck.matchedId}"). Please use a unique name or edit the existing business.`,
+          },
+          { status: 409 }
+        );
+      }
+    }
+
+    let targetId = body.id;
 
     // Default status: Active for admin generation, unless draft or pending_approval explicitly requested
     const initialStatus: QRStatus =

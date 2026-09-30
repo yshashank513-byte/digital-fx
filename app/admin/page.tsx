@@ -296,7 +296,7 @@ export default function AdminDashboardPage() {
         message: fullRecord?.message || `Service requested: ${act.service}`,
       });
     } else if (act.type === "review") {
-      window.location.href = "/admin/businesses";
+      window.location.href = "/admin/review-qr";
     }
   }
 
@@ -486,7 +486,7 @@ export default function AdminDashboardPage() {
 
         {/* Card 2: TOTAL BUSINESSES */}
         <Link
-          href="/admin/businesses"
+          href="/admin/review-qr"
           className="group relative rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition hover:border-purple-400/50 hover:shadow-md flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">

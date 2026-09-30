@@ -5,52 +5,48 @@ import { checkRateLimit, getClientIp, rateLimitExceededResponse } from "@/lib/ra
 
 export const dynamic = "force-dynamic";
 
-/**
- * Call Google Gemini 1.5/2.0 Flash (Free Tier)
- */
+// ──────────────────────────────────────────────────────────────────────────────
+// GEMINI API — correct model names as returned by /v1beta/models endpoint
+// ──────────────────────────────────────────────────────────────────────────────
 async function callGeminiReviewAPI(apiKey: string, prompt: string): Promise<string | null> {
-  const models = ["gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-3.5-flash", "gemini-flash-latest"];
+  const models = [
+    "gemini-flash-latest",
+    "gemini-flash-lite-latest",
+    "gemini-2.5-flash-lite",
+    "gemini-pro-latest",
+  ];
 
   for (const model of models) {
     try {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           contents: [{ role: "user", parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.85,
-            maxOutputTokens: 120,
-          },
+          generationConfig: { temperature: 0.95, maxOutputTokens: 130 },
         }),
-        signal: AbortSignal.timeout(5000),
+        signal: AbortSignal.timeout(6000),
       });
 
       if (response.ok) {
         const data = await response.json();
         const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-        if (text) {
-          return text.replace(/^["']|["']$/g, "").trim();
-        }
+        if (text) return text.replace(/^["']|["']$/g, "").trim();
       }
+      // 429 or 404 — try next model
     } catch (_) {
-      // Try next model if timeout or error
       continue;
     }
   }
-
   return null;
 }
 
-/**
- * Call Groq Cloud Free Tier API
- */
+// ──────────────────────────────────────────────────────────────────────────────
+// GROQ API
+// ──────────────────────────────────────────────────────────────────────────────
 async function callGroqReviewAPI(apiKey: string, prompt: string): Promise<string | null> {
-  const url = "https://api.groq.com/openai/v1/chat/completions";
-
-  const response = await fetch(url, {
+  const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -66,24 +62,21 @@ async function callGroqReviewAPI(apiKey: string, prompt: string): Promise<string
         },
         { role: "user", content: prompt },
       ],
-      temperature: 0.85,
-      max_tokens: 120,
+      temperature: 0.92,
+      max_tokens: 130,
     }),
     signal: AbortSignal.timeout(6000),
   });
 
-  if (!response.ok) {
-    throw new Error(`Groq returned ${response.status}`);
-  }
-
+  if (!response.ok) throw new Error(`Groq returned ${response.status}`);
   const data = await response.json();
   const text = data?.choices?.[0]?.message?.content?.trim();
   return text ? text.replace(/^["']|["']$/g, "").trim() : null;
 }
 
-/**
- * Call OpenAI API
- */
+// ──────────────────────────────────────────────────────────────────────────────
+// OPENAI API
+// ──────────────────────────────────────────────────────────────────────────────
 async function callOpenAIReviewAPI(apiKey: string, prompt: string): Promise<string | null> {
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
@@ -101,53 +94,113 @@ async function callOpenAIReviewAPI(apiKey: string, prompt: string): Promise<stri
         },
         { role: "user", content: prompt },
       ],
-      temperature: 0.85,
-      max_tokens: 120,
+      temperature: 0.92,
+      max_tokens: 130,
     }),
     signal: AbortSignal.timeout(6000),
   });
 
-  if (!response.ok) {
-    throw new Error(`OpenAI returned ${response.status}`);
-  }
-
+  if (!response.ok) throw new Error(`OpenAI returned ${response.status}`);
   const data = await response.json();
   const text = data?.choices?.[0]?.message?.content?.trim();
   return text ? text.replace(/^["']|["']$/g, "").trim() : null;
 }
 
-function getCategoryPromptContext(category: string): string {
-  const c = (category || "").toLowerCase();
-  if (c.includes("packer") || c.includes("mover") || c.includes("shift") || c.includes("logistics")) {
-    return "Category context: Packers & Movers service. Focus on household/office shifting, bubble wrapping, safe delivery of fragile items/appliances, polite loading crew, punctuality, and zero damages. Do NOT say 'visited'.";
+// ──────────────────────────────────────────────────────────────────────────────
+// RATING-AWARE TONE  (critical fix: 1★ = negative, 5★ = positive)
+// ──────────────────────────────────────────────────────────────────────────────
+function getRatingTone(rating: number): string {
+  switch (rating) {
+    case 1:
+      return "1-STAR NEGATIVE REVIEW. Customer is genuinely frustrated and disappointed. Mention real problems like delays, damage, rude staff, overcharging, poor handling or broken items. Sound angry or upset — like a real dissatisfied customer. Do NOT include any positive words.";
+    case 2:
+      return "2-STAR BELOW AVERAGE REVIEW. Customer had a bad experience overall. Mention specific issues (something went wrong, expectations not met). Slightly disappointed tone. One small positive is okay but the overall feeling should be negative.";
+    case 3:
+      return "3-STAR AVERAGE REVIEW. Mixed experience. Something was good, something was not. Balanced, neutral tone. Suggest there is room for improvement.";
+    case 4:
+      return "4-STAR GOOD REVIEW. Customer is happy and satisfied overall. Mention what worked well. One minor thing could be better. Mostly positive tone.";
+    case 5:
+    default:
+      return "5-STAR EXCELLENT REVIEW. Customer is very happy, impressed, and fully satisfied. Enthusiastic but genuine and natural. Mention specific positive things about the service/experience.";
   }
-  if (c.includes("jewel") || c.includes("gold") || c.includes("diamond")) {
-    return "Category context: Jewellery Store. Focus on hallmark purity, bridal/festive designs, welcoming showroom staff, transparent billing, and trust.";
-  }
-  if (c.includes("restau") || c.includes("cafe") || c.includes("food") || c.includes("dining")) {
-    return "Category context: Restaurant/Cafe. Focus on delicious freshly prepared food, hygiene, warm hospitality, quick service, and great family vibe.";
-  }
-  if (c.includes("clinic") || c.includes("doctor") || c.includes("hospital") || c.includes("dental") || c.includes("health")) {
-    return "Category context: Clinic / Doctor. Focus on doctor consultation, gentle diagnosis, clinic hygiene, polite receptionist, and effective treatment.";
-  }
-  if (c.includes("salon") || c.includes("spa") || c.includes("beauty")) {
-    return "Category context: Salon & Spa. Focus on hair styling/grooming, clean equipment, skilled stylists, relaxing experience, and polite staff.";
-  }
-  if (c.includes("hotel") || c.includes("resort") || c.includes("stay")) {
-    return "Category context: Hotel & Stay. Focus on clean comfortable rooms, courteous front desk, quick room service, and pleasant hospitality.";
-  }
-  if (c.includes("real estate") || c.includes("property")) {
-    return "Category context: Real Estate. Focus on transparent documentation, genuine site visits, honest advisory, and reliable property deals.";
-  }
-  if (c.includes("market") || c.includes("digital") || c.includes("seo") || c.includes("agency")) {
-    return "Category context: Digital Marketing & SEO. Focus on Google ranking improvements, genuine leads, transparent updates, and responsive support.";
-  }
-  if (c.includes("auto") || c.includes("car") || c.includes("bike") || c.includes("garage")) {
-    return "Category context: Automobile / Workshop. Focus on smooth vehicle service/delivery, genuine spare parts, timely updates, and courteous staff.";
-  }
-  return `Category context: ${category}. Focus on prompt customer service, professional execution, reasonable rates, and trustworthy staff.`;
 }
 
+function getCategoryContext(category: string): string {
+  const c = (category || "").toLowerCase();
+  if (c.includes("packer") || c.includes("mover") || c.includes("shift") || c.includes("logistics"))
+    return "Packers & Movers service. Topics: shifting, bubble wrapping, safe delivery of fragile items, polite loading crew, punctuality, zero damages. Never say 'visited' — say 'booked them', 'hired them', 'shifted with them'.";
+  if (c.includes("jewel") || c.includes("gold") || c.includes("diamond"))
+    return "Jewellery Store. Topics: hallmark purity, bridal/festive designs, welcoming staff, transparent billing.";
+  if (c.includes("restau") || c.includes("cafe") || c.includes("food") || c.includes("dining"))
+    return "Restaurant/Cafe. Topics: food quality, hygiene, warm hospitality, quick service, taste.";
+  if (c.includes("clinic") || c.includes("doctor") || c.includes("hospital") || c.includes("dental") || c.includes("health"))
+    return "Clinic/Doctor. Topics: consultation, diagnosis, clinic hygiene, polite receptionist, treatment effectiveness.";
+  if (c.includes("salon") || c.includes("spa") || c.includes("beauty"))
+    return "Salon & Spa. Topics: hair styling, clean equipment, skilled stylists, relaxing experience.";
+  if (c.includes("hotel") || c.includes("resort") || c.includes("stay"))
+    return "Hotel & Stay. Topics: clean rooms, courteous front desk, room service, hospitality.";
+  if (c.includes("real estate") || c.includes("property"))
+    return "Real Estate. Topics: transparent docs, genuine site visits, honest advisory, reliable deals.";
+  if (c.includes("market") || c.includes("digital") || c.includes("seo") || c.includes("agency"))
+    return "Digital Marketing. Topics: Google ranking, genuine leads, transparent updates, responsive support.";
+  if (c.includes("auto") || c.includes("car") || c.includes("bike") || c.includes("garage"))
+    return "Automobile/Workshop. Topics: vehicle service, genuine spare parts, timely updates, courteous staff.";
+  return `${category} service. Topics: customer service quality, professionalism, pricing, and staff behavior.`;
+}
+
+function getLangInstruction(lang: string): string {
+  const map: Record<string, string> = {
+    en: "Natural everyday Indian English, relaxed phone-typing style, short sentences.",
+    hi: "Authentic spoken Hindi in Devanagari script (हिंदी). Warm and genuine.",
+    hinglish: "Romanized Hindi/Hinglish like 'kaam achha tha, team ne help ki'. Casual mobile typing tone.",
+    mr: "Natural Marathi (मराठी script). Respectful regional phrasing.",
+  };
+  return map[lang] || map["en"];
+}
+
+// Unique sentence starter per seed to prevent identical reviews
+function getSeedStarter(seed: number): string {
+  const starters = [
+    "", "Honestly,", "Recently used them.", "Just shifted recently,", "My experience:",
+    "First time using them,", "Used their service last week,", "Booked them last month,",
+    "To be honest,", "Just wanted to share,", "Had a recent experience,",
+  ];
+  return starters[Math.floor(Math.abs(seed) % starters.length)] || "";
+}
+
+function buildPrompt(params: {
+  businessName: string;
+  category: string;
+  rating: number;
+  lang: string;
+  aspects: string[];
+  userNotes: string;
+  seed: number;
+}): string {
+  const { businessName, category, rating, lang, aspects, userNotes, seed } = params;
+  const starter = getSeedStarter(seed);
+  return `Write a completely genuine Google Maps review for "${businessName}" (${category}).
+
+Language: ${getLangInstruction(lang)}
+Business type: ${getCategoryContext(category)}
+Star rating context: ${getRatingTone(rating)}
+${aspects.length > 0 ? `Customer highlighted: ${aspects.join(", ")}.` : ""}
+${userNotes ? `Customer notes: "${userNotes}".` : ""}
+${starter ? `Begin with: "${starter}"` : ""}
+Variation seed: ${Math.floor(Math.abs(seed) % 99999)}
+
+RULES (must follow strictly):
+1. Exactly 2 short sentences. Total 25-45 words.
+2. Sound like a real Indian customer typing on phone. No AI marketing words.
+3. Sentiment MUST match the rating — 1 star = genuinely negative/frustrated, 5 stars = genuinely positive/happy.
+4. Never use: "exemplary", "testament", "unparalleled", "beacon", "pinnacle", "seamless", "exceptional", "delighted".
+5. Do not repeat any word twice.
+6. Return ONLY the review text. No quotes, no labels, no commentary.`;
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// POST Handler
+// ──────────────────────────────────────────────────────────────────────────────
 export async function POST(request: Request) {
   try {
     const clientIp = getClientIp(request);
@@ -171,105 +224,86 @@ export async function POST(request: Request) {
       keywords = [],
       userNotes = "",
       sessionId,
-      seed = Date.now() + Math.random() * 10000,
+      seed = Date.now() + Math.random() * 99999,
     } = body;
 
     const ratingNum = Math.min(5, Math.max(1, Number(customerRating) || 5));
     const lang = (["en", "hi", "hinglish", "mr"].includes(language) ? language : "en") as SupportedLanguage;
-    const combinedKeywords = Array.isArray(prompts) && prompts.length > 0 ? prompts : keywords;
+    const aspects = Array.isArray(prompts) && prompts.length > 0 ? prompts : (keywords || []);
+    const seedNum = Number(seed) || (Date.now() + Math.random() * 99999);
 
     let generatedDraft = "";
     let providerUsed = "local-neural";
 
-    // Build anti-duplicate prompt for external LLM if available
-    const langDescriptions: Record<SupportedLanguage, string> = {
-      en: "Natural, everyday Indian English. Relaxed phone-typing style. No robotic AI buzzwords.",
-      hi: "Authentic spoken Hindi in Devanagari script (हिंदी). Polite, warm, and genuine.",
-      hinglish: "Romanized Hindi / Hinglish (e.g. 'kaam bohot achha tha, team ne ache se support kiya'). Casual colloquial tone.",
-      mr: "Natural Marathi script (मराठी). Genuine and respectful regional phrasing.",
-    };
+    const aiPrompt = buildPrompt({
+      businessName,
+      category,
+      rating: ratingNum,
+      lang,
+      aspects,
+      userNotes,
+      seed: seedNum,
+    });
 
-    const aspectContext = combinedKeywords.length > 0 ? `Specific highlights: ${combinedKeywords.join(", ")}.` : "";
-    const notesContext = userNotes ? `Customer notes: "${userNotes}".` : "";
-
-    const categoryGuidance = getCategoryPromptContext(category);
-
-    const aiPrompt = `Write a completely genuine, 100% natural Google Maps review for "${businessName}" (${category}).
-Language: ${langDescriptions[lang]}
-Customer Rating: ${ratingNum}/5 stars
-${categoryGuidance}
-${aspectContext}
-${notesContext}
-
-STRICT HUMAN-LIKE REQUIREMENTS:
-1. Write exactly 2 short sentences (20-35 words total).
-2. Sound like a real Indian customer casually typing on their mobile phone on Google Maps after a great experience.
-3. NEVER sound like promotional marketing AI. Strictly avoid words like: "exemplary", "testament", "delighted", "unparalleled", "beacon", "look no further", "pinnacle", "seamless", "exceptional".
-4. Do NOT repeat the same word (e.g. do not repeat the word "service" twice).
-5. If the business is a service (like Packers & Movers or Agency), do NOT say you visited them. Say you shifted with them, booked them, or hired them.
-6. Return ONLY the review text. Do not wrap in quotes or add commentary.`;
-
-    // 1. Try Google Gemini API
+    // 1. Try Google Gemini (priority)
     const geminiKey = process.env.GEMINI_API_KEY?.trim();
     if (!generatedDraft && geminiKey) {
       try {
         const text = await callGeminiReviewAPI(geminiKey, aiPrompt);
         if (text) {
           generatedDraft = text;
-          providerUsed = "Google Gemini AI";
+          providerUsed = "Digital FX Neural AI";
         }
-      } catch (geminiErr) {
-        console.warn("Gemini review API skipped:", geminiErr);
+      } catch (e) {
+        console.warn("Gemini skipped:", e);
       }
     }
 
-    // 2. Try Groq Free Tier API
+    // 2. Try Groq fallback
     const groqKey = process.env.GROQ_API_KEY?.trim();
     if (!generatedDraft && groqKey) {
       try {
         const text = await callGroqReviewAPI(groqKey, aiPrompt);
         if (text) {
           generatedDraft = text;
-          providerUsed = "Groq Llama-3.3-70b";
+          providerUsed = "Digital FX Neural AI";
         }
-      } catch (groqErr) {
-        console.warn("Groq review API skipped:", groqErr);
+      } catch (e) {
+        console.warn("Groq skipped:", e);
       }
     }
 
-    // 3. Try OpenAI API
+    // 3. Try OpenAI fallback
     const openAiKey = process.env.OPENAI_API_KEY?.trim();
     if (!generatedDraft && openAiKey && openAiKey.startsWith("sk-")) {
       try {
         const text = await callOpenAIReviewAPI(openAiKey, aiPrompt);
         if (text) {
           generatedDraft = text;
-          providerUsed = "OpenAI GPT-4o-mini";
+          providerUsed = "Digital FX Neural AI";
         }
-      } catch (openAiErr) {
-        console.warn("OpenAI review API skipped:", openAiErr);
+      } catch (e) {
+        console.warn("OpenAI skipped:", e);
       }
     }
 
-    // 4. Guaranteed High-Entropy Neural Engine Fallback (0ms latency, zero duplicates)
+    // 4. Local high-entropy fallback
     if (!generatedDraft) {
       generatedDraft = structureCustomerReview({
         businessName,
         category,
         rating: ratingNum,
-        keywords: combinedKeywords,
+        keywords: aspects,
         userNotes,
         language: lang,
-        seed: Number(seed) || Date.now() + Math.random() * 50000,
+        seed: seedNum,
       });
-      providerUsed = "Digital FX Neural Synthesizer";
+      providerUsed = "Digital FX Neural AI";
     }
 
-    // Record draft analytics
+    // Analytics
     if (businessId) {
-      try {
-        await recordDraft(businessId);
-      } catch (_) {}
+      try { await recordDraft(businessId); } catch (_) {}
     }
 
     if (sessionId) {
@@ -279,7 +313,7 @@ STRICT HUMAN-LIKE REQUIREMENTS:
           businessId,
           category,
           customerRating: ratingNum,
-          answers: { prompts: combinedKeywords, userNotes },
+          answers: { prompts: aspects, userNotes },
           generatedDraft,
           finalReviewText: generatedDraft,
           completed: false,
@@ -298,10 +332,7 @@ STRICT HUMAN-LIKE REQUIREMENTS:
   } catch (error: any) {
     console.error("ReviewFlow generate-draft error:", error);
     return NextResponse.json(
-      {
-        success: false,
-        error: error.message || "Failed to generate review draft",
-      },
+      { success: false, error: error.message || "Failed to generate review draft" },
       { status: 500 }
     );
   }

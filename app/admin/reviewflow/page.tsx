@@ -59,22 +59,8 @@ export default function ReviewFlowOverviewPage() {
   const totalReviewsCount = analytics?.totalGoogleClicks ?? businesses.reduce((acc, b) => acc + (b.totalGoogleClicks || 0), 0);
   const campaignsCount = 0; // Active outreach campaigns
 
-  // The 5 Core Gradient Rectangle Modules (Exact 1:1 match to reference screenshot)
+  // The Core Gradient Rectangle Modules
   const modules = [
-    {
-      title: "Businesses",
-      subtitle: "Manage registered businesses and place details",
-      href: "/admin/businesses",
-      gradient: "from-[#3B82F6] via-[#2563EB] to-[#1D4ED8]",
-      arrowColor: "text-[#2563EB]",
-      icon: (
-        <svg className="w-8 h-8 text-[#2563EB]" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M19 2H9c-1.1 0-2 .9-2 2v2H5c-1.1 0-2 .9-2 2v14h18V4c0-1.1-.9-2-2-2zm-8 2h8v16h-4v-4H9v4H5V8h2V4h4zm-4 6h2v2H7v-2zm0 4h2v2H7v-2zm6-8h2v2h-2V6zm0 4h2v2h-2v-2zm4-4h2v2h-2V6zm0 4h2v2h-2v-2z" />
-        </svg>
-      ),
-      count: activeCount,
-      countLabel: "Active Businesses",
-    },
     {
       title: "Review QR Codes",
       subtitle: "Create and manage branded QR codes",
