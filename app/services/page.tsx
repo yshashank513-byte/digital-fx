@@ -609,7 +609,7 @@ export default function ServicesPage() {
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/20 blur-[120px] rounded-full pointer-events-none" />
 
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10 text-center">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 relative z-10 text-center">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-300 text-xs font-extrabold uppercase tracking-widest mb-6">
             <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
             360° Digital Growth &amp; Technology Divisions
@@ -617,7 +617,7 @@ export default function ServicesPage() {
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight max-w-4xl mx-auto">
             Performance Marketing &amp; Tech Capabilities{" "}
-            <span className="font-[var(--font-playfair)] italic font-normal text-blue-400 block sm:inline">
+            <span className="text-[#38bdf8] block sm:inline font-bold">
               Engineered for Revenue
             </span>
           </h1>
@@ -649,7 +649,7 @@ export default function ServicesPage() {
       </section>
 
       {/* 4. FILTER TABS & SERVICE CARDS GRID */}
-      <section className="py-16 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+      <section className="py-16 max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
         {/* Category Navigation Bar */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
           {(["All", "Performance", "Search", "Tech", "Direct"] as const).map((tab) => (
@@ -658,7 +658,7 @@ export default function ServicesPage() {
               onClick={() => setActiveTab(tab)}
               className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeTab === tab
-                  ? "bg-[#207de9] text-white shadow-md shadow-blue-500/25 scale-105"
+                  ? "bg-[#1570ef] text-white shadow-md shadow-blue-500/25 scale-105"
                   : "bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"
               }`}
             >
@@ -675,7 +675,7 @@ export default function ServicesPage() {
           ))}
         </div>
 
-        {/* 13 SERVICES GRID - EXACT LAYOUT FROM USER'S SCREENSHOT */}
+        {/* 13 SERVICES GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {filteredServices.map((service) => (
             <div
@@ -683,7 +683,7 @@ export default function ServicesPage() {
               onClick={() => setSelectedService(service)}
               className="group relative bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-blue-300 transition-all duration-300 p-6 flex flex-col justify-between items-center text-center cursor-pointer overflow-hidden min-h-[360px]"
             >
-              {/* Service Illustration Container (Vector Graphic matching screenshot) */}
+              {/* Service Illustration Container */}
               <div className={`w-full h-44 rounded-xl ${service.bgLight} flex items-center justify-center p-4 mb-4 relative overflow-hidden transition-transform group-hover:scale-[1.02]`}>
                 <ServiceIllustration id={service.id} />
                 <span className="absolute top-3 right-3 text-[10px] font-black uppercase bg-white/90 px-2 py-0.5 rounded text-slate-500 border border-slate-200">
@@ -693,7 +693,7 @@ export default function ServicesPage() {
 
               {/* Service Title & Brief */}
               <div className="w-full flex-1 flex flex-col items-center justify-center mb-6">
-                <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight group-hover:text-[#207de9] transition-colors leading-snug">
+                <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight group-hover:text-[#1570ef] transition-colors leading-snug">
                   {service.title}
                 </h2>
                 <p className="text-xs text-slate-500 mt-2 line-clamp-2 font-medium px-1">
@@ -701,14 +701,14 @@ export default function ServicesPage() {
                 </p>
               </div>
 
-              {/* Signature Blue Button - "Know More →" matching screenshot */}
+              {/* Signature Blue Button - "Know More →" */}
               <button
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelectedService(service);
                 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#207de9] hover:bg-[#1a6bc7] text-white text-xs sm:text-sm font-bold px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all group-hover:bg-[#1a6bc7]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#1570ef] hover:bg-[#105fc7] text-white text-xs sm:text-sm font-bold px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all group-hover:bg-[#105fc7]"
               >
                 <span>Know More</span>
                 <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold leading-none">

@@ -879,10 +879,137 @@ const featuredStartups = [
   },
 ];
 
+const CORE_NAV_SERVICES = [
+  {
+    num: "01",
+    title: "Google Business + Local SEO",
+    tag: "Local Authority",
+    href: "/services",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+  },
+  {
+    num: "02",
+    title: "Website Development + Maintenance",
+    tag: "Custom Stacks",
+    href: "/services",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+      </svg>
+    ),
+  },
+  {
+    num: "03",
+    title: "ReviewFlow AI + NFC Review System",
+    tag: "Tap & Review",
+    href: "/reviewflow",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+      </svg>
+    ),
+  },
+  {
+    num: "04",
+    title: "WhatsApp Marketing Automation",
+    tag: "Instant Retargeting",
+    href: "/services",
+    icon: (
+      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm.01 1.67c4.55 0 8.25 3.7 8.25 8.24 0 2.2-.86 4.28-2.42 5.83-1.56 1.56-3.63 2.42-5.83 2.42-1.48 0-2.93-.39-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.188 8.188 0 01-1.25-4.39c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z" />
+      </svg>
+    ),
+  },
+  {
+    num: "05",
+    title: "Google Ads Management",
+    tag: "High-Intent PPC",
+    href: "/services",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+      </svg>
+    ),
+  },
+  {
+    num: "06",
+    title: "Social Media Management",
+    tag: "Creative & Growth",
+    href: "/services",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zm0 0V18m0-6.5a4.5 4.5 0 00-4.5 4.5V18m13.5-6.5a4.5 4.5 0 014.5 4.5V18" />
+      </svg>
+    ),
+  },
+  {
+    num: "07",
+    title: "AI Chatbot for Businesses",
+    tag: "24/7 Concierge",
+    href: "/services",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    ),
+  },
+  {
+    num: "08",
+    title: "Lead Management CRM",
+    tag: "Pipeline Tracking",
+    href: "/services",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
+    ),
+  },
+  {
+    num: "09",
+    title: "Missed Call → WhatsApp Automation",
+    tag: "Zero Lead Drop",
+    href: "/services",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      </svg>
+    ),
+  },
+  {
+    num: "10",
+    title: "Appointment & Booking System",
+    tag: "Instant Calendar",
+    href: "/services",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+    ),
+  },
+];
+
 export default function Home() {
   const [services, setServices] = useState<Service[]>(fallbackServices);
   const [liveRevenue, setLiveRevenue] = useState<number>(600000);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const servicesDropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleServicesMouseEnter = () => {
+    if (servicesDropdownTimeoutRef.current) clearTimeout(servicesDropdownTimeoutRef.current);
+    setServicesDropdownOpen(true);
+  };
+
+  const handleServicesMouseLeave = () => {
+    servicesDropdownTimeoutRef.current = setTimeout(() => {
+      setServicesDropdownOpen(false);
+    }, 180);
+  };
+
   const reviewsScrollRef = useRef<HTMLDivElement>(null);
 
   const scrollReviews = (direction: "left" | "right") => {
@@ -2089,8 +2216,8 @@ export default function Home() {
         {/* ==========================================================================
             2. WEBFX MAIN HEADER WITH DESKTOP NAVIGATION (#fxheader)
             ========================================================================== */}
-        <header id="fxheader" className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
-          <div className="mx-auto flex h-[78px] sm:h-[82px] max-w-[1680px] w-full items-center justify-between px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <header id="fxheader" className="relative sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all w-full">
+          <div className="relative mx-auto flex h-[78px] sm:h-[82px] max-w-[1680px] w-full items-center justify-between px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
 
             {/* Brand Logo - Official Digital FX Logo Always Linking Cleanly to "/" */}
             <Link href="/" className="flex items-center shrink-0 group min-w-0" aria-label="Digital FX Home">
@@ -2118,9 +2245,9 @@ export default function Home() {
 
               {/* Services with Interactive Top Dropdown Menu */}
               <div
-                className="relative"
-                onMouseEnter={() => setServicesDropdownOpen(true)}
-                onMouseLeave={() => setServicesDropdownOpen(false)}
+                className="py-2"
+                onMouseEnter={handleServicesMouseEnter}
+                onMouseLeave={handleServicesMouseLeave}
               >
                 <button
                   type="button"
@@ -2139,80 +2266,6 @@ export default function Home() {
                     <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </button>
-
-                {/* SERVICES DROPDOWN PANEL (Opens Smoothly at Top) */}
-                {servicesDropdownOpen && (
-                  <div
-                    style={{ width: "680px", maxWidth: "90vw" }}
-                    className="absolute left-1/2 -translate-x-1/2 top-full mt-3 bg-white rounded-3xl shadow-2xl border border-slate-200/90 p-5 z-[70] animate-fadeIn transition-all text-left"
-                  >
-                    <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-slate-100 px-1">
-                      <div>
-                        <div className="text-xs font-black uppercase tracking-wider text-[#207de9]">
-                          Core Growth Capabilities
-                        </div>
-                        <div className="text-[13px] font-bold text-slate-900 mt-0.5">
-                          Performance Marketing &amp; Search Engineering
-                        </div>
-                      </div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-[#1570ef] px-2.5 py-1 rounded-full border border-blue-200">
-                        13 Divisions
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2.5">
-                      {[
-                        { title: "Google Maps 3-Pack & Local SEO", desc: "Rank #1 across Ghaziabad & Delhi NCR with verified citations.", href: "/services", icon: "📍" },
-                        { title: "Performance Google & Meta Ads", desc: "High-ROAS search, shopping, and Instagram campaigns.", href: "/services", icon: "🚀" },
-                        { title: "High-Speed Next.js Web Development", desc: "Sub-second load times, mobile CRO, and Core Web Vitals.", href: "/services", icon: "⚡" },
-                        { title: "Generative AI Search & GEO", desc: "Structured entity citations in ChatGPT & Gemini.", href: "/services", icon: "🧠" },
-                        { title: "WhatsApp Funnels & CRM Automation", desc: "Automated 1-click WhatsApp customer routing & bookings.", href: "/services", icon: "💬" },
-                        { title: "Attributable Revenue Analytics", desc: "Closed-loop pipeline reporting connecting spend to revenue.", href: "/services", icon: "📊" },
-                      ].map((s, idx) => (
-                        <Link
-                          key={idx}
-                          href={s.href}
-                          onClick={() => setServicesDropdownOpen(false)}
-                          className="group flex items-start gap-3 p-3 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-200/80 transition-all"
-                        >
-                          <div className="w-9 h-9 rounded-xl bg-blue-50 group-hover:bg-[#207de9] group-hover:text-white flex items-center justify-center text-lg shrink-0 transition-colors">
-                            {s.icon}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <span className="text-xs font-bold text-slate-900 group-hover:text-[#207de9] transition-colors leading-tight block">
-                              {s.title}
-                            </span>
-                            <p className="text-[11px] text-slate-500 line-clamp-2 mt-1 leading-snug font-normal">
-                              {s.desc}
-                            </p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-
-                    <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between px-2">
-                      <a
-                        href="#services"
-                        onClick={() => {
-                          setServicesDropdownOpen(false);
-                          const el = document.getElementById("services");
-                          if (el) el.scrollIntoView({ behavior: "smooth" });
-                        }}
-                        className="text-xs font-bold text-slate-500 hover:text-slate-800 transition cursor-pointer"
-                      >
-                        ↓ Jump to 4-Stage Matrix on this page
-                      </a>
-                      <Link
-                        href="/services"
-                        onClick={() => setServicesDropdownOpen(false)}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#207de9] hover:text-[#1570ef] hover:underline"
-                      >
-                        <span>Explore All 13 Services</span>
-                        <span>→</span>
-                      </Link>
-                    </div>
-                  </div>
-                )}
               </div>
 
               <Link
@@ -2293,6 +2346,97 @@ export default function Home() {
                 </span>
               </button>
             </div>
+
+            {/* SERVICES DROPDOWN PANEL (Centered in Header, Slide-Down Animation) */}
+            {servicesDropdownOpen && (
+              <div
+                onMouseEnter={handleServicesMouseEnter}
+                onMouseLeave={handleServicesMouseLeave}
+                style={{ width: "880px", maxWidth: "94vw" }}
+                className="absolute left-1/2 -translate-x-1/2 top-full mt-1 bg-white rounded-3xl shadow-2xl border border-slate-200/90 p-5 sm:p-6 z-[70] animate-nav-slide-down transition-all text-left"
+              >
+                {/* Invisible hover bridge connecting header to dropdown */}
+                <div className="absolute -top-3 left-0 right-0 h-4 bg-transparent pointer-events-auto" />
+
+                {/* Dropdown Header */}
+                <div className="flex items-center justify-between pb-3 mb-3.5 border-b border-slate-100 px-1">
+                  <div>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-[10px] font-extrabold uppercase tracking-wider">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1570ef] animate-pulse" />
+                      Digital FX Core Solutions
+                    </span>
+                    <div className="text-sm font-black text-[#080d24] mt-0.5">
+                      Powerful Digital Solutions For Your Business
+                    </div>
+                  </div>
+                  <span className="text-[10.5px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-3 py-1 rounded-full border border-slate-200">
+                    10 Core Services
+                  </span>
+                </div>
+
+                {/* 10 Services Grid (2 Columns x 5 Rows) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {CORE_NAV_SERVICES.map((s) => (
+                    <Link
+                      key={s.num}
+                      href={s.href}
+                      onClick={() => setServicesDropdownOpen(false)}
+                      className="group flex items-center justify-between p-2.5 sm:p-3 rounded-2xl bg-white hover:bg-blue-50/50 border border-slate-200/80 hover:border-[#1570ef] shadow-xs hover:shadow-sm transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] group-hover:bg-[#1570ef] group-hover:text-white flex items-center justify-center shrink-0 transition-all duration-200">
+                          {s.icon}
+                        </div>
+                        <div className="min-w-0">
+                          <span className="text-[12.5px] sm:text-[13px] font-bold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug block truncate">
+                            {s.title}
+                          </span>
+                          <span className="text-[10.5px] text-slate-400 group-hover:text-slate-600 transition-colors font-medium">
+                            {s.tag}
+                          </span>
+                        </div>
+                      </div>
+                      <span className="text-[11px] font-bold text-slate-300 group-hover:text-[#1570ef] transition-colors ml-2 shrink-0">
+                        {s.num}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Dropdown Bottom Bar */}
+                <div className="mt-4 pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 px-1 text-center sm:text-left">
+                  <div>
+                    <div className="text-xs font-black text-[#080d24] tracking-wider uppercase">
+                      DIGITAL FX
+                    </div>
+                    <div className="text-[10.5px] text-slate-400 italic">
+                      Digital Marketing • Websites • SEO • Automation • AI
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <a
+                      href="#services"
+                      onClick={() => {
+                        setServicesDropdownOpen(false);
+                        const el = document.getElementById("services");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className="text-xs font-bold text-slate-500 hover:text-slate-900 transition cursor-pointer"
+                    >
+                      ↓ Jump to Matrix on Page
+                    </a>
+                    <Link
+                      href="/services"
+                      onClick={() => setServicesDropdownOpen(false)}
+                      className="inline-flex items-center gap-1 text-xs font-bold text-[#1570ef] hover:underline"
+                    >
+                      <span>Explore All 13 Blueprints</span>
+                      <span>→</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
 
           </div>
         </header>
@@ -2684,10 +2828,10 @@ export default function Home() {
             }}
           />
 
-          <div className="relative z-10 mx-auto max-w-[1680px] w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <div className="relative z-10 mx-auto max-w-[1400px] w-full px-4 sm:px-6 md:px-8 lg:px-10">
             
-            {/* Desktop 2-Column Balanced Grid: Left Text + Right Circular Flywheel (Fills entire screen, zero empty sides) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 2xl:gap-16 items-center">
+            {/* Desktop 2-Column Balanced Grid: Left Text + Right Circular Flywheel (Fills screen with zero awkward spacing) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
               
               {/* Left Column: Headline, Proposal Bar, Trust Signals */}
               <div className="lg:col-span-6 flex flex-col justify-center text-left w-full min-w-0">
@@ -2709,24 +2853,24 @@ export default function Home() {
                   </span>
                 </div>
 
-                {/* WebFX Signature Headline - Responsive Typography that fills widescreen monitors */}
-                <h1 className="text-[34px] sm:text-[46px] lg:text-[40px] xl:text-[50px] 2xl:text-[58px] font-extrabold leading-[1.06] tracking-[-0.035em] text-[#080d24] text-left">
+                {/* Signature Headline - Crisp Modern Agency Typography */}
+                <h1 className="text-[34px] sm:text-[44px] lg:text-[42px] xl:text-[48px] font-extrabold leading-[1.08] tracking-[-0.035em] text-[#080d24] text-left">
                   <span className="block">Digital Marketing &amp; SEO</span>
                   <span className="block">Agency in Ghaziabad —</span>{" "}
-                  <span className="webfx-serif text-[#207de9] font-normal text-[28px] sm:text-[38px] lg:text-[34px] xl:text-[42px] 2xl:text-[48px] leading-[1.12] block mt-1.5 sm:mt-2 text-left">
+                  <span className="text-[#1570ef] font-bold text-[28px] sm:text-[36px] lg:text-[34px] xl:text-[40px] leading-[1.12] block mt-1 sm:mt-1.5 text-left">
                     Your Revenue Partner in the AI Era.
                   </span>
                 </h1>
 
                 {/* Subtitle Description */}
-                <p className="mt-4 sm:mt-5 text-[15px] sm:text-[16.5px] xl:text-[17.5px] leading-[1.65] text-slate-600 font-normal max-w-[620px] xl:max-w-[660px] text-left">
+                <p className="mt-4 sm:mt-5 text-[15px] sm:text-[16px] leading-[1.65] text-slate-600 font-normal max-w-[580px] text-left">
                   Most agencies report vanity metrics like impressions and clicks. Digital FX engineers connected customer acquisition systems that turn search visibility into qualified pipeline and measurable revenue for businesses across India.
                 </p>
 
-                {/* WebFX Exact Website Proposal Bar */}
+                {/* Website Proposal Bar */}
                 <form
                   onSubmit={handleHeroProposal}
-                  className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch w-full max-w-[620px] xl:max-w-[660px] bg-white border border-slate-300 rounded-2xl overflow-hidden shadow-xs hover:border-slate-400 focus-within:border-[#1570ef] focus-within:ring-2 focus-within:ring-blue-100 transition-all min-w-0"
+                  className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch w-full max-w-[580px] bg-white border border-slate-300 rounded-2xl overflow-hidden shadow-xs hover:border-slate-400 focus-within:border-[#1570ef] focus-within:ring-2 focus-within:ring-blue-100 transition-all min-w-0"
                 >
                   <div className="flex-1 flex items-center px-4 h-13 sm:h-14 bg-transparent min-w-0">
                     <svg className="w-5 h-5 text-slate-400 mr-2.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -2742,7 +2886,7 @@ export default function Home() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-7 bg-[#080d24] hover:bg-[#207de9] text-white font-bold text-[13.5px] sm:text-sm tracking-wide transition-colors whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center text-center shrink-0 border-t sm:border-t-0 sm:border-l border-slate-200"
+                    className="w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-7 bg-[#080d24] hover:bg-[#1570ef] text-white font-bold text-[13.5px] sm:text-sm tracking-wide transition-colors whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center text-center shrink-0 border-t sm:border-t-0 sm:border-l border-slate-200"
                   >
                     <span>Analyze Growth Potential</span>
                     <span className="ml-1.5 text-base">→</span>
@@ -3207,7 +3351,7 @@ export default function Home() {
             4. CLIENT TRUST & AUTHORITY STRIP — GLOBAL & INDIAN STARTUP ECOSYSTEM
             ========================================================================== */}
         <section className="bg-white py-12 sm:py-14 border-b border-slate-200 overflow-hidden">
-          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 mb-7 text-center">
+          <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 mb-7 text-center">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100/90 border border-slate-200 text-slate-700 text-[10.5px] font-extrabold uppercase tracking-[0.2em] mb-2.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               Global &amp; Indian Startup Ecosystem
@@ -3223,14 +3367,14 @@ export default function Home() {
               {featuredStartups.map((item, idx) => (
                 <div
                   key={`startup-a-${idx}`}
-                  className="flex items-center gap-3.5 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-[#207de9]/50 hover:-translate-y-1 transition-all duration-300 shrink-0 w-[235px] sm:w-[250px] group select-none cursor-pointer"
+                  className="flex items-center gap-3.5 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-[#1570ef]/50 hover:-translate-y-1 transition-all duration-300 shrink-0 w-[235px] sm:w-[250px] group select-none cursor-pointer"
                 >
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${item.badgeBg} group-hover:scale-105 transition-transform shadow-xs`}>
                     {item.symbol}
                   </div>
                   <div className="min-w-0 flex-1 text-left">
                     <div className="flex items-center justify-between gap-1">
-                      <span className="text-[14px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors tracking-tight truncate">
+                      <span className="text-[14px] font-extrabold text-[#080d24] group-hover:text-[#1570ef] transition-colors tracking-tight truncate">
                         {item.name}
                       </span>
                       <span className={`text-[8.5px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded border ${
@@ -3252,14 +3396,14 @@ export default function Home() {
               {featuredStartups.map((item, idx) => (
                 <div
                   key={`startup-b-${idx}`}
-                  className="flex items-center gap-3.5 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-[#207de9]/50 hover:-translate-y-1 transition-all duration-300 shrink-0 w-[235px] sm:w-[250px] group select-none cursor-pointer"
+                  className="flex items-center gap-3.5 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-[#1570ef]/50 hover:-translate-y-1 transition-all duration-300 shrink-0 w-[235px] sm:w-[250px] group select-none cursor-pointer"
                 >
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${item.badgeBg} group-hover:scale-105 transition-transform shadow-xs`}>
                     {item.symbol}
                   </div>
                   <div className="min-w-0 flex-1 text-left">
                     <div className="flex items-center justify-between gap-1">
-                      <span className="text-[14px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors tracking-tight truncate">
+                      <span className="text-[14px] font-extrabold text-[#080d24] group-hover:text-[#1570ef] transition-colors tracking-tight truncate">
                         {item.name}
                       </span>
                       <span className={`text-[8.5px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded border ${
@@ -3284,16 +3428,16 @@ export default function Home() {
             4B. INSIDE DIGITAL FX HEADQUARTERS — REAL STRATEGISTS, REAL IMPACT
             ========================================================================== */}
         <section className="py-16 sm:py-20 bg-gradient-to-b from-white via-[#f8faff] to-white border-b border-slate-200">
-          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-xs font-bold tracking-wider uppercase mb-3">
                   <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
                   Inside Our Agency • Orbit Plaza, Ghaziabad
                 </div>
-                <h2 className="text-[28px] sm:text-[38px] lg:text-[44px] font-extrabold text-[#080d24] tracking-[-0.03em] leading-tight">
+                <h2 className="text-[28px] sm:text-[36px] lg:text-[40px] font-extrabold text-[#080d24] tracking-[-0.03em] leading-tight">
                   Real Strategists. Real Work.{" "}
-                  <span className="text-[#207de9] webfx-serif block sm:inline font-normal">
+                  <span className="text-[#1570ef] font-bold block sm:inline">
                     Measurable Revenue.
                   </span>
                 </h2>
@@ -3305,7 +3449,7 @@ export default function Home() {
               <div className="flex items-center gap-3 shrink-0">
                 <a
                   href="#contact"
-                  className="px-5 py-3 rounded-xl bg-[#080d24] hover:bg-[#207de9] text-white text-xs sm:text-sm font-bold shadow-xs transition-colors cursor-pointer"
+                  className="px-5 py-3 rounded-xl bg-[#080d24] hover:bg-[#1570ef] text-white text-xs sm:text-sm font-bold shadow-xs transition-colors cursor-pointer"
                 >
                   Visit Our Office →
                 </a>
@@ -3326,14 +3470,14 @@ export default function Home() {
                   <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
                     Campaign Desk
                   </div>
-                  <div className="absolute bottom-2 right-2 bg-emerald-600/90 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                    Live Analytics Monitoring
+                  <div className="absolute bottom-2 right-2 bg-[#080d24]/90 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-md border border-white/10 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Live Analytics
                   </div>
                 </div>
                 <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors leading-snug">
+                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
                       Daily Ranking &amp; Traffic Optimization
                     </h3>
                     <p className="mt-1.5 text-xs text-slate-600 font-normal leading-relaxed">
@@ -3342,7 +3486,7 @@ export default function Home() {
                   </div>
                   <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
                     <span>Google Analytics 4 • Maps</span>
-                    <span className="text-[#207de9] font-bold">SEO Team</span>
+                    <span className="text-[#1570ef] font-bold">SEO Team</span>
                   </div>
                 </div>
               </div>
@@ -3358,13 +3502,13 @@ export default function Home() {
                   <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
                     Conference Hub
                   </div>
-                  <div className="absolute bottom-2 right-2 bg-blue-600/90 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md">
+                  <div className="absolute bottom-2 right-2 bg-[#080d24]/90 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-md border border-white/10">
                     Sprint Strategy
                   </div>
                 </div>
                 <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors leading-snug">
+                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
                       Multi-Channel Sprint Planning
                     </h3>
                     <p className="mt-1.5 text-xs text-slate-600 font-normal leading-relaxed">
@@ -3373,7 +3517,7 @@ export default function Home() {
                   </div>
                   <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
                     <span>Closed-Loop Attribution</span>
-                    <span className="text-blue-600 font-bold">Strategy Desk</span>
+                    <span className="text-[#1570ef] font-bold">Strategy Desk</span>
                   </div>
                 </div>
               </div>
@@ -3389,13 +3533,13 @@ export default function Home() {
                   <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
                     Engineering Lab
                   </div>
-                  <div className="absolute bottom-2 right-2 bg-purple-600/90 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md">
+                  <div className="absolute bottom-2 right-2 bg-[#080d24]/90 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-md border border-white/10">
                     Next.js &amp; GEO AI
                   </div>
                 </div>
                 <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors leading-snug">
+                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
                       AI Search &amp; Web Engineering
                     </h3>
                     <p className="mt-1.5 text-xs text-slate-600 font-normal leading-relaxed">
@@ -3404,7 +3548,7 @@ export default function Home() {
                   </div>
                   <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
                     <span>99+ Speed • Schema Entities</span>
-                    <span className="text-purple-600 font-bold">Dev Team</span>
+                    <span className="text-[#1570ef] font-bold">Dev Team</span>
                   </div>
                 </div>
               </div>
@@ -3420,13 +3564,13 @@ export default function Home() {
                   <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
                     Executive Lounge
                   </div>
-                  <div className="absolute bottom-2 right-2 bg-amber-500/90 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md">
-                    6.8x Client ROI
+                  <div className="absolute bottom-2 right-2 bg-[#080d24]/90 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-md border border-white/10">
+                    Client Success
                   </div>
                 </div>
                 <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#207de9] transition-colors leading-snug">
+                    <h3 className="text-sm sm:text-[15px] font-extrabold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
                       1-on-1 Growth Consultation
                     </h3>
                     <p className="mt-1.5 text-xs text-slate-600 font-normal leading-relaxed">
@@ -3435,7 +3579,7 @@ export default function Home() {
                   </div>
                   <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-medium">
                     <span>Orbit Plaza • In-Office / Meet</span>
-                    <span className="text-amber-600 font-bold">Client Success</span>
+                    <span className="text-[#1570ef] font-bold">Client Success</span>
                   </div>
                 </div>
               </div>
@@ -3451,13 +3595,13 @@ export default function Home() {
           id="growth-dashboard"
           className="py-20 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-slate-50 border-b border-slate-200"
         >
-          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
             
             {/* Header: Move From Marketing that Reports Clicks to Marketing that Reports Revenue */}
             <div className="text-center max-w-[920px] mx-auto">
-              <h2 className="text-[32px] sm:text-[44px] lg:text-[50px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.12]">
+              <h2 className="text-[32px] sm:text-[42px] lg:text-[46px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.14]">
                 Move From Marketing that Reports Clicks to{" "}
-                <span className="block text-[#1570ef] webfx-serif font-normal">
+                <span className="block text-[#1570ef] font-bold">
                   Marketing that Reports Revenue
                 </span>
               </h2>
@@ -3927,15 +4071,15 @@ export default function Home() {
             6. WEBFX 4-STAGE SERVICES FUNNEL MATRIX
             ========================================================================== */}
         <section id="services" className="py-24 bg-white border-b border-slate-200">
-          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
             
             <div className="text-center max-w-[820px] mx-auto mb-16">
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#207de9] bg-blue-50 border border-blue-200 px-3.5 py-1.5 rounded-full">
+              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#1570ef] bg-blue-50 border border-blue-200 px-3.5 py-1.5 rounded-full">
                 COMPREHENSIVE SERVICE SUITE
               </span>
-              <h2 className="mt-4 text-[32px] sm:text-[44px] lg:text-[48px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
+              <h2 className="mt-4 text-[32px] sm:text-[42px] lg:text-[46px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.12]">
                 Explore Full-Funnel Services
-                <span className="webfx-serif text-[#207de9] block font-normal mt-1">
+                <span className="text-[#1570ef] block font-bold mt-1">
                   Built For Measurable ROI.
                 </span>
               </h2>
@@ -4153,11 +4297,237 @@ export default function Home() {
 
             </div>
 
+            {/* ==========================================================================
+                POWERFUL DIGITAL SOLUTIONS FOR YOUR BUSINESS - 10-SERVICE SHOWCASE
+                ========================================================================== */}
+            <div className="mt-20 pt-14 border-t border-slate-200">
+              {/* Header */}
+              <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-[11px] sm:text-xs font-bold uppercase tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#1570ef] animate-pulse" />
+                  Digital FX Core Services
+                </span>
+                <h3 className="mt-4 text-2xl sm:text-3xl lg:text-[36px] font-black text-[#080d24] tracking-tight leading-tight uppercase">
+                  POWERFUL DIGITAL SOLUTIONS FOR YOUR BUSINESS
+                </h3>
+                <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto font-normal">
+                  End-to-end digital growth, intelligent automation, and measurable revenue systems engineered for scale.
+                </p>
+              </div>
+
+              {/* 10 Services Grid: Balanced 5-Column Grid on Desktop */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                  
+                  {/* 1. Google Business + Local SEO */}
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:border-[#1570ef] hover:shadow-md transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center mb-3.5 group-hover:bg-[#1570ef] group-hover:text-white transition-all duration-200">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      </div>
+                      <h4 className="text-sm font-bold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
+                        Google Business + Local SEO
+                      </h4>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-400 group-hover:text-[#1570ef] transition-colors">
+                      <span>Local Authority</span>
+                      <span>01</span>
+                    </div>
+                  </div>
+
+                  {/* 2. Website Development + Maintenance */}
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:border-[#1570ef] hover:shadow-md transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center mb-3.5 group-hover:bg-[#1570ef] group-hover:text-white transition-all duration-200">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                      </div>
+                      <h4 className="text-sm font-bold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
+                        Website Development + Maintenance
+                      </h4>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-400 group-hover:text-[#1570ef] transition-colors">
+                      <span>Custom Stacks</span>
+                      <span>02</span>
+                    </div>
+                  </div>
+
+                  {/* 3. ReviewFlow AI + NFC Review System */}
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:border-[#1570ef] hover:shadow-md transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center mb-3.5 group-hover:bg-[#1570ef] group-hover:text-white transition-all duration-200">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                        </svg>
+                      </div>
+                      <h4 className="text-sm font-bold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
+                        ReviewFlow AI + NFC Review System
+                      </h4>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-400 group-hover:text-[#1570ef] transition-colors">
+                      <span>Tap &amp; Review</span>
+                      <span>03</span>
+                    </div>
+                  </div>
+
+                  {/* 4. WhatsApp Marketing Automation */}
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:border-[#1570ef] hover:shadow-md transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center mb-3.5 group-hover:bg-[#1570ef] group-hover:text-white transition-all duration-200">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm.01 1.67c4.55 0 8.25 3.7 8.25 8.24 0 2.2-.86 4.28-2.42 5.83-1.56 1.56-3.63 2.42-5.83 2.42-1.48 0-2.93-.39-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.188 8.188 0 01-1.25-4.39c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z" />
+                        </svg>
+                      </div>
+                      <h4 className="text-sm font-bold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
+                        WhatsApp Marketing Automation
+                      </h4>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-400 group-hover:text-[#1570ef] transition-colors">
+                      <span>Instant Retargeting</span>
+                      <span>04</span>
+                    </div>
+                  </div>
+
+                  {/* 5. Google Ads Management */}
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:border-[#1570ef] hover:shadow-md transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center mb-3.5 group-hover:bg-[#1570ef] group-hover:text-white transition-all duration-200">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                      </div>
+                      <h4 className="text-sm font-bold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
+                        Google Ads Management
+                      </h4>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-400 group-hover:text-[#1570ef] transition-colors">
+                      <span>High-Intent PPC</span>
+                      <span>05</span>
+                    </div>
+                  </div>
+
+                  {/* 6. Social Media Management */}
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:border-[#1570ef] hover:shadow-md transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center mb-3.5 group-hover:bg-[#1570ef] group-hover:text-white transition-all duration-200">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zm0 0V18m0-6.5a4.5 4.5 0 00-4.5 4.5V18m13.5-6.5a4.5 4.5 0 014.5 4.5V18" />
+                        </svg>
+                      </div>
+                      <h4 className="text-sm font-bold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
+                        Social Media Management
+                      </h4>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-400 group-hover:text-[#1570ef] transition-colors">
+                      <span>Creative &amp; Growth</span>
+                      <span>06</span>
+                    </div>
+                  </div>
+
+                  {/* 7. AI Chatbot for Businesses */}
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:border-[#1570ef] hover:shadow-md transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center mb-3.5 group-hover:bg-[#1570ef] group-hover:text-white transition-all duration-200">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <h4 className="text-sm font-bold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
+                        AI Chatbot for Businesses
+                      </h4>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-400 group-hover:text-[#1570ef] transition-colors">
+                      <span>24/7 Concierge</span>
+                      <span>07</span>
+                    </div>
+                  </div>
+
+                  {/* 8. Lead Management CRM */}
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:border-[#1570ef] hover:shadow-md transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center mb-3.5 group-hover:bg-[#1570ef] group-hover:text-white transition-all duration-200">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                      </div>
+                      <h4 className="text-sm font-bold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
+                        Lead Management CRM
+                      </h4>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-400 group-hover:text-[#1570ef] transition-colors">
+                      <span>Pipeline Tracking</span>
+                      <span>08</span>
+                    </div>
+                  </div>
+
+                  {/* 9. Missed Call → WhatsApp Automation */}
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:border-[#1570ef] hover:shadow-md transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center mb-3.5 group-hover:bg-[#1570ef] group-hover:text-white transition-all duration-200">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                      </div>
+                      <h4 className="text-sm font-bold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
+                        Missed Call → WhatsApp Automation
+                      </h4>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-400 group-hover:text-[#1570ef] transition-colors">
+                      <span>Zero Lead Drop</span>
+                      <span>09</span>
+                    </div>
+                  </div>
+
+                  {/* 10. Appointment & Booking System */}
+                  <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs hover:border-[#1570ef] hover:shadow-md transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center mb-3.5 group-hover:bg-[#1570ef] group-hover:text-white transition-all duration-200">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <h4 className="text-sm font-bold text-[#080d24] group-hover:text-[#1570ef] transition-colors leading-snug">
+                        Appointment &amp; Booking System
+                      </h4>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-slate-400 group-hover:text-[#1570ef] transition-colors">
+                      <span>Instant Calendar</span>
+                      <span>10</span>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Bottom Brand Bar matching website theme */}
+                <div className="mt-10 pt-6 border-t border-slate-200/90 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+                  <div>
+                    <div className="text-xl font-black text-[#080d24] tracking-wider uppercase">
+                      DIGITAL FX
+                    </div>
+                    <div className="text-xs text-slate-500 font-medium italic mt-0.5">
+                      Digital Marketing • Websites • SEO • Automation • AI
+                    </div>
+                  </div>
+                  <a
+                    href="https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20am%20interested%20in%20your%20digital%20marketing%20and%20automation%20solutions."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#080d24] hover:bg-[#1570ef] text-white font-bold text-xs shadow-sm hover:shadow-md hover:scale-[1.02] active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+                  >
+                    <span>Enquire on WhatsApp</span>
+                    <span>→</span>
+                  </a>
+                </div>
+              </div>
+
             {/* Action Bar: Link to All 13 Specialized Services */}
             <div className="mt-12 text-center">
               <Link
                 href="/services"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#080d24] hover:bg-[#207de9] text-white font-bold text-sm shadow-md hover:shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#080d24] hover:bg-[#1570ef] text-white font-bold text-sm shadow-md hover:shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer"
               >
                 <span>View All 13 Specialized Service Divisions &amp; Blueprints</span>
                 <span>→</span>
@@ -4171,7 +4541,7 @@ export default function Home() {
             7. PROPRIETARY GEO & AI SEARCH AUDIT SUITE (WEBFX EXECUTIVE DESIGN)
             ========================================================================== */}
         <section id="geo-checker" className="scroll-mt-20 py-24 bg-[#f8fafc] border-b border-slate-200 relative overflow-hidden">
-          <div className="relative mx-auto max-w-[1680px] w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <div className="relative mx-auto max-w-[1400px] w-full px-4 sm:px-6 md:px-8 lg:px-10">
             
             {/* Header Area */}
             <div className="mx-auto max-w-[840px] text-center">
@@ -4179,9 +4549,9 @@ export default function Home() {
                 <span className="w-2 h-2 rounded-full bg-[#1570ef]" />
                 GEO &amp; AI Search Audit Engine
               </span>
-              <h2 className="mt-4 text-[32px] sm:text-[44px] lg:text-[50px] font-extrabold text-[#080d24] tracking-[-0.03em] leading-[1.12]">
+              <h2 className="mt-4 text-[32px] sm:text-[42px] lg:text-[46px] font-extrabold text-[#080d24] tracking-[-0.03em] leading-[1.14]">
                 Benchmark Your Brand in{" "}
-                <span className="webfx-serif text-[#1570ef] block sm:inline font-normal">
+                <span className="text-[#1570ef] block sm:inline font-bold">
                   ChatGPT, Gemini &amp; AI Search.
                 </span>
               </h2>
@@ -4465,7 +4835,7 @@ export default function Home() {
             9. VERIFIED CLIENT REVIEWS - HORIZONTAL CONTINUOUS MARQUEE (30 Verified Indian Reviews)
             ========================================================================== */}
         <section id="case-studies" className="py-24 bg-white border-b border-slate-200 overflow-hidden">
-          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 mb-12">
+          <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 mb-12">
             
             <div className="text-center max-w-[860px] mx-auto">
               {/* Google Verified Review & Rating Card */}
@@ -4487,9 +4857,9 @@ export default function Home() {
                 <span className="text-xs font-semibold text-slate-600">128+ Verified Client Reviews in Ghaziabad &amp; NCR</span>
               </div>
 
-              <h2 className="text-[32px] sm:text-[44px] lg:text-[48px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
+              <h2 className="text-[32px] sm:text-[42px] lg:text-[46px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.12]">
                 #1 Rated Digital Marketing &amp; SEO Agency in
-                <span className="webfx-serif text-[#207de9] block font-normal mt-1">
+                <span className="text-[#1570ef] block font-bold mt-1">
                   Ghaziabad &amp; Delhi NCR
                 </span>
               </h2>
@@ -4502,7 +4872,7 @@ export default function Home() {
                   href="https://share.google/EIVnaRy9WhkPCi8U8"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white text-xs font-bold transition shadow-sm"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1570ef] hover:bg-[#105fc7] text-white text-xs font-bold transition shadow-sm"
                 >
                   <span>📍 View Live Google Maps Listing &amp; Reviews</span>
                   <span>↗</span>
@@ -4517,7 +4887,7 @@ export default function Home() {
           </div>
 
           {/* Google Reviews Carousel & Interactive Marquee Track with Navigation Arrows */}
-          <div className="relative w-full max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-4 group">
+          <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-4 group">
             {/* Left Carousel Navigation Button */}
             <button
               onClick={() => scrollReviews("left")}
@@ -4686,762 +5056,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ==========================================================================
-            9B. PROPRIETARY RESEARCH & ANTI-GRAVITY GROWTH ECOSYSTEM
-            ========================================================================== */}
-        {/* ==========================================================================
-            9B. PROPRIETARY BENCHMARKS & SEARCH PERFORMANCE ENGINE
-            ========================================================================== */}
-        <section
-          id="insights"
-          className="py-20 sm:py-28 bg-gradient-to-b from-white via-[#f8faff] to-white border-b border-slate-200 relative overflow-hidden select-none"
-        >
-          {/* Subtle Ambient Background Gradient Lighting Matching Entire Website */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(32,125,233,0.06),transparent_70%)] pointer-events-none" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-blue-500/5 rounded-full blur-[140px] pointer-events-none" />
-
-          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10">
-            
-            {/* Header: We Don’t Just Follow Search Trends — We Benchmark Them */}
-            <div className="text-center max-w-[900px] mx-auto mb-14 sm:mb-16">
-              <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef] mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
-                Proprietary Benchmarks • Live Client Performance
-              </span>
-              <h2 className="text-[32px] sm:text-[46px] lg:text-[52px] font-extrabold text-[#080d24] tracking-[-0.03em] leading-[1.12]">
-                We Don’t Just Follow Search Trends —{" "}
-                <span className="text-[#1570ef] webfx-serif block sm:inline font-normal">
-                  We Benchmark Them
-                </span>
-              </h2>
-              <p className="mt-4 text-[15px] sm:text-[17px] leading-relaxed text-slate-600 font-normal max-w-[780px] mx-auto">
-                Real-time search intelligence, Google Maps 3-Pack rank tracking, and cross-channel attribution engine powering high-growth businesses across India and global markets.
-              </p>
-            </div>
-
-            {/* Seamless Infinite Horizontal Performance Marquee Stream */}
-            <div className="relative w-full overflow-hidden py-6 -my-6 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-              <div className="antigravity-track">
-                
-                {/* SET A: Core Performance Dashboards */}
-
-                {/* 1. Organic Search & Traffic Engine (Live Trajectory Chart) */}
-                <div className="ag-card-1 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#1570ef] to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Organic Search Engine</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1570ef] border border-blue-200">
-                      +312% YoY Lift
-                    </span>
-                  </div>
-
-                  {/* Clean Light Area Chart Widget */}
-                  <div className="w-full h-32 bg-slate-50/80 rounded-2xl p-3 flex flex-col justify-between border border-slate-200/80 relative overflow-hidden shadow-xs my-1.5">
-                    <div className="flex items-center justify-between text-[10px] text-slate-600 font-semibold relative z-10">
-                      <span>Trailing 90-Day Organic Clicks</span>
-                      <span className="text-emerald-600 font-bold flex items-center gap-0.5">
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                        </svg>
-                        248.5K
-                      </span>
-                    </div>
-
-                    <div className="relative w-full h-16 my-auto">
-                      <svg viewBox="0 0 280 60" className="w-full h-full overflow-visible">
-                        <defs>
-                          <linearGradient id="chartGradLight1" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#1570ef" stopOpacity="0.22" />
-                            <stop offset="100%" stopColor="#1570ef" stopOpacity="0.0" />
-                          </linearGradient>
-                        </defs>
-                        <line x1="0" y1="16" x2="280" y2="16" stroke="rgba(0,0,0,0.06)" strokeDasharray="3 3" />
-                        <line x1="0" y1="38" x2="280" y2="38" stroke="rgba(0,0,0,0.06)" strokeDasharray="3 3" />
-                        <polygon points="0,55 25,48 60,42 95,45 130,32 165,35 200,20 235,14 275,4 275,60 0,60" fill="url(#chartGradLight1)" />
-                        <polyline points="0,55 25,48 60,42 95,45 130,32 165,35 200,20 235,14 275,4" fill="none" stroke="#1570ef" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-                        <circle cx="275" cy="4" r="3" fill="#1570ef" />
-                      </svg>
-                    </div>
-
-                    <div className="flex items-center justify-between text-[9.5px] text-slate-500 border-t border-slate-200/60 pt-1 relative z-10">
-                      <span>Top 3 Keywords: <strong className="text-slate-900 font-bold">420+</strong></span>
-                      <span>Avg CPA: <strong className="text-[#1570ef] font-bold">₹142</strong></span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                    <span>Continuous Search Indexing</span>
-                    <span className="text-[#1570ef] font-bold">Conversion Velocity ↑</span>
-                  </div>
-                </div>
-
-                {/* 2. Paid Search & Meta Performance Engine */}
-                <div className="ag-card-2 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-amber-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Paid Media Engine</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
-                      ROAS 5.4x
-                    </span>
-                  </div>
-
-                  {/* Real Paid Ads Performance KPI Grid */}
-                  <div className="w-full bg-amber-50/40 rounded-2xl p-3 border border-amber-100 space-y-2 my-1.5">
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9.5px] text-slate-500 font-semibold">Google Ads CPA</div>
-                        <div className="text-base font-black text-slate-900 mt-0.5">₹142 <span className="text-[9px] text-emerald-600 font-bold">↓ 59%</span></div>
-                        <div className="text-[8.5px] text-slate-400 mt-0.5">Target: ₹350</div>
-                      </div>
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9.5px] text-slate-500 font-semibold">Conversion Rate</div>
-                        <div className="text-base font-black text-slate-900 mt-0.5">7.8% <span className="text-[9px] text-emerald-600 font-bold">↑ 3.2x</span></div>
-                        <div className="text-[8.5px] text-slate-400 mt-0.5">Industry: 2.1%</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-[10px] bg-white rounded-lg px-2.5 py-1.5 border border-amber-200/60 shadow-2xs">
-                      <span className="text-slate-600">Managed Spend: <strong className="text-amber-800">₹85L+/mo</strong></span>
-                      <span className="text-emerald-700 font-bold text-[9px] flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> CRM Matched
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>High-Intent Ad Reach</span>
-                      <span className="text-amber-600 font-extrabold">4.8M+</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>Google Search &amp; Meta PPC</span>
-                      <span className="text-amber-600 font-semibold">Verified CPL Reduction</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 3. Google Maps 3-Pack Local Search Authority */}
-                <div className="ag-card-3 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Local Authority</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                      Rank #1 Leader
-                    </span>
-                  </div>
-
-                  {/* Real Google Business Profile 3-Pack Widget */}
-                  <div className="w-full bg-emerald-50/40 rounded-2xl p-3 border border-emerald-100 space-y-2 my-1.5">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-lg bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-700">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <div className="text-[11px] font-extrabold text-slate-900">Google Maps 3-Pack</div>
-                          <div className="text-[9px] text-emerald-700 font-medium">Verified Business Profile</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1 text-[10.5px] font-extrabold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                        <span>★ 4.9</span>
-                        <span className="text-[8.5px] text-slate-500 font-normal">(140+)</span>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 pt-1 border-t border-emerald-200/50">
-                      <div className="bg-white rounded-lg p-2 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[8.5px] text-slate-500 uppercase font-semibold">Direct Calls</div>
-                        <div className="text-sm font-extrabold text-slate-900 mt-0.5">+840 <span className="text-[8.5px] text-emerald-600 font-bold">/ mo</span></div>
-                      </div>
-                      <div className="bg-white rounded-lg p-2 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[8.5px] text-slate-500 uppercase font-semibold">Direction Queries</div>
-                        <div className="text-sm font-extrabold text-[#1570ef] mt-0.5">+2,150 <span className="text-[8.5px] text-emerald-600 font-bold">/ mo</span></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>Geo-Targeted Radius</span>
-                      <span className="text-emerald-600 font-extrabold">Active #1 Pack</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>140+ Verified Reviews</span>
-                      <span className="text-[#1570ef] font-medium">Pan-India 3-Pack Lock</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 4. Strategic 90-Day Execution Framework */}
-                <div className="ag-card-4 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#207de9] to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-[#1570ef]">
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Execution Framework</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1570ef] border border-blue-200">
-                      90-Day Sprint
-                    </span>
-                  </div>
-
-                  {/* Real 3-Phase Delivery Roadmap */}
-                  <div className="w-full bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80 space-y-2 my-1.5">
-                    <div className="space-y-1.5 text-[10px]">
-                      <div className="flex items-center justify-between bg-white rounded-lg px-2.5 py-1.5 border border-slate-200/80 shadow-2xs">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 font-extrabold text-[8px] flex items-center justify-center border border-emerald-200">✓</span>
-                          <span className="text-slate-800 font-medium">Days 1–15: Technical SEO Audit</span>
-                        </div>
-                        <span className="text-emerald-700 font-bold text-[9px]">Completed</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-blue-50/70 rounded-lg px-2.5 py-1.5 border border-blue-200 shadow-2xs">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-4 h-4 rounded-full bg-[#1570ef] text-white font-extrabold text-[8px] flex items-center justify-center">2</span>
-                          <span className="text-blue-900 font-semibold">Days 16–45: GEO Entity &amp; 3-Pack</span>
-                        </div>
-                        <span className="text-[#1570ef] font-bold text-[9px] animate-pulse">Active ⚡</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-white rounded-lg px-2.5 py-1.5 border border-slate-200/80 shadow-2xs opacity-75">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-4 h-4 rounded-full bg-slate-100 text-slate-500 font-bold text-[8px] flex items-center justify-center">3</span>
-                          <span className="text-slate-500 font-medium">Days 46–90: Revenue Scale &amp; CRO</span>
-                        </div>
-                        <span className="text-slate-400 font-medium text-[9px]">Target</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>Target Horizon</span>
-                      <span className="text-[#1570ef] font-extrabold">30–60–90 Days</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>Guaranteed Deliverables</span>
-                      <span className="text-emerald-600 font-semibold">Attributable ROI</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 5. Multi-City Search & CDN Infrastructure */}
-                <div className="ag-card-5 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-indigo-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Multi-City Infrastructure</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
-                      350+ Cities
-                    </span>
-                  </div>
-
-                  {/* Real CDN & Speed Telemetry Panel */}
-                  <div className="w-full bg-indigo-50/40 rounded-2xl p-3 border border-indigo-100 space-y-2 my-1.5">
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9px] text-slate-500 uppercase font-semibold">Edge Latency</div>
-                        <div className="text-base font-black text-indigo-700 mt-0.5">&lt; 45ms</div>
-                        <div className="text-[8.5px] text-emerald-600 font-semibold mt-0.5">Pan-India CDN</div>
-                      </div>
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9px] text-slate-500 uppercase font-semibold">Core Web Vitals</div>
-                        <div className="text-base font-black text-emerald-600 mt-0.5">99 / 100</div>
-                        <div className="text-[8.5px] text-slate-400 font-medium mt-0.5">Mobile Speed</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-[9.5px] bg-white rounded-lg px-2.5 py-1.5 border border-indigo-200/60 shadow-2xs">
-                      <span className="text-slate-600">Coverage: <strong className="text-indigo-900">28 States &amp; UTs</strong></span>
-                      <span className="text-[#1570ef] font-semibold">Dubai &amp; US Desks</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>High-Availability Network</span>
-                      <span className="text-indigo-600 font-extrabold">99.98% Uptime</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>Hyperlocal City Desks</span>
-                      <span className="text-[#1570ef] font-semibold">Sub-Second CDN</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 6. Client Confidence & Retainer Retention */}
-                <div className="ag-card-6 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Client Confidence</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                      94% Retention
-                    </span>
-                  </div>
-
-                  {/* Real Verified Trust & Revenue Proof */}
-                  <div className="w-full bg-emerald-50/40 rounded-2xl p-3 border border-emerald-100 space-y-2 my-1.5">
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9px] text-slate-500 uppercase font-semibold">Avg Partnership</div>
-                        <div className="text-base font-black text-emerald-700 mt-0.5">2.8+ Yrs</div>
-                        <div className="text-[8.5px] text-slate-400 mt-0.5">Industry: 10 mos</div>
-                      </div>
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9px] text-slate-500 uppercase font-semibold">Client Revenue</div>
-                        <div className="text-base font-black text-slate-900 mt-0.5">₹6 Lakh+</div>
-                        <div className="text-[8.5px] text-emerald-600 font-semibold mt-0.5">Attributable ROI</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-[9.5px] bg-white rounded-lg px-2.5 py-1.5 border border-emerald-200/60 shadow-2xs">
-                      <span className="text-slate-600">Retainer Terms: <strong className="text-emerald-700">Zero Lock-In</strong></span>
-                      <span className="text-emerald-600 font-bold">Month-to-Month</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>Attributable ROI</span>
-                      <span className="text-emerald-600 font-extrabold">100% Tracked</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>Transparent Weekly Reporting</span>
-                      <span className="text-[#1570ef] font-semibold">Live Dashboards</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 7. Generative Engine Optimization (GEO & AI Search) */}
-                <div className="ag-card-7 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-purple-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">AI Search Engine (GEO)</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
-                      Tier-1 Entity
-                    </span>
-                  </div>
-
-                  {/* Real AI Search Citation & Knowledge Graph Widget */}
-                  <div className="w-full bg-purple-50/40 rounded-2xl p-3 border border-purple-100 space-y-2 my-1.5">
-                    <div className="flex items-center justify-between bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                      <div>
-                        <div className="text-[9px] text-slate-500 uppercase font-semibold">Perplexity &amp; ChatGPT Citations</div>
-                        <div className="text-base font-black text-purple-800 mt-0.5">94% <span className="text-[9px] text-emerald-600 font-bold">Top Source</span></div>
-                      </div>
-                      <div className="w-8 h-8 rounded-lg bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700 text-xs font-black">
-                        GEO
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-[9.5px] bg-white rounded-lg px-2.5 py-1.5 border border-purple-200/60 shadow-2xs">
-                      <span className="text-slate-600">Google AI Overviews: <strong className="text-purple-800">Top Snippet</strong></span>
-                      <span className="text-emerald-700 font-semibold flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Entity Verified
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>AI Entity Authority</span>
-                      <span className="text-purple-700 font-extrabold">96 / 100</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>ChatGPT, Perplexity &amp; Gemini</span>
-                      <span className="text-[#1570ef] font-semibold">Entity Graph Locked</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* SET B: Exact Duplicate for Seamless Infinite 60fps Loop */}
-
-                {/* 1. Organic Search & Traffic Engine (Live Trajectory Chart) */}
-                <div className="ag-card-1 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#1570ef] to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Organic Search Engine</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1570ef] border border-blue-200">
-                      +312% YoY Lift
-                    </span>
-                  </div>
-
-                  {/* Clean Light Area Chart Widget */}
-                  <div className="w-full h-32 bg-slate-50/80 rounded-2xl p-3 flex flex-col justify-between border border-slate-200/80 relative overflow-hidden shadow-xs my-1.5">
-                    <div className="flex items-center justify-between text-[10px] text-slate-600 font-semibold relative z-10">
-                      <span>Trailing 90-Day Organic Clicks</span>
-                      <span className="text-emerald-600 font-bold flex items-center gap-0.5">
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                        </svg>
-                        248.5K
-                      </span>
-                    </div>
-
-                    <div className="relative w-full h-16 my-auto">
-                      <svg viewBox="0 0 280 60" className="w-full h-full overflow-visible">
-                        <defs>
-                          <linearGradient id="chartGradLight1" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#1570ef" stopOpacity="0.22" />
-                            <stop offset="100%" stopColor="#1570ef" stopOpacity="0.0" />
-                          </linearGradient>
-                        </defs>
-                        <line x1="0" y1="16" x2="280" y2="16" stroke="rgba(0,0,0,0.06)" strokeDasharray="3 3" />
-                        <line x1="0" y1="38" x2="280" y2="38" stroke="rgba(0,0,0,0.06)" strokeDasharray="3 3" />
-                        <polygon points="0,55 25,48 60,42 95,45 130,32 165,35 200,20 235,14 275,4 275,60 0,60" fill="url(#chartGradLight1)" />
-                        <polyline points="0,55 25,48 60,42 95,45 130,32 165,35 200,20 235,14 275,4" fill="none" stroke="#1570ef" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-                        <circle cx="275" cy="4" r="3" fill="#1570ef" />
-                      </svg>
-                    </div>
-
-                    <div className="flex items-center justify-between text-[9.5px] text-slate-500 border-t border-slate-200/60 pt-1 relative z-10">
-                      <span>Top 3 Keywords: <strong className="text-slate-900 font-bold">420+</strong></span>
-                      <span>Avg CPA: <strong className="text-[#1570ef] font-bold">₹142</strong></span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                    <span>Continuous Search Indexing</span>
-                    <span className="text-[#1570ef] font-bold">Conversion Velocity ↑</span>
-                  </div>
-                </div>
-
-                {/* 2. Paid Search & Meta Performance Engine */}
-                <div className="ag-card-2 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-amber-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Paid Media Engine</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
-                      ROAS 5.4x
-                    </span>
-                  </div>
-
-                  {/* Real Paid Ads Performance KPI Grid */}
-                  <div className="w-full bg-amber-50/40 rounded-2xl p-3 border border-amber-100 space-y-2 my-1.5">
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9.5px] text-slate-500 font-semibold">Google Ads CPA</div>
-                        <div className="text-base font-black text-slate-900 mt-0.5">₹142 <span className="text-[9px] text-emerald-600 font-bold">↓ 59%</span></div>
-                        <div className="text-[8.5px] text-slate-400 mt-0.5">Target: ₹350</div>
-                      </div>
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9.5px] text-slate-500 font-semibold">Conversion Rate</div>
-                        <div className="text-base font-black text-slate-900 mt-0.5">7.8% <span className="text-[9px] text-emerald-600 font-bold">↑ 3.2x</span></div>
-                        <div className="text-[8.5px] text-slate-400 mt-0.5">Industry: 2.1%</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-[10px] bg-white rounded-lg px-2.5 py-1.5 border border-amber-200/60 shadow-2xs">
-                      <span className="text-slate-600">Managed Spend: <strong className="text-amber-800">₹85L+/mo</strong></span>
-                      <span className="text-emerald-700 font-bold text-[9px] flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> CRM Matched
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>High-Intent Ad Reach</span>
-                      <span className="text-amber-600 font-extrabold">4.8M+</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>Google Search &amp; Meta PPC</span>
-                      <span className="text-amber-600 font-semibold">Verified CPL Reduction</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 3. Google Maps 3-Pack Local Search Authority */}
-                <div className="ag-card-3 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Local Authority</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                      Rank #1 Leader
-                    </span>
-                  </div>
-
-                  {/* Real Google Business Profile 3-Pack Widget */}
-                  <div className="w-full bg-emerald-50/40 rounded-2xl p-3 border border-emerald-100 space-y-2 my-1.5">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-lg bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-700">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <div className="text-[11px] font-extrabold text-slate-900">Google Maps 3-Pack</div>
-                          <div className="text-[9px] text-emerald-700 font-medium">Verified Business Profile</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1 text-[10.5px] font-extrabold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                        <span>★ 4.9</span>
-                        <span className="text-[8.5px] text-slate-500 font-normal">(140+)</span>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 pt-1 border-t border-emerald-200/50">
-                      <div className="bg-white rounded-lg p-2 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[8.5px] text-slate-500 uppercase font-semibold">Direct Calls</div>
-                        <div className="text-sm font-extrabold text-slate-900 mt-0.5">+840 <span className="text-[8.5px] text-emerald-600 font-bold">/ mo</span></div>
-                      </div>
-                      <div className="bg-white rounded-lg p-2 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[8.5px] text-slate-500 uppercase font-semibold">Direction Queries</div>
-                        <div className="text-sm font-extrabold text-[#1570ef] mt-0.5">+2,150 <span className="text-[8.5px] text-emerald-600 font-bold">/ mo</span></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>Geo-Targeted Radius</span>
-                      <span className="text-emerald-600 font-extrabold">Active #1 Pack</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>140+ Verified Reviews</span>
-                      <span className="text-[#1570ef] font-medium">Pan-India 3-Pack Lock</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 4. Strategic 90-Day Execution Framework */}
-                <div className="ag-card-4 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#207de9] to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-[#1570ef]">
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Execution Framework</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1570ef] border border-blue-200">
-                      90-Day Sprint
-                    </span>
-                  </div>
-
-                  {/* Real 3-Phase Delivery Roadmap */}
-                  <div className="w-full bg-slate-50/80 rounded-2xl p-3 border border-slate-200/80 space-y-2 my-1.5">
-                    <div className="space-y-1.5 text-[10px]">
-                      <div className="flex items-center justify-between bg-white rounded-lg px-2.5 py-1.5 border border-slate-200/80 shadow-2xs">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 font-extrabold text-[8px] flex items-center justify-center border border-emerald-200">✓</span>
-                          <span className="text-slate-800 font-medium">Days 1–15: Technical SEO Audit</span>
-                        </div>
-                        <span className="text-emerald-700 font-bold text-[9px]">Completed</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-blue-50/70 rounded-lg px-2.5 py-1.5 border border-blue-200 shadow-2xs">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-4 h-4 rounded-full bg-[#1570ef] text-white font-extrabold text-[8px] flex items-center justify-center">2</span>
-                          <span className="text-blue-900 font-semibold">Days 16–45: GEO Entity &amp; 3-Pack</span>
-                        </div>
-                        <span className="text-[#1570ef] font-bold text-[9px] animate-pulse">Active ⚡</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-white rounded-lg px-2.5 py-1.5 border border-slate-200/80 shadow-2xs opacity-75">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-4 h-4 rounded-full bg-slate-100 text-slate-500 font-bold text-[8px] flex items-center justify-center">3</span>
-                          <span className="text-slate-500 font-medium">Days 46–90: Revenue Scale &amp; CRO</span>
-                        </div>
-                        <span className="text-slate-400 font-medium text-[9px]">Target</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>Target Horizon</span>
-                      <span className="text-[#1570ef] font-extrabold">30–60–90 Days</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>Guaranteed Deliverables</span>
-                      <span className="text-emerald-600 font-semibold">Attributable ROI</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 5. Multi-City Search & CDN Infrastructure */}
-                <div className="ag-card-5 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-indigo-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Multi-City Infrastructure</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
-                      350+ Cities
-                    </span>
-                  </div>
-
-                  {/* Real CDN & Speed Telemetry Panel */}
-                  <div className="w-full bg-indigo-50/40 rounded-2xl p-3 border border-indigo-100 space-y-2 my-1.5">
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9px] text-slate-500 uppercase font-semibold">Edge Latency</div>
-                        <div className="text-base font-black text-indigo-700 mt-0.5">&lt; 45ms</div>
-                        <div className="text-[8.5px] text-emerald-600 font-semibold mt-0.5">Pan-India CDN</div>
-                      </div>
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9px] text-slate-500 uppercase font-semibold">Core Web Vitals</div>
-                        <div className="text-base font-black text-emerald-600 mt-0.5">99 / 100</div>
-                        <div className="text-[8.5px] text-slate-400 font-medium mt-0.5">Mobile Speed</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-[9.5px] bg-white rounded-lg px-2.5 py-1.5 border border-indigo-200/60 shadow-2xs">
-                      <span className="text-slate-600">Coverage: <strong className="text-indigo-900">28 States &amp; UTs</strong></span>
-                      <span className="text-[#1570ef] font-semibold">Dubai &amp; US Desks</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>High-Availability Network</span>
-                      <span className="text-indigo-600 font-extrabold">99.98% Uptime</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>Hyperlocal City Desks</span>
-                      <span className="text-[#1570ef] font-semibold">Sub-Second CDN</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 6. Client Confidence & Retainer Retention */}
-                <div className="ag-card-6 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">Client Confidence</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                      94% Retention
-                    </span>
-                  </div>
-
-                  {/* Real Verified Trust & Revenue Proof */}
-                  <div className="w-full bg-emerald-50/40 rounded-2xl p-3 border border-emerald-100 space-y-2 my-1.5">
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9px] text-slate-500 uppercase font-semibold">Avg Partnership</div>
-                        <div className="text-base font-black text-emerald-700 mt-0.5">2.8+ Yrs</div>
-                        <div className="text-[8.5px] text-slate-400 mt-0.5">Industry: 10 mos</div>
-                      </div>
-                      <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                        <div className="text-[9px] text-slate-500 uppercase font-semibold">Client Revenue</div>
-                        <div className="text-base font-black text-slate-900 mt-0.5">₹6 Lakh+</div>
-                        <div className="text-[8.5px] text-emerald-600 font-semibold mt-0.5">Attributable ROI</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-[9.5px] bg-white rounded-lg px-2.5 py-1.5 border border-emerald-200/60 shadow-2xs">
-                      <span className="text-slate-600">Retainer Terms: <strong className="text-emerald-700">Zero Lock-In</strong></span>
-                      <span className="text-emerald-600 font-bold">Month-to-Month</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>Attributable ROI</span>
-                      <span className="text-emerald-600 font-extrabold">100% Tracked</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>Transparent Weekly Reporting</span>
-                      <span className="text-[#1570ef] font-semibold">Live Dashboards</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 7. Generative Engine Optimization (GEO & AI Search) */}
-                <div className="ag-card-7 w-[320px] sm:w-[360px] h-[310px] rounded-[24px] p-6 bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-purple-300 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group shrink-0 select-none">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-80" />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse" />
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">AI Search Engine (GEO)</span>
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
-                      Tier-1 Entity
-                    </span>
-                  </div>
-
-                  {/* Real AI Search Citation & Knowledge Graph Widget */}
-                  <div className="w-full bg-purple-50/40 rounded-2xl p-3 border border-purple-100 space-y-2 my-1.5">
-                    <div className="flex items-center justify-between bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-2xs">
-                      <div>
-                        <div className="text-[9px] text-slate-500 uppercase font-semibold">Perplexity &amp; ChatGPT Citations</div>
-                        <div className="text-base font-black text-purple-800 mt-0.5">94% <span className="text-[9px] text-emerald-600 font-bold">Top Source</span></div>
-                      </div>
-                      <div className="w-8 h-8 rounded-lg bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700 text-xs font-black">
-                        GEO
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between text-[9.5px] bg-white rounded-lg px-2.5 py-1.5 border border-purple-200/60 shadow-2xs">
-                      <span className="text-slate-600">Google AI Overviews: <strong className="text-purple-800">Top Snippet</strong></span>
-                      <span className="text-emerald-700 font-semibold flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Entity Verified
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="text-sm font-bold text-slate-900 flex items-center justify-between">
-                      <span>AI Entity Authority</span>
-                      <span className="text-purple-700 font-extrabold">96 / 100</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-                      <span>ChatGPT, Perplexity &amp; Gemini</span>
-                      <span className="text-[#1570ef] font-semibold">Entity Graph Locked</span>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            {/* Bottom Live Performance Indicators */}
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4 text-xs text-slate-600">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs text-slate-700 font-medium">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Active Client Deployments Across 350+ Cities
-              </span>
-              <span className="hidden sm:inline text-slate-300">•</span>
-              <span className="inline-flex items-center gap-1.5 text-slate-700 font-semibold">
-                <span className="text-emerald-600">✓</span> 100% Attributable Revenue Tracking
-              </span>
-              <span className="hidden sm:inline text-slate-300">•</span>
-              <span className="inline-flex items-center gap-1.5 text-slate-700 font-semibold">
-                <span className="text-[#1570ef]">⚡</span> Real-Time Campaign Dashboard
-              </span>
-            </div>
-
-          </div>
-        </section>
 
         {/* ==========================================================================
             9C. FREQUENTLY ASKED QUESTIONS (FAQ) & LOCAL GHAZIABAD SEO AUTHORITY (#faq)
@@ -5551,7 +5165,7 @@ export default function Home() {
             10. WEBFX SIGNATURE BOTTOM GRADIENT CLOSER CTA
             ========================================================================== */}
         <section id="contact" className="py-20 sm:py-24 bg-gradient-to-b from-white via-slate-50/60 to-white border-b border-slate-200">
-          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
             
             {/* Section Header */}
             <div className="text-center max-w-[820px] mx-auto mb-14">
@@ -5559,13 +5173,13 @@ export default function Home() {
                 <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse"></span>
                 Official Agency Headquarters &amp; Strategic Advisory
               </span>
-              <h2 className="mt-4 text-[32px] sm:text-[44px] lg:text-[48px] font-extrabold text-[#080d24] tracking-[-0.03em] leading-[1.12]">
+              <h2 className="mt-4 text-[32px] sm:text-[42px] lg:text-[46px] font-extrabold text-[#080d24] tracking-[-0.03em] leading-[1.14]">
                 Visit Our Office Or Connect With Our{" "}
-                <span className="text-[#1570ef] webfx-serif block sm:inline font-normal">
+                <span className="text-[#1570ef] block sm:inline font-bold">
                   Senior Growth Strategists
                 </span>
               </h2>
-              <p className="mt-4 text-[15px] sm:text-[17px] leading-relaxed text-slate-600 font-normal max-w-[700px] mx-auto">
+              <p className="mt-4 text-[15px] sm:text-[16px] leading-relaxed text-slate-600 font-normal max-w-[700px] mx-auto">
                 Ready to scale your organic rankings, paid acquisition, and attributable revenue? Speak directly with our team in Orbit Plaza, Crossings Republik, or request a customized audit below.
               </p>
             </div>
@@ -5609,7 +5223,10 @@ export default function Home() {
                     {/* Physical Office Address */}
                     <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80">
                       <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 mb-1.5">
-                        <span>📍</span>
+                        <svg className="w-3.5 h-3.5 text-[#1570ef]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
                         <span>Office Headquarters</span>
                       </div>
                       <p className="font-bold text-slate-900 text-xs sm:text-[13px] leading-snug">
@@ -5619,7 +5236,9 @@ export default function Home() {
                         Crossings Republik, Ghaziabad, Uttar Pradesh 201016, India
                       </p>
                       <div className="mt-3 pt-2.5 border-t border-slate-200/70 text-[11px] text-slate-600 flex items-start gap-1.5">
-                        <span className="shrink-0 text-xs">🏢</span>
+                        <svg className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
                         <div className="leading-snug">
                           <span className="font-semibold text-slate-700">Landmark: </span>
                           <span className="text-slate-600">Orbit Plaza Commercial Center (NH-24 Corridor)</span>
@@ -5630,7 +5249,9 @@ export default function Home() {
                     {/* Operational Hours */}
                     <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80">
                       <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 mb-1.5">
-                        <span>⏰</span>
+                        <svg className="w-3.5 h-3.5 text-[#1570ef]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                         <span>Consultation Hours</span>
                       </div>
                       <div className="space-y-1 text-slate-700">
@@ -5651,7 +5272,9 @@ export default function Home() {
                     {/* Direct Telephone */}
                     <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-100">
                       <div className="text-[10px] font-bold uppercase tracking-wider text-[#1570ef] flex items-center gap-1.5 mb-1">
-                        <span>☎</span>
+                        <svg className="w-3.5 h-3.5 text-[#1570ef]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
                         <span>Direct Telephone Desk</span>
                       </div>
                       <a
@@ -5668,7 +5291,9 @@ export default function Home() {
                     {/* Direct Communications & WhatsApp */}
                     <div className="p-4 rounded-2xl bg-emerald-50/50 border border-emerald-100">
                       <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5 mb-1">
-                        <span>💬</span>
+                        <svg className="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm.01 1.67c4.55 0 8.25 3.7 8.25 8.24 0 2.2-.86 4.28-2.42 5.83-1.56 1.56-3.63 2.42-5.83 2.42-1.48 0-2.93-.39-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.188 8.188 0 01-1.25-4.39c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z" />
+                        </svg>
                         <span>WhatsApp &amp; Inquiries</span>
                       </div>
                       <a
@@ -5697,7 +5322,7 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080d24]/90 via-[#080d24]/40 to-transparent flex items-end p-4 sm:p-5">
                     <div className="text-white">
-                      <span className="px-2.5 py-0.5 rounded-md bg-[#207de9] text-[10px] font-extrabold uppercase tracking-wider">
+                      <span className="px-2.5 py-0.5 rounded-md bg-[#1570ef] text-[10px] font-extrabold uppercase tracking-wider">
                         In-Office Consultations
                       </span>
                       <p className="text-sm sm:text-base font-extrabold mt-1">
@@ -5716,7 +5341,7 @@ export default function Home() {
                     href="https://share.google/EIVnaRy9WhkPCi8U8"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1866c2] text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5 cursor-pointer"
+                    className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#1570ef] hover:bg-[#105fc7] text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5 cursor-pointer"
                   >
                     <span>📍 Open in Google Maps / Get Directions</span>
                     <span>↗</span>
@@ -5863,7 +5488,7 @@ export default function Home() {
                     <button
                       type="submit"
                       disabled={formLoading}
-                      className="w-full py-4 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-sm shadow-md mt-2 transition disabled:opacity-60 cursor-pointer flex items-center justify-center gap-2 hover:-translate-y-0.5 tracking-wide"
+                      className="w-full py-4 rounded-xl bg-[#1570ef] hover:bg-[#105fc7] text-white font-bold text-sm shadow-md mt-2 transition disabled:opacity-60 cursor-pointer flex items-center justify-center gap-2 hover:-translate-y-0.5 tracking-wide"
                     >
                       {formLoading ? (
                         <span>Submitting Proposal Request...</span>

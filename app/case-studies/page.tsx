@@ -90,15 +90,15 @@ export default function CaseStudiesPage() {
 
       {/* 3. HERO SECTION */}
       <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200">
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-center">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 text-center">
           <div className="max-w-4xl mx-auto">
             <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef] mb-4">
               <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
               Verified Case Studies &amp; Performance ROI
             </span>
-            <h1 className="text-[34px] sm:text-[48px] lg:text-[54px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
+            <h1 className="text-[34px] sm:text-[46px] lg:text-[50px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.12]">
               We Don’t Just Deliver Clicks.{" "}
-              <span className="text-[#1570ef] block sm:inline font-normal italic font-serif">
+              <span className="text-[#1570ef] block sm:inline font-bold">
                 We Engineer Revenue.
               </span>
             </h1>
@@ -130,7 +130,7 @@ export default function CaseStudiesPage() {
 
       {/* 4. CASE STUDIES GRID */}
       <section className="py-20 bg-slate-50/60 border-b border-slate-200">
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
           <div className="space-y-8 max-w-6xl mx-auto">
             {CASE_STUDIES.map((study, idx) => (
               <div
@@ -204,7 +204,7 @@ export default function CaseStudiesPage() {
           <div className="pt-2 flex justify-center gap-4">
             <Link
               href="/contact"
-              className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#1570ef] to-[#00f0ff] text-slate-950 font-extrabold text-sm shadow-lg hover:scale-105 transition-transform"
+              className="px-8 py-4 rounded-xl bg-[#1570ef] hover:bg-[#105fc7] text-white font-bold text-sm shadow-lg hover:scale-105 transition-all"
             >
               Request Strategic Proposal →
             </Link>

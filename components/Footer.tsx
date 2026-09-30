@@ -42,18 +42,19 @@ function WhatsAppIcon({ className = "w-4 h-4 fill-current shrink-0" }: { classNa
   );
 }
 
-function LocationPinPink({ className = "w-4 h-4 text-[#F43F5E] shrink-0 mt-0.5" }: { className?: string }) {
+function LocationPinIcon({ className = "w-4 h-4 text-[#1570ef] shrink-0 mt-0.5" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+      <circle cx="12" cy="9" r="2.5" />
     </svg>
   );
 }
 
-function PhoneIconPink({ className = "w-4 h-4 text-[#F43F5E] shrink-0" }: { className?: string }) {
+function PhoneIconFooter({ className = "w-4 h-4 text-[#1570ef] shrink-0" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   );
 }
@@ -103,162 +104,23 @@ function YouTubeLogo({ className = "w-5 h-5 fill-white shrink-0" }: { className?
 }
 
 // -----------------------------------------------------------------------------
-// CTA Right-Side Background Illustration (Dotted Map + Google Pin + 3D Bars + Growth Arrow)
+// CTA Right-Side Subtle Blueprint Grid Background
 // -----------------------------------------------------------------------------
 function CtaBackgroundIllustration() {
   return (
-    <svg
-      className="absolute right-0 top-0 h-full w-[280px] sm:w-[440px] md:w-[540px] lg:w-[620px] pointer-events-none select-none overflow-hidden opacity-35 sm:opacity-75 lg:opacity-95 transition-opacity"
-      viewBox="0 0 620 260"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="xMidYMid meet"
+    <div
+      className="absolute right-0 top-0 h-full w-[320px] sm:w-[500px] lg:w-[620px] pointer-events-none select-none overflow-hidden opacity-25"
       aria-hidden="true"
     >
-      <defs>
-        {/* Gradients */}
-        <linearGradient id="barGrad1" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#38BDF8" />
-          <stop offset="100%" stopColor="#1D4ED8" />
-        </linearGradient>
-        <linearGradient id="barGrad2" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#60A5FA" />
-          <stop offset="100%" stopColor="#2563EB" />
-        </linearGradient>
-        <linearGradient id="arrowGrad" x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0%" stopColor="#0284C7" />
-          <stop offset="50%" stopColor="#2563EB" />
-          <stop offset="100%" stopColor="#1D4ED8" />
-        </linearGradient>
-        <radialGradient id="glowPin" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#60A5FA" stopOpacity="0" />
-        </radialGradient>
-        <linearGradient id="maskGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-          <stop offset="25%" stopColor="#ffffff" stopOpacity="0.45" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.95" />
-        </linearGradient>
-        <mask id="dotMask">
-          <rect x="0" y="0" width="620" height="260" fill="url(#maskGrad)" />
-        </mask>
-        
-        {/* Dot Matrix Pattern */}
-        <pattern id="dotPattern" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1.45" fill="#7DD3FC" fillOpacity="0.55" />
-        </pattern>
-      </defs>
-
-      {/* 1. Dot-matrix Map Grid */}
-      <rect x="0" y="0" width="620" height="260" fill="url(#dotPattern)" mask="url(#dotMask)" />
-
-      {/* 2. Soft Blue Map Contour Curves */}
-      <path
-        d="M 60 190 Q 180 130 310 160 T 560 110"
-        stroke="#BAE6FD"
-        strokeWidth="1.5"
-        strokeDasharray="4 4"
-        fill="none"
-        opacity="0.75"
-      />
-      <path
-        d="M 120 220 Q 260 180 390 200 T 620 150"
-        stroke="#93C5FD"
-        strokeWidth="1.2"
-        strokeDasharray="3 3"
-        fill="none"
-        opacity="0.6"
-      />
-
-      {/* 3. Five 3D Ascending Growth Bars */}
-      {/* Bar 1 */}
-      <g opacity="0.9">
-        <path d="M 370 230 L 392 220 L 392 170 L 370 180 Z" fill="#93C5FD" />
-        <path d="M 370 180 L 392 170 L 406 177 L 384 187 Z" fill="#BAE6FD" />
-        <path d="M 384 187 L 406 177 L 406 227 L 384 237 Z" fill="#60A5FA" />
-      </g>
-
-      {/* Bar 2 */}
-      <g opacity="0.92">
-        <path d="M 412 232 L 434 222 L 434 148 L 412 158 Z" fill="#60A5FA" />
-        <path d="M 412 158 L 434 148 L 448 155 L 426 165 Z" fill="#93C5FD" />
-        <path d="M 426 165 L 448 155 L 448 229 L 426 239 Z" fill="#3B82F6" />
-      </g>
-
-      {/* Bar 3 */}
-      <g opacity="0.95">
-        <path d="M 454 234 L 476 224 L 476 122 L 454 132 Z" fill="#3B82F6" />
-        <path d="M 454 132 L 476 122 L 490 129 L 468 139 Z" fill="#60A5FA" />
-        <path d="M 468 139 L 490 129 L 490 231 L 468 241 Z" fill="#2563EB" />
-      </g>
-
-      {/* Bar 4 */}
-      <g opacity="0.97">
-        <path d="M 496 236 L 518 226 L 518 92 L 496 102 Z" fill="#2563EB" />
-        <path d="M 496 102 L 518 92 L 532 99 L 510 109 Z" fill="#3B82F6" />
-        <path d="M 510 109 L 532 99 L 532 233 L 510 243 Z" fill="#1D4ED8" />
-      </g>
-
-      {/* Bar 5 (Highest Peak) */}
-      <g opacity="1">
-        <path d="M 538 238 L 560 228 L 560 60 L 538 70 Z" fill="#1D4ED8" />
-        <path d="M 538 70 L 560 60 L 574 67 L 552 77 Z" fill="#2563EB" />
-        <path d="M 552 77 L 574 67 L 574 235 L 552 245 Z" fill="#1E40AF" />
-      </g>
-
-      {/* 4. Bold 3D Curved Ascending Growth Arrow */}
-      <path
-        d="M 330 205 C 380 195, 430 170, 480 125 C 520 88, 550 55, 575 32"
-        stroke="url(#arrowGrad)"
-        strokeWidth="11"
-        strokeLinecap="round"
-        fill="none"
-        filter="drop-shadow(0 4px 10px rgba(37,99,235,0.35))"
-      />
-      {/* 3D Arrowhead */}
-      <polygon
-        points="596,15 572,44 558,22"
-        fill="#1D4ED8"
-        filter="drop-shadow(0 4px 10px rgba(29,78,216,0.45))"
-      />
-
-      {/* 5. Google Maps Location Pin with Glowing Shadow */}
-      <ellipse cx="260" cy="120" rx="36" ry="14" fill="url(#glowPin)" />
-      
-      {/* Pin Body */}
-      <g filter="drop-shadow(0 6px 14px rgba(21,101,192,0.35))">
-        <path
-          d="M 260 52 C 242 52 228 66 228 84 C 228 108 260 144 260 144 C 260 144 292 108 292 84 C 292 66 278 52 260 52 Z"
-          fill="#1E40AF"
-        />
-        <path
-          d="M 260 55 C 244 55 231 68 231 84 C 231 106 260 139 260 139 C 260 139 289 106 289 84 C 289 68 276 55 260 55 Z"
-          fill="#2563EB"
-        />
-        {/* Inner White Circle with Multicolor Google "G" */}
-        <circle cx="260" cy="84" r="15" fill="#FFFFFF" />
-        
-        {/* Crisp Multicolor Google 'G' Mark inside Pin */}
-        <g transform="translate(252, 76) scale(0.68)">
-          <path
-            fill="#4285F4"
-            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-          />
-          <path
-            fill="#34A853"
-            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-          />
-          <path
-            fill="#FBBC05"
-            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
-          />
-          <path
-            fill="#EA4335"
-            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
-          />
-        </g>
-      </g>
-    </svg>
+      <svg className="w-full h-full" viewBox="0 0 620 260" fill="none">
+        <defs>
+          <pattern id="footerGridPattern" width="28" height="28" patternUnits="userSpaceOnUse">
+            <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#2563eb" strokeWidth="0.75" strokeOpacity="0.3" />
+          </pattern>
+        </defs>
+        <rect width="620" height="260" fill="url(#footerGridPattern)" />
+      </svg>
+    </div>
   );
 }
 
@@ -282,46 +144,43 @@ export default function Footer() {
       {/* =========================================================================
           1. TOP CTA CONVERSION STRIP
           ========================================================================= */}
-      <section className="relative bg-gradient-to-r from-[#F7FBFF] via-[#F0F7FF] to-[#EAF4FF] border-t border-b border-blue-100 overflow-hidden font-sans w-full max-w-full box-border">
-        
-        {/* Subtle Ambient Glow On Left */}
-        <div className="absolute -left-16 -top-16 w-80 h-80 rounded-full bg-blue-200/35 blur-3xl pointer-events-none" />
-        <div className="absolute left-10 -bottom-16 w-72 h-72 rounded-full bg-indigo-200/20 blur-3xl pointer-events-none" />
+      <section className="relative bg-[#f8faff] border-t border-b border-slate-200 overflow-hidden font-sans w-full max-w-full box-border">
+        {/* Subtle Ambient Accent */}
+        <div className="absolute -left-16 -top-16 w-80 h-80 rounded-full bg-blue-100/40 blur-3xl pointer-events-none" />
 
-        {/* Right-Side Visual Background: Google Pin, Dot-matrix, 3D Bars & Arrow */}
+        {/* Right-Side Blueprint Grid */}
         <CtaBackgroundIllustration />
 
-        {/* Centered Max-Width Container (1680px Widescreen Fitted Grid) */}
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-10 sm:py-12 min-h-[230px] lg:min-h-[250px] flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 relative z-10 box-border">
+        {/* Centered Max-Width Container */}
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-12 sm:py-14 flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10 box-border">
           
           {/* Left Text & Credibility */}
-          <div className="max-w-3xl w-full text-center lg:text-left min-w-0">
-            {/* Blue Rounded Credibility Badge with Green Status Dot */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#155EEF] text-white text-[11px] sm:text-xs lg:text-[13px] font-black tracking-wider uppercase mb-3 shadow-xs max-w-full">
-              <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#08C568] animate-pulse shrink-0" />
-              <span className="truncate">DELHI NCR&apos;S #1 SEARCH ENGINEERING FIRM</span>
+          <div className="max-w-2xl w-full text-center lg:text-left min-w-0">
+            {/* Blue Rounded Credibility Badge with Pulse */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-xs font-bold tracking-wider uppercase mb-3">
+              <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse shrink-0" />
+              <span>DELHI NCR&apos;S PREMIER SEARCH &amp; GROWTH FIRM</span>
             </div>
 
-            {/* Bold Hero Heading Matching Exact Reference Layout */}
-            <h2 className="text-2xl sm:text-3xl lg:text-[38px] xl:text-[40px] font-black text-[#101D3A] tracking-tight leading-[1.18] break-words">
-              <span className="block">Ready to dominate</span>
-              <span className="text-[#155EEF]">Google Maps 3-Pack &amp; 10x</span> your inquiries?
+            {/* Bold Heading */}
+            <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-extrabold text-[#080d24] tracking-tight leading-[1.2]">
+              Ready to dominate <span className="text-[#1570ef]">Google Maps 3-Pack</span> &amp; scale revenue?
             </h2>
 
             {/* Supporting Description */}
-            <p className="mt-2.5 text-xs sm:text-sm lg:text-[15px] text-[#475467] font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 break-words">
-              Meet your dedicated strategists face-to-face in Orbit Plaza, Crossings Republik, or request a customized competitor audit today.
+            <p className="mt-2.5 text-sm sm:text-[15px] text-slate-600 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
+              Meet your dedicated strategists in Orbit Plaza, Crossings Republik, or request a customized competitor analysis today.
             </p>
           </div>
 
           {/* Right Action Buttons */}
-          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center lg:justify-end gap-3 sm:gap-3.5 w-full sm:w-auto shrink-0 z-20">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-end gap-3 w-full sm:w-auto shrink-0 z-20">
             {/* 1. Call Button */}
             <a
               href="tel:+919319807273"
-              className="inline-flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#101D3A] text-xs sm:text-[13.5px] font-bold border border-slate-200/90 shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#080d24] text-xs sm:text-sm font-bold border border-slate-200 shadow-xs hover:shadow-sm transition-all cursor-pointer"
             >
-              <PhoneIconBlue className="w-4 h-4 text-[#155EEF] shrink-0" />
+              <PhoneIconBlue className="w-4 h-4 text-[#1570ef] shrink-0" />
               <span>Call +91 93198 07273</span>
             </a>
 
@@ -330,16 +189,16 @@ export default function Footer() {
               href="https://wa.me/919319807273?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#08C568] hover:bg-[#07B05D] text-white text-xs sm:text-[13.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition-all cursor-pointer"
             >
               <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" />
-              <span>WhatsApp Strategy Desk</span>
+              <span>WhatsApp Strategy</span>
             </a>
 
             {/* 3. Get Free Proposal Button */}
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#155EEF] hover:bg-[#1250cf] text-white text-xs sm:text-[13.5px] font-bold shadow-xs hover:shadow-md transition-all active:scale-95 cursor-pointer w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#1570ef] hover:bg-[#1258c4] text-white text-xs sm:text-sm font-bold shadow-xs hover:shadow-md transition-all cursor-pointer"
             >
               <span>Get Free Proposal →</span>
             </Link>
@@ -349,15 +208,15 @@ export default function Footer() {
       </section>
 
       {/* =========================================================================
-          2. DEEP NAVY INSTITUTIONAL FOOTER (Fully Responsive on All Screen Sizes)
+          2. DEEP NAVY INSTITUTIONAL FOOTER
           ========================================================================= */}
-      <footer className="w-full max-w-full overflow-x-hidden bg-gradient-to-b from-[#07172D] to-[#0A1932] text-[#F8FAFC] pt-12 sm:pt-16 pb-10 border-t border-slate-800/80 font-sans box-border">
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 box-border">
+      <footer className="w-full max-w-full overflow-x-hidden bg-[#080d24] text-[#F8FAFC] pt-14 sm:pt-16 pb-12 border-t border-slate-800 font-sans box-border">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 box-border">
           
-          {/* Responsive Grid: Single column on phone (<768px), 2 columns on tablet, 12-col grid on desktop */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 pb-12 sm:pb-14 border-b border-white/10 w-full min-w-0">
+          {/* Responsive Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 sm:pb-14 border-b border-white/10 w-full min-w-0">
             
-            {/* COLUMN 1: Original Brand Logo (Enlarged), Description, Trust Badges, Address */}
+            {/* COLUMN 1: Original Brand Logo, Description, Trust Badges, Address */}
             <div className="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-3 space-y-5 w-full min-w-0">
               
               {/* Original Digital FX Logo */}
@@ -370,53 +229,53 @@ export default function Footer() {
                     height={76}
                     loading="lazy"
                     decoding="async"
-                    style={{ height: "70px", width: "auto" }}
-                    className="h-13 sm:h-16 lg:h-[70px] w-auto max-w-full object-contain shrink-0 transition-transform group-hover:scale-[1.02]"
+                    style={{ height: "64px", width: "auto" }}
+                    className="h-12 sm:h-14 lg:h-[64px] w-auto max-w-full object-contain shrink-0 transition-transform group-hover:scale-[1.02]"
                   />
                 </Link>
               </div>
 
               {/* Company Description */}
-              <p className="text-[13.5px] sm:text-[14px] text-[#B8C5D9] leading-[1.6] font-normal break-words w-full">
-                We are the leading digital advertising &amp; search engineering company that turns bold ideas into measurable revenue. Dominating Google Maps 3-Pack, Generative AI Search (GEO), and performance marketing across India and global markets.
+              <p className="text-[13.5px] text-slate-300 leading-[1.6] font-normal break-words w-full">
+                We are the digital advertising &amp; search engineering company that turns search visibility into measurable revenue. Dominating Google Maps 3-Pack, Generative AI Search (GEO), and performance marketing across India and global markets.
               </p>
 
-              {/* Compact Rounded Horizontal Rating / Credibility Badges */}
-              <div className="space-y-2.5 pt-1 w-full min-w-0">
-                {/* 1. Google 4.9/5.0 Badge */}
-                <div className="flex items-center gap-2.5 bg-[#0D223F]/90 border border-[#1E3A5F] px-3.5 py-2 rounded-xl shadow-2xs w-full max-w-full min-w-0 box-border">
-                  <GoogleGIcon className="w-5 h-5 shrink-0" />
+              {/* Unified Rating Badges */}
+              <div className="space-y-2 pt-1 w-full min-w-0">
+                {/* Google 4.9/5.0 Badge */}
+                <div className="flex items-center gap-2.5 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-xl shadow-xs w-full max-w-full min-w-0 box-border">
+                  <GoogleGIcon className="w-4.5 h-4.5 shrink-0" />
                   <div className="flex items-center gap-1.5 flex-wrap min-w-0">
                     <span className="text-amber-400 text-xs tracking-wider shrink-0">★★★★★</span>
-                    <span className="text-[11.5px] sm:text-[12px] font-bold text-[#F8FAFC] truncate">4.9/5.0 (128+ Reviews)</span>
+                    <span className="text-xs font-bold text-slate-200 truncate">4.9/5.0 (128+ Reviews)</span>
                   </div>
                 </div>
 
-                {/* 2. Amazing Workplaces Certified India */}
-                <div className="flex items-center gap-2 bg-[#171c26]/90 border border-amber-500/40 px-3.5 py-2 rounded-xl text-amber-400 text-[10.5px] sm:text-xs font-black tracking-wider uppercase shadow-2xs w-full max-w-full min-w-0 box-border">
-                  <span className="text-sm shrink-0">🏆</span>
-                  <span className="break-words min-w-0">AMAZING WORKPLACES CERTIFIED INDIA</span>
+                {/* Amazing Workplaces Certified */}
+                <div className="flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-xl text-slate-300 text-xs font-bold tracking-wider uppercase shadow-xs w-full max-w-full min-w-0 box-border">
+                  <span className="text-amber-400 shrink-0">★</span>
+                  <span className="break-words min-w-0">Amazing Workplaces Certified India</span>
                 </div>
 
-                {/* 3. Glassdoor 4.5 Badge */}
-                <div className="flex items-center gap-2 bg-[#092b33]/80 border border-teal-500/30 px-3.5 py-2 rounded-xl text-[11px] sm:text-xs shadow-2xs w-full max-w-full min-w-0 box-border">
-                  <span className="font-extrabold text-[#08C568] tracking-wider uppercase shrink-0">GLASSDOOR</span>
-                  <span className="font-bold text-[#F8FAFC]">4.5</span>
+                {/* Glassdoor Badge */}
+                <div className="flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-xl text-xs shadow-xs w-full max-w-full min-w-0 box-border">
+                  <span className="font-extrabold text-emerald-400 tracking-wider uppercase shrink-0">GLASSDOOR</span>
+                  <span className="font-bold text-slate-200">4.5</span>
                   <span className="text-amber-400 text-xs tracking-wider shrink-0">★★★★★</span>
                 </div>
               </div>
 
-              {/* Office Address & Phone with Pink/Magenta Icons */}
-              <div className="pt-2 space-y-2.5 text-xs text-[#B8C5D9] w-full min-w-0">
+              {/* Office Address & Phone */}
+              <div className="pt-2 space-y-2.5 text-xs text-slate-300 w-full min-w-0">
                 <div className="flex items-start gap-2.5 w-full min-w-0">
-                  <LocationPinPink className="w-4 h-4 text-[#F43F5E] shrink-0 mt-0.5" />
+                  <LocationPinIcon className="w-4 h-4 text-[#1570ef] shrink-0 mt-0.5" />
                   <span className="leading-relaxed break-words w-full min-w-0">
                     Shop No. 210, 2nd Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016
                   </span>
                 </div>
                 <div className="flex items-center gap-2.5 w-full min-w-0">
-                  <PhoneIconPink className="w-4 h-4 text-[#F43F5E] shrink-0" />
-                  <a href="tel:+919319807273" className="text-[#F8FAFC] hover:text-[#238BFF] transition-colors font-bold break-all">
+                  <PhoneIconFooter className="w-4 h-4 text-[#1570ef] shrink-0" />
+                  <a href="tel:+919319807273" className="text-white hover:text-blue-400 transition-colors font-bold break-all">
                     +91 93198 07273
                   </a>
                 </div>

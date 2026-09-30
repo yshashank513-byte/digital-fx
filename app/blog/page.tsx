@@ -47,15 +47,15 @@ export default function BlogIndexPage() {
       {/* 3. HERO & DAILY FEED BANNER */}
       <section className="bg-gradient-to-b from-[#080d24] via-[#0b1333] to-[#080d24] text-white py-14 sm:py-20 relative overflow-hidden border-b border-slate-800">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative z-10">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 relative z-10">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-black uppercase tracking-widest mb-4">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               DAILY DIGITAL MARKETING STRATEGY FEED
             </div>
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-white">
               Search Engineering &amp;{" "}
-              <span className="text-[#207de9] font-serif italic font-normal">Revenue Growth</span> Blueprints
+              <span className="text-[#1570ef]">Revenue Growth</span> Blueprints
             </h1>
             <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               Practical, battle-tested strategies for Google Maps 3-Pack domination, Generative Engine Optimization (GEO for ChatGPT &amp; Perplexity), Next.js speed, CTV ads, and direct WhatsApp sales funnels.
@@ -68,9 +68,14 @@ export default function BlogIndexPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search topics (e.g. Google Maps, CTV Ads, Conversion Fix, GEO, Blinkit)..."
-                className="w-full px-5 py-3.5 pl-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-[#207de9] transition shadow-lg"
+                className="w-full px-5 py-3.5 pl-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-[#1570ef] transition shadow-lg"
               />
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-base">🔍</span>
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </span>
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
@@ -85,7 +90,7 @@ export default function BlogIndexPage() {
       </section>
 
       {/* 4. CATEGORY TABS & FEATURED POST WITH POSTER */}
-      <section className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-12">
+      <section className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-12">
         {/* Category Pill Filters */}
         <div className="flex flex-wrap items-center gap-2 mb-10 pb-4 border-b border-slate-200">
           {(["All", "Local SEO", "AI & GEO", "Paid Growth", "Programmatic & CTV", "E-Commerce & Q-Commerce", "Web Architecture", "Agency Strategy"] as const).map(
@@ -95,7 +100,7 @@ export default function BlogIndexPage() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-bold transition cursor-pointer ${
                   selectedCategory === cat
-                    ? "bg-[#207de9] text-white shadow-sm"
+                    ? "bg-[#1570ef] text-white shadow-sm"
                     : "bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"
                 }`}
               >
@@ -123,12 +128,12 @@ export default function BlogIndexPage() {
                   />
                 </div>
                 <div className="lg:col-span-5 p-2 sm:p-4 space-y-4">
-                  <div className="inline-flex items-center gap-2 text-xs font-bold text-[#207de9]">
+                  <div className="inline-flex items-center gap-2 text-xs font-bold text-[#1570ef]">
                     <span>Author: {featuredPost.author.name}</span>
                     <span>•</span>
                     <span>{featuredPost.author.location}</span>
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900 group-hover:text-[#207de9] transition leading-snug">
+                  <h3 className="text-2xl font-black text-slate-900 group-hover:text-[#1570ef] transition leading-snug">
                     {featuredPost.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
@@ -136,7 +141,7 @@ export default function BlogIndexPage() {
                   </p>
 
                   <div className="pt-2">
-                    <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#080d24] text-white text-xs font-bold group-hover:bg-[#207de9] transition shadow-md">
+                    <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#080d24] text-white text-xs font-bold group-hover:bg-[#1570ef] transition shadow-md">
                       <span>Read Full Practitioner Guide</span>
                       <span>→</span>
                     </span>
@@ -160,7 +165,12 @@ export default function BlogIndexPage() {
 
           {filteredPosts.length === 0 ? (
             <div className="py-16 text-center bg-white rounded-3xl border border-slate-200 p-8">
-              <div className="text-4xl mb-3">🔍</div>
+              <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 text-[#1570ef] flex items-center justify-center mx-auto mb-3">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </div>
               <h3 className="text-lg font-bold text-slate-900">No articles matching your search</h3>
               <p className="text-xs text-slate-500 mt-1">Try adjusting your category filter or search keywords.</p>
               <button
@@ -168,7 +178,7 @@ export default function BlogIndexPage() {
                   setSelectedCategory("All");
                   setSearchQuery("");
                 }}
-                className="mt-4 px-4 py-2 bg-[#207de9] text-white font-bold text-xs rounded-xl"
+                className="mt-4 px-5 py-2.5 bg-[#080d24] hover:bg-[#1570ef] text-white font-bold text-xs rounded-xl transition cursor-pointer"
               >
                 Reset Filters
               </button>
@@ -196,11 +206,11 @@ export default function BlogIndexPage() {
                   <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                     <div>
                       <div className="flex items-center gap-2 text-[11px] font-bold text-slate-500 mb-2">
-                        <span className="text-[#207de9]">{post.category}</span>
+                        <span className="text-[#1570ef]">{post.category}</span>
                         <span>•</span>
                         <span>{post.publishedAt}</span>
                       </div>
-                      <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-[#207de9] transition leading-snug line-clamp-2">
+                      <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-[#1570ef] transition leading-snug line-clamp-2">
                         {post.title}
                       </h3>
                       <p className="text-xs text-slate-600 mt-2 leading-relaxed line-clamp-3 font-normal">
@@ -208,7 +218,7 @@ export default function BlogIndexPage() {
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#207de9]">
+                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#1570ef]">
                       <span>Read Strategy Guide</span>
                       <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </div>

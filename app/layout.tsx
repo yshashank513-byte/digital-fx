@@ -5,6 +5,7 @@ import {
   CORE_CUSTOMER_SEARCH_KEYWORDS,
   ALL_INDIA_AREA_SERVED_SCHEMA,
 } from "@/lib/indiaLocations";
+import NfcPromoModal from "@/components/NfcPromoModal";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -378,6 +379,7 @@ export default function RootLayout({
         />
 
         {children}
+        <NfcPromoModal />
       </body>
     </html>
   );

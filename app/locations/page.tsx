@@ -52,14 +52,14 @@ export default function LocationsDirectoryPage() {
       {/* 3. HERO HEADER (CLEAN WHITE) */}
       <section className="py-16 sm:py-20 border-b border-slate-200 bg-gradient-to-b from-slate-50/80 via-white to-white">
         <div className="max-w-5xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-xs font-bold uppercase tracking-wider mb-4">
+          <div className="badge-eyebrow mb-4">
             <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
-            <span>🇮🇳 All 28 States &amp; 8 Union Territories</span>
+            <span>All 28 States &amp; 8 Union Territories</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#080d24] mb-5 leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-[#080d24] mb-5 leading-tight">
             Pan-India Local SEO &amp; Digital Marketing <br className="hidden sm:block" />
-            <span className="text-[#207de9]">City Authority Directory</span>
+            <span className="text-[#1570ef]">City Authority Directory</span>
           </h1>
 
           <p className="text-slate-600 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed mb-8">
@@ -85,11 +85,11 @@ export default function LocationsDirectoryPage() {
 
       {/* 3B. INTERNATIONAL & GLOBAL OFFSHORE HUBS (DUBAI FLAGSHIP) */}
       <section className="py-12 bg-gradient-to-b from-slate-50 via-white to-slate-50 border-b border-slate-200">
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div>
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold uppercase tracking-wider mb-2">
-                <span>🇦🇪</span> Flagship Global Hubs • Dubai, GCC, US &amp; UK
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-xs font-bold uppercase tracking-wider mb-2">
+                <span>Flagship Global Hubs • Dubai, GCC, US &amp; UK</span>
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] tracking-tight">
                 International Commercial &amp; Offshore Authority Hubs
@@ -111,12 +111,12 @@ export default function LocationsDirectoryPage() {
               <Link
                 key={hub.slug}
                 href={`/locations/${hub.slug}`}
-                className="flex flex-col items-center justify-center p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-500 hover:shadow-md transition-all group text-center"
+                className="flex flex-col items-center justify-center p-4 bg-white border border-slate-200 rounded-2xl hover:border-[#1570ef] hover:shadow-md transition-all group text-center"
               >
                 <span className="text-3xl mb-1.5 group-hover:scale-110 transition-transform">{hub.flag}</span>
-                <span className="font-extrabold text-xs text-[#080d24] group-hover:text-blue-600 transition-colors">{hub.name}</span>
+                <span className="font-extrabold text-xs text-[#080d24] group-hover:text-[#1570ef] transition-colors">{hub.name}</span>
                 <span className="text-[10px] text-slate-500 font-medium mt-0.5">{hub.country}</span>
-                <span className="mt-2 text-[9.5px] font-bold text-amber-900 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                <span className="mt-2 text-[9.5px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
                   {hub.cta}
                 </span>
               </Link>
@@ -126,26 +126,31 @@ export default function LocationsDirectoryPage() {
       </section>
 
       {/* 4. DIRECTORY CONTENT: GROUPED BY STATES AND UTS (WHITE CARDS) */}
-      <section className="py-16 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+      <section className="py-16 max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {INDIA_STATES_AND_UTS.map((region) => (
             <div
               key={region.name}
-              className="rounded-2xl border border-slate-200 bg-white hover:border-[#207de9] hover:shadow-md transition p-5 flex flex-col justify-between"
+              className="rounded-2xl border border-slate-200 bg-white hover:border-[#1570ef] hover:shadow-md transition p-5 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-3">
                   <Link
                     href={`/locations/${toCitySlug(region.name)}`}
-                    className="text-base font-extrabold text-[#080d24] hover:text-[#207de9] tracking-tight flex items-center gap-2 group transition"
+                    className="text-base font-extrabold text-[#080d24] hover:text-[#1570ef] tracking-tight flex items-center gap-2 group transition"
                     title={`Explore ${region.name} statewide SEO & digital marketing hub`}
                   >
-                    <span className="text-[#207de9] text-sm group-hover:scale-110 transition-transform">📍</span>
+                    <span className="text-[#1570ef] text-sm group-hover:scale-110 transition-transform">
+                      <svg className="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </span>
                     <span className="group-hover:underline underline-offset-4">{region.name}</span>
                   </Link>
                   <Link
                     href={`/locations/${toCitySlug(region.name)}`}
-                    className="text-[10px] uppercase font-extrabold px-2.5 py-1 rounded-full bg-blue-50 hover:bg-blue-100 text-[#207de9] border border-blue-200 transition"
+                    className="text-[10px] uppercase font-extrabold px-2.5 py-1 rounded-full bg-blue-50 hover:bg-blue-100 text-[#1570ef] border border-blue-200 transition"
                   >
                     {region.cities.length} Cities Hub →
                   </Link>
@@ -159,7 +164,7 @@ export default function LocationsDirectoryPage() {
                       <Link
                         key={city}
                         href={`/locations/${slug}`}
-                        className="text-xs px-2.5 py-1 rounded-lg bg-blue-50/80 hover:bg-[#207de9] text-[#1570ef] hover:text-white transition font-semibold border border-blue-200/80 hover:border-[#207de9]"
+                        className="text-xs px-2.5 py-1 rounded-lg bg-blue-50/80 hover:bg-[#1570ef] text-[#1570ef] hover:text-white transition font-semibold border border-blue-200/80 hover:border-[#1570ef]"
                         title={`Digital Marketing & SEO in ${city}, ${region.name}`}
                       >
                         {city} ★
@@ -181,7 +186,7 @@ export default function LocationsDirectoryPage() {
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
                 <Link
                   href={`/locations/${toCitySlug(region.name)}`}
-                  className="font-bold text-[#207de9] hover:underline flex items-center gap-1"
+                  className="font-bold text-[#1570ef] hover:underline flex items-center gap-1"
                 >
                   <span>Explore {region.name} Hub</span>
                   <span>→</span>
@@ -213,7 +218,7 @@ export default function LocationsDirectoryPage() {
               href="https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20want%20to%20rank%20my%20business."
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs transition flex items-center gap-2 shadow-xs"
+              className="px-5 py-2.5 rounded-xl bg-[#1570ef] hover:bg-[#105fc7] text-white font-bold text-xs transition flex items-center gap-2 shadow-xs"
             >
               <span>Speak with Growth Strategist</span>
               <span>→</span>

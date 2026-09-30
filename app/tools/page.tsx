@@ -158,12 +158,12 @@ function ToolsContent() {
 
       {/* Persistent AI Tools Suite Navigation Bar */}
       <div className="border-b border-slate-200 bg-[#F8FAFC]">
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-3">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
             
             {/* Left: Suite Identity */}
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
               <span className="text-xs font-extrabold uppercase tracking-wider text-slate-800">
                 Digital FX AI Tools Ecosystem
               </span>
@@ -176,14 +176,16 @@ function ToolsContent() {
                 onClick={() => setActiveTool("seo")}
                 className={`px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
                   activeTool === "seo"
-                    ? "bg-[#2563EB] text-white shadow-xs"
+                    ? "bg-[#1570ef] text-white shadow-xs"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 }`}
               >
-                <span>🔍</span>
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
                 <span>SEO Checker</span>
                 <span className={`px-1.5 py-0.2 rounded text-[9px] font-black uppercase ${
-                  activeTool === "seo" ? "bg-white/20 text-white" : "bg-blue-50 text-[#2563EB]"
+                  activeTool === "seo" ? "bg-white/20 text-white" : "bg-blue-50 text-[#1570ef]"
                 }`}>
                   New
                 </span>
@@ -194,11 +196,13 @@ function ToolsContent() {
                 onClick={() => setActiveTool("pagespeed")}
                 className={`px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
                   activeTool === "pagespeed"
-                    ? "bg-[#080d24] text-white shadow-xs"
+                    ? "bg-[#1570ef] text-white shadow-xs"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 }`}
               >
-                <span>⚡</span>
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
                 <span>PageSpeed &amp; Web Vitals</span>
               </button>
 
@@ -207,14 +211,16 @@ function ToolsContent() {
                 onClick={() => setActiveTool("review-standee")}
                 className={`px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
                   activeTool === "review-standee"
-                    ? "bg-emerald-600 text-white shadow-xs"
+                    ? "bg-[#1570ef] text-white shadow-xs"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 }`}
               >
-                <span>⭐</span>
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
                 <span>Review Standee</span>
                 <span className={`px-1.5 py-0.2 rounded text-[9px] font-black uppercase ${
-                  activeTool === "review-standee" ? "bg-white/20 text-white" : "bg-emerald-50 text-emerald-700"
+                  activeTool === "review-standee" ? "bg-white/20 text-white" : "bg-blue-50 text-[#1570ef]"
                 }`}>
                   AI QR
                 </span>
@@ -225,11 +231,13 @@ function ToolsContent() {
                 onClick={() => setActiveTool("overview")}
                 className={`px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
                   activeTool === "overview"
-                    ? "bg-slate-800 text-white shadow-xs"
+                    ? "bg-[#1570ef] text-white shadow-xs"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 }`}
               >
-                <span>🎛️</span>
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
                 <span>All Tools</span>
               </button>
             </div>
@@ -250,16 +258,16 @@ function ToolsContent() {
          ======================================================== */}
       {activeTool === "overview" && (
         <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white">
-          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-center">
+          <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 text-center">
             
-            <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef] mb-4">
+            <span className="badge-eyebrow mb-4">
               <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
               Digital FX AI Tools Suite
             </span>
 
-            <h1 className="text-[34px] sm:text-[48px] lg:text-[52px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
+            <h1 className="text-[34px] sm:text-[46px] lg:text-[50px] font-black text-[#080d24] tracking-[-0.035em] leading-[1.1]">
               Explore Our Free AI &amp;{" "}
-              <span className="text-[#2563EB] font-normal italic font-serif">
+              <span className="text-[#1570ef]">
                 Search Engineering Suite.
               </span>
             </h1>
@@ -269,24 +277,27 @@ function ToolsContent() {
             </p>
 
             {/* AI Tools Cards Grid */}
-            <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
               
               {/* Card 1: SEO Checker (Required New Tool) */}
               <div
                 onClick={() => setActiveTool("seo")}
-                className="group relative rounded-3xl border-2 border-[#2563EB]/40 hover:border-[#2563EB] bg-gradient-to-b from-blue-50/40 via-white to-white p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                className="group relative rounded-2xl border-2 border-[#1570ef]/40 hover:border-[#1570ef] bg-white p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-[#2563EB] text-xl group-hover:scale-110 transition-transform">
-                      🔍
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-[#1570ef] group-hover:scale-105 transition-transform">
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      </svg>
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-[#2563EB] text-white text-[11px] font-bold uppercase tracking-wider">
+                    <span className="px-2.5 py-1 rounded-full bg-[#1570ef] text-white text-[11px] font-bold uppercase tracking-wider">
                       NEW • POPULAR
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#2563EB] transition">
+                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#1570ef] transition">
                     SEO Checker
                   </h3>
                   <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
@@ -303,7 +314,7 @@ function ToolsContent() {
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-slate-100">
-                  <span className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2563EB] group-hover:translate-x-1 transition-transform">
+                  <span className="inline-flex items-center gap-1.5 text-sm font-bold text-[#1570ef] group-hover:translate-x-1 transition-transform">
                     <span>Check SEO →</span>
                   </span>
                 </div>
@@ -312,12 +323,14 @@ function ToolsContent() {
               {/* Card 2: PageSpeed & Web Vitals Audit */}
               <div
                 onClick={() => setActiveTool("pagespeed")}
-                className="group relative rounded-3xl border border-slate-200 hover:border-slate-400 bg-white p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                className="group relative rounded-2xl border border-slate-200 hover:border-slate-400 bg-white p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 text-xl group-hover:scale-110 transition-transform">
-                      ⚡
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-[#1570ef] group-hover:scale-105 transition-transform">
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
                     </div>
                     <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 text-[11px] font-bold uppercase tracking-wider border border-slate-200">
                       LIVE TELEMETRY
@@ -350,19 +363,21 @@ function ToolsContent() {
               {/* Card 3: Google Review Standee & AI Review Engine */}
               <div
                 onClick={() => setActiveTool("review-standee")}
-                className="group relative rounded-3xl border border-slate-200 hover:border-[#10B981] bg-white p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
+                className="group relative rounded-2xl border border-slate-200 hover:border-[#1570ef] bg-white p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 text-xl group-hover:scale-110 transition-transform">
-                      ⭐
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-[#1570ef] group-hover:scale-105 transition-transform">
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold uppercase tracking-wider border border-emerald-200">
+                    <span className="px-2.5 py-1 rounded-full bg-blue-50 text-[#1570ef] text-[11px] font-bold uppercase tracking-wider border border-blue-200">
                       OFFICIAL STANDEE + AI
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition">
+                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#1570ef] transition">
                     Google Review Standee &amp; AI Generator
                   </h3>
                   <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
@@ -403,7 +418,7 @@ function ToolsContent() {
          ======================================================== */}
       {activeTool === "pagespeed" && (
         <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200">
-          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-center">
+          <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 text-center">
             
             <div className="mb-4 flex items-center justify-center gap-2">
               <button
@@ -416,13 +431,13 @@ function ToolsContent() {
               </button>
             </div>
 
-            <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef] mb-4">
+            <span className="badge-eyebrow mb-4">
               <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
               Live Telemetry Audit
             </span>
-            <h1 className="text-[34px] sm:text-[48px] lg:text-[54px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
+            <h1 className="text-[34px] sm:text-[46px] lg:text-[50px] font-black text-[#080d24] tracking-[-0.035em] leading-[1.1]">
               Analyze Your Real-Time Speed &amp;{" "}
-              <span className="text-[#1570ef] block sm:inline font-normal italic font-serif">
+              <span className="text-[#1570ef] block sm:inline">
                 Core Web Vitals Performance.
               </span>
             </h1>
@@ -466,7 +481,10 @@ function ToolsContent() {
                       </>
                     ) : (
                       <>
-                        <span>⚡ Run Free Audit</span>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span>Run Free Audit</span>
                         <span>→</span>
                       </>
                     )}

@@ -214,7 +214,7 @@ export default async function CityLocationPage({ params }: PageProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-[#207de9] selection:text-white">
+    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-[#1570ef] selection:text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -225,23 +225,23 @@ export default async function CityLocationPage({ params }: PageProps) {
 
       {/* 3. BREADCRUMBS */}
       <div className="bg-slate-50 border-b border-slate-200/80 py-3">
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-xs text-slate-500 flex items-center gap-2 flex-wrap">
-          <Link href="/" className="hover:text-[#207de9] transition font-medium">Home</Link>
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 text-xs text-slate-500 flex items-center gap-2 flex-wrap">
+          <Link href="/" className="hover:text-[#1570ef] transition font-medium">Home</Link>
           <span className="text-slate-400">/</span>
-          <Link href="/locations" className="hover:text-[#207de9] transition font-medium">Locations</Link>
+          <Link href="/locations" className="hover:text-[#1570ef] transition font-medium">Locations</Link>
           <span className="text-slate-400">/</span>
           {profile.isState ? (
-            <span className="text-[#207de9] font-bold">{profile.name}</span>
+            <span className="text-[#1570ef] font-bold">{profile.name}</span>
           ) : (
             <>
               <Link
                 href={`/locations/${toCitySlug(profile.state)}`}
-                className="hover:text-[#207de9] transition font-medium"
+                className="hover:text-[#1570ef] transition font-medium"
               >
                 {profile.state}
               </Link>
               <span className="text-slate-400">/</span>
-              <span className="text-[#207de9] font-bold">{profile.name}</span>
+              <span className="text-[#1570ef] font-bold">{profile.name}</span>
             </>
           )}
         </div>
@@ -249,9 +249,9 @@ export default async function CityLocationPage({ params }: PageProps) {
 
       {/* 4. HERO SECTION (WHITE CORPORATE AGENCY STYLE) */}
       <section className="py-16 sm:py-20 bg-gradient-to-b from-slate-50/80 via-white to-white border-b border-slate-200">
-        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-center">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 text-center">
           
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-[#1570ef] text-xs font-bold tracking-wider uppercase mb-5">
+          <div className="badge-eyebrow mb-5">
             <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
             <span>
               {profile.isState
@@ -260,9 +260,9 @@ export default async function CityLocationPage({ params }: PageProps) {
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#080d24] leading-[1.14] mb-6">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#080d24] leading-[1.14] mb-6">
             Best Digital Marketing Agency in{" "}
-            <span className="text-[#207de9] underline decoration-blue-200 underline-offset-8">
+            <span className="text-[#1570ef]">
               {profile.name}
             </span>
           </h1>
@@ -287,15 +287,16 @@ export default async function CityLocationPage({ params }: PageProps) {
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm transition shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2"
             >
-              <span>💬 Chat with Senior Strategist (WhatsApp)</span>
+              <span>Chat with Senior Strategist (WhatsApp)</span>
               <span>→</span>
             </a>
 
             <Link
               href="/#geo-checker"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-extrabold text-xs sm:text-sm transition shadow-md shadow-blue-500/20 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#080d24] hover:bg-[#1570ef] text-white font-extrabold text-xs sm:text-sm transition shadow-md flex items-center justify-center gap-2"
             >
-              <span>⚡ Run Free AI Geo-Audit for {profile.name}</span>
+              <span>Run Free AI Geo-Audit for {profile.name}</span>
+              <span>→</span>
             </Link>
           </div>
 
@@ -310,11 +311,11 @@ export default async function CityLocationPage({ params }: PageProps) {
               <div className="text-xs text-slate-500 font-medium mt-0.5">Sub-Second Mobile Load</div>
             </div>
             <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-              <div className="text-xl font-extrabold text-[#207de9]">45-90 Days</div>
+              <div className="text-xl font-extrabold text-[#1570ef]">45-90 Days</div>
               <div className="text-xs text-slate-500 font-medium mt-0.5">Google Maps 3-Pack Target</div>
             </div>
             <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-              <div className="text-xl font-extrabold text-purple-600">Zero Lock-In</div>
+              <div className="text-xl font-extrabold text-slate-900">Zero Lock-In</div>
               <div className="text-xs text-slate-500 font-medium mt-0.5">Cancel Anytime Retainers</div>
             </div>
           </div>
@@ -324,9 +325,9 @@ export default async function CityLocationPage({ params }: PageProps) {
       {/* 4B. STATE CITIES & DISTRICTS DIRECTORY (EXCLUSIVE FOR STATE PAGES) */}
       {profile.isState && profile.citiesInState && profile.citiesInState.length > 0 && (
         <section className="py-14 sm:py-16 bg-slate-50 border-b border-slate-200">
-          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
             <div className="text-center max-w-2xl mx-auto mb-10">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+              <span className="badge-eyebrow">
                 District &amp; City Coverage
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mt-3 tracking-tight">
@@ -342,12 +343,12 @@ export default async function CityLocationPage({ params }: PageProps) {
                 <Link
                   key={city.slug}
                   href={`/locations/${city.slug}`}
-                  className="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-[#207de9] hover:shadow-md transition group flex flex-col justify-between"
+                  className="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-[#1570ef] hover:shadow-md transition group flex flex-col justify-between"
                   title={`Digital Marketing & Local SEO in ${city.name}, ${profile.name}`}
                 >
-                  <div className="text-xs font-extrabold text-[#080d24] group-hover:text-[#207de9] transition flex items-center justify-between">
-                    <span>📍 {city.name}</span>
-                    <span className="text-[10px] text-slate-400 group-hover:text-[#207de9]">→</span>
+                  <div className="text-xs font-extrabold text-[#080d24] group-hover:text-[#1570ef] transition flex items-center justify-between">
+                    <span>{city.name}</span>
+                    <span className="text-[10px] text-slate-400 group-hover:text-[#1570ef]">→</span>
                   </div>
                   <span className="text-[10.5px] text-slate-500 font-medium mt-1.5">
                     Local SEO &amp; Maps Hub
@@ -360,10 +361,10 @@ export default async function CityLocationPage({ params }: PageProps) {
       )}
 
       {/* 5. LOCAL MARKET REALITY & CORRIDORS */}
-      <section className="py-16 sm:py-20 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 border-b border-slate-200">
+      <section className="py-16 sm:py-20 max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 border-b border-slate-200">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <div className="lg:col-span-5 space-y-4">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+            <span className="badge-eyebrow">
               Commercial Intelligence
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] leading-tight tracking-tight">
@@ -380,7 +381,7 @@ export default async function CityLocationPage({ params }: PageProps) {
               <div className="flex flex-wrap gap-1.5 pt-1">
                 {profile.landmarks.map((landmark) => (
                   <span key={landmark} className="px-2.5 py-1 rounded-lg bg-white border border-blue-200 text-[#080d24] text-xs font-semibold shadow-2xs">
-                    📍 {landmark}
+                    {landmark}
                   </span>
                 ))}
               </div>
@@ -409,9 +410,9 @@ export default async function CityLocationPage({ params }: PageProps) {
       </section>
 
       {/* 6. PROVEN 4-STAGE EXECUTION SYSTEM (DETAILS FULLY OPEN) */}
-      <section className="py-16 sm:py-20 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 border-b border-slate-200">
+      <section className="py-16 sm:py-20 max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 border-b border-slate-200">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+          <span className="badge-eyebrow">
             Engineered Playbook
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mt-3 tracking-tight">
@@ -428,11 +429,11 @@ export default async function CityLocationPage({ params }: PageProps) {
             return (
               <div
                 key={idx}
-                className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover:border-[#207de9] hover:shadow-md transition-all flex flex-col justify-between"
+                className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs hover:border-[#1570ef] hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#207de9] border border-blue-200 flex items-center justify-center font-black text-xs">
+                    <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#1570ef] border border-blue-200 flex items-center justify-center font-black text-xs">
                       0{idx + 1}
                     </div>
                     <h3 className="text-base font-bold text-[#080d24]">
@@ -455,7 +456,7 @@ export default async function CityLocationPage({ params }: PageProps) {
       </section>
 
       {/* 7. VERIFIED LOCAL CASE STUDY */}
-      <section className="py-16 sm:py-20 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 border-b border-slate-200">
+      <section className="py-16 sm:py-20 max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 border-b border-slate-200">
         <div className="rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/40 via-white to-blue-50/30 p-7 sm:p-10 shadow-xs">
           <div className="flex items-center gap-2 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
             <span>✓ Verified Case Study Benchmark • {profile.name} Region</span>
@@ -481,9 +482,9 @@ export default async function CityLocationPage({ params }: PageProps) {
       </section>
 
       {/* 8. TRANSPARENT PRICING TIERS (ALL DETAILS ADDED & BUTTONS OPEN) */}
-      <section className="py-16 sm:py-20 max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 border-b border-slate-200">
+      <section className="py-16 sm:py-20 max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 border-b border-slate-200">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+          <span className="badge-eyebrow">
             Clear Investment
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mt-3 tracking-tight">
@@ -538,7 +539,7 @@ export default async function CityLocationPage({ params }: PageProps) {
               href={`https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20want%20to%20activate%20the%20₹2,000/mo%20Google%20Maps%20Growth%20plan%20for%20${encodeURIComponent(profile.name)}.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-[#207de9] text-white font-bold text-xs text-center transition shadow-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer"
+              className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-[#1570ef] text-white font-bold text-xs text-center transition shadow-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer"
             >
               <span>Activate Plan on WhatsApp</span>
               <span className="text-[10px] text-slate-300 font-normal">₹2,000/mo • Instant Onboarding</span>
@@ -546,12 +547,12 @@ export default async function CityLocationPage({ params }: PageProps) {
           </div>
 
           {/* Plan 2 - Featured */}
-          <div className="p-6 sm:p-7 rounded-2xl bg-blue-50/40 border-2 border-[#207de9] shadow-md flex flex-col justify-between relative">
-            <div className="absolute -top-3 right-5 px-3 py-0.5 rounded-full bg-[#207de9] text-white text-[10px] font-black uppercase tracking-wider shadow-xs">
+          <div className="p-6 sm:p-7 rounded-2xl bg-blue-50/40 border-2 border-[#1570ef] shadow-md flex flex-col justify-between relative">
+            <div className="absolute -top-3 right-5 px-3 py-0.5 rounded-full bg-[#1570ef] text-white text-[10px] font-black uppercase tracking-wider shadow-xs">
               Most Popular
             </div>
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#207de9]">Tier 02</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#1570ef]">Tier 02</span>
               <h3 className="text-lg font-black text-[#080d24] mt-1">Next.js Web Architecture</h3>
               <div className="mt-3 mb-5">
                 <span className="text-3xl font-black text-[#080d24]">₹10,000</span>
@@ -564,23 +565,23 @@ export default async function CityLocationPage({ params }: PageProps) {
               </div>
               <ul className="space-y-2.5 text-xs text-slate-800 mb-8 font-medium">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#207de9] font-bold">✓</span>
+                  <span className="text-[#1570ef] font-bold">✓</span>
                   <span>Sub-Second (&lt; 0.8s) Mobile Load Speed</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#207de9] font-bold">✓</span>
+                  <span className="text-[#1570ef] font-bold">✓</span>
                   <span>1-Click WhatsApp Floating Conversion Engine</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#207de9] font-bold">✓</span>
+                  <span className="text-[#1570ef] font-bold">✓</span>
                   <span>Complete Schema.org JSON-LD Structured Data</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#207de9] font-bold">✓</span>
+                  <span className="text-[#1570ef] font-bold">✓</span>
                   <span>Free SSL, Domain Setup &amp; Edge CDN Hosting</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#207de9] font-bold">✓</span>
+                  <span className="text-[#1570ef] font-bold">✓</span>
                   <span>Delivered in 7 Days with 100% Mobile Score</span>
                 </li>
               </ul>
@@ -591,7 +592,7 @@ export default async function CityLocationPage({ params }: PageProps) {
               href={`https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20want%20to%20build%20a%20Next.js%20Website%20for%20my%20business%20in%20${encodeURIComponent(profile.name)}.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3 px-4 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs text-center transition shadow-md shadow-blue-500/25 flex flex-col items-center justify-center gap-0.5 cursor-pointer"
+              className="w-full py-3 px-4 rounded-xl bg-[#1570ef] hover:bg-[#105fc7] text-white font-bold text-xs text-center transition shadow-md shadow-blue-500/25 flex flex-col items-center justify-center gap-0.5 cursor-pointer"
             >
               <span>Build My Website</span>
               <span className="text-[10px] text-blue-100 font-normal">₹10,000 One-Time • 7-Day Launch</span>
@@ -641,7 +642,7 @@ export default async function CityLocationPage({ params }: PageProps) {
               href={`https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20want%20to%20discuss%20the%20360°%20Growth%20Retainer%20for%20${encodeURIComponent(profile.name)}.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-purple-700 text-white font-bold text-xs text-center transition shadow-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer"
+              className="w-full py-3 px-4 rounded-xl bg-[#080d24] hover:bg-[#1570ef] text-white font-bold text-xs text-center transition shadow-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer"
             >
               <span>Retain Growth Strategist</span>
               <span className="text-[10px] text-slate-300 font-normal">₹25,000/mo • Dedicated Line</span>
@@ -653,10 +654,10 @@ export default async function CityLocationPage({ params }: PageProps) {
       {/* 8B. SIBLING HUBS IN THIS STATE (FOR CITY PAGES) */}
       {!profile.isState && siblingCities.length > 0 && (
         <section className="py-14 sm:py-16 bg-slate-50 border-b border-slate-200">
-          <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                <span className="badge-eyebrow">
                   Regional Network • {profile.state}
                 </span>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-[#080d24] mt-2 tracking-tight">
@@ -665,7 +666,7 @@ export default async function CityLocationPage({ params }: PageProps) {
               </div>
               <Link
                 href={`/locations/${toCitySlug(profile.state)}`}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-slate-200 text-[#207de9] font-bold text-xs hover:border-[#207de9] hover:shadow-xs transition self-start sm:self-auto"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-slate-200 text-[#1570ef] font-bold text-xs hover:border-[#1570ef] hover:shadow-xs transition self-start sm:self-auto"
               >
                 <span>View {profile.state} State Hub</span>
                 <span>→</span>
@@ -677,10 +678,10 @@ export default async function CityLocationPage({ params }: PageProps) {
                 <Link
                   key={city.slug}
                   href={`/locations/${city.slug}`}
-                  className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-[#207de9] hover:bg-blue-50 text-slate-700 hover:text-[#207de9] text-xs font-semibold transition shadow-2xs"
+                  className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-[#1570ef] hover:bg-blue-50 text-slate-700 hover:text-[#1570ef] text-xs font-semibold transition shadow-2xs"
                   title={`Digital Marketing & SEO in ${city.name}, ${profile.state}`}
                 >
-                  📍 {city.name}
+                  {city.name}
                 </Link>
               ))}
             </div>
@@ -689,9 +690,9 @@ export default async function CityLocationPage({ params }: PageProps) {
       )}
 
       {/* 9. LOCAL FAQS - ALL QUESTIONS & ANSWERS FULLY OPEN */}
-      <section className="py-16 sm:py-20 max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 border-b border-slate-200">
+      <section className="py-16 sm:py-20 max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 border-b border-slate-200">
         <div className="text-center mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#207de9] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+          <span className="badge-eyebrow">
             Frequently Answered Questions
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mt-3 tracking-tight">
@@ -706,7 +707,7 @@ export default async function CityLocationPage({ params }: PageProps) {
           {profile.faqs.map((faq, idx) => (
             <div key={idx} className="p-6 rounded-2xl bg-slate-50/70 border border-slate-200">
               <h3 className="text-base font-bold text-[#080d24] mb-2 flex items-start gap-2.5">
-                <span className="text-[#207de9] font-black">Q{idx + 1}.</span>
+                <span className="text-[#1570ef] font-black">Q{idx + 1}.</span>
                 <span>{faq.question}</span>
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-6 font-normal">
@@ -719,7 +720,7 @@ export default async function CityLocationPage({ params }: PageProps) {
 
       {/* 10. BOTTOM CONSULTATION BANNER */}
       <section className="py-16 sm:py-20 bg-slate-50">
-        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-center">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 text-center">
           <h2 className="text-2xl sm:text-4xl font-extrabold text-[#080d24] mb-3 tracking-tight">
             Ready to Dominate Local Search in {profile.name}?
           </h2>
@@ -730,9 +731,10 @@ export default async function CityLocationPage({ params }: PageProps) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
             <Link
               href="/#geo-checker"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs sm:text-sm transition shadow-sm"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#080d24] hover:bg-[#1570ef] text-white font-bold text-xs sm:text-sm transition shadow-sm flex items-center justify-center gap-2"
             >
-              ⚡ Run Free AI Geo-Audit on Homepage
+              <span>Run Free AI Geo-Audit</span>
+              <span>→</span>
             </Link>
             <a
               href={`https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20am%20from%20${encodeURIComponent(profile.name)}%20and%20want%20to%20consult.`}

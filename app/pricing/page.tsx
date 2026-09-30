@@ -92,14 +92,14 @@ export default function PricingPage() {
 
       {/* 3. HERO */}
       <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200 text-center">
-        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
           <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef] mb-4">
             <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
             Predictable Revenue Retainers
           </span>
-          <h1 className="text-[34px] sm:text-[48px] lg:text-[54px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
+          <h1 className="text-[34px] sm:text-[46px] lg:text-[50px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.12]">
             Clear, Transparent Packages Built For{" "}
-            <span className="text-[#1570ef] block sm:inline font-normal italic font-serif">
+            <span className="text-[#1570ef] block sm:inline font-bold">
               Measurable ROI.
             </span>
           </h1>
@@ -111,7 +111,7 @@ export default function PricingPage() {
 
       {/* 4. PRICING TIERS */}
       <section className="py-20 bg-slate-50/60 border-b border-slate-200">
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
             {TIERS.map((tier) => (
               <div
@@ -158,7 +158,7 @@ export default function PricingPage() {
                     href={`/contact?plan=${encodeURIComponent(tier.name)}`}
                     className={`w-full py-3.5 px-6 rounded-xl font-bold text-xs sm:text-sm text-center block transition shadow-md ${
                       tier.popular
-                        ? "bg-[#1570ef] hover:bg-[#1362d2] text-white shadow-blue-500/25"
+                        ? "bg-[#1570ef] hover:bg-[#105fc7] text-white shadow-blue-500/25"
                         : "bg-[#080d24] hover:bg-[#1570ef] text-white"
                     }`}
                   >

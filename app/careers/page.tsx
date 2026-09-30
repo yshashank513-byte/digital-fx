@@ -65,24 +65,24 @@ const OPEN_ROLES = [
 
 export default function CareersPage() {
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 antialiased selection:bg-[#207de9] selection:text-white">
+    <div className="min-h-screen bg-white font-sans text-slate-900 antialiased selection:bg-[#1570ef] selection:text-white">
       
       {/* Universal Navbar */}
       <Navbar currentPath="/careers" />
 
       {/* 3. HERO BANNER */}
       <section className="py-16 sm:py-24 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200">
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             <div className="lg:col-span-7 space-y-5">
-              <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef]">
+              <span className="badge-eyebrow">
                 <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse" />
                 Careers (We Are Hiring!)
               </span>
-              <h1 className="text-[34px] sm:text-[48px] lg:text-[54px] font-extrabold text-[#080d24] tracking-[-0.035em] leading-[1.1]">
+              <h1 className="text-[34px] sm:text-[46px] lg:text-[52px] font-black text-[#080d24] tracking-[-0.035em] leading-[1.1]">
                 Build The Future Of Search &amp;{" "}
-                <span className="text-[#1570ef] block sm:inline font-normal italic font-serif">
+                <span className="text-[#1570ef]">
                   Performance Marketing
                 </span>
               </h1>
@@ -137,9 +137,9 @@ export default function CareersPage() {
 
       {/* 4. CULTURE & BENEFITS */}
       <section className="py-16 bg-slate-50/60 border-b border-slate-200">
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#1570ef]">Why Join Digital FX</span>
+            <span className="badge-eyebrow">Why Join Digital FX</span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] mt-2">
               Where Engineering Meets High-Velocity Revenue
             </h2>
@@ -147,8 +147,10 @@ export default function CareersPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-[#1570ef] flex items-center justify-center text-lg font-bold">
-                ⚡
+              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-[#1570ef] flex items-center justify-center">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
               </div>
               <h3 className="text-lg font-bold text-slate-900">Modern Tech Stack</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
@@ -156,8 +158,11 @@ export default function CareersPage() {
               </p>
             </div>
             <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center text-lg font-bold">
-                📈
+              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-[#1570ef] flex items-center justify-center">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                  <polyline points="17 6 23 6 23 12" />
+                </svg>
               </div>
               <h3 className="text-lg font-bold text-slate-900">Merit-Based Growth</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
@@ -165,8 +170,10 @@ export default function CareersPage() {
               </p>
             </div>
             <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center text-lg font-bold">
-                🤝
+              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-[#1570ef] flex items-center justify-center">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
               </div>
               <h3 className="text-lg font-bold text-slate-900">Collaborative NCR Hub</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
@@ -179,10 +186,10 @@ export default function CareersPage() {
 
       {/* 5. OPEN ROLES LISTING */}
       <section id="openings" className="py-20 bg-white border-b border-slate-200 scroll-mt-20">
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-12">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#1570ef]">Current Opportunities</span>
+              <span className="badge-eyebrow">Current Opportunities</span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#080d24] mt-1">
                 Explore Open Positions
               </h2>
@@ -226,7 +233,7 @@ export default function CareersPage() {
                 <div className="shrink-0 w-full md:w-auto">
                   <a
                     href={`mailto:careers@digitalfx.in?subject=Application%20for%20${encodeURIComponent(role.title)}`}
-                    className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#1570ef] hover:bg-[#1362d2] text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20 transition-all"
+                    className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#1570ef] hover:bg-[#105fc7] text-white text-xs sm:text-sm font-bold shadow-sm transition-all"
                   >
                     <span>Apply For Role</span>
                     <span>→</span>
@@ -239,7 +246,7 @@ export default function CareersPage() {
       </section>
 
       {/* 6. CLOSER CTA BANNER */}
-      <section className="py-16 bg-gradient-to-br from-[#080d24] via-[#0c1638] to-[#080d24] text-white">
+      <section className="py-16 bg-[#080d24] text-white">
         <div className="max-w-[1000px] mx-auto px-4 text-center space-y-4">
           <h2 className="text-2xl sm:text-3xl font-extrabold">
             Don’t see your exact role listed?
@@ -250,7 +257,7 @@ export default function CareersPage() {
           <div className="pt-2">
             <a
               href="mailto:careers@digitalfx.in?subject=General%20Talent%20Inquiry%20at%20Digital%20FX"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#1570ef] to-[#00f0ff] text-slate-950 font-extrabold text-sm shadow-lg hover:scale-105 transition-transform"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#1570ef] hover:bg-[#105fc7] text-white font-bold text-sm shadow-md transition"
             >
               Send General Application →
             </a>

@@ -50,7 +50,7 @@ export default function ContactPage() {
 
       {/* 3. MAIN SECTION */}
       <section className="py-16 sm:py-20 bg-gradient-to-b from-[#f8faff] via-white to-white border-b border-slate-200">
-        <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
           
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1570ef] mb-3">
@@ -76,27 +76,40 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-4 text-xs sm:text-sm text-slate-700">
-                  <div className="flex items-start gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                    <span className="text-xl">📍</span>
+                  <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center shrink-0">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
                     <div>
                       <strong className="text-slate-900 block font-bold">Physical Address</strong>
-                      <span>Shop No. 210, 2nd Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016, India</span>
+                      <span className="text-slate-600">Shop No. 210, 2nd Floor, Orbit Plaza, Crossings Republik, Ghaziabad, UP 201016, India</span>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                    <span className="text-xl">☎️</span>
+                  <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center shrink-0">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
                     <div>
                       <strong className="text-slate-900 block font-bold">Direct Phone Desk</strong>
-                      <a href="tel:+919319807273" className="text-[#1570ef] font-bold text-base hover:underline block">
+                      <a href="tel:+919319807273" className="text-[#1570ef] font-bold text-base hover:underline block font-mono">
                         +91 93198 07273
                       </a>
                       <span className="text-[11px] text-slate-500">Available Mon–Sat: 9:30 AM – 7:30 PM IST</span>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                    <span className="text-xl">✉️</span>
+                  <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center shrink-0">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
                     <div>
                       <strong className="text-slate-900 block font-bold">Email Desk</strong>
                       <a href="mailto:hello@digitalfx.in" className="text-[#1570ef] font-semibold hover:underline block">
@@ -110,12 +123,16 @@ export default function ContactPage() {
                     href="https://www.instagram.com/digitalfx.in?stkn=Y2owZTN4ZTd2cm5p"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-start gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-pink-300 hover:bg-pink-50/30 transition-all group"
+                    className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-300 hover:bg-blue-50/30 transition-all group"
                   >
-                    <span className="text-xl">📸</span>
+                    <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 text-[#1570ef] flex items-center justify-center shrink-0 group-hover:bg-[#1570ef] group-hover:text-white transition-colors">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
                     <div>
-                      <strong className="text-slate-900 block font-bold group-hover:text-[#DD2A7B] transition-colors">Official Instagram</strong>
-                      <span className="text-[#1570ef] font-bold text-sm group-hover:text-[#DD2A7B] block">
+                      <strong className="text-slate-900 block font-bold group-hover:text-[#1570ef] transition-colors">Official Instagram</strong>
+                      <span className="text-[#1570ef] font-bold text-sm block">
                         @digitalfx.in ↗
                       </span>
                       <span className="text-[11px] text-slate-500">Follow us for real-time marketing breakdowns &amp; client results</span>
@@ -144,8 +161,11 @@ export default function ContactPage() {
                     className="flex items-center justify-between p-3.5 rounded-2xl bg-blue-50/80 hover:bg-blue-100/80 border border-blue-200 text-blue-900 transition-all group"
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-blue-600 shadow-xs font-bold text-sm">
-                        📍
+                      <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-[#1570ef] shadow-xs font-bold text-sm">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
                       </span>
                       <div className="text-left">
                         <div className="text-xs font-bold text-slate-900 group-hover:text-blue-700">
@@ -156,7 +176,7 @@ export default function ContactPage() {
                         </div>
                       </div>
                     </div>
-                    <span className="text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform">
+                    <span className="text-xs font-bold text-[#1570ef] group-hover:translate-x-1 transition-transform">
                       Open Profile ↗
                     </span>
                   </a>
@@ -274,7 +294,7 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full py-4 rounded-xl bg-[#1570ef] hover:bg-[#1362d2] text-white text-xs sm:text-sm font-extrabold shadow-lg shadow-blue-500/25 transition-all cursor-pointer disabled:opacity-50"
+                      className="w-full py-4 rounded-xl bg-[#1570ef] hover:bg-[#105fc7] text-white text-xs sm:text-sm font-extrabold shadow-lg shadow-blue-500/25 transition-all cursor-pointer disabled:opacity-50"
                     >
                       {loading ? "Transmitting Proposal Request..." : "Request Free Strategic Proposal →"}
                     </button>

@@ -130,7 +130,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   const shareUrl = encodeURIComponent(`https://www.digitalfx.in/blog/${post.slug}`);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-[#207de9] selection:text-white">
+    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-[#1570ef] selection:text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -142,11 +142,11 @@ export default async function BlogPostPage({ params }: PageProps) {
       {/* 3. BREADCRUMBS */}
       <div className="bg-slate-50 border-b border-slate-200/80 py-3">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-xs text-slate-500 flex items-center gap-2 flex-wrap">
-          <Link href="/" className="hover:text-[#207de9] transition font-medium">Home</Link>
+          <Link href="/" className="hover:text-[#1570ef] transition font-medium">Home</Link>
           <span className="text-slate-400">/</span>
-          <Link href="/blog" className="hover:text-[#207de9] transition font-medium">Insights</Link>
+          <Link href="/blog" className="hover:text-[#1570ef] transition font-medium">Insights</Link>
           <span className="text-slate-400">/</span>
-          <span className="text-[#207de9] font-semibold truncate max-w-[280px] sm:max-w-none">
+          <span className="text-[#1570ef] font-semibold truncate max-w-[280px] sm:max-w-none">
             {post.title}
           </span>
         </div>
@@ -165,7 +165,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           />
 
           <div className="flex items-center gap-3 mb-4 text-xs">
-            <span className="px-3 py-1 rounded-full bg-blue-50 text-[#207de9] border border-blue-200 font-bold uppercase tracking-wider text-[11px]">
+            <span className="px-3 py-1 rounded-full bg-blue-50 text-[#1570ef] border border-blue-200 font-bold uppercase tracking-wider text-[11px]">
               {post.category}
             </span>
             <span className="text-slate-500 font-medium">{post.publishedAt}</span>
@@ -184,7 +184,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           {/* Author Card */}
           <div className="flex items-center justify-between gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200">
             <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-extrabold text-white text-sm shadow-xs">
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#1570ef] to-[#080d24] flex items-center justify-center font-extrabold text-white text-sm shadow-xs">
                 SY
               </div>
               <div>
@@ -209,7 +209,8 @@ export default async function BlogPostPage({ params }: PageProps) {
         {/* Key Takeaways Box (Light Emerald) */}
         <div className="p-6 sm:p-7 rounded-2xl bg-emerald-50/70 border border-emerald-200 mb-12 shadow-2xs">
           <div className="flex items-center gap-2 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3">
-            <span>⚡ Practitioner Summary &amp; Key Action Items</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-600" />
+            <span>Practitioner Summary &amp; Key Action Items</span>
           </div>
           <ul className="space-y-2.5 text-xs sm:text-sm text-slate-800">
             {post.keyTakeaways.map((takeaway, idx) => (
@@ -231,7 +232,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               <a
                 key={toc.id}
                 href={`#${toc.id}`}
-                className="block text-slate-700 hover:text-[#207de9] font-medium transition"
+                className="block text-slate-700 hover:text-[#1570ef] font-medium transition"
               >
                 {toc.title}
               </a>
@@ -294,7 +295,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 my-4 space-y-2.5 text-xs sm:text-sm">
                   {sec.checklist.map((item, cIdx) => (
                     <div key={cIdx} className="flex items-start gap-2.5 text-slate-800">
-                      <span className="w-5 h-5 rounded-full bg-blue-100 text-[#207de9] flex items-center justify-center text-xs font-black shrink-0 mt-0.5">
+                      <span className="w-5 h-5 rounded-full bg-blue-100 text-[#1570ef] flex items-center justify-center text-xs font-black shrink-0 mt-0.5">
                         {cIdx + 1}
                       </span>
                       <span className="leading-relaxed font-medium">{item}</span>
@@ -318,9 +319,10 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div className="flex flex-wrap justify-center gap-3">
               <Link
                 href="/#geo-checker"
-                className="px-5 py-2.5 rounded-xl bg-[#207de9] hover:bg-[#1a6bc7] text-white font-bold text-xs transition shadow-xs"
+                className="px-5 py-2.5 rounded-xl bg-[#080d24] hover:bg-[#1570ef] text-white font-bold text-xs transition shadow-xs flex items-center gap-1.5"
               >
-                ⚡ Free AI Geo-Audit
+                <span>Free AI Geo-Audit</span>
+                <span>→</span>
               </Link>
               <a
                 href="https://wa.me/919319807273?text=Hi%20Digital%20FX,%20I%20read%20your%20blog%20post%20and%20want%20to%20consult."
