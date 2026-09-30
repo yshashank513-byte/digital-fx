@@ -4,8 +4,8 @@ import { CANONICAL_LOCATION_SLUGS } from "@/lib/citySeoData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.digitalfx.in";
-  // Use a fixed recent date so Googlebot sees fresh lastModified consistently
-  const sitemapDate = new Date("2026-09-20T18:00:00.000Z");
+  // Dynamic fresh date so Googlebot immediately queues discovered URLs for crawling
+  const sitemapDate = new Date();
 
   // Core 200-OK Indexable Static Pages
   const staticRoutes: MetadataRoute.Sitemap = [

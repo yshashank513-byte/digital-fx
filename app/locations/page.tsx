@@ -125,6 +125,68 @@ export default function LocationsDirectoryPage() {
         </div>
       </section>
 
+      {/* 3C. TOP INDIAN COMMERCIAL & METROPOLITAN HUBS (DIRECT CRAWL EQUITY) */}
+      <section className="py-12 bg-white border-b border-slate-200">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
+          <div className="mb-6">
+            <span className="badge-eyebrow mb-2">
+              <span>Primary Commercial Corridors</span>
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#080d24] tracking-tight">
+              Top Metropolitan &amp; Commercial Authority Hubs
+            </h2>
+            <p className="mt-1 text-xs sm:text-sm text-slate-600 font-normal">
+              Direct access to verified localized search blueprints, local ranking telemetry, and pricing across major economic hubs:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {[
+              { name: "Delhi", slug: "delhi", label: "National Capital" },
+              { name: "Noida", slug: "noida", label: "IT & Commercial" },
+              { name: "Ghaziabad", slug: "ghaziabad", label: "HQ Flagship" },
+              { name: "Gurugram", slug: "gurugram", label: "Cyber City" },
+              { name: "Faridabad", slug: "faridabad", label: "Industrial Belt" },
+              { name: "Mumbai", slug: "mumbai", label: "Financial Capital" },
+              { name: "Bengaluru", slug: "bengaluru", label: "Silicon Valley" },
+              { name: "Hyderabad", slug: "hyderabad", label: "Cyberabad" },
+              { name: "Ahmedabad", slug: "ahmedabad", label: "Commercial Hub" },
+              { name: "Pune", slug: "pune", label: "Tech Corridor" },
+              { name: "Chandigarh", slug: "chandigarh", label: "Tri-City Hub" },
+              { name: "Mohali", slug: "mohali", label: "IT City" },
+              { name: "Lucknow", slug: "lucknow", label: "UP Capital" },
+              { name: "Jaipur", slug: "jaipur", label: "Commercial Center" },
+              { name: "Kolkata", slug: "kolkata", label: "East Hub" },
+              { name: "Chennai", slug: "chennai", label: "South Hub" },
+              { name: "Indore", slug: "indore", label: "Central Hub" },
+              { name: "Bhopal", slug: "bhopal", label: "MP Capital" },
+              { name: "Coimbatore", slug: "coimbatore", label: "Industrial Hub" },
+              { name: "Dehradun", slug: "dehradun", label: "Uttarakhand Hub" },
+              { name: "Amritsar", slug: "amritsar", label: "Commercial City" },
+              { name: "Surat", slug: "surat", label: "Diamond & Textile" },
+              { name: "Patna", slug: "patna", label: "Bihar Capital" },
+              { name: "Kochi", slug: "kochi", label: "Kerala Commercial" },
+            ].map((metro) => (
+              <Link
+                key={metro.slug}
+                href={`/locations/${metro.slug}`}
+                className="p-3 rounded-xl bg-slate-50 border border-slate-200/90 hover:border-[#1570ef] hover:bg-blue-50/50 hover:shadow-xs transition group flex flex-col justify-between"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-extrabold text-xs text-[#080d24] group-hover:text-[#1570ef] transition">
+                    {metro.name}
+                  </span>
+                  <span className="text-[10px] text-slate-400 group-hover:text-[#1570ef]">→</span>
+                </div>
+                <span className="text-[10px] text-slate-500 font-medium mt-1">
+                  {metro.label}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 4. DIRECTORY CONTENT: GROUPED BY STATES AND UTS (WHITE CARDS) */}
       <section className="py-16 max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

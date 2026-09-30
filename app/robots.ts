@@ -5,16 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: [
-          "/",
-          "/services",
-          "/locations",
-          "/global-markets",
-          "/blog",
-          "/privacy-policy",
-          "/terms-and-conditions",
-          "/refund-policy",
-        ],
+        allow: "/",
         disallow: ["/admin/", "/payment/", "/payments/", "/api/"],
       },
       {
@@ -27,16 +18,7 @@ export default function robots(): MetadataRoute.Robots {
           "Applebot-Extended",
           "Bingbot",
         ],
-        allow: [
-          "/",
-          "/services",
-          "/locations",
-          "/global-markets",
-          "/blog",
-          "/privacy-policy",
-          "/terms-and-conditions",
-          "/refund-policy",
-        ],
+        allow: "/",
         disallow: ["/admin/", "/payment/", "/payments/", "/api/"],
       },
     ],

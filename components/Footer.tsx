@@ -629,6 +629,71 @@ export default function Footer() {
           </div>
 
           {/* =======================================================================
+              2.5 REGIONAL AUTHORITY HUBS (Direct Internal Link Equity for Indexing)
+              ======================================================================= */}
+          <div className="pt-8 pb-4 border-t border-slate-800/90 text-xs">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3">
+              <span className="text-[12.5px] font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#1570ef]" />
+                Top Commercial Hubs &amp; Regional Presence
+              </span>
+              <Link
+                href="/locations"
+                className="text-[#1570ef] hover:text-blue-400 font-bold transition flex items-center gap-1 text-[12px]"
+              >
+                <span>Explore All 350+ Cities Directory</span>
+                <span>→</span>
+              </Link>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[#94a3b8] text-[11.5px] font-medium leading-relaxed">
+              {[
+                { name: "Dubai", slug: "dubai" },
+                { name: "Abu Dhabi", slug: "abu-dhabi" },
+                { name: "Delhi", slug: "delhi" },
+                { name: "Noida", slug: "noida" },
+                { name: "Ghaziabad", slug: "ghaziabad" },
+                { name: "Gurugram", slug: "gurugram" },
+                { name: "Faridabad", slug: "faridabad" },
+                { name: "Mumbai", slug: "mumbai" },
+                { name: "Bengaluru", slug: "bengaluru" },
+                { name: "Hyderabad", slug: "hyderabad" },
+                { name: "Ahmedabad", slug: "ahmedabad" },
+                { name: "Pune", slug: "pune" },
+                { name: "Chandigarh", slug: "chandigarh" },
+                { name: "Mohali", slug: "mohali" },
+                { name: "Lucknow", slug: "lucknow" },
+                { name: "Jaipur", slug: "jaipur" },
+                { name: "Kolkata", slug: "kolkata" },
+                { name: "Chennai", slug: "chennai" },
+                { name: "Indore", slug: "indore" },
+                { name: "Bhopal", slug: "bhopal" },
+                { name: "Coimbatore", slug: "coimbatore" },
+                { name: "Dehradun", slug: "dehradun" },
+                { name: "Amritsar", slug: "amritsar" },
+                { name: "Surat", slug: "surat" },
+                { name: "Patna", slug: "patna" },
+                { name: "Kochi", slug: "kochi" },
+                { name: "Nagpur", slug: "nagpur" },
+                { name: "Visakhapatnam", slug: "visakhapatnam" },
+                { name: "Bhubaneswar", slug: "bhubaneswar" },
+                { name: "Ludhiana", slug: "ludhiana" },
+                { name: "Vadodara", slug: "vadodara" },
+                { name: "Varanasi", slug: "varanasi" },
+              ].map((hub, idx, arr) => (
+                <span key={hub.slug} className="inline-flex items-center gap-2">
+                  <Link
+                    href={`/locations/${hub.slug}`}
+                    className="hover:text-white transition-colors"
+                  >
+                    SEO in {hub.name}
+                  </Link>
+                  {idx < arr.length - 1 && <span className="text-slate-700">•</span>}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* =======================================================================
               3. BOTTOM COPYRIGHT & LEGAL BAR
               ======================================================================= */}
           <div className="pt-6 flex flex-col md:flex-row items-center md:items-start justify-between text-xs text-[#8F9EAF] gap-4 font-normal w-full min-w-0">
