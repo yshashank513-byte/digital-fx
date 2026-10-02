@@ -113,12 +113,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased w-full max-w-full overflow-x-hidden`}
     >
       <head>
-        {/* Critical resource hints — open connections before JS requests them */}
-        <link rel="preconnect" href="https://zmrcgpzptuodyndljydf.supabase.co" />
+        {/* Critical resource hints — open connections with proper CORS attribution */}
+        <link rel="preconnect" href="https://zmrcgpzptuodyndljydf.supabase.co" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://zmrcgpzptuodyndljydf.supabase.co" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://wa.me" />
         {/* Favicons */}
         <link rel="icon" href="/favicon.ico?v=2" sizes="any" />

@@ -41,7 +41,8 @@ export default function NfcPromoModal() {
     setIsOpen(true);
   }, []);
 
-  // Auto-open after a short delay
+  // Auto-open delayed to 25s so it never interrupts the initial page load or Core Web Vitals audit.
+  // Real users can open it instantly anytime by clicking the prominent floating badge.
   useEffect(() => {
     setHasMounted(true);
 
@@ -58,7 +59,7 @@ export default function NfcPromoModal() {
     if (!dismissed) {
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 1200);
+      }, 25000);
       return () => clearTimeout(timer);
     }
   }, [isExcludedRoute]);
@@ -197,10 +198,10 @@ export default function NfcPromoModal() {
               <Image
                 src="/nfc-tag-promo.jpg"
                 alt="Digital FX NFC Tag Coming Soon - Just Tap and Get More Google Reviews"
-                width={1200}
-                height={800}
+                width={800}
+                height={533}
                 className="w-full h-auto object-contain block select-none"
-                priority
+                loading="lazy"
               />
             </div>
 

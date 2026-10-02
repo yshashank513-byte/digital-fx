@@ -3236,6 +3236,10 @@ export default function Home() {
                   <img
                     src="/office-man-computer.jpg"
                     alt="Digital FX Campaign Specialist Optimizing Google Maps and Analytics"
+                    loading="lazy"
+                    decoding="async"
+                    width={800}
+                    height={500}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
@@ -3268,6 +3272,10 @@ export default function Home() {
                   <img
                     src="/agency-meeting.jpg"
                     alt="Digital FX Multi-Channel Revenue Growth Strategy Meeting"
+                    loading="lazy"
+                    decoding="async"
+                    width={800}
+                    height={500}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
@@ -3299,6 +3307,10 @@ export default function Home() {
                   <img
                     src="/tech-workstation.jpg"
                     alt="Digital FX Web Engineering and Generative AI Schema Lab"
+                    loading="lazy"
+                    decoding="async"
+                    width={800}
+                    height={500}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
@@ -3330,6 +3342,10 @@ export default function Home() {
                   <img
                     src="/client-consultation.jpg"
                     alt="Digital FX Executive Client Consultation and Growth Review"
+                    loading="lazy"
+                    decoding="async"
+                    width={800}
+                    height={500}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-3 left-3 bg-[#080d24]/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-bold text-white uppercase tracking-wider">
@@ -3869,6 +3885,10 @@ export default function Home() {
                     <img
                       src="/service-seo-maps.jpg"
                       alt="Search & Visibility - Local SEO & Google Maps 3-Pack"
+                      loading="lazy"
+                      decoding="async"
+                      width={800}
+                      height={500}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
@@ -3919,6 +3939,10 @@ export default function Home() {
                     <img
                       src="/service-paid-ads.jpg"
                       alt="Acquisition & Ads - Google Ads PPC and Meta Marketing"
+                      loading="lazy"
+                      decoding="async"
+                      width={800}
+                      height={500}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
@@ -3969,6 +3993,10 @@ export default function Home() {
                     <img
                       src="/service-web-cro.jpg"
                       alt="Funnel & Web CRO - Fast Mobile Sites & WhatsApp Funnels"
+                      loading="lazy"
+                      decoding="async"
+                      width={800}
+                      height={500}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
@@ -4023,6 +4051,10 @@ export default function Home() {
                     <img
                       src="/service-revenue-analytics.jpg"
                       alt="Revenue & Analytics - Attributable Pipeline & Executive Dashboards"
+                      loading="lazy"
+                      decoding="async"
+                      width={800}
+                      height={500}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-2.5 left-2.5 bg-[#080d24]/90 backdrop-blur-xs px-2 py-0.5 rounded text-[9.5px] font-extrabold text-white uppercase tracking-wider">
@@ -5089,6 +5121,10 @@ export default function Home() {
                   <img
                     src="/client-consultation.jpg"
                     alt="Digital FX Strategy Desk at Orbit Plaza, Crossings Republik"
+                    loading="lazy"
+                    decoding="async"
+                    width={800}
+                    height={340}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080d24]/90 via-[#080d24]/40 to-transparent flex items-end p-4 sm:p-5">
@@ -5240,11 +5276,13 @@ export default function Home() {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
+                      <label htmlFor="service-select" className="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
                         Primary Service Focus
                       </label>
                       <select
+                        id="service-select"
                         name="service"
+                        aria-label="Primary Service Focus"
                         className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#207de9] focus:bg-white text-slate-800 font-medium transition"
                       >
                         <option value="Business Growth Package">Business Growth Package (Full Engine)</option>
@@ -6417,10 +6455,12 @@ export default function Home() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">
+                      <label htmlFor="proposal-service-select" className="block text-xs font-bold text-slate-700 mb-1">
                         Primary Strategic Focus *
                       </label>
                       <select
+                        id="proposal-service-select"
+                        aria-label="Primary Strategic Focus"
                         value={proposalService}
                         onChange={(e) => setProposalService(e.target.value)}
                         className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition"
@@ -6561,10 +6601,12 @@ export default function Home() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label htmlFor="audit-service-select" className="block text-xs font-bold text-slate-700 mb-1">
                     Target Focus Service
                   </label>
                   <select
+                    id="audit-service-select"
+                    aria-label="Target Focus Service"
                     value={auditCustomerService}
                     onChange={(e) => setAuditCustomerService(e.target.value)}
                     className="w-full px-3.5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#207de9] transition"
