@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "SEO & Digital Marketing Services | Full-Funnel Growth | Digital FX",
+  title: "Digital Marketing & SEO Services",
   description:
-    "Explore full-funnel digital marketing services: Connected TV (CTV), Technical SEO, Google Maps 3-Pack, Google Ads PPC, Next.js Development, and AI Search Optimization.",
+    "Full-funnel digital marketing services including search engine optimization (SEO), Google Ads PPC, local search, social media, and custom web development.",
   alternates: {
     canonical: "https://www.digitalfx.in/services",
   },
   openGraph: {
-    title: "SEO & Digital Marketing Services - Digital FX",
+    title: "Digital Marketing & SEO Services",
     description:
-      "Explore full-funnel digital marketing services: Connected TV (CTV), Technical SEO, Google Maps 3-Pack, Google Ads PPC, Next.js Development, and AI Search Optimization.",
+      "Full-funnel digital marketing services including search engine optimization (SEO), Google Ads PPC, local search, social media, and custom web development.",
     url: "https://www.digitalfx.in/services",
     siteName: "Digital FX",
   },

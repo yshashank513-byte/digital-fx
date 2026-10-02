@@ -6,11 +6,18 @@ import { INDIA_STATES_AND_UTS } from "@/lib/indiaLocations";
 import { toCitySlug, GLOBAL_HUBS_LIST, isCanonicalLocation } from "@/lib/citySeoData";
 
 export const metadata: Metadata = {
-  title: "Pan-India Local SEO & Digital Marketing Directory (350+ Cities)",
+  title: "Digital Marketing & Local SEO Locations Directory",
   description:
-    "Explore Digital FX's Pan-India local SEO and digital marketing coverage across all 28 Indian States, 8 Union Territories, and 350+ cities. Dominate Google Maps Top 3, scale qualified leads, and outperform competitors in your city.",
+    "Browse Digital FX location directories across Indian states, union territories, and commercial hubs for local SEO, Google Ads, and web development services.",
   alternates: {
     canonical: "https://www.digitalfx.in/locations",
+  },
+  openGraph: {
+    title: "Digital Marketing & Local SEO Locations Directory",
+    description:
+      "Browse Digital FX location directories across Indian states, union territories, and commercial hubs for local SEO, Google Ads, and web development services.",
+    url: "https://www.digitalfx.in/locations",
+    siteName: "Digital FX",
   },
 };
 

@@ -4,6 +4,15 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   trailingSlash: false,
+
+  // Image optimization: enable WebP/AVIF, set sensible device sizes
+  images: {
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [390, 640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 604800, // 7 days
+  },
+
   async redirects() {
     return [
       {
@@ -50,6 +59,37 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // ─── Images: 7-day cache ──────────────────────────────────────────────────
+      {
+        source: "/:path*.(jpg|jpeg|png|gif|webp|avif|svg|ico)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      // ─── Fonts: 1-year immutable cache ───────────────────────────────────────
+      {
+        source: "/:path*.(woff|woff2|ttf|otf|eot)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      // ─── Favicon: 1-day cache ─────────────────────────────────────────────────
+      {
+        source: "/favicon.ico",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, must-revalidate",
+          },
+        ],
+      },
+      // ─── Sitemap ──────────────────────────────────────────────────────────────
       {
         source: "/sitemap.xml",
         headers: [
@@ -63,15 +103,7 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      {
-        source: "/favicon.ico",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=86400, must-revalidate",
-          },
-        ],
-      },
+      // ─── All other routes: security headers ───────────────────────────────────
       {
         source: "/(.*)",
         headers: [
@@ -122,4 +154,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-

@@ -6,9 +6,16 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Cancellation & Refund Policy",
   description:
-    "Official Cancellation and Refund Policy of Digital FX. Transparent refund timelines, deliverable milestone guidelines, and RBI/PayU compliance standards.",
+    "Understand the cancellation and refund policy for Digital FX digital marketing retainers, website design deliverables, and consulting services.",
   alternates: {
     canonical: "https://www.digitalfx.in/refund-policy",
+  },
+  openGraph: {
+    title: "Cancellation & Refund Policy",
+    description:
+      "Understand the cancellation and refund policy for Digital FX digital marketing retainers, website design deliverables, and consulting services.",
+    url: "https://www.digitalfx.in/refund-policy",
+    siteName: "Digital FX",
   },
 };
 

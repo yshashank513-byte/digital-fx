@@ -5,16 +5,16 @@ import Footer from "@/components/Footer";
 import GlobalKeywordsSection from "@/components/GlobalKeywordsSection";
 
 export const metadata: Metadata = {
-  title: "Global Search Engineering & Dubai GCC SEO Hub (1,000+ Keywords) | Digital FX",
+  title: "Global Digital Marketing & Search Engineering Hub",
   description:
-    "Explore Digital FX's global SEO architecture, Dubai flagship hub, and 1,098+ verified high-intent search keywords across UAE (Dubai, Abu Dhabi), USA, UK, Saudi Arabia, Canada, Australia, and Singapore. Dual-index Maps 3-Pack and sub-second Next.js web portals.",
+    "Discover our global search engineering capabilities and international digital marketing campaigns across the UAE, GCC, US, UK, and APAC markets.",
   alternates: {
     canonical: "https://www.digitalfx.in/global-markets",
   },
   openGraph: {
-    title: "Global Search Engineering & Dubai GCC SEO Hub | Digital FX",
+    title: "Global Digital Marketing & Search Engineering Hub",
     description:
-      "Explore Digital FX's global SEO architecture, Dubai flagship hub, and 1,098+ verified high-intent keywords across UAE, USA, UK, KSA, and Singapore.",
+      "Discover our global search engineering capabilities and international digital marketing campaigns across the UAE, GCC, US, UK, and APAC markets.",
     url: "https://www.digitalfx.in/global-markets",
     siteName: "Digital FX",
     type: "website",

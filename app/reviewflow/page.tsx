@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import ReviewFlowLandingClient from "./ReviewFlowLandingClient";
 
 export const metadata: Metadata = {
-  title: "ReviewFlow AI | Authentic Google Reviews Automation via QR Codes",
+  title: "ReviewFlow AI - Google Review Management & QR Codes",
   description:
-    "Generate authentic 5-star Google reviews from real customers using intelligent category-specific QR codes. Works for Packers & Movers, Jewellery Stores, Restaurants, Salons, Real Estate, Clinics & Agencies.",
+    "Generate authentic Google reviews from real customers using smart QR codes. Automate customer review collection for local businesses and clinics.",
   keywords: [
     "Google Review QR Code",
     "ReviewFlow AI",
@@ -15,6 +15,13 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "https://www.digitalfx.in/reviewflow",
+  },
+  openGraph: {
+    title: "ReviewFlow AI - Google Review Management & QR Codes",
+    description:
+      "Generate authentic Google reviews from real customers using smart QR codes. Automate customer review collection for local businesses and clinics.",
+    url: "https://www.digitalfx.in/reviewflow",
+    siteName: "Digital FX",
   },
 };
 

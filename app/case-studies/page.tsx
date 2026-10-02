@@ -4,15 +4,16 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "The Digital FX Portfolio | Client Case Studies & Verified Revenue ROI",
+  title: "Digital Marketing Case Studies & Client Results",
   description:
-    "Explore verified digital marketing case studies and client ROI stories. Over ₹6 Lakh+ client revenue delivered across real estate, healthcare, local services, and B2B.",
+    "Explore real digital marketing case studies and ROI outcomes across healthcare, real estate, B2B, and local services driven by SEO and paid ads.",
   alternates: {
     canonical: "https://www.digitalfx.in/case-studies",
   },
   openGraph: {
-    title: "Client Case Studies & Verified Revenue ROI - Digital FX",
-    description: "Discover real revenue growth, Google Maps 3-Pack rank proof, and 5.4x ROAS campaign breakdowns.",
+    title: "Digital Marketing Case Studies & Client Results",
+    description:
+      "Explore real digital marketing case studies and ROI outcomes across healthcare, real estate, B2B, and local services driven by SEO and paid ads.",
     url: "https://www.digitalfx.in/case-studies",
     siteName: "Digital FX",
   },

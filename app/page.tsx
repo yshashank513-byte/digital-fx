@@ -1,13 +1,24 @@
 "use client";
 
 import { FormEvent, useEffect, useState, useRef } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import { supabase } from "./lib/supabase";
-import GlobalKeywordsSection from "@/components/GlobalKeywordsSection";
-import PageSpeedAuditReport from "@/components/PageSpeedAuditReport";
-import Footer from "@/components/Footer";
 import type { PageSpeedAuditData } from "@/app/api/pagespeed/route";
+
+// Lazy-load heavy below-fold components to reduce the initial JS bundle.
+// These are not needed for First Contentful Paint or LCP.
+const GlobalKeywordsSection = dynamic(
+  () => import("@/components/GlobalKeywordsSection"),
+  { ssr: false }
+);
+const PageSpeedAuditReport = dynamic(
+  () => import("@/components/PageSpeedAuditReport"),
+  { ssr: false }
+);
+const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
+
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],

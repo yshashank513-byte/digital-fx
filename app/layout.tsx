@@ -5,7 +5,9 @@ import {
   CORE_CUSTOMER_SEARCH_KEYWORDS,
   ALL_INDIA_AREA_SERVED_SCHEMA,
 } from "@/lib/indiaLocations";
-import NfcPromoModal from "@/components/NfcPromoModal";
+// NfcPromoModal is lazy-loaded via a client wrapper to keep it off the critical path
+import NfcPromoModalLoader from "@/components/NfcPromoModalLoader";
+
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -28,12 +30,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.digitalfx.in"),
 
   title: {
-    default: "Digital FX | Digital Marketing & SEO Agency in Ghaziabad",
-    template: "%s | Digital FX",
+    default: "Digital Marketing & SEO Agency in Ghaziabad",
+    template: "%s",
   },
 
   description:
-    "Digital FX is the top digital marketing & SEO agency in Ghaziabad, Delhi NCR. Offering local SEO services, Google Ads PPC, social media & web development.",
+    "Digital marketing agency in Ghaziabad helping local businesses grow with SEO, Google Ads, social media marketing, web development and local SEO services.",
 
   keywords: CORE_CUSTOMER_SEARCH_KEYWORDS,
 
@@ -48,24 +50,24 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.digitalfx.in",
     siteName: "Digital FX",
-    title: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR",
+    title: "Digital Marketing & SEO Agency in Ghaziabad",
     description:
-      "Digital FX is the #1 rated (4.9★ from 128+ reviews) best digital marketing agency in Ghaziabad - Delhi NCR. Local SEO, Google Maps ranking, web development, and performance ads across India & USA.",
+      "Digital marketing agency in Ghaziabad helping local businesses grow with SEO, Google Ads, social media marketing, web development and local SEO services.",
     images: [
       {
         url: "/logo.png",
         width: 2172,
         height: 724,
-        alt: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR",
+        alt: "Digital Marketing & SEO Agency in Ghaziabad - Digital FX",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Digital FX | Best Digital Marketing Agency in Ghaziabad - Delhi NCR",
+    title: "Digital Marketing & SEO Agency in Ghaziabad",
     description:
-      "4.9★ Rated Best Digital Marketing & SEO Agency in Ghaziabad - Delhi NCR serving clients across India and USA.",
+      "Digital marketing agency in Ghaziabad helping local businesses grow with SEO, Google Ads, social media marketing, web development and local SEO services.",
     images: ["/logo.png"],
   },
 
@@ -379,7 +381,7 @@ export default function RootLayout({
         />
 
         {children}
-        <NfcPromoModal />
+        <NfcPromoModalLoader />
       </body>
     </html>
   );

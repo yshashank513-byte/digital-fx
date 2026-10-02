@@ -4,11 +4,18 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy & Data Governance",
+  title: "Privacy Policy",
   description:
     "Official Privacy Policy of Digital FX. Learn how we collect, protect, and process client information and inquiry data in compliance with the DPDP Act 2023.",
   alternates: {
     canonical: "https://www.digitalfx.in/privacy-policy",
+  },
+  openGraph: {
+    title: "Privacy Policy",
+    description:
+      "Official Privacy Policy of Digital FX. Learn how we collect, protect, and process client information and inquiry data in compliance with the DPDP Act 2023.",
+    url: "https://www.digitalfx.in/privacy-policy",
+    siteName: "Digital FX",
   },
 };
 

@@ -101,7 +101,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "real-estate-website-not-getting-enquiries",
     title: "Why Your Real Estate Website Isn't Getting Property Enquiries? (7 Real Reasons & Fixes)",
-    description: "Your real estate website gets traffic but no enquiries? Discover the 7 real reasons — from weak technical SEO to long forms and missing buyer-intent pages — and how to fix them.",
+    description: "Real estate website getting traffic but no leads? Discover why buyer inquiries drop and how technical SEO, UX fixes, and landing pages restore conversion.",
     publishedAt: "March 20, 2026",
     readingTime: "9 min read",
     category: "Agency Strategy",
@@ -168,7 +168,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "seo-vs-aeo-vs-geo-guide",
     title: "SEO vs AEO vs GEO: The Total Guide for Ranking in Google and AI Search",
-    description: "Google alone no longer decides who gets found. Traffic now splits across traditional SEO, AI Overviews (AEO), and AI chat platforms like ChatGPT & Perplexity (GEO). Winning all three.",
+    description: "Understand the differences between SEO, AEO, and GEO. Learn how to optimize your brand for Google organic search, AI Overviews, and conversational AI engines.",
     publishedAt: "March 19, 2026",
     readingTime: "10 min read",
     category: "AI & GEO",
@@ -343,7 +343,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "does-publishing-more-blogs-improve-google-rankings",
     title: "Does Publishing More Blogs Improve Google Rankings? (Quality vs Frequency in 2026)",
-    description: "More blogs don't automatically mean higher rankings. Learn the real relationship between blog frequency, quality, and Google rankings — plus AI search (AEO/GEO) optimization.",
+    description: "Does publishing more blogs improve Google rankings? Learn how content depth, topic authority, and user search intent impact rankings and AI citations.",
     publishedAt: "March 16, 2026",
     readingTime: "7 min read",
     category: "Agency Strategy",
@@ -398,7 +398,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "how-to-rank-on-google-first-page-without-ads",
     title: "How to Rank on Google's First Page Without Spending on Ads?",
-    description: "Discover proven organic SEO strategies to rank on Google's first page without spending on ads — covering technical SEO, on-page optimization, backlinks, and AI search readiness.",
+    description: "Proven organic SEO strategies to rank on Google's first page without ads. Master technical search optimization, high-intent content, and entity building.",
     publishedAt: "March 15, 2026",
     readingTime: "10 min read",
     category: "Local SEO",
@@ -836,7 +836,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "generative-engine-optimization-geo-ai-search",
     title: "GEO (Generative Engine Optimization): How We Get Brands Recommended by ChatGPT & Perplexity",
-    description: "The definitive agency guide to Generative Engine Optimization. How to optimize your business entity so AI search engines cite your company as the top recommendation in 2026.",
+    description: "Actionable guide to Generative Engine Optimization (GEO). Learn how to format entity citations so AI search engines recommend your business in 2026.",
     publishedAt: "February 18, 2026",
     readingTime: "10 min read",
     category: "AI & GEO",

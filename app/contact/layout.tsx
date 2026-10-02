@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Digital FX | Strategy Advisory Desk & Orbit Plaza Office",
+  title: "Contact Digital Marketing & SEO Agency in Ghaziabad",
   description:
-    "Get in touch with Digital FX headquarters at Orbit Plaza, Crossings Republik, Ghaziabad. Request a free digital marketing audit or schedule a strategy consultation with our growth leaders.",
+    "Get in touch with Digital FX at Orbit Plaza, Crossings Republik, Ghaziabad. Request a free digital marketing consultation and SEO audit today.",
   alternates: {
     canonical: "https://www.digitalfx.in/contact",
   },
   openGraph: {
-    title: "Contact Digital FX - Strategy Advisory & Consultation Desk",
+    title: "Contact Digital Marketing & SEO Agency in Ghaziabad",
     description:
-      "Schedule a 1-on-1 growth consultation with Digital FX. Headquarters at Shop No. 210, Orbit Plaza, Crossings Republik, Ghaziabad.",
+      "Get in touch with Digital FX at Orbit Plaza, Crossings Republik, Ghaziabad. Request a free digital marketing consultation and SEO audit today.",
     url: "https://www.digitalfx.in/contact",
     siteName: "Digital FX",
   },

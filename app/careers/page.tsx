@@ -4,16 +4,16 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Careers at Digital FX | We Are Hiring Top Growth & Tech Talent",
+  title: "Careers in Digital Marketing & Search Engineering",
   description:
-    "Join Digital FX, India's leading enterprise performance marketing and search engineering agency. Explore open roles for SEO architects, full-stack Next.js engineers, and media buyers.",
+    "Explore career opportunities in digital marketing, technical SEO, and web development. Join our search engineering and performance team.",
   alternates: {
     canonical: "https://www.digitalfx.in/careers",
   },
   openGraph: {
-    title: "Careers (We Are Hiring!) - Digital FX",
+    title: "Careers in Digital Marketing & Search Engineering",
     description:
-      "Join our award-winning search engineering and performance team at Orbit Plaza, Crossings Republik.",
+      "Explore career opportunities in digital marketing, technical SEO, and web development. Join our search engineering and performance team.",
     url: "https://www.digitalfx.in/careers",
     siteName: "Digital FX",
     images: [{ url: "/agency-team-illustration.png", width: 1200, height: 630 }],

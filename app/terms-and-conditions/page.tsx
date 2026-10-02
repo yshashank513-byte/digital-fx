@@ -4,11 +4,18 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Terms of Service & Commercial Agreement",
+  title: "Terms of Service & Conditions",
   description:
-    "Official Terms of Service and Commercial Engagement Agreement of Digital FX. Commercial terms, scope of services, intellectual property, and payment conditions.",
+    "Read the official Terms of Service and commercial engagement terms for Digital FX digital marketing, SEO, and web development services.",
   alternates: {
     canonical: "https://www.digitalfx.in/terms-and-conditions",
+  },
+  openGraph: {
+    title: "Terms of Service & Conditions",
+    description:
+      "Read the official Terms of Service and commercial engagement terms for Digital FX digital marketing, SEO, and web development services.",
+    url: "https://www.digitalfx.in/terms-and-conditions",
+    siteName: "Digital FX",
   },
 };
 

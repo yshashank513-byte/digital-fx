@@ -4,15 +4,16 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Digital Marketing Packages & Pricing | Transparent Growth Plans | Digital FX",
+  title: "Digital Marketing Packages & Pricing",
   description:
-    "Transparent digital marketing packages, SEO retainers, and performance pricing for Indian and global businesses. Zero lock-in contracts, 100% attributable ROI.",
+    "Explore transparent digital marketing packages, SEO retainers, and performance pricing for local and growing businesses with measurable ROI.",
   alternates: {
     canonical: "https://www.digitalfx.in/pricing",
   },
   openGraph: {
-    title: "Digital Marketing Packages & Pricing - Digital FX",
-    description: "Predictable monthly growth retainers for local businesses, scaling brands, and enterprise leaders.",
+    title: "Digital Marketing Packages & Pricing",
+    description:
+      "Explore transparent digital marketing packages, SEO retainers, and performance pricing for local and growing businesses with measurable ROI.",
     url: "https://www.digitalfx.in/pricing",
     siteName: "Digital FX",
   },
