@@ -120,7 +120,7 @@ export const ALL_LOCATIONS_FLAT: LocationMapping[] = (() => {
 
 
 export const TOP_COMMERCIAL_CITIES = [
-  "ghaziabad", "noida", "delhi", "gurugram", "faridabad", "mumbai", "pune",
+  "ghaziabad", "noida", "greater-noida", "delhi", "gurugram", "faridabad", "mumbai", "pune",
   "bengaluru", "hyderabad", "ahmedabad", "chennai", "kolkata", "jaipur",
   "lucknow", "kanpur", "indore", "bhopal", "chandigarh", "mohali", "kochi",
   "patna", "surat", "nagpur", "visakhapatnam", "bhubaneswar", "ludhiana",
@@ -932,6 +932,21 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
     },
     coordinates: { lat: 28.5355, lng: 77.3910 },
   },
+  "greater-noida": {
+    landmarks: ["Knowledge Park Educational Corridor", "Pari Chowk Commercial Hub", "Greater Noida West (Noida Extension)", "TechZone IT Hub", "Formula 1 Buddh Circuit Corridor", "Surajpur Industrial Area"],
+    primaryIndustries: ["Higher Education & Universities", "Real Estate & High-Rise Societies", "Automotive & Manufacturing", "IT & Data Centers", "Retail & Shopping Complexes"],
+    localChallenges: [
+      "Rapid geographic expansion across Greater Noida West vs Greater Noida East creating fragmented search intent.",
+      "High competition for student admissions and residential homebuyer keywords on Google Ads and Maps.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Engineering & Management Institute",
+      neighborhood: "Knowledge Park III",
+      metrics: "+340% Verified Admissions Inquiries",
+      result: "Deployed programmatic local landing pages and Google Ads campaigns targeting Delhi NCR and West UP, capturing over 1,200 verified course applications in 90 days.",
+    },
+    coordinates: { lat: 28.4744, lng: 77.5040 },
+  },
   delhi: {
     landmarks: ["Connaught Place", "South Extension", "Netaji Subhash Place", "Nehru Place", "Dwarka", "Okhla Industrial Area"],
     primaryIndustries: ["Retail & E-commerce", "Legal & Financial Services", "Medical Centers", "Hospitality & Dining", "Fashion & Lifestyle"],
@@ -1197,6 +1212,7 @@ export const STATE_META_DESCRIPTIONS: Record<string, string> = {
 export const CITY_META_DESCRIPTIONS: Record<string, string> = {
   "ghaziabad": "Digital marketing agency in Ghaziabad helping local businesses grow through SEO, Google Ads, social media marketing and web development.",
   "noida": "Digital marketing agency in Noida offering SEO, Google Ads, social media marketing, web development and local SEO services for growing businesses.",
+  "greater-noida": "Digital marketing agency in Greater Noida helping colleges, real estate developers and local businesses grow through SEO, Google Ads and web development.",
   "delhi": "Full-service digital marketing agency in Delhi providing SEO, Google Ads PPC, social media management, and custom website development.",
   "gurugram": "Performance digital marketing and SEO agency in Gurugram delivering high-ROI Google Ads, local SEO, and scalable web development for corporate brands.",
   "faridabad": "Results-driven digital marketing agency in Faridabad helping manufacturers, clinics, and local brands scale with SEO and Google Ads.",

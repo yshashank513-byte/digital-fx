@@ -651,6 +651,7 @@ export default function Footer() {
                 { name: "Abu Dhabi", slug: "abu-dhabi" },
                 { name: "Delhi", slug: "delhi" },
                 { name: "Noida", slug: "noida" },
+                { name: "Greater Noida", slug: "greater-noida" },
                 { name: "Ghaziabad", slug: "ghaziabad" },
                 { name: "Gurugram", slug: "gurugram" },
                 { name: "Faridabad", slug: "faridabad" },

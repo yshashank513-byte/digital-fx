@@ -442,6 +442,7 @@ export const INDIA_STATES_AND_UTS: StateOrUT[] = [
       "Prayagraj",
       "Meerut",
       "Noida",
+      "Greater Noida",
       "Gorakhpur",
       "Bareilly",
       "Moradabad",
@@ -681,6 +682,7 @@ export const ALL_INDIA_AREA_SERVED_SCHEMA = [
   // Add primary high-volume commercial centers as City entities
   { "@type": "City", name: "Ghaziabad" },
   { "@type": "City", name: "Noida" },
+  { "@type": "City", name: "Greater Noida" },
   { "@type": "City", name: "New Delhi" },
   { "@type": "City", name: "Gurugram" },
   { "@type": "City", name: "Faridabad" },
