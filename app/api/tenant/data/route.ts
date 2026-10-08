@@ -2,9 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { loadStore, persistStore } from "@/lib/whatsapp/store";
 import { getActiveTenantBusinessId } from "@/lib/whatsapp/auth";
 import { Lead, Customer, MessageTemplate, Automation, Campaign, Followup, TeamMember } from "@/lib/whatsapp/types";
+import { verifyAdminAuth } from "@/lib/adminApiAuth";
+
+export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+
     const businessId = await getActiveTenantBusinessId();
     const type = request.nextUrl.searchParams.get("type");
     const conversationId = request.nextUrl.searchParams.get("conversationId");
@@ -33,6 +41,11 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+
     const body = await request.json();
     const businessId = body.businessId || (await getActiveTenantBusinessId());
     const store = loadStore();

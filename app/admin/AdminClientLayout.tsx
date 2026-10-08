@@ -42,10 +42,7 @@ export default function AdminClientLayout({
   const [authChecking, setAuthChecking] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [adminUser, setAdminUser] = useState<{ email?: string; name?: string }>({
-    email: "yshashank513@gmail.com",
-    name: "Shashank",
-  });
+  const [adminUser, setAdminUser] = useState<{ email?: string; name?: string } | null>(null);
   const [resettingDemo, setResettingDemo] = useState(false);
 
   const isLoginPage = pathname === "/admin/login";
@@ -56,49 +53,55 @@ export default function AdminClientLayout({
       return;
     }
 
+    let isMounted = true;
+
     async function checkAuth() {
-      let sessionUser: any = null;
       try {
-        const { data } = await supabase.auth.getSession();
-        sessionUser = data.session?.user;
-        if (data.session?.access_token && typeof window !== "undefined") {
-          localStorage.setItem("digitalfx_admin_token", data.session.access_token);
-        }
-      } catch {}
-
-      const storedToken =
-        typeof window !== "undefined"
-          ? localStorage.getItem("digitalfx_admin_token")
-          : null;
-      const localStorageLoggedIn =
-        typeof window !== "undefined" &&
-        localStorage.getItem("digitalfx_admin") === "true";
-
-      if (!sessionUser && (localStorageLoggedIn || storedToken)) {
-        try {
-          const { data: refreshData, error } = await supabase.auth.refreshSession();
-          if (!error && refreshData?.session?.user) {
-            sessionUser = refreshData.session.user;
-          }
-        } catch {}
-      }
-
-      if (sessionUser) {
-        setAdminUser({
-          email: sessionUser.email || "yshashank513@gmail.com",
-          name: sessionUser.user_metadata?.name || "Shashank",
+        const res = await fetch("/api/admin/auth/session", {
+          method: "GET",
+          credentials: "include",
+          cache: "no-store",
         });
-      }
 
-      setAuthChecking(false);
+        if (!res.ok) {
+          if (isMounted) {
+            window.location.href = "/admin/login";
+          }
+          return;
+        }
+
+        const data = await res.json();
+        if (data.authorized && data.user) {
+          if (isMounted) {
+            setAdminUser(data.user);
+            setAuthChecking(false);
+          }
+        } else {
+          if (isMounted) {
+            window.location.href = "/admin/login";
+          }
+        }
+      } catch (err) {
+        console.error("Session verification failed:", err);
+        if (isMounted) {
+          window.location.href = "/admin/login";
+        }
+      }
     }
 
     checkAuth();
-  }, [pathname, isLoginPage, router]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [pathname, isLoginPage]);
 
   async function handleLogout() {
     try {
-      await fetch("/api/admin/auth/logout", { method: "POST" });
+      await fetch("/api/admin/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
     } catch {}
     try {
       await supabase.auth.signOut();
@@ -107,8 +110,9 @@ export default function AdminClientLayout({
       localStorage.removeItem("digitalfx_admin");
       localStorage.removeItem("digitalfx_remember");
       localStorage.removeItem("digitalfx_admin_token");
+      sessionStorage.clear();
+      window.location.href = "/admin/login";
     }
-    router.replace("/admin/login");
   }
 
   async function handleResetDemo() {
@@ -134,7 +138,7 @@ export default function AdminClientLayout({
     return <>{children}</>;
   }
 
-  if (authChecking) {
+  if (authChecking || !adminUser) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#f8fafc] text-[#080d24]">
         <div className="flex flex-col items-center gap-3">

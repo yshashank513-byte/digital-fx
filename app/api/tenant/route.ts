@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getTenantData, loadStore, resetDemoData } from "@/lib/whatsapp/store";
 import { getActiveTenantBusinessId, TENANT_COOKIE_NAME } from "@/lib/whatsapp/auth";
+import { verifyAdminAuth } from "@/lib/adminApiAuth";
+
+export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+
     const requestedId = request.nextUrl.searchParams.get("businessId");
     const activeId = requestedId || (await getActiveTenantBusinessId());
     const tenantData = getTenantData(activeId);
@@ -16,6 +24,11 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+
     const body = await request.json();
 
     if (body.action === "reset_demo_data") {

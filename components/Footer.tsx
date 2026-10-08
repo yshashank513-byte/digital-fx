@@ -718,7 +718,7 @@ export default function Footer() {
               <Link href="/refund-policy" className="hover:text-white transition-colors whitespace-nowrap">
                 Refund Policy
               </Link>
-              <Link href="/admin" className="hover:text-slate-200 transition-colors text-slate-400 whitespace-nowrap">
+              <Link href="/admin/login" className="hover:text-slate-200 transition-colors text-slate-400 whitespace-nowrap">
                 Admin Panel
               </Link>
             </div>

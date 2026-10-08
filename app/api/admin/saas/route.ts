@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSuperAdminDashboardData, loadStore, persistStore, resetDemoData } from "@/lib/whatsapp/store";
 import { PlanTier } from "@/lib/whatsapp/types";
+import { verifyAdminAuth } from "@/lib/adminApiAuth";
+
+export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+
     const data = getSuperAdminDashboardData();
     return NextResponse.json(data);
   } catch (err: any) {
@@ -13,6 +21,11 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+
     const body = await request.json();
     const store = loadStore();
 
@@ -56,7 +69,6 @@ export async function POST(request: NextRequest) {
       }
 
       case "reset_account": {
-        // Clear activity/usage for specific business
         const usage = store.usage.find((u) => u.businessId === body.businessId);
         if (usage) {
           usage.messagesSent = 0;
@@ -68,7 +80,7 @@ export async function POST(request: NextRequest) {
       }
 
       case "reset_all_demo": {
-        const fresh = resetDemoData();
+        resetDemoData();
         return NextResponse.json({ success: true, message: "All demo data restored to initial state." });
       }
 

@@ -39,6 +39,11 @@ function isValidEmail(email: string): boolean {
 
 export async function GET(request: Request) {
   try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+
     const url = new URL(request.url);
     const withAnalytics = url.searchParams.get("analytics") === "true";
     const status = url.searchParams.get("status") || "all";
@@ -79,6 +84,11 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+
     const body = await request.json().catch(() => ({}));
     const {
       name,

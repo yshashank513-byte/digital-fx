@@ -29,38 +29,21 @@ export default function AdminLogin() {
     }
 
     async function checkExistingSession() {
-      const storedToken =
-        typeof window !== "undefined"
-          ? localStorage.getItem("digitalfx_admin_token")
-          : null;
-
-      // Verify stored persistent token against server
-      if (storedToken) {
-        try {
-          const res = await fetch("/api/admin/auth/session", {
-            headers: { Authorization: `Bearer ${storedToken}` },
-            credentials: "same-origin",
-          });
-          if (res.ok) {
-            const data = await res.json();
-            if (data.authorized) {
-              router.replace("/admin");
-              return;
-            }
-          }
-        } catch {
-          // Fallback to supabase check
-        }
-      }
-
-      // Check active Supabase session
       try {
-        const { data } = await supabase.auth.getSession();
-        if (data.session?.user) {
-          router.replace("/admin");
+        const res = await fetch("/api/admin/auth/session", {
+          method: "GET",
+          credentials: "include",
+          cache: "no-store",
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.authorized) {
+            window.location.href = "/admin";
+            return;
+          }
         }
       } catch {
-        // No valid session
+        // No active session -> stay on login page
       }
     }
 
@@ -76,10 +59,11 @@ export default function AdminLogin() {
     const cleanEmail = email.trim().toLowerCase();
 
     try {
-      // 1. Authenticate via server-side API (creates signed 30-day token & cookie)
+      // 1. Authenticate via server-side API (creates signed token & secure HttpOnly cookie)
       const res = await fetch("/api/admin/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ email: cleanEmail, password, remember }),
       });
 
@@ -94,28 +78,25 @@ export default function AdminLogin() {
         return;
       }
 
-      // 2. Also authenticate client-side Supabase instance for realtime channels
+      // 2. Also authenticate client-side Supabase instance if realtime channels are used
       try {
         await supabase.auth.signInWithPassword({
           email: cleanEmail,
           password: password,
         });
       } catch {
-        // Non-blocking if client instance fails
+        // Non-blocking
       }
 
-      // 3. Save admin state in localStorage
-      localStorage.setItem("digitalfx_admin", "true");
-      if (data.token) {
-        localStorage.setItem("digitalfx_admin_token", data.token);
-      }
-      if (remember) {
-        localStorage.setItem("digitalfx_remember", "true");
-      } else {
+      // 3. Purge any old localStorage tokens (Cookie handles server-side auth securely)
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("digitalfx_admin");
+        localStorage.removeItem("digitalfx_admin_token");
         localStorage.removeItem("digitalfx_remember");
+        sessionStorage.clear();
       }
 
-      router.replace("/admin");
+      window.location.href = "/admin";
     } catch (err) {
       console.error("Login unexpected error:", err);
       setError(

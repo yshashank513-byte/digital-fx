@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { testWhatsAppConnection } from "@/lib/whatsapp/service";
 import { getActiveTenantBusinessId } from "@/lib/whatsapp/auth";
+import { verifyAdminAuth } from "@/lib/adminApiAuth";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {
+    const authResult = await verifyAdminAuth(request);
+    if (!authResult.authorized) {
+      return authResult.response!;
+    }
+
     let body: any = {};
     try {
       body = await request.json();

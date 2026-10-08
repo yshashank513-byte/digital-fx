@@ -50,23 +50,84 @@ export default function DashboardClientLayout({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
+  const [authVerified, setAuthVerified] = useState(false);
   const [tenantData, setTenantData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [switcherOpen, setSwitcherOpen] = useState(false);
 
   useEffect(() => {
-    fetchTenant();
+    let isMounted = true;
+
+    async function checkAuthAndLoad() {
+      try {
+        const authRes = await fetch("/api/admin/auth/session", {
+          method: "GET",
+          credentials: "include",
+          cache: "no-store",
+        });
+
+        if (!authRes.ok) {
+          if (isMounted) {
+            window.location.href = "/admin/login";
+          }
+          return;
+        }
+
+        const authJson = await authRes.json();
+        if (!authJson.authorized) {
+          if (isMounted) {
+            window.location.href = "/admin/login";
+          }
+          return;
+        }
+
+        if (isMounted) {
+          setAuthVerified(true);
+        }
+
+        // Fetch tenant data with credentials
+        const tenantRes = await fetch("/api/tenant", {
+          credentials: "include",
+          cache: "no-store",
+        });
+
+        if (tenantRes.ok && isMounted) {
+          const json = await tenantRes.json();
+          setTenantData(json);
+        }
+      } catch (err) {
+        console.error("Dashboard auth check error:", err);
+        if (isMounted) {
+          window.location.href = "/admin/login";
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    checkAuthAndLoad();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   async function fetchTenant(bizId?: string) {
     try {
       setLoading(true);
       const url = bizId ? `/api/tenant?businessId=${bizId}` : "/api/tenant";
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        credentials: "include",
+        cache: "no-store",
+      });
       if (res.ok) {
         const json = await res.json();
         setTenantData(json);
+      } else if (res.status === 401) {
+        window.location.href = "/admin/login";
       }
     } catch (err) {
       console.error(err);
@@ -205,6 +266,19 @@ export default function DashboardClientLayout({
       active: pathname.startsWith("/dashboard/settings"),
     },
   ];
+
+  if (!authVerified) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#f8fafc] text-[#080d24]">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-9 w-9 animate-spin rounded-full border-2 border-slate-200 border-t-[#207de9]" />
+          <p className="text-xs font-bold tracking-widest uppercase text-slate-500">
+            Verifying Workspace Authorization...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f8fafc] text-[#080d24] font-sans antialiased selection:bg-blue-500 selection:text-white">
