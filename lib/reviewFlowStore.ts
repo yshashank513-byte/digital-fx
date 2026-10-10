@@ -18,7 +18,84 @@ declare global {
   var _reviewFlowStore: StoreData | undefined;
 }
 
-const SEED_BUSINESSES: BusinessProfile[] = [];
+const SEED_BUSINESSES: BusinessProfile[] = [
+  {
+    id: "digital-fx",
+    qrId: "rf_b893bcd1",
+    name: "DIGITAL FX",
+    category: "Digital Marketing Agency",
+    ownerName: "Shashank Yadav",
+    phone: "1234567890",
+    email: "yshashank513@gmail.com",
+    address: "Second Floor, Orbit Plaza",
+    city: "GHAZIABAD",
+    state: "Uttar Pradesh",
+    pincode: "201016",
+    googleReviewUrl: "https://g.page/r/CUe2G4Eq9NQSEAE/review",
+    logoUrl: "/icon.png",
+    brandColor: "#207de9",
+    qrStyle: "square",
+    status: "active",
+    active: true,
+    totalScans: 48,
+    totalVisits: 36,
+    totalDrafts: 24,
+    totalGoogleClicks: 18,
+    createdAt: "2026-09-24T00:00:00.000Z",
+    updatedAt: "2026-09-24T00:00:00.000Z",
+  },
+  {
+    id: "om-packers-and-movers",
+    qrId: "rf_16984107",
+    name: "OM PACKERS AND MOVERS",
+    category: "Packers & Movers",
+    ownerName: "Om Prakash",
+    phone: "9876543210",
+    email: "ompackers@gmail.com",
+    address: "Plot 42, Sector 12",
+    city: "Ghaziabad",
+    state: "Uttar Pradesh",
+    pincode: "201012",
+    googleReviewUrl: "https://g.page/r/CUe2G4Eq9NQSEAI/review",
+    brandColor: "#0284c7",
+    qrStyle: "square",
+    status: "active",
+    active: true,
+    totalScans: 22,
+    totalVisits: 17,
+    totalDrafts: 9,
+    totalGoogleClicks: 6,
+    createdAt: "2026-09-24T00:00:00.000Z",
+    updatedAt: "2026-09-24T00:00:00.000Z",
+  },
+  {
+    id: "indus-iti",
+    qrId: "rf_indus_iti",
+    name: "Indus (Pvt) Industrial Training Institute",
+    category: "Education/Coaching",
+    ownerName: "Director, Indus ITI",
+    phone: "+91 93198 07273",
+    email: "info@indusiti.org",
+    address: "Motihari, East Champaran, Bihar",
+    city: "Motihari",
+    state: "Bihar",
+    pincode: "845401",
+    googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJ_YsndWMzkzkRg5V8Y-kAQmQ",
+    placeId: "ChIJ_YsndWMzkzkRg5V8Y-kAQmQ",
+    logoUrl: "/indus-iti-logo.png",
+    brandColor: "#0a3a78",
+    qrStyle: "rounded",
+    additionalNotes: "Indus (Pvt) Industrial Training Institute (IITI), Motihari Bihar. Leading technical ITI institute for trades like Electrician & Fitter.",
+    status: "active",
+    active: true,
+    totalScans: 15,
+    totalVisits: 12,
+    totalDrafts: 7,
+    totalGoogleClicks: 5,
+    createdAt: "2026-10-10T12:00:00.000Z",
+    updatedAt: "2026-10-10T12:00:00.000Z",
+  },
+];
 
 interface StoreData {
   businesses: BusinessProfile[];
@@ -98,9 +175,14 @@ function ensureStore(): StoreData {
         return globalThis._reviewFlowStore;
       }
 
-      const raw = fs.readFileSync(filePath, "utf8");
-      const parsed = JSON.parse(raw);
-      const normalizedBusinesses = (parsed.businesses || []).map(normalizeBusiness);
+      const rawContent = fs.readFileSync(filePath, "utf8");
+      const parsed = JSON.parse(rawContent);
+      const normalizedBusinesses: BusinessProfile[] = (parsed.businesses || []).map(normalizeBusiness);
+      for (const seedBiz of SEED_BUSINESSES) {
+        if (!normalizedBusinesses.some((b: BusinessProfile) => b.id === seedBiz.id)) {
+          normalizedBusinesses.push(seedBiz);
+        }
+      }
       const store: StoreData = {
         businesses: normalizedBusinesses,
         sessions: parsed.sessions || [],
@@ -220,10 +302,16 @@ export async function getBusinessById(idOrQrId: string): Promise<BusinessProfile
 
   const found = store.businesses.find((b) => {
     if (b.deleted) return false;
+    const bid = b.id.toLowerCase();
+    const bqr = b.qrId.toLowerCase();
+    const bname = b.name.toLowerCase();
     return (
-      b.id.toLowerCase() === clean ||
-      b.qrId.toLowerCase() === clean ||
-      b.id.toLowerCase().replace(/[^a-z0-9]/g, "") === clean.replace(/[^a-z0-9]/g, "")
+      bid === clean ||
+      bqr === clean ||
+      bid.replace(/[^a-z0-9]/g, "") === clean.replace(/[^a-z0-9]/g, "") ||
+      bqr.replace(/[^a-z0-9]/g, "") === clean.replace(/[^a-z0-9]/g, "") ||
+      bname === clean ||
+      (clean.includes("indus") && (bid.includes("indus") || bname.includes("indus")))
     );
   });
 

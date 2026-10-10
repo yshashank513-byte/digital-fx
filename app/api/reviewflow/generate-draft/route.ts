@@ -127,6 +127,8 @@ function getRatingTone(rating: number): string {
 
 function getCategoryContext(category: string): string {
   const c = (category || "").toLowerCase();
+  if (c.includes("iti") || c.includes("training") || c.includes("institute") || c.includes("educat") || c.includes("coach") || c.includes("college") || c.includes("school") || c.includes("academy"))
+    return "Industrial Training Institute (ITI) / Technical Education Institute. Topics: practical trade workshops, supportive teachers & instructors, Electrician/Fitter lab tools, machinery training, discipline, placement assistance, exam guidance, student career building. Never say 'product' or 'delivery' — say 'completed my training here', 'studying here', 'best institute for ITI technical trades'.";
   if (c.includes("packer") || c.includes("mover") || c.includes("shift") || c.includes("logistics"))
     return "Packers & Movers service. Topics: shifting, bubble wrapping, safe delivery of fragile items, polite loading crew, punctuality, zero damages. Never say 'visited' — say 'booked them', 'hired them', 'shifted with them'.";
   if (c.includes("jewel") || c.includes("gold") || c.includes("diamond"))
@@ -159,12 +161,23 @@ function getLangInstruction(lang: string): string {
 }
 
 // Unique sentence starter per seed to prevent identical reviews
-function getSeedStarter(seed: number): string {
-  const starters = [
-    "", "Honestly,", "Recently used them.", "Just shifted recently,", "My experience:",
-    "First time using them,", "Used their service last week,", "Booked them last month,",
-    "To be honest,", "Just wanted to share,", "Had a recent experience,",
+function getSeedStarter(seed: number, category: string = ""): string {
+  const c = (category || "").toLowerCase();
+  let starters = [
+    "", "Honestly,", "My experience:", "First time here,", "To be honest,", "Just wanted to share,", "Had a great experience,",
   ];
+  if (c.includes("packer") || c.includes("mover") || c.includes("shift")) {
+    starters = [
+      "", "Honestly,", "Recently used them.", "Just shifted recently,", "My experience:",
+      "First time using them,", "Used their service last week,", "Booked them last month,",
+      "To be honest,", "Just wanted to share,", "Had a recent experience,",
+    ];
+  } else if (c.includes("iti") || c.includes("training") || c.includes("institute") || c.includes("educat") || c.includes("college") || c.includes("coach")) {
+    starters = [
+      "", "Honestly,", "Studying here,", "Completed my training here,", "My experience at this institute:",
+      "Joined this institute recently,", "To be honest,", "Just wanted to share my feedback,", "Had a great learning experience,",
+    ];
+  }
   return starters[Math.floor(Math.abs(seed) % starters.length)] || "";
 }
 
@@ -178,7 +191,7 @@ function buildPrompt(params: {
   seed: number;
 }): string {
   const { businessName, category, rating, lang, aspects, userNotes, seed } = params;
-  const starter = getSeedStarter(seed);
+  const starter = getSeedStarter(seed, category);
   return `Write a completely genuine Google Maps review for "${businessName}" (${category}).
 
 Language: ${getLangInstruction(lang)}

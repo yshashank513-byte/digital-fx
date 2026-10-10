@@ -601,6 +601,98 @@ const CATEGORY_VOCABULARY: Record<string, Record<SupportedLanguage, CategoryPhra
     },
   },
 
+  "Education/Coaching": {
+    en: {
+      openers: [
+        "Really good experience studying and training at {name}.",
+        "One of the best ITI training institutes in Motihari and Bihar.",
+        "Proud to be a student of {name}.",
+        "Excellent practical training and guidance provided by {name}.",
+        "Had a very positive and disciplined learning experience at {name}.",
+        "Indus Industrial Training Institute provides top-quality trade education.",
+        "Very supportive teachers and knowledgeable instructors at {name}.",
+        "Best institute in the region for technical diploma and ITI courses.",
+      ],
+      aspects: [
+        "The workshop machines and practical lab tools are modern and well-maintained.",
+        "Instructors explain theory and practical trade concepts with patience and personal attention.",
+        "Regular classes, disciplined timetable, and great hands-on workshop training.",
+        "The management provides genuine placement guidance and apprenticeship assistance.",
+        "The teachers are highly experienced and always ready to help students with their doubts.",
+        "Clean classrooms, well-organized technical labs, and supportive office staff.",
+        "Clear guidance on trade exams and certifications with complete transparency.",
+      ],
+      closers: [
+        "Highly recommended for students who want a strong technical career!",
+        "Definite 5 stars for the faculty, practical workshops, and training quality.",
+        "Best institute for ITI trades. Thank you to all the teachers and staff!",
+        "Very happy with the training and support. Keep it up team!",
+        "Truly thankful to {name} for guiding my career.",
+      ],
+    },
+    hi: {
+      openers: [
+        "{name} में पढ़ाई और ट्रेनिंग का अनुभव बहुत ही शानदार रहा।",
+        "मोतिहारी और बिहार में आईटीआई टेक्निकल ट्रेनिंग के लिए सबसे बेहतरीन संस्थान है।",
+        "{name} में प्रैक्टिकल और थ्योरी की पढ़ाई बहुत ही उम्दा तरीके से कराई जाती है।",
+        "इण्डस औद्योगिक प्रशिक्षण संस्थान में शिक्षकों का मार्गदर्शन बहुत ही सराहनीय है।",
+        "हमारे क्षेत्र का सबसे अनुशासित और प्रतिष्ठित आईटीआई कॉलेज है।",
+        "{name} से आईटीआई कोर्स करने का फैसला बिल्कुल सही साबित हुआ।",
+        "इण्डस प्राइवेट आईटीआई में छात्रों को बहुत अच्छा सीखने का माहौल मिलता है।",
+      ],
+      aspects: [
+        "वर्कशॉप में सारी मशीनें और उपकरण आधुनिक हैं, जिससे प्रैक्टिकल सीखने में बहुत मदद मिलती है।",
+        "शिक्षक बहुत अनुभवी हैं और हर छात्र की पढ़ाई पर व्यक्तिगत ध्यान देते हैं।",
+        "नियमित क्लास, समय पर प्रैक्टिकल और परीक्षा की पूरी तैयारी कराई जाती है।",
+        "ऑफिस स्टाफ और मैनेजमेंट बहुत मददगार है, हर सवाल का सही समाधान मिलता है।",
+        "अप्रेंटिसशिप और जॉब प्लेसमेंट के लिए संस्थान की तरफ से बहुत अच्छा मार्गदर्शन मिलता है।",
+        "अनुशासित माहौल, साफ-सुथरा कैंपस और बेहतरीन टेक्निकल लैब की व्यवस्था है।",
+      ],
+      closers: [
+        "तकनीकी शिक्षा और उज्ज्वल भविष्य के लिए सभी छात्रों को जरूर रिकमेंड करूंगा। 5 स्टार!",
+        "शानदार शिक्षा और प्रैक्टिकल ट्रेनिंग के लिए सभी शिक्षकों और प्रबंधन का धन्यवाद!",
+        "मोतिहारी का नंबर 1 आईटीआई संस्थान! बहुत-बहुत आभार।",
+        "भरोसेमंद संस्थान और बेहतरीन टेक्निकल गाइडेंस।",
+      ],
+    },
+    hinglish: {
+      openers: [
+        "{name} me training aur padhai ka experience bohot hi achha raha.",
+        "Motihari me ITI technical training ke liye {name} sabse best institute hai.",
+        "{name} me practical aur theory dono bohot acche se sikhate hain.",
+        "Proud to be associated with {name}, teachers kaafi supportive hain.",
+        "Indus Industrial Training Institute career growth ke liye best choice hai.",
+        "Best ITI college in this area, genuine teachers aur disciplined campus.",
+      ],
+      aspects: [
+        "Workshop setup aur lab machines fully equipped hain, practical learning bohot strong hai.",
+        "Instructors bohot knowledgeable hain aur har practical step patiently explain karte hain.",
+        "Regular classes aur disciplined environment rehta hai campus me.",
+        "Placement aur apprenticeship ke liye genuine support aur advice milti hai.",
+        "Administration aur teachers hamesha students ki help ke liye ready rehte hain.",
+      ],
+      closers: [
+        "Technical career aur trade skills ke liye highly recommended! 5 stars.",
+        "Best institute for ITI students. Thank you {name} team!",
+        "Bohot satisfied hun yahan ki training se, definite recommendation!",
+      ],
+    },
+    mr: {
+      openers: [
+        "{name} येथे तांत्रिक शिक्षण आणि प्रशिक्षणाचा अनुभव अतिशय उत्तम राहिला.",
+        "व्यावसायिक आणि औद्योगिक प्रशिक्षणासाठी {name} एक उत्कृष्ट संस्था आहे.",
+      ],
+      aspects: [
+        "कार्यशाळेतील साधने आधुनिक आहेत आणि प्रात्यक्षिक प्रशिक्षण उत्तम दिले जाते.",
+        "शिक्षक अत्यंत अनुभवी असून प्रत्येक विद्यार्थ्याला वैयक्तिक मार्गदर्शन करतात.",
+      ],
+      closers: [
+        "तांत्रिक भविष्यासाठी नक्कीच शिफारस करतो. ५ स्टार!",
+        "उत्कृष्ट प्रशिक्षण आणि मार्गदर्शनाबद्दल धन्यवाद!",
+      ],
+    },
+  },
+
   "General": {
     en: {
       openers: [
@@ -695,6 +787,19 @@ export function resolveCategoryKey(category: string = ""): string {
   }
   if (c.includes("market") || c.includes("digital") || c.includes("seo") || c.includes("agency") || c.includes("software") || c.includes("web")) {
     return "Digital Marketing Agency";
+  }
+  if (
+    c.includes("education") ||
+    c.includes("coaching") ||
+    c.includes("iti") ||
+    c.includes("training") ||
+    c.includes("institute") ||
+    c.includes("college") ||
+    c.includes("school") ||
+    c.includes("academy") ||
+    c.includes("classes")
+  ) {
+    return "Education/Coaching";
   }
   return "General";
 }
@@ -1021,33 +1126,33 @@ export function structureCustomerReview({
     // Provide natural phrasing for standard chip keywords:
     const aspectPhrases: Record<string, Record<SupportedLanguage, string>> = {
       staff: {
-        en: catKey === "Packers & Movers" ? "The loading crew was polite, disciplined, and very careful with heavy items." : "The staff was extremely polite, attentive, and cooperative.",
-        hi: catKey === "Packers & Movers" ? "स्टाफ बहुत विनम्र था और भारी सामान को बहुत सावधानी से संभाला।" : "स्टाफ का व्यवहार बहुत विनम्र और सहयोगी रहा।",
-        hinglish: catKey === "Packers & Movers" ? "Staff bohot polite aur hardworking tha, sab sambhal kar load kiya." : "Staff bohot polite aur supportive tha, sab kuch ache se explain kiya.",
+        en: catKey === "Packers & Movers" ? "The loading crew was polite, disciplined, and very careful with heavy items." : catKey === "Education/Coaching" ? "The teachers and workshop instructors are extremely supportive, knowledgeable, and patient." : "The staff was extremely polite, attentive, and cooperative.",
+        hi: catKey === "Packers & Movers" ? "स्टाफ बहुत विनम्र था और भारी सामान को बहुत सावधानी से संभाला।" : catKey === "Education/Coaching" ? "संस्थान के शिक्षक और प्रशिक्षक बहुत अनुभवी, विनम्र और मार्गदर्शक हैं।" : "स्टाफ का व्यवहार बहुत विनम्र और सहयोगी रहा।",
+        hinglish: catKey === "Packers & Movers" ? "Staff bohot polite aur hardworking tha, sab sambhal kar load kiya." : catKey === "Education/Coaching" ? "Teachers aur lab instructors bohot supportive aur knowledgeable hain." : "Staff bohot polite aur supportive tha, sab kuch ache se explain kiya.",
         mr: "कर्मचाऱ्यांचे वर्तन खूप नम्र आणि सहकार्य करणारे होते.",
       },
       quality: {
-        en: catKey === "Packers & Movers" ? "Multi-layer bubble wrap packing ensured not a single item was scratched or broken." : "Quality standards are genuinely high with great attention to every detail.",
-        hi: catKey === "Packers & Movers" ? "पैकिंग बहुत मजबूत की थी, एक भी सामान को खरोंच तक नहीं आई।" : "काम की क्वालिटी बहुत ही उच्च दर्जे की है और कोई समझौता नहीं किया गया।",
-        hinglish: catKey === "Packers & Movers" ? "Packing quality bohot solid thi, ek bhi item damage nahi hua." : "Kaam ki quality top-notch hai, 100% genuine kaam.",
+        en: catKey === "Packers & Movers" ? "Multi-layer bubble wrap packing ensured not a single item was scratched or broken." : catKey === "Education/Coaching" ? "Practical workshop facilities, training machines, and lab standards are top-notch." : "Quality standards are genuinely high with great attention to every detail.",
+        hi: catKey === "Packers & Movers" ? "पैकिंग बहुत मजबूत की थी, एक भी सामान को खरोंच तक नहीं आई।" : catKey === "Education/Coaching" ? "प्रैक्टिकल वर्कशॉप, लैब और ट्रेनिंग की क्वालिटी बहुत ही उच्च स्तर की है।" : "काम की क्वालिटी बहुत ही उच्च दर्जे की है और कोई समझौता नहीं किया गया।",
+        hinglish: catKey === "Packers & Movers" ? "Packing quality bohot solid thi, ek bhi item damage nahi hua." : catKey === "Education/Coaching" ? "Workshop aur lab setup top-notch hai, practical training bohot solid hai." : "Kaam ki quality top-notch hai, 100% genuine kaam.",
         mr: "कामाचा दर्जा सर्वोत्तम आहे, कुठेही तडजोड केली नाही.",
       },
       service: {
-        en: catKey === "Packers & Movers" ? "Delivered right on time at destination without any hidden costs." : "Everything was organized smoothly and completed right on schedule.",
-        hi: catKey === "Packers & Movers" ? "बिना किसी देरी के तय समय पर सामान पहुंचाया और कोई छिपा हुआ चार्ज नहीं लिया।" : "काम बिल्कुल तय समय पर और बिना किसी परेशानी के पूरा हुआ।",
-        hinglish: catKey === "Packers & Movers" ? "Time par delivery de di aur koi hidden charges nahi maange." : "Saara kaam perfectly schedule par hua, quick response.",
+        en: catKey === "Packers & Movers" ? "Delivered right on time at destination without any hidden costs." : catKey === "Education/Coaching" ? "Regular classes, disciplined timetable, and punctual trade exam preparation." : "Everything was organized smoothly and completed right on schedule.",
+        hi: catKey === "Packers & Movers" ? "बिना किसी देरी के तय समय पर सामान पहुंचाया और कोई छिपा हुआ चार्ज नहीं लिया।" : catKey === "Education/Coaching" ? "समय पर कक्षाएं, नियमित प्रैक्टिकल और परीक्षा की पूरी तैयारी कराई जाती है।" : "काम बिल्कुल तय समय पर और बिना किसी परेशानी के पूरा हुआ।",
+        hinglish: catKey === "Packers & Movers" ? "Time par delivery de di aur koi hidden charges nahi maange." : catKey === "Education/Coaching" ? "Regular classes aur practical sessions bilkul time par conduct hote hain." : "Saara kaam perfectly schedule par hua, quick response.",
         mr: "सेवा वेळेवर आणि अतिशय पद्धतशीरपणे पूर्ण करण्यात आली.",
       },
       value: {
-        en: "Clear billing with completely honest rates and zero surprise charges.",
-        hi: "बिल्कुल वाजिब और पारदर्शी रेट्स हैं, कोई छिपे हुए चार्ज नहीं लिए गए।",
-        hinglish: "Rates bilkul genuine aur transparent hain, koi hidden charges nahi.",
+        en: catKey === "Education/Coaching" ? "Affordable fee structure with honest guidance, placement assistance, and zero hidden fees." : "Clear billing with completely honest rates and zero surprise charges.",
+        hi: catKey === "Education/Coaching" ? "उचित फीस संरचना और करियर व प्लेसमेंट के लिए पूरी ईमानदारी से मार्गदर्शन मिलता है।" : "बिल्कुल वाजिब और पारदर्शी रेट्स हैं, कोई छिपे हुए चार्ज नहीं लिए गए।",
+        hinglish: catKey === "Education/Coaching" ? "Reasonable fees aur genuine placement support, fully value for money." : "Rates bilkul genuine aur transparent hain, koi hidden charges nahi.",
         mr: "दर अत्यंत रास्त आणि पारदर्शक आहेत, पैशाचे पूर्ण समाधान मिळाले.",
       },
       experience: {
-        en: "The entire process was pleasant, stress-free, and well-managed.",
-        hi: "शुरुआत से अंत तक का अनुभव बहुत शांतिपूर्ण और तनावमुक्त रहा।",
-        hinglish: "Pura process bilkul smooth aur tension-free raha.",
+        en: catKey === "Education/Coaching" ? "A very positive, disciplined, and career-oriented learning environment for all students." : "The entire process was pleasant, stress-free, and well-managed.",
+        hi: catKey === "Education/Coaching" ? "छात्रों के लिए एक अनुशासित, सुरक्षित और उज्ज्वल भविष्य देने वाला माहौल है।" : "शुरुआत से अंत तक का अनुभव बहुत शांतिपूर्ण और तनावमुक्त रहा।",
+        hinglish: catKey === "Education/Coaching" ? "Pura learning experience bohot disciplined aur inspiring raha." : "Pura process bilkul smooth aur tension-free raha.",
         mr: "संपूर्ण अनुभव अतिशय सुखद आणि समाधानकारक राहिला.",
       },
     };
