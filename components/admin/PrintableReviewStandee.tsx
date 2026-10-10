@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import QRCode from "qrcode";
 import { BusinessProfile } from "@/lib/reviewFlowTypes";
+import { createPdfBlobFromJpeg } from "@/lib/pdfGenerator";
 
 interface Props {
   business: BusinessProfile;
@@ -67,10 +68,9 @@ export default function PrintableReviewStandee({
     handleDownloadStandeeJPG();
   };
 
-  // High-Resolution Standee Export in JPG Format (1500 x 2120 px @ 300 DPI)
-  const handleDownloadStandeeJPG = async () => {
-    if (!qrDataUrl) return;
-    setDownloading("jpg");
+  // Generate High-Resolution Standee Canvas (1500 x 2120 px @ 300 DPI)
+  const generateStandeeCanvas = async (): Promise<HTMLCanvasElement | null> => {
+    if (!qrDataUrl) return null;
 
     try {
       const canvas = document.createElement("canvas");
@@ -315,27 +315,92 @@ export default function PrintableReviewStandee({
       ctx.font = "500 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
       ctx.fillText("Digital FX ReviewFlow", width - margin - 50, footerY);
 
-      // 9. Convert to High-Quality JPEG Blob & Trigger Download
-      canvas.toBlob(
-        (blob) => {
-          if (!blob) throw new Error("Canvas blob conversion failed");
-          const objectUrl = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.href = objectUrl;
-          link.download = `${business.id}-standee.jpg`;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          URL.revokeObjectURL(objectUrl);
-          setDownloading(null);
-        },
-        "image/jpeg",
-        0.98
-      );
+      return canvas;
     } catch (err) {
-      console.error("Failed to generate Standee JPG:", err);
+      console.error("Failed to generate Standee canvas:", err);
+      return null;
+    }
+  };
+
+  const handleDownloadStandee = async (format: "jpg" | "png" | "svg" | "pdf") => {
+    if (downloading) return;
+    setDownloading(format);
+    try {
+      if (format === "svg") {
+        const link = document.createElement("a");
+        link.href = `/api/reviewflow/qr?businessId=${encodeURIComponent(business.id)}&format=svg`;
+        link.download = `${business.id}-standee.svg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setDownloading(null);
+        return;
+      }
+
+      const canvas = await generateStandeeCanvas();
+      if (!canvas) throw new Error("Could not generate canvas");
+
+      if (format === "jpg") {
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) return;
+            const objectUrl = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = objectUrl;
+            link.download = `${business.id}-standee.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(objectUrl);
+            setDownloading(null);
+          },
+          "image/jpeg",
+          0.98
+        );
+      } else if (format === "png") {
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) return;
+            const objectUrl = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = objectUrl;
+            link.download = `${business.id}-standee.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(objectUrl);
+            setDownloading(null);
+          },
+          "image/png"
+        );
+      } else if (format === "pdf") {
+        canvas.toBlob(
+          async (blob) => {
+            if (!blob) return;
+            const arrayBuf = await blob.arrayBuffer();
+            const pdfBlob = createPdfBlobFromJpeg(new Uint8Array(arrayBuf), 595, 842);
+            const objectUrl = URL.createObjectURL(pdfBlob);
+            const link = document.createElement("a");
+            link.href = objectUrl;
+            link.download = `${business.id}-standee.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(objectUrl);
+            setDownloading(null);
+          },
+          "image/jpeg",
+          0.95
+        );
+      }
+    } catch (err) {
+      console.error("Standee export error:", err);
       setDownloading(null);
     }
+  };
+
+  const handleDownloadStandeeJPG = () => {
+    handleDownloadStandee("jpg");
   };
 
   // Helper for drawing initials badge on canvas
@@ -441,31 +506,32 @@ export default function PrintableReviewStandee({
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
-            {/* Primary Action: Download QR Full Standee in High-Res JPG */}
-            <button
-              type="button"
-              onClick={handleDownloadStandeeJPG}
-              disabled={downloading === "jpg" || !qrDataUrl}
-              className="py-1.5 px-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white transition flex items-center gap-1.5 cursor-pointer shadow-xs font-bold disabled:opacity-50"
-            >
-              {downloading === "jpg" ? (
-                <>
-                  <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Downloading Standee...</span>
-                </>
-              ) : (
-                <>
-                  <span>📥</span>
-                  <span>Download QR (Full Standee JPG)</span>
-                </>
-              )}
-            </button>
+            {/* Download Buttons Group */}
+            <div className="flex items-center rounded-xl border border-slate-200 bg-slate-50 p-0.5">
+              <span className="px-2 text-[11px] font-bold text-slate-500">Download:</span>
+              {(["jpg", "png", "pdf", "svg"] as const).map((fmt) => (
+                <button
+                  key={fmt}
+                  type="button"
+                  onClick={() => handleDownloadStandee(fmt)}
+                  disabled={downloading !== null || !qrDataUrl}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition uppercase cursor-pointer disabled:opacity-50 ${
+                    downloading === fmt
+                      ? "bg-[#2563EB] text-white"
+                      : "text-slate-700 hover:bg-white hover:shadow-2xs"
+                  }`}
+                  title={`Download Standee as ${fmt.toUpperCase()}`}
+                >
+                  {downloading === fmt ? "…" : fmt}
+                </button>
+              ))}
+            </div>
 
             {/* Print Standee */}
             <button
               type="button"
               onClick={handlePrint}
-              className="py-1.5 px-3 rounded-xl bg-[#080d24] hover:bg-[#2563EB] text-white transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
+              className="py-1.5 px-3 rounded-xl bg-[#080d24] hover:bg-[#2563EB] text-white transition flex items-center gap-1.5 cursor-pointer shadow-2xs font-bold"
             >
               <span>🖨️</span>
               <span>Print {size}</span>

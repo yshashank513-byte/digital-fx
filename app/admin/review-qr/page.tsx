@@ -4,9 +4,11 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { BusinessProfile } from "@/lib/reviewFlowTypes";
 import DeactivateModal from "@/components/admin/DeactivateModal";
+import DeleteBusinessModal from "@/components/admin/DeleteBusinessModal";
 import PrintableReviewStandee from "@/components/admin/PrintableReviewStandee";
 import LiveCustomerPhoneMockup from "@/components/admin/LiveCustomerPhoneMockup";
 import AddBusinessModal from "@/components/admin/AddBusinessModal";
+import { adminFetch } from "@/lib/adminFetch";
 
 export default function AdminReviewQRPage() {
   const [businesses, setBusinesses] = useState<BusinessProfile[]>([]);
@@ -29,6 +31,7 @@ export default function AdminReviewQRPage() {
   const [editDestUrl, setEditDestUrl] = useState("");
   const [savingDest, setSavingDest] = useState(false);
   const [deactivatingBiz, setDeactivatingBiz] = useState<BusinessProfile | null>(null);
+  const [deletingBiz, setDeletingBiz] = useState<BusinessProfile | null>(null);
 
   const showToast = (msg: string) => {
     setToastMsg(msg);
@@ -41,7 +44,7 @@ export default function AdminReviewQRPage() {
       const res = await fetch("/api/reviewflow/businesses", { cache: "no-store" });
       const data = await res.json();
       if (data.success) {
-        const list: BusinessProfile[] = data.businesses || [];
+        const list: BusinessProfile[] = (data.businesses || []).filter((b: BusinessProfile) => !b.deleted);
         setBusinesses(list);
         if (list.length > 0) {
           setSelectedBiz((prev) => {
@@ -63,13 +66,19 @@ export default function AdminReviewQRPage() {
 
   const filteredQRs = useMemo(() => {
     return businesses.filter((b) => {
-      if (statusFilter !== "all" && b.status !== statusFilter) return false;
+      if (b.deleted) return false;
+      if (statusFilter === "active" && b.status !== "active") return false;
+      if (statusFilter === "draft" && b.status !== "draft") return false;
+      if (statusFilter === "pending_approval" && b.status !== "pending_approval") return false;
+      if (statusFilter === "deactivated" && b.status !== "deactivated") return false;
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         return (
           b.name.toLowerCase().includes(q) ||
           b.category.toLowerCase().includes(q) ||
-          (b.city && b.city.toLowerCase().includes(q))
+          (b.city && b.city.toLowerCase().includes(q)) ||
+          (b.ownerName && b.ownerName.toLowerCase().includes(q)) ||
+          (b.phone && b.phone.includes(q))
         );
       }
       return true;
@@ -77,10 +86,11 @@ export default function AdminReviewQRPage() {
   }, [businesses, statusFilter, searchQuery]);
 
   // Summary Metrics
-  const totalScans = useMemo(() => businesses.reduce((sum, b) => sum + (b.totalScans || 0), 0), [businesses]);
-  const totalVisits = useMemo(() => businesses.reduce((sum, b) => sum + (b.totalVisits || 0), 0), [businesses]);
-  const totalPosts = useMemo(() => businesses.reduce((sum, b) => sum + (b.totalGoogleClicks || 0), 0), [businesses]);
-  const activeCount = useMemo(() => businesses.filter((b) => b.status === "active").length, [businesses]);
+  const nonDeletedBusinesses = useMemo(() => businesses.filter((b) => !b.deleted), [businesses]);
+  const totalScans = useMemo(() => nonDeletedBusinesses.reduce((sum, b) => sum + (b.totalScans || 0), 0), [nonDeletedBusinesses]);
+  const totalVisits = useMemo(() => nonDeletedBusinesses.reduce((sum, b) => sum + (b.totalVisits || 0), 0), [nonDeletedBusinesses]);
+  const totalPosts = useMemo(() => nonDeletedBusinesses.reduce((sum, b) => sum + (b.totalGoogleClicks || 0), 0), [nonDeletedBusinesses]);
+  const activeCount = useMemo(() => nonDeletedBusinesses.filter((b) => b.status === "active").length, [nonDeletedBusinesses]);
 
   const copyReviewLink = (biz: BusinessProfile) => {
     const origin = typeof window !== "undefined" ? window.location.origin : "https://www.digitalfx.in";
@@ -91,7 +101,7 @@ export default function AdminReviewQRPage() {
 
   const handleActivate = async (biz: BusinessProfile) => {
     try {
-      const res = await fetch("/api/reviewflow/businesses", {
+      const res = await adminFetch("/api/reviewflow/businesses", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: biz.id, action: "activate" }),
@@ -109,7 +119,7 @@ export default function AdminReviewQRPage() {
   const handleConfirmDeactivate = async (reason: string) => {
     if (!deactivatingBiz) return;
     try {
-      const res = await fetch("/api/reviewflow/businesses", {
+      const res = await adminFetch("/api/reviewflow/businesses", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: deactivatingBiz.id, action: "deactivate", reason }),
@@ -121,6 +131,28 @@ export default function AdminReviewQRPage() {
       }
     } catch {
       alert("Error deactivating QR.");
+    }
+  };
+
+  const handleConfirmDelete = async (biz: BusinessProfile) => {
+    try {
+      const res = await adminFetch(`/api/reviewflow/businesses?id=${encodeURIComponent(biz.id)}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: biz.id }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to delete business.");
+      }
+      showToast(`Business "${biz.name}" and associated QR codes permanently deleted.`);
+      if (selectedBiz?.id === biz.id) {
+        setSelectedBiz(null);
+      }
+      await loadData();
+    } catch (err: any) {
+      alert(err.message || "Error deleting business.");
+      throw err;
     }
   };
 
@@ -218,10 +250,10 @@ export default function AdminReviewQRPage() {
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs">
-          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Review Posts</span>
+          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Destination Clicks</span>
           <div className="text-2xl font-black text-emerald-600 mt-1">{totalPosts}</div>
           <span className="text-[10.5px] text-slate-500 font-medium">
-            {totalScans > 0 ? `${Math.round((totalPosts / totalScans) * 100)}% Conversion` : "Direct Clicks"}
+            {totalVisits > 0 ? `${Math.round((totalPosts / totalVisits) * 100)}% Conversion` : "Review Destination Clicks"}
           </span>
         </div>
       </div>
@@ -395,49 +427,73 @@ export default function AdminReviewQRPage() {
                           <td className="py-3.5 px-4 text-right whitespace-nowrap">
                             <div className="flex items-center justify-end gap-1.5" onClick={(e) => e.stopPropagation()}>
                               
-                              {/* Preview / Select */}
-                              <button
-                                type="button"
-                                onClick={() => setSelectedBiz(biz)}
-                                className={`px-2 py-1 rounded-lg text-xs font-semibold transition ${
-                                  isSelected
-                                    ? "bg-blue-600 text-white shadow-2xs"
-                                    : "text-slate-600 hover:bg-slate-100"
-                                }`}
-                                title="View in live preview"
+                              {/* Preview Link (Opens live review experience in new tab) */}
+                              <a
+                                href={`/r/${biz.qrId || biz.id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedBiz(biz);
+                                }}
+                                className="px-2 py-1 rounded-lg text-xs font-semibold text-blue-600 hover:bg-blue-50 transition flex items-center gap-1 cursor-pointer"
+                                title="Open live customer review experience in new tab"
                               >
-                                👁️ Preview
-                              </button>
+                                <span>👁️</span>
+                                <span className="hidden sm:inline">Preview</span>
+                                <span className="text-[10px]">↗</span>
+                              </a>
 
                               {/* Edit Business */}
                               <button
                                 type="button"
-                                onClick={() => {
+                                onClick={(e) => {
+                                  e.stopPropagation();
                                   setEditingBiz(biz);
                                   setIsAddModalOpen(true);
                                 }}
-                                className="px-2 py-1 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-100 transition"
+                                className="px-2 py-1 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-100 transition cursor-pointer"
                                 title="Edit Business"
                               >
-                                ✏️ Edit
+                                ✏️ <span className="hidden sm:inline">Edit</span>
+                              </button>
+
+                              {/* Standee & Downloads Modal */}
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setStandeeModalBiz(biz);
+                                }}
+                                className="px-2 py-1 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-100 transition flex items-center gap-1 cursor-pointer"
+                                title="Download or Print Standee"
+                              >
+                                <span>🖨️</span>
+                                <span className="hidden sm:inline">Standee</span>
                               </button>
 
                               {/* Copy Link */}
                               <button
                                 type="button"
-                                onClick={() => copyReviewLink(biz)}
-                                className="px-2 py-1 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-100 transition"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  copyReviewLink(biz);
+                                }}
+                                className="px-2 py-1 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-100 transition cursor-pointer"
                                 title="Copy Review Link"
                               >
                                 📋
                               </button>
 
-                              {/* Status Toggle */}
+                              {/* Status Toggle (Disable / Activate) */}
                               {biz.status === "active" ? (
                                 <button
                                   type="button"
-                                  onClick={() => setDeactivatingBiz(biz)}
-                                  className="px-2 py-1 rounded-lg text-[11px] font-semibold text-amber-700 hover:bg-amber-50 transition"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setDeactivatingBiz(biz);
+                                  }}
+                                  className="px-2 py-1 rounded-lg text-[11px] font-semibold text-amber-700 hover:bg-amber-50 transition cursor-pointer"
                                   title="Disable QR"
                                 >
                                   Disable
@@ -445,13 +501,29 @@ export default function AdminReviewQRPage() {
                               ) : (
                                 <button
                                   type="button"
-                                  onClick={() => handleActivate(biz)}
-                                  className="px-2 py-1 rounded-lg text-[11px] font-semibold text-emerald-700 hover:bg-emerald-50 transition"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleActivate(biz);
+                                  }}
+                                  className="px-2 py-1 rounded-lg text-[11px] font-semibold text-emerald-700 hover:bg-emerald-50 transition cursor-pointer"
                                   title="Activate QR"
                                 >
                                   Activate
                                 </button>
                               )}
+
+                              {/* Delete Business */}
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setDeletingBiz(biz);
+                                }}
+                                className="px-2 py-1 rounded-lg text-xs font-semibold text-rose-600 hover:bg-rose-50 transition cursor-pointer"
+                                title="Delete Business"
+                              >
+                                🗑️
+                              </button>
 
                             </div>
                           </td>
@@ -591,6 +663,31 @@ export default function AdminReviewQRPage() {
           setSelectedBiz(savedBiz);
         }}
       />
+      {/* ========================================================
+          7. MODAL: DELETE BUSINESS
+         ======================================================== */}
+      {deletingBiz && (
+        <DeleteBusinessModal
+          isOpen={true}
+          business={deletingBiz}
+          onClose={() => setDeletingBiz(null)}
+          onConfirm={handleConfirmDelete}
+        />
+      )}
+
+      {/* ========================================================
+          8. MODAL: STANDALONE STANDEE & DOWNLOADS
+         ======================================================== */}
+      {standeeModalBiz && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto">
+          <div className="w-full max-w-xl max-h-[92vh] overflow-y-auto p-4 sm:p-6 bg-white rounded-3xl shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95">
+            <PrintableReviewStandee
+              business={standeeModalBiz}
+              onClose={() => setStandeeModalBiz(null)}
+            />
+          </div>
+        </div>
+      )}
 
     </div>
   );

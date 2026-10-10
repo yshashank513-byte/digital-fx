@@ -469,18 +469,34 @@ export async function deactivateBusiness(id: string, reason?: string): Promise<B
 export async function deleteBusiness(id: string): Promise<boolean> {
   const store = ensureStore();
   const clean = id.trim().toLowerCase();
-  const initialLen = store.businesses.length;
-  store.businesses = store.businesses.filter(
-    (b) => b.id.toLowerCase() !== clean && b.qrId.toLowerCase() !== clean
-  );
+  let found = false;
+
+  for (const b of store.businesses) {
+    if (b.id.toLowerCase() === clean || b.qrId.toLowerCase() === clean) {
+      b.deleted = true;
+      b.status = "deactivated";
+      b.active = false;
+      b.updatedAt = new Date().toISOString();
+      found = true;
+    }
+  }
+
+  // Completely remove custom/user businesses; retain deleted mark for seed items to prevent resurrection
+  store.businesses = store.businesses.filter((b) => {
+    const isTarget = b.id.toLowerCase() === clean || b.qrId.toLowerCase() === clean;
+    if (!isTarget) return true;
+    const isSeed = SEED_BUSINESSES.some((s) => s.id.toLowerCase() === b.id.toLowerCase());
+    return isSeed; // keep with deleted: true if seed
+  });
+
   store.sessions = store.sessions.filter(
     (s) => s.businessId.toLowerCase() !== clean
   );
-  const changed = store.businesses.length < initialLen;
-  if (changed) {
+
+  if (found) {
     saveStore(store);
   }
-  return changed;
+  return found;
 }
 
 export async function clearAllReviewFlowData(): Promise<void> {

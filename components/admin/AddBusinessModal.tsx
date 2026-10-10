@@ -1297,7 +1297,7 @@ export default function AddBusinessModal({
                   <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  Submit &amp; Generate QR
+                  {isEditing ? "Save Changes" : "Submit & Generate QR"}
                 </>
               )}
             </button>

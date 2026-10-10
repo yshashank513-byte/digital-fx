@@ -358,7 +358,8 @@ export async function DELETE(request: Request) {
       });
     }
 
-    const id = String(body.id || "").trim();
+    const url = new URL(request.url);
+    const id = String(body.id || url.searchParams.get("id") || "").trim();
     if (!id) {
       return NextResponse.json(
         { success: false, error: "Business ID is required." },
