@@ -96,7 +96,24 @@ export const ALL_LOCATIONS_FLAT: LocationMapping[] = (() => {
     }
   }
 
-  // 3. International Commercial & Offshore Hubs (Dubai Flagship)
+  // 3. Delhi NCR Strategic Localities & Regional Commercial Hubs
+  const ncrAndMetroLocalities: LocationMapping[] = [
+    { name: "Indirapuram", slug: "indirapuram", stateName: "Uttar Pradesh", type: "state", isState: false },
+    { name: "Vaishali", slug: "vaishali", stateName: "Uttar Pradesh", type: "state", isState: false },
+    { name: "Vasundhara", slug: "vasundhara", stateName: "Uttar Pradesh", type: "state", isState: false },
+    { name: "Raj Nagar Extension", slug: "raj-nagar-extension", stateName: "Uttar Pradesh", type: "state", isState: false },
+    { name: "Gurgaon", slug: "gurgaon", stateName: "Haryana", type: "state", isState: false },
+    { name: "Bangalore", slug: "bangalore", stateName: "Karnataka", type: "state", isState: false },
+  ];
+
+  for (const loc of ncrAndMetroLocalities) {
+    if (!seenSlugs.has(loc.slug)) {
+      seenSlugs.add(loc.slug);
+      list.push(loc);
+    }
+  }
+
+  // 4. International Commercial & Offshore Hubs (Dubai Flagship)
   const globalHubs: LocationMapping[] = [
     { name: "Dubai", slug: "dubai", stateName: "United Arab Emirates", type: "union_territory", isState: false },
     { name: "Abu Dhabi", slug: "abu-dhabi", stateName: "United Arab Emirates", type: "union_territory", isState: false },
@@ -120,14 +137,42 @@ export const ALL_LOCATIONS_FLAT: LocationMapping[] = (() => {
 
 
 export const TOP_COMMERCIAL_CITIES = [
-  "ghaziabad", "noida", "greater-noida", "delhi", "gurugram", "faridabad", "mumbai", "pune",
-  "bengaluru", "hyderabad", "ahmedabad", "chennai", "kolkata", "jaipur",
-  "lucknow", "kanpur", "indore", "bhopal", "chandigarh", "mohali", "kochi",
+  "ghaziabad", "noida", "greater-noida", "delhi", "gurgaon", "gurugram", "faridabad",
+  "indirapuram", "vaishali", "vasundhara", "raj-nagar-extension",
+  "mumbai", "bangalore", "bengaluru", "hyderabad", "pune", "jaipur",
+  "lucknow", "chandigarh", "ahmedabad", "kolkata", "chennai",
+  "kanpur", "indore", "bhopal", "mohali", "kochi",
   "patna", "surat", "nagpur", "visakhapatnam", "bhubaneswar", "ludhiana",
   "dehradun", "vadodara", "coimbatore", "varanasi", "agra", "prayagraj",
   "meerut", "amritsar", "nashik", "rajkot", "cuttack", "alappuzha", "kottayam",
   "rewari", "lajpat-nagar", "dharmanagar", "diglipur"
 ];
+
+// The 20 Explicit Focus Cities / Localities for Multi-City SEO
+export const PRIORITY_20_SEO_CITIES = [
+  // Delhi NCR (10)
+  "noida",
+  "ghaziabad",
+  "delhi",
+  "greater-noida",
+  "gurgaon",
+  "faridabad",
+  "indirapuram",
+  "vaishali",
+  "vasundhara",
+  "raj-nagar-extension",
+  // Other Major Indian Cities (10)
+  "mumbai",
+  "bangalore",
+  "hyderabad",
+  "pune",
+  "jaipur",
+  "lucknow",
+  "chandigarh",
+  "ahmedabad",
+  "kolkata",
+  "chennai",
+] as const;
 
 export const GLOBAL_HUBS_SLUGS = [
   "dubai", "abu-dhabi", "sharjah", "riyadh", "doha", "new-york", "london",
@@ -902,65 +947,214 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
     coordinates: { lat: 30.7333, lng: 76.7794 },
   },
   ghaziabad: {
-    landmarks: ["Crossings Republik", "Indirapuram", "Raj Nagar Extension", "Vasundhara", "Vaishali", "NH-24 Corridor"],
-    primaryIndustries: ["Healthcare & Super-specialty Clinics", "Manufacturing & Fabrication", "Real Estate Developers", "Education & Coaching", "Retail Boutiques"],
+    heroTagline: "Best Digital Marketing Agency in Ghaziabad",
+    metaTitle: "Best Digital Marketing Agency in Ghaziabad - Digital FX",
+    metaDescription: "Digital FX is the best digital marketing agency in Ghaziabad headquartered at Orbit Plaza, Crossings Republik. We deliver Google Maps 3-Pack SEO, Google Ads, and custom websites.",
+    landmarks: [
+      "Orbit Plaza (Crossings Republik) — Digital FX HQ",
+      "Raj Nagar District Centre (RDC)",
+      "Kavi Nagar Commercial Hub",
+      "Indirapuram (Kala Patthar & Aditya Mall)",
+      "Vasundhara & Vaishali Commercial Belts",
+      "Sahibabad Industrial Area Site 4",
+      "Raj Nagar Extension High-Rise Corridor",
+      "Gandhi Nagar & Nehru Nagar Markets",
+    ],
+    primaryIndustries: [
+      "Multi-Specialty Hospitals, IVF & Dental Clinics",
+      "B2B Manufacturing & Auto Engineering (Sahibabad)",
+      "Real Estate Developers & High-Rise Townships",
+      "Bridal Boutiques & Apparel (Gandhi Nagar & Turab Nagar)",
+      "Coaching Academies & Private Schools (Kavi Nagar)",
+      "Sanitaryware, Tiles & Building Supplies (Mohan Nagar)",
+    ],
     localChallenges: [
-      "Heavy competition from adjacent Noida and East Delhi agencies charging inflated retainers without transparent reporting.",
-      "Google Maps 3-Pack saturation along NH-24 and Indirapuram commercial markets.",
+      "Heavy competition from adjacent Noida and East Delhi agencies charging inflated retainers without transparent local reporting or presence.",
+      "Established family businesses in RDC, Sahibabad, and Gandhi Nagar losing customer search share to digital-first competitors.",
       "Outdated WordPress websites losing 60%+ mobile traffic due to slow 3-5 second load times.",
     ],
+    localStrategyPoints: [
+      "Google Maps 3-Pack Supremacy: Securing Rank #1 for 'digital marketing agency in Ghaziabad' and 'SEO company near me'.",
+      "Sub-Second Next.js 16 Web Architecture: Fast, secure web applications loading in 0.8s on 5G/4G across Ghaziabad.",
+      "Hyper-Local Citation Syndication: 50+ verified high-DA directory citations ensuring accurate NAP across all Ghaziabad zones.",
+      "High-Converting WhatsApp & Call Lead Funnels with automated booking.",
+      "AI Search (GEO) Leadership: Formatting data for top citations in ChatGPT, Perplexity, and Google AI Overviews.",
+    ],
     sampleCaseStudy: {
-      clientType: "Multi-Specialty Dental & Implant Clinic",
-      neighborhood: "Indirapuram & Raj Nagar",
-      metrics: "+280% Google Maps Inquiries in 75 Days",
-      result: "Optimized GBP categories, generated 64 geo-tagged authentic reviews, and achieved Rank #1 for 'best dentist near me' across Crossings Republik and Indirapuram.",
+      clientType: "Multi-Specialty Dental & Implant Clinic Network",
+      neighborhood: "Raj Nagar District Centre (RDC) & Crossings Republik",
+      metrics: "+280% Google Maps Inquiries in 60 Days",
+      result: "Optimized Google Business Profiles across two centers, generated 64 authentic geo-tagged reviews, and achieved Rank #1 for 'best dentist in Ghaziabad'.",
     },
     coordinates: { lat: 28.6692, lng: 77.4538 },
+    faqs: [
+      {
+        question: "Where is Digital FX located in Ghaziabad?",
+        answer: "Our registered office and growth lab is located at Shop No. 210, Second Floor, Orbit Plaza, Crossings Republik, Ghaziabad (201016). You can visit our office or schedule an in-person strategy consultation anytime.",
+      },
+      {
+        question: "Why should Ghaziabad businesses choose Digital FX?",
+        answer: "Unlike remote or Delhi-based agencies that sell vanity metrics, Digital FX is an on-ground partner with documented client results (+₹6L client revenue), modern Next.js 16 engineering, transparent reporting, and zero lock-in contracts.",
+      },
+      {
+        question: "How long does it take to rank #1 on Google Maps in Ghaziabad?",
+        answer: "Most local clients in Ghaziabad see measurable rank jumps within 30 to 45 days after completing our GBP optimization, NAP consistency audit, and geo-tagged review syndication.",
+      },
+      {
+        question: "What is your pricing for digital marketing in Ghaziabad?",
+        answer: "Google Maps & Local SEO packages start at ₹2,000/month, custom high-speed websites start from ₹10,000 one-time, and 360° full-funnel retainers start at ₹25,000/month.",
+      },
+    ],
   },
   noida: {
-    landmarks: ["Sector 62 IT Park", "Sector 18 Commercial Hub", "Sector 137 Expressway", "Sector 63 B2B Hub", "Greater Noida Expressway"],
-    primaryIndustries: ["SaaS & B2B Technology", "Corporate Consulting", "Architecture & Interior Design", "Export Houses", "Luxury Real Estate"],
+    heroTagline: "Leading Digital Marketing Agency in Noida",
+    metaTitle: "Best Digital Marketing Agency in Noida | SEO & Google Ads",
+    metaDescription: "Leading digital marketing agency in Noida. Enterprise SEO, Google Ads, local search, and custom Next.js web development for high-growth tech and retail brands.",
+    landmarks: [
+      "Sector 62 IT & Institutional Park",
+      "Sector 18 Commercial Hub & Atta Market",
+      "Sector 63 B2B Industrial Corridor",
+      "Noida Expressway Tech Zones (Sector 125-144)",
+      "Sector 137 High-Rise Residential Hub",
+      "Sector 104 Boutique Cafe & Retail Belt",
+    ],
+    primaryIndustries: [
+      "SaaS, IT Services & B2B Technology",
+      "Corporate Real Estate Developers & Builders",
+      "Diagnostic Labs & Cosmetology Clinics",
+      "Garment & Textile Export Houses (Sector 58/63)",
+      "Luxury Home Interior & Architectural Studios",
+    ],
     localChallenges: [
-      "High Cost-Per-Click (CPC) on Google Ads for B2B tech and real estate keywords.",
-      "Local organic search results dominated by multinational aggregators like Justdial, Sulekha, and TradeIndia.",
+      "Extreme agency competition along Noida Expressway, driving up Google Ads CPCs to ₹120+ per click on commercial search terms.",
+      "Local organic results dominated by low-relevance directories, making organic search authority critical.",
+      "High mobile bounce rate from slow corporate WordPress templates.",
+    ],
+    localStrategyPoints: [
+      "B2B Account-Based SEO: Dominating bottom-of-funnel keywords for enterprise SaaS, manufacturing, and commercial real estate.",
+      "Sub-Second Next.js 16 Platforms: Engineered for high-speed corporate buyer evaluation.",
+      "Google Maps 3-Pack Domination for Sector 18, Sector 62, and Expressway business hubs.",
+      "Laser-targeted Google Search & LinkedIn ad funnels with strict negative keyword filters.",
     ],
     sampleCaseStudy: {
       clientType: "Enterprise B2B Cloud Solutions Provider",
-      neighborhood: "Sector 62 IT Park",
+      neighborhood: "Sector 62 IT Park, Noida",
       metrics: "3.8x Qualified Pipeline Value",
-      result: "Built custom Next.js 16 landing pages, executed high-intent Google Search PPC, and drove ₹48L+ in verified enterprise contract opportunities.",
+      result: "Built custom Next.js 16 landing pages, executed high-intent Google Search PPC, and drove ₹48L+ in verified enterprise contract opportunities in 90 days.",
     },
     coordinates: { lat: 28.5355, lng: 77.3910 },
+    faqs: [
+      {
+        question: "Why should Noida businesses partner with Digital FX?",
+        answer: "We bring modern engineering (sub-second Next.js 16 speed), proprietary ReviewFlow AI customer review automation, and proven performance marketing that delivers verified phone calls and sales pipeline.",
+      },
+      {
+        question: "Can Digital FX handle B2B lead generation in Noida?",
+        answer: "Yes, B2B lead generation is our core specialization. We combine high-intent Google Search ads, account-based retargeting, and technical schema SEO to deliver qualified business inquiries.",
+      },
+      {
+        question: "What is the cost of digital marketing services in Noida?",
+        answer: "Plans start at ₹2,000/month for Google Maps & Local SEO, ₹10,000 for custom web development, and ₹25,000/month for complete 360° performance retainers.",
+      },
+    ],
   },
   "greater-noida": {
-    landmarks: ["Knowledge Park Educational Corridor", "Pari Chowk Commercial Hub", "Greater Noida West (Noida Extension)", "TechZone IT Hub", "Formula 1 Buddh Circuit Corridor", "Surajpur Industrial Area"],
-    primaryIndustries: ["Higher Education & Universities", "Real Estate & High-Rise Societies", "Automotive & Manufacturing", "IT & Data Centers", "Retail & Shopping Complexes"],
+    heroTagline: "Top Digital Marketing Agency in Greater Noida",
+    metaTitle: "Digital Marketing Agency in Greater Noida | SEO & Lead Gen",
+    metaDescription: "Digital marketing agency in Greater Noida helping colleges, real estate developers, and local businesses grow through SEO, Google Ads and Next.js web design.",
+    landmarks: [
+      "Knowledge Park Educational Corridor (I-V)",
+      "Pari Chowk Commercial Hub",
+      "Greater Noida West (Noida Extension)",
+      "Surajpur Industrial Area & Toy City",
+      "TechZone IT & Data Center Hub",
+      "Alpha 1 & Beta 1 Commercial Complexes",
+    ],
+    primaryIndustries: [
+      "Higher Education, Engineering & Medical Colleges",
+      "Real Estate Developers & High-Rise Societies",
+      "Automotive & Electronics Manufacturing (Surajpur)",
+      "Data Centers & IT Infrastructure",
+      "Furniture, Interior Fitouts & Home Decor",
+    ],
     localChallenges: [
       "Rapid geographic expansion across Greater Noida West vs Greater Noida East creating fragmented search intent.",
-      "High competition for student admissions and residential homebuyer keywords on Google Ads and Maps.",
+      "High seasonal ad competition for student admissions and residential homebuyer keywords.",
+      "Low lead-to-appointment conversion from generic web forms.",
+    ],
+    localStrategyPoints: [
+      "Programmatic Local SEO capturing college admission and residential buyer searches.",
+      "Google Maps 3-Pack Optimization across Pari Chowk, Knowledge Park, and Noida Extension.",
+      "Mobile-First Sub-Second Next.js Web Funnels with 1-click WhatsApp lead capture.",
+      "Targeted Google Search & Meta ad campaigns with automated lead notification.",
     ],
     sampleCaseStudy: {
       clientType: "Engineering & Management Institute",
-      neighborhood: "Knowledge Park III",
+      neighborhood: "Knowledge Park III, Greater Noida",
       metrics: "+340% Verified Admissions Inquiries",
       result: "Deployed programmatic local landing pages and Google Ads campaigns targeting Delhi NCR and West UP, capturing over 1,200 verified course applications in 90 days.",
     },
     coordinates: { lat: 28.4744, lng: 77.5040 },
+    faqs: [
+      {
+        question: "How do you help educational institutes in Greater Noida?",
+        answer: "We build high-converting course landing pages, optimize Google Ads for verified student inquiries, and implement WhatsApp automations that dramatically improve enrollment ratios.",
+      },
+      {
+        question: "Do you serve businesses in Greater Noida West (Noida Extension)?",
+        answer: "Yes, we have deep experience optimizing local businesses, clinics, and interior design studios across Noida Extension's high-rise residential belts.",
+      },
+    ],
   },
   delhi: {
-    landmarks: ["Connaught Place", "South Extension", "Netaji Subhash Place", "Nehru Place", "Dwarka", "Okhla Industrial Area"],
-    primaryIndustries: ["Retail & E-commerce", "Legal & Financial Services", "Medical Centers", "Hospitality & Dining", "Fashion & Lifestyle"],
+    heroTagline: "Full-Service Digital Marketing Agency in Delhi",
+    metaTitle: "Digital Marketing Agency in Delhi | Best SEO & Ads Company",
+    metaDescription: "Full-service digital marketing agency in Delhi providing technical SEO, Google Ads PPC, social media management, and custom sub-second Next.js websites.",
+    landmarks: [
+      "Connaught Place (CP) Central District",
+      "Nehru Place Electronics & IT Hub",
+      "South Extension Commercial Corridor",
+      "Netaji Subhash Place (NSP) Pitampura",
+      "Okhla Industrial Area Phases 1-3",
+      "Karol Bagh & Rajendra Place Commercial Belt",
+      "Lajpat Nagar Central Market",
+      "Dwarka Sector 12 Commercial Hub",
+    ],
+    primaryIndustries: [
+      "Corporate Legal Practices & Financial Advisory",
+      "Retail E-commerce & Direct-to-Consumer (D2C) Brands",
+      "Super-Specialty Hospitals, IVF & Dental Centers",
+      "Architectural Studios & Luxury Interior Design",
+      "Manufacturing & International Export Consortia (Okhla)",
+    ],
     localChallenges: [
-      "Extreme organic density with over 5,000 competing agencies across Central, South, and West Delhi.",
-      "Fragmented micro-local search intent where South Delhi consumers behave completely differently from West Delhi buyers.",
+      "Extreme organic density with thousands of competing agencies driving inflated search auction costs.",
+      "Fragmented micro-local search intent where South Delhi consumers behave differently from West or North Delhi buyers.",
+      "Wasted marketing spend on agencies delivering impressions instead of qualified phone calls and leads.",
+    ],
+    localStrategyPoints: [
+      "Zonal Micro-Targeting: Hyper-local campaigns tailored to South Delhi, West Delhi, and Central business hubs.",
+      "Enterprise Technical SEO with full JSON-LD Schema.org hierarchy.",
+      "Sub-Second Next.js 16 Web Platforms loading in 0.8s on 5G/4G.",
+      "Conversion Rate Optimization (CRO) with direct WhatsApp and phone call tracking.",
     ],
     sampleCaseStudy: {
       clientType: "Luxury Home Interior Architecture Firm",
-      neighborhood: "South Extension & GK",
-      metrics: "42 High-Ticket Inquiries / Month",
+      neighborhood: "South Extension & Greater Kailash (GK), Delhi",
+      metrics: "42 High-Ticket Inquiries / Month (₹15L+ Ticket Size)",
       result: "Structured Schema.org LocalBusiness architecture with geo-fenced Meta Ad funnels generating genuine ₹15L+ residential interior projects.",
     },
     coordinates: { lat: 28.6139, lng: 77.2090 },
+    faqs: [
+      {
+        question: "Why should Delhi businesses work with Digital FX?",
+        answer: "We offer the technical depth of an enterprise engineering agency with the agility of a specialized growth partner. Our sub-second Next.js tech stack, transparent ROI tracking, and zero lock-in contracts set us apart from traditional Delhi agencies.",
+      },
+      {
+        question: "How do you track leads and conversions?",
+        answer: "We integrate Google Analytics 4, phone call tracking, and WhatsApp click tracking so you see the exact origin, cost-per-lead, and revenue generated from every campaign.",
+      },
+    ],
   },
   gurugram: {
     landmarks: ["Cyber City", "Golf Course Road", "Sohna Road", "Udyog Vihar", "Sector 29", "MG Road"],
@@ -1081,6 +1275,397 @@ const BESPOKE_LOCATION_DATA: Record<string, Partial<CityProfile>> = {
       result: "Targeted technical SEO and Google Search B2B campaigns capturing infrastructure contractors across Gujarat and Maharashtra.",
     },
     coordinates: { lat: 23.0225, lng: 72.5714 },
+  },
+
+  // ================= DELHI NCR LOCALITIES =================
+  indirapuram: {
+    heroTagline: "Best Digital Marketing Agency in Indirapuram, Ghaziabad",
+    metaTitle: "Best Digital Marketing Agency in Indirapuram | SEO & Google Ads",
+    metaDescription: "Leading digital marketing agency in Indirapuram, Ghaziabad. We help local clinics, cafes, boutiques and salons rank #1 on Google Maps and drive high-intent leads.",
+    landmarks: [
+      "Aditya Mega Mall & Shipra Mall Corridor",
+      "Kala Patthar Road Commercial Market",
+      "Vaibhav Khand High-Street & Swarna Jayanti Park",
+      "Ahinsa Khand 1 & 2 High-Rise Societies",
+      "Nyay Khand Commercial Market",
+      "Windsor Park Commercial Arcade",
+      "Shakti Khand & Mangal Bazaar",
+    ],
+    primaryIndustries: [
+      "Dental Clinics, Pediatricians & Maternity Centers",
+      "Boutique Cafes, Bakeries & Cloud Kitchens",
+      "Fitness Centers, Yoga & Pilates Studios",
+      "Real Estate Resale & Rental Agencies",
+      "Modular Kitchens, Interior Decor & Furniture Studios",
+      "Beauty Salons, Spas & Skin Aesthetics Clinics",
+    ],
+    localChallenges: [
+      "Extremely dense commercial competition with 50+ local healthcare and retail service providers clustered along Kala Patthar and Vaibhav Khand.",
+      "Heavy reliance on traditional printed flyers and newspaper inserts that deliver zero measurable ROI or tracking.",
+      "Outdated, slow mobile websites losing over 65% of mobile searches from busy Indirapuram residents.",
+    ],
+    localStrategyPoints: [
+      "Google Maps 3-Pack Domination: Securing #1 positions for 'best dentist in Indirapuram', 'cafes near me', and high-commercial search phrases.",
+      "Sub-Second Next.js Web Development: Mobile-first responsive sites loading under 0.8s on 5G/4G across all Indirapuram Khands.",
+      "Geo-Fenced Meta & Google Ads: Precision targeting to residents within 3km of Aditya Mall and Kala Patthar Road.",
+      "ReviewFlow AI Automated Reviews: Collecting 5-star Google reviews via tap-to-review standees to dominate local search authority.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Advanced Multi-Specialty Dental Clinic",
+      neighborhood: "Vaibhav Khand & Kala Patthar, Indirapuram",
+      metrics: "94+ New Patient Appointments / Month",
+      result: "Revamped Google Business Profile, integrated ReviewFlow NFC cards, and achieved Rank #1 on Google Maps 3-Pack across Indirapuram in 45 days.",
+    },
+    coordinates: { lat: 28.6415, lng: 77.3714 },
+    faqs: [
+      {
+        question: "Why should Indirapuram businesses choose Digital FX over Delhi agencies?",
+        answer: "Digital FX is headquartered right next door in Crossings Republik, Ghaziabad. We understand Indirapuram's micro-neighborhoods (Vaibhav Khand, Ahinsa Khand, Kala Patthar) intimately, providing on-ground strategy, transparent reporting, and zero lock-in contracts.",
+      },
+      {
+        question: "How quickly can my Indirapuram business rank on Google Maps?",
+        answer: "Most local retail and clinic clients in Indirapuram see measurable rank jumps within 30 to 45 days after completing our GBP optimization, NAP consistency audit, and geo-tagged review syndication.",
+      },
+      {
+        question: "Do you offer website development for Indirapuram service providers?",
+        answer: "Yes, we build modern, custom Next.js 16 websites designed specifically for mobile speed and high conversions with direct 1-click WhatsApp and call buttons.",
+      },
+      {
+        question: "What are your digital marketing packages for Indirapuram?",
+        answer: "Our local SEO growth packages start at ₹2,000/month, custom high-speed websites start at ₹10,000 one-time, and 360° full-funnel retainers start at ₹25,000/month.",
+      },
+    ],
+  },
+  vaishali: {
+    heroTagline: "Top Digital Marketing Agency in Vaishali, Ghaziabad",
+    metaTitle: "Digital Marketing Agency in Vaishali | Local SEO & Google Ads",
+    metaDescription: "Top digital marketing agency in Vaishali, Ghaziabad specializing in Google Maps 3-Pack SEO, high-speed Next.js websites, and targeted Google Ads funnels.",
+    landmarks: [
+      "Vaishali Metro Station (Blue Line) Commercial Corridor",
+      "Mahagun Metro Mall & Cinepolis Arcade",
+      "Sector 4 Central Market & Commercial Complex",
+      "Sector 1 Commercial Belt & Ramprastha Green",
+      "Max Super Specialty Hospital Corridor",
+      "Sector 5 & Sector 9 Commercial Corridors",
+    ],
+    primaryIndustries: [
+      "Specialty Clinics, Diagnostic Labs & IVF Centers",
+      "Fine Dining, Multi-Cuisine Restaurants & Banquets",
+      "Competitive Exam Coaching & Language Institutes",
+      "Property Advisory, Commercial Leasing & Architects",
+      "Wellness Salons, Hair Studios & Dermatology Clinics",
+    ],
+    localChallenges: [
+      "Rapid transit commuter zone where potential clients make rapid mobile decisions while commuting via Vaishali Blue Line Metro.",
+      "Local service providers losing patients and diners to Anand Vihar and East Delhi competitors due to unoptimized local SEO.",
+      "Generic template websites taking 4+ seconds to load, causing 60%+ bounce rates.",
+    ],
+    localStrategyPoints: [
+      "Local Search 3-Pack Optimization for Sector 4, Sector 1, and Mahagun Mall catchment areas.",
+      "High-Speed Mobile Websites with 1-click call and WhatsApp appointment booking.",
+      "Hyperlocal Meta & Google Ads targeting residents in Vaishali, Kaushambi, and Anand Vihar.",
+      "Google Business Profile Review Automation via ReviewFlow AI.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Orthopedic & Sports Rehabilitation Center",
+      neighborhood: "Sector 4 & Mahagun Mall Corridor, Vaishali",
+      metrics: "+185% Inbound Appointments & Calls",
+      result: "Restructured Google Business Profile, built a sub-second Next.js web application, and established #1 ranking for 'best physiotherapist in Vaishali'.",
+    },
+    coordinates: { lat: 28.6480, lng: 77.3411 },
+    faqs: [
+      {
+        question: "Can Digital FX help my Vaishali clinic or business beat East Delhi competitors?",
+        answer: "Yes! By capturing local search intent and Google Maps 3-Pack rankings in Vaishali and Anand Vihar border zones, we ensure local residents choose your clinic or business first without crossing the border.",
+      },
+      {
+        question: "How long does local SEO take to deliver results in Vaishali?",
+        answer: "Initial ranking improvements and call volume increases typically begin within 30 to 45 days, with top 3 Google Maps positions solidifying within 60 to 90 days.",
+      },
+      {
+        question: "What digital marketing services do you provide in Vaishali?",
+        answer: "We provide Google Maps Local SEO, Google Search Ads (PPC), Meta Ads, custom Next.js website design, and ReviewFlow AI customer review automation.",
+      },
+    ],
+  },
+  vasundhara: {
+    heroTagline: "Digital Marketing Agency in Vasundhara, Ghaziabad",
+    metaTitle: "Digital Marketing Agency in Vasundhara | Best SEO & Ads Company",
+    metaDescription: "Digital marketing agency in Vasundhara, Ghaziabad helping local shops, medical centers, coaching institutes, and service brands dominate local search results.",
+    landmarks: [
+      "Sector 11 Commercial Complex & Market",
+      "Sector 14 High-Street & Main Commercial Belt",
+      "Sector 16 Commercial Arcade",
+      "Mewar Institute of Management Corridor",
+      "Atal Chowk & Sector 10 Commercial Hub",
+      "Sector 1 & 2 Residential & Commercial Corridors",
+    ],
+    primaryIndustries: [
+      "Pharmacies, Polyclinics & Pathology Labs",
+      "Coaching Institutes, Pre-Schools & Daycares",
+      "Building Hardware, Sanitaryware & Interior Paint Stores",
+      "Apparel Boutiques, Tailoring Studios & Jewellery Shops",
+      "Bakers, Confectioners & Local Catering Services",
+    ],
+    localChallenges: [
+      "Local businesses struggle to pull customers from adjacent Indirapuram and Vaishali markets without digital search visibility.",
+      "Lack of structured digital footprint leaving established offline retailers invisible to younger residents searching on smartphones.",
+      "High competition on local coaching and diagnostic keywords.",
+    ],
+    localStrategyPoints: [
+      "Google Maps 3-Pack Dominance across all Vasundhara sectors (1 through 19).",
+      "Ultra-Fast Next.js Landing Pages optimized for instant phone call conversions.",
+      "NAP (Name, Address, Phone) consistency across 50+ high-DA Indian business directories.",
+      "Hyper-targeted social media advertising driving footfall to retail showrooms.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Modular Kitchen & Interior Hardware Studio",
+      neighborhood: "Sector 14 & Atal Chowk, Vasundhara",
+      metrics: "28 Qualified In-Store Design Consultations / Mo",
+      result: "Deployed high-speed Next.js portfolio website and dominated Google Maps for 'modular kitchen Vasundhara', generating ₹38L in new residential fitouts.",
+    },
+    coordinates: { lat: 28.6609, lng: 77.3621 },
+    faqs: [
+      {
+        question: "Why do Vasundhara businesses choose Digital FX?",
+        answer: "We are local growth partners based in Ghaziabad with proven experience in Vasundhara's commercial corridors. We provide transparent ROI reporting and tangible customer inquiries.",
+      },
+      {
+        question: "Do you offer Google Business Profile optimization for Vasundhara retailers?",
+        answer: "Yes, we optimize categories, geo-tagged photos, service menus, and review syndication to secure your spot in the Google Maps 3-Pack.",
+      },
+      {
+        question: "What is your pricing for Vasundhara digital marketing?",
+        answer: "Plans start at ₹2,000/month for Google Maps & Local SEO, custom websites from ₹10,000, and comprehensive retainers from ₹25,000/month.",
+      },
+    ],
+  },
+  "raj-nagar-extension": {
+    heroTagline: "Digital Marketing Agency in Raj Nagar Extension, Ghaziabad",
+    metaTitle: "Digital Marketing Agency in Raj Nagar Extension | SEO & PPC",
+    metaDescription: "Digital marketing agency in Raj Nagar Extension, Ghaziabad providing Google Maps 3-Pack SEO, lead generation, social media ads, and custom web development.",
+    landmarks: [
+      "KDP Grand Savanna & Officer City Commercial Hub",
+      "River Heights Commercial Arcade",
+      "Meerut Bypass Road Commercial Corridor",
+      "VVIP Addresses & Raj Nagar Extension Main Road",
+      "MCC Signature Heights & Charms Castle Belts",
+      "DPS & GD Goenka School Corridor",
+    ],
+    primaryIndustries: [
+      "Turnkey Interior Designers & Modular Furniture Makers",
+      "High-Rise Residential Society Home Services",
+      "Pediatric, Dental & Maternity Clinics for Young Families",
+      "Playschools, Activity Centers & Martial Arts Academies",
+      "Fitness Gyms, Crossfit & Yoga Centers",
+      "Property Resale, Rental & Commercial Leasing",
+    ],
+    localChallenges: [
+      "Massive residential population (100,000+ residents) searching on mobile devices daily, but local businesses lack verified Google presence.",
+      "Hyper-dense competition among interior designers and medical clinics for society residents' attention.",
+      "Wasted marketing spend on paper leaflets scattered at society security gates.",
+    ],
+    localStrategyPoints: [
+      "Google Maps 3-Pack Ranking for Raj Nagar Extension, Morta, and Meerut Road searchers.",
+      "Hyperlocal Meta Ads geo-fenced to high-rise townships (VVIP Addresses, Officer City, River Heights).",
+      "Sub-Second Next.js Mobile Web Design with 1-click WhatsApp quote requests.",
+      "ReviewFlow AI Automated Tap-to-Review systems for clinics and retail showrooms.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Turnkey Home Interior & Modular Furniture Studio",
+      neighborhood: "KDP Commercial Corridor, Raj Nagar Extension",
+      metrics: "₹48L+ Signed Residential Interior Contracts in 90 Days",
+      result: "Targeted Google Search PPC and local Google Maps optimization capturing newly moved high-rise society homeowners searching for interior designers.",
+    },
+    coordinates: { lat: 28.7118, lng: 77.4262 },
+    faqs: [
+      {
+        question: "How can my Raj Nagar Extension business reach residents of high-rise societies?",
+        answer: "We use geo-fenced digital advertising and Google Maps 3-Pack optimization that targets residents within a 2-3 km radius of Raj Nagar Extension's high-rise societies.",
+      },
+      {
+        question: "Do you help interior designers get clients in Raj Nagar Extension?",
+        answer: "Yes, we specialize in high-ticket lead generation for interior design and modular kitchen studios, generating qualified inquiries from new homeowners.",
+      },
+      {
+        question: "How soon can we see leads in Raj Nagar Extension?",
+        answer: "Paid Google Ads and Meta campaigns start generating qualified WhatsApp inquiries within 24 to 48 hours. Google Maps 3-Pack rankings climb within 30 to 45 days.",
+      },
+    ],
+  },
+
+  // ================= METRO HUBS (KOLKATA, CHENNAI, GURGAON, BANGALORE) =================
+  kolkata: {
+    heroTagline: "Premier Digital Marketing Agency in Kolkata",
+    metaTitle: "Digital Marketing Agency in Kolkata | SEO & Google Ads Company",
+    metaDescription: "Digital marketing agency in Kolkata helping retail, corporate, and healthcare businesses scale through SEO, Google Ads, social media, and web development.",
+    landmarks: [
+      "Salt Lake Sector V IT & Tech Cluster",
+      "Park Street Commercial & Entertainment Corridor",
+      "Rajarhat New Town Financial & Action Area",
+      "Camac Street & Theatre Road Corporate Belt",
+      "BBD Bagh & Dalhousie Heritage Financial Center",
+      "Gariahat & South City Retail Belts",
+    ],
+    primaryIndustries: [
+      "IT Services, Software Development & BPM (Sector V)",
+      "Corporate Headquarters (Mining, Metals, Tea & Jute)",
+      "Jewellery & Bridal Handloom Retail (Bowbazar & Gariahat)",
+      "Super-Specialty Hospitals & Medical Tourism",
+      "Real Estate & Modern Residential Townships (New Town)",
+    ],
+    localChallenges: [
+      "Slow, outdated legacy agency websites suffering high bounce rates on regional mobile networks.",
+      "Cross-border and multi-state search intent from Eastern India and Bangladesh requiring specialized medical and educational SEO.",
+      "Intense competition in Salt Lake Sector V IT services and corporate consulting.",
+    ],
+    localStrategyPoints: [
+      "Next.js 16 Sub-Second Web Platforms built to load under 0.8s across Kolkata mobile networks.",
+      "Google Maps 3-Pack Domination for corporate, healthcare, and retail businesses.",
+      "Full Schema.org Entity Integration connecting businesses to Google Knowledge Graph.",
+      "High-Intent Paid Search campaigns maximizing ROAS in retail and B2B sectors.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Super-Specialty Cardiac & Diagnostic Hospital",
+      neighborhood: "Salt Lake & EM Bypass, Kolkata",
+      metrics: "240+ Inpatient & Diagnostic Consultations / Mo",
+      result: "Secured top Google Maps 3-Pack rankings across Kolkata and Eastern India with medical schema, patient review automation, and health search clusters.",
+    },
+    coordinates: { lat: 22.5726, lng: 88.3639 },
+    faqs: [
+      {
+        question: "Why choose Digital FX for digital marketing in Kolkata?",
+        answer: "We deploy cutting-edge Next.js 16 web architecture (loading in 0.8s) and verified Google Maps 3-Pack playbooks focused on revenue and attributable leads, not vanity impressions.",
+      },
+      {
+        question: "Can you help Kolkata healthcare and IT businesses attract international clients?",
+        answer: "Yes, our cross-border SEO and Generative Engine Optimization (GEO) strategies help Kolkata enterprises capture clients from Bangladesh, Southeast Asia, and Western markets.",
+      },
+      {
+        question: "What are your service packages for Kolkata businesses?",
+        answer: "Local SEO packages start at ₹2,000/month, custom websites start at ₹10,000 one-time, and 360° growth retainers start at ₹25,000/month.",
+      },
+    ],
+  },
+  chennai: {
+    heroTagline: "Leading Digital Marketing Agency in Chennai",
+    metaTitle: "Digital Marketing Agency in Chennai | Best SEO & Ads Company",
+    metaDescription: "Digital marketing agency in Chennai providing technical SEO, Google Ads management, social media marketing, and custom Next.js web development.",
+    landmarks: [
+      "OMR (Old Mahabalipuram Road) IT Expressway",
+      "T. Nagar Retail & Commercial Hub",
+      "Guindy Industrial Estate & Ekkattuthangal",
+      "Anna Nagar Commercial Corridor",
+      "Nungambakkam & Mount Road Corporate Belts",
+      "Ambattur Industrial Estate & Tech Parks",
+    ],
+    primaryIndustries: [
+      "Automobile & EV Manufacturing (The Detroit of South Asia)",
+      "SaaS, IT Services & Global Capability Centers (GCCs)",
+      "Healthcare, Medical Tourism & Multi-Specialty Hospitals",
+      "Textiles, Silk Sarees & Gold Jewellery (T. Nagar)",
+      "Leather & Footwear Export Consortia",
+    ],
+    localChallenges: [
+      "Bilingual search intent (Tamil and English) requiring culturally nuanced on-page optimization.",
+      "Global capability centers on OMR demanding enterprise-grade web security and sub-second performance.",
+      "High Cost-Per-Click in healthcare, education, and real estate niches.",
+    ],
+    localStrategyPoints: [
+      "B2B Technical Spec SEO: Product catalog optimization capturing global procurement directors.",
+      "Google Maps 3-Pack Domination for T. Nagar, Anna Nagar, and Guindy commercial hubs.",
+      "Sub-Second Next.js Architecture ensuring 0.7s load time on Indian 5G networks.",
+      "ReviewFlow AI Automated Tap-to-Review systems for retail and hospital chains.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Tier-1 Automotive Ancillary & Precision Tooling Exporter",
+      neighborhood: "Guindy Industrial Estate & OMR, Chennai",
+      metrics: "34 Global RFQs from European & US Carmakers",
+      result: "Rebuilt technical export portal on Next.js 16 with multilingual schema, capturing international automotive procurement directors.",
+    },
+    coordinates: { lat: 13.0827, lng: 80.2707 },
+    faqs: [
+      {
+        question: "How does Digital FX support Chennai's B2B and automotive exporters?",
+        answer: "We engineer technical B2B catalogs with Schema.org specifications and execute targeted international SEO, generating corporate RFQs from US, European, and APAC buyers.",
+      },
+      {
+        question: "Do you optimize websites for bilingual search in Chennai?",
+        answer: "Yes, we handle bilingual search patterns and semantic keyword clustering to ensure you capture both English and regional language search intent.",
+      },
+      {
+        question: "What are your pricing plans for Chennai enterprises?",
+        answer: "Local SEO starts at ₹2,000/month, custom Next.js web development from ₹10,000, and full-funnel corporate growth retainers from ₹25,000/month.",
+      },
+    ],
+  },
+  gurgaon: {
+    heroTagline: "Premier Digital Marketing Agency in Gurgaon (Gurugram)",
+    metaTitle: "Digital Marketing Agency in Gurgaon | SEO, PPC & Web Development",
+    metaDescription: "Best digital marketing agency in Gurgaon helping startups, B2B companies, and corporate brands scale with high-ROI Google Ads, SEO, and Next.js web design.",
+    landmarks: ["Cyber City", "Golf Course Road", "Sohna Road", "Udyog Vihar", "Sector 29", "MG Road"],
+    primaryIndustries: ["Fintech & Startups", "Corporate Real Estate", "Luxury Automotive", "High-End Medical Services", "Coworking & Commercial Spaces"],
+    localChallenges: [
+      "India's highest paid advertising CPCs in corporate and wealth management niches.",
+      "Tech-savvy consumers relying heavily on AI search tools (Perplexity, ChatGPT) alongside traditional Google search.",
+    ],
+    localStrategyPoints: [
+      "Enterprise GEO & AI Search Placement (ChatGPT, Perplexity, Google AI Overviews).",
+      "Sub-Second Next.js 16 Platforms designed for high-conversion corporate buyer evaluation.",
+      "Laser-targeted B2B Account-Based Google Search & LinkedIn Ad funnels.",
+      "Google Maps 3-Pack authority across Cyber City, Golf Course Road, and Sohna Road.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Angel-Backed B2B Logistics Scale-up",
+      neighborhood: "Cyber City & Udyog Vihar, Gurgaon",
+      metrics: "318% Organic Search Traffic Growth",
+      result: "Deployed Generative Engine Optimization (GEO) and technical SEO, making the company the default recommended logistics vendor in AI Search Overviews.",
+    },
+    coordinates: { lat: 28.4595, lng: 77.0266 },
+    faqs: [
+      {
+        question: "How does Digital FX handle high CPCs on Google Ads in Gurgaon?",
+        answer: "We deploy negative keyword sculpting, high-relevance Quality Score landing pages, and account-based retargeting, slashing wasted spend and delivering 4x higher ROAS.",
+      },
+      {
+        question: "Do you provide AI Search (GEO) optimization for Gurgaon tech firms?",
+        answer: "Yes, we format your digital entity, citations, and PR footprint so AI engines like Perplexity, ChatGPT, and Google AI Overviews cite your company as the leading authority.",
+      },
+    ],
+  },
+  bangalore: {
+    heroTagline: "Data-Driven Digital Marketing Agency in Bangalore (Bengaluru)",
+    metaTitle: "Digital Marketing Agency in Bangalore | SEO & Performance Growth",
+    metaDescription: "Data-driven digital marketing and SEO agency in Bangalore driving organic growth, Google Ads ROI, and high-speed Next.js web development for tech and retail.",
+    landmarks: ["Whitefield", "Koramangala", "Indiranagar", "Electronic City", "HSR Layout", "Outer Ring Road"],
+    primaryIndustries: ["AI & DeepTech Startups", "Global SaaS", "Hardware Engineering", "Specialty Coffee & F&B", "Co-living & Modern Real Estate"],
+    localChallenges: [
+      "Ultra-technical buyer demographic that ignores generic marketing and demands verifiable technical authority.",
+      "AI-driven search behavior with over 45% of tech founders using ChatGPT and Perplexity for vendor evaluations.",
+    ],
+    localStrategyPoints: [
+      "Programmatic SEO & Technical Documentation Indexing for SaaS & Product Tech.",
+      "Sub-Second Next.js 16 Web Engineering with zero layout shift.",
+      "Generative Engine Optimization (GEO) for AI Search Visibility.",
+      "Full-Funnel Paid Search targeting enterprise tech decision-makers.",
+    ],
+    sampleCaseStudy: {
+      clientType: "Enterprise Developer Tools SaaS",
+      neighborhood: "Koramangala & HSR Layout, Bangalore",
+      metrics: "5.4x Demo Signups from Organic Search",
+      result: "Engineered programmatic technical documentation indexing, JSON-LD API Schemas, and GEO entity optimization, reducing blended customer acquisition cost by 62%.",
+    },
+    coordinates: { lat: 12.9716, lng: 77.5946 },
+    faqs: [
+      {
+        question: "Why do Bangalore tech founders and brands choose Digital FX?",
+        answer: "We don't use dated agency templates. We code custom Next.js 16 web applications, implement strict API schema architectures, and optimize for AI Search (GEO) with measurable CAC reduction.",
+      },
+      {
+        question: "How does Digital FX help SaaS companies in Bangalore scale?",
+        answer: "Through high-intent bottom-of-funnel SEO, programmatic landing pages, and precision Google Search PPC targeting commercial software buyers.",
+      },
+    ],
   },
 
   // ================= GLOBAL INTERNATIONAL HUBS =================
@@ -1210,14 +1795,20 @@ export const STATE_META_DESCRIPTIONS: Record<string, string> = {
 };
 
 export const CITY_META_DESCRIPTIONS: Record<string, string> = {
-  "ghaziabad": "Digital marketing agency in Ghaziabad helping local businesses grow through SEO, Google Ads, social media marketing and web development.",
-  "noida": "Digital marketing agency in Noida offering SEO, Google Ads, social media marketing, web development and local SEO services for growing businesses.",
-  "greater-noida": "Digital marketing agency in Greater Noida helping colleges, real estate developers and local businesses grow through SEO, Google Ads and web development.",
-  "delhi": "Full-service digital marketing agency in Delhi providing SEO, Google Ads PPC, social media management, and custom website development.",
+  "ghaziabad": "Digital FX is the best digital marketing agency in Ghaziabad. We help local clinics, retailers, and manufacturers rank #1 on Google Maps & Google Ads.",
+  "noida": "Leading digital marketing agency in Noida. Enterprise SEO, Google Ads, local search, and custom Next.js web development for high-growth businesses.",
+  "greater-noida": "Digital marketing agency in Greater Noida helping colleges, real estate developers, and local businesses grow through SEO, Google Ads and web development.",
+  "delhi": "Full-service digital marketing agency in Delhi providing technical SEO, Google Ads PPC, social media management, and custom sub-second websites.",
+  "gurgaon": "Best digital marketing agency in Gurgaon helping startups, B2B companies, and corporate brands scale with Google Ads, SEO, and Next.js web design.",
   "gurugram": "Performance digital marketing and SEO agency in Gurugram delivering high-ROI Google Ads, local SEO, and scalable web development for corporate brands.",
   "faridabad": "Results-driven digital marketing agency in Faridabad helping manufacturers, clinics, and local brands scale with SEO and Google Ads.",
+  "indirapuram": "Leading digital marketing agency in Indirapuram, Ghaziabad. We help local clinics, cafes, and retail businesses rank #1 on Google Maps & generate leads.",
+  "vaishali": "Top digital marketing agency in Vaishali, Ghaziabad specializing in Google Maps local SEO, high-speed websites, and targeted Google Ads funnels.",
+  "vasundhara": "Digital marketing agency in Vasundhara, Ghaziabad helping local shops, medical centers, and service brands dominate local search results.",
+  "raj-nagar-extension": "Digital marketing agency in Raj Nagar Extension, Ghaziabad providing Google Maps 3-Pack SEO, lead generation, and custom web development.",
   "mumbai": "Premier digital marketing agency in Mumbai specializing in performance SEO, paid search advertising, and enterprise web development.",
   "pune": "Digital marketing and SEO agency in Pune helping IT firms, real estate brands, and local businesses capture high-converting leads.",
+  "bangalore": "Data-driven digital marketing and SEO agency in Bangalore driving organic growth, Google Ads ROI, and high-speed Next.js web development.",
   "bengaluru": "Data-driven digital marketing and SEO agency in Bangalore driving organic growth, Google Ads ROI, and high-speed web development.",
   "hyderabad": "Digital marketing and SEO services in Hyderabad helping healthcare, tech, and local enterprises acquire qualified customers online.",
   "ahmedabad": "Digital marketing agency in Ahmedabad delivering revenue-focused SEO, Google Ads management, and custom e-commerce web development.",
@@ -1278,7 +1869,14 @@ export function getCitySeoProfile(slugInput: string): CityProfile | null {
   }
 
   const { name, stateName, type, isState, cities } = location;
-  const bespoke = BESPOKE_LOCATION_DATA[normalizedSlug] || {};
+  let bespokeKey = normalizedSlug;
+  if (!BESPOKE_LOCATION_DATA[bespokeKey]) {
+    if (bespokeKey === "gurgaon") bespokeKey = "gurugram";
+    else if (bespokeKey === "gurugram") bespokeKey = "gurgaon";
+    else if (bespokeKey === "bangalore") bespokeKey = "bengaluru";
+    else if (bespokeKey === "bengaluru") bespokeKey = "bangalore";
+  }
+  const bespoke = BESPOKE_LOCATION_DATA[bespokeKey] || {};
 
   // ================= STATE-LEVEL LANDING PAGE =================
   if (isState) {
@@ -1426,16 +2024,16 @@ export function getCitySeoProfile(slugInput: string): CityProfile | null {
     state: stateName,
     regionType: type,
     isState: false,
-    heroTagline: `Digital Marketing & Local SEO Agency Serving ${name}, ${stateName}`,
-    metaTitle: normalizedSlug === "ghaziabad" ? "Best Digital Marketing Agency in Ghaziabad" : `Digital Marketing Agency in ${name}`,
-    metaDescription: CITY_META_DESCRIPTIONS[normalizedSlug] || `Digital marketing agency in ${name} helping local businesses grow through SEO, Google Ads, social media marketing and web development.`,
+    heroTagline: bespoke.heroTagline || `Digital Marketing & Local SEO Agency Serving ${name}, ${stateName}`,
+    metaTitle: bespoke.metaTitle || (normalizedSlug === "ghaziabad" ? "Best Digital Marketing Agency in Ghaziabad - Digital FX" : `Digital Marketing Agency in ${name} | Best SEO & Ads Company`),
+    metaDescription: bespoke.metaDescription || CITY_META_DESCRIPTIONS[normalizedSlug] || CITY_META_DESCRIPTIONS[bespokeKey] || `Digital marketing agency in ${name} helping local businesses grow through SEO, Google Ads, social media marketing and web development.`,
     landmarks,
     primaryIndustries,
     localChallenges,
-    localStrategyPoints,
+    localStrategyPoints: bespoke.localStrategyPoints || localStrategyPoints,
     sampleCaseStudy,
     coordinates,
-    keywords: [
+    keywords: bespoke.keywords || [
       `best digital marketing agency in ${name}`,
       `digital marketing company in ${name}`,
       `top SEO company ${name}`,
@@ -1447,7 +2045,7 @@ export function getCitySeoProfile(slugInput: string): CityProfile | null {
       `SEO services in ${name} ${stateName}`,
       `PPC agency in ${name}`,
     ],
-    faqs: [
+    faqs: bespoke.faqs && bespoke.faqs.length > 0 ? bespoke.faqs : [
       {
         question: `Why do businesses in ${name} choose Digital FX over traditional local agencies?`,
         answer: `Unlike traditional agencies that sell vanity metrics like impressions and clicks, Digital FX focuses 100% on attributable revenue, phone inquiries, and walk-in footfall. We deploy modern Next.js 16 technology (loading in under 0.8s), verified Google Maps 3-Pack ranking playbooks, and transparent ROI reporting with no long-term lock-in contracts.`,

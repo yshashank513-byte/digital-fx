@@ -76,8 +76,20 @@ export default async function BlogPostPage({ params }: PageProps) {
       "@id": `https://www.digitalfx.in/blog/${post.slug}#article`,
       headline: post.title,
       description: post.description,
-      datePublished: "2026-03-01T00:00:00+05:30",
-      dateModified: "2026-03-04T00:00:00+05:30",
+      datePublished: (() => {
+        try {
+          return new Date(post.publishedAt).toISOString().split("T")[0] + "T09:00:00+05:30";
+        } catch {
+          return "2026-10-15T09:00:00+05:30";
+        }
+      })(),
+      dateModified: (() => {
+        try {
+          return new Date(post.publishedAt).toISOString().split("T")[0] + "T18:00:00+05:30";
+        } catch {
+          return "2026-10-26T18:00:00+05:30";
+        }
+      })(),
       mainEntityOfPage: `https://www.digitalfx.in/blog/${post.slug}`,
       author: {
         "@type": "Person",

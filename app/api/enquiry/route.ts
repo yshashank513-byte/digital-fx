@@ -19,17 +19,17 @@ export async function POST(request: Request) {
     const name = String(body.name || "").trim().slice(0, 100);
     const phone = String(body.phone || "").trim().slice(0, 20);
     const email = String(body.email || "").trim().slice(0, 120);
-    const service = String(body.service || "").trim().slice(0, 100);
+    const service = String(body.service || "General Consultation & Growth Advisory").trim().slice(0, 100);
     const message = String(body.message || "").trim().slice(0, 2000);
     const website = String(body.website || "").trim().slice(0, 255);
     const isProposal = Boolean(body.is_proposal);
 
     // Required fields
-    if (!name || !phone || !service) {
+    if (!name || !phone) {
       return NextResponse.json(
         {
           success: false,
-          error: "Name, phone number and service are required.",
+          error: "Name and phone number are required.",
         },
         { status: 400 }
       );

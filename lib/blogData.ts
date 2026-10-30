@@ -920,6 +920,417 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "how-to-choose-best-digital-marketing-agency-noida",
+    title: "How to Choose the Best Digital Marketing Agency in Noida (2026 Checklist)",
+    description: "A comprehensive guide on evaluating digital marketing agencies in Noida. Compare technical capability, real attribution, Google Maps authority, and pricing models.",
+    publishedAt: "October 15, 2026",
+    readingTime: "7 min read",
+    category: "Agency Strategy",
+    author: {
+      name: "Digital FX Strategy Desk",
+      role: "Senior Growth Advisory",
+      location: "Digital FX • Noida & Ghaziabad Corridor",
+    },
+    keyTakeaways: [
+      "Avoid agencies selling vanity metrics (impressions, clicks); prioritize phone calls, appointments, and qualified sales pipeline.",
+      "Ensure your agency builds custom high-speed web platforms (sub-0.8s) rather than bloated WordPress templates.",
+      "Verify on-ground knowledge of Noida's commercial hubs like Sector 62, Sector 18, and Noida Expressway.",
+      "Demand zero lock-in contracts: high-performing agencies earn your business every 30 days.",
+    ],
+    tableOfContents: [
+      { id: "noida-agency-landscape", title: "1. The Noida Digital Agency Landscape" },
+      { id: "vanity-vs-revenue", title: "2. Vanity Metrics vs Attributable Revenue" },
+      { id: "technical-evaluation", title: "3. Technical Speed & Web Engineering Test" },
+      { id: "local-maps-capability", title: "4. Google Business Profile & 3-Pack Mastery" },
+      { id: "pricing-models", title: "5. Realistic Pricing Benchmarks in Noida" },
+    ],
+    sections: [
+      {
+        id: "noida-agency-landscape",
+        heading: "1. The Noida Digital Agency Landscape",
+        body: [
+          "Noida has emerged as North India's premier B2B and IT services hub, with hundreds of agencies spanning Sector 62, Sector 63, and the Noida Expressway corridor. However, over 80% of agencies in Noida operate on outdated 2018 playbooks—outsourcing work to freelancers, purchasing low-quality backlink bundles, and locking clients into restrictive 6-to-12-month retainers.",
+          "Choosing the right digital partner in Noida requires looking beyond polished pitch decks and assessing whether the agency has the technical depth to deliver real commercial outcomes.",
+        ],
+      },
+      {
+        id: "vanity-vs-revenue",
+        heading: "2. Vanity Metrics vs Attributable Revenue",
+        body: [
+          "Traditional agencies report impressions, reach, and raw website visits. But for a business in Sector 18 or Sector 62, impressions do not pay salaries. What matters is attributable inbound demand: verified phone calls, direct WhatsApp inquiries, scheduled appointments, and signed contracts.",
+          "When interviewing an agency in Noida, ask: 'Can you show me the exact attribution model connecting my monthly retainer to closed customer revenue?' If the answer involves vague spreadsheet reports, walk away.",
+        ],
+        table: {
+          headers: ["Evaluation Metric", "Average Agency", "High-Performance Agency (Digital FX)"],
+          rows: [
+            ["Reporting Focus", "Impressions, reach, pageviews", "Attributable calls, WhatsApp chats, RFQs"],
+            ["Web Architecture", "Slow WordPress or Wix templates (4s+)", "Custom Next.js 16 sub-second platforms (0.8s)"],
+            ["Contract Policy", "6 to 12 month binding lock-ins", "Flexible 30-day performance retainers"],
+            ["Google Maps Expertise", "Basic address pin setup", "Geo-tagged reviews & 3-Pack domination"],
+            ["Local Hub Coverage", "Remote, zero local market grasp", "Deep Noida & NCR commercial insight"],
+          ],
+        },
+      },
+      {
+        id: "technical-evaluation",
+        heading: "3. Technical Speed & Web Engineering Test",
+        body: [
+          "Google's 2026 Core Web Vitals algorithms penalize slow-loading websites heavily. Over 65% of mobile users in Noida will bounce if a landing page takes more than 2.5 seconds to load on Indian 4G/5G connections.",
+          "Ask any prospective agency to audit their own website using Google PageSpeed Insights. If their own homepage scores below 90 on mobile, they cannot be trusted to build high-performance web applications for your brand.",
+        ],
+      },
+      {
+        id: "local-maps-capability",
+        heading: "4. Google Business Profile & 3-Pack Mastery",
+        body: [
+          "For clinics, retail showrooms, educational institutes, and B2B manufacturers in Noida, over 70% of high-intent buying decisions originate directly on Google Maps.",
+          "A competent agency must demonstrate a repeatable system for dominating the Google Maps 3-Pack across high-value keywords like 'digital marketing agency in Noida', 'best IVF clinic near me', or 'industrial fabrication suppliers'.",
+        ],
+      },
+      {
+        id: "pricing-models",
+        heading: "5. Realistic Pricing Benchmarks in Noida",
+        body: [
+          "Digital marketing retainers in Noida typically range from ₹15,000 to ₹1,50,000 per month depending on commercial scope. Be wary of agencies offering 'all-inclusive digital marketing for ₹3,000'—such services rely on automated bot spam that can trigger permanent Google penalties.",
+          "At Digital FX, our transparent local SEO plans begin at ₹2,000/month, custom high-speed websites from ₹10,000, and full-funnel 360° growth retainers from ₹25,000/month with zero lock-in contracts.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "why-businesses-in-ghaziabad-need-digital-marketing",
+    title: "Why Businesses in Ghaziabad Need Digital Marketing & Local SEO in 2026",
+    description: "Discover how commercial businesses, retail showrooms, and clinics in Ghaziabad are using Google Maps 3-Pack and Next.js websites to outperform NCR competitors.",
+    publishedAt: "October 18, 2026",
+    readingTime: "6 min read",
+    category: "Local SEO",
+    author: {
+      name: "Digital FX Strategy Desk",
+      role: "Hyperlocal Search Lab",
+      location: "Shop No. 210, Orbit Plaza, Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Over 74% of consumers in Ghaziabad search on smartphones before visiting a doctor, retail store, or showroom.",
+      "Traditional word-of-mouth in RDC, Kavi Nagar, and Gandhi Nagar is getting displaced by competitors dominating Google Maps.",
+      "Headquartered at Orbit Plaza, Crossings Republik, Digital FX provides on-ground execution for Ghaziabad businesses.",
+      "Google Business Profile optimization combined with ReviewFlow AI NFC standees drives verified 5-star customer reviews.",
+    ],
+    tableOfContents: [
+      { id: "shifting-ghaziabad-market", title: "1. The Shifting Ghaziabad Commercial Market" },
+      { id: "google-maps-domination", title: "2. The Google Maps 3-Pack Revolution" },
+      { id: "sub-second-speed", title: "3. The Speed Advantage on Indian Mobile Networks" },
+      { id: "local-case-study", title: "4. Real Ghaziabad Case Studies & ROI" },
+    ],
+    sections: [
+      {
+        id: "shifting-ghaziabad-market",
+        heading: "1. The Shifting Ghaziabad Commercial Market",
+        body: [
+          "Ghaziabad is undergoing a massive digital transformation. With rapid residential expansion across Crossings Republik, Raj Nagar Extension, Indirapuram, Vaishali, and Vasundhara, hundreds of thousands of affluent families now rely almost exclusively on Google search to discover local services.",
+          "Traditional businesses in historical hubs like RDC (Raj Nagar District Centre), Gandhi Nagar, and Sahibabad Industrial Area that previously relied on offline word-of-mouth are seeing footfall migrate to digital-savvy competitors who appear at the top of Google search results.",
+        ],
+      },
+      {
+        id: "google-maps-domination",
+        heading: "2. The Google Maps 3-Pack Revolution",
+        body: [
+          "When a resident in Ghaziabad searches for 'best dental clinic near me', 'interior designer in Raj Nagar Extension', or 'modular kitchen showroom in Indirapuram', Google displays the Google Maps 3-Pack before any standard website blue link.",
+          "Securing one of these three coveted spots captures over 60% of all inbound phone calls and directions requests. Optimizing for the 3-Pack requires complete NAP (Name, Address, Phone) consistency, primary category calibration, geo-tagged photography, and automated customer review syndication.",
+        ],
+      },
+      {
+        id: "sub-second-speed",
+        heading: "3. The Speed Advantage on Indian Mobile Networks",
+        body: [
+          "Most local agency websites in Ghaziabad take 4 to 6 seconds to load on mobile devices due to heavy, outdated WordPress themes and unoptimized images. By engineering custom Next.js 16 web applications that load in under 0.8 seconds, Digital FX clients immediately reduce bounce rates and capture customers before competitors even load.",
+        ],
+      },
+      {
+        id: "local-case-study",
+        heading: "4. Real Ghaziabad Case Studies & ROI",
+        body: [
+          "At Digital FX, our registered office is located right in Orbit Plaza, Crossings Republik. We recently helped a multi-specialty dental clinic in RDC increase monthly appointments by +280% in 60 days purely through Google Maps 3-Pack ranking and tap-to-review NFC cards, generating ₹4.2 Lakhs in new patient revenue.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "seo-vs-google-ads-which-is-better",
+    title: "SEO vs Google Ads: Which Is Better for Your Business in India?",
+    description: "A realistic breakdown of SEO vs Google Ads for Indian businesses. Compare customer acquisition cost, timelines, conversion rates, and long-term ROI.",
+    publishedAt: "October 20, 2026",
+    readingTime: "8 min read",
+    category: "Paid Growth",
+    author: {
+      name: "Digital FX Strategy Desk",
+      role: "Performance Media Buying",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Google Ads delivers immediate qualified customer inquiries within 24 to 48 hours but stops the moment ad spend pauses.",
+      "SEO requires 60 to 90 days to gain authority but creates a permanent, compounding source of zero-cost organic leads.",
+      "The highest-converting Indian businesses deploy a hybrid playbook: using Google Ads for cash flow while building organic SEO equity.",
+      "Sub-second Next.js web architecture improves Google Ads Quality Score, reducing cost-per-click (CPC) by up to 35%.",
+    ],
+    tableOfContents: [
+      { id: "core-difference", title: "1. The Fundamental Difference" },
+      { id: "comparative-breakdown", title: "2. Head-to-Head Comparison Table" },
+      { id: "when-to-use-google-ads", title: "3. When to Choose Google Ads" },
+      { id: "when-to-use-seo", title: "4. When to Invest in Organic SEO" },
+      { id: "the-hybrid-model", title: "5. The Digital FX Hybrid Strategy" },
+    ],
+    sections: [
+      {
+        id: "core-difference",
+        heading: "1. The Fundamental Difference",
+        body: [
+          "One of the most frequent questions Indian business owners ask us is: 'Should I spend my budget on SEO or Google Ads?'",
+          "The short answer: Google Ads is like renting prime commercial real estate with guaranteed footfall today; SEO is like buying and constructing your own commercial building that pays dividends for years to come without paying rent on every visitor.",
+        ],
+      },
+      {
+        id: "comparative-breakdown",
+        heading: "2. Head-to-Head Comparison Table",
+        body: [
+          "Here is an empirical comparison across key commercial variables:",
+        ],
+        table: {
+          headers: ["Dimension", "Google Ads (PPC)", "Organic Search (SEO)"],
+          rows: [
+            ["Time to First Lead", "24 to 48 hours", "30 to 90 days"],
+            ["Cost per Lead Trend", "Flat or increases with inflation", "Decreases dramatically over time"],
+            ["Traffic Durability", "Stops instantly when budget ends", "Compounds permanently on SERPs"],
+            ["Click Share", "Captures 25-35% of commercial clicks", "Captures 65-75% of total search clicks"],
+            ["User Trust", "Recognized as sponsored advertising", "Perceived as top natural industry leader"],
+          ],
+        },
+      },
+      {
+        id: "when-to-use-google-ads",
+        heading: "3. When to Choose Google Ads",
+        body: [
+          "Google Ads is unbeatable when you need immediate revenue: launching a new service, filling clinic appointment slots next week, or testing high-ticket B2B service demand in specific cities like Noida, Gurgaon, or Mumbai.",
+        ],
+      },
+      {
+        id: "when-to-use-seo",
+        heading: "4. When to Invest in Organic SEO",
+        body: [
+          "SEO is non-negotiable for long-term business valuation. If your entire lead engine depends on paying Google ₹50 to ₹150 for every click, your margins will steadily erode as competitors bid up CPCs. Dominating organic search and the Google Maps 3-Pack builds an unassailable moat.",
+        ],
+      },
+      {
+        id: "the-hybrid-model",
+        heading: "5. The Digital FX Hybrid Strategy",
+        body: [
+          "At Digital FX, we deploy the Hybrid Growth Model for our clients: we launch targeted Google Search ads in Month 1 to generate immediate cash flow and validate high-converting keywords, while simultaneously engineering Next.js technical SEO, Schema markup, and Google Maps rankings to establish dominant long-term organic authority.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "how-local-seo-helps-businesses-generate-more-leads",
+    title: "How Local SEO Helps Small & Medium Businesses Generate More Inbound Leads",
+    description: "Learn the 5 essential local SEO pillars that drive verified phone inquiries, footfall, and high-ticket clients without paying for every ad click.",
+    publishedAt: "October 22, 2026",
+    readingTime: "7 min read",
+    category: "Local SEO",
+    author: {
+      name: "Digital FX Strategy Desk",
+      role: "Local Search Optimization Lab",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Local searches have the highest purchase intent of any search category: 78% of local mobile searches lead to an offline purchase within 24 hours.",
+      "Google Maps 3-Pack captures over 60% of all local phone calls and direction clicks.",
+      "Accurate NAP (Name, Address, Phone) consistency across 50+ directories is the #1 ranking factor for local trust.",
+      "Review velocity and review recency outrank sheer review count in modern Google local algorithms.",
+    ],
+    tableOfContents: [
+      { id: "local-intent", title: "1. The Power of Local Purchase Intent" },
+      { id: "five-pillars", title: "2. The 5 Pillars of Local SEO" },
+      { id: "review-automation", title: "3. Automated Review Collection" },
+      { id: "local-schema", title: "4. Schema.org LocalBusiness Markup" },
+      { id: "roi-benchmarks", title: "5. Empirical Revenue Impact" },
+    ],
+    sections: [
+      {
+        id: "local-intent",
+        heading: "1. The Power of Local Purchase Intent",
+        body: [
+          "When someone searches 'digital marketing agency near me', 'best pediatric doctor in Indirapuram', or 'packaging machinery manufacturer in Faridabad', they are not looking for general entertainment—they have an immediate problem and an open wallet.",
+          "According to Google's commercial telemetry, over 78% of local mobile searches lead to an in-person visit or phone consultation within 24 hours. Local SEO is the art and science of positioning your business at that exact moment of intent.",
+        ],
+      },
+      {
+        id: "five-pillars",
+        heading: "2. The 5 Pillars of Local SEO",
+        body: [
+          "Dominating local search requires synchronizing five foundational pillars:",
+        ],
+        checklist: [
+          "1. Google Business Profile Optimization: Correct primary and secondary categories, service listings, and geo-tagged high-res photography.",
+          "2. NAP Consistency: Name, Address, and Phone number matching character-for-character across 50+ high-DA Indian directories.",
+          "3. Hyperlocal Citations: Listings on verified business directories like IndiaMART, Justdial, Sulekha, and TradeIndia.",
+          "4. Localized On-Page Content: Unique landing pages for each city and neighborhood containing exact commercial landmarks.",
+          "5. Authentic Review Velocity: Continuous stream of genuine, geo-tagged 5-star customer reviews on Google.",
+        ],
+      },
+      {
+        id: "review-automation",
+        heading: "3. Automated Review Collection",
+        body: [
+          "Asking customers for reviews verbally rarely works. That is why Digital FX engineered ReviewFlow AI: physical counter standees with contactless NFC tap and QR codes that prompt customers to leave a 5-star review in under 15 seconds.",
+        ],
+      },
+      {
+        id: "local-schema",
+        heading: "4. Schema.org LocalBusiness Markup",
+        body: [
+          "Adding structured JSON-LD Schema markup directly connects your physical business entity with the Google Knowledge Graph, ensuring Google's search algorithms understand your exact geographic coordinates, opening hours, and service specialties.",
+        ],
+      },
+      {
+        id: "roi-benchmarks",
+        heading: "5. Empirical Revenue Impact",
+        body: [
+          "Local businesses that secure Rank #1 to #3 on Google Maps experience an average +220% increase in monthly phone calls within 60 days, with customer acquisition costs up to 80% lower than pure paid advertising.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "website-development-cost-in-india-guide",
+    title: "Website Development Cost in India (2026 Guide: WordPress vs Custom Next.js)",
+    description: "Detailed pricing guide for website development in India. Compare WordPress templates, custom Next.js 16 web applications, e-commerce stores, and maintenance costs.",
+    publishedAt: "October 24, 2026",
+    readingTime: "9 min read",
+    category: "Web Architecture",
+    author: {
+      name: "Digital FX Engineering Lab",
+      role: "Full-Stack Web Architecture",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Basic WordPress template websites cost ₹5,000 to ₹25,000 but suffer from slow load times, security vulnerabilities, and high maintenance.",
+      "Custom Next.js 16 web applications cost ₹10,000 to ₹75,000+ and deliver 0.8s mobile speed, 100% Core Web Vitals, and zero plugin bloat.",
+      "Slow websites lose over 53% of mobile visitors before the page even loads, costing Indian businesses lakhs in lost revenue.",
+      "Choose headless Next.js architecture if you want your website to rank organically on Google and convert high-ticket leads.",
+    ],
+    tableOfContents: [
+      { id: "cost-overview", title: "1. Website Cost Breakdown in India (2026)" },
+      { id: "wordpress-vs-nextjs", title: "2. WordPress vs Custom Next.js 16 Comparison" },
+      { id: "hidden-costs", title: "3. Hidden Costs Most Agencies Don't Mention" },
+      { id: "roi-calculation", title: "4. Calculating the ROI of Sub-Second Web Speed" },
+    ],
+    sections: [
+      {
+        id: "cost-overview",
+        heading: "1. Website Cost Breakdown in India (2026)",
+        body: [
+          "Website development costs in India vary wildly—from ₹3,000 on freelance portals to ₹3,00,000+ with enterprise software consultancies. Understanding what you actually receive for your investment is critical to avoiding costly re-builds.",
+        ],
+        table: {
+          headers: ["Website Tier", "Typical Price Range", "Ideal For", "Technology Stack"],
+          rows: [
+            ["Basic Template", "₹5,000 – ₹15,000", "Small local shops, static portfolios", "WordPress, Elementor, PHP"],
+            ["Commercial Business Hub", "₹15,000 – ₹45,000", "Clinics, B2B manufacturers, real estate", "Custom Next.js 16, Tailwind CSS"],
+            ["Enterprise Custom App", "₹45,000 – ₹1,50,000+", "SaaS platforms, multi-city brands", "Next.js Full-Stack, Supabase, APIs"],
+            ["E-Commerce Portal", "₹30,000 – ₹90,000", "D2C brands, retail catalogs", "Shopify, Next.js Commerce"],
+          ],
+        },
+      },
+      {
+        id: "wordpress-vs-nextjs",
+        heading: "2. WordPress vs Custom Next.js 16 Comparison",
+        body: [
+          "Traditional WordPress websites require 20+ plugins for SEO, security, caching, and forms. Each plugin slows down the site, increases security attack surfaces, and triggers database query bottlenecks. On Indian mobile networks, WordPress sites frequently take 4 to 6 seconds to load.",
+          "In contrast, custom Next.js 16 applications compile directly into static HTML and optimized JavaScript, serving pages in under 0.8 seconds via edge CDN networks like Vercel with zero database overhead on page views.",
+        ],
+      },
+      {
+        id: "hidden-costs",
+        heading: "3. Hidden Costs Most Agencies Don't Mention",
+        body: [
+          "When comparing agency quotes, always inquire about ongoing costs: domain renewals, hosting infrastructure (shared server vs high-speed edge CDN), SSL certificates, annual maintenance retainers, and content update charges.",
+        ],
+      },
+      {
+        id: "roi-calculation",
+        heading: "4. Calculating the ROI of Sub-Second Web Speed",
+        body: [
+          "According to Google research, every 1-second improvement in mobile site speed increases conversion rates by up to 27%. If your website receives 2,000 visitors per month, switching from a 4-second WordPress template to a 0.8-second Next.js architecture can deliver 40+ additional customer inquiries every month without spending an extra rupee on ads.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "best-lead-generation-strategies-for-small-businesses",
+    title: "7 Proven Lead Generation Strategies for Indian Small Businesses in 2026",
+    description: "Actionable lead generation strategies for Indian SMEs. From WhatsApp automation and Google Local Services to hyper-targeted Meta ad funnels.",
+    publishedAt: "October 26, 2026",
+    readingTime: "8 min read",
+    category: "Paid Growth",
+    author: {
+      name: "Digital FX Strategy Desk",
+      role: "Lead Generation Architect",
+      location: "Digital FX • Crossings Republik, Ghaziabad",
+    },
+    keyTakeaways: [
+      "Direct WhatsApp click-to-chat funnels convert 3.5x higher than traditional web inquiry forms in the Indian market.",
+      "Google Search ads with exact-match intent and strict negative keyword lists prevent wasted ad budget.",
+      "Google Maps 3-Pack optimization generates consistent inbound customer phone calls with zero cost-per-click.",
+      "Automated follow-up within 5 minutes increases lead qualification rates by over 400%.",
+    ],
+    tableOfContents: [
+      { id: "lead-gen-landscape", title: "1. The Indian Small Business Lead Generation Landscape" },
+      { id: "seven-strategies", title: "2. The 7 High-Converting Strategies" },
+      { id: "speed-to-lead", title: "3. The 5-Minute Speed-to-Lead Rule" },
+      { id: "tracking-and-roi", title: "4. Attribution & Conversion Tracking" },
+    ],
+    sections: [
+      {
+        id: "lead-gen-landscape",
+        heading: "1. The Indian Small Business Lead Generation Landscape",
+        body: [
+          "Generating consistent, qualified leads is the lifeblood of any growing business in India. However, many business owners waste lakhs on generic agency campaigns that deliver spam inquiries or unqualified contacts.",
+          "Modern lead generation requires capturing high-intent demand at the exact moment of search and providing frictionless conversion channels like WhatsApp.",
+        ],
+      },
+      {
+        id: "seven-strategies",
+        heading: "2. The 7 High-Converting Strategies",
+        body: [
+          "Here are the seven proven strategies we deploy for Digital FX clients across Delhi NCR and India:",
+        ],
+        checklist: [
+          "1. Google Maps 3-Pack Optimization: Capturing high-intent local buyers searching 'near me'.",
+          "2. Click-to-WhatsApp Ads on Meta: Driving customers directly into a 1-on-1 chat on their favorite app.",
+          "3. Exact-Match Google Search PPC: Bidding exclusively on commercial keywords with active purchase intent.",
+          "4. Sub-Second Next.js Landing Pages: Eliminating page load bounce rates on Indian 4G/5G connections.",
+          "5. ReviewFlow AI Tap-to-Review: Building social proof with authentic 5-star Google reviews.",
+          "6. Localized City Landing Pages: Capturing organic search traffic across targeted metropolitan districts.",
+          "7. Automated CRM & WhatsApp Follow-Ups: Instantly alerting your sales team when an inquiry arrives.",
+        ],
+      },
+      {
+        id: "speed-to-lead",
+        heading: "3. The 5-Minute Speed-to-Lead Rule",
+        body: [
+          "Data shows that contacting an inbound lead within 5 minutes increases the likelihood of closing the sale by 400% compared to waiting 30 minutes. At Digital FX, we configure instant WhatsApp lead routing so your team can call prospective buyers while your brand is still fresh in their minds.",
+        ],
+      },
+      {
+        id: "tracking-and-roi",
+        heading: "4. Attribution & Conversion Tracking",
+        body: [
+          "Never run marketing campaigns without full end-to-end attribution. We configure Google Analytics 4, phone call tracking, and WhatsApp conversion events so you know the exact cost per qualified lead across every advertising channel.",
+        ],
+      },
+    ],
+  },
+
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {

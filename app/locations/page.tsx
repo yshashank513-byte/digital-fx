@@ -117,7 +117,7 @@ export default function LocationsDirectoryPage() {
             {GLOBAL_HUBS_LIST.map((hub) => (
               <Link
                 key={hub.slug}
-                href={`/locations/${hub.slug}`}
+                href={`/digital-marketing-agency/${hub.slug}`}
                 className="flex flex-col items-center justify-center p-4 bg-white border border-slate-200 rounded-2xl hover:border-[#1570ef] hover:shadow-md transition-all group text-center"
               >
                 <span className="text-3xl mb-1.5 group-hover:scale-110 transition-transform">{hub.flag}</span>
@@ -152,10 +152,15 @@ export default function LocationsDirectoryPage() {
               { name: "Delhi", slug: "delhi", label: "National Capital" },
               { name: "Noida", slug: "noida", label: "IT & Commercial" },
               { name: "Ghaziabad", slug: "ghaziabad", label: "HQ Flagship" },
-              { name: "Gurugram", slug: "gurugram", label: "Cyber City" },
+              { name: "Greater Noida", slug: "greater-noida", label: "Knowledge Park" },
+              { name: "Gurgaon", slug: "gurgaon", label: "Cyber City" },
               { name: "Faridabad", slug: "faridabad", label: "Industrial Belt" },
+              { name: "Indirapuram", slug: "indirapuram", label: "Kala Patthar Hub" },
+              { name: "Vaishali", slug: "vaishali", label: "Metro Corridor" },
+              { name: "Vasundhara", slug: "vasundhara", label: "Sector High-Street" },
+              { name: "Raj Nagar Ext", slug: "raj-nagar-extension", label: "Townships" },
               { name: "Mumbai", slug: "mumbai", label: "Financial Capital" },
-              { name: "Bengaluru", slug: "bengaluru", label: "Silicon Valley" },
+              { name: "Bangalore", slug: "bangalore", label: "Silicon Valley" },
               { name: "Hyderabad", slug: "hyderabad", label: "Cyberabad" },
               { name: "Ahmedabad", slug: "ahmedabad", label: "Commercial Hub" },
               { name: "Pune", slug: "pune", label: "Tech Corridor" },
@@ -167,16 +172,11 @@ export default function LocationsDirectoryPage() {
               { name: "Chennai", slug: "chennai", label: "South Hub" },
               { name: "Indore", slug: "indore", label: "Central Hub" },
               { name: "Bhopal", slug: "bhopal", label: "MP Capital" },
-              { name: "Coimbatore", slug: "coimbatore", label: "Industrial Hub" },
-              { name: "Dehradun", slug: "dehradun", label: "Uttarakhand Hub" },
-              { name: "Amritsar", slug: "amritsar", label: "Commercial City" },
               { name: "Surat", slug: "surat", label: "Diamond & Textile" },
-              { name: "Patna", slug: "patna", label: "Bihar Capital" },
-              { name: "Kochi", slug: "kochi", label: "Kerala Commercial" },
             ].map((metro) => (
               <Link
                 key={metro.slug}
-                href={`/locations/${metro.slug}`}
+                href={`/digital-marketing-agency/${metro.slug}`}
                 className="p-3 rounded-xl bg-slate-50 border border-slate-200/90 hover:border-[#1570ef] hover:bg-blue-50/50 hover:shadow-xs transition group flex flex-col justify-between"
               >
                 <div className="flex items-center justify-between">
@@ -205,7 +205,7 @@ export default function LocationsDirectoryPage() {
               <div>
                 <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-3">
                   <Link
-                    href={`/locations/${toCitySlug(region.name)}`}
+                    href={`/digital-marketing-agency/${toCitySlug(region.name)}`}
                     className="text-base font-extrabold text-[#080d24] hover:text-[#1570ef] tracking-tight flex items-center gap-2 group transition"
                     title={`Explore ${region.name} statewide SEO & digital marketing hub`}
                   >
@@ -218,7 +218,7 @@ export default function LocationsDirectoryPage() {
                     <span className="group-hover:underline underline-offset-4">{region.name}</span>
                   </Link>
                   <Link
-                    href={`/locations/${toCitySlug(region.name)}`}
+                    href={`/digital-marketing-agency/${toCitySlug(region.name)}`}
                     className="text-[10px] uppercase font-extrabold px-2.5 py-1 rounded-full bg-blue-50 hover:bg-blue-100 text-[#1570ef] border border-blue-200 transition"
                   >
                     {region.cities.length} Cities Hub →
@@ -232,7 +232,7 @@ export default function LocationsDirectoryPage() {
                     return isCanonicalCity ? (
                       <Link
                         key={city}
-                        href={`/locations/${slug}`}
+                        href={`/digital-marketing-agency/${slug}`}
                         className="text-xs px-2.5 py-1 rounded-lg bg-blue-50/80 hover:bg-[#1570ef] text-[#1570ef] hover:text-white transition font-semibold border border-blue-200/80 hover:border-[#1570ef]"
                         title={`Digital Marketing & SEO in ${city}, ${region.name}`}
                       >
@@ -241,7 +241,7 @@ export default function LocationsDirectoryPage() {
                     ) : (
                       <Link
                         key={city}
-                        href={`/locations/${toCitySlug(region.name)}`}
+                        href={`/digital-marketing-agency/${toCitySlug(region.name)}`}
                         className="text-xs px-2 py-0.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-600 transition font-normal border border-slate-200/70"
                         title={`${city} covered under ${region.name} Authority Hub`}
                       >
@@ -254,7 +254,7 @@ export default function LocationsDirectoryPage() {
 
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
                 <Link
-                  href={`/locations/${toCitySlug(region.name)}`}
+                  href={`/digital-marketing-agency/${toCitySlug(region.name)}`}
                   className="font-bold text-[#1570ef] hover:underline flex items-center gap-1"
                 >
                   <span>Explore {region.name} Hub</span>

@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin/", "/payment/", "/payments/", "/api/"],
+        disallow: ["/admin/", "/dashboard/", "/payment/", "/payments/", "/api/"],
       },
       {
         userAgent: [
@@ -19,7 +19,7 @@ export default function robots(): MetadataRoute.Robots {
           "Bingbot",
         ],
         allow: "/",
-        disallow: ["/admin/", "/payment/", "/payments/", "/api/"],
+        disallow: ["/admin/", "/dashboard/", "/payment/", "/payments/", "/api/"],
       },
     ],
     sitemap: "https://www.digitalfx.in/sitemap.xml",

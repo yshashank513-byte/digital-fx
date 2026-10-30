@@ -735,7 +735,7 @@ export default function Navbar({
 
                 {/* Pan-India 350+ Cities Directory */}
                 <Link
-                  href="/locations"
+                  href="/digital-marketing-agency"
                   onClick={closeMobileMenu}
                   className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-slate-50 transition"
                 >

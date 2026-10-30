@@ -45,6 +45,10 @@ export const metadata: Metadata = {
     canonical: "https://www.digitalfx.in",
   },
 
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "google-site-verification-token",
+  },
+
 
   openGraph: {
     type: "website",
@@ -123,6 +127,27 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png?v=2" />
         <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png?v=2" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" sizes="180x180" />
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+            />
+            <script
+              id="google-analytics"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+                    page_path: window.location.pathname,
+                  });
+                `,
+              }}
+            />
+          </>
+        )}
       </head>
       <body className="min-h-full flex flex-col w-full max-w-full overflow-x-hidden">
         {/* Comprehensive Local Business, Rating & FAQ Schema */}
@@ -262,6 +287,12 @@ export default function RootLayout({
                   "query-input": "required name=search_term_string",
                 },
                 hasPart: [
+                  {
+                    "@type": "WebPage",
+                    "@id": "https://www.digitalfx.in/digital-marketing-agency",
+                    url: "https://www.digitalfx.in/digital-marketing-agency",
+                    name: "Digital Marketing Agency Multi-City Network",
+                  },
                   {
                     "@type": "WebPage",
                     "@id": "https://www.digitalfx.in/services",

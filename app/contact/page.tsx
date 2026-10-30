@@ -29,6 +29,7 @@ export default function ContactPage() {
           phone: phone.trim(),
           email: email.trim(),
           website: website.trim(),
+          service: "General Consultation & Strategy Advisory",
           message: message.trim() || "Consultation request from /contact page",
         }),
       });

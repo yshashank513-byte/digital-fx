@@ -638,7 +638,7 @@ export default function Footer() {
                 Top Commercial Hubs &amp; Regional Presence
               </span>
               <Link
-                href="/locations"
+                href="/digital-marketing-agency"
                 className="text-[#1570ef] hover:text-blue-400 font-bold transition flex items-center gap-1 text-[12px]"
               >
                 <span>Explore All 350+ Cities Directory</span>
@@ -653,10 +653,14 @@ export default function Footer() {
                 { name: "Noida", slug: "noida" },
                 { name: "Greater Noida", slug: "greater-noida" },
                 { name: "Ghaziabad", slug: "ghaziabad" },
-                { name: "Gurugram", slug: "gurugram" },
+                { name: "Gurgaon", slug: "gurgaon" },
                 { name: "Faridabad", slug: "faridabad" },
+                { name: "Indirapuram", slug: "indirapuram" },
+                { name: "Vaishali", slug: "vaishali" },
+                { name: "Vasundhara", slug: "vasundhara" },
+                { name: "Raj Nagar Ext", slug: "raj-nagar-extension" },
                 { name: "Mumbai", slug: "mumbai" },
-                { name: "Bengaluru", slug: "bengaluru" },
+                { name: "Bangalore", slug: "bangalore" },
                 { name: "Hyderabad", slug: "hyderabad" },
                 { name: "Ahmedabad", slug: "ahmedabad" },
                 { name: "Pune", slug: "pune" },
@@ -683,10 +687,10 @@ export default function Footer() {
               ].map((hub, idx, arr) => (
                 <span key={hub.slug} className="inline-flex items-center gap-2">
                   <Link
-                    href={`/locations/${hub.slug}`}
+                    href={`/digital-marketing-agency/${hub.slug}`}
                     className="hover:text-white transition-colors"
                   >
-                    SEO in {hub.name}
+                    Agency in {hub.name}
                   </Link>
                   {idx < arr.length - 1 && <span className="text-slate-700">•</span>}
                 </span>

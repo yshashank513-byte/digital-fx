@@ -31,18 +31,18 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/services",
-        destination: "/#services",
-        permanent: true,
-      },
-      {
-        source: "/contact",
-        destination: "/#contact",
-        permanent: true,
-      },
-      {
         source: "/geo-checker",
         destination: "/#geo-checker",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-agency/gurugram",
+        destination: "/digital-marketing-agency/gurgaon",
+        permanent: true,
+      },
+      {
+        source: "/digital-marketing-agency/bengaluru",
+        destination: "/digital-marketing-agency/bangalore",
         permanent: true,
       },
       {
@@ -93,10 +93,6 @@ const nextConfig: NextConfig = {
       {
         source: "/sitemap.xml",
         headers: [
-          {
-            key: "X-Robots-Tag",
-            value: "noindex, follow",
-          },
           {
             key: "Content-Type",
             value: "application/xml; charset=utf-8",
