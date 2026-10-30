@@ -18,6 +18,16 @@ const PageSpeedAuditReport = dynamic(
   { ssr: false }
 );
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
+const TopMarquee = dynamic(() => import("@/components/TopMarquee"), { ssr: false });
+const HeroAnimation = dynamic(() => import("@/components/HeroAnimation"), { ssr: false });
+const PortfolioShowcaseAnimation = dynamic(
+  () => import("@/components/PortfolioShowcaseAnimation"),
+  { ssr: false }
+);
+const ScrollAnimationManager = dynamic(
+  () => import("@/components/ScrollAnimationManager"),
+  { ssr: false }
+);
 
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -1313,6 +1323,22 @@ export default function Home() {
     }
   }
 
+  function handleHeroAnalyze(siteUrl: string) {
+    const site = siteUrl.trim();
+    if (!site) return;
+    setHeroWebsite(site);
+    setGeoWebsite(site);
+    const target = document.getElementById("geo-checker");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+    if (!auditCustomerName || !auditCustomerPhone) {
+      setAuditCaptureOpen(true);
+    } else {
+      runGeoAudit(site);
+    }
+  }
+
   function handleHeroProposal(e: FormEvent) {
     e.preventDefault();
     const site = heroWebsite.trim();
@@ -2579,13 +2605,18 @@ export default function Home() {
         )}
 
         {/* ==========================================================================
-            3. WEBFX HERO SECTION & CIRCULAR REVENUE ENGINE (EXACT SCREENSHOT REPRODUCTION)
+            2B. RED DASH MEDIA INSPIRED CONTINUOUS HORIZONTAL SERVICE MARQUEE
+            ========================================================================== */}
+        <TopMarquee />
+
+        {/* ==========================================================================
+            3. GSAP SPLIT-TEXT REVEAL HERO SECTION (RED DASH MEDIA INSPIRED EDITORIAL)
             ========================================================================== */}
         <section
           id="home"
-          className="relative overflow-hidden bg-[#f8faff] pt-8 sm:pt-12 lg:pt-16 pb-12 sm:pb-16 lg:pb-20 border-b border-slate-200"
+          className="relative overflow-hidden bg-[#f8faff] pt-6 sm:pt-10 pb-12 sm:pb-16 border-b border-slate-200"
         >
-          {/* Clean Institutional Square Grid Background System (Zero Conflicting Overlap) */}
+          {/* Institutional Square Grid Background System */}
           <div
             className="absolute inset-0 pointer-events-none z-0"
             style={{
@@ -2599,523 +2630,11 @@ export default function Home() {
             }}
           />
 
-          <div className="relative z-10 mx-auto max-w-[1400px] w-full px-4 sm:px-6 md:px-8 lg:px-10">
-            
-            {/* Desktop 2-Column Balanced Grid: Left Text + Right Circular Flywheel (Fills screen with zero awkward spacing) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
-              
-              {/* Left Column: Headline, Proposal Bar, Trust Signals */}
-              <div className="lg:col-span-6 flex flex-col justify-center text-left w-full min-w-0">
-                {/* Overline Subhead & Google Rating */}
-                <div className="mb-4 inline-flex flex-wrap items-center gap-x-2 gap-y-1.5 rounded-full border border-blue-200/90 bg-blue-50/90 px-3.5 py-1.5 text-[10px] sm:text-[11px] font-bold text-[#1570ef] shadow-xs max-w-full w-fit">
-                  <div className="flex items-center gap-1 shrink-0">
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
-                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
-                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
-                    </svg>
-                    <span className="text-amber-500 tracking-tighter text-[11px]">★ ★ ★ ★ ★</span>
-                    <span className="font-extrabold text-[#080d24]">4.9</span>
-                  </div>
-                  <span className="text-blue-300 hidden xs:inline">•</span>
-                  <span className="uppercase tracking-normal sm:tracking-[0.1em] text-slate-700">
-                    <strong className="text-[#1570ef]">128+ Reviews</strong> • Best Digital Marketing Agency in Ghaziabad - Delhi NCR
-                  </span>
-                </div>
-
-                {/* Signature Headline - Crisp Modern Agency Typography */}
-                <h1 className="text-[34px] sm:text-[44px] lg:text-[42px] xl:text-[48px] font-extrabold leading-[1.08] tracking-[-0.035em] text-[#080d24] text-left">
-                  <span className="block">Digital Marketing &amp; SEO</span>
-                  <span className="block">Agency in Ghaziabad —</span>{" "}
-                  <span className="text-[#1570ef] font-bold text-[28px] sm:text-[36px] lg:text-[34px] xl:text-[40px] leading-[1.12] block mt-1 sm:mt-1.5 text-left">
-                    Your Revenue Partner in the AI Era.
-                  </span>
-                </h1>
-
-                {/* Subtitle Description */}
-                <p className="mt-4 sm:mt-5 text-[15px] sm:text-[16px] leading-[1.65] text-slate-600 font-normal max-w-[580px] text-left">
-                  Most agencies report vanity metrics like impressions and clicks. Digital FX engineers connected customer acquisition systems that turn search visibility into qualified pipeline and measurable revenue for businesses across India.
-                </p>
-
-                {/* Website Proposal Bar */}
-                <form
-                  onSubmit={handleHeroProposal}
-                  className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch w-full max-w-[580px] bg-white border border-slate-300 rounded-2xl overflow-hidden shadow-xs hover:border-slate-400 focus-within:border-[#1570ef] focus-within:ring-2 focus-within:ring-blue-100 transition-all min-w-0"
-                >
-                  <div className="flex-1 flex items-center px-4 h-13 sm:h-14 bg-transparent min-w-0">
-                    <svg className="w-5 h-5 text-slate-400 mr-2.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a8.997 8.997 0 01-7.843-4.582M12 3a8.997 8.997 0 017.843 4.582M12 3v18" />
-                    </svg>
-                    <input
-                      type="text"
-                      value={heroWebsite}
-                      onChange={(e) => setHeroWebsite(e.target.value)}
-                      placeholder="Enter your website (e.g. yourcompany.com)"
-                      className="w-full h-full text-[13px] sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none bg-transparent font-medium min-w-0"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-7 bg-[#080d24] hover:bg-[#1570ef] text-white font-bold text-[13.5px] sm:text-sm tracking-wide transition-colors whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center text-center shrink-0 border-t sm:border-t-0 sm:border-l border-slate-200"
-                  >
-                    <span>Analyze Growth Potential</span>
-                    <span className="ml-1.5 text-base">→</span>
-                  </button>
-                </form>
-
-                {/* Strategic Proposal Quick Trigger */}
-                <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 font-medium">
-                  <span>Need a customized multi-channel plan?</span>
-                  <button
-                    type="button"
-                    onClick={() => openProposalModal(heroWebsite, "Enterprise Growth Roadmap")}
-                    className="text-[#1570ef] font-bold hover:underline inline-flex items-center gap-1 cursor-pointer whitespace-nowrap"
-                  >
-                    <span>Request Strategic Proposal</span>
-                    <span>→</span>
-                  </button>
-                </div>
-
-                {/* Trust Badges */}
-                <div className="mt-3.5 flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2 text-[11.5px] sm:text-[12px] text-slate-600 font-medium">
-                  <span className="inline-flex items-center gap-1.5 shrink-0">
-                    <svg className="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Confidential Website Audit</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 shrink-0">
-                    <svg className="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Direct Strategist Review</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 shrink-0">
-                    <svg className="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Zero Obligation</span>
-                  </span>
-                </div>
-              </div>
-
-              {/* Right Column: WebFX Circular 4-Quadrant Revenue Engine (Fills the entire right half of the screen) */}
-              <div className="lg:col-span-6 flex flex-col justify-center items-center relative select-none mt-8 lg:mt-0 w-full min-w-0">
-                <div className="relative z-10 w-full max-w-[680px] xl:max-w-[760px] 2xl:max-w-[820px] mx-auto">
-                  <div className="w-full aspect-[1040/560] relative">
-                  <svg viewBox="0 0 1040 560" className="w-full h-full drop-shadow-sm overflow-hidden sm:overflow-visible">
-                  <defs>
-                    {/* Center Disc Soft Drop Shadow */}
-                    <filter id="hub-shadow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="8" stdDeviation="12" floodColor="#080d24" floodOpacity="0.08" />
-                    </filter>
-
-                    {/* Quadrant Segment Text Guide Paths (Centered at 520, 280) */}
-                    <path id="tp-acq" d="M 351.7 256.3 A 170 170 0 0 1 461.9 120.3" fill="none" />
-                    <path id="tp-pipe" d="M 543.7 111.7 A 170 170 0 0 1 679.7 221.9" fill="none" />
-                    <path id="tp-rev" d="M 688.3 303.7 A 170 170 0 0 1 578.1 439.7" fill="none" />
-                    <path id="tp-ai" d="M 496.3 448.3 A 170 170 0 0 1 360.3 338.1" fill="none" />
-
-                    {/* Active Quadrant Glow Filters */}
-                    <filter id="glow-acq" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#1570ef" floodOpacity="0.55" />
-                    </filter>
-                    <filter id="glow-pipe" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#00b894" floodOpacity="0.55" />
-                    </filter>
-                    <filter id="glow-rev" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#10b981" floodOpacity="0.55" />
-                    </filter>
-                    <filter id="glow-ai" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#a855f7" floodOpacity="0.55" />
-                    </filter>
-                  </defs>
-
-                  {/* 1. Connecting Callout Lines (Clean Shelf Under Text + Non-Intersecting Connector to Circle) */}
-                  {/* Line Q0 (Top-Left: Acquisition - Blue, Shelf at x=20..250, Connector to Circle at x=342.5) */}
-                  <g className="transition-opacity duration-300" opacity={activeFlywheelQuadrant === 0 ? 1 : 0.4}>
-                    <path
-                      d="M 342.5 177.5 L 290 177.5 L 250 210 L 20 210"
-                      fill="none"
-                      stroke="#1570ef"
-                      strokeWidth={activeFlywheelQuadrant === 0 ? 2 : 1.2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <circle cx="342.5" cy="177.5" r={activeFlywheelQuadrant === 0 ? 5 : 3.5} fill="#1570ef" />
-                  </g>
-
-                  {/* Line Q1 (Top-Right: Pipeline - Teal, Shelf at x=790..1020, Connector to Circle at x=697.5) */}
-                  <g className="transition-opacity duration-300" opacity={activeFlywheelQuadrant === 1 ? 1 : 0.4}>
-                    <path
-                      d="M 697.5 177.5 L 750 177.5 L 790 210 L 1020 210"
-                      fill="none"
-                      stroke="#00b894"
-                      strokeWidth={activeFlywheelQuadrant === 1 ? 2 : 1.2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <circle cx="697.5" cy="177.5" r={activeFlywheelQuadrant === 1 ? 5 : 3.5} fill="#00b894" />
-                  </g>
-
-                  {/* Line Q2 (Bottom-Right: Revenue - Green, Shelf at x=790..1020, Connector to Circle at x=697.5) */}
-                  <g className="transition-opacity duration-300" opacity={activeFlywheelQuadrant === 2 ? 1 : 0.4}>
-                    <path
-                      d="M 697.5 382.5 L 750 382.5 L 790 425 L 1020 425"
-                      fill="none"
-                      stroke="#10b981"
-                      strokeWidth={activeFlywheelQuadrant === 2 ? 2 : 1.2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <circle cx="697.5" cy="382.5" r={activeFlywheelQuadrant === 2 ? 5 : 3.5} fill="#10b981" />
-                  </g>
-
-                  {/* Line Q3 (Bottom-Left: AI Intelligence - Purple, Shelf at x=20..250, Connector to Circle at x=342.5) */}
-                  <g className="transition-opacity duration-300" opacity={activeFlywheelQuadrant === 3 ? 1 : 0.4}>
-                    <path
-                      d="M 342.5 382.5 L 290 382.5 L 250 425 L 20 425"
-                      fill="none"
-                      stroke="#a855f7"
-                      strokeWidth={activeFlywheelQuadrant === 3 ? 2 : 1.2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <circle cx="342.5" cy="382.5" r={activeFlywheelQuadrant === 3 ? 5 : 3.5} fill="#a855f7" />
-                  </g>
-
-                  {/* 2. 4 Curved Donut Arcs (Centered at 520, 280) */}
-                  {/* Quadrant 0: Acquisition (Blue #1570ef) */}
-                  <g
-                    onClick={() => setActiveFlywheelQuadrant(0)}
-                    onMouseEnter={() => setActiveFlywheelQuadrant(0)}
-                    className="cursor-pointer transition-transform duration-200 hover:scale-[1.015] origin-[520px_280px]"
-                    filter={activeFlywheelQuadrant === 0 ? "url(#glow-acq)" : undefined}
-                  >
-                    <path
-                      d="M 330.72 263.44 A 190 190 0 0 1 503.44 90.72 L 508.23 145.51 A 135 135 0 0 0 385.51 268.23 Z"
-                      fill="#1570ef"
-                      opacity={activeFlywheelQuadrant === 0 ? 1 : 0.88}
-                    />
-                    {/* White Directional Clockwise Arrow Head */}
-                    <g transform="translate(480.7, 122.3) rotate(346)">
-                      <polygon points="0,-6.5 12,0 0,6.5" fill="#ffffff" />
-                    </g>
-                    {/* Curved White Title */}
-                    <text>
-                      <textPath
-                        href="#tp-acq"
-                        startOffset="48%"
-                        textAnchor="middle"
-                        fill="#ffffff"
-                        fontSize="15px"
-                        fontWeight="900"
-                        letterSpacing="0.4px"
-                      >
-                        Acquisition
-                      </textPath>
-                    </text>
-                  </g>
-
-                  {/* Quadrant 1: Pipeline (Teal #00b894) */}
-                  <g
-                    onClick={() => setActiveFlywheelQuadrant(1)}
-                    onMouseEnter={() => setActiveFlywheelQuadrant(1)}
-                    className="cursor-pointer transition-transform duration-200 hover:scale-[1.015] origin-[520px_280px]"
-                    filter={activeFlywheelQuadrant === 1 ? "url(#glow-pipe)" : undefined}
-                  >
-                    <path
-                      d="M 536.56 90.72 A 190 190 0 0 1 709.28 263.44 L 654.49 268.23 A 135 135 0 0 0 531.77 145.51 Z"
-                      fill="#00b894"
-                      opacity={activeFlywheelQuadrant === 1 ? 1 : 0.88}
-                    />
-                    {/* White Directional Clockwise Arrow Head */}
-                    <g transform="translate(677.7, 240.7) rotate(76)">
-                      <polygon points="0,-6.5 12,0 0,6.5" fill="#ffffff" />
-                    </g>
-                    {/* Curved White Title */}
-                    <text>
-                      <textPath
-                        href="#tp-pipe"
-                        startOffset="48%"
-                        textAnchor="middle"
-                        fill="#ffffff"
-                        fontSize="15px"
-                        fontWeight="900"
-                        letterSpacing="0.4px"
-                      >
-                        Pipeline
-                      </textPath>
-                    </text>
-                  </g>
-
-                  {/* Quadrant 2: Revenue (Green #10b981) */}
-                  <g
-                    onClick={() => setActiveFlywheelQuadrant(2)}
-                    onMouseEnter={() => setActiveFlywheelQuadrant(2)}
-                    className="cursor-pointer transition-transform duration-200 hover:scale-[1.015] origin-[520px_280px]"
-                    filter={activeFlywheelQuadrant === 2 ? "url(#glow-rev)" : undefined}
-                  >
-                    <path
-                      d="M 709.28 296.56 A 190 190 0 0 1 536.56 469.28 L 531.77 414.49 A 135 135 0 0 0 654.49 291.77 Z"
-                      fill="#10b981"
-                      opacity={activeFlywheelQuadrant === 2 ? 1 : 0.88}
-                    />
-                    {/* White Directional Clockwise Arrow Head */}
-                    <g transform="translate(559.3, 437.7) rotate(166)">
-                      <polygon points="0,-6.5 12,0 0,6.5" fill="#ffffff" />
-                    </g>
-                    {/* Curved White Title */}
-                    <text>
-                      <textPath
-                        href="#tp-rev"
-                        startOffset="48%"
-                        textAnchor="middle"
-                        fill="#ffffff"
-                        fontSize="15px"
-                        fontWeight="900"
-                        letterSpacing="0.4px"
-                      >
-                        Revenue
-                      </textPath>
-                    </text>
-                  </g>
-
-                  {/* Quadrant 3: AI Intelligence (Purple #a855f7) */}
-                  <g
-                    onClick={() => setActiveFlywheelQuadrant(3)}
-                    onMouseEnter={() => setActiveFlywheelQuadrant(3)}
-                    className="cursor-pointer transition-transform duration-200 hover:scale-[1.015] origin-[520px_280px]"
-                    filter={activeFlywheelQuadrant === 3 ? "url(#glow-ai)" : undefined}
-                  >
-                    <path
-                      d="M 503.44 469.28 A 190 190 0 0 1 330.72 296.56 L 385.51 291.77 A 135 135 0 0 0 508.23 414.49 Z"
-                      fill="#a855f7"
-                      opacity={activeFlywheelQuadrant === 3 ? 1 : 0.88}
-                    />
-                    {/* White Directional Clockwise Arrow Head */}
-                    <g transform="translate(362.3, 319.3) rotate(256)">
-                      <polygon points="0,-6.5 12,0 0,6.5" fill="#ffffff" />
-                    </g>
-                    {/* Curved White Title */}
-                    <text>
-                      <textPath
-                        href="#tp-ai"
-                        startOffset="48%"
-                        textAnchor="middle"
-                        fill="#ffffff"
-                        fontSize="13.5px"
-                        fontWeight="900"
-                        letterSpacing="0.3px"
-                      >
-                        AI Intelligence
-                      </textPath>
-                    </text>
-                  </g>
-
-                  {/* 3. Center Core Hub (White Disc & Inner Ring at cx=520, cy=280) */}
-                  <circle
-                    cx="520"
-                    cy="280"
-                    r="125"
-                    fill="#ffffff"
-                    stroke="#e2e8f0"
-                    strokeWidth="1.5"
-                    filter="url(#hub-shadow)"
-                  />
-                  <circle cx="520" cy="280" r="108" fill="none" stroke="#f1f5f9" strokeWidth="1" />
-
-                  {/* Center Core Hub Content (Strictly Centered Vector Elements at cx=520, cy=280) */}
-                  <g transform="translate(520, 280)">
-                    {/* Brand Logo: Digital FX (Symmetrically Centered at x=0) */}
-                    <g transform="translate(0, -28)">
-                      <image
-                        href="/logo.svg"
-                        x="-50"
-                        y="-14"
-                        width="100"
-                        height="28"
-                        preserveAspectRatio="xMidYMid meet"
-                      />
-                    </g>
-
-                    {/* Title: Revenue Engine (Strictly Centered at x=0) */}
-                    <text
-                      x="0"
-                      y="2"
-                      textAnchor="middle"
-                      dominantBaseline="central"
-                      fill="#080d24"
-                      fontSize="18px"
-                      fontWeight="900"
-                      letterSpacing="-0.4px"
-                    >
-                      Revenue Engine
-                    </text>
-
-                    {/* Dynamic Metric Pill (Strictly Centered at x=0) */}
-                    <g transform="translate(0, 32)">
-                      <rect
-                        x="-88"
-                        y="-12"
-                        width="176"
-                        height="24"
-                        rx="12"
-                        fill={
-                          activeFlywheelQuadrant === 0 ? "#eff6ff" :
-                          activeFlywheelQuadrant === 1 ? "#f0fdfa" :
-                          activeFlywheelQuadrant === 2 ? "#ecfdf5" : "#faf5ff"
-                        }
-                        stroke={
-                          activeFlywheelQuadrant === 0 ? "#bfdbfe" :
-                          activeFlywheelQuadrant === 1 ? "#99f6e4" :
-                          activeFlywheelQuadrant === 2 ? "#a7f3d0" : "#e9d5ff"
-                        }
-                        strokeWidth="1"
-                      />
-                      <text
-                        x="0"
-                        y="0"
-                        textAnchor="middle"
-                        dominantBaseline="central"
-                        fill={
-                          activeFlywheelQuadrant === 0 ? "#1570ef" :
-                          activeFlywheelQuadrant === 1 ? "#00b894" :
-                          activeFlywheelQuadrant === 2 ? "#10b981" : "#a855f7"
-                        }
-                        fontSize="11.5px"
-                        fontWeight="900"
-                        letterSpacing="0.3px"
-                      >
-                        {activeFlywheelQuadrant === 0 && "15% Higher Lead Growth"}
-                        {activeFlywheelQuadrant === 1 && "84% Higher Lead Velocity"}
-                        {activeFlywheelQuadrant === 2 && `₹${liveRevenue.toLocaleString("en-IN")}+ Closed Scale`}
-                        {activeFlywheelQuadrant === 3 && "#1 AI Search Citations"}
-                      </text>
-                    </g>
-                  </g>
-
-                  {/* 4. Strictly Aligned Vector Callout Text (Pushed Far Outward: Left at x=20, Right at x=1020, with Non-Intersecting Connectors) */}
-                  {/* Callout Q0: Acquisition (Top-Left, Above y=210, Left-Aligned at x=20, Zero Overwrite) */}
-                  <g opacity={activeFlywheelQuadrant === 0 ? 1 : 0} className="transition-opacity duration-300 pointer-events-none">
-                    <text x="20" y="152" fill="#080d24" fontSize="14.5px" fontWeight="900">Stay Visible &amp; Drive Traffic</text>
-                    <text x="20" y="174" fill="#475467" fontSize="12px" fontWeight="600">Get your brand in front of ready-</text>
-                    <text x="20" y="194" fill="#475467" fontSize="12px" fontWeight="600">to-buy customers in Search &amp; AI.</text>
-                  </g>
-
-                  {/* Callout Q1: Pipeline (Top-Right, Above y=210, Right-Aligned at x=1020, Zero Overwrite) */}
-                  <g opacity={activeFlywheelQuadrant === 1 ? 1 : 0} className="transition-opacity duration-300 pointer-events-none">
-                    <text x="1020" y="152" textAnchor="end" fill="#080d24" fontSize="14.5px" fontWeight="900">Capture &amp; Nurture Leads</text>
-                    <text x="1020" y="174" textAnchor="end" fill="#475467" fontSize="12px" fontWeight="600">Turn high-intent visitors into</text>
-                    <text x="1020" y="194" textAnchor="end" fill="#475467" fontSize="12px" fontWeight="600">sales-ready qualified pipeline.</text>
-                  </g>
-
-                  {/* Callout Q2: Revenue (Bottom-Right, Above y=425, Right-Aligned at x=1020, Zero Overwrite) */}
-                  <g opacity={activeFlywheelQuadrant === 2 ? 1 : 0} className="transition-opacity duration-300 pointer-events-none">
-                    <text x="1020" y="367" textAnchor="end" fill="#080d24" fontSize="14.5px" fontWeight="900">Closed-Loop ROI Scale</text>
-                    <text x="1020" y="389" textAnchor="end" fill="#475467" fontSize="12px" fontWeight="600">Attribute real pipeline value &amp;</text>
-                    <text x="1020" y="409" textAnchor="end" fill="#475467" fontSize="12px" fontWeight="600">closed revenue to your marketing.</text>
-                  </g>
-
-                  {/* Callout Q3: AI Intelligence (Bottom-Left, Above y=425, Left-Aligned at x=20, Zero Overwrite) */}
-                  <g opacity={activeFlywheelQuadrant === 3 ? 1 : 0} className="transition-opacity duration-300 pointer-events-none">
-                    <text x="20" y="367" fill="#080d24" fontSize="14.5px" fontWeight="900">AI Overview &amp; GEO Engine</text>
-                    <text x="20" y="389" fill="#475467" fontSize="12px" fontWeight="600">Continuous feedback loop feeding</text>
-                    <text x="20" y="409" fill="#475467" fontSize="12px" fontWeight="600">high-intent AI search algorithms.</text>
-                  </g>
-                </svg>
-                </div>
-
-                {/* Mobile Responsive Active Stage Summary Card */}
-                <div className="md:hidden mt-3 p-3 rounded-xl bg-white border border-slate-200 text-center shadow-xs">
-                  <div className="text-xs font-black text-[#080d24]">
-                    {circularEngineData[activeFlywheelQuadrant].calloutTitle}
-                  </div>
-                  <div className="text-[11px] text-slate-600 mt-0.5 leading-relaxed">
-                    {circularEngineData[activeFlywheelQuadrant].calloutDesc}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-            {/* WebFX Proven Revenue Impact Grid — 1280px Master Grid Alignment */}
-            <div className="mt-10 sm:mt-14 relative z-10 w-full">
-              <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_8px_30px_rgba(8,13,36,0.05)] p-5 sm:p-6 lg:p-7">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 text-left lg:divide-x lg:divide-slate-100">
-                  
-                  {/* Metric 1: Qualified Lead Growth */}
-                  <div className="p-3.5 sm:p-0 lg:px-5 first:lg:pl-0 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100 flex flex-col justify-between min-w-0">
-                    <div>
-                      <span className="text-2xl sm:text-3xl lg:text-[30px] font-extrabold text-[#1570ef] tracking-tight tabular-nums block">
-                        15% Higher
-                      </span>
-                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug break-words">
-                        Qualified Lead Growth
-                      </h3>
-                      <p className="text-[11px] sm:text-[12px] text-slate-500 font-normal mt-1 leading-relaxed break-words">
-                        For clients who connect CRM attribution.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Metric 2: AI Citations & Visibility */}
-                  <div className="p-3.5 sm:p-0 lg:px-5 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100 flex flex-col justify-between min-w-0">
-                    <div>
-                      <span className="text-2xl sm:text-3xl lg:text-[30px] font-extrabold text-purple-600 tracking-tight tabular-nums block">
-                        2,500+
-                      </span>
-                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug break-words">
-                        AI Citations Tracked
-                      </h3>
-                      <p className="text-[11px] sm:text-[12px] text-slate-500 font-normal mt-1 leading-relaxed break-words">
-                        Across ChatGPT, Gemini &amp; Copilot.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Metric 3: Rated Agency & Reviews */}
-                  <div className="p-3.5 sm:p-0 lg:px-5 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100 flex flex-col justify-between min-w-0">
-                    <div>
-                      <span className="text-2xl sm:text-3xl lg:text-[30px] font-extrabold text-amber-500 tracking-tight tabular-nums block">
-                        4.9 ★ Rating
-                      </span>
-                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug break-words">
-                        Google Verified
-                      </h3>
-                      <p className="text-[11px] sm:text-[12px] text-slate-500 font-normal mt-1 leading-relaxed break-words">
-                        128+ verified reviews in Delhi NCR.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Metric 4: Closed Revenue & Measurable ROI (Live from Admin Payments) */}
-                  <div className="p-3.5 sm:p-0 lg:px-5 last:lg:pr-0 rounded-xl bg-slate-50/70 sm:bg-transparent border sm:border-0 border-slate-100 flex flex-col justify-between min-w-0">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-2xl sm:text-3xl lg:text-[30px] font-extrabold text-emerald-600 tracking-tight tabular-nums block">
-                          ₹{liveRevenue.toLocaleString("en-IN")}+
-                        </span>
-                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-100/90 border border-emerald-200 text-emerald-800 text-[8.5px] font-black uppercase tracking-wider shrink-0">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                          Live
-                        </span>
-                      </div>
-                      <h3 className="text-xs sm:text-[14px] font-bold text-[#080d24] mt-1.5 leading-snug break-words">
-                        Verified Client Revenue
-                      </h3>
-                      <p className="text-[11px] sm:text-[12px] text-slate-500 font-normal mt-1 leading-relaxed break-words">
-                        Live gateway collections &amp; tracked ROI.
-                      </p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
+          <HeroAnimation
+            initialWebsite={heroWebsite}
+            onAnalyze={handleHeroAnalyze}
+            onOpenProposal={openProposalModal}
+          />
         </section>
 
         {/* ==========================================================================
@@ -4635,6 +4154,11 @@ export default function Home() {
         {/* Pricing packages have been moved to the interactive on-demand Checkout Portal (opened via Pricing nav/buttons) */}
 
         {/* ==========================================================================
+            8B. RED DASH MEDIA INSPIRED INTERACTIVE PORTFOLIO SHOWCASE
+            ========================================================================== */}
+        <PortfolioShowcaseAnimation />
+
+        {/* ==========================================================================
             9. VERIFIED CLIENT REVIEWS - HORIZONTAL CONTINUOUS MARQUEE (30 Verified Indian Reviews)
             ========================================================================== */}
         <section id="case-studies" className="py-24 bg-white border-b border-slate-200 overflow-hidden">
@@ -5356,6 +4880,7 @@ export default function Home() {
         {/* ==========================================================================
             11. DIGITAL FX TWO-TONE LUXURY FOOTER (MATCHING LOGO COLORS & DUAL-TONE)
             ========================================================================== */}
+        <ScrollAnimationManager />
         <Footer />
 
         {/* ==========================================================================

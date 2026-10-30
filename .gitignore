@@ -44,3 +44,4 @@ next-env.d.ts
 scripts/.edge*
 verify_*.png
 scratch/
+update_page.js

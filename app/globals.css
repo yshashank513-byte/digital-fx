@@ -22,8 +22,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: var(--font-manrope), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, sans-serif;
   --color-brand-navy: var(--brand-navy);
   --color-brand-blue: var(--brand-blue);
   --color-brand-teal: var(--brand-teal);
@@ -41,15 +42,65 @@
     position: relative;
     -webkit-text-size-adjust: 100%;
   }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-manrope), -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+
+  p, span, nav, button, input, textarea {
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+.font-heading {
+  font-family: var(--font-manrope), -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.035em;
+}
+
+.font-display {
+  font-family: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.03em;
 }
 
 body {
   margin: 0;
   background: var(--background);
   color: var(--text-primary);
-  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================
+   CONTINUOUS HARDWARE-ACCELERATED MARQUEE
+========================================= */
+@keyframes infiniteMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-infinite-marquee {
+  display: flex;
+  width: max-content;
+  animation: infiniteMarquee 38s linear infinite;
+  will-change: transform;
+}
+
+.animate-infinite-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-infinite-marquee {
+    animation: none;
+    transform: none;
+  }
 }
 
 /* =========================================

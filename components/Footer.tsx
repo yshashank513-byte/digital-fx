@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { initGsap, prefersReducedMotion } from "@/lib/gsap";
 
 // -----------------------------------------------------------------------------
 // High-Fidelity SVG Brand Icons & Assets (Official Logos)
@@ -130,6 +131,55 @@ function CtaBackgroundIllustration() {
 export default function Footer() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSuccess, setNewsletterSuccess] = useState(false);
+  const footerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+
+    const { gsap, ScrollTrigger } = initGsap();
+    const ctx = gsap.context(() => {
+      // 1. Cinematic CTA Headline Reveal
+      gsap.fromTo(
+        ".footer-cinematic-title",
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".footer-cinematic-cta",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      // 2. Large Bottom Logo Reveal Upward
+      gsap.fromTo(
+        ".footer-logo-reveal",
+        {
+          y: 75,
+          opacity: 0,
+          scale: 0.94,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".footer-logo-container",
+            start: "top 95%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,68 +190,69 @@ export default function Footer() {
   };
 
   return (
-    <>
+    <div ref={footerRef} className="w-full">
       {/* =========================================================================
-          1. TOP CTA CONVERSION STRIP
+          1. CINEMATIC CTA CONVERSION STRIP ("LET'S BUILD SOMETHING GREAT")
           ========================================================================= */}
-      <section className="relative bg-[#f8faff] border-t border-b border-slate-200 overflow-hidden font-sans w-full max-w-full box-border">
-        {/* Subtle Ambient Accent */}
-        <div className="absolute -left-16 -top-16 w-80 h-80 rounded-full bg-blue-100/40 blur-3xl pointer-events-none" />
+      <section className="footer-cinematic-cta relative bg-gradient-to-b from-[#080d24] via-[#0a1130] to-[#080d24] text-white border-t border-b border-white/10 overflow-hidden font-sans w-full max-w-full box-border py-16 sm:py-24">
+        {/* Subtle Ambient Background Accent Glow */}
+        <div className="absolute -left-20 -top-20 w-96 h-96 rounded-full bg-blue-600/15 blur-3xl pointer-events-none" />
+        <div className="absolute right-0 bottom-0 w-80 h-80 rounded-full bg-[#1570ef]/10 blur-3xl pointer-events-none" />
 
         {/* Right-Side Blueprint Grid */}
         <CtaBackgroundIllustration />
 
         {/* Centered Max-Width Container */}
-        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-12 sm:py-14 flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10 box-border">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-10 relative z-10 box-border">
           
-          {/* Left Text & Credibility */}
-          <div className="max-w-2xl w-full text-center lg:text-left min-w-0">
+          <div className="footer-cinematic-title max-w-4xl">
             {/* Blue Rounded Credibility Badge with Pulse */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#1570ef] text-xs font-bold tracking-wider uppercase mb-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/30 text-blue-400 text-xs font-bold tracking-widest uppercase mb-5">
               <span className="w-2 h-2 rounded-full bg-[#1570ef] animate-pulse shrink-0" />
-              <span>DELHI NCR&apos;S PREMIER SEARCH &amp; GROWTH FIRM</span>
+              <span>START YOUR REVENUE TRANSFORMATION</span>
             </div>
 
-            {/* Bold Heading */}
-            <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-extrabold text-[#080d24] tracking-tight leading-[1.2]">
-              Ready to dominate <span className="text-[#1570ef]">Google Maps 3-Pack</span> &amp; scale revenue?
+            {/* Cinematic Large Headline */}
+            <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-white tracking-tight leading-[1.04]">
+              LET&apos;S BUILD <br className="hidden sm:inline" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-[#1570ef]">
+                SOMETHING GREAT.
+              </span>
             </h2>
 
             {/* Supporting Description */}
-            <p className="mt-2.5 text-sm sm:text-[15px] text-slate-600 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Meet your dedicated strategists in Orbit Plaza, Crossings Republik, or request a customized competitor analysis today.
+            <p className="mt-5 text-sm sm:text-base lg:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl">
+              Meet our senior growth strategists at our Orbit Plaza office in Crossings Republik, or request a complimentary competitor search teardown.
             </p>
-          </div>
 
-          {/* Right Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-end gap-3 w-full sm:w-auto shrink-0 z-20">
-            {/* 1. Call Button */}
-            <a
-              href="tel:+919319807273"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-[#080d24] text-xs sm:text-sm font-bold border border-slate-200 shadow-xs hover:shadow-sm transition-all cursor-pointer"
-            >
-              <PhoneIconBlue className="w-4 h-4 text-[#1570ef] shrink-0" />
-              <span>Call +91 93198 07273</span>
-            </a>
+            {/* Right Action Buttons */}
+            <div className="mt-8 flex flex-wrap items-center gap-3.5">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-[#1570ef] hover:bg-[#1258c4] text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/30 hover:shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer"
+              >
+                <span>Request Free Growth Proposal</span>
+                <span className="text-sm font-bold">→</span>
+              </Link>
 
-            {/* 2. WhatsApp Button */}
-            <a
-              href="https://wa.me/919319807273?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition-all cursor-pointer"
-            >
-              <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" />
-              <span>WhatsApp Strategy</span>
-            </a>
+              <a
+                href="https://wa.me/919319807273?text=Hi%20Digital%20FX%20team,%20I%20want%20to%20discuss%20a%20growth%20strategy."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition-all cursor-pointer"
+              >
+                <WhatsAppIcon className="w-4 h-4 fill-current shrink-0" />
+                <span>WhatsApp Strategy Desk</span>
+              </a>
 
-            {/* 3. Get Free Proposal Button */}
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#1570ef] hover:bg-[#1258c4] text-white text-xs sm:text-sm font-bold shadow-xs hover:shadow-md transition-all cursor-pointer"
-            >
-              <span>Get Free Proposal →</span>
-            </Link>
+              <a
+                href="tel:+919319807273"
+                className="inline-flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs sm:text-sm font-bold transition-all cursor-pointer"
+              >
+                <PhoneIconBlue className="w-4 h-4 text-blue-400 shrink-0" />
+                <span>Call +91 93198 07273</span>
+              </a>
+            </div>
           </div>
 
         </div>
@@ -724,8 +775,28 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* =======================================================================
+              4. CINEMATIC BOTTOM DIGITAL FX LOGO REVEAL (GSAP SCROLLTRIGGER)
+              ======================================================================= */}
+          <div className="footer-logo-container pt-14 pb-6 border-t border-white/10 mt-8 overflow-hidden text-center">
+            <div className="footer-logo-reveal mx-auto flex items-center justify-center select-none pointer-events-none">
+              <img
+                src="/logo-white.svg"
+                alt="Digital FX - High Performance Agency"
+                width={1050}
+                height={260}
+                loading="lazy"
+                decoding="async"
+                className="w-full max-w-[850px] lg:max-w-[1050px] h-auto object-contain mx-auto filter drop-shadow-[0_0_40px_rgba(21,112,239,0.35)]"
+              />
+            </div>
+            <div className="mt-4 text-[10.5px] font-mono tracking-[0.25em] uppercase text-slate-500">
+              DIGITAL FX • SEARCH &amp; PERFORMANCE ENGINEERING
+            </div>
+          </div>
+
         </div>
       </footer>
-    </>
+    </div>
   );
 }

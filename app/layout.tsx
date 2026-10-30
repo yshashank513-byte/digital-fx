@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Manrope, Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import {
   CORE_CUSTOMER_SEARCH_KEYWORDS,
@@ -16,14 +16,25 @@ export const viewport: Viewport = {
   themeColor: "#080d24",
 };
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["500", "600", "700"],
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -114,7 +125,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased w-full max-w-full overflow-x-hidden`}
+      className={`${manrope.variable} ${spaceGrotesk.variable} ${inter.variable} h-full antialiased w-full max-w-full overflow-x-hidden`}
     >
       <head>
         {/* Critical resource hints — open connections with proper CORS attribution */}
@@ -149,7 +160,7 @@ export default function RootLayout({
           </>
         )}
       </head>
-      <body className="min-h-full flex flex-col w-full max-w-full overflow-x-hidden">
+      <body className={`${inter.className} min-h-full flex flex-col w-full max-w-full overflow-x-hidden font-sans antialiased text-[#080d24] selection:bg-[#1570ef] selection:text-white`}>
         {/* Comprehensive Local Business, Rating & FAQ Schema */}
         <script
           type="application/ld+json"
