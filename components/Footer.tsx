@@ -298,15 +298,27 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/about" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">SEO &amp; Growth Services</span>
+                    <span className="break-words min-w-0 flex-1">About Digital FX</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/case-studies" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">The Digital FX Portfolio</span>
+                    <span className="break-words min-w-0 flex-1">All Growth Services</span>
+                  </Link>
+                </li>
+                <li className="w-full min-w-0">
+                  <Link href="/industries" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Industry Verticals</span>
+                  </Link>
+                </li>
+                <li className="w-full min-w-0">
+                  <Link href="/portfolio" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Client Portfolio &amp; ROI</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
@@ -327,6 +339,12 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
+                  <Link href="/digital-marketing-agency" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Multi-City Coverage Directory</span>
+                  </Link>
+                </li>
+                <li className="w-full min-w-0">
                   <Link href="/tools" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
                     <span className="break-words min-w-0 flex-1">
@@ -338,21 +356,15 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/careers" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/blog" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Careers (We Are Hiring!)</span>
+                    <span className="break-words min-w-0 flex-1">Blog &amp; SEO Insights</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
                   <Link href="/contact" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
                     <span className="break-words min-w-0 flex-1">Contact &amp; Strategy Desk</span>
-                  </Link>
-                </li>
-                <li className="w-full min-w-0">
-                  <Link href="/blog" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
-                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Blog &amp; SEO Insights</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
@@ -367,105 +379,87 @@ export default function Footer() {
                     <span className="break-words min-w-0 flex-1">Terms &amp; Conditions</span>
                   </Link>
                 </li>
-                <li className="w-full min-w-0">
-                  <Link href="/refund-policy" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
-                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Refund Policy</span>
-                  </Link>
-                </li>
-                <li className="w-full min-w-0">
-                  <Link href="/sitemap.xml" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
-                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">XML Sitemap</span>
-                  </Link>
-                </li>
               </ul>
             </div>
 
             {/* COLUMN 3: Solutions & Services */}
             <div className="col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-2 w-full min-w-0">
               <h3 className="text-[17px] font-bold text-[#F8FAFC]">
-                Solutions &amp; Services
+                Core Services &amp; SEO
               </h3>
               <div className="w-8 h-[2.5px] bg-[#155EEF] rounded-full mt-2 mb-4" />
 
               <ul className="space-y-2 text-[13.5px] sm:text-[14px] text-[#B8C5D9] font-medium w-full min-w-0">
                 <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services/digital-marketing" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Google Maps 3–Pack &amp; Local SEO</span>
+                    <span className="break-words min-w-0 flex-1">360° Digital Marketing</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services/seo" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Generative AI Search &amp; GEO</span>
+                    <span className="break-words min-w-0 flex-1">SEO Services</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services/local-seo" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Website &amp; App Development</span>
+                    <span className="break-words min-w-0 flex-1">Google Maps 3-Pack SEO</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services/technical-seo" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Pay Per Click (PPC / Google Ads)</span>
+                    <span className="break-words min-w-0 flex-1">Technical SEO &amp; Speed</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services/google-ads" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">CTV &amp; Programmatic Advertising</span>
+                    <span className="break-words min-w-0 flex-1">Google Ads Management</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services/meta-ads" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Rich Media Innovation</span>
+                    <span className="break-words min-w-0 flex-1">Meta Ads (FB &amp; Instagram)</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
-                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Media Planning &amp; Buying</span>
-                  </Link>
-                </li>
-                <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
-                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Content Marketing</span>
-                  </Link>
-                </li>
-                <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services/social-media-marketing" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
                     <span className="break-words min-w-0 flex-1">Social Media Marketing</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services/web-design" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Reputation Management (ORM)</span>
+                    <span className="break-words min-w-0 flex-1">UI/UX Website Design</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services/web-development" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Influencer Marketing</span>
+                    <span className="break-words min-w-0 flex-1">Next.js Web Development</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/services" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services/ecommerce-development" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">Email Marketing (₹4,999)</span>
+                    <span className="break-words min-w-0 flex-1">Shopify &amp; E-Commerce</span>
                   </Link>
                 </li>
                 <li className="w-full min-w-0">
-                  <Link href="/contact" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                  <Link href="/services/branding" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
                     <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                    <span className="break-words min-w-0 flex-1">WhatsApp Lead Automation</span>
+                    <span className="break-words min-w-0 flex-1">Brand Identity &amp; Strategy</span>
+                  </Link>
+                </li>
+                <li className="w-full min-w-0">
+                  <Link href="/services/lead-generation" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">High-Ticket Lead Generation</span>
                   </Link>
                 </li>
               </ul>
@@ -479,45 +473,47 @@ export default function Footer() {
               <div className="w-8 h-[2.5px] bg-[#155EEF] rounded-full mt-2 mb-4" />
 
               <ul className="space-y-2 text-[13.5px] sm:text-[14px] text-[#B8C5D9] font-medium w-full min-w-0">
-                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
-                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Hospitals &amp; Healthcare</span>
+                <li className="w-full min-w-0">
+                  <Link href="/industries/real-estate" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Real Estate &amp; Builders</span>
+                  </Link>
                 </li>
-                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
-                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Automobile &amp; Detailing</span>
+                <li className="w-full min-w-0">
+                  <Link href="/industries/healthcare" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Hospitals &amp; Healthcare</span>
+                  </Link>
                 </li>
-                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
-                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Real Estate &amp; Builders</span>
+                <li className="w-full min-w-0">
+                  <Link href="/industries/ecommerce-d2c" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">E-Commerce &amp; D2C</span>
+                  </Link>
                 </li>
-                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
-                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Travel &amp; Hospitality</span>
+                <li className="w-full min-w-0">
+                  <Link href="/industries/b2b-manufacturing" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">B2B Manufacturing &amp; OEM</span>
+                  </Link>
                 </li>
-                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
-                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">FMCG &amp; FMCD Brands</span>
+                <li className="w-full min-w-0">
+                  <Link href="/industries/education" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Education &amp; Institutes</span>
+                  </Link>
                 </li>
-                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
-                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Education &amp; Institutes</span>
+                <li className="w-full min-w-0">
+                  <Link href="/industries/hospitality" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1">Hotels, Resorts &amp; Dining</span>
+                  </Link>
                 </li>
-                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
-                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">E-Commerce &amp; D2C</span>
-                </li>
-                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
-                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Security &amp; Legal Services</span>
-                </li>
-                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
-                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Information Technology</span>
-                </li>
-                <li className="w-full min-w-0 group flex items-start gap-2 py-0.5 leading-[1.6]">
-                  <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
-                  <span className="hover:text-[#F8FAFC] transition-colors cursor-default break-words min-w-0 flex-1">Banking &amp; Financial Services</span>
+                <li className="w-full min-w-0">
+                  <Link href="/industries" className="group flex items-start gap-2 hover:text-[#F8FAFC] transition-colors w-full min-w-0 py-0.5 leading-[1.6]">
+                    <ChevronBlue className="w-3 h-3 text-[#155EEF] shrink-0 mt-1.5" />
+                    <span className="break-words min-w-0 flex-1 font-bold text-[#1570ef]">View All Sector Playbooks →</span>
+                  </Link>
                 </li>
               </ul>
             </div>

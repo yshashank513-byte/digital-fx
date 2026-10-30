@@ -70,7 +70,7 @@ export default function Navbar({
       num: "01",
       title: "Google Business + Local SEO",
       tag: "Local Authority",
-      href: "/services",
+      href: "/services/local-seo",
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -80,9 +80,9 @@ export default function Navbar({
     },
     {
       num: "02",
-      title: "Website Development + Maintenance",
-      tag: "Custom Stacks",
-      href: "/services",
+      title: "Custom Next.js Web Development",
+      tag: "Sub-Second Edge",
+      href: "/services/web-development",
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -102,20 +102,20 @@ export default function Navbar({
     },
     {
       num: "04",
-      title: "WhatsApp Marketing Automation",
-      tag: "Instant Retargeting",
-      href: "/services",
+      title: "High-Ticket Lead Generation",
+      tag: "Exclusive Pipelines",
+      href: "/services/lead-generation",
       icon: (
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm.01 1.67c4.55 0 8.25 3.7 8.25 8.24 0 2.2-.86 4.28-2.42 5.83-1.56 1.56-3.63 2.42-5.83 2.42-1.48 0-2.93-.39-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.188 8.188 0 01-1.25-4.39c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z" />
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
       ),
     },
     {
       num: "05",
-      title: "Google Ads Management",
-      tag: "High-Intent PPC",
-      href: "/services",
+      title: "Google Ads (Search & PMax PPC)",
+      tag: "Certified Partner",
+      href: "/services/google-ads",
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -124,9 +124,31 @@ export default function Navbar({
     },
     {
       num: "06",
-      title: "Social Media Management",
-      tag: "Creative & Growth",
-      href: "/services",
+      title: "Meta Ads (Facebook & Instagram)",
+      tag: "CAPI & High ROAS",
+      href: "/services/meta-ads",
+      icon: (
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm.01 1.67c4.55 0 8.25 3.7 8.25 8.24 0 2.2-.86 4.28-2.42 5.83-1.56 1.56-3.63 2.42-5.83 2.42-1.48 0-2.93-.39-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.188 8.188 0 01-1.25-4.39c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z" />
+        </svg>
+      ),
+    },
+    {
+      num: "07",
+      title: "Data-Driven SEO Services",
+      tag: "Entity & Semantic",
+      href: "/services/seo",
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      ),
+    },
+    {
+      num: "08",
+      title: "Social Media & Brand Authority",
+      tag: "Reels & Creative",
+      href: "/services/social-media-marketing",
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zm0 0V18m0-6.5a4.5 4.5 0 00-4.5 4.5V18m13.5-6.5a4.5 4.5 0 014.5 4.5V18" />
@@ -134,10 +156,10 @@ export default function Navbar({
       ),
     },
     {
-      num: "07",
-      title: "AI Chatbot for Businesses",
-      tag: "24/7 Concierge",
-      href: "/services",
+      num: "09",
+      title: "UI/UX & Website Design",
+      tag: "Figma & Systems",
+      href: "/services/web-design",
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -145,35 +167,13 @@ export default function Navbar({
       ),
     },
     {
-      num: "08",
-      title: "Lead Management CRM",
-      tag: "Pipeline Tracking",
-      href: "/services",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-      ),
-    },
-    {
-      num: "09",
-      title: "Missed Call → WhatsApp Automation",
-      tag: "Zero Lead Drop",
-      href: "/services",
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-        </svg>
-      ),
-    },
-    {
       num: "10",
-      title: "Appointment & Booking System",
-      tag: "Instant Calendar",
-      href: "/services",
+      title: "E-Commerce & Shopify Stores",
+      tag: "Headless & D2C",
+      href: "/services/ecommerce-development",
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
         </svg>
       ),
     },
@@ -268,13 +268,25 @@ export default function Navbar({
             {/* Explicit Home Button */}
             <Link
               href="/"
-              className={`text-[15.5px] xl:text-[16px] transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+              className={`text-[15px] xl:text-[15.5px] transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 currentPath === "/"
                   ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
                   : "font-semibold text-slate-700 hover:text-[#207de9]"
               }`}
             >
               Home
+            </Link>
+
+            {/* About Page */}
+            <Link
+              href="/about"
+              className={`text-[15px] xl:text-[15.5px] transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+                currentPath.startsWith("/about")
+                  ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
+                  : "font-semibold text-slate-700 hover:text-[#207de9]"
+              }`}
+            >
+              About
             </Link>
 
             {/* Services with Interactive Top Dropdown Menu */}
@@ -287,7 +299,7 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
-                className={`text-[15.5px] xl:text-[16px] transition-colors whitespace-nowrap shrink-0 cursor-pointer inline-flex items-center gap-1.5 ${
+                className={`text-[15px] xl:text-[15.5px] transition-colors whitespace-nowrap shrink-0 cursor-pointer inline-flex items-center gap-1.5 ${
                   currentPath.startsWith("/services")
                     ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
                     : "font-semibold text-slate-700 hover:text-[#207de9]"
@@ -307,11 +319,23 @@ export default function Navbar({
               </button>
             </div>
 
+            {/* Industries */}
+            <Link
+              href="/industries"
+              className={`text-[15px] xl:text-[15.5px] transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+                currentPath.startsWith("/industries")
+                  ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
+                  : "font-semibold text-slate-700 hover:text-[#207de9]"
+              }`}
+            >
+              Industries
+            </Link>
+
             {/* Portfolio */}
             <Link
-              href="/case-studies"
-              className={`text-[15.5px] xl:text-[16px] transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
-                currentPath.startsWith("/case-studies")
+              href="/portfolio"
+              className={`text-[15px] xl:text-[15.5px] transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+                currentPath.startsWith("/portfolio") || currentPath.startsWith("/case-studies")
                   ? "font-bold text-[#207de9] border-b-2 border-[#207de9] pb-0.5"
                   : "font-semibold text-slate-700 hover:text-[#207de9]"
               }`}
@@ -568,6 +592,30 @@ export default function Navbar({
                   <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
                 </Link>
 
+                {/* About Digital FX */}
+                <Link
+                  href="/about"
+                  onClick={closeMobileMenu}
+                  className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-slate-50 transition"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 group-hover:bg-blue-50 text-slate-500 group-hover:text-[#207de9] transition">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition">
+                        About Digital FX
+                      </div>
+                      <div className="text-[11px] text-slate-500 font-medium">
+                        Our story, Orbit Plaza HQ &amp; founders
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                </Link>
+
                 {/* Services */}
                 <Link
                   href="/services"
@@ -585,7 +633,31 @@ export default function Navbar({
                         SEO &amp; Growth Services
                       </div>
                       <div className="text-[11px] text-slate-500 font-medium">
-                        SEO, CTV, Paid Media &amp; Full-Funnel Growth
+                        12 individual service landing pages
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-slate-300 group-hover:text-[#207de9] group-hover:translate-x-0.5 transition text-xs font-bold">→</span>
+                </Link>
+
+                {/* Industries */}
+                <Link
+                  href="/industries"
+                  onClick={closeMobileMenu}
+                  className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-slate-50 transition"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 group-hover:bg-blue-50 text-slate-500 group-hover:text-[#207de9] transition">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-[#080d24] group-hover:text-[#207de9] transition">
+                        Industry Verticals
+                      </div>
+                      <div className="text-[11px] text-slate-500 font-medium">
+                        Real Estate, Healthcare, B2B, D2C
                       </div>
                     </div>
                   </div>
@@ -594,7 +666,7 @@ export default function Navbar({
 
                 {/* Portfolio & Case Studies */}
                 <Link
-                  href="/case-studies"
+                  href="/portfolio"
                   onClick={closeMobileMenu}
                   className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 hover:bg-slate-50 transition"
                 >
@@ -609,7 +681,7 @@ export default function Navbar({
                         The Digital FX Portfolio
                       </div>
                       <div className="text-[11px] text-slate-500 font-medium">
-                        ₹6 Lakh+ documented client revenue &amp; case studies
+                        Verified results &amp; client case studies
                       </div>
                     </div>
                   </div>

@@ -4,6 +4,9 @@ import {
   CANONICAL_LOCATION_SLUGS,
   PRIORITY_20_SEO_CITIES,
 } from "@/lib/citySeoData";
+import { getAllServices } from "@/lib/servicesData";
+import { getAllIndustries } from "@/lib/industriesData";
+import { getAllCaseStudies } from "@/lib/caseStudiesData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.digitalfx.in";
@@ -18,6 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
+      url: `${baseUrl}/about`,
+      lastModified: sitemapDate,
+      changeFrequency: "monthly",
+      priority: 0.95,
+    },
+    {
       url: `${baseUrl}/digital-marketing-agency`,
       lastModified: sitemapDate,
       changeFrequency: "daily",
@@ -25,6 +34,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/services`,
+      lastModified: sitemapDate,
+      changeFrequency: "weekly",
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/industries`,
+      lastModified: sitemapDate,
+      changeFrequency: "weekly",
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/portfolio`,
       lastModified: sitemapDate,
       changeFrequency: "weekly",
       priority: 0.95,
@@ -97,6 +118,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // Individual Service Pages (/services/[slug])
+  const serviceRoutes: MetadataRoute.Sitemap = getAllServices().map((service) => ({
+    url: `${baseUrl}/services/${service.slug}`,
+    lastModified: sitemapDate,
+    changeFrequency: "weekly",
+    priority: 0.92,
+  }));
+
+  // Specialized Industry Pages (/industries/[slug])
+  const industryRoutes: MetadataRoute.Sitemap = getAllIndustries().map((industry) => ({
+    url: `${baseUrl}/industries/${industry.slug}`,
+    lastModified: sitemapDate,
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  // Verified Client Case Studies (/case-studies/[slug])
+  const caseStudyRoutes: MetadataRoute.Sitemap = getAllCaseStudies().map((study) => ({
+    url: `${baseUrl}/case-studies/${study.slug}`,
+    lastModified: sitemapDate,
+    changeFrequency: "weekly",
+    priority: 0.88,
+  }));
+
   // In-Depth Blog Articles (including newly added SEO guides)
   const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
@@ -121,5 +166,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  return [...staticRoutes, ...blogRoutes, ...agencyCityRoutes];
+  return [
+    ...staticRoutes,
+    ...serviceRoutes,
+    ...industryRoutes,
+    ...caseStudyRoutes,
+    ...blogRoutes,
+    ...agencyCityRoutes,
+  ];
 }

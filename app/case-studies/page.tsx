@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 
 const CASE_STUDIES = [
   {
+    slug: "smile-dental",
     client: "Smile Dental Clinic & Implant Centre",
     category: "Local Healthcare & 3-Pack SEO",
     location: "Indirapuram, Ghaziabad",
@@ -36,6 +37,7 @@ const CASE_STUDIES = [
     badge: "Healthcare",
   },
   {
+    slug: "ncr-luxury-realty",
     client: "NCR Luxury Realty Advisors",
     category: "Real Estate & Google Ads PPC",
     location: "Noida & Greater Noida West",
@@ -51,6 +53,7 @@ const CASE_STUDIES = [
     badge: "Real Estate",
   },
   {
+    slug: "om-logistics",
     client: "Om Logistics & Relocation Desk",
     category: "Enterprise Local SEO & Pan-India Scale",
     location: "Delhi NCR, Pune & Patna",
@@ -66,6 +69,7 @@ const CASE_STUDIES = [
     badge: "Logistics",
   },
   {
+    slug: "woodcraft-studio",
     client: "The Woodcraft Studio & Modular Living",
     category: "Meta Ads & Generative AI Search (GEO)",
     location: "Crossings Republik & Noida",
@@ -79,6 +83,38 @@ const CASE_STUDIES = [
     summary:
       "Optimized entity brand citations in ChatGPT Search and Google Gemini AI Overviews. Ran high-converting Instagram video ads with interactive WhatsApp quotation bots.",
     badge: "Interior & D2C",
+  },
+  {
+    slug: "industrial-oem",
+    client: "TechnoFab Industrial & CNC Components",
+    category: "Industrial Technical SEO & B2B Inbound",
+    location: "Sahibabad & Faridabad",
+    timeline: "6-Month Pipeline",
+    headline: "Generated 32+ Monthly OEM Procurement RFQs and ₹1.8Cr Pipeline",
+    metrics: [
+      { label: "Monthly OEM RFQs", value: "32+ RFQs" },
+      { label: "Search Rank", value: "#1 Top 3" },
+      { label: "Active Pipeline", value: "₹1.8Cr+" },
+    ],
+    summary:
+      "Built an institutional Next.js technical web application with CAD file uploads and DIN/ISO material specification SEO, ranking #1 for custom precision machining across North India.",
+    badge: "B2B Manufacturing",
+  },
+  {
+    slug: "digital-fx-architecture",
+    client: "Digital FX Platform Infrastructure",
+    category: "Next.js 16 SSR & Sub-Second SEO",
+    location: "Ghaziabad & Delhi NCR",
+    timeline: "Continuous Benchmark",
+    headline: "Sub-Second Global Edge SSR Across 250+ Static Routes",
+    metrics: [
+      { label: "Mobile PageSpeed", value: "99/100" },
+      { label: "LCP Load Time", value: "0.78s" },
+      { label: "CLS Stability", value: "0.00" },
+    ],
+    summary:
+      "Engineered Digital FX's proprietary programmatic SEO platform with Next.js 16 App Router, TypeScript, and server-side JSON-LD schemas, achieving 100% Core Web Vitals compliance.",
+    badge: "Tech & Architecture",
   },
 ];
 
@@ -177,8 +213,15 @@ export default function CaseStudiesPage() {
                   ))}
                 </div>
 
-                <div className="pt-2 flex items-center justify-between">
-                  <span className="text-xs text-slate-400 font-medium">100% Attributable CRM Attribution</span>
+                <div className="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 mt-4">
+                  <Link
+                    href={`/case-studies/${study.slug}`}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#080d24] hover:bg-[#1570ef] text-white text-xs font-bold transition-all"
+                  >
+                    <span>Read Full Case Study Breakdown</span>
+                    <span>→</span>
+                  </Link>
+
                   <Link
                     href="/contact"
                     className="text-xs font-bold text-[#1570ef] hover:underline flex items-center gap-1"
